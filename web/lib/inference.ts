@@ -10,6 +10,16 @@ function diffOderNull(a: number | null, b: number | null): number {
   return a - b;
 }
 
+function schwungOverlap(a: Schwinger, b: Schwinger): number {
+  const sa = new Set(a.bevorzugte_schwuenge ?? []);
+  const sb = new Set(b.bevorzugte_schwuenge ?? []);
+  const union = new Set([...sa, ...sb]);
+  if (union.size === 0) return 0;
+  let inter = 0;
+  for (const x of sa) if (sb.has(x)) inter += 1;
+  return inter / union.size;
+}
+
 /** Baut den Merkmalsvektor A-vs-B (identisch zur Python-Pipeline). */
 export function baueFeatures(
   model: ModelArtifact,
@@ -38,6 +48,8 @@ export function baueFeatures(
     festTyp === "berg" ? 1 : 0, // bergfest
     festTyp === "eidgenoessisch" || festTyp === "berg" ? 1 : 0, // gross_fest
     a.teilverband && a.teilverband === b.teilverband ? 1 : 0, // same_teilverband
+    schwungOverlap(a, b), // schwung_overlap
+    (a.bevorzugte_schwuenge?.length ?? 0) - (b.bevorzugte_schwuenge?.length ?? 0), // schwung_count_diff
   ];
 }
 

@@ -25,6 +25,8 @@ FEATURE_NAMES = [
     "bergfest",          # 1 wenn Bergfest, sonst 0 (geteilter Kontext)
     "gross_fest",        # 1 wenn eidg./berg (Grossanlass), sonst 0
     "same_teilverband",  # 1 wenn gleicher Teilverband (symmetrisch)
+    "schwung_overlap",   # Überschneidung bevorzugter Schwünge (0..1)
+    "schwung_count_diff",  # Anzahl bevorzugter Schwünge A - B
 ]
 
 # Menschenlesbare Labels für Erklärbarkeit (FR-3).
@@ -39,6 +41,8 @@ FEATURE_LABELS = {
     "bergfest": "Bergfest",
     "gross_fest": "Grossanlass",
     "same_teilverband": "gleicher Teilverband",
+    "schwung_overlap": "Übereinstimmung bevorzugter Schwünge",
+    "schwung_count_diff": "Unterschied Anzahl bevorzugter Schwünge",
 }
 
 
@@ -61,6 +65,16 @@ def _diff_oder_null(a, b) -> float:
     if a is None or b is None:
         return 0.0
     return float(a - b)
+
+
+def _schwung_overlap(sa: Schwinger, sb: Schwinger) -> float:
+    """Jaccard-Überlappung der bevorzugten Schwünge (0..1)."""
+    a = set(sa.bevorzugte_schwuenge or [])
+    b = set(sb.bevorzugte_schwuenge or [])
+    union = a | b
+    if not union:
+        return 0.0
+    return float(len(a & b) / len(union))
 
 
 def baue_features(
@@ -162,6 +176,8 @@ def _feature_vektor(
         1.0 if fest_typ == "berg" else 0.0,             # bergfest
         1.0 if fest_typ in ("eidgenoessisch", "berg") else 0.0,  # gross_fest
         1.0 if sa.teilverband and sa.teilverband == sb.teilverband else 0.0,
+        _schwung_overlap(sa, sb),                        # schwung_overlap
+        float(len(sa.bevorzugte_schwuenge) - len(sb.bevorzugte_schwuenge)),
     ]
 
 

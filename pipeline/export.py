@@ -120,9 +120,14 @@ def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
     """report.json: Trainingslauf-Bericht (ML-6, reproduzierbar, versioniert)."""
     ll = train_res["log_loss"]
     base_ll = baseline["log_loss"]
+    acc = train_res["accuracy"]
+    base_acc = baseline["accuracy"]
+    erreicht_log_loss = bool(ll < base_ll)
+    erreicht_accuracy = bool(acc >= base_acc)
     obj = {
         "schema_version": config.SCHEMA_VERSION,
         "erstellt": datetime.now(timezone.utc).isoformat(),
+        "lauf_id": datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"),
         "seed": config.SEED,
         "datenbasis": {"n_gaenge": n_gaenge, "n_schwinger": n_schwinger},
         "holdout_jahr": train_res["holdout_jahr"],
@@ -134,10 +139,16 @@ def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
         },
         "baseline_elo": {
             "log_loss": round(base_ll, 4),
-            "accuracy": round(baseline["accuracy"], 4),
+            "accuracy": round(base_acc, 4),
         },
-        "schlaegt_baseline": bool(ll < base_ll),
+        "schlaegt_baseline": erreicht_log_loss,
+        "accuracy_gg_baseline": round(acc - base_acc, 4),
         "verbesserung_log_loss": round(base_ll - ll, 4),
+        "erfolgskriterien": {
+            "log_loss_besser_als_baseline": erreicht_log_loss,
+            "accuracy_mindestens_baseline": erreicht_accuracy,
+            "gesamt_erfuellt": bool(erreicht_log_loss and erreicht_accuracy),
+        },
         "parsing_warnungen": warnungen[:50],
         "n_parsing_warnungen": len(warnungen),
     }

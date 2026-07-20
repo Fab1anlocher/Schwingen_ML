@@ -96,6 +96,8 @@ function FestCard({
   byId: Record<string, Schwinger>;
 }) {
   const hatPaarungen = fest.paarungen && fest.paarungen.length > 0;
+  const favoriten =
+    !hatPaarungen && model && ratings ? baueFavoriten(fest, model, ratings, byId) : [];
   return (
     <div className="fest-card">
       <div className="row" style={{ justifyContent: "space-between" }}>
@@ -110,13 +112,36 @@ function FestCard({
       </div>
 
       {!hatPaarungen && (
-        <p className="muted small" style={{ marginTop: "0.75rem" }}>
-          <span className="badge" style={{ marginRight: 6 }}>
-            Paarungen noch offen
-          </span>
-          Favoriten-/Kranz-Prognose folgt, sobald die Einteilung veröffentlicht ist
-          (rating-basiert).
-        </p>
+        <>
+          <p className="muted small" style={{ marginTop: "0.75rem" }}>
+            <span className="badge" style={{ marginRight: 6 }}>
+              Paarungen noch offen
+            </span>
+            Favoriten-/Kranz-Prognose (rating-basiert, informativ).
+          </p>
+          {favoriten.length > 0 && (
+            <table style={{ marginTop: "0.5rem" }}>
+              <thead>
+                <tr>
+                  <th>Favorit</th>
+                  <th>Rating</th>
+                  <th>Kranz</th>
+                  <th>Index</th>
+                </tr>
+              </thead>
+              <tbody>
+                {favoriten.map((f) => (
+                  <tr key={f.id}>
+                    <td>{f.name}</td>
+                    <td>{Math.round(f.elo)}</td>
+                    <td>{f.kranz}</td>
+                    <td>{f.index.toFixed(2)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </>
       )}
 
       {hatPaarungen && model && ratings && (
@@ -168,4 +193,25 @@ function FestCard({
       )}
     </div>
   );
+}
+
+function baueFavoriten(
+  fest: KommendesFest,
+  model: ModelArtifact,
+  ratings: RatingsArtifact,
+  byId: Record<string, Schwinger>
+) {
+  const ord = model.config.kranzstatus_ordinal;
+  const bonus = fest.typ === "berg" ? 12 : fest.typ === "eidgenoessisch" ? 18 : 0;
+  return Object.entries(ratings.ratings)
+    .map(([id, r]) => {
+      const s = byId[id];
+      if (!s) return null;
+      const kranz = ord[s.kranzstatus] ?? 0;
+      const index = r.elo + kranz * 25 + bonus;
+      return { id, name: s.name, elo: r.elo, kranz: s.kranzstatus, index };
+    })
+    .filter((x): x is NonNullable<typeof x> => x !== null)
+    .sort((a, b) => b.index - a.index)
+    .slice(0, 6);
 }

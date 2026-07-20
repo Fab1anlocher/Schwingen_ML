@@ -14,12 +14,18 @@ Text-Extraktion eignet sich `pdfplumber` (in requirements optional).
 from __future__ import annotations
 
 import re
+from typing import Iterable
 
 from ..labels import RohGangEintrag
 
 # Erwartete Symbole in der Gang-Spalte.
 _SYMBOL_RE = re.compile(r"[+\-o]")
 _NOTE_RE = re.compile(r"\d{1,2}\.\d{2}")
+_LINE_RE = re.compile(
+    r"^(?P<a>.+?)\s+(?:vs\.?|gegen|-)\s+(?P<b>.+?)\s+"
+    r"(?P<sa>[+\-o])(?:/(?P<sb>[+\-o]))?"
+    r"(?:\s+(?P<na>\d{1,2}\.\d{2})(?:/(?P<nb>\d{1,2}\.\d{2}))?)?$"
+)
 
 
 def pdf_url(event_id: str) -> str:
@@ -59,10 +65,35 @@ def parse_pdf_text(
     eine leere Liste zurück, statt falsche Daten zu erzeugen (§4.3: lieber
     kein Label als ein falsches).
     """
+    return parse_text_zeilen(text.splitlines(), event_id=event_id, datum=datum, fest_typ=fest_typ)
+
+
+def parse_text_zeilen(
+    lines: Iterable[str], *, event_id: str, datum: str, fest_typ: str
+) -> list[RohGangEintrag]:
+    """Pragmatischer Zeilenparser für kalibrierte Textauszüge.
+
+    Erwartete Zeilen (Beispiel):
+      "Max Muster vs Peter Beispiel +/o 10.00/8.75"
+    """
     eintraege: list[RohGangEintrag] = []
-    # TODO(R-6): Blockstruktur je Schwinger parsen:
-    #   - Schwinger-Name + Jahrgang/Verein (-> stabiler Key, schema.schwinger_key)
-    #   - je Gang: Gegner-Name, Symbol (+/-/o), Note
-    #   - Punktetotal je Schwinger -> labels.validiere_punktetotal(...)
-    # Danach RohGangEintrag(event_id, datum, schwinger_id, gegner_id, symbol, note, fest_typ).
+    from ..schema import schwinger_key
+
+    for raw in lines:
+        line = raw.strip()
+        if not line or not _SYMBOL_RE.search(line):
+            continue
+        m = _LINE_RE.match(re.sub(r"\s+", " ", line))
+        if not m:
+            continue
+        a_name = m.group("a").strip()
+        b_name = m.group("b").strip()
+        a_id = schwinger_key(a_name, None)
+        b_id = schwinger_key(b_name, None)
+        sa = m.group("sa")
+        sb = m.group("sb") or {"+": "o", "o": "+", "-": "-"}[sa]
+        na = float(m.group("na")) if m.group("na") else None
+        nb = float(m.group("nb")) if m.group("nb") else None
+        eintraege.append(RohGangEintrag(event_id, datum, a_id, b_id, sa, na, fest_typ))
+        eintraege.append(RohGangEintrag(event_id, datum, b_id, a_id, sb, nb, fest_typ))
     return eintraege

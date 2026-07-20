@@ -47,7 +47,7 @@ def trainiere(X, y, meta) -> dict:
     Xte_s = (Xte - mu) / sigma
 
     modell = LogisticRegression(
-        class_weight="balanced",     # R-1: Klassen-Ungleichgewicht (Gestellt)
+        class_weight=None,
         max_iter=2000,
         C=1.0,
         random_state=SEED,
