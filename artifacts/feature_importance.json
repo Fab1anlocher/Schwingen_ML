@@ -9,101 +9,101 @@
     {
       "feature": "kranz_diff",
       "label": "Kranzstatus",
-      "wichtigkeit": 0.6143132563658362,
+      "wichtigkeit": 0.614313256365836,
       "koeffizienten": {
-        "sieg_a": 0.9214698845487543,
-        "gestellt": 2.549796614854496e-16,
-        "sieg_b": -0.9214698845487541
+        "sieg_a": 0.9214698845487537,
+        "gestellt": 6.143902291658348e-16,
+        "sieg_b": -0.9214698845487537
       }
     },
     {
       "feature": "rating_diff",
       "label": "Rating-Vorsprung (Elo)",
-      "wichtigkeit": 0.24362587753343604,
+      "wichtigkeit": 0.24362587753343623,
       "koeffizienten": {
         "sieg_a": 0.3654388163001539,
-        "gestellt": 1.319697445669876e-16,
-        "sieg_b": -0.36543881630015407
+        "gestellt": 4.786484033325217e-16,
+        "sieg_b": -0.3654388163001543
       }
     },
     {
       "feature": "form_diff",
       "label": "aktuelle Form (letzte Gänge)",
-      "wichtigkeit": 0.1052218240464153,
+      "wichtigkeit": 0.10522182404641552,
       "koeffizienten": {
-        "sieg_a": 0.1578327360696229,
-        "gestellt": 2.4068424738273555e-16,
-        "sieg_b": -0.15783273606962278
+        "sieg_a": 0.1578327360696228,
+        "gestellt": 5.919551358204236e-16,
+        "sieg_b": -0.15783273606962314
       }
     },
     {
       "feature": "erfahrung_diff",
       "label": "Erfahrung (Anzahl Gänge)",
-      "wichtigkeit": 0.06028787494635748,
+      "wichtigkeit": 0.060287874946357574,
       "koeffizienten": {
-        "sieg_a": 0.09043181241953618,
-        "gestellt": -3.1128505616658207e-17,
-        "sieg_b": -0.09043181241953623
+        "sieg_a": 0.09043181241953639,
+        "gestellt": 1.6464052619959158e-17,
+        "sieg_b": -0.09043181241953632
       }
     },
     {
       "feature": "alter_diff",
       "label": "Altersunterschied",
-      "wichtigkeit": 0.022224348665744378,
+      "wichtigkeit": 0.022224348665744464,
       "koeffizienten": {
-        "sieg_a": 0.033336522998616544,
-        "gestellt": -1.2816393081030484e-17,
-        "sieg_b": -0.03333652299861657
+        "sieg_a": 0.033336522998616655,
+        "gestellt": 6.337599958571489e-17,
+        "sieg_b": -0.03333652299861667
       }
     },
     {
       "feature": "same_teilverband",
       "label": "gleicher Teilverband",
-      "wichtigkeit": 0.018395094967164058,
+      "wichtigkeit": 0.018395094967164332,
       "koeffizienten": {
-        "sieg_a": 0.01379632122537248,
-        "gestellt": -0.027592642450747207,
-        "sieg_b": 0.013796321225372483
+        "sieg_a": 0.013796321225373186,
+        "gestellt": -0.027592642450746642,
+        "sieg_b": 0.013796321225373172
       }
     },
     {
       "feature": "bergfest",
       "label": "Bergfest",
-      "wichtigkeit": 0.017821065064917315,
+      "wichtigkeit": 0.017821065064917384,
       "koeffizienten": {
-        "sieg_a": -0.0133657987986879,
-        "gestellt": 0.026731597597376137,
-        "sieg_b": -0.013365798798687914
+        "sieg_a": -0.01336579879868793,
+        "gestellt": 0.0267315975973761,
+        "sieg_b": -0.013365798798688122
       }
     },
     {
       "feature": "gross_fest",
       "label": "Grossanlass",
-      "wichtigkeit": 0.015675134054775317,
+      "wichtigkeit": 0.015675134054775046,
       "koeffizienten": {
-        "sieg_a": -0.011756350541081989,
-        "gestellt": 0.023512701082161934,
-        "sieg_b": -0.011756350541082029
+        "sieg_a": -0.011756350541081227,
+        "gestellt": 0.02351270108216258,
+        "sieg_b": -0.01175635054108133
       }
     },
     {
       "feature": "groesse_diff",
       "label": "Grössenunterschied",
-      "wichtigkeit": 0.007877387495493578,
+      "wichtigkeit": 0.007877387495493644,
       "koeffizienten": {
-        "sieg_a": -0.011816081243240333,
-        "gestellt": 2.1461618829932286e-17,
-        "sieg_b": 0.011816081243240384
+        "sieg_a": -0.011816081243240491,
+        "gestellt": 7.378998277920164e-17,
+        "sieg_b": 0.011816081243240368
       }
     },
     {
       "feature": "gewicht_diff",
       "label": "Gewichtsunterschied",
-      "wichtigkeit": 0.0048373207800275755,
+      "wichtigkeit": 0.004837320780027643,
       "koeffizienten": {
-        "sieg_a": -0.007255981170041204,
-        "gestellt": 3.5599435723945016e-17,
-        "sieg_b": 0.007255981170041488
+        "sieg_a": -0.00725598117004127,
+        "gestellt": -3.112437008224698e-16,
+        "sieg_b": 0.00725598117004135
       }
     }
   ]
