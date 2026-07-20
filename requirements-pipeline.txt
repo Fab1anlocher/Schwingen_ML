@@ -1,0 +1,8 @@
+# Python-Abhängigkeiten der Datenpipeline (läuft auf GitHub Actions, §7).
+numpy>=1.26
+pandas>=2.0
+scikit-learn>=1.4
+# Optional für echte PDF-Extraktion (schlussgang.ch statistic-final.pdf):
+pdfplumber>=0.11
+# Tests:
+pytest>=8.0

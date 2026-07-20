@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0.0",
+  "typ": "logistic_regression_multinomial",
+  "klassen": [
+    "sieg_a",
+    "gestellt",
+    "sieg_b"
+  ],
+  "features": [
+    "rating_diff",
+    "form_diff",
+    "kranz_diff",
+    "alter_diff",
+    "gewicht_diff",
+    "groesse_diff",
+    "erfahrung_diff",
+    "bergfest",
+    "gross_fest",
+    "same_teilverband"
+  ],
+  "feature_labels": {
+    "rating_diff": "Rating-Vorsprung (Elo)",
+    "form_diff": "aktuelle Form (letzte Gänge)",
+    "kranz_diff": "Kranzstatus",
+    "alter_diff": "Altersunterschied",
+    "gewicht_diff": "Gewichtsunterschied",
+    "groesse_diff": "Grössenunterschied",
+    "erfahrung_diff": "Erfahrung (Anzahl Gänge)",
+    "bergfest": "Bergfest",
+    "gross_fest": "Grossanlass",
+    "same_teilverband": "gleicher Teilverband"
+  },
+  "standardisierung": {
+    "mu": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.09978425026968717,
+      0.2022653721682848,
+      0.19525350593311758
+    ],
+    "sigma": [
+      1.0802144579840127,
+      0.4211741537717438,
+      1.0756197882163516,
+      6.163582715256618,
+      14.939792870158417,
+      10.216005801756959,
+      10.438782348280801,
+      0.29971211798624603,
+      0.40168904813289324,
+      0.39639572948499563
+    ]
+  },
+  "coef": [
+    [
+      0.3654388163001539,
+      0.1578327360696229,
+      0.9214698845487543,
+      0.033336522998616544,
+      -0.007255981170041204,
+      -0.011816081243240333,
+      0.09043181241953618,
+      -0.0133657987986879,
+      -0.011756350541081989,
+      0.01379632122537248
+    ],
+    [
+      1.319697445669876e-16,
+      2.4068424738273555e-16,
+      2.549796614854496e-16,
+      -1.2816393081030484e-17,
+      3.5599435723945016e-17,
+      2.1461618829932286e-17,
+      -3.1128505616658207e-17,
+      0.026731597597376137,
+      0.023512701082161934,
+      -0.027592642450747207
+    ],
+    [
+      -0.36543881630015407,
+      -0.15783273606962278,
+      -0.9214698845487541,
+      -0.03333652299861657,
+      0.007255981170041488,
+      0.011816081243240384,
+      -0.09043181241953623,
+      -0.013365798798687914,
+      -0.011756350541082029,
+      0.013796321225372483
+    ]
+  ],
+  "intercept": [
+    -0.15067341953279606,
+    0.3013468390655943,
+    -0.1506734195327959
+  ],
+  "config": {
+    "min_gaenge_fuer_sicherheit": 5,
+    "form_fenster_k": 5,
+    "elo_start": 1500.0,
+    "kranzstatus_ordinal": {
+      "kein": 0,
+      "kranzer": 1,
+      "eidgenosse": 2,
+      "koenig": 3
+    }
+  },
+  "erstellt": "2026-07-20T19:43:26.154436+00:00"
+}
