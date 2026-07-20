@@ -56,6 +56,11 @@ def main():
         def d(x, y):
             return (x - y) if (x is not None and y is not None) else 0.0
 
+        swa = set(a.get("bevorzugte_schwuenge") or [])
+        swb = set(b.get("bevorzugte_schwuenge") or [])
+        uni = swa | swb
+        overlap = (len(swa & swb) / len(uni)) if uni else 0.0
+
         x = [
             (ra["elo"] - rb["elo"]) / 100.0,
             a["form"] - b["form"],
@@ -67,6 +72,8 @@ def main():
             0.0,  # bergfest
             0.0,  # gross_fest
             1.0 if a["teilverband"] and a["teilverband"] == b["teilverband"] else 0.0,
+            overlap,
+            float(len(a.get("bevorzugte_schwuenge") or []) - len(b.get("bevorzugte_schwuenge") or [])),
         ]
 
         p_json = json_inferenz(model, x)

@@ -5,10 +5,10 @@ die Wahrscheinlichkeit von **Sieg A / Gestellt / Sieg B**, plus Fest-Vorschau,
 Merkmalswichtigkeit und Schwinger-Profile. Prognosen sind **informativ, kein
 Wettangebot**.
 
-> Status: **Phase-1-MVP lauffähig** — komplette Pipeline (Labels → Elo-Baseline →
+> Status: **MVP lauffähig** — komplette Pipeline (Labels → Elo-Baseline →
 > Logistic Regression → JSON-Artefakte) und Next.js-Web-App mit clientseitiger
-> Inferenz. Läuft end-to-end mit synthetischen Demodaten; die echten Scraper sind
-> als Gerüst angelegt (siehe [Datenquellen](#datenquellen)).
+> Inferenz. Läuft end-to-end mit synthetischen Demodaten; produktive Läufe sind
+> über `--source scrape` mit lokalen Raw-Daten (`artifacts/raw`) vorbereitet.
 
 ---
 
@@ -120,18 +120,25 @@ npm run dev        # http://localhost:3000
 | ML-3 | Logistic Regression (schlägt Baseline) | ✅ |
 | ML-5 | Kein Data Leakage (zeitliche Trennung) | ✅ |
 | ML-6 | Log-Loss / Accuracy-Report | ✅ |
-| FR-2 | Fest-Vorschau + Quote | ✅ UI, wartet auf Agenda-Scraper |
-| FR-6 | Automatische Datenpipeline | ✅ Workflow, Scraper-Parser offen |
+| FR-2 | Fest-Vorschau + Quote | ✅ inkl. Fallback-Favoriten bei offenen Paarungen |
+| FR-6 | Automatische Datenpipeline | ✅ Workflow täglich, default `source=scrape` |
 | — | Gradient Boosting + ONNX, Kalibrierung, zwilch-Historie | ⬜ Phase 2 |
 
 ---
 
 ## Datenquellen
 
-Der MVP läuft mit **synthetischen** Daten (`pipeline/synth.py`), damit die ganze
-Pipeline und die Web-App sofort funktionieren. Die echten Scraper sind mit den
-**realen URL-Mustern** angelegt, aber die Parser müssen gegen echte Dateien
-kalibriert werden (R-6), bevor produktiv geschaltet wird:
+Der MVP läuft weiterhin mit **synthetischen** Daten (`pipeline/synth.py`) für
+eine sofort lauffähige Demo. Für produktive Läufe unterstützt die Pipeline
+`--source scrape` mit lokalen Raw-Daten in `artifacts/raw/`:
+
+- `schwinger.json` (`{"schwinger":[...]}`)
+- `events.json` (`{"events":[...]}`)
+- `gaenge.json` (`{"gaenge":[...]}`)
+
+Zusätzlich liest `pipeline/scrape/agenda.py` kommende Feste von
+`schlussgang.ch/agenda` (JSON-LD) und extrahiert optionale Paarungen.
+Der PDF-Parser enthält eine kalibrierbare Text-Extraktion:
 
 - `pipeline/scrape/schlussgang_pdf.py` — Ranglisten-PDF (`<eventId>-statistic-final.pdf`)
 - `pipeline/scrape/agenda.py` — kommende Feste + Spitzenpaarungen (FR-2)

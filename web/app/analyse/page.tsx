@@ -5,6 +5,7 @@ import { ladeFeatureImportance } from "@/lib/data";
 import type { FeatureImportanceEntry } from "@/lib/types";
 
 interface Report {
+  lauf_id?: string;
   holdout_jahr: number;
   n_train: number;
   n_test: number;
@@ -12,12 +13,23 @@ interface Report {
   baseline_elo: { log_loss: number; accuracy: number };
   schlaegt_baseline: boolean;
   verbesserung_log_loss: number;
+  accuracy_gg_baseline?: number;
+  erfolgskriterien?: {
+    log_loss_besser_als_baseline: boolean;
+    accuracy_mindestens_baseline: boolean;
+    gesamt_erfuellt: boolean;
+  };
   datenbasis: { n_gaenge: number; n_schwinger: number };
   n_parsing_warnungen: number;
 }
 
 // Merkmale, die die Spec explizit beleuchten will (AK-4.2).
-const FOKUS = new Set(["gewicht_diff", "groesse_diff"]);
+const FOKUS = new Set([
+  "gewicht_diff",
+  "groesse_diff",
+  "schwung_overlap",
+  "schwung_count_diff",
+]);
 
 export default function Analyse() {
   const [fi, setFi] = useState<FeatureImportanceEntry[]>([]);
@@ -86,6 +98,16 @@ export default function Analyse() {
             Schwinger · Train {report.n_train} / Test {report.n_test} · Parsing-Warnungen:{" "}
             {report.n_parsing_warnungen}
           </p>
+          {report.erfolgskriterien && (
+            <p className="muted small">
+              Kriterium Log-Loss:{" "}
+              {report.erfolgskriterien.log_loss_besser_als_baseline ? "erfüllt" : "offen"} ·
+              Kriterium Accuracy:{" "}
+              {report.erfolgskriterien.accuracy_mindestens_baseline ? "erfüllt" : "offen"}
+              {typeof report.accuracy_gg_baseline === "number" &&
+                ` (Δ ${(report.accuracy_gg_baseline * 100).toFixed(1)}%-Pkt)`}
+            </p>
+          )}
         </div>
       )}
 
@@ -125,8 +147,9 @@ export default function Analyse() {
       <p className="muted small" style={{ marginTop: "0.75rem" }}>
         Wichtigkeit = mittlerer Betrag der standardisierten Koeffizienten über die drei
         Klassen. „Fokus" markiert Merkmale, deren Beitrag die Spezifikation explizit prüfen
-        will (Gewicht, Grösse — vgl. AK-4.2). Bei synthetischen Demodaten sind diese Werte
-        illustrativ; mit echten Gang-Daten wird ihr tatsächlicher Beitrag sichtbar.
+        will (Gewicht, Grösse, bevorzugte Schwünge — vgl. AK-4.2). Bei synthetischen
+        Demodaten sind diese Werte illustrativ; mit echten Gang-Daten wird ihr
+        tatsächlicher Beitrag sichtbar.
       </p>
     </div>
   );

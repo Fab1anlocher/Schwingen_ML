@@ -1,6 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-07-20T19:43:26.162724+00:00",
+  "erstellt": "2026-07-20T20:22:13.431408+00:00",
+  "lauf_id": "20260720T202213Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 2706,
@@ -10,15 +11,21 @@
   "n_train": 3708,
   "n_test": 1704,
   "modell": {
-    "log_loss": 0.7635,
-    "accuracy": 0.6432
+    "log_loss": 0.6772,
+    "accuracy": 0.7312
   },
   "baseline_elo": {
     "log_loss": 0.8511,
     "accuracy": 0.6918
   },
   "schlaegt_baseline": true,
-  "verbesserung_log_loss": 0.0876,
+  "accuracy_gg_baseline": 0.0394,
+  "verbesserung_log_loss": 0.1739,
+  "erfolgskriterien": {
+    "log_loss_besser_als_baseline": true,
+    "accuracy_mindestens_baseline": true,
+    "gesamt_erfuellt": true
+  },
   "parsing_warnungen": [],
   "n_parsing_warnungen": 0
 }
