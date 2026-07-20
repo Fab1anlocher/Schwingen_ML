@@ -108,6 +108,127 @@ npm run dev        # http://localhost:3000
 
 ---
 
+## Tutorial: von Demo-/Synth-Daten zu echtem Training
+
+Die Web-App zeigt immer die Daten aus `web/public/data/`. Diese Dateien werden
+von der Pipeline erzeugt und aus `artifacts/` dorthin kopiert.
+
+### 1) Demo-Training prüfen (aktueller Standard)
+
+```bash
+python -m pipeline.run_pipeline --source synth
+python -m pipeline.verify_inference
+```
+
+Danach zeigt die Web-App weiterhin synthetische Daten — das ist korrekt.
+
+### 2) Echte Rohdaten vorbereiten
+
+Lege den Ordner `artifacts/raw/` an und erstelle drei Dateien:
+
+- `artifacts/raw/schwinger.json`
+- `artifacts/raw/events.json`
+- `artifacts/raw/gaenge.json`
+
+Minimalbeispiel:
+
+`artifacts/raw/schwinger.json`
+
+```json
+{
+  "schwinger": [
+    {
+      "id": "max-muster",
+      "name": "Max Muster",
+      "jahrgang": 1998,
+      "kranzstatus": "kein"
+    },
+    {
+      "id": "peter-beispiel",
+      "name": "Peter Beispiel",
+      "jahrgang": 1997,
+      "kranzstatus": "kein"
+    }
+  ]
+}
+```
+
+`artifacts/raw/events.json`
+
+```json
+{
+  "events": [
+    {
+      "id": "ev-2026-test",
+      "name": "Testschwinget",
+      "datum": "2026-07-20",
+      "typ": "kantonal"
+    }
+  ]
+}
+```
+
+`artifacts/raw/gaenge.json`
+
+```json
+{
+  "gaenge": [
+    {
+      "event_id": "ev-2026-test",
+      "datum": "2026-07-20",
+      "fest_typ": "kantonal",
+      "schwinger_id": "max-muster",
+      "gegner_id": "peter-beispiel",
+      "symbol": "+",
+      "note": 10.0
+    },
+    {
+      "event_id": "ev-2026-test",
+      "datum": "2026-07-20",
+      "fest_typ": "kantonal",
+      "schwinger_id": "peter-beispiel",
+      "gegner_id": "max-muster",
+      "symbol": "o",
+      "note": 8.75
+    }
+  ]
+}
+```
+
+Hinweise:
+- Für Schwinger ist `name` Pflicht; `id` ist optional (wird sonst abgeleitet).
+- Für Events sind `id`, `datum`, `name` Pflicht.
+- Für Gänge sind `event_id`, `datum`, `symbol` (`+`, `-`, `o`) und beide
+  Schwinger (per ID oder Name) nötig.
+
+### 3) Echtes Training starten
+
+```bash
+python -m pipeline.run_pipeline --source scrape
+python -m pipeline.verify_inference
+```
+
+Wenn `--source scrape` erfolgreich läuft, sind `artifacts/*.json` und
+`web/public/data/*.json` auf echten Rohdaten basiert.
+
+### 4) Web-App mit neuen Artefakten prüfen
+
+```bash
+cd web
+npm run dev
+```
+
+Browser neu laden; Prognosen und Listen kommen jetzt aus den neu erzeugten
+Artefakten statt aus Synth-Daten.
+
+### 5) Optional: automatische tägliche Updates
+
+Der Workflow `.github/workflows/update.yml` führt die Pipeline täglich aus
+(Standard `source=scrape`) und committet geänderte Artefakte. Dafür müssen
+die Raw-Daten in `artifacts/raw/` verfügbar sein.
+
+---
+
 ## Features (Umsetzungsstand)
 
 | Anf. | Feature | Status |
