@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "erstellt": "2026-07-20T19:43:26.162724+00:00",
+  "seed": 42,
+  "datenbasis": {
+    "n_gaenge": 2706,
+    "n_schwinger": 120
+  },
+  "holdout_jahr": 2025,
+  "n_train": 3708,
+  "n_test": 1704,
+  "modell": {
+    "log_loss": 0.7635,
+    "accuracy": 0.6432
+  },
+  "baseline_elo": {
+    "log_loss": 0.8511,
+    "accuracy": 0.6918
+  },
+  "schlaegt_baseline": true,
+  "verbesserung_log_loss": 0.0876,
+  "parsing_warnungen": [],
+  "n_parsing_warnungen": 0
+}
