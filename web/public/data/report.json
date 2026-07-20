@@ -1,30 +1,30 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-07-20T20:31:38.693105+00:00",
-  "lauf_id": "20260720T203138Z",
+  "erstellt": "2026-07-20T20:42:02.096780+00:00",
+  "lauf_id": "20260720T204202Z",
   "seed": 42,
   "datenbasis": {
-    "n_gaenge": 2706,
-    "n_schwinger": 120
+    "n_gaenge": 2,
+    "n_schwinger": 2
   },
-  "holdout_jahr": 2025,
-  "n_train": 3708,
-  "n_test": 1704,
+  "holdout_jahr": 2026,
+  "n_train": 3,
+  "n_test": 1,
   "modell": {
-    "log_loss": 0.6772,
-    "accuracy": 0.7312
+    "log_loss": 5.2812,
+    "accuracy": 0.0
   },
   "baseline_elo": {
-    "log_loss": 0.8511,
-    "accuracy": 0.6918
+    "log_loss": 1.1626,
+    "accuracy": 0.5
   },
-  "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0394,
-  "verbesserung_log_loss": 0.1739,
+  "schlaegt_baseline": false,
+  "accuracy_gg_baseline": -0.5,
+  "verbesserung_log_loss": -4.1186,
   "erfolgskriterien": {
-    "log_loss_besser_als_baseline": true,
-    "accuracy_mindestens_baseline": true,
-    "gesamt_erfuellt": true
+    "log_loss_besser_als_baseline": false,
+    "accuracy_mindestens_baseline": false,
+    "gesamt_erfuellt": false
   },
   "parsing_warnungen": [],
   "n_parsing_warnungen": 0

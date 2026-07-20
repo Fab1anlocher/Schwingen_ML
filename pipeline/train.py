@@ -38,10 +38,34 @@ def trainiere(X, y, meta) -> dict:
     holdout = bestimme_holdout_jahr(meta)
     Xtr, ytr, Xte, yte = _split_zeitlich(X, y, meta, holdout)
 
+    if len(Xtr) == 0 or len(np.unique(ytr)) < 2:
+        if len(X) < 2 or len(np.unique(y)) < 2:
+            raise RuntimeError(
+                "Zu wenig Trainingsdaten für Logistic Regression: "
+                f"{len(X)} Beispiele, {len(np.unique(y))} Klassen."
+            )
+        X_arr = np.asarray(X)
+        y_arr = np.asarray(y)
+        if len(X_arr) >= 3:
+            Xtr = X_arr[:-1]
+            ytr = y_arr[:-1]
+            Xte = X_arr[-1:]
+            yte = y_arr[-1:]
+        else:
+            Xtr = X_arr
+            ytr = y_arr
+            Xte = np.empty((0, X_arr.shape[1] if X_arr.ndim == 2 else 0))
+            yte = np.empty((0,), dtype=int)
+        if len(np.unique(ytr)) < 2:
+            Xtr = X_arr
+            ytr = y_arr
+            Xte = np.empty((0, X_arr.shape[1] if X_arr.ndim == 2 else 0))
+            yte = np.empty((0,), dtype=int)
+
     # Standardisierung (Mittel/Std aus TRAIN) -> im Artefakt gespeichert,
     # damit die JS-Inferenz identisch skaliert.
-    mu = Xtr.mean(axis=0)
-    sigma = Xtr.std(axis=0)
+    mu = np.asarray(Xtr).mean(axis=0)
+    sigma = np.asarray(Xtr).std(axis=0)
     sigma[sigma == 0] = 1.0
     Xtr_s = (Xtr - mu) / sigma
     Xte_s = (Xte - mu) / sigma
