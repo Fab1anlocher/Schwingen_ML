@@ -7,6 +7,7 @@ Merkmal (Rating VOR dem Gang) dienen können (ML-5, R-2).
 from __future__ import annotations
 
 import math
+from collections import defaultdict
 from dataclasses import dataclass, field
 
 from .config import ELO_START, ELO_K, ELO_DRAW_WIDTH
@@ -84,6 +85,61 @@ def fahre_elo_durch(gaenge: list[GangResultat]) -> tuple[EloModell, list[dict]]:
         )
         modell.update(gang)
     return modell, snapshots
+
+
+def berechne_ueberraschung(gaenge: list[GangResultat], snapshots: list[dict]) -> dict[str, dict]:
+    """Überraschungs-Index je Schwinger: tatsächliche vs. Elo-erwartete Punkte.
+
+    Nutzt dieselben leak-freien Pre-Gang-Ratings wie die Features (ML-5) und
+    dieselbe klassische Elo-Erwartung wie EloModell.update() (Sieg=1,
+    Gestellt=0.5, Niederlage=0). Index = Mittel über alle Gänge eines
+    Schwingers; positiv = übertrifft die Elo-Erwartung im Schnitt, negativ =
+    bleibt darunter. Ergänzt die globale Feature-Wichtigkeit (ML-7) um eine
+    Pro-Schwinger-Sicht.
+    """
+    idx = {s["event_id"] + s["schwinger_a_id"] + s["schwinger_b_id"]: s for s in snapshots}
+    summe: dict[str, float] = defaultdict(float)
+    anzahl: dict[str, int] = defaultdict(int)
+    bester: dict[str, dict] = {}
+
+    for gang in gaenge:
+        snap = idx.get(gang.event_id + gang.schwinger_a_id + gang.schwinger_b_id)
+        if snap is None:
+            continue
+        ra, rb = snap["elo_a_pre"], snap["elo_b_pre"]
+        e_a = 1.0 / (1.0 + 10 ** ((rb - ra) / 400.0))
+        if gang.ergebnis == "sieg_a":
+            s_a = 1.0
+        elif gang.ergebnis == "gestellt":
+            s_a = 0.5
+        else:
+            s_a = 0.0
+
+        for sid, gegner_id, s_x, e_x, eigenes_elo, gegner_elo in (
+            (gang.schwinger_a_id, gang.schwinger_b_id, s_a, e_a, ra, rb),
+            (gang.schwinger_b_id, gang.schwinger_a_id, 1.0 - s_a, 1.0 - e_a, rb, ra),
+        ):
+            ueberraschung = s_x - e_x
+            summe[sid] += ueberraschung
+            anzahl[sid] += 1
+            if s_x == 1.0 and (sid not in bester or ueberraschung > bester[sid]["ueberraschung"]):
+                bester[sid] = {
+                    "ueberraschung": round(ueberraschung, 3),
+                    "gegner_id": gegner_id,
+                    "event_id": gang.event_id,
+                    "datum": gang.datum,
+                    "eigenes_elo": round(eigenes_elo, 1),
+                    "gegner_elo": round(gegner_elo, 1),
+                }
+
+    return {
+        sid: {
+            "index": round(summe[sid] / n, 4),
+            "n": n,
+            "groesster_erfolg": bester.get(sid),
+        }
+        for sid, n in anzahl.items()
+    }
 
 
 def bewerte_baseline(

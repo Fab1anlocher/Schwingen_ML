@@ -1,8 +1,10 @@
 "use client";
 
 import { Fragment, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { ladeRatings, ladeSchwinger } from "@/lib/data";
 import type { RatingsArtifact, Schwinger } from "@/lib/types";
+import { findeAehnliche, hatProfildaten } from "@/lib/aehnlichkeit";
 
 const KRANZ_LABEL: Record<string, string> = {
   kein: "—",
@@ -81,25 +83,7 @@ export default function SchwingerListe() {
                 {offen === s.id && (
                   <tr>
                     <td colSpan={6} style={{ background: "var(--panel-2)" }}>
-                      <div className="small" style={{ padding: "0.35rem 0" }}>
-                        <div>
-                          <strong>Verband:</strong> {s.teilverband ?? "?"} ·{" "}
-                          <strong>Kanton:</strong> {s.kanton ?? "?"} ·{" "}
-                          <strong>Klub:</strong> {s.schwingklub ?? "?"}
-                        </div>
-                        <div>
-                          <strong>Grösse:</strong>{" "}
-                          {s.groesse_cm ? `${s.groesse_cm} cm` : "?"} ·{" "}
-                          <strong>Gewicht:</strong>{" "}
-                          {s.gewicht_kg ? `${s.gewicht_kg} kg` : "?"}
-                        </div>
-                        <div>
-                          <strong>Bevorzugte Schwünge:</strong>{" "}
-                          {s.bevorzugte_schwuenge.length
-                            ? s.bevorzugte_schwuenge.join(", ")
-                            : "—"}
-                        </div>
-                      </div>
+                      <SchwingerDetail schwinger={s} alle={schwinger} />
                     </td>
                   </tr>
                 )}
@@ -113,6 +97,72 @@ export default function SchwingerListe() {
           Keine Treffer für „{q}".
         </p>
       )}
+    </div>
+  );
+}
+
+function SchwingerDetail({ schwinger: s, alle }: { schwinger: Schwinger; alle: Schwinger[] }) {
+  const aehnliche = useMemo(() => findeAehnliche(s, alle, 5), [s, alle]);
+  const index = s.ueberraschungsindex;
+
+  return (
+    <div className="small" style={{ padding: "0.6rem 0" }}>
+      <div>
+        <strong>Verband:</strong> {s.teilverband ?? "?"} · <strong>Kanton:</strong>{" "}
+        {s.kanton ?? "?"} · <strong>Klub:</strong> {s.schwingklub ?? "?"}
+      </div>
+      <div>
+        <strong>Grösse:</strong> {s.groesse_cm ? `${s.groesse_cm} cm` : "?"} ·{" "}
+        <strong>Gewicht:</strong> {s.gewicht_kg ? `${s.gewicht_kg} kg` : "?"}
+      </div>
+      <div>
+        <strong>Bevorzugte Schwünge:</strong>{" "}
+        {s.bevorzugte_schwuenge.length ? s.bevorzugte_schwuenge.join(", ") : "—"}
+      </div>
+
+      {index !== null && s.n_bewertete_gaenge > 0 && (
+        <div style={{ marginTop: "0.5rem" }}>
+          <strong>Überraschungs-Index:</strong>{" "}
+          <span style={{ color: index >= 0 ? "#7fd6a8" : "#f0c675" }}>
+            {index >= 0 ? "+" : ""}
+            {(index * 100).toFixed(1)}%
+          </span>{" "}
+          <span className="muted">
+            ({s.n_bewertete_gaenge} Gänge · {index >= 0 ? "übertrifft" : "verfehlt"} die
+            Elo-Erwartung im Schnitt)
+          </span>
+          {s.groesster_erfolg && (
+            <div className="muted">
+              Grösster Erfolg: schlug <strong>{s.groesster_erfolg.gegner_name}</strong> (
+              {Math.round(s.groesster_erfolg.gegner_elo - s.groesster_erfolg.eigenes_elo)} Elo-Punkte
+              Unterschied) am {s.groesster_erfolg.datum}
+            </div>
+          )}
+        </div>
+      )}
+
+      <div style={{ marginTop: "0.6rem" }}>
+        <strong>Ähnliche Schwinger:</strong>{" "}
+        {!hatProfildaten(s) ? (
+          <span className="muted">kein Porträt erfasst — kein sinnvoller Vergleich möglich.</span>
+        ) : aehnliche.length === 0 ? (
+          <span className="muted">keine vergleichbaren Profile gefunden.</span>
+        ) : (
+          <div className="row" style={{ marginTop: "0.3rem", gap: "0.4rem" }}>
+            {aehnliche.map((t) => (
+              <Link
+                key={t.schwinger.id}
+                href={`/?a=${encodeURIComponent(t.schwinger.id)}&b=${encodeURIComponent(s.id)}`}
+                className="badge"
+                title={t.gruende.join(", ") || "ähnliches Profil"}
+                style={{ color: "var(--text)" }}
+              >
+                {t.schwinger.name} · {(t.score * 100).toFixed(0)}%
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -19,7 +19,7 @@ from collections import deque, defaultdict
 from . import config, export
 from .config import FORM_FENSTER_K
 from .labels import dedupliziere
-from .ratings import fahre_elo_durch, bewerte_baseline
+from .ratings import fahre_elo_durch, bewerte_baseline, berechne_ueberraschung
 from .features import baue_features
 from .train import trainiere, feature_wichtigkeit
 
@@ -74,9 +74,10 @@ def main(source: str = "synth") -> dict:
 
     print("[6/6] Artefakte exportieren ...", flush=True)
     form_aktuell = _aktuelle_form(gaenge)
+    ueberraschung = berechne_ueberraschung(gaenge, snapshots)
     export.exportiere_modell(train_res, fi)
     export.exportiere_ratings(elo_modell, schwinger)
-    export.exportiere_schwinger(schwinger, form_aktuell)
+    export.exportiere_schwinger(schwinger, form_aktuell, ueberraschung)
     export.exportiere_kopf_an_kopf(gaenge)
     # Kommende Feste (FR-2): bei echten Daten aus dem Agenda-Scraper.
     kommende = []

@@ -12,6 +12,7 @@ web/.next/
 web/out/
 web/next-env.d.ts
 web/.vercel/
+web/*.tsbuildinfo
 
 # OS / Editor
 .DS_Store

@@ -20,6 +20,14 @@ export interface ModelArtifact {
   erstellt: string;
 }
 
+export interface GroessterErfolg {
+  gegner_name: string;
+  event_id: string;
+  datum: string;
+  eigenes_elo: number;
+  gegner_elo: number;
+}
+
 export interface Schwinger {
   id: string;
   name: string;
@@ -32,6 +40,10 @@ export interface Schwinger {
   schwingklub: string | null;
   bevorzugte_schwuenge: string[];
   form: number;
+  /** Mittel (tatsächlich - Elo-erwartete Punkte) über alle Gänge; + = übertrifft Erwartung. */
+  ueberraschungsindex: number | null;
+  n_bewertete_gaenge: number;
+  groesster_erfolg: GroessterErfolg | null;
   quellen: string[];
 }
 

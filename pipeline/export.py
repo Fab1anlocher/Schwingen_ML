@@ -77,14 +77,29 @@ def exportiere_ratings(elo_modell, schwinger: dict) -> None:
     _dump_beide("ratings.json", obj)
 
 
-def exportiere_schwinger(schwinger: dict, form_aktuell: dict) -> None:
+def exportiere_schwinger(
+    schwinger: dict, form_aktuell: dict, ueberraschung: dict | None = None
+) -> None:
     """schwinger.json: Profil + aktuelle Form (für Live-Prognose & Suche FR-5).
 
     Sensible Felder werden NICHT exportiert (NFR-5): kein Geburtsdatum, nur
     Jahrgang bleibt intern; Anzeige nutzt Alter.
     """
+    ueberraschung = ueberraschung or {}
     liste = []
     for sid, s in schwinger.items():
+        u = ueberraschung.get(sid)
+        groesster_erfolg = None
+        if u and u.get("groesster_erfolg"):
+            ge = u["groesster_erfolg"]
+            gegner = schwinger.get(ge["gegner_id"])
+            groesster_erfolg = {
+                "gegner_name": gegner.name if gegner else ge["gegner_id"],
+                "event_id": ge["event_id"],
+                "datum": ge["datum"],
+                "eigenes_elo": ge["eigenes_elo"],
+                "gegner_elo": ge["gegner_elo"],
+            }
         liste.append({
             "id": sid,
             "name": s.name,
@@ -97,6 +112,9 @@ def exportiere_schwinger(schwinger: dict, form_aktuell: dict) -> None:
             "schwingklub": s.schwingklub,
             "bevorzugte_schwuenge": s.bevorzugte_schwuenge,
             "form": round(form_aktuell.get(sid, 0.5), 3),
+            "ueberraschungsindex": u["index"] if u else None,
+            "n_bewertete_gaenge": u["n"] if u else 0,
+            "groesster_erfolg": groesster_erfolg,
             "quellen": s.quellen,
         })
     liste.sort(key=lambda x: x["name"])
