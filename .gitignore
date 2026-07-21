@@ -18,3 +18,10 @@ web/.vercel/
 *.log
 .idea/
 .vscode/
+
+# Rohdaten (pipeline.fetch_raw): reproduzierbar aus Webquellen, nicht versioniert.
+# Wird lokal/CI aus schlussgang.ch/esv.ch neu geholt (gaenge.json allein >50 MB
+# und würde bei täglichem Cron-Lauf unbegrenzt in der Git-Historie wachsen).
+# Versioniert werden nur die daraus abgeleiteten, kompakten Artefakte
+# (artifacts/*.json, web/public/data/*.json).
+artifacts/raw/

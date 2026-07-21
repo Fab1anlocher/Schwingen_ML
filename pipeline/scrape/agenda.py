@@ -25,7 +25,8 @@ def _norm_space(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
-def _typ_von_name(name: str) -> str:
+def typ_von_name(name: str) -> str:
+    """Fest-Typ-Heuristik anhand des Namens (Fallback, wenn keine Kategorie-Taxonomie vorliegt)."""
     for t, rx in _EVENT_TYP_RE.items():
         if rx.search(name):
             return t
@@ -127,7 +128,7 @@ def parse_agenda_html(html: str, *, heute: date | None = None) -> list[dict]:
                 "id": f"agenda-{datum}-{slug[:40]}",
                 "name": name,
                 "datum": datum,
-                "typ": _typ_von_name(name),
+                "typ": typ_von_name(name),
                 "ort": ort,
                 "quelle": "schlussgang.ch/agenda",
                 "paarungen_namen": [{"a_name": a, "b_name": b} for a, b in paare],

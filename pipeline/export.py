@@ -144,6 +144,8 @@ def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
         "schlaegt_baseline": erreicht_log_loss,
         "accuracy_gg_baseline": round(acc - base_acc, 4),
         "verbesserung_log_loss": round(base_ll - ll, 4),
+        "klassen": KLASSEN,
+        "konfusionsmatrix": train_res.get("confusion_matrix"),
         "erfolgskriterien": {
             "log_loss_besser_als_baseline": erreicht_log_loss,
             "accuracy_mindestens_baseline": erreicht_accuracy,

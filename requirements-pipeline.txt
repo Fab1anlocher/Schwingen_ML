@@ -2,7 +2,8 @@
 numpy>=1.26
 pandas>=2.0
 scikit-learn>=1.4
-# Optional für echte PDF-Extraktion (schlussgang.ch statistic-final.pdf):
+# Für pipeline.fetch_raw (echte Rohdaten von schlussgang.ch/esv.ch):
 pdfplumber>=0.11
+beautifulsoup4>=4.12
 # Tests:
 pytest>=8.0

@@ -25,6 +25,13 @@ jobs:
           python-version: "3.11"
       - run: pip install -r requirements-pipeline.txt
 
+      - name: Rohdaten holen (Porträts, ESV, abgeschlossene Feste)
+        if: ${{ github.event.inputs.source != 'synth' }}
+        run: |
+          SEIT=$(date -u -d '7 days ago' +%Y-%m-%d)
+          python -m pipeline.fetch_raw --sources schlussgang esv events \
+            --materialize-schwinger --seit-datum "$SEIT" --event-limit 300
+
       - name: Pipeline ausführen
         run: python -m pipeline.run_pipeline --source ${{ github.event.inputs.source || 'scrape' }}
 

@@ -16,6 +16,7 @@ from .labels import GangResultat
 # Reihenfolge der numerischen Merkmale = Spaltenreihenfolge im Modell-Artefakt.
 FEATURE_NAMES = [
     "rating_diff",       # Elo A - Elo B (leak-frei, pre-gang)
+    "rating_abstand",    # |Elo A - Elo B|: Nähe der Ratings (symmetrisch, für "gestellt")
     "form_diff",         # Siegquote letzte K A - B (leak-frei)
     "kranz_diff",        # Kranzstatus-Ordinal A - B
     "alter_diff",        # Alter A - B (Jahre)
@@ -32,6 +33,7 @@ FEATURE_NAMES = [
 # Menschenlesbare Labels für Erklärbarkeit (FR-3).
 FEATURE_LABELS = {
     "rating_diff": "Rating-Vorsprung (Elo)",
+    "rating_abstand": "Rating-Nähe (ausgeglichenes Paar)",
     "form_diff": "aktuelle Form (letzte Gänge)",
     "kranz_diff": "Kranzstatus",
     "alter_diff": "Altersunterschied",
@@ -167,6 +169,7 @@ def _feature_vektor(
     kranz_b = KRANZSTATUS_ORDINAL.get(sb.kranzstatus, 0)
     return [
         (elo_a - elo_b) / 100.0,                       # rating_diff (skaliert)
+        abs(elo_a - elo_b) / 100.0,                     # rating_abstand (symmetrisch)
         form_a - form_b,                                # form_diff
         float(kranz_a - kranz_b),                       # kranz_diff
         _diff_oder_null(_alter(sa, datum), _alter(sb, datum)),  # alter_diff

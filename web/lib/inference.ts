@@ -39,6 +39,7 @@ export function baueFeatures(
 
   return [
     (eloA - eloB) / 100.0, // rating_diff
+    Math.abs(eloA - eloB) / 100.0, // rating_abstand
     a.form - b.form, // form_diff
     kranzA - kranzB, // kranz_diff
     diffOderNull(alterA, alterB), // alter_diff

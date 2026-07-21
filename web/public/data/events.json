@@ -2,6 +2,3614 @@
   "schema_version": "1.0.0",
   "vergangene": [
     {
+      "id": "schlussgang-32653",
+      "name": "Abendschwinget Tafers 2023",
+      "datum": "2023-04-01",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Tafers"
+    },
+    {
+      "id": "schlussgang-22566",
+      "name": "Regionalschwingfest Ried bei Kerzers 2023",
+      "datum": "2023-04-16",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ried bei Kerzers"
+    },
+    {
+      "id": "schlussgang-22535",
+      "name": "Schwyzer Kantonalschwingfest Küssnacht 2023",
+      "datum": "2023-04-30",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Küssnacht"
+    },
+    {
+      "id": "schlussgang-22541",
+      "name": "Seetaler Schwinget Hitzkirch 2023",
+      "datum": "2023-04-30",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hitzkirch"
+    },
+    {
+      "id": "schlussgang-22533",
+      "name": "Frühjahrsschwinget Oberdorf 2023",
+      "datum": "2023-05-01",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Oberdorf"
+    },
+    {
+      "id": "schlussgang-22530",
+      "name": "Basellandschaftliches Kantonalschwingfest Ettingen 2023",
+      "datum": "2023-05-06",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ettingen"
+    },
+    {
+      "id": "schlussgang-22526",
+      "name": "Regionalschwingfest Oron-la-Ville 2023",
+      "datum": "2023-05-07",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Oron-la-ville"
+    },
+    {
+      "id": "schlussgang-22528",
+      "name": "Roteborger Schwinget Rothenburg 2023",
+      "datum": "2023-05-07",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Rothenburg LU"
+    },
+    {
+      "id": "schlussgang-22529",
+      "name": "Zuger Kantonalschwingfest Zug 2023",
+      "datum": "2023-05-07",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Zug"
+    },
+    {
+      "id": "schlussgang-22512",
+      "name": "Luzerner Kantonalschwingfest Nottwil 2023",
+      "datum": "2023-05-14",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Nottwil"
+    },
+    {
+      "id": "schlussgang-22513",
+      "name": "Zürcher Kantonalschwingfest Zürich 2023",
+      "datum": "2023-05-14",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Zürich - Allmend"
+    },
+    {
+      "id": "schlussgang-22514",
+      "name": "Emmentalisches Schwingfest Bowil 2023",
+      "datum": "2023-05-14",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Bowil"
+    },
+    {
+      "id": "schlussgang-22515",
+      "name": "Waadtländer Kantonalschwingfest Genolier 2023",
+      "datum": "2023-05-14",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Genolier"
+    },
+    {
+      "id": "schlussgang-22516",
+      "name": "Schwinget im Zurzibiet Leibstadt 2023",
+      "datum": "2023-05-14",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Leibstadt"
+    },
+    {
+      "id": "schlussgang-22504",
+      "name": "Baselstädtisches Schwingfest Basel 2023",
+      "datum": "2023-05-18",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sandgrube Basel"
+    },
+    {
+      "id": "schlussgang-22506",
+      "name": "Regionalschwingfest Le Mouret 2023",
+      "datum": "2023-05-18",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Le Mouret"
+    },
+    {
+      "id": "schlussgang-22510",
+      "name": "Pfannenstiel-Schwinget Meilen 2023",
+      "datum": "2023-05-18",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Meilen"
+    },
+    {
+      "id": "schlussgang-22511",
+      "name": "Schybi-Schwinget Escholzmatt 2023",
+      "datum": "2023-05-18",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Escholzmatt"
+    },
+    {
+      "id": "schlussgang-22502",
+      "name": "Mittelländisches Schwingfest Frauenkappelen 2023",
+      "datum": "2023-05-20",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Frauenkappelen"
+    },
+    {
+      "id": "schlussgang-22497",
+      "name": "Urner Kantonalschwingfest Altdorf 2023",
+      "datum": "2023-05-21",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Altdorf"
+    },
+    {
+      "id": "schlussgang-22489",
+      "name": "Morgarten-Schwinget 2023",
+      "datum": "2023-05-27",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Morgarten"
+    },
+    {
+      "id": "schlussgang-22490",
+      "name": "Freiburger Kantonalschwingfest Orsonnens 2023",
+      "datum": "2023-05-27",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Orsonnens"
+    },
+    {
+      "id": "schlussgang-22492",
+      "name": "Herisauer Obedschwinget 2023",
+      "datum": "2023-05-27",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Herisau"
+    },
+    {
+      "id": "schlussgang-22494",
+      "name": "Oberaargauisches Schwingfest Kirchberg 2023",
+      "datum": "2023-05-27",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Kirchberg"
+    },
+    {
+      "id": "schlussgang-22481",
+      "name": "Brueder-Schwinget Bachenbülach 2023",
+      "datum": "2023-05-29",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Bachenbülach"
+    },
+    {
+      "id": "schlussgang-22484",
+      "name": "Glarner-Bündner Schwingertag Elm 2023",
+      "datum": "2023-05-29",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Elm"
+    },
+    {
+      "id": "schlussgang-22487",
+      "name": "Rottal-Schwinget Ruswil 2023",
+      "datum": "2023-05-29",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ruswil"
+    },
+    {
+      "id": "schlussgang-22472",
+      "name": "St. Galler Kantonalschwingfest Wittenbach 2023",
+      "datum": "2023-06-04",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Wittenbach"
+    },
+    {
+      "id": "schlussgang-22473",
+      "name": "Aargauer Kantonalschwingfest Möhlin 2023",
+      "datum": "2023-06-04",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Möhlin"
+    },
+    {
+      "id": "schlussgang-22474",
+      "name": "Ob- und Nidwaldner Kantonalschwingfest Alpnach 2023",
+      "datum": "2023-06-04",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Alpnach"
+    },
+    {
+      "id": "schlussgang-22475",
+      "name": "Neuenburger Kantonalschwingfest Môtiers 2023",
+      "datum": "2023-06-04",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Môtiers"
+    },
+    {
+      "id": "schlussgang-22471",
+      "name": "Schwarzenberg-Schwinget 2023",
+      "datum": "2023-06-08",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schwarzenberg"
+    },
+    {
+      "id": "schlussgang-22469",
+      "name": "Abendschwinget Sumiswald 2023",
+      "datum": "2023-06-09",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sumiswald"
+    },
+    {
+      "id": "schlussgang-22463",
+      "name": "Wartenberg-Schwinget Muttenz 2023",
+      "datum": "2023-06-10",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Muttenz"
+    },
+    {
+      "id": "schlussgang-22457",
+      "name": "Bachtel-Schwinget ob Hinwil 2023",
+      "datum": "2023-06-11",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hinwil"
+    },
+    {
+      "id": "schlussgang-22460",
+      "name": "Rätikon-Schwinget St. Antönien 2023",
+      "datum": "2023-06-11",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "St. Antönien"
+    },
+    {
+      "id": "schlussgang-22461",
+      "name": "Seeländisches Schwingfest Lyss 2023",
+      "datum": "2023-06-11",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lyss"
+    },
+    {
+      "id": "schlussgang-22462",
+      "name": "Stoos-Schwinget 2023",
+      "datum": "2023-06-11",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Stoos SZ"
+    },
+    {
+      "id": "schlussgang-22451",
+      "name": "Abendschwinget Lungern 2023",
+      "datum": "2023-06-17",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lungern"
+    },
+    {
+      "id": "schlussgang-22448",
+      "name": "Bündner-Glarner Schwingertag Flims 2023",
+      "datum": "2023-06-18",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Flims"
+    },
+    {
+      "id": "schlussgang-22449",
+      "name": "Schwarzsee-Schwinget 2023",
+      "datum": "2023-06-18",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lac Noir / Schwarzsee"
+    },
+    {
+      "id": "schlussgang-22447",
+      "name": "Abendschwinget Baar 2023",
+      "datum": "2023-06-23",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Baar"
+    },
+    {
+      "id": "schlussgang-22437",
+      "name": "Nordostschweizer Schwingfest Mollis 2023",
+      "datum": "2023-06-25",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Mollis"
+    },
+    {
+      "id": "schlussgang-22440",
+      "name": "Berner Kantonalschwingfest Tramelan 2023",
+      "datum": "2023-06-25",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Tramelan"
+    },
+    {
+      "id": "schlussgang-22443",
+      "name": "Solothurner Kantonalschwingfest Obergösgen 2023",
+      "datum": "2023-06-25",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Obergösgen"
+    },
+    {
+      "id": "schlussgang-22427",
+      "name": "Innerschweizer Schwingfest Dagmersellen 2023",
+      "datum": "2023-07-02",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Dagmersellen"
+    },
+    {
+      "id": "schlussgang-22421",
+      "name": "Appenzeller Kantonalschwingfest Oberegg 2023",
+      "datum": "2023-07-09",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Oberegg"
+    },
+    {
+      "id": "schlussgang-22422",
+      "name": "Oberländisches Schwingfest Frutigen 2023",
+      "datum": "2023-07-09",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Frutigen"
+    },
+    {
+      "id": "schlussgang-22424",
+      "name": "Rigi-Schwinget 2023",
+      "datum": "2023-07-09",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Rigi Staffel"
+    },
+    {
+      "id": "schlussgang-22417",
+      "name": "Moos-Schwinget Schönenberg 2023",
+      "datum": "2023-07-15",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schönenberg"
+    },
+    {
+      "id": "schlussgang-22418",
+      "name": "Abendschwinget Fankhaus 2023",
+      "datum": "2023-07-15",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Fankhaus"
+    },
+    {
+      "id": "schlussgang-22416",
+      "name": "Südwestschweizer Schwingfest Romanel-sur-Lausanne 2023",
+      "datum": "2023-07-16",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Romanel-sur-Lausanne"
+    },
+    {
+      "id": "schlussgang-22415",
+      "name": "Weissenstein-Schwinget 2023",
+      "datum": "2023-07-22",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Weissenstein ob Solothurn"
+    },
+    {
+      "id": "schlussgang-22410",
+      "name": "Zugerberg-Schwinget 2023",
+      "datum": "2023-07-23",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Vordergeissboden, Zugerberg"
+    },
+    {
+      "id": "schlussgang-22413",
+      "name": "Ramslauenen-Schwinget Kiental 2023",
+      "datum": "2023-07-23",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Kiental"
+    },
+    {
+      "id": "schlussgang-22406",
+      "name": "Sertig-Schwinget Davos 2023",
+      "datum": "2023-07-30",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Davos Sertig"
+    },
+    {
+      "id": "schlussgang-22395",
+      "name": "Fricktaler Abendschwinget Wittnau 2023",
+      "datum": "2023-08-05",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Chilchmethof ob Wittnau"
+    },
+    {
+      "id": "schlussgang-22399",
+      "name": "Klewenalp-Schwinget 2023",
+      "datum": "2023-08-05",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Klewenalp"
+    },
+    {
+      "id": "schlussgang-22401",
+      "name": "Engstlenalp-Schwinget ob Innertkirchen 2023",
+      "datum": "2023-08-05",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Engstlenalp"
+    },
+    {
+      "id": "schlussgang-22390",
+      "name": "Urnerboden-Schwinget 2023",
+      "datum": "2023-08-06",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Urnerboden"
+    },
+    {
+      "id": "schlussgang-22391",
+      "name": "Bergschwinget Sörenberg 2023",
+      "datum": "2023-08-06",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sörenberg"
+    },
+    {
+      "id": "schlussgang-22394",
+      "name": "Ricken-Schwinget 2023",
+      "datum": "2023-08-06",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ricken"
+    },
+    {
+      "id": "schlussgang-22382",
+      "name": "Nordwestschweizer Schwingfest Deitingen 2023",
+      "datum": "2023-08-13",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Deitingen"
+    },
+    {
+      "id": "schlussgang-22380",
+      "name": "Frutt-Schwinget Melchsee-Frutt 2023",
+      "datum": "2023-08-15",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Melchsee-Frutt"
+    },
+    {
+      "id": "schlussgang-22373",
+      "name": "Schwägalp-Schwinget 2023",
+      "datum": "2023-08-20",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schwägalp AR"
+    },
+    {
+      "id": "schlussgang-22371",
+      "name": "Unspunnen-Schwinget Interlaken 2023",
+      "datum": "2023-08-27",
+      "typ": "eidgenoessisch",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Interlaken"
+    },
+    {
+      "id": "schlussgang-22365",
+      "name": "Kemmeriboden-Schwinget Schangnau 2023",
+      "datum": "2023-09-03",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Kemmeribodenbad"
+    },
+    {
+      "id": "schlussgang-22366",
+      "name": "Wolzenalp-Schwinget ob Krummenau 2023",
+      "datum": "2023-09-03",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Wolzenalp ob Krummenau"
+    },
+    {
+      "id": "schlussgang-22357",
+      "name": "Herbstschwinget Gelterkinden 2023",
+      "datum": "2023-09-09",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Gelterkinden"
+    },
+    {
+      "id": "schlussgang-22360",
+      "name": "Regionalschwingfest Péry 2023",
+      "datum": "2023-09-09",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Péry"
+    },
+    {
+      "id": "schlussgang-22351",
+      "name": "Lueg-Schwinget Kaltacker 2023",
+      "datum": "2023-09-10",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lueg Kaltacker"
+    },
+    {
+      "id": "schlussgang-22352",
+      "name": "Allweg-Schwinget Ennetmoos 2023",
+      "datum": "2023-09-10",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ennetmoos"
+    },
+    {
+      "id": "schlussgang-22354",
+      "name": "Homberg-Schwinget ob Reinach 2023",
+      "datum": "2023-09-10",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Reinach AG"
+    },
+    {
+      "id": "schlussgang-22346",
+      "name": "Hornberg-Schwinget Saanenmöser 2023",
+      "datum": "2023-09-17",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Saanenmöser"
+    },
+    {
+      "id": "schlussgang-22345",
+      "name": "Chemihütte-Schwinget Aeschiried 2023",
+      "datum": "2023-09-23",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Aeschiried"
+    },
+    {
+      "id": "schlussgang-22341",
+      "name": "Herbstschwinget Siebnen 2023",
+      "datum": "2023-09-24",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Siebnen"
+    },
+    {
+      "id": "schlussgang-22342",
+      "name": "Herbstschwinget Schachen 2023",
+      "datum": "2023-09-24",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schachen"
+    },
+    {
+      "id": "schlussgang-22338",
+      "name": "Herbstschwinget Unteriberg 2023",
+      "datum": "2023-10-01",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Unteriberg"
+    },
+    {
+      "id": "schlussgang-22333",
+      "name": "Niklaus-Schwinget Pratteln 2023",
+      "datum": "2023-12-02",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Pratteln"
+    },
+    {
+      "id": "schlussgang-22335",
+      "name": "Niklausschwinget Dietikon 2023",
+      "datum": "2023-12-02",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Stadthalle Dietikon"
+    },
+    {
+      "id": "schlussgang-36762",
+      "name": "Berchtold-Schwinget Zürich 2024",
+      "datum": "2024-01-02",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Zürich Saalsporthalle"
+    },
+    {
+      "id": "schlussgang-36966",
+      "name": "Lichtmess-Schwinget Gais 2024",
+      "datum": "2024-02-03",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Gais"
+    },
+    {
+      "id": "schlussgang-36984",
+      "name": "Hallenschwinget Kirchberg 2024",
+      "datum": "2024-02-10",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Kirchberg"
+    },
+    {
+      "id": "schlussgang-36075",
+      "name": "Hallenschwinget Untervaz 2024",
+      "datum": "2024-02-24",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Untervaz"
+    },
+    {
+      "id": "schlussgang-37045",
+      "name": "Hallenschwinget Büren an der Aare 2024",
+      "datum": "2024-02-24",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Büren a.A."
+    },
+    {
+      "id": "schlussgang-36991",
+      "name": "Hallenschwinget Niederurnen 2024",
+      "datum": "2024-02-25",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Niederurnen"
+    },
+    {
+      "id": "schlussgang-36065",
+      "name": "Hallenschwinget Sarnen 2024",
+      "datum": "2024-03-09",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Dreifach-Turnhalle Sarnen"
+    },
+    {
+      "id": "schlussgang-34203",
+      "name": "Hallenschwinget Corcelles 2024",
+      "datum": "2024-03-10",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Corcelles"
+    },
+    {
+      "id": "schlussgang-37094",
+      "name": "Hallenschwinget Oberdiessbach 2024",
+      "datum": "2024-03-10",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Reithalle Heimenschwand"
+    },
+    {
+      "id": "schlussgang-33019",
+      "name": "Abendschwinget Langenthal 2024",
+      "datum": "2024-03-23",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Markthalle Langenthal"
+    },
+    {
+      "id": "schlussgang-34664",
+      "name": "Worblentaler Hallenschwinget Bolligen 2024",
+      "datum": "2024-03-23",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Bolligen"
+    },
+    {
+      "id": "schlussgang-37090",
+      "name": "Rang-Hallenschwinget Engelberg 2024",
+      "datum": "2024-03-23",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Engelberg"
+    },
+    {
+      "id": "schlussgang-22326",
+      "name": "Hallenschwinget Lenzburg 2024",
+      "datum": "2024-03-24",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "MZH Lenzburg"
+    },
+    {
+      "id": "schlussgang-22327",
+      "name": "Jahresschwinget Thun 2024",
+      "datum": "2024-03-24",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sporthalle Lachen, Thun"
+    },
+    {
+      "id": "schlussgang-22329",
+      "name": "Rheintal-Oberländisches Trübbach 2024",
+      "datum": "2024-03-24",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Trübbach"
+    },
+    {
+      "id": "schlussgang-33017",
+      "name": "Rangschwinget Chavornay 2024",
+      "datum": "2024-03-24",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Chavornay"
+    },
+    {
+      "id": "schlussgang-22325",
+      "name": "Frühjahrsschwinget Pfäffikon 2024",
+      "datum": "2024-04-01",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Pfäffikon"
+    },
+    {
+      "id": "schlussgang-36805",
+      "name": "Frühjahrsschwinget Ibach 2024",
+      "datum": "2024-04-01",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ibach"
+    },
+    {
+      "id": "schlussgang-36810",
+      "name": "Schaffhauser Frühjahrsschwinget Hallau 2024",
+      "datum": "2024-04-01",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hallau - Wunderklingen"
+    },
+    {
+      "id": "schlussgang-37105",
+      "name": "Frühjahrsschwinget Zäziwil 2024",
+      "datum": "2024-04-01",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Zäziwil"
+    },
+    {
+      "id": "schlussgang-22324",
+      "name": "Gibel-Schwinget Bonstetten 2024",
+      "datum": "2024-04-07",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Bonstetten"
+    },
+    {
+      "id": "schlussgang-32798",
+      "name": "Hallenschwinget Thörigen 2024",
+      "datum": "2024-04-07",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Thörigen, Reithalle"
+    },
+    {
+      "id": "schlussgang-38255",
+      "name": "Frühjahrsschwinget Oberarth 2024",
+      "datum": "2024-04-07",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Oberarth"
+    },
+    {
+      "id": "schlussgang-37059",
+      "name": "Frühlingsschwinget Vinelz 2024",
+      "datum": "2024-04-13",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Vinelz"
+    },
+    {
+      "id": "schlussgang-37099",
+      "name": "Urner Rangschwinget Altdorf 2024",
+      "datum": "2024-04-13",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Altdorf"
+    },
+    {
+      "id": "schlussgang-22322",
+      "name": "Guggibad-Schwinget ob Buttwil 2024",
+      "datum": "2024-04-14",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Buttwil"
+    },
+    {
+      "id": "schlussgang-36151",
+      "name": "Thurgauer Frühjahrsschwinget Berg 2024",
+      "datum": "2024-04-14",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Berg TG"
+    },
+    {
+      "id": "schlussgang-36960",
+      "name": "Muotathaler-Schwinget Muotathal 2024",
+      "datum": "2024-04-14",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Muotathal"
+    },
+    {
+      "id": "schlussgang-37050",
+      "name": "Rapperswiler Verbandsschwingertag Amden 2024",
+      "datum": "2024-04-14",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Amden"
+    },
+    {
+      "id": "schlussgang-22318",
+      "name": "Bündner Frühjahresschwinget Trimmis 2024",
+      "datum": "2024-04-21",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Trimmis"
+    },
+    {
+      "id": "schlussgang-22319",
+      "name": "Toggenburger Verbandsfest Necker 2024",
+      "datum": "2024-04-21",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Necker"
+    },
+    {
+      "id": "schlussgang-32684",
+      "name": "Regionalschwingfest Ried bei Kerzers 2024",
+      "datum": "2024-04-21",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ried bei Kerzers"
+    },
+    {
+      "id": "schlussgang-36998",
+      "name": "Rangschwinget Grenchen 2024",
+      "datum": "2024-04-21",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Grenchen"
+    },
+    {
+      "id": "schlussgang-37108",
+      "name": "Abendschwinget Küssnacht 2024",
+      "datum": "2024-04-26",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Küssnacht"
+    },
+    {
+      "id": "schlussgang-32850",
+      "name": "Frühjahrsschwinget Sissach 2024",
+      "datum": "2024-04-27",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sissach"
+    },
+    {
+      "id": "schlussgang-36884",
+      "name": "Abendschwinget Frutigen 2024",
+      "datum": "2024-04-27",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Frutigen"
+    },
+    {
+      "id": "schlussgang-22312",
+      "name": "Seetaler Schwinget Hochdorf 2024",
+      "datum": "2024-04-28",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hochdorf"
+    },
+    {
+      "id": "schlussgang-22313",
+      "name": "Eschenberg-Schwinget Winterthur 2024",
+      "datum": "2024-04-28",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Winterthur"
+    },
+    {
+      "id": "schlussgang-22314",
+      "name": "Regionalschwingfest Courtepin 2024",
+      "datum": "2024-04-28",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Courtepin"
+    },
+    {
+      "id": "schlussgang-33929",
+      "name": "Wislisau-Schwinget Rüschegg 2024",
+      "datum": "2024-04-28",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Rüschegg-Gambach"
+    },
+    {
+      "id": "schlussgang-34933",
+      "name": "Frühjahrschwinget Suhr 2024",
+      "datum": "2024-04-28",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schulareal Dorf Suhr"
+    },
+    {
+      "id": "schlussgang-22308",
+      "name": "Roteborger Schwinget Rothenburg 2024",
+      "datum": "2024-05-04",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Rothenburg"
+    },
+    {
+      "id": "schlussgang-22303",
+      "name": "Thurgauer Kantonalschwingfest Ermatingen 2024",
+      "datum": "2024-05-05",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ermatingen"
+    },
+    {
+      "id": "schlussgang-22304",
+      "name": "Freiburger Kantonalschwingfest Frasses 2024",
+      "datum": "2024-05-05",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Frasses"
+    },
+    {
+      "id": "schlussgang-22306",
+      "name": "Solothurner Kantonalschwingfest Kestenholz 2024",
+      "datum": "2024-05-05",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Kestenholz"
+    },
+    {
+      "id": "schlussgang-22307",
+      "name": "Zuger Kantonalschwingfest Cham 2024",
+      "datum": "2024-05-05",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Cham"
+    },
+    {
+      "id": "schlussgang-36814",
+      "name": "Baselstädtisches Schwingfest Basel 2024",
+      "datum": "2024-05-09",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Basel"
+    },
+    {
+      "id": "schlussgang-32487",
+      "name": "St. Galler Abendschwinget Mörschwil 2024",
+      "datum": "2024-05-11",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Mörschwil"
+    },
+    {
+      "id": "schlussgang-22297",
+      "name": "Schwyzer Kantonalschwingfest Galgenen 2024",
+      "datum": "2024-05-12",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Galgenen"
+    },
+    {
+      "id": "schlussgang-22298",
+      "name": "Mittelländisches Schwingfest Riggisberg 2024",
+      "datum": "2024-05-12",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Riggisberg"
+    },
+    {
+      "id": "schlussgang-22292",
+      "name": "Rottal-Schwinget Ruswil 2024",
+      "datum": "2024-05-18",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ruswil"
+    },
+    {
+      "id": "schlussgang-22293",
+      "name": "Neuenburger Kantonalschwingfest Dombresson 2024",
+      "datum": "2024-05-18",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Dombresson"
+    },
+    {
+      "id": "schlussgang-22294",
+      "name": "Ob- und Nidwaldner Kantonalschwingfest Lungern 2024",
+      "datum": "2024-05-18",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lungern"
+    },
+    {
+      "id": "schlussgang-32837",
+      "name": "Morgarten-Schwinget 2024",
+      "datum": "2024-05-18",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Morgarten"
+    },
+    {
+      "id": "schlussgang-22288",
+      "name": "Unterland-Schwinget Hochfelden 2024",
+      "datum": "2024-05-20",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hochfelden"
+    },
+    {
+      "id": "schlussgang-22291",
+      "name": "Glarner-Bündner Schwingertag Glarus 2024",
+      "datum": "2024-05-20",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Glarus"
+    },
+    {
+      "id": "schlussgang-36540",
+      "name": "Schwingertag Laupen 2024",
+      "datum": "2024-05-20",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Laupen"
+    },
+    {
+      "id": "schlussgang-37005",
+      "name": "Brugger Schachen-Schwinget 2024",
+      "datum": "2024-05-20",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Brugg"
+    },
+    {
+      "id": "schlussgang-37130",
+      "name": "Klubschwinget Schwingklub Interlaken Matten 2024",
+      "datum": "2024-05-20",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Matten"
+    },
+    {
+      "id": "schlussgang-22287",
+      "name": "Oberländisches Schwingfest Brienz 2024",
+      "datum": "2024-05-25",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Brienz"
+    },
+    {
+      "id": "schlussgang-22284",
+      "name": "Schwarzenberg-Schwinget 2024",
+      "datum": "2024-05-26",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schwarzenberg"
+    },
+    {
+      "id": "schlussgang-23094",
+      "name": "St. Galler Kantonalschwingfest Werdenberg-Grabs 2024",
+      "datum": "2024-05-26",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Werdenberg-Grabs"
+    },
+    {
+      "id": "schlussgang-33910",
+      "name": "Urner Kantonalschwingfest Attinghausen 2024",
+      "datum": "2024-05-26",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Attinghausen"
+    },
+    {
+      "id": "schlussgang-22279",
+      "name": "Jurassisches Kantonalschwingfest Alle 2024",
+      "datum": "2024-06-01",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Alle"
+    },
+    {
+      "id": "schlussgang-22281",
+      "name": "Herisauer Obedschwinget 2024",
+      "datum": "2024-06-01",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Herisau"
+    },
+    {
+      "id": "schlussgang-22274",
+      "name": "Luzerner Kantonalschwingfest Hasle 2024",
+      "datum": "2024-06-02",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hasle"
+    },
+    {
+      "id": "schlussgang-22275",
+      "name": "Zürcher Kantonalschwingfest Horgen 2024",
+      "datum": "2024-06-02",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Horgen"
+    },
+    {
+      "id": "schlussgang-22276",
+      "name": "Aargauer Kantonalschwingfest Bad Zurzach 2024",
+      "datum": "2024-06-02",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Bad Zurzach"
+    },
+    {
+      "id": "schlussgang-22272",
+      "name": "Stoos-Schwinget 2024",
+      "datum": "2024-06-09",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Stoos SZ"
+    },
+    {
+      "id": "schlussgang-36537",
+      "name": "Regionalschwingfest Cottens 2024",
+      "datum": "2024-06-09",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Cottens"
+    },
+    {
+      "id": "schlussgang-33302",
+      "name": "Bündner-Glarner Schwingertag Davos 2024",
+      "datum": "2024-06-15",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Davos"
+    },
+    {
+      "id": "schlussgang-22267",
+      "name": "Michaelskreuz-Schwinget ob Root 2024",
+      "datum": "2024-06-16",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Michaelskreuz ob Root"
+    },
+    {
+      "id": "schlussgang-22268",
+      "name": "Seeländisches Schwingfest Täuffelen 2024",
+      "datum": "2024-06-16",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Täuffelen"
+    },
+    {
+      "id": "schlussgang-22263",
+      "name": "Schwarzsee-Schwinget 2024",
+      "datum": "2024-06-23",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lac Noir / Schwarzsee"
+    },
+    {
+      "id": "schlussgang-35887",
+      "name": "Munimatt-Schwinget Obergösgen 2024",
+      "datum": "2024-06-23",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Obergösgen"
+    },
+    {
+      "id": "schlussgang-36536",
+      "name": "Abendschwinget Baar 2024",
+      "datum": "2024-06-28",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Baar"
+    },
+    {
+      "id": "schlussgang-22258",
+      "name": "Fricktaler Abendschwinget Schupfart 2024",
+      "datum": "2024-06-29",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schupfart"
+    },
+    {
+      "id": "schlussgang-22259",
+      "name": "Waadtländer Kantonalschwingfest Palézieux 2024",
+      "datum": "2024-06-29",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Palézieux"
+    },
+    {
+      "id": "schlussgang-22254",
+      "name": "Nordostschweizer Schwingfest Meilen 2024",
+      "datum": "2024-06-30",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Meilen"
+    },
+    {
+      "id": "schlussgang-22257",
+      "name": "Bern-Jurassisches Schwingfest Raimeux 2024",
+      "datum": "2024-06-30",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Raimeux"
+    },
+    {
+      "id": "schlussgang-22248",
+      "name": "Innerschweizer Schwingfest Menzingen 2024",
+      "datum": "2024-07-07",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Menzingen ZG"
+    },
+    {
+      "id": "schlussgang-22250",
+      "name": "Appenzeller Kantonalschwingfest Hundwil 2024",
+      "datum": "2024-07-07",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hundwil"
+    },
+    {
+      "id": "schlussgang-33723",
+      "name": "Thurgauer Sommerschwinget Hochwacht ob Sirnach 2024",
+      "datum": "2024-07-13",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hochwacht ob Sirnach"
+    },
+    {
+      "id": "schlussgang-22245",
+      "name": "Südwestschweizer Schwingfest Riaz 2024",
+      "datum": "2024-07-14",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Riaz"
+    },
+    {
+      "id": "schlussgang-22246",
+      "name": "Rigi-Schwinget 2024",
+      "datum": "2024-07-14",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Rigi Staffel"
+    },
+    {
+      "id": "schlussgang-37040",
+      "name": "Engstligenalp-Schwinget 2024",
+      "datum": "2024-07-14",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Adelboden"
+    },
+    {
+      "id": "schlussgang-22242",
+      "name": "Weissenstein-Schwinget 2024",
+      "datum": "2024-07-20",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Weissenstein ob Solothurn"
+    },
+    {
+      "id": "schlussgang-35684",
+      "name": "Engstlenalp-Schwinget ob Innertkirchen 2024",
+      "datum": "2024-07-20",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Engstlenalp"
+    },
+    {
+      "id": "schlussgang-35695",
+      "name": "Abendschwinget Fankhaus 2024",
+      "datum": "2024-07-20",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Fankhaus"
+    },
+    {
+      "id": "schlussgang-22240",
+      "name": "Walliser Kantonalschwingfest Haudères 2024",
+      "datum": "2024-07-21",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Haudères"
+    },
+    {
+      "id": "schlussgang-22241",
+      "name": "Menzberg-Schwinget 2024",
+      "datum": "2024-07-21",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Menzberg"
+    },
+    {
+      "id": "schlussgang-35870",
+      "name": "Zugerberg-Schwinget 2024",
+      "datum": "2024-07-21",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Vordergeissboden - Zugerberg"
+    },
+    {
+      "id": "schlussgang-37052",
+      "name": "Scheidegg-Schwinget ob Grindelwald 2024",
+      "datum": "2024-07-27",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Grindelwald"
+    },
+    {
+      "id": "schlussgang-22237",
+      "name": "Brünig-Schwinget 2024",
+      "datum": "2024-07-28",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Brünig Passhöhe"
+    },
+    {
+      "id": "schlussgang-36534",
+      "name": "Regionalschwingfest Lac-des-Joncs 2024",
+      "datum": "2024-07-28",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Les Paccots"
+    },
+    {
+      "id": "schlussgang-22236",
+      "name": "Oberaargauisches Schwingfest Burgdorf 2024",
+      "datum": "2024-08-01",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Burgdorf"
+    },
+    {
+      "id": "schlussgang-34412",
+      "name": "Emmentalisches Schwingfest Burgdorf 2024",
+      "datum": "2024-08-03",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Burgdorf"
+    },
+    {
+      "id": "schlussgang-37121",
+      "name": "Jubiläumsschwingfest Hergiswil NW 2024",
+      "datum": "2024-08-03",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hergiswil NW"
+    },
+    {
+      "id": "schlussgang-22234",
+      "name": "Bergschwinget Sörenberg 2024",
+      "datum": "2024-08-04",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sörenberg"
+    },
+    {
+      "id": "schlussgang-22261",
+      "name": "Niklaus-Thut-Schwinget Zofingen 2024",
+      "datum": "2024-08-04",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Zofingen"
+    },
+    {
+      "id": "schlussgang-36888",
+      "name": "Nichtkranzer-Schwinget Boveresse 2024",
+      "datum": "2024-08-04",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Boveresse"
+    },
+    {
+      "id": "schlussgang-37034",
+      "name": "Urnerboden-Schwinget 2024",
+      "datum": "2024-08-04",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Urnerboden"
+    },
+    {
+      "id": "schlussgang-37049",
+      "name": "Ricken-Schwinget 2024",
+      "datum": "2024-08-04",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ricken"
+    },
+    {
+      "id": "schlussgang-22232",
+      "name": "Steinegg-Schwinget Himmelried 2024",
+      "datum": "2024-08-11",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Himmelried"
+    },
+    {
+      "id": "schlussgang-22233",
+      "name": "Berner Kantonalschwingfest Burgdorf 2024",
+      "datum": "2024-08-11",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Burgdorf"
+    },
+    {
+      "id": "schlussgang-36808",
+      "name": "Schaffhauser Kantonalschwingfest Stetten 2024",
+      "datum": "2024-08-11",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Stetten"
+    },
+    {
+      "id": "schlussgang-36916",
+      "name": "Lüderen-Schwinget ob Langnau 2024",
+      "datum": "2024-08-11",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lüderen"
+    },
+    {
+      "id": "schlussgang-37133",
+      "name": "Frutt-Schwinget Melchsee-Frutt 2024",
+      "datum": "2024-08-15",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Melchsee-Frutt"
+    },
+    {
+      "id": "schlussgang-37055",
+      "name": "1. Abendschwinget Cham Hagendorn 2024",
+      "datum": "2024-08-16",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schulanlage Hagendorn"
+    },
+    {
+      "id": "schlussgang-36345",
+      "name": "Basellandschaftliches Kantonalschwingfest Pratteln 2024",
+      "datum": "2024-08-17",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Pratteln"
+    },
+    {
+      "id": "schlussgang-37147",
+      "name": "Regionalschwingfest Stalden VS 2024",
+      "datum": "2024-08-17",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Stalden"
+    },
+    {
+      "id": "schlussgang-22229",
+      "name": "Schwägalp-Schwinget 2024",
+      "datum": "2024-08-18",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schwägalp AR"
+    },
+    {
+      "id": "schlussgang-36532",
+      "name": "Regionalschwingfest Yens 2024",
+      "datum": "2024-09-01",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Yens"
+    },
+    {
+      "id": "schlussgang-36905",
+      "name": "Allweg-Schwinget Ennetmoos 2024",
+      "datum": "2024-09-01",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ennetmoos"
+    },
+    {
+      "id": "schlussgang-37113",
+      "name": "Kemmeriboden-Schwinget Schangnau 2024",
+      "datum": "2024-09-01",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Kemmeriboden"
+    },
+    {
+      "id": "schlussgang-22224",
+      "name": "Jubiläumsschwingfest 125 Jahre ESV Appenzell 2024",
+      "datum": "2024-09-08",
+      "typ": "eidgenoessisch",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Appenzell"
+    },
+    {
+      "id": "schlussgang-36963",
+      "name": "Herbstschwinget Mümliswil 2024",
+      "datum": "2024-09-14",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Mümliswil"
+    },
+    {
+      "id": "schlussgang-37111",
+      "name": "Toggenburger Herbstschwinget Niederwil 2024",
+      "datum": "2024-09-14",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Niederwil"
+    },
+    {
+      "id": "schlussgang-37004",
+      "name": "Hornberg-Schwinget Saanenmöser 2024",
+      "datum": "2024-09-15",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Saanenmöser"
+    },
+    {
+      "id": "schlussgang-37102",
+      "name": "Homberg-Schwinget ob Reinach 2024",
+      "datum": "2024-09-15",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Reinach AG"
+    },
+    {
+      "id": "schlussgang-22222",
+      "name": "Herbstschwinget Siebnen 2024",
+      "datum": "2024-09-22",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Siebnen"
+    },
+    {
+      "id": "schlussgang-22223",
+      "name": "Herbstschwinget Schachen 2024",
+      "datum": "2024-09-22",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schachen"
+    },
+    {
+      "id": "schlussgang-37126",
+      "name": "Chemihütte-Schwinget Aeschiried 2024",
+      "datum": "2024-09-22",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Aeschiried"
+    },
+    {
+      "id": "schlussgang-37020",
+      "name": "Herbstschwinget Unteriberg 2024",
+      "datum": "2024-09-29",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Unteriberg"
+    },
+    {
+      "id": "schlussgang-33258",
+      "name": "Olma-Schwinget St. Gallen 2024",
+      "datum": "2024-10-20",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "St. Gallen"
+    },
+    {
+      "id": "schlussgang-32792",
+      "name": "Niklausschwinget Dietikon 2024",
+      "datum": "2024-11-30",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Dietikon"
+    },
+    {
+      "id": "schlussgang-37145",
+      "name": "Niklaus-Schwinget Pratteln 2024",
+      "datum": "2024-12-07",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Pratteln"
+    },
+    {
+      "id": "schlussgang-43884",
+      "name": "Berchtold-Schwinget Zürich 2025",
+      "datum": "2025-01-02",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Zürich Saalsporthalle"
+    },
+    {
+      "id": "schlussgang-45616",
+      "name": "Lichtmess-Schwinget Gais 2025",
+      "datum": "2025-02-01",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Gais"
+    },
+    {
+      "id": "schlussgang-45965",
+      "name": "Hallenschwinget Kirchberg 2025",
+      "datum": "2025-02-08",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Kirchberg"
+    },
+    {
+      "id": "schlussgang-45906",
+      "name": "Hallenschwinget Niederurnen 2025",
+      "datum": "2025-02-16",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Niederurnen"
+    },
+    {
+      "id": "schlussgang-42039",
+      "name": "Hallenschwinget Untervaz 2025",
+      "datum": "2025-02-22",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Untervaz"
+    },
+    {
+      "id": "schlussgang-45904",
+      "name": "Hallenschwinget Büren an der Aare 2025",
+      "datum": "2025-02-22",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Büren a.A."
+    },
+    {
+      "id": "schlussgang-46044",
+      "name": "Hallenschwinget Sarnen 2025",
+      "datum": "2025-03-08",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Dreifach-Turnhalle Sarnen"
+    },
+    {
+      "id": "schlussgang-40007",
+      "name": "Hallenschwinget Oberdiessbach 2025",
+      "datum": "2025-03-09",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Reithalle Heimenschwand"
+    },
+    {
+      "id": "schlussgang-41244",
+      "name": "Abendschwinget Langenthal 2025",
+      "datum": "2025-03-22",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Markthalle Langenthal"
+    },
+    {
+      "id": "schlussgang-22218",
+      "name": "Jahresschwinget Thun 2025",
+      "datum": "2025-03-23",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sporthalle Lachen, Thun"
+    },
+    {
+      "id": "schlussgang-44995",
+      "name": "Frühjahrsschwinget Oberarth 2025",
+      "datum": "2025-03-23",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Oberarth"
+    },
+    {
+      "id": "schlussgang-36990",
+      "name": "Rheintal-Oberländisches Kriessern 2025",
+      "datum": "2025-03-29",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Kriessern"
+    },
+    {
+      "id": "schlussgang-46030",
+      "name": "Rang-Hallenschwinget Engelberg 2025",
+      "datum": "2025-03-29",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Engelberg"
+    },
+    {
+      "id": "schlussgang-46485",
+      "name": "Frühjahrsschwinget Bellach 2025",
+      "datum": "2025-03-29",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Bellach"
+    },
+    {
+      "id": "schlussgang-40246",
+      "name": "Rangschwinget Chavornay 2025",
+      "datum": "2025-03-30",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Chavornay"
+    },
+    {
+      "id": "schlussgang-22217",
+      "name": "Surentaler Frühjahrsschwinget Sursee 2025",
+      "datum": "2025-04-05",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sursee"
+    },
+    {
+      "id": "schlussgang-42565",
+      "name": "Rapperswiler Verbandsschwingertag Goldingen 2025",
+      "datum": "2025-04-06",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Goldingen"
+    },
+    {
+      "id": "schlussgang-45169",
+      "name": "Gibel-Schwinget Bonstetten 2025",
+      "datum": "2025-04-06",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Bonstetten"
+    },
+    {
+      "id": "schlussgang-45245",
+      "name": "Muotathaler-Schwinget Muotathal 2025",
+      "datum": "2025-04-06",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Muotathal"
+    },
+    {
+      "id": "schlussgang-37546",
+      "name": "Worblentaler Hallenschwinget Bolligen 2025",
+      "datum": "2025-04-12",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Bolligen"
+    },
+    {
+      "id": "schlussgang-22213",
+      "name": "Bad-Schwinget Wolhusen 2025",
+      "datum": "2025-04-13",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Wolhusen"
+    },
+    {
+      "id": "schlussgang-22214",
+      "name": "Bündner Frühjahresschwinget Cazis 2025",
+      "datum": "2025-04-13",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Cazis"
+    },
+    {
+      "id": "schlussgang-37511",
+      "name": "Guggibad-Schwinget ob Buttwil 2025",
+      "datum": "2025-04-13",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Guggibad, Buttwil"
+    },
+    {
+      "id": "schlussgang-40244",
+      "name": "Regionalschwingfest Ried bei Kerzers 2025",
+      "datum": "2025-04-13",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ried bei Kerzers"
+    },
+    {
+      "id": "schlussgang-46046",
+      "name": "Thurgauer Frühjahrsschwinget Arbon 2025",
+      "datum": "2025-04-13",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Arbon"
+    },
+    {
+      "id": "schlussgang-43675",
+      "name": "Ballenberg-Schwinget Hofstetten bei Brienz 2025",
+      "datum": "2025-04-19",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Freilichtmuseum Ballenberg, Hofstetten b. Brienz"
+    },
+    {
+      "id": "schlussgang-42371",
+      "name": "Frühjahrsschwinget Ibach 2025",
+      "datum": "2025-04-21",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ibach"
+    },
+    {
+      "id": "schlussgang-45231",
+      "name": "Schaffhauser Frühjahrsschwinget Hallau 2025",
+      "datum": "2025-04-21",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Wunderklingen - Hallau"
+    },
+    {
+      "id": "schlussgang-45790",
+      "name": "Frühjahrsschwinget Pfäffikon 2025",
+      "datum": "2025-04-21",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Pfäffikon"
+    },
+    {
+      "id": "schlussgang-46058",
+      "name": "Frühjahrsschwinget Zäziwil 2025",
+      "datum": "2025-04-21",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Zäziwil"
+    },
+    {
+      "id": "schlussgang-45962",
+      "name": "Abendschwinget Küssnacht 2025",
+      "datum": "2025-04-26",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Küssnacht"
+    },
+    {
+      "id": "schlussgang-22210",
+      "name": "Seetaler Schwinget Hochdorf 2025",
+      "datum": "2025-04-27",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hochdorf"
+    },
+    {
+      "id": "schlussgang-37110",
+      "name": "Toggenburger Verbandsfest Bazenheid 2025",
+      "datum": "2025-04-27",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Bazenheid"
+    },
+    {
+      "id": "schlussgang-40238",
+      "name": "Eschenberg-Schwinget Winterthur 2025",
+      "datum": "2025-04-27",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Eschenberg ob Winterthur"
+    },
+    {
+      "id": "schlussgang-40239",
+      "name": "Regionalschwingfest Givisiez 2025",
+      "datum": "2025-04-27",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Givisiez"
+    },
+    {
+      "id": "schlussgang-44099",
+      "name": "Nichtkranzer-Schwinget Hergiswil 2025",
+      "datum": "2025-04-27",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hergiswil"
+    },
+    {
+      "id": "schlussgang-45980",
+      "name": "Wislisau-Schwinget Rüschegg 2025",
+      "datum": "2025-04-27",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Rüschegg-Gambach"
+    },
+    {
+      "id": "schlussgang-21100",
+      "name": "Frühjahrsschwinget Oberdorf 2025",
+      "datum": "2025-05-01",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Oberdorf"
+    },
+    {
+      "id": "schlussgang-44800",
+      "name": "Frühlingsschwinget Vinelz 2025",
+      "datum": "2025-05-03",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Vinelz"
+    },
+    {
+      "id": "schlussgang-37117",
+      "name": "Zuger Kantonalschwingfest Neuheim 2025",
+      "datum": "2025-05-04",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Neuheim"
+    },
+    {
+      "id": "schlussgang-37164",
+      "name": "Thurgauer Kantonalschwingfest Thundorf 2025",
+      "datum": "2025-05-04",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Thundorf"
+    },
+    {
+      "id": "schlussgang-37810",
+      "name": "Regionalschwingfest Estavayer-le-Lac Montmagny 2025",
+      "datum": "2025-05-04",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Montmagny VD"
+    },
+    {
+      "id": "schlussgang-38038",
+      "name": "Solothurner Kantonalschwingfest Grenchen 2025",
+      "datum": "2025-05-04",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Grenchen"
+    },
+    {
+      "id": "schlussgang-38070",
+      "name": "Schwinget im Zurzibiet Lengnau 2025",
+      "datum": "2025-05-10",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lengnau AG"
+    },
+    {
+      "id": "schlussgang-42293",
+      "name": "Genfer Kantonalschwingfest Collex-Bossy 2025",
+      "datum": "2025-05-10",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Collex-Bossy"
+    },
+    {
+      "id": "schlussgang-37582",
+      "name": "Schwyzer Kantonalschwingfest Einsiedeln 2025",
+      "datum": "2025-05-11",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Einsiedeln"
+    },
+    {
+      "id": "schlussgang-32480",
+      "name": "Zürcher Kantonalschwingfest Urdorf 2025",
+      "datum": "2025-05-17",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Urdorf"
+    },
+    {
+      "id": "schlussgang-21098",
+      "name": "Roteborger-Schwinget Rothenburg 2025",
+      "datum": "2025-05-18",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Rothenburg"
+    },
+    {
+      "id": "schlussgang-45947",
+      "name": "Regionalschwingfest Cottens 2025",
+      "datum": "2025-05-18",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Cottens"
+    },
+    {
+      "id": "schlussgang-45153",
+      "name": "Regionalschwingfest Brig 2025",
+      "datum": "2025-05-24",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Brig"
+    },
+    {
+      "id": "schlussgang-21095",
+      "name": "Luzerner Kantonalschwingfest Root 2025",
+      "datum": "2025-05-25",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Root"
+    },
+    {
+      "id": "schlussgang-37157",
+      "name": "St. Galler Kantonalschwingfest Unterwasser 2025",
+      "datum": "2025-05-25",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Unterwasser"
+    },
+    {
+      "id": "schlussgang-38067",
+      "name": "Frühjahrsschwinget Suhr 2025",
+      "datum": "2025-05-25",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Suhr"
+    },
+    {
+      "id": "schlussgang-21094",
+      "name": "Schybi-Schwinget Escholzmatt 2025",
+      "datum": "2025-05-29",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Escholzmatt"
+    },
+    {
+      "id": "schlussgang-40626",
+      "name": "Pfannenstiel-Schwinget Meilen 2025",
+      "datum": "2025-05-29",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Meilen"
+    },
+    {
+      "id": "schlussgang-45249",
+      "name": "Baselstädtisches Schwingfest Basel 2025",
+      "datum": "2025-05-29",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sandgrube Basel"
+    },
+    {
+      "id": "schlussgang-45944",
+      "name": "Regionalschwingfest Le Mouret 2025",
+      "datum": "2025-05-29",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Le Mouret"
+    },
+    {
+      "id": "schlussgang-21091",
+      "name": "Mittelländisches Schwingfest Uetendorf 2025",
+      "datum": "2025-05-31",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Uetendorf"
+    },
+    {
+      "id": "schlussgang-21088",
+      "name": "Basellandschaftliches Kantonalschwingfest Zeglingen 2025",
+      "datum": "2025-06-01",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Zeglingen"
+    },
+    {
+      "id": "schlussgang-37143",
+      "name": "Neuenburger Kantonalschwingfest La Vue des Alpes 2025",
+      "datum": "2025-06-01",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "La Vue-des-Alpes"
+    },
+    {
+      "id": "schlussgang-45946",
+      "name": "Ob- und Nidwaldner Kantonalschwingfest Sachseln 2025",
+      "datum": "2025-06-01",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sachseln"
+    },
+    {
+      "id": "schlussgang-21084",
+      "name": "Rottal-Schwinget Ruswil 2025",
+      "datum": "2025-06-07",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ruswil"
+    },
+    {
+      "id": "schlussgang-21086",
+      "name": "Oberaargauisches Schwingfest Inkwil 2025",
+      "datum": "2025-06-07",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Inkwil"
+    },
+    {
+      "id": "schlussgang-38144",
+      "name": "Herisauer Obedschwinget 2025",
+      "datum": "2025-06-07",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Herisau"
+    },
+    {
+      "id": "schlussgang-45606",
+      "name": "Morgarten-Schwinget 2025",
+      "datum": "2025-06-07",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Denkmal Morgarten"
+    },
+    {
+      "id": "schlussgang-21080",
+      "name": "Unterland-Schwinget Hochfelden 2025",
+      "datum": "2025-06-09",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hochfelden"
+    },
+    {
+      "id": "schlussgang-21082",
+      "name": "Glarner-Bündner Schwingertag Ziegelbrücke 2025",
+      "datum": "2025-06-09",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ziegelbrücke GL"
+    },
+    {
+      "id": "schlussgang-21085",
+      "name": "Stoos-Schwinget 2025",
+      "datum": "2025-06-09",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Stoos SZ"
+    },
+    {
+      "id": "schlussgang-43371",
+      "name": "Baldegg-Schwinget Baden 2025",
+      "datum": "2025-06-09",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Baldegg ob Baden"
+    },
+    {
+      "id": "schlussgang-45929",
+      "name": "Hülftenschanz-Schwinget Frenkendorf 2025",
+      "datum": "2025-06-09",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Frenkendorf"
+    },
+    {
+      "id": "schlussgang-46056",
+      "name": "Schwingertag Laupen 2025",
+      "datum": "2025-06-09",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Laupen"
+    },
+    {
+      "id": "schlussgang-46093",
+      "name": "Klubschwinget Schwingklub Interlaken Matten 2025",
+      "datum": "2025-06-09",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Matten"
+    },
+    {
+      "id": "schlussgang-45898",
+      "name": "Abendschwinget Sumiswald 2025",
+      "datum": "2025-06-13",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sumiswald"
+    },
+    {
+      "id": "schlussgang-21078",
+      "name": "Bündner-Glarner Schwingertag Domat/Ems 2025",
+      "datum": "2025-06-15",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Domat/Ems"
+    },
+    {
+      "id": "schlussgang-23307",
+      "name": "Bern-Jurassisches Schwingfest Nods 2025",
+      "datum": "2025-06-15",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Nods"
+    },
+    {
+      "id": "schlussgang-46029",
+      "name": "Urner Kantonalschwingfest Andermatt 2025",
+      "datum": "2025-06-15",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Andermatt"
+    },
+    {
+      "id": "schlussgang-21077",
+      "name": "Schwarzenberg-Schwinget 2025",
+      "datum": "2025-06-19",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schwarzenberg"
+    },
+    {
+      "id": "schlussgang-45971",
+      "name": "Abendschwinget Lungern 2025",
+      "datum": "2025-06-21",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lungern"
+    },
+    {
+      "id": "schlussgang-46026",
+      "name": "Rätikon-Schwinget St. Antönien 2025",
+      "datum": "2025-06-21",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "St. Antönien"
+    },
+    {
+      "id": "schlussgang-21072",
+      "name": "Aargauer Kantonalschwingfest Menziken 2025",
+      "datum": "2025-06-22",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Menziken"
+    },
+    {
+      "id": "schlussgang-21074",
+      "name": "Schwarzsee-Schwinget 2025",
+      "datum": "2025-06-22",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lac Noir / Schwarzsee"
+    },
+    {
+      "id": "schlussgang-45892",
+      "name": "Abendschwinget Baar 2025",
+      "datum": "2025-06-27",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Baar"
+    },
+    {
+      "id": "schlussgang-34201",
+      "name": "Walliser Kantonalschwingfest Leukerbad 2025",
+      "datum": "2025-06-28",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Leukerbad"
+    },
+    {
+      "id": "schlussgang-37783",
+      "name": "Fricktaler Abendschwinget Möhlin 2025",
+      "datum": "2025-06-28",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Möhlin"
+    },
+    {
+      "id": "schlussgang-21071",
+      "name": "Nordostschweizer Schwingfest St. Gallen 2025",
+      "datum": "2025-06-29",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "St.Gallen"
+    },
+    {
+      "id": "schlussgang-34433",
+      "name": "Oberländisches Schwingfest Adelboden 2025",
+      "datum": "2025-06-29",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Adelboden"
+    },
+    {
+      "id": "schlussgang-37163",
+      "name": "Waadtländer Kantonalschwingfest Gilly 2025",
+      "datum": "2025-07-05",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Gilly"
+    },
+    {
+      "id": "schlussgang-46060",
+      "name": "Gonzen-Schwinget Trübbach 2025",
+      "datum": "2025-07-05",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Trübbach"
+    },
+    {
+      "id": "schlussgang-21069",
+      "name": "Emmentalisches Schwingfest Langnau im Emmental 2025",
+      "datum": "2025-07-06",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Langnau i.E"
+    },
+    {
+      "id": "schlussgang-32657",
+      "name": "Innerschweizer Schwingfest Seedorf 2025",
+      "datum": "2025-07-06",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Seedorf"
+    },
+    {
+      "id": "schlussgang-45160",
+      "name": "Thurgauer Sommerschwinget Stelzenhof ob Weinfelden 2025",
+      "datum": "2025-07-06",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Stelzenhof ob Weinfelden"
+    },
+    {
+      "id": "schlussgang-45241",
+      "name": "Munimatt-Schwinget Obergösgen 2025",
+      "datum": "2025-07-06",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Obergösgen"
+    },
+    {
+      "id": "schlussgang-21066",
+      "name": "Berner Kantonalschwingfest Langnau im Emmental 2025",
+      "datum": "2025-07-13",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Langnau i.E"
+    },
+    {
+      "id": "schlussgang-21067",
+      "name": "Südwestschweizer Schwingfest Neuenburg 2025",
+      "datum": "2025-07-13",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Neuchâtel"
+    },
+    {
+      "id": "schlussgang-35143",
+      "name": "Appenzeller Kantonalschwingfest Gais 2025",
+      "datum": "2025-07-13",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Gais"
+    },
+    {
+      "id": "schlussgang-21065",
+      "name": "Weissenstein-Schwinget 2025",
+      "datum": "2025-07-19",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Weissenstein ob Solothurn"
+    },
+    {
+      "id": "schlussgang-43664",
+      "name": "Moos-Schwinget Schönenberg 2025",
+      "datum": "2025-07-19",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schönenberg"
+    },
+    {
+      "id": "schlussgang-21064",
+      "name": "Menzberg-Schwinget 2025",
+      "datum": "2025-07-20",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Menzberg"
+    },
+    {
+      "id": "schlussgang-36355",
+      "name": "Ramslauenen-Schwinget Kiental 2025",
+      "datum": "2025-07-20",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Kiental"
+    },
+    {
+      "id": "schlussgang-44367",
+      "name": "Zugerberg-Schwinget 2025",
+      "datum": "2025-07-20",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Vordergeissboden - Zugerberg"
+    },
+    {
+      "id": "schlussgang-21061",
+      "name": "Brünig-Schwinget 2025",
+      "datum": "2025-07-27",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Brünig Passhöhe"
+    },
+    {
+      "id": "schlussgang-21062",
+      "name": "Sertig-Schwinget Davos 2025",
+      "datum": "2025-07-27",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Davos Sertig"
+    },
+    {
+      "id": "schlussgang-37047",
+      "name": "Regionalschwingfest Riaz 2025",
+      "datum": "2025-07-27",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Riaz"
+    },
+    {
+      "id": "schlussgang-37709",
+      "name": "Bachtel-Schwinget ob Hinwil 2025",
+      "datum": "2025-08-01",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hinwil"
+    },
+    {
+      "id": "schlussgang-46055",
+      "name": "Klewenalp-Schwinget 2025",
+      "datum": "2025-08-02",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Klewenalp"
+    },
+    {
+      "id": "schlussgang-21059",
+      "name": "Bergschwinget Sörenberg 2025",
+      "datum": "2025-08-03",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sörenberg"
+    },
+    {
+      "id": "schlussgang-37046",
+      "name": "Freiburger Kantonalschwingfest Le Crêt-près-Semsales 2025",
+      "datum": "2025-08-03",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Le Crêt-près-Semsales"
+    },
+    {
+      "id": "schlussgang-42564",
+      "name": "Ricken-Schwinget 2025",
+      "datum": "2025-08-03",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ricken"
+    },
+    {
+      "id": "schlussgang-46133",
+      "name": "Niklaus-Thut-Schwinget Zofingen 2025",
+      "datum": "2025-08-03",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Zofingen"
+    },
+    {
+      "id": "schlussgang-21058",
+      "name": "Nordwestschweizer Schwingfest Lenzburg 2025",
+      "datum": "2025-08-10",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lenzburg"
+    },
+    {
+      "id": "schlussgang-42289",
+      "name": "Engstlenalp-Schwinget Unterbach 2025",
+      "datum": "2025-08-10",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Unterbach"
+    },
+    {
+      "id": "schlussgang-44104",
+      "name": "Regionalschwingfest Boveresse 2025",
+      "datum": "2025-08-10",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Boveresse"
+    },
+    {
+      "id": "schlussgang-45229",
+      "name": "Schaffhauser Kantonalschwingfest Schleitheim 2025",
+      "datum": "2025-08-10",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schleitheim"
+    },
+    {
+      "id": "schlussgang-46083",
+      "name": "Lüderen-Schwinget ob Langnau 2025",
+      "datum": "2025-08-10",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lüderen"
+    },
+    {
+      "id": "schlussgang-46034",
+      "name": "Frutt-Schwinget Melchsee-Frutt 2025",
+      "datum": "2025-08-15",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Melchsee-Frutt"
+    },
+    {
+      "id": "schlussgang-46023",
+      "name": "Abendschwinget Cham Hagendorn 2025",
+      "datum": "2025-08-16",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hagendorn"
+    },
+    {
+      "id": "schlussgang-21056",
+      "name": "Schwägalp-Schwinget 2025",
+      "datum": "2025-08-17",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schwägalp AR"
+    },
+    {
+      "id": "schlussgang-37015",
+      "name": "Steinegg-Schwinget Himmelried 2025",
+      "datum": "2025-08-17",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "ob Himmelried"
+    },
+    {
+      "id": "schlussgang-46150",
+      "name": "Oberbühl-Schwinget Huttwil 2025",
+      "datum": "2025-08-23",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Huttwil"
+    },
+    {
+      "id": "schlussgang-45889",
+      "name": "Kilbischwinget Einsiedeln 2025",
+      "datum": "2025-08-24",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Einsiedeln"
+    },
+    {
+      "id": "schlussgang-21055",
+      "name": "Eidgenössisches Schwing- und Älplerfest Glarnerland 2025",
+      "datum": "2025-08-30",
+      "typ": "eidgenoessisch",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Glarnerland+, Mollis"
+    },
+    {
+      "id": "schlussgang-43339",
+      "name": "Herbstschwinget Gelterkinden 2025",
+      "datum": "2025-09-06",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Gelterkinden"
+    },
+    {
+      "id": "schlussgang-39097",
+      "name": "Wolzenalp-Schwinget ob Krummenau 2025",
+      "datum": "2025-09-07",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Wolzenalp ob Krummenau"
+    },
+    {
+      "id": "schlussgang-45973",
+      "name": "Kemmeriboden-Schwinget Schangnau 2025",
+      "datum": "2025-09-07",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Kemmeriboden"
+    },
+    {
+      "id": "schlussgang-45988",
+      "name": "Klubschwinget Schwingklub Péry 2025",
+      "datum": "2025-09-13",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Péry-La Heutte"
+    },
+    {
+      "id": "schlussgang-46033",
+      "name": "Lueg-Schwinget Kaltacker 2025",
+      "datum": "2025-09-14",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lueg Kaltacker"
+    },
+    {
+      "id": "schlussgang-46042",
+      "name": "Allweg-Schwinget Ennetmoos 2025",
+      "datum": "2025-09-14",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ennetmoos"
+    },
+    {
+      "id": "schlussgang-45284",
+      "name": "Tessiner Kantonalschwingfest Biasca 2025",
+      "datum": "2025-09-20",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Biasca"
+    },
+    {
+      "id": "schlussgang-45478",
+      "name": "Herbstschwinget Mümliswil 2025",
+      "datum": "2025-09-20",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Mümliswil"
+    },
+    {
+      "id": "schlussgang-46014",
+      "name": "Hornberg-Schwinget Saanenmöser 2025",
+      "datum": "2025-09-20",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Saanenmöser"
+    },
+    {
+      "id": "schlussgang-21052",
+      "name": "Herbstschwinget Schachen 2025",
+      "datum": "2025-09-28",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schachen"
+    },
+    {
+      "id": "schlussgang-45788",
+      "name": "Herbstschwinget Siebnen 2025",
+      "datum": "2025-09-28",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Siebnen"
+    },
+    {
+      "id": "schlussgang-45927",
+      "name": "Chemihütte-Schwinget Aeschiried 2025",
+      "datum": "2025-09-28",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Aeschiried"
+    },
+    {
+      "id": "schlussgang-45888",
+      "name": "Herbstschwinget Unteriberg 2025",
+      "datum": "2025-10-05",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Unteriberg"
+    },
+    {
+      "id": "schlussgang-46169",
+      "name": "Niklausschwinget Dietikon 2025",
+      "datum": "2025-12-06",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Dietikon"
+    },
+    {
+      "id": "schlussgang-46218",
+      "name": "Niklaus-Schwinget Pratteln 2025",
+      "datum": "2025-12-06",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Pratteln"
+    },
+    {
+      "id": "schlussgang-50974",
+      "name": "Berchtold-Schwinget Zürich 2026",
+      "datum": "2026-01-02",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Zürich, Saalsporthalle"
+    },
+    {
+      "id": "schlussgang-46920",
+      "name": "Lichtmess-Schwinget Gais 2026",
+      "datum": "2026-02-07",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Gais"
+    },
+    {
+      "id": "schlussgang-51107",
+      "name": "Hallenschwinget Kirchberg 2026",
+      "datum": "2026-02-14",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Kirchberg"
+    },
+    {
+      "id": "schlussgang-50964",
+      "name": "Hallenschwinget Untervaz 2026",
+      "datum": "2026-02-28",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Untervaz"
+    },
+    {
+      "id": "schlussgang-51908",
+      "name": "Hallenschwinget Büren an der Aare 2026",
+      "datum": "2026-02-28",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Büren a.A."
+    },
+    {
+      "id": "schlussgang-51673",
+      "name": "Hallenschwinget Niederurnen 2026",
+      "datum": "2026-03-01",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Niederurnen"
+    },
+    {
+      "id": "schlussgang-51672",
+      "name": "Hallenschwinget Sarnen 2026",
+      "datum": "2026-03-14",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Dreifach-Turnhalle Sarnen"
+    },
+    {
+      "id": "schlussgang-47198",
+      "name": "Hallenschwinget Aigle 2026",
+      "datum": "2026-03-21",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Aigle"
+    },
+    {
+      "id": "schlussgang-47292",
+      "name": "Abendschwinget Langenthal 2026",
+      "datum": "2026-03-21",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Langenthal"
+    },
+    {
+      "id": "schlussgang-21051",
+      "name": "Jahresschwinget Thun 2026",
+      "datum": "2026-03-22",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Thun"
+    },
+    {
+      "id": "schlussgang-54093",
+      "name": "Frühjahrsschwinget Oberarth 2026",
+      "datum": "2026-03-22",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Oberarth"
+    },
+    {
+      "id": "schlussgang-37545",
+      "name": "Worblentaler Hallenschwinget Bolligen 2026",
+      "datum": "2026-03-28",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Bolligen"
+    },
+    {
+      "id": "schlussgang-51983",
+      "name": "Rang-Hallenschwinget Engelberg 2026",
+      "datum": "2026-03-28",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Engelberg"
+    },
+    {
+      "id": "schlussgang-43338",
+      "name": "Rheintal-Oberländisches Gams 2026",
+      "datum": "2026-03-29",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Gams"
+    },
+    {
+      "id": "schlussgang-46528",
+      "name": "Hallenschwinget Lenzburg 2026",
+      "datum": "2026-03-29",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lenzburg"
+    },
+    {
+      "id": "schlussgang-51587",
+      "name": "Hallen-Rangschwinget Chavornay 2026",
+      "datum": "2026-03-29",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Chavornay"
+    },
+    {
+      "id": "schlussgang-50837",
+      "name": "Frühjahrsschwinget Ibach 2026",
+      "datum": "2026-04-06",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ibach"
+    },
+    {
+      "id": "schlussgang-51905",
+      "name": "Schaffhauser Frühjahrsschwinget Hemishofen 2026",
+      "datum": "2026-04-06",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hemishofen"
+    },
+    {
+      "id": "schlussgang-52020",
+      "name": "Frühjahrsschwinget Zäziwil 2026",
+      "datum": "2026-04-06",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Zäziwil"
+    },
+    {
+      "id": "schlussgang-52026",
+      "name": "Frühjahrsschwinget Pfäffikon 2026",
+      "datum": "2026-04-06",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Pfäffikon"
+    },
+    {
+      "id": "schlussgang-33470",
+      "name": "Surentaler Frühjahrsschwinget Sursee 2026",
+      "datum": "2026-04-11",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sursee"
+    },
+    {
+      "id": "schlussgang-50011",
+      "name": "Frühlingsschwinget Vinelz 2026",
+      "datum": "2026-04-11",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Vinelz"
+    },
+    {
+      "id": "schlussgang-51691",
+      "name": "Abendschwinget Schwingklub Sense Plaffeien 2026",
+      "datum": "2026-04-11",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Plaffeien"
+    },
+    {
+      "id": "schlussgang-52062",
+      "name": "Urner Rangschwinget Schattdorf 2026",
+      "datum": "2026-04-11",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Grundmatte Schattdorf"
+    },
+    {
+      "id": "schlussgang-46600",
+      "name": "Bündner Frühjahresschwinget Untervaz 2026",
+      "datum": "2026-04-12",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Untervaz"
+    },
+    {
+      "id": "schlussgang-47000",
+      "name": "Guggibad-Schwinget ob Buttwil 2026",
+      "datum": "2026-04-12",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Buttwil AG"
+    },
+    {
+      "id": "schlussgang-48371",
+      "name": "Rapperswiler Verbandsschwingertag Weesen 2026",
+      "datum": "2026-04-12",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Weesen"
+    },
+    {
+      "id": "schlussgang-50812",
+      "name": "Muotathaler-Schwinget Muotathal 2026",
+      "datum": "2026-04-12",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Muotathal"
+    },
+    {
+      "id": "schlussgang-50250",
+      "name": "Hallenschwinget Thörigen 2026",
+      "datum": "2026-04-18",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Thörigen, Reithalle"
+    },
+    {
+      "id": "schlussgang-33468",
+      "name": "Bad-Schwinget Wolhusen 2026",
+      "datum": "2026-04-19",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Wolhusen"
+    },
+    {
+      "id": "schlussgang-50619",
+      "name": "Nichtkranzer-Schwinget Sachseln 2026",
+      "datum": "2026-04-19",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sachseln"
+    },
+    {
+      "id": "schlussgang-51758",
+      "name": "Wislisau-Schwinget Rüschegg 2026",
+      "datum": "2026-04-19",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Rüschegg-Graben"
+    },
+    {
+      "id": "schlussgang-51981",
+      "name": "Rangschwinget Grenchen 2026",
+      "datum": "2026-04-19",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Grenchen"
+    },
+    {
+      "id": "schlussgang-52036",
+      "name": "Thurgauer Frühjahrsschwinget Raperswilen 2026",
+      "datum": "2026-04-19",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Raperswilen"
+    },
+    {
+      "id": "schlussgang-52067",
+      "name": "Ballenberg-Schwinget Hofstetten bei Brienz 2026",
+      "datum": "2026-04-19",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Freilichtmuseum Ballenberg, Hofstetten b. Brienz"
+    },
+    {
+      "id": "schlussgang-49604",
+      "name": "Abendschwinget Frutigen 2026",
+      "datum": "2026-04-25",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schulanlage Widi Frutigen"
+    },
+    {
+      "id": "schlussgang-50231",
+      "name": "Abendschwinget Küssnacht 2026",
+      "datum": "2026-04-25",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Küssnacht"
+    },
+    {
+      "id": "schlussgang-51903",
+      "name": "Frühjahrsschwinget Sissach 2026",
+      "datum": "2026-04-25",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sissach"
+    },
+    {
+      "id": "schlussgang-51917",
+      "name": "Oberbühl-Schwinget Huttwil 2026",
+      "datum": "2026-04-25",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Huttwil"
+    },
+    {
+      "id": "schlussgang-33466",
+      "name": "Seetaler Schwinget Hochdorf 2026",
+      "datum": "2026-04-26",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hochdorf"
+    },
+    {
+      "id": "schlussgang-44098",
+      "name": "Ob- und Nidwaldner Kantonalschwingfest Hergiswil 2026",
+      "datum": "2026-04-26",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hergiswil NW"
+    },
+    {
+      "id": "schlussgang-45494",
+      "name": "Toggenburger Verbandsfest Degersheim 2026",
+      "datum": "2026-04-26",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Degersheim"
+    },
+    {
+      "id": "schlussgang-49392",
+      "name": "Schwinget im Zurzibiet Leuggern 2026",
+      "datum": "2026-04-26",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Leuggern"
+    },
+    {
+      "id": "schlussgang-51105",
+      "name": "Eschenberg-Schwinget Winterthur 2026",
+      "datum": "2026-04-26",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Winterthur"
+    },
+    {
+      "id": "schlussgang-52147",
+      "name": "Regionalschwingfest Cottens 2026",
+      "datum": "2026-04-26",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Cottens"
+    },
+    {
+      "id": "schlussgang-37087",
+      "name": "Roteborger Schwinget Rothenburg 2026",
+      "datum": "2026-05-03",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Rothenburg"
+    },
+    {
+      "id": "schlussgang-37159",
+      "name": "Thurgauer Kantonalschwingfest Sirnach 2026",
+      "datum": "2026-05-03",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sirnach"
+    },
+    {
+      "id": "schlussgang-37170",
+      "name": "Emmentalisches Schwingfest Oberdiessbach 2026",
+      "datum": "2026-05-03",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Oberdiessbach"
+    },
+    {
+      "id": "schlussgang-46747",
+      "name": "Solothurner Kantonalschwingfest Stüsslingen 2026",
+      "datum": "2026-05-03",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Stüsslingen"
+    },
+    {
+      "id": "schlussgang-49578",
+      "name": "Abendschwinget Stadtverband St.Gallen Muolen 2026",
+      "datum": "2026-05-09",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Muolen"
+    },
+    {
+      "id": "schlussgang-34663",
+      "name": "Mittelländisches Schwingfest Stettlen 2026",
+      "datum": "2026-05-10",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Stettlen"
+    },
+    {
+      "id": "schlussgang-45152",
+      "name": "Zuger Kantonalschwingfest Oberägeri 2026",
+      "datum": "2026-05-10",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Oberägeri"
+    },
+    {
+      "id": "schlussgang-51740",
+      "name": "Regionalschwingfest Oron-la-Ville 2026",
+      "datum": "2026-05-10",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Oron-la-ville"
+    },
+    {
+      "id": "schlussgang-37086",
+      "name": "Schybi-Schwinget Escholzmatt 2026",
+      "datum": "2026-05-14",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Escholzmatt"
+    },
+    {
+      "id": "schlussgang-51120",
+      "name": "Baselstädtisches Schwingfest Basel 2026",
+      "datum": "2026-05-14",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sportplatz Sandgrube Basel"
+    },
+    {
+      "id": "schlussgang-51738",
+      "name": "Regionalschwingfest Le Mouret 2026",
+      "datum": "2026-05-14",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Le Mouret"
+    },
+    {
+      "id": "schlussgang-52035",
+      "name": "Pfannenstiel-Schwinget Meilen 2026",
+      "datum": "2026-05-14",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Meilen"
+    },
+    {
+      "id": "schlussgang-37092",
+      "name": "Seeländisches Schwingfest Ipsach 2026",
+      "datum": "2026-05-16",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ipsach"
+    },
+    {
+      "id": "schlussgang-37129",
+      "name": "Schwyzer Kantonalschwingfest Brunnen 2026",
+      "datum": "2026-05-17",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Brunnen"
+    },
+    {
+      "id": "schlussgang-46074",
+      "name": "Basellandschaftliches Kantonalschwingfest Oberdorf 2026",
+      "datum": "2026-05-17",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Oberdorf"
+    },
+    {
+      "id": "schlussgang-46078",
+      "name": "Zürcher Kantonalschwingfest Mettmenstetten 2026",
+      "datum": "2026-05-17",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Mettmenstetten"
+    },
+    {
+      "id": "schlussgang-51844",
+      "name": "Regionalschwingfest  Estavayer-le-Lac Cousset 2026",
+      "datum": "2026-05-17",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Cousset"
+    },
+    {
+      "id": "schlussgang-21049",
+      "name": "Oberaargauisches Schwingfest Niederbipp 2026",
+      "datum": "2026-05-23",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Niederbipp"
+    },
+    {
+      "id": "schlussgang-32835",
+      "name": "Morgarten-Schwinget 2026",
+      "datum": "2026-05-23",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Morgarten"
+    },
+    {
+      "id": "schlussgang-51665",
+      "name": "Brugger Schachen-Schwinget 2026",
+      "datum": "2026-05-23",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Brugg"
+    },
+    {
+      "id": "schlussgang-46202",
+      "name": "Freiburger Kantonalschwingfest Murten 2026",
+      "datum": "2026-05-24",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Murten-Morat"
+    },
+    {
+      "id": "schlussgang-21045",
+      "name": "Unterland-Schwinget Hochfelden 2026",
+      "datum": "2026-05-25",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hochfelden"
+    },
+    {
+      "id": "schlussgang-21047",
+      "name": "Glarner-Bündner Kantonalschwingfest Näfels 2026",
+      "datum": "2026-05-25",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Näfels"
+    },
+    {
+      "id": "schlussgang-37083",
+      "name": "Luzerner Kantonalschwingfest Ruswil 2026",
+      "datum": "2026-05-25",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ruswil"
+    },
+    {
+      "id": "schlussgang-52201",
+      "name": "Klubschwinget Schwingklub Interlaken Matten 2026",
+      "datum": "2026-05-25",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Matten"
+    },
+    {
+      "id": "schlussgang-55972",
+      "name": "Schwingertag Laupen 2026",
+      "datum": "2026-05-25",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Laupen"
+    },
+    {
+      "id": "schlussgang-39096",
+      "name": "St. Galler Kantonalschwingfest Schmerikon 2026",
+      "datum": "2026-05-31",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schmerikon"
+    },
+    {
+      "id": "schlussgang-46200",
+      "name": "Neuenburger Kantonalschwingfest La Brévine 2026",
+      "datum": "2026-05-31",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "La Brévine"
+    },
+    {
+      "id": "schlussgang-37082",
+      "name": "Schwarzenberg-Schwinget 2026",
+      "datum": "2026-06-04",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schwarzenberg"
+    },
+    {
+      "id": "schlussgang-38142",
+      "name": "Herisauer Obedschwinget 2026",
+      "datum": "2026-06-06",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Herisau"
+    },
+    {
+      "id": "schlussgang-47099",
+      "name": "Urner Kantonalschwingfest Flüelen 2026",
+      "datum": "2026-06-06",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Flüelen"
+    },
+    {
+      "id": "schlussgang-37230",
+      "name": "Aargauer Kantonalschwingfest Aarau Rohr 2026",
+      "datum": "2026-06-07",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Aarau Rohr"
+    },
+    {
+      "id": "schlussgang-44789",
+      "name": "Walliser Kantonalschwingfest Naters 2026",
+      "datum": "2026-06-07",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Naters"
+    },
+    {
+      "id": "schlussgang-52017",
+      "name": "Abendschwinget Sumiswald 2026",
+      "datum": "2026-06-12",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sumiswald"
+    },
+    {
+      "id": "schlussgang-44993",
+      "name": "Jurassisches Kantonalschwingfest Saignelégier 2026",
+      "datum": "2026-06-13",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Saignelégier"
+    },
+    {
+      "id": "schlussgang-47764",
+      "name": "Bündner-Glarner Schwingertag Scuol 2026",
+      "datum": "2026-06-13",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Scuol"
+    },
+    {
+      "id": "schlussgang-33257",
+      "name": "Oberländisches Schwingfest Gstaad 2026",
+      "datum": "2026-06-14",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Gstaad"
+    },
+    {
+      "id": "schlussgang-46510",
+      "name": "Stoos-Schwinget 2026",
+      "datum": "2026-06-14",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Stoos SZ"
+    },
+    {
+      "id": "schlussgang-45926",
+      "name": "Wynentaler Abendschwinget Zetzwil 2026",
+      "datum": "2026-06-20",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Zetzwil AG"
+    },
+    {
+      "id": "schlussgang-52034",
+      "name": "Thurgauer Sommerschwinget Salmsach 2026",
+      "datum": "2026-06-20",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Salmsach"
+    },
+    {
+      "id": "schlussgang-52163",
+      "name": "Abendschwinget Lungern 2026",
+      "datum": "2026-06-20",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lungern"
+    },
+    {
+      "id": "schlussgang-37079",
+      "name": "Michaelskreuz-Schwinget ob Root 2026",
+      "datum": "2026-06-21",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Michaelskreuz ob Root"
+    },
+    {
+      "id": "schlussgang-46174",
+      "name": "Schwarzsee-Schwinget 2026",
+      "datum": "2026-06-21",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lac Noir / Schwarzsee"
+    },
+    {
+      "id": "schlussgang-48495",
+      "name": "Abendschwinget Baar 2026",
+      "datum": "2026-06-26",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Baar"
+    },
+    {
+      "id": "schlussgang-47788",
+      "name": "Fricktaler Abendschwinget Gipf-Oberfrick 2026",
+      "datum": "2026-06-27",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Gipf-Oberfrick AG"
+    },
+    {
+      "id": "schlussgang-51586",
+      "name": "Abendschwinget Adelboden 2026",
+      "datum": "2026-06-27",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Adelboden"
+    },
+    {
+      "id": "schlussgang-21044",
+      "name": "Nordostschweizer Schwingfest Güttingen 2026",
+      "datum": "2026-06-28",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Güttingen"
+    },
+    {
+      "id": "schlussgang-44787",
+      "name": "Waadtländer Kantonalschwingfest Poliez-Pittet 2026",
+      "datum": "2026-06-28",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Poliez-Pittet"
+    },
+    {
+      "id": "schlussgang-49575",
+      "name": "Regionalschwingfest Gingins 2026",
+      "datum": "2026-07-04",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Gingins"
+    },
+    {
+      "id": "schlussgang-21040",
+      "name": "Berner Kantonalschwingfest Bern 2026",
+      "datum": "2026-07-05",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Bern, Wankdorf"
+    },
+    {
+      "id": "schlussgang-40006",
+      "name": "Innerschweizer Schwingfest Arth 2026",
+      "datum": "2026-07-05",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Arth"
+    },
+    {
+      "id": "schlussgang-46598",
+      "name": "Appenzeller Kantonalschwingfest Gonten 2026",
+      "datum": "2026-07-05",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Gonten"
+    },
+    {
+      "id": "schlussgang-40625",
+      "name": "Weissenstein-Schwinget 2026",
+      "datum": "2026-07-11",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Weissenstein ob Solothurn"
+    },
+    {
+      "id": "schlussgang-52155",
+      "name": "Abendschwinget Fankhaus 2026",
+      "datum": "2026-07-11",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Fankhaus"
+    },
+    {
+      "id": "schlussgang-37078",
+      "name": "Menzberg-Schwinget 2026",
+      "datum": "2026-07-12",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Menzberg"
+    },
+    {
+      "id": "schlussgang-50457",
+      "name": "Regionalschwingfest Le Crêt-près-Semsales 2026",
+      "datum": "2026-07-12",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Le Crêt-près-Semsales"
+    },
+    {
+      "id": "schlussgang-51309",
+      "name": "Brambrüesch-Schwinget ob Chur 2026",
+      "datum": "2026-07-12",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Chur Brambrüesch"
+    },
+    {
+      "id": "schlussgang-51597",
+      "name": "Zugerberg-Schwinget 2026",
+      "datum": "2026-07-12",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Vordergeissboden, Zugerberg"
+    },
+    {
+      "id": "schlussgang-51846",
+      "name": "Bergschwinget Klöntal 2026",
+      "datum": "2026-07-18",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Klöntal"
+    },
+    {
+      "id": "schlussgang-52044",
+      "name": "Moos-Schwinget Schönenberg 2026",
+      "datum": "2026-07-18",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schönenberg"
+    },
+    {
+      "id": "schlussgang-44785",
+      "name": "Regionalschwingfest Riaz 2026",
+      "datum": "2026-07-19",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Riaz"
+    },
+    {
+      "id": "schlussgang-48478",
+      "name": "Ramslauenen-Schwinget Kiental 2026",
+      "datum": "2026-07-19",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Kiental"
+    },
+    {
+      "id": "schlussgang-51344",
+      "name": "Rigi-Schwinget 2026",
+      "datum": "2026-07-19",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Rigi Staffel"
+    },
+    {
       "id": "ev-2026-test",
       "name": "Testschwinget",
       "datum": "2026-07-20",

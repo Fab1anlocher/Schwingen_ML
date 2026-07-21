@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { ladeFeatureImportance } from "@/lib/data";
 import type { FeatureImportanceEntry } from "@/lib/types";
+import { Konfusionsmatrix, VergleichBalken } from "@/components/ModellGuete";
 
 interface Report {
   lauf_id?: string;
@@ -21,6 +22,8 @@ interface Report {
   };
   datenbasis: { n_gaenge: number; n_schwinger: number };
   n_parsing_warnungen: number;
+  klassen?: string[];
+  konfusionsmatrix?: number[][] | null;
 }
 
 // Merkmale, die die Spec explizit beleuchten will (AK-4.2).
@@ -82,6 +85,24 @@ export default function Analyse() {
               </tr>
             </tbody>
           </table>
+          <VergleichBalken
+            metriken={[
+              {
+                key: "log_loss",
+                label: "Log-Loss (tiefer = besser)",
+                modell: report.modell.log_loss,
+                baseline: report.baseline_elo.log_loss,
+                format: (v) => v.toFixed(4),
+              },
+              {
+                key: "accuracy",
+                label: "Accuracy (höher = besser)",
+                modell: report.modell.accuracy,
+                baseline: report.baseline_elo.accuracy,
+                format: (v) => `${(v * 100).toFixed(1)}%`,
+              },
+            ]}
+          />
           <p style={{ marginTop: "0.9rem" }}>
             {report.schlaegt_baseline ? (
               <span className="badge" style={{ color: "#7fd6a8", borderColor: "#3d8b6e" }}>
@@ -109,6 +130,15 @@ export default function Analyse() {
             </p>
           )}
         </div>
+      )}
+
+      {report?.konfusionsmatrix && report.klassen && (
+        <>
+          <h2>Konfusionsmatrix (Holdout {report.holdout_jahr})</h2>
+          <div className="panel">
+            <Konfusionsmatrix klassen={report.klassen} matrix={report.konfusionsmatrix} />
+          </div>
+        </>
       )}
 
       <h2>Merkmalswichtigkeit</h2>

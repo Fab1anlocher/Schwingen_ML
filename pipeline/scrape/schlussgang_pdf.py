@@ -1,99 +1,166 @@
 """Parser für die Ranglisten-PDFs von schlussgang.ch (§4.1, primäre Quelle).
 
-    URL-Muster: backend-api.schlussgang.ch/.../<eventId>-statistic-final.pdf
+    URL-Muster: www.schlussgang.ch/sites/default/files/event-ranking-list/<nid>-statistic-final.pdf
+    (<nid> = drupal_internal__nid des Event-Knotens, s. schlussgang_resultate.py)
 
-Das PDF enthält je Schwinger die Gang-Resultate als Symbol (+/-/o) + Note
-sowie das Punktetotal. Dieser Parser extrahiert Roh-Einträge (eine
-Perspektive je Zeile) im Schema von labels.RohGangEintrag; die
-Deduplizierung/Validierung passiert danach in labels.py (§4.3).
+Das PDF ist eine "Statistische Tabelle": drei Spalten nebeneinander, pro
+Schwinger ein Block aus Kopfzeile (Rang, Name, Kranz-Sterne, Punktetotal)
+gefolgt von je einer Zeile pro Gang (Symbol, Gegnername, Note). Jeder reale
+Gang erscheint darum zweimal im Dokument (einmal je Schwinger-Perspektive) -
+das passt direkt auf labels.dedupliziere().
 
-STATUS: Gerüst. Die konkrete Text-Extraktion muss gegen echte PDFs
-kalibriert werden (Spaltenlayout variiert je Jahrgang, R-6). Für die
-Text-Extraktion eignet sich `pdfplumber` (in requirements optional).
+Kalibriert anhand echter PDFs (Moos-Schwinget Schönenberg 2026, 51 Schwinger;
+Bergschwinget Klöntal 2026, 70 Schwinger): Spaltenpositionen sind fix, die
+Summe der Gang-Noten je Schwinger stimmt exakt mit dem ausgewiesenen
+Punktetotal überein (§4.3 Regel 4 lässt sich damit prüfen).
 """
 from __future__ import annotations
 
+import io
 import re
 from typing import Iterable
 
-from ..labels import RohGangEintrag
+# Feste Spalten-x-Positionen des Tabellen-Templates (Punkte, aus PDF-Wortkoordinaten).
+_SPALTEN = [(0.0, 200.0), (200.0, 380.0), (380.0, 600.0)]
 
-# Erwartete Symbole in der Gang-Spalte.
-_SYMBOL_RE = re.compile(r"[+\-o]")
-_NOTE_RE = re.compile(r"\d{1,2}\.\d{2}")
-_LINE_RE = re.compile(
-    r"^(?P<a>.+?)\s+(?:vs\.?|gegen|-)\s+(?P<b>.+?)\s+"
-    r"(?P<sa>[+\-o])(?:/(?P<sb>[+\-o]))?"
-    r"(?:\s+(?P<na>\d{1,2}\.\d{2})(?:/(?P<nb>\d{1,2}\.\d{2}))?)?$"
-)
+_RANG_RE = re.compile(r"^\d+[a-z]?$")
+_SYMBOL_RE = re.compile(r"^[+\-o]$")
+_NOTE_RE = re.compile(r"^\d{1,2}\.\d{2}$")
+_STERN_RE = re.compile(r"^\*{1,3}$")
 
 
-def pdf_url(event_id: str) -> str:
-    """Event-ID -> PDF-URL (R-6: Mapping gegen Event-Seite verifizieren)."""
-    return (
-        "https://backend-api.schlussgang.ch/api/v1/documents/"
-        f"{event_id}-statistic-final.pdf"
-    )
+def pdf_url(nid: int | str) -> str:
+    """Node-ID -> URL der finalen Statistik-PDF."""
+    return f"https://www.schlussgang.ch/sites/default/files/event-ranking-list/{nid}-statistic-final.pdf"
 
 
-def extrahiere_text(pdf_bytes: bytes) -> str:
-    """PDF -> Text. Nutzt pdfplumber, wenn verfügbar."""
+def extrahiere_woerter(pdf_bytes: bytes) -> list[list[dict]]:
+    """PDF-Bytes -> Liste von Wortlisten je Seite (pdfplumber `extract_words()`)."""
     try:
-        import io
         import pdfplumber  # type: ignore
     except ImportError as e:  # noqa: BLE001
         raise RuntimeError(
             "pdfplumber nicht installiert. `pip install pdfplumber` "
-            "oder in requirements-pipeline.txt aktivieren."
+            "oder requirements-pipeline.txt verwenden."
         ) from e
-    import io
-    text = []
     with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
-        for seite in pdf.pages:
-            text.append(seite.extract_text() or "")
-    return "\n".join(text)
+        return [page.extract_words() for page in pdf.pages]
 
 
-def parse_pdf_text(
-    text: str, event_id: str, datum: str, fest_typ: str
-) -> list[RohGangEintrag]:
-    """Extrahiert Roh-Gang-Einträge aus dem PDF-Text.
+def _spalte(x0: float) -> int | None:
+    for i, (lo, hi) in enumerate(_SPALTEN):
+        if lo <= x0 < hi:
+            return i
+    return None
 
-    ACHTUNG: Diese Implementierung ist ein KALIBRIERUNGS-Gerüst. Das reale
-    PDF-Layout (Schwinger-Block mit Gegner-Namen, Symbol, Note je Gang)
-    muss anhand echter Dateien fixiert werden. Bis dahin gibt die Funktion
-    eine leere Liste zurück, statt falsche Daten zu erzeugen (§4.3: lieber
-    kein Label als ein falsches).
+
+def _gruppiere_zeilen(woerter: list[dict], toleranz: float = 3.0) -> list[list[str]]:
+    """Wörter (mit x0/top) zu Zeilen gruppieren (Token-Liste, x-sortiert)."""
+    zeilen: list[list[dict]] = []
+    aktuelle: list[dict] = []
+    aktuelles_top: float | None = None
+    for w in sorted(woerter, key=lambda w: (w["top"], w["x0"])):
+        if aktuelles_top is None or abs(w["top"] - aktuelles_top) <= toleranz:
+            aktuelle.append(w)
+            aktuelles_top = w["top"] if aktuelles_top is None else aktuelles_top
+        else:
+            zeilen.append(aktuelle)
+            aktuelle = [w]
+            aktuelles_top = w["top"]
+    if aktuelle:
+        zeilen.append(aktuelle)
+    return [[w["text"] for w in sorted(z, key=lambda w: w["x0"])] for z in zeilen]
+
+
+def tabellen_bloecke(pages_words: Iterable[list[dict]]) -> list[dict]:
+    """Statistik-PDF-Wörter -> Schwinger-Blöcke.
+
+    Jeder Block: {"name": str, "total": float|None, "gaenge": [
+        {"symbol": "+"|"-"|"o", "gegner_name": str, "note": float|None}, ...
+    ]}
     """
-    return parse_text_zeilen(text.splitlines(), event_id=event_id, datum=datum, fest_typ=fest_typ)
+    spalten_zeilen: list[list[list[str]]] = [[], [], []]
+    for woerter in pages_words:
+        eimer: list[list[dict]] = [[], [], []]
+        for w in woerter:
+            i = _spalte(w["x0"])
+            if i is not None:
+                eimer[i].append(w)
+        for i in range(3):
+            spalten_zeilen[i].extend(_gruppiere_zeilen(eimer[i]))
+
+    bloecke: list[dict] = []
+    for zeilen in spalten_zeilen:
+        aktuell: dict | None = None
+        for tokens in zeilen:
+            if not tokens:
+                continue
+            erstes = tokens[0]
+            if _RANG_RE.match(erstes) and len(tokens) >= 2:
+                rest = tokens[1:]
+                total = None
+                if rest and _NOTE_RE.match(rest[-1]):
+                    total = float(rest[-1])
+                    rest = rest[:-1]
+                if rest and _STERN_RE.match(rest[-1]):
+                    rest = rest[:-1]
+                name = " ".join(rest)
+                if not name:
+                    # Ungültige/fremde Kopfzeile (z.B. Jahreszahl im Seitenkopf) verwerfen.
+                    aktuell = None
+                    continue
+                if aktuell is not None:
+                    bloecke.append(aktuell)
+                aktuell = {"name": name, "total": total, "gaenge": []}
+            elif _SYMBOL_RE.match(erstes):
+                if aktuell is None:
+                    continue
+                rest = tokens[1:]
+                note = None
+                if rest and _NOTE_RE.match(rest[-1]):
+                    note = float(rest[-1])
+                    rest = rest[:-1]
+                if rest and _STERN_RE.match(rest[-1]):
+                    rest = rest[:-1]
+                gegner_name = " ".join(rest)
+                if not gegner_name:
+                    continue
+                aktuell["gaenge"].append(
+                    {"symbol": erstes, "gegner_name": gegner_name, "note": note}
+                )
+        if aktuell is not None:
+            bloecke.append(aktuell)
+    return bloecke
 
 
-def parse_text_zeilen(
-    lines: Iterable[str], *, event_id: str, datum: str, fest_typ: str
-) -> list[RohGangEintrag]:
-    """Pragmatischer Zeilenparser für kalibrierte Textauszüge.
+def parse_pdf_bytes(
+    pdf_bytes: bytes, *, event_id: str, datum: str, fest_typ: str
+) -> list[dict]:
+    """Statistik-PDF -> Roh-Gang-Einträge im Schema von artifacts/raw/gaenge.json.
 
-    Erwartete Zeilen (Beispiel):
-      "Max Muster vs Peter Beispiel +/o 10.00/8.75"
+    Jeder Gang liegt zweimal vor (eine Zeile je Perspektive); die
+    Zusammenführung/Validierung übernimmt weiterhin labels.dedupliziere()
+    beim Laden über pipeline.scrape.lade_echte_daten().
     """
-    eintraege: list[RohGangEintrag] = []
-    from ..schema import schwinger_key
-
-    for raw in lines:
-        line = raw.strip()
-        if not line or not _SYMBOL_RE.search(line):
-            continue
-        m = _LINE_RE.match(re.sub(r"\s+", " ", line))
-        if not m:
-            continue
-        a_name = m.group("a").strip()
-        b_name = m.group("b").strip()
-        a_id = schwinger_key(a_name, None)
-        b_id = schwinger_key(b_name, None)
-        sa = m.group("sa")
-        sb = m.group("sb") or {"+": "o", "o": "+", "-": "-"}[sa]
-        na = float(m.group("na")) if m.group("na") else None
-        nb = float(m.group("nb")) if m.group("nb") else None
-        eintraege.append(RohGangEintrag(event_id, datum, a_id, b_id, sa, na, fest_typ))
-        eintraege.append(RohGangEintrag(event_id, datum, b_id, a_id, sb, nb, fest_typ))
+    bloecke = tabellen_bloecke(extrahiere_woerter(pdf_bytes))
+    eintraege: list[dict] = []
+    for block in bloecke:
+        for gang in block["gaenge"]:
+            eintraege.append(
+                {
+                    "event_id": event_id,
+                    "datum": datum,
+                    "fest_typ": fest_typ,
+                    "schwinger_name": block["name"],
+                    "gegner_name": gang["gegner_name"],
+                    "symbol": gang["symbol"],
+                    "note": gang["note"],
+                }
+            )
     return eintraege
+
+
+def schwinger_namen(pdf_bytes: bytes) -> list[str]:
+    """Alle im PDF vorkommenden Schwinger-Namen (für Schwinger-Stub-Ergänzung)."""
+    bloecke = tabellen_bloecke(extrahiere_woerter(pdf_bytes))
+    return [b["name"] for b in bloecke if b["name"]]

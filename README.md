@@ -124,7 +124,14 @@ Danach zeigt die Web-App weiterhin synthetische Daten — das ist korrekt.
 
 ### 2) Echte Rohdaten vorbereiten
 
-Lege den Ordner `artifacts/raw/` an und erstelle drei Dateien:
+`artifacts/raw/` ist **nicht versioniert** (`.gitignore`) — die echten Rohdaten
+(insb. `gaenge.json`) werden gross und sind jederzeit reproduzierbar aus den
+Webquellen (via `pipeline.fetch_raw`, s. Abschnitt 6) oder CI. Versioniert
+werden nur die daraus abgeleiteten, kompakten Artefakte in `artifacts/` und
+`web/public/data/`.
+
+Für einen manuellen Test lege den Ordner `artifacts/raw/` lokal an und
+erstelle drei Dateien:
 
 - `artifacts/raw/schwinger.json`
 - `artifacts/raw/events.json`
@@ -227,6 +234,53 @@ Der Workflow `.github/workflows/update.yml` führt die Pipeline täglich aus
 (Standard `source=scrape`) und committet geänderte Artefakte. Dafür müssen
 die Raw-Daten in `artifacts/raw/` verfügbar sein.
 
+### 6) Rohdaten automatisch holen
+
+Wenn du die Rohdaten nicht manuell pflegen willst, kannst du sie jetzt direkt
+aus den Webquellen ziehen:
+
+```bash
+python -m pipeline.fetch_raw --sources schlussgang esv events
+```
+
+Das schreibt die Schlussgang-Porträts nach `artifacts/raw/schlussgang_portraits.json`
+und erfasst die ESV-Statistiken aus `esv.ch/ranglisten/statistiken/` in
+`artifacts/raw/esv_statistiken.json`. Wenn du zusätzlich eine normalisierte
+`artifacts/raw/schwinger.json` willst, nutze `--materialize-schwinger`.
+Wenn du die PDF-Texte zusätzlich brauchst, nutze `--download-pdfs`.
+
+Die Quelle `events` lädt **echte, abgeschlossene Feste** direkt von
+schlussgang.ch und schreibt `artifacts/raw/events.json` +
+`artifacts/raw/gaenge.json` — damit ist die Rohdaten-Kette für
+`--source scrape` vollständig, ohne dass du diese beiden Dateien mehr von
+Hand pflegen musst:
+
+- listet Feste über die JSON:API (`node/event`, Status `finished`), Standard-
+  Filter `field_event_type=Aktivschwinger` seit `--seit-datum` (Default
+  `2024-01-01`), Fest-Typ (`eidgenoessisch`/`berg`/`kantonal`/`teilverband`/
+  `regional`) aus der `field_category`-Taxonomie des Fests;
+- lädt je Fest die finale Statistik-PDF
+  (`.../event-ranking-list/<nid>-statistic-final.pdf`) und parst die
+  Tabelle spaltenweise (`pipeline/scrape/schlussgang_pdf.py`) zu
+  Roh-Gang-Einträgen — jeder Gang liegt zweimal vor (eine Zeile je
+  Schwinger-Perspektive), was direkt auf `labels.dedupliziere()` passt;
+  die Summe der Gang-Noten je Schwinger wird gegen das ausgewiesene
+  Punktetotal geprüft (§4.3 Regel 4);
+- ergänzt für Teilnehmer ohne Porträt automatisch einen Stub-Eintrag in
+  `artifacts/raw/schwinger.json` (per Namensabgleich dedupliziert gegen
+  vorhandene Porträt-Einträge), damit deren Gänge beim Training nicht
+  mangels bekannter Schwinger-ID verworfen werden.
+
+```bash
+python -m pipeline.fetch_raw --sources events --event-limit 50 --seit-datum 2025-01-01
+```
+
+`--event-limit` (Default 10) begrenzt die Anzahl Feste, `--fest-typ` (Default
+`Aktivschwinger`) filtert die Teilnehmerkategorie (leer = alle Kategorien).
+Für einen produktiven Lauf `--event-limit` deutlich erhöhen bzw. weglassen
+(dann werden alle Feste seit `--seit-datum` geholt) — höflich, aber langsam,
+da pro Fest eine PDF geladen wird (NFR-4: 2s Rate-Limit pro Host).
+
 ---
 
 ## Features (Umsetzungsstand)
@@ -259,9 +313,13 @@ eine sofort lauffähige Demo. Für produktive Läufe unterstützt die Pipeline
 
 Zusätzlich liest `pipeline/scrape/agenda.py` kommende Feste von
 `schlussgang.ch/agenda` (JSON-LD) und extrahiert optionale Paarungen.
-Der PDF-Parser enthält eine kalibrierbare Text-Extraktion:
 
-- `pipeline/scrape/schlussgang_pdf.py` — Ranglisten-PDF (`<eventId>-statistic-final.pdf`)
+- `pipeline/scrape/schlussgang_resultate.py` — abgeschlossene Feste (JSON:API
+  `node/event`) inkl. Fest-Typ-Klassifikation aus der `field_category`-Taxonomie
+- `pipeline/scrape/schlussgang_pdf.py` — Ranglisten-PDF
+  (`event-ranking-list/<nid>-statistic-final.pdf`), kalibriert anhand echter
+  PDFs (spaltenbasierte Statistik-Tabelle, Punktetotal-Kreuzcheck §4.3 Regel 4)
+- `pipeline/scrape/schlussgang_portraet.py` — Schwinger-Porträts (JSON:API `node/portrait`)
 - `pipeline/scrape/agenda.py` — kommende Feste + Spitzenpaarungen (FR-2)
 - `pipeline/scrape/http.py` — höflicher Client: Rate-Limit, User-Agent, **robots.txt** (NFR-4)
 

@@ -6,6 +6,7 @@ klein zu halten (GitHub-Actions-Runner, §7).
 from __future__ import annotations
 
 import time
+import urllib.error
 import urllib.request
 import urllib.robotparser
 from urllib.parse import urlparse
@@ -20,8 +21,20 @@ def _robots(host: str) -> urllib.robotparser.RobotFileParser:
     if host not in _robots_cache:
         rp = urllib.robotparser.RobotFileParser()
         rp.set_url(f"https://{host}/robots.txt")
+        # rp.read() nutzt urllib ohne eigenen User-Agent-Header; manche Hosts
+        # (z.B. schlussgang.ch) weisen unidentifizierte Anfragen mit 403 ab,
+        # was RobotFileParser fälschlich als "robots.txt verbietet alles"
+        # interpretiert. Deshalb mit unserem echten User-Agent abrufen (NFR-4).
         try:
-            rp.read()
+            req = urllib.request.Request(rp.url, headers={"User-Agent": USER_AGENT})
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                raw = resp.read()
+            rp.parse(raw.decode("utf-8", errors="replace").splitlines())
+        except urllib.error.HTTPError as err:
+            if err.code in (401, 403):
+                rp.disallow_all = True
+            else:
+                rp.allow_all = True
         except Exception:  # noqa: BLE001 - robots nicht erreichbar -> konservativ
             pass
         _robots_cache[host] = rp

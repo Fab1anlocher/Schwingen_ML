@@ -17,14 +17,14 @@ def _lade_raw_json(name: str, default):
     return json.loads(p.read_text(encoding="utf-8"))
 
 
-def _schwinger_index(schwinger: dict[str, Schwinger]) -> dict[str, str]:
+def schwinger_index(schwinger: dict[str, Schwinger]) -> dict[str, str]:
     idx: dict[str, str] = {}
     for sid, s in schwinger.items():
         idx[normalize_name(s.name)] = sid
     return idx
 
 
-def _map_name(name: str, idx: dict[str, str]) -> str | None:
+def map_name(name: str, idx: dict[str, str]) -> str | None:
     n = normalize_name(name)
     if n in idx:
         return idx[n]
@@ -66,6 +66,7 @@ def lade_echte_daten():
             teilverband=r.get("teilverband"),
             kanton=r.get("kanton"),
             schwingklub=r.get("schwingklub"),
+            senne_turner=r.get("senne_turner"),
             bevorzugte_schwuenge=list(sw) if isinstance(sw, list) else [],
             quellen=list(r.get("quellen") or ["schlussgang.ch"]),
         )
@@ -86,7 +87,7 @@ def lade_echte_daten():
         )
 
     roh: list[RohGangEintrag] = []
-    idx = _schwinger_index(schwinger)
+    idx = schwinger_index(schwinger)
     for r in raw_g:
         event_id = str(r.get("event_id") or "")
         datum = str(r.get("datum") or "")[:10]
@@ -95,9 +96,9 @@ def lade_echte_daten():
         sid = r.get("schwinger_id")
         gid = r.get("gegner_id")
         if not sid and r.get("schwinger_name"):
-            sid = _map_name(str(r.get("schwinger_name")), idx)
+            sid = map_name(str(r.get("schwinger_name")), idx)
         if not gid and r.get("gegner_name"):
-            gid = _map_name(str(r.get("gegner_name")), idx)
+            gid = map_name(str(r.get("gegner_name")), idx)
         if not (event_id and datum and sid and gid and symbol):
             continue
         roh.append(
@@ -131,8 +132,8 @@ def lade_kommende_feste():
         for fest in kommende:
             mapped = []
             for p in fest.get("paarungen_namen", []):
-                a_id = _map_name(str(p.get("a_name", "")), idx)
-                b_id = _map_name(str(p.get("b_name", "")), idx)
+                a_id = map_name(str(p.get("a_name", "")), idx)
+                b_id = map_name(str(p.get("b_name", "")), idx)
                 if a_id and b_id and a_id != b_id:
                     mapped.append({"a_id": a_id, "b_id": b_id})
             if mapped:

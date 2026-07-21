@@ -323,3 +323,117 @@ th {
   color: var(--muted);
   padding: 2rem 0;
 }
+
+/* Modell-vs-Baseline-Vergleichsbalken (Analyse-Seite) */
+.vergleich-balken {
+  margin-top: 1rem;
+}
+.vb-zeile {
+  margin-bottom: 1rem;
+}
+.vb-zeile:last-of-type {
+  margin-bottom: 0.75rem;
+}
+.vb-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+.vb-bar-row {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr 4.5rem;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.3rem;
+}
+.vb-name {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.vb-track {
+  height: 10px;
+  background: var(--panel-2);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.vb-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+.vb-fill-modell {
+  background: var(--accent-2);
+}
+.vb-fill-baseline {
+  background: #5a6674;
+}
+.vb-value {
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.vb-legend {
+  display: flex;
+  gap: 1.25rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.4rem;
+}
+.vb-swatch {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+  margin-right: 0.4rem;
+}
+.vb-swatch-modell {
+  background: var(--accent-2);
+}
+.vb-swatch-baseline {
+  background: #5a6674;
+}
+
+/* Konfusionsmatrix (Analyse-Seite) */
+.km-wrap {
+  overflow-x: auto;
+}
+.km-table {
+  border-collapse: separate;
+  border-spacing: 4px;
+  font-size: 0.85rem;
+}
+.km-table th {
+  border-bottom: none;
+  text-align: center;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.85rem;
+  text-transform: none;
+  letter-spacing: normal;
+}
+.km-table thead th {
+  vertical-align: bottom;
+}
+.km-table tbody th {
+  text-align: right;
+  white-space: nowrap;
+}
+.km-corner {
+  text-align: left !important;
+}
+.km-cell {
+  min-width: 5.5rem;
+  text-align: center;
+  border-radius: 8px;
+  padding: 0.5rem 0.4rem;
+  border: 1px solid var(--border);
+}
+.km-cell-diag {
+  border: 2px solid var(--accent-2);
+}
+.km-count {
+  font-weight: 700;
+  font-size: 1rem;
+}
+.km-pct {
+  font-size: 0.75rem;
+  color: var(--muted);
+}

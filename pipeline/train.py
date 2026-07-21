@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import numpy as np
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import log_loss, accuracy_score
+from sklearn.metrics import log_loss, accuracy_score, confusion_matrix
 
 from .config import SEED, KLASSEN
 from .features import FEATURE_NAMES, FEATURE_LABELS
@@ -82,10 +82,14 @@ def trainiere(X, y, meta) -> dict:
     p_test = modell.predict_proba(Xte_s) if len(Xte_s) else np.empty((0, len(KLASSEN)))
 
     if len(Xte_s):
+        y_pred = modell.predict(Xte_s)
         ll = log_loss(yte, p_test, labels=labels_idx)
-        acc = accuracy_score(yte, modell.predict(Xte_s))
+        acc = accuracy_score(yte, y_pred)
+        # Konfusionsmatrix (ML-6): Zeile = tatsächliche, Spalte = vorhergesagte Klasse.
+        cm = confusion_matrix(yte, y_pred, labels=labels_idx).tolist()
     else:
         ll, acc = float("nan"), float("nan")
+        cm = None
 
     return {
         "modell": modell,
@@ -96,6 +100,7 @@ def trainiere(X, y, meta) -> dict:
         "n_test": int(len(Xte)),
         "log_loss": float(ll),
         "accuracy": float(acc),
+        "confusion_matrix": cm,
     }
 
 
