@@ -9,11 +9,21 @@
     {
       "feature": "alter_diff",
       "label": "Altersunterschied",
-      "wichtigkeit": 0.4184672774086855,
+      "wichtigkeit": 0.41846727740868545,
       "koeffizienten": {
-        "sieg_a": -0.45275458148146064,
-        "gestellt": -0.17494633463156764,
-        "sieg_b": 0.6277009161130284
+        "sieg_a": -0.4527545814814606,
+        "gestellt": -0.17494633463156745,
+        "sieg_b": 0.6277009161130283
+      }
+    },
+    {
+      "feature": "rating_diff",
+      "label": "Rating-Vorsprung (Elo)",
+      "wichtigkeit": 0.3124786797675981,
+      "koeffizienten": {
+        "sieg_a": -0.29804989607710164,
+        "gestellt": 0.4687180196513969,
+        "sieg_b": -0.1706681235742956
       }
     },
     {
@@ -21,19 +31,9 @@
       "label": "aktuelle Form (letzte Gänge)",
       "wichtigkeit": 0.3124786797675981,
       "koeffizienten": {
-        "sieg_a": -0.2980498960771016,
-        "gestellt": 0.46871801965139703,
-        "sieg_b": -0.1706681235742956
-      }
-    },
-    {
-      "feature": "rating_diff",
-      "label": "Rating-Vorsprung (Elo)",
-      "wichtigkeit": 0.312478679767598,
-      "koeffizienten": {
-        "sieg_a": -0.2980498960771016,
-        "gestellt": 0.46871801965139687,
-        "sieg_b": -0.1706681235742956
+        "sieg_a": -0.29804989607710164,
+        "gestellt": 0.4687180196513969,
+        "sieg_b": -0.17066812357429564
       }
     },
     {
