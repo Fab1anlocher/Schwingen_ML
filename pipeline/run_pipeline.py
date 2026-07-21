@@ -77,6 +77,7 @@ def main(source: str = "synth") -> dict:
     export.exportiere_modell(train_res, fi)
     export.exportiere_ratings(elo_modell, schwinger)
     export.exportiere_schwinger(schwinger, form_aktuell)
+    export.exportiere_kopf_an_kopf(gaenge)
     # Kommende Feste (FR-2): bei echten Daten aus dem Agenda-Scraper.
     kommende = []
     if source == "scrape":

@@ -7,6 +7,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 ARTIFACTS_DIR = ROOT / "artifacts"
 WEB_PUBLIC_DIR = ROOT / "web" / "public" / "data"
+# Serverseitig genutzte Artefakte (NICHT clientseitig geladen, s. web/app/api/).
+WEB_SERVER_DATA_DIR = ROOT / "web" / "data"
 
 # --- Reproduzierbarkeit (NFR-3 / AK-6.2) --------------------------------
 SEED = 42
@@ -42,3 +44,4 @@ USER_AGENT = "Schwingen-ML/1.0 (nicht-kommerziell; Hobby-Projekt)"
 def ensure_dirs() -> None:
     ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
     WEB_PUBLIC_DIR.mkdir(parents=True, exist_ok=True)
+    WEB_SERVER_DATA_DIR.mkdir(parents=True, exist_ok=True)

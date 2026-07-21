@@ -115,6 +115,49 @@ def exportiere_events(events: list, kommende: list | None = None) -> None:
     })
 
 
+_ERGEBNIS_CODE = {"sieg_a": "A", "gestellt": "D", "sieg_b": "B"}
+
+
+def exportiere_kopf_an_kopf(gaenge: list) -> None:
+    """Kompakter Kopf-an-Kopf-Index je Paar (schwinger_a_id < schwinger_b_id).
+
+    Bewusst NICHT in web/public/data (clientseitig geladen): bei 100k+ Gängen
+    wäre das ein zu grosser Download für eine Detail-Ansicht, die pro Aufruf
+    nur EIN Paar braucht. Wird stattdessen serverseitig von einer Next.js-
+    Route gelesen (web/app/api/kopf-an-kopf), die nur das angefragte Paar
+    zurückgibt.
+
+    Da diese Datei (anders als artifacts/raw/) für den Vercel-Build committed
+    sein muss, ist die Kodierung bewusst knapp gehalten: numerischer Index
+    statt voller Schwinger-IDs als Paar-Schlüssel, 1-Buchstabe-Ergebniscode,
+    Datum/Fest-Typ nicht dupliziert (Client kennt sie schon aus events.json).
+    Ohne das wäre die Datei >19 MB und würde bei jedem täglichen Cron-Commit
+    unbegrenzt weiterwachsen (§NFR-1 täglicher Lauf).
+    """
+    index: dict[str, int] = {}
+    event_index: dict[str, int] = {}
+
+    def _idx(sid: str, register: dict[str, int]) -> int:
+        if sid not in register:
+            register[sid] = len(register)
+        return register[sid]
+
+    paare: dict[str, list] = {}
+    for g in gaenge:
+        key = f"{_idx(g.schwinger_a_id, index)}_{_idx(g.schwinger_b_id, index)}"
+        paare.setdefault(key, []).append(
+            [_idx(g.event_id, event_index), _ERGEBNIS_CODE[g.ergebnis]]
+        )
+    obj = {
+        "schema_version": config.SCHEMA_VERSION,
+        "index": index,
+        "event_index": event_index,
+        "paare": paare,
+    }
+    _write(config.ARTIFACTS_DIR / "kopf_an_kopf.json", obj)
+    _write(config.WEB_SERVER_DATA_DIR / "kopf_an_kopf.json", obj)
+
+
 def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
                       n_gaenge: int, n_schwinger: int) -> None:
     """report.json: Trainingslauf-Bericht (ML-6, reproduzierbar, versioniert)."""

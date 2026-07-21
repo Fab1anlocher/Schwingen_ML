@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
+import { NavLinks } from "@/components/NavLinks";
 
 export const metadata: Metadata = {
   title: "Schwingen Gang-Prognose",
   description:
     "Datengetriebene, erklärbare Prognose für Schwingen-Gänge. Informativ, kein Wettangebot.",
 };
-
-const NAV = [
-  { href: "/", label: "Paar-Prognose" },
-  { href: "/feste", label: "Feste" },
-  { href: "/schwinger", label: "Schwinger" },
-  { href: "/analyse", label: "Analyse" },
-];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -24,13 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="brand">
               🤼 Schwingen<span className="brand-accent">ML</span>
             </Link>
-            <nav className="nav">
-              {NAV.map((n) => (
-                <Link key={n.href} href={n.href}>
-                  {n.label}
-                </Link>
-              ))}
-            </nav>
+            <NavLinks />
           </div>
         </header>
         <main className="main">{children}</main>
