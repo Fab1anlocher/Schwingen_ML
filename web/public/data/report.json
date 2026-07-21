@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-07-21T16:20:14.761315+00:00",
-  "lauf_id": "20260721T162014Z",
+  "erstellt": "2026-07-21T16:51:33.899088+00:00",
+  "lauf_id": "20260721T165133Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 125553,
@@ -11,16 +11,16 @@
   "n_train": 190304,
   "n_test": 60798,
   "modell": {
-    "log_loss": 0.8029,
-    "accuracy": 0.6511
+    "log_loss": 0.8015,
+    "accuracy": 0.6522
   },
   "baseline_elo": {
     "log_loss": 0.9028,
     "accuracy": 0.6173
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0338,
-  "verbesserung_log_loss": 0.0999,
+  "accuracy_gg_baseline": 0.0349,
+  "verbesserung_log_loss": 0.1013,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -28,19 +28,19 @@
   ],
   "konfusionsmatrix": [
     [
-      19419,
-      490,
-      4166
+      19452,
+      473,
+      4150
     ],
     [
-      5950,
-      748,
-      5950
+      5948,
+      752,
+      5948
     ],
     [
-      4167,
-      490,
-      19418
+      4151,
+      473,
+      19451
     ]
   ],
   "erfolgskriterien": {

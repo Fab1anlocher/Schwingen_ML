@@ -80,6 +80,7 @@ export function WasWaereWenn({
   eloB,
   nA,
   nB,
+  h2hVorteilA = 0,
 }: {
   model: ModelArtifact;
   a: Schwinger;
@@ -88,6 +89,7 @@ export function WasWaereWenn({
   eloB: number;
   nA: number;
   nB: number;
+  h2hVorteilA?: number;
 }) {
   const verfuegbareAchsen = useMemo(
     () => ACHSEN.filter((ax) => ax.verfuegbar(a, b)),
@@ -107,10 +109,10 @@ export function WasWaereWenn({
       else if (achse.key === "groesse") a2 = { ...a, groesse_cm: v };
       else if (achse.key === "form") a2 = { ...a, form: v };
       else eloA2 = eloB + v;
-      const { p } = prognostiziere(model, a2, b, eloA2, eloB, nA, nB);
+      const { p } = prognostiziere(model, a2, b, eloA2, eloB, nA, nB, h2hVorteilA);
       return { x: v, p };
     });
-  }, [achse, a, b, eloA, eloB, nA, nB, model]);
+  }, [achse, a, b, eloA, eloB, nA, nB, h2hVorteilA, model]);
 
   const px0 = PAD.links;
   const px1 = W() - PAD.rechts;

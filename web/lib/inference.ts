@@ -28,7 +28,8 @@ export function baueFeatures(
   eloA: number,
   eloB: number,
   nA: number,
-  nB: number
+  nB: number,
+  kopfAnKopfA: number = 0
 ): number[] {
   const kranz = model.config.kranzstatus_ordinal;
   const kranzA = kranz[a.kranzstatus] ?? 0;
@@ -48,6 +49,7 @@ export function baueFeatures(
     a.teilverband && a.teilverband === b.teilverband ? 1 : 0, // same_teilverband
     schwungOverlap(a, b), // schwung_overlap
     (a.bevorzugte_schwuenge?.length ?? 0) - (b.bevorzugte_schwuenge?.length ?? 0), // schwung_count_diff
+    kopfAnKopfA, // kopf_an_kopf
   ];
 }
 
@@ -66,9 +68,10 @@ export function prognostiziere(
   eloA: number,
   eloB: number,
   nA: number,
-  nB: number
+  nB: number,
+  kopfAnKopfA: number = 0
 ): Prognose {
-  const x = baueFeatures(model, a, b, eloA, eloB, nA, nB);
+  const x = baueFeatures(model, a, b, eloA, eloB, nA, nB, kopfAnKopfA);
   const { mu, sigma } = model.standardisierung;
   const z = x.map((xi, i) => (xi - mu[i]) / (sigma[i] || 1));
 

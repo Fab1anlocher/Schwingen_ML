@@ -31,7 +31,14 @@ FEATURE_NAMES = [
     "same_teilverband",  # 1 wenn gleicher Teilverband (symmetrisch)
     "schwung_overlap",   # Überschneidung bevorzugter Schwünge (0..1)
     "schwung_count_diff",  # Anzahl bevorzugter Schwünge A - B
+    "kopf_an_kopf",      # Bisherige direkte Duelle A vs B, leak-frei + geglättet
 ]
+
+# Schrumpfungsstärke für kopf_an_kopf: entspricht K "neutralen Phantom-Duellen"
+# gegen die die echte Bilanz gemittelt wird, damit ein einzelnes Duell nicht
+# sofort auf ±1 ausschlägt (kleine Stichprobe, Effekt soll mit mehr Duellen
+# wachsen — Empirical-Bayes-Glättung).
+KOPF_AN_KOPF_K = 2.0
 
 # Menschenlesbare Labels für Erklärbarkeit (FR-3).
 FEATURE_LABELS = {
@@ -46,6 +53,7 @@ FEATURE_LABELS = {
     "same_teilverband": "gleicher Teilverband",
     "schwung_overlap": "Übereinstimmung bevorzugter Schwünge",
     "schwung_count_diff": "Unterschied Anzahl bevorzugter Schwünge",
+    "kopf_an_kopf": "Bisherige direkte Duelle",
 }
 
 
@@ -68,6 +76,25 @@ def _diff_oder_null(a, b) -> float:
     if a is None or b is None:
         return 0.0
     return float(a - b)
+
+
+def _kopf_an_kopf_vorteil(a_id: str, b_id: str, historie: dict[tuple[str, str], list[float]]) -> float:
+    """Geglättete Kopf-an-Kopf-Bilanz A vs. B aus VORHERIGEN Duellen (leak-frei).
+
+    `historie` speichert je Paar eine Liste von Punkten aus Sicht des
+    kanonisch kleineren Schwinger-ID-Strings (1.0 Sieg / 0.5 Gestellt / 0.0
+    Niederlage) — dieselbe Konvention wie GangResultat.schwinger_a_id.
+    Rückgabe: ~0 ohne Historie, sonst in Richtung ±1 je nach A-Bilanz,
+    mit Empirical-Bayes-Glättung gegen 0.5 (s. KOPF_AN_KOPF_K).
+    """
+    kanonisch_a_klein = a_id < b_id
+    key = (a_id, b_id) if kanonisch_a_klein else (b_id, a_id)
+    punkte = historie.get(key)
+    if not punkte:
+        return 0.0
+    quote_klein = (sum(punkte) + KOPF_AN_KOPF_K * 0.5) / (len(punkte) + KOPF_AN_KOPF_K)
+    quote_a = quote_klein if kanonisch_a_klein else (1.0 - quote_klein)
+    return 2.0 * (quote_a - 0.5)
 
 
 def _schwung_overlap(sa: Schwinger, sb: Schwinger) -> float:
@@ -100,6 +127,7 @@ def baue_features(
         s["event_id"] + s["schwinger_a_id"] + s["schwinger_b_id"]: s for s in snapshots
     }
     form_hist: dict[str, deque] = defaultdict(lambda: deque(maxlen=FORM_FENSTER_K))
+    paar_hist: dict[tuple[str, str], list[float]] = defaultdict(list)
 
     X: list[list[float]] = []
     y: list[int] = []
@@ -121,8 +149,9 @@ def baue_features(
         # Merkmale VOR dem Gang berechnen (leak-frei).
         form_a = _form_wert(form_hist[a_id])
         form_b = _form_wert(form_hist[b_id])
+        h2h_a = _kopf_an_kopf_vorteil(a_id, b_id, paar_hist)
 
-        feats = _feature_vektor(elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb, gang.datum)
+        feats = _feature_vektor(elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb, gang.datum, h2h_a)
         label = klass_idx[gang.ergebnis]
         X.append(feats)
         y.append(label)
@@ -138,28 +167,36 @@ def baue_features(
         )
 
         if augment:
-            feats_swap = _feature_vektor(elo_b, elo_a, form_b, form_a, n_b, n_a, sb, sa, gang.datum)
+            feats_swap = _feature_vektor(
+                elo_b, elo_a, form_b, form_a, n_b, n_a, sb, sa, gang.datum, -h2h_a
+            )
             label_swap = {0: 2, 1: 1, 2: 0}[label]
             X.append(feats_swap)
             y.append(label_swap)
             meta.append({**meta[-1], "augmented": True})
 
-        # NACH Feature-Berechnung Form aktualisieren.
+        # NACH Feature-Berechnung Form + Kopf-an-Kopf-Historie aktualisieren.
         if gang.ergebnis == "sieg_a":
             form_hist[a_id].append(1.0)
             form_hist[b_id].append(0.0)
+            score_a = 1.0
         elif gang.ergebnis == "sieg_b":
             form_hist[a_id].append(0.0)
             form_hist[b_id].append(1.0)
+            score_a = 0.0
         else:
             form_hist[a_id].append(0.5)
             form_hist[b_id].append(0.5)
+            score_a = 0.5
+        # a_id ist bereits die kanonisch kleinere ID (GangResultat-Invariante).
+        paar_hist[(a_id, b_id)].append(score_a)
 
     return X, y, meta
 
 
 def _feature_vektor(
     elo_a, elo_b, form_a, form_b, n_a, n_b, sa: Schwinger, sb: Schwinger, datum: str,
+    kopf_an_kopf_a: float = 0.0,
 ) -> list[float]:
     kranz_a = KRANZSTATUS_ORDINAL.get(sa.kranzstatus, 0)
     kranz_b = KRANZSTATUS_ORDINAL.get(sb.kranzstatus, 0)
@@ -175,11 +212,17 @@ def _feature_vektor(
         1.0 if sa.teilverband and sa.teilverband == sb.teilverband else 0.0,
         _schwung_overlap(sa, sb),                        # schwung_overlap
         float(len(sa.bevorzugte_schwuenge) - len(sb.bevorzugte_schwuenge)),
+        kopf_an_kopf_a,                                  # kopf_an_kopf
     ]
 
 
 def feature_vektor_fuer_prognose(
     elo_a, elo_b, form_a, form_b, n_a, n_b, sa: Schwinger, sb: Schwinger, datum: str,
+    kopf_an_kopf_a: float = 0.0,
 ) -> list[float]:
-    """Öffentliche Variante für Live-Prognose (identische Berechnung)."""
-    return _feature_vektor(elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb, datum)
+    """Öffentliche Variante für Live-Prognose (identische Berechnung).
+
+    kopf_an_kopf_a: geglättete bisherige A-vs-B-Bilanz, s. _kopf_an_kopf_vorteil
+    (Aufrufer berechnet dies aus der Kopf-an-Kopf-Historie, z.B. web/lib/kopfAnKopf.ts).
+    """
+    return _feature_vektor(elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb, datum, kopf_an_kopf_a)

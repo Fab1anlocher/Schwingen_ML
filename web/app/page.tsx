@@ -8,6 +8,7 @@ import { PrognoseView } from "@/components/PrognoseView";
 import { SchwingerSuche } from "@/components/SchwingerSuche";
 import { WasWaereWenn } from "@/components/WasWaereWenn";
 import { KopfAnKopf } from "@/components/KopfAnKopf";
+import { ladeKopfAnKopf, kopfAnKopfVorteilA, type H2HTreffer } from "@/lib/kopfAnKopf";
 
 export default function Home() {
   const [model, setModel] = useState<ModelArtifact | null>(null);
@@ -18,6 +19,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [kopiert, setKopiert] = useState(false);
   const [eventInfo, setEventInfo] = useState<Record<string, { name: string; datum: string }>>({});
+  const [h2hTreffer, setH2hTreffer] = useState<H2HTreffer[] | null>(null);
 
   useEffect(() => {
     Promise.all([ladeModel(), ladeRatings(), ladeSchwinger()])
@@ -63,6 +65,28 @@ export default function Home() {
     window.history.replaceState(null, "", url.toString());
   }, [aId, bId]);
 
+  // Kopf-an-Kopf-Historie laden — fliesst als Merkmal in die Prognose UND
+  // in die Anzeige ein (einmal laden, beides speisen statt doppelt fetchen).
+  useEffect(() => {
+    if (!aId || !bId || aId === bId) {
+      setH2hTreffer(null);
+      return;
+    }
+    let aktuell = true;
+    setH2hTreffer(null);
+    ladeKopfAnKopf(aId, bId)
+      .then((t) => aktuell && setH2hTreffer(t))
+      .catch(() => aktuell && setH2hTreffer([]));
+    return () => {
+      aktuell = false;
+    };
+  }, [aId, bId]);
+
+  const h2hVorteilA = useMemo(
+    () => (h2hTreffer ? kopfAnKopfVorteilA(h2hTreffer) : 0),
+    [h2hTreffer]
+  );
+
   const byId = useMemo(
     () => Object.fromEntries(schwinger.map((s) => [s.id, s])),
     [schwinger]
@@ -81,8 +105,8 @@ export default function Home() {
   const prognose: Prognose | null = useMemo(() => {
     if (!model || !eingaben) return null;
     const { a, b, eloA, eloB, nA, nB } = eingaben;
-    return prognostiziere(model, a, b, eloA, eloB, nA, nB);
-  }, [model, eingaben]);
+    return prognostiziere(model, a, b, eloA, eloB, nA, nB, h2hVorteilA);
+  }, [model, eingaben, h2hVorteilA]);
 
   if (error) return <p className="warn">Fehler beim Laden: {error}</p>;
   if (!model) return <p className="loading">Modell wird geladen …</p>;
@@ -153,8 +177,7 @@ export default function Home() {
           <h2>Kopf an Kopf</h2>
           <div className="panel">
             <KopfAnKopf
-              aId={aId}
-              bId={bId}
+              treffer={h2hTreffer}
               nameA={byId[aId]?.name ?? "A"}
               nameB={byId[bId]?.name ?? "B"}
               eventInfo={eventInfo}
@@ -175,6 +198,7 @@ export default function Home() {
               eloB={eingaben.eloB}
               nA={eingaben.nA}
               nB={eingaben.nB}
+              h2hVorteilA={h2hVorteilA}
             />
           </div>
         </>
