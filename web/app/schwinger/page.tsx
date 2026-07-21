@@ -108,8 +108,9 @@ function SchwingerDetail({ schwinger: s, alle }: { schwinger: Schwinger; alle: S
   return (
     <div className="small" style={{ padding: "0.6rem 0" }}>
       <div>
-        <strong>Verband:</strong> {s.teilverband ?? "?"} · <strong>Kanton:</strong>{" "}
-        {s.kanton ?? "?"} · <strong>Klub:</strong> {s.schwingklub ?? "?"}
+        <strong>Teilverband:</strong> {s.teilverband ?? "?"} ·{" "}
+        <strong>Kantonal-/Gauverband:</strong> {s.kanton ?? "?"} · <strong>Klub:</strong>{" "}
+        {s.schwingklub ?? "?"}
       </div>
       <div>
         <strong>Grösse:</strong> {s.groesse_cm ? `${s.groesse_cm} cm` : "?"} ·{" "}

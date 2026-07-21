@@ -136,6 +136,78 @@ def exportiere_events(events: list, kommende: list | None = None) -> None:
 _ERGEBNIS_CODE = {"sieg_a": "A", "gestellt": "D", "sieg_b": "B"}
 
 
+def exportiere_kantone(schwinger: dict, elo_modell, gaenge: list) -> None:
+    """kantone.json: Statistik je politischem Kanton für die Schweiz-Karte.
+
+    Aggregiert aus dem Kantonal-/Gauverband (Schwinger.kanton) über die
+    Zuordnung in pipeline/kantone.py — mehrere Regionalverbände (z.B.
+    Berner Oberland/Emmental/Mittelland) fallen auf denselben Kanton.
+    """
+    from .kantone import kantone_fuer
+
+    elos = [elo_modell.get(sid) for sid in schwinger]
+    schwelle_top = float(np.percentile(elos, 90)) if len(elos) >= 10 else max(elos, default=0.0)
+
+    kantone: dict[str, dict] = {}
+
+    def eintrag(name: str) -> dict:
+        return kantone.setdefault(name, {
+            "n_schwinger": 0, "elo_summe": 0.0, "n_top": 0,
+            "n_kranzer": 0, "n_eidgenosse": 0, "n_koenig": 0,
+            "n_siege": 0, "n_gestellt": 0, "n_niederlagen": 0,
+        })
+
+    for sid, s in schwinger.items():
+        for kanton in kantone_fuer(s.kanton):
+            e = eintrag(kanton)
+            elo = elo_modell.get(sid)
+            e["n_schwinger"] += 1
+            e["elo_summe"] += elo
+            if elo >= schwelle_top:
+                e["n_top"] += 1
+            if s.kranzstatus == "kranzer":
+                e["n_kranzer"] += 1
+            elif s.kranzstatus == "eidgenosse":
+                e["n_eidgenosse"] += 1
+            elif s.kranzstatus == "koenig":
+                e["n_koenig"] += 1
+
+    for g in gaenge:
+        for sid, ist_a in ((g.schwinger_a_id, True), (g.schwinger_b_id, False)):
+            s = schwinger.get(sid)
+            if s is None:
+                continue
+            for kanton in kantone_fuer(s.kanton):
+                e = eintrag(kanton)
+                if g.ergebnis == "gestellt":
+                    e["n_gestellt"] += 1
+                elif (g.ergebnis == "sieg_a") == ist_a:
+                    e["n_siege"] += 1
+                else:
+                    e["n_niederlagen"] += 1
+
+    liste = []
+    for name, e in kantone.items():
+        liste.append({
+            "kanton": name,
+            "n_schwinger": e["n_schwinger"],
+            "elo_avg": round(e["elo_summe"] / e["n_schwinger"], 1) if e["n_schwinger"] else None,
+            "n_top_schwinger": e["n_top"],
+            "n_kranzer": e["n_kranzer"],
+            "n_eidgenosse": e["n_eidgenosse"],
+            "n_koenig": e["n_koenig"],
+            "n_siege": e["n_siege"],
+            "n_gestellt": e["n_gestellt"],
+            "n_niederlagen": e["n_niederlagen"],
+        })
+    liste.sort(key=lambda x: x["kanton"])
+    _dump_beide("kantone.json", {
+        "schema_version": config.SCHEMA_VERSION,
+        "top_schwelle_elo": round(schwelle_top, 1),
+        "kantone": liste,
+    })
+
+
 def exportiere_kopf_an_kopf(gaenge: list) -> None:
     """Kompakter Kopf-an-Kopf-Index je Paar (schwinger_a_id < schwinger_b_id).
 

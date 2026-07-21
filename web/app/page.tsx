@@ -9,21 +9,12 @@ import { SchwingerSuche } from "@/components/SchwingerSuche";
 import { WasWaereWenn } from "@/components/WasWaereWenn";
 import { KopfAnKopf } from "@/components/KopfAnKopf";
 
-const FEST_TYPEN = [
-  { v: "kantonal", l: "Kantonales" },
-  { v: "eidgenoessisch", l: "Eidgenössisches" },
-  { v: "berg", l: "Bergfest" },
-  { v: "teilverband", l: "Teilverband" },
-  { v: "regional", l: "Regional" },
-];
-
 export default function Home() {
   const [model, setModel] = useState<ModelArtifact | null>(null);
   const [ratings, setRatings] = useState<RatingsArtifact | null>(null);
   const [schwinger, setSchwinger] = useState<Schwinger[]>([]);
   const [aId, setAId] = useState("");
   const [bId, setBId] = useState("");
-  const [festTyp, setFestTyp] = useState("kantonal");
   const [error, setError] = useState<string | null>(null);
   const [kopiert, setKopiert] = useState(false);
   const [eventInfo, setEventInfo] = useState<Record<string, { name: string; datum: string }>>({});
@@ -33,19 +24,24 @@ export default function Home() {
       .then(([m, r, s]) => {
         setModel(m);
         setRatings(r);
-        setSchwinger(s);
-        // Aus geteiltem Link übernehmen (?a=...&b=...), sonst erste zwei als Default.
+        // Nach Elo absteigend: bekannteste/staerkste Schwinger zuerst — sowohl
+        // als Vorschlag bei leerer Suche als auch als Default-Paarung.
+        const sortiert = [...s].sort(
+          (a, b) => (r.ratings[b.id]?.elo ?? r.elo_start) - (r.ratings[a.id]?.elo ?? r.elo_start)
+        );
+        setSchwinger(sortiert);
+        // Aus geteiltem Link übernehmen (?a=...&b=...), sonst Top 2 als Default.
         const params = new URLSearchParams(window.location.search);
-        const vorhandeneIds = new Set(s.map((sw) => sw.id));
+        const vorhandeneIds = new Set(sortiert.map((sw) => sw.id));
         const aAusUrl = params.get("a");
         const bAusUrl = params.get("b");
-        setAId(aAusUrl && vorhandeneIds.has(aAusUrl) ? aAusUrl : s[0]?.id ?? "");
+        setAId(aAusUrl && vorhandeneIds.has(aAusUrl) ? aAusUrl : sortiert[0]?.id ?? "");
         setBId(
           bAusUrl && vorhandeneIds.has(bAusUrl)
             ? bAusUrl
-            : s[1]?.id && s[1].id !== aAusUrl
-            ? s[1].id
-            : s[0]?.id ?? ""
+            : sortiert[1]?.id && sortiert[1].id !== aAusUrl
+            ? sortiert[1].id
+            : sortiert[0]?.id ?? ""
         );
       })
       .catch((e) => setError(String(e)));
@@ -85,8 +81,8 @@ export default function Home() {
   const prognose: Prognose | null = useMemo(() => {
     if (!model || !eingaben) return null;
     const { a, b, eloA, eloB, nA, nB } = eingaben;
-    return prognostiziere(model, a, b, eloA, eloB, nA, nB, festTyp);
-  }, [model, eingaben, festTyp]);
+    return prognostiziere(model, a, b, eloA, eloB, nA, nB);
+  }, [model, eingaben]);
 
   if (error) return <p className="warn">Fehler beim Laden: {error}</p>;
   if (!model) return <p className="loading">Modell wird geladen …</p>;
@@ -132,18 +128,6 @@ export default function Home() {
           >
             {kopiert ? "✓ Link kopiert" : "🔗 Link teilen"}
           </button>
-        </div>
-        <div style={{ marginTop: "1rem", maxWidth: 260 }}>
-          <label className="field" htmlFor="typ">
-            Fest-Typ
-          </label>
-          <select id="typ" value={festTyp} onChange={(e) => setFestTyp(e.target.value)}>
-            {FEST_TYPEN.map((t) => (
-              <option key={t.v} value={t.v}>
-                {t.l}
-              </option>
-            ))}
-          </select>
         </div>
       </div>
 
@@ -191,7 +175,6 @@ export default function Home() {
               eloB={eingaben.eloB}
               nA={eingaben.nA}
               nB={eingaben.nB}
-              festTyp={festTyp}
             />
           </div>
         </>

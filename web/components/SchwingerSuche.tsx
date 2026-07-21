@@ -9,11 +9,25 @@ function normalisiere(s: string): string {
   return s.toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "");
 }
 
+function tokens(s: string): string[] {
+  return normalisiere(s).trim().split(/\s+/).filter(Boolean);
+}
+
 function anzeigeName(s: Schwinger): string {
   return s.jahrgang ? `${s.name} (${s.jahrgang})` : s.name;
 }
 
-/** Durchsuchbares Auswahlfeld für Schwinger (ersetzt <select> bei ~2900 Einträgen). */
+/**
+ * Durchsuchbares Auswahlfeld für Schwinger (ersetzt <select> bei ~2900 Einträgen).
+ *
+ * `schwinger` sollte vom Aufrufer bereits sinnvoll vorsortiert sein (z.B. nach
+ * Elo absteigend) — diese Reihenfolge bestimmt sowohl die Vorschläge bei
+ * leerer Suche als auch die Reihenfolge gleichwertiger Treffer.
+ * Die Suche selbst ist token-basiert (Reihenfolge "Vorname Nachname" oder
+ * "Nachname Vorname" spielt keine Rolle) und scannt IMMER die volle Liste,
+ * statt früh abzubrechen — sonst können bei generischen Suchbegriffen
+ * frühere Alphabet-Treffer spätere (namentlich eindeutige) Treffer verdecken.
+ */
 export function SchwingerSuche({
   id,
   label,
@@ -35,22 +49,28 @@ export function SchwingerSuche({
   const ausgewaehlt = schwinger.find((s) => s.id === value) ?? null;
 
   const treffer = useMemo(() => {
-    const q = normalisiere(query.trim());
-    if (!q) return schwinger.slice(0, MAX_ERGEBNISSE);
-    const startet: Schwinger[] = [];
-    const enthaelt: Schwinger[] = [];
+    const qTokens = tokens(query);
+    if (qTokens.length === 0) return schwinger.slice(0, MAX_ERGEBNISSE);
+
+    // Rang 0 = exakter Name, 1 = Name beginnt mit dem ersten Token (egal ob
+    // Vor- oder Nachname zuerst getippt wurde), 2 = alle Tokens irgendwo
+    // enthalten (Name oder Klub/Kantonalverband). Innerhalb eines Rangs
+    // bleibt die vom Aufrufer übergebene Reihenfolge erhalten (stable sort).
+    const bewertet: { s: Schwinger; rang: number }[] = [];
     for (const s of schwinger) {
       const n = normalisiere(s.name);
-      if (n.startsWith(q)) startet.push(s);
-      else if (
-        n.includes(q) ||
-        normalisiere(s.schwingklub ?? "").includes(q) ||
-        normalisiere(s.kanton ?? "").includes(q)
-      )
-        enthaelt.push(s);
-      if (startet.length + enthaelt.length >= MAX_ERGEBNISSE * 3) break;
+      const nTokens = n.split(/\s+/);
+      const zusatz = normalisiere([s.schwingklub, s.kanton].filter(Boolean).join(" "));
+      const heuhaufen = `${n} ${zusatz}`;
+      if (!qTokens.every((t) => heuhaufen.includes(t))) continue;
+
+      let rang = 2;
+      if (n === qTokens.join(" ")) rang = 0;
+      else if (qTokens.every((t) => nTokens.some((nt) => nt.startsWith(t)))) rang = 1;
+      bewertet.push({ s, rang });
     }
-    return [...startet, ...enthaelt].slice(0, MAX_ERGEBNISSE);
+    bewertet.sort((a, b) => a.rang - b.rang);
+    return bewertet.slice(0, MAX_ERGEBNISSE).map((b) => b.s);
   }, [query, schwinger]);
 
   const waehle = (s: Schwinger) => {

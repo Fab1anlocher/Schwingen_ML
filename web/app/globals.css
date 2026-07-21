@@ -773,3 +773,26 @@ tbody tr:hover {
 .kak-zeile:last-child {
   border-bottom: none;
 }
+
+/* Schweiz-Karte */
+.karte-svg {
+  width: 100%;
+  height: auto;
+  max-height: 560px;
+}
+.karte-status {
+  margin-bottom: 0.5rem;
+  min-height: 1.2em;
+}
+.karte-legende {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+.karte-legende-balken {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(69, 161, 127, 0.12), rgba(69, 161, 127, 0.92));
+}

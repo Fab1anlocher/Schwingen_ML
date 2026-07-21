@@ -76,6 +76,25 @@ export interface EventsArtifact {
   kommende: KommendesFest[];
 }
 
+export interface KantonStatistik {
+  kanton: string;
+  n_schwinger: number;
+  elo_avg: number | null;
+  n_top_schwinger: number;
+  n_kranzer: number;
+  n_eidgenosse: number;
+  n_koenig: number;
+  n_siege: number;
+  n_gestellt: number;
+  n_niederlagen: number;
+}
+
+export interface KantoneArtifact {
+  schema_version: string;
+  top_schwelle_elo: number;
+  kantone: KantonStatistik[];
+}
+
 export interface Prognose {
   p: Record<Klasse, number>;
   quote: Record<Klasse, number>; // 1/p, informativ (FR-2, AK-2.3)

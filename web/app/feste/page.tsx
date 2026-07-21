@@ -161,16 +161,7 @@ function FestCard({
               if (!a || !b) return null;
               const ra = ratings.ratings[pg.a_id] ?? { elo: ratings.elo_start, n_gaenge: 0 };
               const rb = ratings.ratings[pg.b_id] ?? { elo: ratings.elo_start, n_gaenge: 0 };
-              const pr = prognostiziere(
-                model,
-                a,
-                b,
-                ra.elo,
-                rb.elo,
-                ra.n_gaenge,
-                rb.n_gaenge,
-                fest.typ
-              );
+              const pr = prognostiziere(model, a, b, ra.elo, rb.elo, ra.n_gaenge, rb.n_gaenge);
               const cell = (v: number) => (
                 <>
                   {(v * 100).toFixed(0)}%

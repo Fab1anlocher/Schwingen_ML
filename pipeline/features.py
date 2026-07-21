@@ -8,12 +8,17 @@ from __future__ import annotations
 
 from collections import deque, defaultdict
 
-from .config import FORM_FENSTER_K, FEST_TYPEN
+from .config import FORM_FENSTER_K
 from .schema import Schwinger, KRANZSTATUS_ORDINAL
 from .labels import GangResultat
 
 
 # Reihenfolge der numerischen Merkmale = Spaltenreihenfolge im Modell-Artefakt.
+# Fest-Typ (bergfest/gross_fest) war früher Teil der Merkmale, per Ablation
+# aber ohne messbaren Effekt (Log-Loss/Accuracy unverändert bis leicht besser
+# ohne) — vermutlich reines Konfundieren mit rating_diff (stärkere Schwinger
+# treten öfter an Grossanlässen an). Deshalb entfernt; Event.typ bleibt als
+# Datenfeld (Anzeige/Filter) erhalten, nur nicht mehr als Modell-Merkmal.
 FEATURE_NAMES = [
     "rating_diff",       # Elo A - Elo B (leak-frei, pre-gang)
     "rating_abstand",    # |Elo A - Elo B|: Nähe der Ratings (symmetrisch, für "gestellt")
@@ -23,8 +28,6 @@ FEATURE_NAMES = [
     "gewicht_diff",      # kg A - B (aktuelle Portraitwerte, R-3)
     "groesse_diff",      # cm A - B
     "erfahrung_diff",    # Anzahl bisheriger Gänge A - B (leak-frei)
-    "bergfest",          # 1 wenn Bergfest, sonst 0 (geteilter Kontext)
-    "gross_fest",        # 1 wenn eidg./berg (Grossanlass), sonst 0
     "same_teilverband",  # 1 wenn gleicher Teilverband (symmetrisch)
     "schwung_overlap",   # Überschneidung bevorzugter Schwünge (0..1)
     "schwung_count_diff",  # Anzahl bevorzugter Schwünge A - B
@@ -40,8 +43,6 @@ FEATURE_LABELS = {
     "gewicht_diff": "Gewichtsunterschied",
     "groesse_diff": "Grössenunterschied",
     "erfahrung_diff": "Erfahrung (Anzahl Gänge)",
-    "bergfest": "Bergfest",
-    "gross_fest": "Grossanlass",
     "same_teilverband": "gleicher Teilverband",
     "schwung_overlap": "Übereinstimmung bevorzugter Schwünge",
     "schwung_count_diff": "Unterschied Anzahl bevorzugter Schwünge",
@@ -121,9 +122,7 @@ def baue_features(
         form_a = _form_wert(form_hist[a_id])
         form_b = _form_wert(form_hist[b_id])
 
-        feats = _feature_vektor(
-            elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb, gang.fest_typ, gang.datum
-        )
+        feats = _feature_vektor(elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb, gang.datum)
         label = klass_idx[gang.ergebnis]
         X.append(feats)
         y.append(label)
@@ -139,9 +138,7 @@ def baue_features(
         )
 
         if augment:
-            feats_swap = _feature_vektor(
-                elo_b, elo_a, form_b, form_a, n_b, n_a, sb, sa, gang.fest_typ, gang.datum
-            )
+            feats_swap = _feature_vektor(elo_b, elo_a, form_b, form_a, n_b, n_a, sb, sa, gang.datum)
             label_swap = {0: 2, 1: 1, 2: 0}[label]
             X.append(feats_swap)
             y.append(label_swap)
@@ -162,8 +159,7 @@ def baue_features(
 
 
 def _feature_vektor(
-    elo_a, elo_b, form_a, form_b, n_a, n_b, sa: Schwinger, sb: Schwinger,
-    fest_typ: str, datum: str,
+    elo_a, elo_b, form_a, form_b, n_a, n_b, sa: Schwinger, sb: Schwinger, datum: str,
 ) -> list[float]:
     kranz_a = KRANZSTATUS_ORDINAL.get(sa.kranzstatus, 0)
     kranz_b = KRANZSTATUS_ORDINAL.get(sb.kranzstatus, 0)
@@ -176,8 +172,6 @@ def _feature_vektor(
         _diff_oder_null(sa.gewicht_kg, sb.gewicht_kg),  # gewicht_diff
         _diff_oder_null(sa.groesse_cm, sb.groesse_cm),  # groesse_diff
         float(n_a - n_b),                               # erfahrung_diff
-        1.0 if fest_typ == "berg" else 0.0,             # bergfest
-        1.0 if fest_typ in ("eidgenoessisch", "berg") else 0.0,  # gross_fest
         1.0 if sa.teilverband and sa.teilverband == sb.teilverband else 0.0,
         _schwung_overlap(sa, sb),                        # schwung_overlap
         float(len(sa.bevorzugte_schwuenge) - len(sb.bevorzugte_schwuenge)),
@@ -185,8 +179,7 @@ def _feature_vektor(
 
 
 def feature_vektor_fuer_prognose(
-    elo_a, elo_b, form_a, form_b, n_a, n_b, sa: Schwinger, sb: Schwinger,
-    fest_typ: str, datum: str,
+    elo_a, elo_b, form_a, form_b, n_a, n_b, sa: Schwinger, sb: Schwinger, datum: str,
 ) -> list[float]:
     """Öffentliche Variante für Live-Prognose (identische Berechnung)."""
-    return _feature_vektor(elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb, fest_typ, datum)
+    return _feature_vektor(elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb, datum)

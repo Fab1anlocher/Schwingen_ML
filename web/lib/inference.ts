@@ -28,8 +28,7 @@ export function baueFeatures(
   eloA: number,
   eloB: number,
   nA: number,
-  nB: number,
-  festTyp: string
+  nB: number
 ): number[] {
   const kranz = model.config.kranzstatus_ordinal;
   const kranzA = kranz[a.kranzstatus] ?? 0;
@@ -46,8 +45,6 @@ export function baueFeatures(
     diffOderNull(a.gewicht_kg, b.gewicht_kg), // gewicht_diff
     diffOderNull(a.groesse_cm, b.groesse_cm), // groesse_diff
     nA - nB, // erfahrung_diff
-    festTyp === "berg" ? 1 : 0, // bergfest
-    festTyp === "eidgenoessisch" || festTyp === "berg" ? 1 : 0, // gross_fest
     a.teilverband && a.teilverband === b.teilverband ? 1 : 0, // same_teilverband
     schwungOverlap(a, b), // schwung_overlap
     (a.bevorzugte_schwuenge?.length ?? 0) - (b.bevorzugte_schwuenge?.length ?? 0), // schwung_count_diff
@@ -69,10 +66,9 @@ export function prognostiziere(
   eloA: number,
   eloB: number,
   nA: number,
-  nB: number,
-  festTyp: string
+  nB: number
 ): Prognose {
-  const x = baueFeatures(model, a, b, eloA, eloB, nA, nB, festTyp);
+  const x = baueFeatures(model, a, b, eloA, eloB, nA, nB);
   const { mu, sigma } = model.standardisierung;
   const z = x.map((xi, i) => (xi - mu[i]) / (sigma[i] || 1));
 
