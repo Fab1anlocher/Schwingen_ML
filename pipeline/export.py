@@ -78,7 +78,11 @@ def exportiere_ratings(elo_modell, schwinger: dict) -> None:
 
 
 def exportiere_schwinger(
-    schwinger: dict, form_aktuell: dict, ueberraschung: dict | None = None
+    schwinger: dict,
+    form_aktuell: dict,
+    ueberraschung: dict | None = None,
+    anzahl_kraenze: dict | None = None,
+    aktive: set | None = None,
 ) -> None:
     """schwinger.json: Profil + aktuelle Form (für Live-Prognose & Suche FR-5).
 
@@ -86,6 +90,8 @@ def exportiere_schwinger(
     Jahrgang bleibt intern; Anzeige nutzt Alter.
     """
     ueberraschung = ueberraschung or {}
+    anzahl_kraenze = anzahl_kraenze or {}
+    aktive = aktive if aktive is not None else set()
     liste = []
     for sid, s in schwinger.items():
         u = ueberraschung.get(sid)
@@ -114,6 +120,8 @@ def exportiere_schwinger(
             "form": round(form_aktuell.get(sid, 0.5), 3),
             "ueberraschungsindex": u["index"] if u else None,
             "n_bewertete_gaenge": u["n"] if u else 0,
+            "anzahl_kraenze": anzahl_kraenze.get(sid, 0),
+            "aktiv": sid in aktive,
             "groesster_erfolg": groesster_erfolg,
             "quellen": s.quellen,
         })

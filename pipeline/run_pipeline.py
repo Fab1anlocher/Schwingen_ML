@@ -83,6 +83,31 @@ def _aktuelle_form(gaenge) -> dict:
     return {sid: (sum(h) / len(h) if h else 0.5) for sid, h in hist.items()}
 
 
+def _anzahl_kraenze(gaenge) -> dict:
+    """Anzahl Feste mit Kranz je Schwinger, aus den Kranz-Sternen der Statistik-
+    PDF-Kopfzeilen (schlussgang_pdf._STERN_RE) -- kein Schwellenwert-Raten
+    unsererseits, die Quelle markiert den Kranz direkt pro Fest."""
+    feste: dict[str, set] = defaultdict(set)
+    for g in gaenge:
+        if g.kranz_a:
+            feste[g.schwinger_a_id].add(g.event_id)
+        if g.kranz_b:
+            feste[g.schwinger_b_id].add(g.event_id)
+    return {sid: len(evts) for sid, evts in feste.items()}
+
+
+def _aktive_schwinger(gaenge, referenz_jahr: int) -> set:
+    """Schwinger mit mind. einem Gang im aktuellsten Jahr der Datenbasis --
+    filtert Karteileichen (z.B. zurückgetretene Schwinger) aus der
+    Standardansicht der Schwinger-Liste, ohne sie aus den Daten zu löschen."""
+    aktive: set = set()
+    for g in gaenge:
+        if int(g.datum[:4]) == referenz_jahr:
+            aktive.add(g.schwinger_a_id)
+            aktive.add(g.schwinger_b_id)
+    return aktive
+
+
 def main(source: str = "synth") -> dict:
     config.ensure_dirs()
     print(f"[1/8] Lade Daten (Quelle={source}) ...", flush=True)
@@ -129,9 +154,11 @@ def main(source: str = "synth") -> dict:
     print("[8/8] Artefakte exportieren ...", flush=True)
     form_aktuell = _aktuelle_form(gaenge)
     ueberraschung = berechne_ueberraschung(gaenge, snapshots)
+    kraenze = _anzahl_kraenze(gaenge)
+    aktive = _aktive_schwinger(gaenge, referenz_jahr)
     export.exportiere_modell(train_res, fi)
     export.exportiere_ratings(elo_modell, schwinger)
-    export.exportiere_schwinger(schwinger, form_aktuell, ueberraschung)
+    export.exportiere_schwinger(schwinger, form_aktuell, ueberraschung, kraenze, aktive)
     export.exportiere_kopf_an_kopf(gaenge)
     export.exportiere_kantone(schwinger, elo_modell, gaenge)
     export.exportiere_cluster(cluster_res)

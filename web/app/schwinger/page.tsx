@@ -13,12 +13,15 @@ const KRANZ_LABEL: Record<string, string> = {
   koenig: "Schwingerkönig",
 };
 
+// Echte Werte aus schwinger.json (nicht "Berner"/"innerschweizer" o.ä. --
+// das Feld war bisher fälschlich gegen erfundene Strings gefiltert, das
+// Dropdown dadurch faktisch immer leer/wirkungslos).
 const TEILVERBAND_OPTIONEN = [
-  "berner",
-  "innerschweizer",
-  "nordostschweizer",
-  "nordwestschweizer",
-  "suedwestschweizer",
+  "Bern",
+  "Innerschweiz",
+  "Nordostschweiz",
+  "Nordwestschweiz",
+  "Suedwestschweiz",
 ];
 
 // Ohne aktive Suche/Filter würde die volle Liste (auch tausende Schwinger
@@ -34,6 +37,7 @@ export default function SchwingerListe() {
   const [q, setQ] = useState("");
   const [teilverband, setTeilverband] = useState("");
   const [minGaenge, setMinGaenge] = useState(0);
+  const [zeigeInaktive, setZeigeInaktive] = useState(false);
   const [offen, setOffen] = useState<string | null>(null);
 
   useEffect(() => {
@@ -55,12 +59,21 @@ export default function SchwingerListe() {
       n: ratings?.ratings[s.id]?.n_gaenge ?? 0,
     }));
     const arr = mit
-      .filter((s) => !nadel || s.name.toLowerCase().includes(nadel))
+      .filter((s) => {
+        if (!nadel) return true;
+        // Nicht nur der Name -- auch Teilverband/Kanton/Klub sollen über die
+        // freie Suche auffindbar sein, nicht nur über das Teilverband-Dropdown.
+        const heuhaufen = `${s.name} ${s.teilverband ?? ""} ${s.kanton ?? ""} ${
+          s.schwingklub ?? ""
+        }`.toLowerCase();
+        return heuhaufen.includes(nadel);
+      })
       .filter((s) => !teilverband || s.teilverband === teilverband)
       .filter((s) => s.n >= minGaenge)
+      .filter((s) => zeigeInaktive || s.aktiv)
       .sort((a, b) => b.elo - a.elo);
     return nadel ? arr : arr.slice(0, MAX_OHNE_SUCHE);
-  }, [schwinger, ratings, q, teilverband, minGaenge]);
+  }, [schwinger, ratings, q, teilverband, minGaenge, zeigeInaktive]);
 
   return (
     <div>
@@ -110,6 +123,17 @@ export default function SchwingerListe() {
             </select>
           </div>
         </div>
+        <label className="row" style={{ marginTop: "0.85rem", cursor: "pointer" }}>
+          <input
+            type="checkbox"
+            checked={zeigeInaktive}
+            onChange={(e) => setZeigeInaktive(e.target.checked)}
+            style={{ width: "auto" }}
+          />
+          <span className="small muted">
+            Auch inaktive anzeigen (kein Gang in der laufenden Saison)
+          </span>
+        </label>
       </div>
 
       <div className="panel tabelle-wrap" style={{ padding: 0 }}>
@@ -119,9 +143,9 @@ export default function SchwingerListe() {
               <th style={{ width: "3rem" }}>#</th>
               <th>Name</th>
               <th>Jg.</th>
-              <th>Kranz</th>
+              <th title="Höchste je erreichte Kranzstufe">Kranz</th>
               <th>Elo</th>
-              <th>Gänge</th>
+              <th title="Anzahl Feste mit Kranz">Kränze</th>
               <th>Form</th>
             </tr>
           </thead>
@@ -145,13 +169,20 @@ export default function SchwingerListe() {
                     <td className={`rang-platz${platzKlasse}`} style={{ textAlign: "center" }}>
                       {platz === 1 ? "🥇" : platz === 2 ? "🥈" : platz === 3 ? "🥉" : platz}
                     </td>
-                    <td>{s.name}</td>
+                    <td>
+                      {s.name}
+                      {!s.aktiv && (
+                        <span className="badge" style={{ marginLeft: 6 }}>
+                          inaktiv
+                        </span>
+                      )}
+                    </td>
                     <td className="muted">{s.jahrgang ?? "—"}</td>
                     <td>{KRANZ_LABEL[s.kranzstatus] ?? s.kranzstatus}</td>
                     <td>
                       <strong>{Math.round(s.elo)}</strong>
                     </td>
-                    <td className="muted">{s.n}</td>
+                    <td>{s.anzahl_kraenze}</td>
                     <td className="muted">{(s.form * 100).toFixed(0)}%</td>
                   </tr>
                   {offen === s.id && (

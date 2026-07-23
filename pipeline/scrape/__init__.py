@@ -110,6 +110,7 @@ def lade_echte_daten():
                 symbol=symbol,
                 note=r.get("note"),
                 fest_typ=fest_typ,
+                kranz=bool(r.get("kranz", False)),
             )
         )
 

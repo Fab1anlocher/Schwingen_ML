@@ -102,7 +102,12 @@ def tabellen_bloecke(pages_words: Iterable[list[dict]]) -> list[dict]:
                 if rest and _NOTE_RE.match(rest[-1]):
                     total = float(rest[-1])
                     rest = rest[:-1]
-                if rest and _STERN_RE.match(rest[-1]):
+                # Sterne in der Kopfzeile = Kranz an DIESEM Fest (offizielle
+                # PDF-Spalte "Kranz-Sterne", s. Moduldocstring) -- vorher
+                # geparst und sofort verworfen; jetzt für die Kranz-Zählung
+                # (Schwinger-Seite) festgehalten statt weggeworfen.
+                kranz = bool(rest and _STERN_RE.match(rest[-1]))
+                if kranz:
                     rest = rest[:-1]
                 name = " ".join(rest)
                 if not name:
@@ -111,7 +116,7 @@ def tabellen_bloecke(pages_words: Iterable[list[dict]]) -> list[dict]:
                     continue
                 if aktuell is not None:
                     bloecke.append(aktuell)
-                aktuell = {"name": name, "total": total, "gaenge": []}
+                aktuell = {"name": name, "total": total, "kranz": kranz, "gaenge": []}
             elif _SYMBOL_RE.match(erstes):
                 if aktuell is None:
                     continue
@@ -155,6 +160,7 @@ def parse_pdf_bytes(
                     "gegner_name": gang["gegner_name"],
                     "symbol": gang["symbol"],
                     "note": gang["note"],
+                    "kranz": block["kranz"],
                 }
             )
     return eintraege

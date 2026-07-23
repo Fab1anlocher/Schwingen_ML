@@ -43,6 +43,10 @@ export interface Schwinger {
   /** Mittel (tatsächlich - Elo-erwartete Punkte) über alle Gänge; + = übertrifft Erwartung. */
   ueberraschungsindex: number | null;
   n_bewertete_gaenge: number;
+  /** Anzahl Feste mit Kranz (aus den Kranz-Sternen der Statistik-PDFs gezählt). */
+  anzahl_kraenze: number;
+  /** Mindestens ein Gang im aktuellsten Jahr der Datenbasis. */
+  aktiv: boolean;
   groesster_erfolg: GroessterErfolg | null;
   quellen: string[];
 }

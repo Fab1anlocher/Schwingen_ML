@@ -45,6 +45,7 @@ class RohGangEintrag:
     symbol: str                # aus Sicht von schwinger_id
     note: Optional[float]
     fest_typ: str
+    kranz: bool = False        # Kranz-Sterne in der PDF-Kopfzeile von schwinger_id
 
 
 def ergebnis_aus_symbolen(symbol_a: str, symbol_b: str) -> str:
@@ -109,15 +110,18 @@ def dedupliziere(eintraege: list[RohGangEintrag]) -> tuple[list["GangResultat"],
             if vorhanden is e_low:
                 symbol_a, note_a = e_low.symbol, e_low.note
                 symbol_b, note_b = gespiegelt_symbol, None
+                kranz_a, kranz_b = e_low.kranz, False
             else:
                 symbol_a, note_a = gespiegelt_symbol, None
                 symbol_b, note_b = e_high.symbol, e_high.note
+                kranz_a, kranz_b = False, e_high.kranz
             warnungen.append(
                 f"{event_id} {id_low}/{id_high}: nur eine Perspektive vorhanden"
             )
         else:
             symbol_a, note_a = e_low.symbol, e_low.note
             symbol_b, note_b = e_high.symbol, e_high.note
+            kranz_a, kranz_b = e_low.kranz, e_high.kranz
 
         try:
             ergebnis = ergebnis_aus_symbolen(symbol_a, symbol_b)
@@ -137,6 +141,8 @@ def dedupliziere(eintraege: list[RohGangEintrag]) -> tuple[list["GangResultat"],
                 note_b=note_b,
                 ergebnis=ergebnis,
                 fest_typ=grp[0].fest_typ,
+                kranz_a=kranz_a,
+                kranz_b=kranz_b,
             )
         )
 
@@ -175,3 +181,5 @@ class GangResultat:
     note_b: Optional[float]
     ergebnis: str
     fest_typ: str
+    kranz_a: bool = False       # Kranz an diesem Fest für schwinger_a
+    kranz_b: bool = False       # Kranz an diesem Fest für schwinger_b
