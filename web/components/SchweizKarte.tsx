@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { KANTON_PFADE, KANTON_VIEWBOX } from "@/lib/schweiz-kantone";
 import type { KantonStatistik } from "@/lib/types";
+import { GauverbandVergleich } from "@/components/GauverbandVergleich";
 
 type MetrikKey = "elo_avg" | "siegquote" | "top_schwinger_quote" | "n_schwinger";
 
@@ -20,6 +21,15 @@ const METRIKEN: { key: MetrikKey; label: string; format: (v: number) => string }
   // Auswahlverzerrung der Datenquelle, die sich ohne zusätzliche
   // Verbandsdaten für die "kein"-Schwinger nicht sauber beheben lässt.
 ];
+
+// Politische Kantone, für die die Rohdaten mehrere eigene Kantonal-/
+// Gauverbände unterscheiden (s. pipeline/kantone.py) -- nur für diese lohnt
+// sich ein Klick-Aufklapp mit Detailvergleich. Andere zusammengeführte Fälle
+// (Appenzell -> AI+AR, Ob-/Nidwalden) haben in den Rohdaten nur EINEN
+// gemeinsamen Verbandsnamen, es gibt dort schlicht nichts aufzuschlüsseln.
+const GAUVERBAND_AUFSCHLUESSELUNG: Record<string, string[]> = {
+  Bern: ["Berner-Jura", "Emmental", "Mittelland", "Oberaargau", "Oberland", "Seeland"],
+};
 
 // Absolute Zaehl-Metriken (Siege, Top-Schwinger) skalieren trivial mit der
 // Anzahl erfasster Schwinger pro Kanton -- ein Kanton mit mehr Schwingern
@@ -39,10 +49,17 @@ function wertVon(k: KantonStatistik, metrik: MetrikKey): number | null {
   return v === null || v === undefined ? null : v;
 }
 
-export function SchweizKarte({ kantone }: { kantone: KantonStatistik[] }) {
+export function SchweizKarte({
+  kantone,
+  gauverbaende,
+}: {
+  kantone: KantonStatistik[];
+  gauverbaende?: KantonStatistik[];
+}) {
   const [metrikKey, setMetrikKey] = useState<MetrikKey>("elo_avg");
   const metrik = METRIKEN.find((m) => m.key === metrikKey)!;
   const [hover, setHover] = useState<string | null>(null);
+  const [ausgewaehlt, setAusgewaehlt] = useState<string | null>(null);
 
   const byName = useMemo(
     () => Object.fromEntries(kantone.map((k) => [k.kanton, k])),
@@ -72,7 +89,8 @@ export function SchweizKarte({ kantone }: { kantone: KantonStatistik[] }) {
     return `rgba(69, 161, 127, ${0.12 + anteil * 0.8})`;
   };
 
-  const angezeigt = hover ? byName[hover] : null;
+  const angezeigt = (hover ? byName[hover] : null) ?? (ausgewaehlt ? byName[ausgewaehlt] : null);
+  const gauverbandNamen = ausgewaehlt ? GAUVERBAND_AUFSCHLUESSELUNG[ausgewaehlt] : null;
 
   return (
     <div>
@@ -101,7 +119,14 @@ export function SchweizKarte({ kantone }: { kantone: KantonStatistik[] }) {
                 ? metrik.format(wertVon(angezeigt, metrikKey)!)
                 : "keine Daten"
             } · ${angezeigt.n_schwinger} erfasste Schwinger`
-          : "Kanton auswählen oder mit der Maus über die Karte fahren"}
+          : "Kanton anklicken für Details, oder mit der Maus über die Karte fahren"}
+        {angezeigt && GAUVERBAND_AUFSCHLUESSELUNG[angezeigt.kanton] && (
+          <span>
+            {" "}
+            · gliedert sich in {GAUVERBAND_AUFSCHLUESSELUNG[angezeigt.kanton].length} Gauverbände
+            {ausgewaehlt === angezeigt.kanton ? " (unten)" : " — anklicken für Details"}
+          </span>
+        )}
       </div>
 
       <svg viewBox={KANTON_VIEWBOX} className="karte-svg" role="img" aria-label="Schweizer Kantone">
@@ -110,10 +135,11 @@ export function SchweizKarte({ kantone }: { kantone: KantonStatistik[] }) {
             key={name}
             d={d}
             fill={farbeFuer(name)}
-            stroke={hover === name ? "var(--text)" : "var(--border)"}
-            strokeWidth={hover === name ? 1.6 : 0.8}
+            stroke={ausgewaehlt === name ? "var(--accent)" : hover === name ? "var(--text)" : "var(--border)"}
+            strokeWidth={ausgewaehlt === name ? 2.2 : hover === name ? 1.6 : 0.8}
             onMouseEnter={() => setHover(name)}
             onMouseLeave={() => setHover((h) => (h === name ? null : h))}
+            onClick={() => setAusgewaehlt((a) => (a === name ? null : name))}
             style={{ cursor: "pointer", transition: "fill 0.15s ease" }}
           >
             <title>
@@ -139,6 +165,16 @@ export function SchweizKarte({ kantone }: { kantone: KantonStatistik[] }) {
         hier beziehen sich nur auf diesen Teil der Datenbasis, tendenziell die erfolgreicheren
         Schwinger.
       </p>
+
+      {gauverbandNamen && gauverbaende && (
+        <div className="karte-gauverband-panel">
+          <GauverbandVergleich
+            titel={`${ausgewaehlt} nach Gauverband`}
+            gauverbaende={gauverbaende}
+            namen={gauverbandNamen}
+          />
+        </div>
+      )}
     </div>
   );
 }

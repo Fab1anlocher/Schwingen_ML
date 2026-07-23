@@ -4,9 +4,6 @@ import { useEffect, useState } from "react";
 import { ladeKantone, ladeGauverbaende } from "@/lib/data";
 import type { KantoneArtifact, GauverbaendeArtifact } from "@/lib/types";
 import { SchweizKarte } from "@/components/SchweizKarte";
-import { GauverbandVergleich } from "@/components/GauverbandVergleich";
-
-const BERN_GAUVERBAENDE = ["Berner-Jura", "Emmental", "Mittelland", "Oberaargau", "Oberland", "Seeland"];
 
 export default function Karte() {
   const [daten, setDaten] = useState<KantoneArtifact | null>(null);
@@ -34,23 +31,13 @@ export default function Karte() {
       </p>
 
       <div className="panel">
-        <SchweizKarte kantone={daten.kantone} />
+        <SchweizKarte kantone={daten.kantone} gauverbaende={gauverbaende?.gauverbaende} />
       </div>
 
       <p className="muted small" style={{ marginTop: "0.75rem" }}>
         „Top-Schwinger" = oberste 10% aller erfassten Schwinger nach Elo-Rating (Schwelle{" "}
         {Math.round(daten.top_schwelle_elo)}).
       </p>
-
-      {gauverbaende && (
-        <div className="panel" style={{ marginTop: "1.5rem" }}>
-          <GauverbandVergleich
-            titel="Bern nach Gauverband"
-            gauverbaende={gauverbaende.gauverbaende}
-            namen={BERN_GAUVERBAENDE}
-          />
-        </div>
-      )}
     </div>
   );
 }
