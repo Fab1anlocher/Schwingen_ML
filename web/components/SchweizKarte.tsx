@@ -4,20 +4,24 @@ import { useMemo, useState } from "react";
 import { KANTON_PFADE, KANTON_VIEWBOX } from "@/lib/schweiz-kantone";
 import type { KantonStatistik } from "@/lib/types";
 
-type MetrikKey = "elo_avg" | "n_siege" | "n_top_schwinger" | "n_schwinger" | "kranzquote";
+type MetrikKey = "elo_avg" | "n_siege" | "n_top_schwinger" | "n_schwinger";
 
 const METRIKEN: { key: MetrikKey; label: string; format: (v: number) => string }[] = [
   { key: "elo_avg", label: "Ø Elo-Rating", format: (v) => v.toFixed(0) },
   { key: "n_siege", label: "Anzahl Siege (echte Gänge)", format: (v) => v.toFixed(0) },
   { key: "n_top_schwinger", label: "Anzahl Top-Schwinger (oberste 10% Elo)", format: (v) => v.toFixed(0) },
   { key: "n_schwinger", label: "Anzahl erfasste Schwinger", format: (v) => v.toFixed(0) },
-  { key: "kranzquote", label: "Kranz-Quote", format: (v) => `${(v * 100).toFixed(0)}%` },
+  // Bewusst KEINE "Kranz-Quote": schlussgang.ch legt ein Porträt (und damit
+  // einen Kantonal-/Gauverband) fast ausschliesslich für Schwinger an, die
+  // bereits einen Kranz haben. Schwinger ohne Porträt (~75% der Datenbasis)
+  // haben keinen erfassten Verband und fallen aus JEDER Kanton-Statistik
+  // heraus -- die Quote läge dadurch überall bei ~100%, unabhängig von der
+  // tatsächlichen regionalen Kranz-Quote. Kein Anzeige-Bug, sondern eine
+  // Auswahlverzerrung der Datenquelle, die sich ohne zusätzliche
+  // Verbandsdaten für die "kein"-Schwinger nicht sauber beheben lässt.
 ];
 
 function wertVon(k: KantonStatistik, metrik: MetrikKey): number | null {
-  if (metrik === "kranzquote") {
-    return k.n_schwinger > 0 ? (k.n_kranzer + k.n_eidgenosse + k.n_koenig) / k.n_schwinger : null;
-  }
   const v = k[metrik];
   return v === null || v === undefined ? null : v;
 }
@@ -117,7 +121,10 @@ export function SchweizKarte({ kantone }: { kantone: KantonStatistik[] }) {
       <p className="muted small" style={{ marginTop: "0.5rem" }}>
         Kantonszuordnung basiert auf dem Kantonal-/Gauverband der Schwinger; grosse Verbände
         (z.B. Bern: Oberland, Emmental, Mittelland, Oberaargau, Seeland, Berner-Jura) werden zum
-        politischen Kanton zusammengeführt. Graue Kantone: keine erfassten Schwinger.
+        politischen Kanton zusammengeführt. Graue Kantone: keine erfassten Schwinger. Der
+        Kantonal-/Gauverband ist nur für Schwinger mit eigenem Porträt bekannt — alle Zahlen
+        hier beziehen sich nur auf diesen Teil der Datenbasis, tendenziell die erfolgreicheren
+        Schwinger.
       </p>
     </div>
   );

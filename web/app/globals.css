@@ -661,35 +661,6 @@ tbody tr:hover {
   font-size: 0.88rem;
 }
 
-/* Was-wäre-wenn-Sensitivitätschart (Paar-Prognose) */
-.www-wrap {
-  margin-top: 1rem;
-}
-.www-svg {
-  width: 100%;
-  height: auto;
-  touch-action: none;
-}
-.www-achsentext {
-  fill: var(--muted);
-  font-size: 11px;
-}
-.www-status {
-  margin-bottom: 0.5rem;
-  min-height: 1.2em;
-}
-.www-legend {
-  display: flex;
-  gap: 1.25rem;
-  font-size: 0.8rem;
-  color: var(--muted);
-  margin-top: 0.5rem;
-}
-.www-legend span {
-  display: inline-flex;
-  align-items: center;
-}
-
 /* Teilen-Button (Paar-Prognose) */
 .teilen-btn {
   cursor: pointer;
@@ -737,23 +708,11 @@ tbody tr:hover {
   text-align: right;
 }
 
-/* Rangliste */
-.rang-zeile {
-  display: grid;
-  grid-template-columns: 2.4rem 1fr auto auto auto;
-  align-items: center;
-  gap: 0.85rem;
-  padding: 0.65rem 0.5rem;
-  border-bottom: 1px solid var(--border-soft);
-}
-.rang-zeile:hover {
-  background: rgba(255, 255, 255, 0.02);
-}
+/* Rang-Spalte (Schwinger-Tabelle) */
 .rang-platz {
   font-weight: 800;
   font-size: 1.05rem;
   color: var(--muted-2);
-  text-align: center;
 }
 .rang-platz-top1 {
   color: #f0c675;
@@ -763,18 +722,6 @@ tbody tr:hover {
 }
 .rang-platz-top3 {
   color: #d99a63;
-}
-.rang-name {
-  font-weight: 600;
-}
-.rang-meta {
-  color: var(--muted);
-  font-size: 0.8rem;
-}
-.rang-elo {
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-  font-size: 1.05rem;
 }
 
 /* Kopf-an-Kopf */

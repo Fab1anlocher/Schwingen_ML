@@ -13,10 +13,26 @@ const KRANZ_LABEL: Record<string, string> = {
   koenig: "Schwingerkönig",
 };
 
+const TEILVERBAND_OPTIONEN = [
+  "berner",
+  "innerschweizer",
+  "nordostschweizer",
+  "nordwestschweizer",
+  "suedwestschweizer",
+];
+
+// Ohne aktive Suche/Filter würde die volle Liste (auch tausende Schwinger
+// ohne erfasste Gänge) die Seite unübersichtlich machen — daher Deckel,
+// solange nicht gezielt gesucht wird (dann sollen auch Ränge >100 auffindbar
+// sein, s. Suche-Verbesserung weiter unten in der Historie).
+const MAX_OHNE_SUCHE = 150;
+
 export default function SchwingerListe() {
   const [schwinger, setSchwinger] = useState<Schwinger[]>([]);
   const [ratings, setRatings] = useState<RatingsArtifact | null>(null);
   const [q, setQ] = useState("");
+  const [teilverband, setTeilverband] = useState("");
+  const [minGaenge, setMinGaenge] = useState(0);
   const [offen, setOffen] = useState<string | null>(null);
 
   useEffect(() => {
@@ -24,38 +40,81 @@ export default function SchwingerListe() {
     ladeRatings().then(setRatings);
   }, []);
 
+  const verfuegbareTeilverbaende = useMemo(() => {
+    const gefunden = new Set(schwinger.map((s) => s.teilverband).filter(Boolean) as string[]);
+    return TEILVERBAND_OPTIONEN.filter((t) => gefunden.has(t));
+  }, [schwinger]);
+
   const gefiltert = useMemo(() => {
     const nadel = q.trim().toLowerCase();
     const mit = schwinger.map((s) => ({
       ...s,
-      elo: ratings?.ratings[s.id]?.elo ?? null,
+      elo: ratings?.ratings[s.id]?.elo ?? ratings?.elo_start ?? 1500,
       n: ratings?.ratings[s.id]?.n_gaenge ?? 0,
     }));
-    const arr = nadel
-      ? mit.filter((s) => s.name.toLowerCase().includes(nadel))
-      : mit;
-    return arr.sort((a, b) => (b.elo ?? 0) - (a.elo ?? 0));
-  }, [schwinger, ratings, q]);
+    const arr = mit
+      .filter((s) => !nadel || s.name.toLowerCase().includes(nadel))
+      .filter((s) => !teilverband || s.teilverband === teilverband)
+      .filter((s) => s.n >= minGaenge)
+      .sort((a, b) => b.elo - a.elo);
+    return nadel ? arr : arr.slice(0, MAX_OHNE_SUCHE);
+  }, [schwinger, ratings, q, teilverband, minGaenge]);
 
   return (
     <div>
       <h1>Schwinger</h1>
       <p className="subtitle">
-        {schwinger.length} erfasste Schwinger, nach Elo-Rating sortiert. Nach Namen suchen.
+        {schwinger.length} erfasste Schwinger, nach Elo-Rating (Power-Rating) sortiert — kein
+        offizielles ESV-Ranking, sondern die modellinterne Einstufung. Suchen, filtern oder
+        auf einen Namen klicken für Profildetails.
       </p>
 
-      <input
-        placeholder="Name suchen …"
-        value={q}
-        onChange={(e) => setQ(e.target.value)}
-        style={{ marginBottom: "1.25rem", maxWidth: 360 }}
-        aria-label="Schwinger suchen"
-      />
+      <div className="panel" style={{ marginBottom: "1.25rem" }}>
+        <input
+          placeholder="Name suchen …"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          style={{ marginBottom: "0.85rem", maxWidth: 360 }}
+          aria-label="Schwinger suchen"
+        />
+        <div className="grid-2">
+          <div>
+            <label className="field" htmlFor="tv">
+              Teilverband
+            </label>
+            <select id="tv" value={teilverband} onChange={(e) => setTeilverband(e.target.value)}>
+              <option value="">Alle</option>
+              {verfuegbareTeilverbaende.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="field" htmlFor="ming">
+              Mindestens erfasste Gänge
+            </label>
+            <select
+              id="ming"
+              value={minGaenge}
+              onChange={(e) => setMinGaenge(Number(e.target.value))}
+            >
+              {[0, 5, 10, 20, 40].map((n) => (
+                <option key={n} value={n}>
+                  {n === 0 ? "Keine Mindestanzahl" : `≥ ${n} Gänge`}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
 
       <div className="panel" style={{ padding: 0, overflowX: "auto" }}>
         <table>
           <thead>
             <tr>
+              <th style={{ width: "3rem" }}>#</th>
               <th>Name</th>
               <th>Jg.</th>
               <th>Kranz</th>
@@ -65,36 +124,55 @@ export default function SchwingerListe() {
             </tr>
           </thead>
           <tbody>
-            {gefiltert.map((s) => (
-              <Fragment key={s.id}>
-                <tr
-                  onClick={() => setOffen(offen === s.id ? null : s.id)}
-                  style={{ cursor: "pointer" }}
-                >
-                  <td>{s.name}</td>
-                  <td className="muted">{s.jahrgang ?? "—"}</td>
-                  <td>{KRANZ_LABEL[s.kranzstatus] ?? s.kranzstatus}</td>
-                  <td>
-                    <strong>{s.elo !== null ? Math.round(s.elo) : "—"}</strong>
-                  </td>
-                  <td className="muted">{s.n}</td>
-                  <td className="muted">{(s.form * 100).toFixed(0)}%</td>
-                </tr>
-                {offen === s.id && (
-                  <tr>
-                    <td colSpan={6} style={{ background: "var(--panel-2)" }}>
-                      <SchwingerDetail schwinger={s} alle={schwinger} />
+            {gefiltert.map((s, i) => {
+              const platz = i + 1;
+              const platzKlasse =
+                platz === 1
+                  ? " rang-platz-top1"
+                  : platz === 2
+                  ? " rang-platz-top2"
+                  : platz === 3
+                  ? " rang-platz-top3"
+                  : "";
+              return (
+                <Fragment key={s.id}>
+                  <tr
+                    onClick={() => setOffen(offen === s.id ? null : s.id)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <td className={`rang-platz${platzKlasse}`} style={{ textAlign: "center" }}>
+                      {platz === 1 ? "🥇" : platz === 2 ? "🥈" : platz === 3 ? "🥉" : platz}
                     </td>
+                    <td>{s.name}</td>
+                    <td className="muted">{s.jahrgang ?? "—"}</td>
+                    <td>{KRANZ_LABEL[s.kranzstatus] ?? s.kranzstatus}</td>
+                    <td>
+                      <strong>{Math.round(s.elo)}</strong>
+                    </td>
+                    <td className="muted">{s.n}</td>
+                    <td className="muted">{(s.form * 100).toFixed(0)}%</td>
                   </tr>
-                )}
-              </Fragment>
-            ))}
+                  {offen === s.id && (
+                    <tr>
+                      <td colSpan={7} style={{ background: "var(--panel-2)" }}>
+                        <SchwingerDetail schwinger={s} alle={schwinger} />
+                      </td>
+                    </tr>
+                  )}
+                </Fragment>
+              );
+            })}
           </tbody>
         </table>
       </div>
       {gefiltert.length === 0 && (
         <p className="muted" style={{ marginTop: "1rem" }}>
-          Keine Treffer für „{q}".
+          Keine Treffer für diesen Filter.
+        </p>
+      )}
+      {!q && gefiltert.length === MAX_OHNE_SUCHE && (
+        <p className="muted small" style={{ marginTop: "0.75rem" }}>
+          Zeigt die Top {MAX_OHNE_SUCHE} nach Elo. Für weitere Schwinger gezielt nach Namen suchen.
         </p>
       )}
     </div>
@@ -163,6 +241,12 @@ function SchwingerDetail({ schwinger: s, alle }: { schwinger: Schwinger; alle: S
             ))}
           </div>
         )}
+      </div>
+
+      <div style={{ marginTop: "0.6rem" }}>
+        <Link href={`/?a=${encodeURIComponent(s.id)}`} className="badge" style={{ color: "var(--text)" }}>
+          Als Schwinger A in der Paar-Prognose übernehmen →
+        </Link>
       </div>
     </div>
   );

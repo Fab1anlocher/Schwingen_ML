@@ -6,7 +6,6 @@ import { prognostiziere } from "@/lib/inference";
 import type { ModelArtifact, RatingsArtifact, Schwinger, Prognose } from "@/lib/types";
 import { PrognoseView } from "@/components/PrognoseView";
 import { SchwingerSuche } from "@/components/SchwingerSuche";
-import { WasWaereWenn } from "@/components/WasWaereWenn";
 import { KopfAnKopf } from "@/components/KopfAnKopf";
 import { ladeKopfAnKopf, kopfAnKopfVorteilA, type H2HTreffer } from "@/lib/kopfAnKopf";
 
@@ -186,23 +185,6 @@ export default function Home() {
         </>
       )}
 
-      {model && eingaben && (
-        <>
-          <h2>Was wäre, wenn …?</h2>
-          <div className="panel">
-            <WasWaereWenn
-              model={model}
-              a={eingaben.a}
-              b={eingaben.b}
-              eloA={eingaben.eloA}
-              eloB={eingaben.eloB}
-              nA={eingaben.nA}
-              nB={eingaben.nB}
-              h2hVorteilA={h2hVorteilA}
-            />
-          </div>
-        </>
-      )}
     </div>
   );
 }
