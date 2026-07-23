@@ -537,16 +537,16 @@
       "pca_y": 2.323
     },
     {
-      "schwinger_id": "roman bucher|2003",
-      "cluster": 0,
-      "pca_x": -2.225,
-      "pca_y": -0.402
-    },
-    {
       "schwinger_id": "roman bucher|2002",
       "cluster": 2,
       "pca_x": 0.251,
       "pca_y": -1.167
+    },
+    {
+      "schwinger_id": "roman bucher|2003",
+      "cluster": 0,
+      "pca_x": -2.225,
+      "pca_y": -0.402
     },
     {
       "schwinger_id": "thomas bucher|1996",
@@ -4101,16 +4101,16 @@
       "pca_y": 4.982
     },
     {
-      "schwinger_id": "christian zemp|2000",
-      "cluster": 0,
-      "pca_x": -0.616,
-      "pca_y": 0.6
-    },
-    {
       "schwinger_id": "christian zemp|2004",
       "cluster": 4,
       "pca_x": -0.99,
       "pca_y": 0.981
+    },
+    {
+      "schwinger_id": "christian zemp|2000",
+      "cluster": 0,
+      "pca_x": -0.616,
+      "pca_y": 0.6
     },
     {
       "schwinger_id": "matteo zenklusen|2005",
@@ -4378,11 +4378,11 @@
         "score": 0.82
       },
       {
-        "schwinger_id": "jerome christen|2002",
+        "schwinger_id": "pascal joho|2004",
         "score": 0.82
       },
       {
-        "schwinger_id": "pascal joho|2004",
+        "schwinger_id": "jerome christen|2002",
         "score": 0.82
       },
       {
@@ -4400,11 +4400,11 @@
         "score": 0.841
       },
       {
-        "schwinger_id": "matthias moser|1990",
+        "schwinger_id": "simon marti|2000",
         "score": 0.841
       },
       {
-        "schwinger_id": "simon marti|2000",
+        "schwinger_id": "matthias moser|1990",
         "score": 0.841
       },
       {
@@ -4502,15 +4502,15 @@
     ],
     "david aebersold|2001": [
       {
+        "schwinger_id": "ivan riget|1988",
+        "score": 1.0
+      },
+      {
         "schwinger_id": "cornel schild|2004",
         "score": 1.0
       },
       {
         "schwinger_id": "robin martin|1995",
-        "score": 1.0
-      },
-      {
-        "schwinger_id": "ivan riget|1988",
         "score": 1.0
       },
       {
@@ -4558,11 +4558,11 @@
         "score": 0.84
       },
       {
-        "schwinger_id": "jonas troxler|2000",
+        "schwinger_id": "remo murer|1996",
         "score": 0.826
       },
       {
-        "schwinger_id": "remo murer|1996",
+        "schwinger_id": "jonas troxler|2000",
         "score": 0.826
       }
     ],
@@ -5126,25 +5126,25 @@
         "score": 0.646
       },
       {
-        "schwinger_id": "david aebersold|2001",
-        "score": 0.637
-      },
-      {
         "schwinger_id": "cornel schild|2004",
         "score": 0.637
       },
       {
         "schwinger_id": "ivan riget|1988",
         "score": 0.637
+      },
+      {
+        "schwinger_id": "david aebersold|2001",
+        "score": 0.637
       }
     ],
     "andre barras|1996": [
       {
-        "schwinger_id": "nathael cardinaux|2008",
+        "schwinger_id": "lorin rhyner|2009",
         "score": 1.0
       },
       {
-        "schwinger_id": "lorin rhyner|2009",
+        "schwinger_id": "nathael cardinaux|2008",
         "score": 1.0
       },
       {
@@ -5166,11 +5166,11 @@
         "score": 0.845
       },
       {
-        "schwinger_id": "bastien collaud|2005",
+        "schwinger_id": "marco hurlimann|2002",
         "score": 0.842
       },
       {
-        "schwinger_id": "marco hurlimann|2002",
+        "schwinger_id": "bastien collaud|2005",
         "score": 0.842
       },
       {
@@ -5206,11 +5206,11 @@
     ],
     "roger baumann|1995": [
       {
-        "schwinger_id": "sandro gmur|1997",
+        "schwinger_id": "michael ulrich|2003",
         "score": 1.0
       },
       {
-        "schwinger_id": "michael ulrich|2003",
+        "schwinger_id": "sandro gmur|1997",
         "score": 1.0
       },
       {
@@ -5280,11 +5280,11 @@
         "score": 0.844
       },
       {
-        "schwinger_id": "janik korrodi|2004",
+        "schwinger_id": "severin kathriner|2000",
         "score": 0.843
       },
       {
-        "schwinger_id": "severin kathriner|2000",
+        "schwinger_id": "janik korrodi|2004",
         "score": 0.843
       },
       {
@@ -5408,11 +5408,11 @@
         "score": 0.844
       },
       {
-        "schwinger_id": "enrico joos|2003",
+        "schwinger_id": "pirmin von rickenbach|2002",
         "score": 0.844
       },
       {
-        "schwinger_id": "pirmin von rickenbach|2002",
+        "schwinger_id": "enrico joos|2003",
         "score": 0.844
       },
       {
@@ -5448,19 +5448,19 @@
     ],
     "michael bernold|1999": [
       {
-        "schwinger_id": "patrice buhler|1997",
-        "score": 0.842
-      },
-      {
         "schwinger_id": "marco heiniger|1996",
         "score": 0.842
       },
       {
-        "schwinger_id": "simon marti|2000",
-        "score": 0.841
+        "schwinger_id": "patrice buhler|1997",
+        "score": 0.842
       },
       {
         "schwinger_id": "matthias moser|1990",
+        "score": 0.841
+      },
+      {
+        "schwinger_id": "simon marti|2000",
         "score": 0.841
       },
       {
@@ -5486,7 +5486,7 @@
         "score": 0.407
       },
       {
-        "schwinger_id": "marcel kampf|1982",
+        "schwinger_id": "marco nageli|1994",
         "score": 0.355
       }
     ],
@@ -5580,11 +5580,11 @@
     ],
     "christian biasch|1996": [
       {
-        "schwinger_id": "niklaus scherer|1995",
+        "schwinger_id": "simon graf|2001",
         "score": 1.0
       },
       {
-        "schwinger_id": "simon graf|2001",
+        "schwinger_id": "niklaus scherer|1995",
         "score": 1.0
       },
       {
@@ -5596,7 +5596,7 @@
         "score": 0.845
       },
       {
-        "schwinger_id": "urs hauri|1991",
+        "schwinger_id": "simon fah|2006",
         "score": 0.827
       }
     ],
@@ -5614,11 +5614,11 @@
         "score": 0.827
       },
       {
-        "schwinger_id": "bernhard kampf|1988",
+        "schwinger_id": "paul tornare|2001",
         "score": 0.719
       },
       {
-        "schwinger_id": "paul tornare|2001",
+        "schwinger_id": "bernhard kampf|1988",
         "score": 0.719
       }
     ],
@@ -5716,11 +5716,11 @@
         "score": 0.9
       },
       {
-        "schwinger_id": "marco hurlimann|2002",
+        "schwinger_id": "bastien collaud|2005",
         "score": 0.818
       },
       {
-        "schwinger_id": "bastien collaud|2005",
+        "schwinger_id": "marco hurlimann|2002",
         "score": 0.818
       },
       {
@@ -5822,11 +5822,11 @@
     ],
     "niklas blaser|1997": [
       {
-        "schwinger_id": "nathael cardinaux|2008",
+        "schwinger_id": "lorin rhyner|2009",
         "score": 1.0
       },
       {
-        "schwinger_id": "lorin rhyner|2009",
+        "schwinger_id": "nathael cardinaux|2008",
         "score": 1.0
       },
       {
@@ -6046,11 +6046,11 @@
         "score": 0.845
       },
       {
-        "schwinger_id": "silvio oettli|2000",
+        "schwinger_id": "alex schuler|1998",
         "score": 0.65
       },
       {
-        "schwinger_id": "alex schuler|1998",
+        "schwinger_id": "silvio oettli|2000",
         "score": 0.65
       },
       {
@@ -6238,28 +6238,6 @@
         "score": 0.324
       }
     ],
-    "roman bucher|2003": [
-      {
-        "schwinger_id": "pascal wuthrich|2004",
-        "score": 0.841
-      },
-      {
-        "schwinger_id": "jaime marty|2000",
-        "score": 0.732
-      },
-      {
-        "schwinger_id": "lukas roth|1984",
-        "score": 0.732
-      },
-      {
-        "schwinger_id": "seppi felder|1992",
-        "score": 0.654
-      },
-      {
-        "schwinger_id": "elias epp|2003",
-        "score": 0.646
-      }
-    ],
     "roman bucher|2002": [
       {
         "schwinger_id": "matthias imobersteg|2001",
@@ -6280,6 +6258,28 @@
       {
         "schwinger_id": "christoph thoma|1997",
         "score": 0.805
+      }
+    ],
+    "roman bucher|2003": [
+      {
+        "schwinger_id": "pascal wuthrich|2004",
+        "score": 0.841
+      },
+      {
+        "schwinger_id": "jaime marty|2000",
+        "score": 0.732
+      },
+      {
+        "schwinger_id": "lukas roth|1984",
+        "score": 0.732
+      },
+      {
+        "schwinger_id": "seppi felder|1992",
+        "score": 0.654
+      },
+      {
+        "schwinger_id": "elias epp|2003",
+        "score": 0.646
       }
     ],
     "thomas bucher|1996": [
@@ -6420,11 +6420,11 @@
         "score": 1.0
       },
       {
-        "schwinger_id": "martin egli|1997",
+        "schwinger_id": "patrik feldmann|2005",
         "score": 0.842
       },
       {
-        "schwinger_id": "patrik feldmann|2005",
+        "schwinger_id": "martin egli|1997",
         "score": 0.842
       },
       {
@@ -6534,25 +6534,25 @@
         "score": 0.825
       },
       {
-        "schwinger_id": "arjuna fuster|2003",
-        "score": 0.825
-      },
-      {
         "schwinger_id": "marco hadorn|1999",
         "score": 0.825
       },
       {
         "schwinger_id": "romeo freund|1990",
         "score": 0.825
+      },
+      {
+        "schwinger_id": "arjuna fuster|2003",
+        "score": 0.825
       }
     ],
     "matthieu burger|2001": [
       {
-        "schwinger_id": "luca muller|2004",
+        "schwinger_id": "reto walther|2003",
         "score": 0.814
       },
       {
-        "schwinger_id": "reto walther|2003",
+        "schwinger_id": "luca muller|2004",
         "score": 0.814
       },
       {
@@ -6604,11 +6604,11 @@
         "score": 0.406
       },
       {
-        "schwinger_id": "peter beer|1999",
+        "schwinger_id": "johann borcard|1994",
         "score": 0.382
       },
       {
-        "schwinger_id": "johann borcard|1994",
+        "schwinger_id": "peter beer|1999",
         "score": 0.382
       }
     ],
@@ -6618,11 +6618,11 @@
         "score": 1.0
       },
       {
-        "schwinger_id": "valentin steffen|1996",
+        "schwinger_id": "dominik hess|1994",
         "score": 0.901
       },
       {
-        "schwinger_id": "dominik hess|1994",
+        "schwinger_id": "valentin steffen|1996",
         "score": 0.901
       },
       {
@@ -6820,15 +6820,15 @@
         "score": 0.841
       },
       {
-        "schwinger_id": "robin martin|1995",
-        "score": 0.841
-      },
-      {
         "schwinger_id": "ivan riget|1988",
         "score": 0.841
       },
       {
         "schwinger_id": "david aebersold|2001",
+        "score": 0.841
+      },
+      {
+        "schwinger_id": "robin martin|1995",
         "score": 0.841
       }
     ],
@@ -6856,7 +6856,7 @@
     ],
     "jerome christen|2002": [
       {
-        "schwinger_id": "patrik schiesser|1998",
+        "schwinger_id": "pascal joho|2004",
         "score": 1.0
       },
       {
@@ -6864,7 +6864,7 @@
         "score": 1.0
       },
       {
-        "schwinger_id": "pascal joho|2004",
+        "schwinger_id": "patrik schiesser|1998",
         "score": 1.0
       },
       {
@@ -7080,11 +7080,11 @@
         "score": 0.814
       },
       {
-        "schwinger_id": "jonas burch|1999",
+        "schwinger_id": "julian vogel|2007",
         "score": 0.806
       },
       {
-        "schwinger_id": "julian vogel|2007",
+        "schwinger_id": "jonas burch|1999",
         "score": 0.806
       },
       {
@@ -7516,11 +7516,11 @@
     ],
     "marco eggimann|1998": [
       {
-        "schwinger_id": "adrian widmer|1993",
+        "schwinger_id": "pirmin reinhard|2001",
         "score": 1.0
       },
       {
-        "schwinger_id": "matthias moser|1990",
+        "schwinger_id": "adrian widmer|1993",
         "score": 1.0
       },
       {
@@ -7528,7 +7528,7 @@
         "score": 1.0
       },
       {
-        "schwinger_id": "pirmin reinhard|2001",
+        "schwinger_id": "matthias moser|1990",
         "score": 1.0
       },
       {
@@ -8132,11 +8132,11 @@
     ],
     "seppi felder|1992": [
       {
-        "schwinger_id": "jaime marty|2000",
+        "schwinger_id": "lukas roth|1984",
         "score": 0.842
       },
       {
-        "schwinger_id": "lukas roth|1984",
+        "schwinger_id": "jaime marty|2000",
         "score": 0.842
       },
       {
@@ -8184,11 +8184,11 @@
         "score": 0.68
       },
       {
-        "schwinger_id": "aron kiser|2001",
+        "schwinger_id": "levin neuenschwander|2003",
         "score": 0.585
       },
       {
-        "schwinger_id": "levin neuenschwander|2003",
+        "schwinger_id": "aron kiser|2001",
         "score": 0.585
       },
       {
@@ -8422,11 +8422,11 @@
         "score": 1.0
       },
       {
-        "schwinger_id": "romeo freund|1990",
+        "schwinger_id": "marco hadorn|1999",
         "score": 1.0
       },
       {
-        "schwinger_id": "marco hadorn|1999",
+        "schwinger_id": "romeo freund|1990",
         "score": 1.0
       },
       {
@@ -8562,11 +8562,11 @@
         "score": 0.841
       },
       {
-        "schwinger_id": "jerome christen|2002",
+        "schwinger_id": "pascal joho|2004",
         "score": 0.841
       },
       {
-        "schwinger_id": "pascal joho|2004",
+        "schwinger_id": "jerome christen|2002",
         "score": 0.841
       }
     ],
@@ -8580,11 +8580,11 @@
         "score": 0.845
       },
       {
-        "schwinger_id": "til voggensperger|2004",
+        "schwinger_id": "benjamin nock|2001",
         "score": 0.841
       },
       {
-        "schwinger_id": "benjamin nock|2001",
+        "schwinger_id": "til voggensperger|2004",
         "score": 0.841
       },
       {
@@ -8594,11 +8594,11 @@
     ],
     "benjamin gapany|1995": [
       {
-        "schwinger_id": "roman bickel|1998",
+        "schwinger_id": "adrian thalmann|1999",
         "score": 0.837
       },
       {
-        "schwinger_id": "adrian thalmann|1999",
+        "schwinger_id": "roman bickel|1998",
         "score": 0.837
       },
       {
@@ -8610,7 +8610,7 @@
         "score": 0.721
       },
       {
-        "schwinger_id": "nicolas sturny|1998",
+        "schwinger_id": "adrian bruder|1996",
         "score": 0.656
       }
     ],
@@ -8676,7 +8676,7 @@
         "score": 0.678
       },
       {
-        "schwinger_id": "levin neuenschwander|2003",
+        "schwinger_id": "aron kiser|2001",
         "score": 0.66
       }
     ],
@@ -8836,19 +8836,19 @@
     ],
     "sami gerber|2000": [
       {
-        "schwinger_id": "philipp gehrig|1993",
-        "score": 0.902
-      },
-      {
         "schwinger_id": "reto fankhauser|1994",
         "score": 0.902
       },
       {
-        "schwinger_id": "markus jost|2007",
+        "schwinger_id": "philipp gehrig|1993",
         "score": 0.902
       },
       {
         "schwinger_id": "flavio lenherr|2008",
+        "score": 0.902
+      },
+      {
+        "schwinger_id": "markus jost|2007",
         "score": 0.902
       },
       {
@@ -8892,7 +8892,7 @@
         "score": 0.761
       },
       {
-        "schwinger_id": "urs riebli|2002",
+        "schwinger_id": "jorn ris|1998",
         "score": 0.723
       },
       {
@@ -9270,17 +9270,17 @@
         "score": 0.845
       },
       {
-        "schwinger_id": "urs hauri|1991",
+        "schwinger_id": "simon fah|2006",
         "score": 0.827
       }
     ],
     "paxton grass|2008": [
       {
-        "schwinger_id": "alex huber|1996",
+        "schwinger_id": "kevin steinauer|2004",
         "score": 1.0
       },
       {
-        "schwinger_id": "kevin steinauer|2004",
+        "schwinger_id": "alex huber|1996",
         "score": 1.0
       },
       {
@@ -9724,11 +9724,11 @@
         "score": 0.663
       },
       {
-        "schwinger_id": "jorn ris|1998",
+        "schwinger_id": "urs riebli|2002",
         "score": 0.646
       },
       {
-        "schwinger_id": "urs riebli|2002",
+        "schwinger_id": "jorn ris|1998",
         "score": 0.646
       },
       {
@@ -9764,11 +9764,11 @@
         "score": 1.0
       },
       {
-        "schwinger_id": "martin egli|1997",
+        "schwinger_id": "patrik feldmann|2005",
         "score": 0.842
       },
       {
-        "schwinger_id": "patrik feldmann|2005",
+        "schwinger_id": "martin egli|1997",
         "score": 0.842
       },
       {
@@ -9848,11 +9848,11 @@
     ],
     "maurus heinzer|2007": [
       {
-        "schwinger_id": "urs riebli|2002",
+        "schwinger_id": "jorn ris|1998",
         "score": 1.0
       },
       {
-        "schwinger_id": "jorn ris|1998",
+        "schwinger_id": "urs riebli|2002",
         "score": 1.0
       },
       {
@@ -9896,11 +9896,11 @@
         "score": 0.905
       },
       {
-        "schwinger_id": "urs hauri|1991",
+        "schwinger_id": "simon fah|2006",
         "score": 0.839
       },
       {
-        "schwinger_id": "simon fah|2006",
+        "schwinger_id": "urs hauri|1991",
         "score": 0.839
       },
       {
@@ -9936,11 +9936,11 @@
     ],
     "fabian herger|1996": [
       {
-        "schwinger_id": "elias pirkheim|2002",
+        "schwinger_id": "lars mehr|2002",
         "score": 0.845
       },
       {
-        "schwinger_id": "lars mehr|2002",
+        "schwinger_id": "elias pirkheim|2002",
         "score": 0.845
       },
       {
@@ -10028,11 +10028,11 @@
         "score": 1.0
       },
       {
-        "schwinger_id": "patrick burkhard|1991",
+        "schwinger_id": "gabriel nussbaumer|1992",
         "score": 0.901
       },
       {
-        "schwinger_id": "gabriel nussbaumer|1992",
+        "schwinger_id": "patrick burkhard|1991",
         "score": 0.901
       },
       {
@@ -10046,19 +10046,19 @@
     ],
     "michael hess|1992": [
       {
-        "schwinger_id": "niklas stocker|2005",
-        "score": 0.904
-      },
-      {
-        "schwinger_id": "arjuna fuster|2003",
-        "score": 0.904
-      },
-      {
         "schwinger_id": "marco hadorn|1999",
         "score": 0.904
       },
       {
+        "schwinger_id": "niklas stocker|2005",
+        "score": 0.904
+      },
+      {
         "schwinger_id": "romeo freund|1990",
+        "score": 0.904
+      },
+      {
+        "schwinger_id": "arjuna fuster|2003",
         "score": 0.904
       },
       {
@@ -10150,7 +10150,7 @@
         "score": 0.678
       },
       {
-        "schwinger_id": "levin neuenschwander|2003",
+        "schwinger_id": "aron kiser|2001",
         "score": 0.66
       }
     ],
@@ -10160,11 +10160,11 @@
         "score": 0.845
       },
       {
-        "schwinger_id": "marcel ettlin|2007",
+        "schwinger_id": "kevin waser|2006",
         "score": 0.827
       },
       {
-        "schwinger_id": "kevin waser|2006",
+        "schwinger_id": "marcel ettlin|2007",
         "score": 0.827
       },
       {
@@ -10446,11 +10446,11 @@
         "score": 0.9
       },
       {
-        "schwinger_id": "marco hurlimann|2002",
+        "schwinger_id": "bastien collaud|2005",
         "score": 0.9
       },
       {
-        "schwinger_id": "bastien collaud|2005",
+        "schwinger_id": "marco hurlimann|2002",
         "score": 0.9
       },
       {
@@ -10596,11 +10596,11 @@
     ],
     "pascal joho|2004": [
       {
-        "schwinger_id": "patrik schiesser|1998",
+        "schwinger_id": "marco wyrsch|1993",
         "score": 1.0
       },
       {
-        "schwinger_id": "marco wyrsch|1993",
+        "schwinger_id": "patrik schiesser|1998",
         "score": 1.0
       },
       {
@@ -10640,11 +10640,11 @@
     ],
     "enrico joos|2003": [
       {
-        "schwinger_id": "pirmin von rickenbach|2002",
+        "schwinger_id": "remo wallimann|1997",
         "score": 1.0
       },
       {
-        "schwinger_id": "remo wallimann|1997",
+        "schwinger_id": "pirmin von rickenbach|2002",
         "score": 1.0
       },
       {
@@ -10678,7 +10678,7 @@
         "score": 0.808
       },
       {
-        "schwinger_id": "urs meier|2003",
+        "schwinger_id": "andri krauer|2005",
         "score": 0.741
       }
     ],
@@ -10810,7 +10810,7 @@
         "score": 0.713
       },
       {
-        "schwinger_id": "ion bordos|1995",
+        "schwinger_id": "lukas jaggi|1996",
         "score": 0.624
       }
     ],
@@ -10934,11 +10934,11 @@
         "score": 0.827
       },
       {
-        "schwinger_id": "marco heiniger|1996",
+        "schwinger_id": "patrice buhler|1997",
         "score": 0.812
       },
       {
-        "schwinger_id": "patrice buhler|1997",
+        "schwinger_id": "marco heiniger|1996",
         "score": 0.812
       },
       {
@@ -10978,11 +10978,11 @@
         "score": 0.808
       },
       {
-        "schwinger_id": "urs meier|2003",
+        "schwinger_id": "andri krauer|2005",
         "score": 0.808
       },
       {
-        "schwinger_id": "andri krauer|2005",
+        "schwinger_id": "urs meier|2003",
         "score": 0.808
       },
       {
@@ -11260,11 +11260,11 @@
         "score": 0.838
       },
       {
-        "schwinger_id": "jorn ris|1998",
+        "schwinger_id": "maurus heinzer|2007",
         "score": 0.838
       },
       {
-        "schwinger_id": "maurus heinzer|2007",
+        "schwinger_id": "jorn ris|1998",
         "score": 0.838
       },
       {
@@ -11282,7 +11282,7 @@
         "score": 0.838
       },
       {
-        "schwinger_id": "daniel inderbitzin|1992",
+        "schwinger_id": "florian cotting|1994",
         "score": 0.838
       },
       {
@@ -11290,11 +11290,11 @@
         "score": 0.838
       },
       {
-        "schwinger_id": "florian cotting|1994",
+        "schwinger_id": "ivo hengartner|1985",
         "score": 0.838
       },
       {
-        "schwinger_id": "ivo hengartner|1985",
+        "schwinger_id": "daniel inderbitzin|1992",
         "score": 0.838
       }
     ],
@@ -11712,7 +11712,7 @@
         "score": 0.84
       },
       {
-        "schwinger_id": "flurin eymann|2006",
+        "schwinger_id": "martin schuler|1996",
         "score": 0.758
       }
     ],
@@ -12158,11 +12158,11 @@
     ],
     "josef lustenberger|1997": [
       {
-        "schwinger_id": "fabian aregger|2001",
+        "schwinger_id": "sandro balimann|2001",
         "score": 0.842
       },
       {
-        "schwinger_id": "sandro balimann|2001",
+        "schwinger_id": "fabian aregger|2001",
         "score": 0.842
       },
       {
@@ -12312,19 +12312,19 @@
     ],
     "simon marti|2000": [
       {
-        "schwinger_id": "adrian widmer|1993",
-        "score": 1.0
-      },
-      {
-        "schwinger_id": "matthias moser|1990",
-        "score": 1.0
-      },
-      {
         "schwinger_id": "pirmin reinhard|2001",
         "score": 1.0
       },
       {
+        "schwinger_id": "adrian widmer|1993",
+        "score": 1.0
+      },
+      {
         "schwinger_id": "marco eggimann|1998",
+        "score": 1.0
+      },
+      {
+        "schwinger_id": "matthias moser|1990",
         "score": 1.0
       },
       {
@@ -12356,15 +12356,15 @@
     ],
     "robin martin|1995": [
       {
+        "schwinger_id": "ivan riget|1988",
+        "score": 1.0
+      },
+      {
         "schwinger_id": "cornel schild|2004",
         "score": 1.0
       },
       {
         "schwinger_id": "david aebersold|2001",
-        "score": 1.0
-      },
-      {
-        "schwinger_id": "ivan riget|1988",
         "score": 1.0
       },
       {
@@ -12390,11 +12390,11 @@
         "score": 0.754
       },
       {
-        "schwinger_id": "david aebersold|2001",
+        "schwinger_id": "robin martin|1995",
         "score": 0.746
       },
       {
-        "schwinger_id": "robin martin|1995",
+        "schwinger_id": "david aebersold|2001",
         "score": 0.746
       }
     ],
@@ -12504,7 +12504,7 @@
         "score": 0.808
       },
       {
-        "schwinger_id": "urs meier|2003",
+        "schwinger_id": "andri krauer|2005",
         "score": 0.741
       }
     ],
@@ -12690,11 +12690,11 @@
         "score": 0.901
       },
       {
-        "schwinger_id": "til voggensperger|2004",
+        "schwinger_id": "benjamin nock|2001",
         "score": 0.901
       },
       {
-        "schwinger_id": "benjamin nock|2001",
+        "schwinger_id": "til voggensperger|2004",
         "score": 0.901
       },
       {
@@ -12730,15 +12730,15 @@
     ],
     "matthias moser|1990": [
       {
+        "schwinger_id": "pirmin reinhard|2001",
+        "score": 1.0
+      },
+      {
         "schwinger_id": "adrian widmer|1993",
         "score": 1.0
       },
       {
         "schwinger_id": "simon marti|2000",
-        "score": 1.0
-      },
-      {
-        "schwinger_id": "pirmin reinhard|2001",
         "score": 1.0
       },
       {
@@ -12980,11 +12980,11 @@
         "score": 0.629
       },
       {
-        "schwinger_id": "livio buchler|2001",
+        "schwinger_id": "yannick suchet|2007",
         "score": 0.622
       },
       {
-        "schwinger_id": "yannick suchet|2007",
+        "schwinger_id": "livio buchler|2001",
         "score": 0.622
       },
       {
@@ -13046,11 +13046,11 @@
         "score": 0.905
       },
       {
-        "schwinger_id": "kevin steinauer|2004",
+        "schwinger_id": "paxton grass|2008",
         "score": 0.841
       },
       {
-        "schwinger_id": "paxton grass|2008",
+        "schwinger_id": "kevin steinauer|2004",
         "score": 0.841
       },
       {
@@ -13064,11 +13064,11 @@
         "score": 0.845
       },
       {
-        "schwinger_id": "lukas lemmenmeier|1997",
+        "schwinger_id": "christian widmer|2002",
         "score": 0.826
       },
       {
-        "schwinger_id": "christian widmer|2002",
+        "schwinger_id": "lukas lemmenmeier|1997",
         "score": 0.826
       },
       {
@@ -13120,7 +13120,7 @@
         "score": 0.713
       },
       {
-        "schwinger_id": "ion bordos|1995",
+        "schwinger_id": "lukas jaggi|1996",
         "score": 0.624
       }
     ],
@@ -13160,11 +13160,11 @@
         "score": 0.845
       },
       {
-        "schwinger_id": "lukas reichmuth|2000",
+        "schwinger_id": "jonas lenherr|2005",
         "score": 0.804
       },
       {
-        "schwinger_id": "jonas lenherr|2005",
+        "schwinger_id": "lukas reichmuth|2000",
         "score": 0.804
       }
     ],
@@ -13248,11 +13248,11 @@
         "score": 0.746
       },
       {
-        "schwinger_id": "ivan riget|1988",
+        "schwinger_id": "david aebersold|2001",
         "score": 0.746
       },
       {
-        "schwinger_id": "david aebersold|2001",
+        "schwinger_id": "ivan riget|1988",
         "score": 0.746
       }
     ],
@@ -13284,11 +13284,11 @@
         "score": 1.0
       },
       {
-        "schwinger_id": "valentin steffen|1996",
+        "schwinger_id": "dominik hess|1994",
         "score": 0.901
       },
       {
-        "schwinger_id": "dominik hess|1994",
+        "schwinger_id": "valentin steffen|1996",
         "score": 0.901
       },
       {
@@ -13500,11 +13500,11 @@
     ],
     "leon pellet|2007": [
       {
-        "schwinger_id": "florian gross|1989",
+        "schwinger_id": "dominic strebel|2005",
         "score": 0.802
       },
       {
-        "schwinger_id": "dominic strebel|2005",
+        "schwinger_id": "florian gross|1989",
         "score": 0.802
       },
       {
@@ -13640,11 +13640,11 @@
         "score": 0.841
       },
       {
-        "schwinger_id": "matthias moser|1990",
+        "schwinger_id": "simon marti|2000",
         "score": 0.841
       },
       {
-        "schwinger_id": "simon marti|2000",
+        "schwinger_id": "matthias moser|1990",
         "score": 0.841
       },
       {
@@ -13662,11 +13662,11 @@
         "score": 0.814
       },
       {
-        "schwinger_id": "jonas burch|1999",
+        "schwinger_id": "julian vogel|2007",
         "score": 0.766
       },
       {
-        "schwinger_id": "julian vogel|2007",
+        "schwinger_id": "jonas burch|1999",
         "score": 0.766
       },
       {
@@ -13966,15 +13966,15 @@
         "score": 1.0
       },
       {
-        "schwinger_id": "matthias moser|1990",
-        "score": 1.0
-      },
-      {
         "schwinger_id": "simon marti|2000",
         "score": 1.0
       },
       {
         "schwinger_id": "marco eggimann|1998",
+        "score": 1.0
+      },
+      {
+        "schwinger_id": "matthias moser|1990",
         "score": 1.0
       },
       {
@@ -14072,11 +14072,11 @@
     ],
     "urs riebli|2002": [
       {
-        "schwinger_id": "maurus heinzer|2007",
+        "schwinger_id": "jorn ris|1998",
         "score": 1.0
       },
       {
-        "schwinger_id": "jorn ris|1998",
+        "schwinger_id": "maurus heinzer|2007",
         "score": 1.0
       },
       {
@@ -14120,11 +14120,11 @@
         "score": 1.0
       },
       {
-        "schwinger_id": "david aebersold|2001",
+        "schwinger_id": "robin martin|1995",
         "score": 1.0
       },
       {
-        "schwinger_id": "robin martin|1995",
+        "schwinger_id": "david aebersold|2001",
         "score": 1.0
       },
       {
@@ -14138,11 +14138,11 @@
     ],
     "jorn ris|1998": [
       {
-        "schwinger_id": "urs riebli|2002",
+        "schwinger_id": "maurus heinzer|2007",
         "score": 1.0
       },
       {
-        "schwinger_id": "maurus heinzer|2007",
+        "schwinger_id": "urs riebli|2002",
         "score": 1.0
       },
       {
@@ -14380,11 +14380,11 @@
     ],
     "yannick rossy|1986": [
       {
-        "schwinger_id": "kevin schori|2004",
+        "schwinger_id": "mario tschudi|2001",
         "score": 0.815
       },
       {
-        "schwinger_id": "mario tschudi|2001",
+        "schwinger_id": "kevin schori|2004",
         "score": 0.815
       },
       {
@@ -14480,11 +14480,11 @@
         "score": 0.754
       },
       {
-        "schwinger_id": "david aebersold|2001",
+        "schwinger_id": "robin martin|1995",
         "score": 0.746
       },
       {
-        "schwinger_id": "robin martin|1995",
+        "schwinger_id": "david aebersold|2001",
         "score": 0.746
       }
     ],
@@ -14502,11 +14502,11 @@
         "score": 0.845
       },
       {
-        "schwinger_id": "andre barras|1996",
+        "schwinger_id": "niklas blaser|1997",
         "score": 0.845
       },
       {
-        "schwinger_id": "niklas blaser|1997",
+        "schwinger_id": "andre barras|1996",
         "score": 0.845
       }
     ],
@@ -14740,11 +14740,11 @@
         "score": 0.822
       },
       {
-        "schwinger_id": "sandro gmur|1997",
+        "schwinger_id": "roger baumann|1995",
         "score": 0.822
       },
       {
-        "schwinger_id": "roger baumann|1995",
+        "schwinger_id": "sandro gmur|1997",
         "score": 0.822
       },
       {
@@ -14872,11 +14872,11 @@
         "score": 0.731
       },
       {
-        "schwinger_id": "aron kiser|2001",
+        "schwinger_id": "levin neuenschwander|2003",
         "score": 0.712
       },
       {
-        "schwinger_id": "levin neuenschwander|2003",
+        "schwinger_id": "aron kiser|2001",
         "score": 0.712
       },
       {
@@ -14982,11 +14982,11 @@
         "score": 0.845
       },
       {
-        "schwinger_id": "nando joos|2008",
+        "schwinger_id": "elia mayer|2004",
         "score": 0.809
       },
       {
-        "schwinger_id": "elia mayer|2004",
+        "schwinger_id": "nando joos|2008",
         "score": 0.809
       },
       {
@@ -15122,7 +15122,7 @@
         "score": 0.845
       },
       {
-        "schwinger_id": "urs hauri|1991",
+        "schwinger_id": "simon fah|2006",
         "score": 0.827
       }
     ],
@@ -15206,11 +15206,11 @@
         "score": 0.84
       },
       {
-        "schwinger_id": "michael leuenberger|1993",
+        "schwinger_id": "patrick scherrer|1993",
         "score": 0.829
       },
       {
-        "schwinger_id": "patrick scherrer|1993",
+        "schwinger_id": "michael leuenberger|1993",
         "score": 0.829
       }
     ],
@@ -15282,11 +15282,11 @@
     ],
     "patrik schiesser|1998": [
       {
-        "schwinger_id": "marco wyrsch|1993",
+        "schwinger_id": "pascal joho|2004",
         "score": 1.0
       },
       {
-        "schwinger_id": "pascal joho|2004",
+        "schwinger_id": "marco wyrsch|1993",
         "score": 1.0
       },
       {
@@ -15304,7 +15304,7 @@
     ],
     "cornel schild|2004": [
       {
-        "schwinger_id": "david aebersold|2001",
+        "schwinger_id": "ivan riget|1988",
         "score": 1.0
       },
       {
@@ -15312,7 +15312,7 @@
         "score": 1.0
       },
       {
-        "schwinger_id": "ivan riget|1988",
+        "schwinger_id": "david aebersold|2001",
         "score": 1.0
       },
       {
@@ -15488,11 +15488,11 @@
         "score": 0.845
       },
       {
-        "schwinger_id": "martin egli|1997",
+        "schwinger_id": "patrik feldmann|2005",
         "score": 0.763
       },
       {
-        "schwinger_id": "patrik feldmann|2005",
+        "schwinger_id": "martin egli|1997",
         "score": 0.763
       },
       {
@@ -15506,19 +15506,19 @@
         "score": 0.845
       },
       {
-        "schwinger_id": "andrj gerber|2000",
-        "score": 0.812
-      },
-      {
         "schwinger_id": "nicola funk|1999",
         "score": 0.812
       },
       {
-        "schwinger_id": "ueli rohrer|1999",
-        "score": 0.742
+        "schwinger_id": "andrj gerber|2000",
+        "score": 0.812
       },
       {
         "schwinger_id": "joel gfeller|2005",
+        "score": 0.742
+      },
+      {
+        "schwinger_id": "ueli rohrer|1999",
         "score": 0.742
       }
     ],
@@ -15594,11 +15594,11 @@
         "score": 0.839
       },
       {
-        "schwinger_id": "damian gnagi|1998",
+        "schwinger_id": "karim leuppi|1995",
         "score": 0.823
       },
       {
-        "schwinger_id": "karim leuppi|1995",
+        "schwinger_id": "damian gnagi|1998",
         "score": 0.823
       },
       {
@@ -15616,11 +15616,11 @@
         "score": 0.845
       },
       {
-        "schwinger_id": "elia mayer|2004",
+        "schwinger_id": "nando joos|2008",
         "score": 0.825
       },
       {
-        "schwinger_id": "nando joos|2008",
+        "schwinger_id": "elia mayer|2004",
         "score": 0.825
       },
       {
@@ -15990,11 +15990,11 @@
         "score": 0.845
       },
       {
-        "schwinger_id": "christian widmer|2002",
+        "schwinger_id": "lukas lemmenmeier|1997",
         "score": 0.763
       },
       {
-        "schwinger_id": "lukas lemmenmeier|1997",
+        "schwinger_id": "christian widmer|2002",
         "score": 0.763
       },
       {
@@ -16236,11 +16236,11 @@
         "score": 0.756
       },
       {
-        "schwinger_id": "andri krauer|2005",
+        "schwinger_id": "urs meier|2003",
         "score": 0.756
       },
       {
-        "schwinger_id": "urs meier|2003",
+        "schwinger_id": "andri krauer|2005",
         "score": 0.756
       },
       {
@@ -16430,11 +16430,11 @@
         "score": 0.823
       },
       {
-        "schwinger_id": "janik korrodi|2004",
+        "schwinger_id": "severin kathriner|2000",
         "score": 0.81
       },
       {
-        "schwinger_id": "severin kathriner|2000",
+        "schwinger_id": "janik korrodi|2004",
         "score": 0.81
       },
       {
@@ -16500,7 +16500,7 @@
         "score": 0.71
       },
       {
-        "schwinger_id": "urs riebli|2002",
+        "schwinger_id": "jorn ris|1998",
         "score": 0.695
       },
       {
@@ -16508,7 +16508,7 @@
         "score": 0.695
       },
       {
-        "schwinger_id": "jorn ris|1998",
+        "schwinger_id": "urs riebli|2002",
         "score": 0.695
       }
     ],
@@ -16584,11 +16584,11 @@
         "score": 1.0
       },
       {
-        "schwinger_id": "patrick burkhard|1991",
+        "schwinger_id": "gabriel nussbaumer|1992",
         "score": 0.901
       },
       {
-        "schwinger_id": "gabriel nussbaumer|1992",
+        "schwinger_id": "patrick burkhard|1991",
         "score": 0.901
       },
       {
@@ -16628,15 +16628,15 @@
         "score": 0.821
       },
       {
+        "schwinger_id": "lukas reichmuth|2000",
+        "score": 0.809
+      },
+      {
         "schwinger_id": "jonas lenherr|2005",
         "score": 0.809
       },
       {
         "schwinger_id": "patrick ruegg|1999",
-        "score": 0.809
-      },
-      {
-        "schwinger_id": "lukas reichmuth|2000",
         "score": 0.809
       },
       {
@@ -16646,11 +16646,11 @@
     ],
     "kevin steinauer|2004": [
       {
-        "schwinger_id": "alex huber|1996",
+        "schwinger_id": "paxton grass|2008",
         "score": 1.0
       },
       {
-        "schwinger_id": "paxton grass|2008",
+        "schwinger_id": "alex huber|1996",
         "score": 1.0
       },
       {
@@ -16734,11 +16734,11 @@
     ],
     "niklas stocker|2005": [
       {
-        "schwinger_id": "romeo freund|1990",
+        "schwinger_id": "marco hadorn|1999",
         "score": 1.0
       },
       {
-        "schwinger_id": "marco hadorn|1999",
+        "schwinger_id": "romeo freund|1990",
         "score": 1.0
       },
       {
@@ -16826,11 +16826,11 @@
         "score": 0.766
       },
       {
-        "schwinger_id": "dominik schwegler|1997",
+        "schwinger_id": "samuel giger|1998",
         "score": 0.721
       },
       {
-        "schwinger_id": "samuel giger|1998",
+        "schwinger_id": "dominik schwegler|1997",
         "score": 0.721
       },
       {
@@ -17230,11 +17230,11 @@
         "score": 0.827
       },
       {
-        "schwinger_id": "bernhard kampf|1988",
+        "schwinger_id": "paul tornare|2001",
         "score": 0.719
       },
       {
-        "schwinger_id": "paul tornare|2001",
+        "schwinger_id": "bernhard kampf|1988",
         "score": 0.719
       }
     ],
@@ -17252,11 +17252,11 @@
         "score": 0.697
       },
       {
-        "schwinger_id": "david aebersold|2001",
+        "schwinger_id": "robin martin|1995",
         "score": 0.697
       },
       {
-        "schwinger_id": "robin martin|1995",
+        "schwinger_id": "david aebersold|2001",
         "score": 0.697
       }
     ],
@@ -17402,15 +17402,15 @@
         "score": 0.903
       },
       {
-        "schwinger_id": "marco hadorn|1999",
-        "score": 0.845
-      },
-      {
         "schwinger_id": "arjuna fuster|2003",
         "score": 0.845
       },
       {
         "schwinger_id": "romeo freund|1990",
+        "score": 0.845
+      },
+      {
+        "schwinger_id": "marco hadorn|1999",
         "score": 0.845
       }
     ],
@@ -17512,11 +17512,11 @@
         "score": 0.905
       },
       {
-        "schwinger_id": "kevin steinauer|2004",
+        "schwinger_id": "paxton grass|2008",
         "score": 0.841
       },
       {
-        "schwinger_id": "paxton grass|2008",
+        "schwinger_id": "kevin steinauer|2004",
         "score": 0.841
       },
       {
@@ -17790,11 +17790,11 @@
     ],
     "michael ulrich|2003": [
       {
-        "schwinger_id": "sandro gmur|1997",
+        "schwinger_id": "roger baumann|1995",
         "score": 1.0
       },
       {
-        "schwinger_id": "roger baumann|1995",
+        "schwinger_id": "sandro gmur|1997",
         "score": 1.0
       },
       {
@@ -17908,11 +17908,11 @@
         "score": 0.845
       },
       {
-        "schwinger_id": "til voggensperger|2004",
+        "schwinger_id": "benjamin nock|2001",
         "score": 0.841
       },
       {
-        "schwinger_id": "benjamin nock|2001",
+        "schwinger_id": "til voggensperger|2004",
         "score": 0.841
       },
       {
@@ -17922,11 +17922,11 @@
     ],
     "remo vogel|1994": [
       {
-        "schwinger_id": "nicola funk|1999",
+        "schwinger_id": "andrj gerber|2000",
         "score": 0.9
       },
       {
-        "schwinger_id": "andrj gerber|2000",
+        "schwinger_id": "nicola funk|1999",
         "score": 0.9
       },
       {
@@ -17938,7 +17938,7 @@
         "score": 0.795
       },
       {
-        "schwinger_id": "ueli rohrer|1999",
+        "schwinger_id": "joel gfeller|2005",
         "score": 0.75
       }
     ],
@@ -17974,11 +17974,11 @@
         "score": 0.524
       },
       {
-        "schwinger_id": "samuel giger|1998",
+        "schwinger_id": "dominik schwegler|1997",
         "score": 0.491
       },
       {
-        "schwinger_id": "dominik schwegler|1997",
+        "schwinger_id": "samuel giger|1998",
         "score": 0.491
       },
       {
@@ -18220,11 +18220,11 @@
         "score": 0.283
       },
       {
-        "schwinger_id": "johann borcard|1994",
+        "schwinger_id": "peter beer|1999",
         "score": 0.248
       },
       {
-        "schwinger_id": "peter beer|1999",
+        "schwinger_id": "johann borcard|1994",
         "score": 0.248
       }
     ],
@@ -18384,11 +18384,11 @@
     ],
     "manuel weber|2003": [
       {
-        "schwinger_id": "nicola funk|1999",
+        "schwinger_id": "andrj gerber|2000",
         "score": 0.75
       },
       {
-        "schwinger_id": "andrj gerber|2000",
+        "schwinger_id": "nicola funk|1999",
         "score": 0.75
       },
       {
@@ -18436,15 +18436,15 @@
         "score": 0.843
       },
       {
+        "schwinger_id": "michael ulrich|2003",
+        "score": 0.843
+      },
+      {
         "schwinger_id": "sandro gmur|1997",
         "score": 0.843
       },
       {
         "schwinger_id": "roger baumann|1995",
-        "score": 0.843
-      },
-      {
-        "schwinger_id": "michael ulrich|2003",
         "score": 0.843
       }
     ],
@@ -18466,7 +18466,7 @@
         "score": 0.698
       },
       {
-        "schwinger_id": "damian gnagi|1998",
+        "schwinger_id": "karim leuppi|1995",
         "score": 0.698
       }
     ],
@@ -18538,7 +18538,7 @@
     ],
     "adrian widmer|1993": [
       {
-        "schwinger_id": "matthias moser|1990",
+        "schwinger_id": "pirmin reinhard|2001",
         "score": 1.0
       },
       {
@@ -18546,11 +18546,11 @@
         "score": 1.0
       },
       {
-        "schwinger_id": "pirmin reinhard|2001",
+        "schwinger_id": "marco eggimann|1998",
         "score": 1.0
       },
       {
-        "schwinger_id": "marco eggimann|1998",
+        "schwinger_id": "matthias moser|1990",
         "score": 1.0
       },
       {
@@ -18762,11 +18762,11 @@
         "score": 0.834
       },
       {
-        "schwinger_id": "lukas jaggi|1996",
+        "schwinger_id": "linus rogenmoser|2002",
         "score": 0.834
       },
       {
-        "schwinger_id": "linus rogenmoser|2002",
+        "schwinger_id": "lukas jaggi|1996",
         "score": 0.834
       },
       {
@@ -18986,11 +18986,11 @@
         "score": 0.708
       },
       {
-        "schwinger_id": "lukas roth|1984",
+        "schwinger_id": "jaime marty|2000",
         "score": 0.654
       },
       {
-        "schwinger_id": "jaime marty|2000",
+        "schwinger_id": "lukas roth|1984",
         "score": 0.654
       },
       {
@@ -19008,11 +19008,11 @@
         "score": 0.844
       },
       {
-        "schwinger_id": "janik korrodi|2004",
+        "schwinger_id": "severin kathriner|2000",
         "score": 0.843
       },
       {
-        "schwinger_id": "severin kathriner|2000",
+        "schwinger_id": "janik korrodi|2004",
         "score": 0.843
       },
       {
@@ -19088,11 +19088,11 @@
     ],
     "marco wyrsch|1993": [
       {
-        "schwinger_id": "patrik schiesser|1998",
+        "schwinger_id": "pascal joho|2004",
         "score": 1.0
       },
       {
-        "schwinger_id": "pascal joho|2004",
+        "schwinger_id": "patrik schiesser|1998",
         "score": 1.0
       },
       {
@@ -19306,28 +19306,6 @@
         "score": 0.156
       }
     ],
-    "christian zemp|2000": [
-      {
-        "schwinger_id": "rolf kropf|1988",
-        "score": 0.682
-      },
-      {
-        "schwinger_id": "ueli rolli|2006",
-        "score": 0.456
-      },
-      {
-        "schwinger_id": "branighan monney|1997",
-        "score": 0.407
-      },
-      {
-        "schwinger_id": "gian tschumper|2007",
-        "score": 0.39
-      },
-      {
-        "schwinger_id": "benno heinzer|2006",
-        "score": 0.319
-      }
-    ],
     "christian zemp|2004": [
       {
         "schwinger_id": "stefan wolf|2006",
@@ -19348,6 +19326,28 @@
       {
         "schwinger_id": "colin graber|1998",
         "score": 0.176
+      }
+    ],
+    "christian zemp|2000": [
+      {
+        "schwinger_id": "rolf kropf|1988",
+        "score": 0.682
+      },
+      {
+        "schwinger_id": "ueli rolli|2006",
+        "score": 0.456
+      },
+      {
+        "schwinger_id": "branighan monney|1997",
+        "score": 0.407
+      },
+      {
+        "schwinger_id": "gian tschumper|2007",
+        "score": 0.39
+      },
+      {
+        "schwinger_id": "benno heinzer|2006",
+        "score": 0.319
       }
     ],
     "matteo zenklusen|2005": [
@@ -19452,11 +19452,11 @@
         "score": 0.839
       },
       {
-        "schwinger_id": "karim leuppi|1995",
+        "schwinger_id": "damian gnagi|1998",
         "score": 0.812
       },
       {
-        "schwinger_id": "damian gnagi|1998",
+        "schwinger_id": "karim leuppi|1995",
         "score": 0.812
       }
     ],
@@ -19572,11 +19572,11 @@
     ],
     "remo zurcher|1996": [
       {
-        "schwinger_id": "marco nageli|1994",
+        "schwinger_id": "marcel kampf|1982",
         "score": 1.0
       },
       {
-        "schwinger_id": "marcel kampf|1982",
+        "schwinger_id": "marco nageli|1994",
         "score": 1.0
       },
       {
@@ -19588,7 +19588,7 @@
         "score": 0.713
       },
       {
-        "schwinger_id": "ion bordos|1995",
+        "schwinger_id": "lukas jaggi|1996",
         "score": 0.624
       }
     ],

@@ -1,26 +1,26 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-07-23T12:19:46.133286+00:00",
-  "lauf_id": "20260723T121946Z",
+  "erstellt": "2026-07-23T13:42:17.010164+00:00",
+  "lauf_id": "20260723T134217Z",
   "seed": 42,
   "datenbasis": {
-    "n_gaenge": 127020,
+    "n_gaenge": 125684,
     "n_schwinger": 2890
   },
   "holdout_jahr": 2026,
-  "n_train": 193238,
+  "n_train": 190570,
   "n_test": 60798,
   "modell": {
-    "log_loss": 0.8019,
-    "accuracy": 0.6522
+    "log_loss": 0.8017,
+    "accuracy": 0.6521
   },
   "baseline_elo": {
-    "log_loss": 0.9022,
-    "accuracy": 0.6177
+    "log_loss": 0.9028,
+    "accuracy": 0.6175
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0345,
-  "verbesserung_log_loss": 0.1003,
+  "accuracy_gg_baseline": 0.0347,
+  "verbesserung_log_loss": 0.1011,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -29,17 +29,17 @@
   "konfusionsmatrix": [
     [
       19456,
-      473,
-      4146
+      468,
+      4151
     ],
     [
-      5953,
-      742,
-      5953
+      5956,
+      736,
+      5956
     ],
     [
-      4147,
-      473,
+      4152,
+      468,
       19455
     ]
   ],
