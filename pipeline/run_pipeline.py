@@ -17,7 +17,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from collections import deque, defaultdict
+
+# Windows-Konsole/Dateiausgabe nutzt sonst cp1252 und stürzt bei Sonderzeichen
+# (Umlaute, Σ, …) mit UnicodeEncodeError ab. UTF-8 erzwingen, Fehler ersetzen.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001 - ältere Streams ohne reconfigure
+        pass
 
 from . import config, export
 from .config import FORM_FENSTER_K

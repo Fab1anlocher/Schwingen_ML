@@ -96,8 +96,8 @@ def lade_esv_daten(
         # Fortschrittszeile je Fest (Cache-Treffer vs. neu geladen).
         marker = "cache" if aus_cache else " neu "
         log(f"      [{i}/{n_total}] {marker} {ref.datum} {ref.name[:42]:42} "
-            f"({len(rl.schwinger)} Schw., {len(rl.gaenge)} Gänge) "
-            f"· Σ {len(schwinger)} Schwinger")
+            f"({len(rl.schwinger)} Schw., {len(rl.gaenge)} Gaenge) "
+            f"| total {len(schwinger)} Schwinger")
         if not rl.schwinger:
             continue
         n_gaenge_roh += len(rl.gaenge)
