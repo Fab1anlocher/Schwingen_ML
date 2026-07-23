@@ -15,6 +15,7 @@ Reproduzierbar über festen SEED (NFR-3). Aufruf:
 from __future__ import annotations
 
 import argparse
+import json
 from collections import deque, defaultdict
 
 from . import config, export
@@ -34,6 +35,37 @@ def _lade_daten(source: str):
         from .scrape import lade_echte_daten
         return lade_echte_daten()
     raise ValueError(f"Unbekannte Quelle: {source}")
+
+
+# Sicherheitsnetz gegen den taeglichen Update-Workflow (NFR-1): der laedt
+# Rohdaten nur inkrementell fuer ein kurzes Zeitfenster (fetch_raw
+# --seit-datum), da artifacts/raw/ nicht zwischen CI-Laeufen persistiert
+# wird (zu gross fuers Repo). Faellt dieser Fetch aus irgendeinem Grund auf
+# ein winziges Zeitfenster ohne Historie zurueck, wuerde run_pipeline sonst
+# das produktive, auf der vollen Historie trainierte Modell stillschweigend
+# durch ein auf ein paar hundert Gaengen trainiertes ersetzen UND committen.
+# Deshalb: bricht hart ab, statt ein drastisch kleineres Modell zu exportieren.
+MIN_DATENVOLUMEN_ANTEIL = 0.5
+
+
+def _pruefe_datenvolumen(source: str, n_gaenge_neu: int) -> None:
+    if source != "scrape":
+        return
+    report_pfad = config.ARTIFACTS_DIR / "report.json"
+    if not report_pfad.exists():
+        return
+    try:
+        alt = json.loads(report_pfad.read_text(encoding="utf-8"))
+        n_gaenge_alt = alt["datenbasis"]["n_gaenge"]
+    except Exception:  # noqa: BLE001 - fehlendes/kaputtes altes Artefakt ist kein Grund zum Abbruch
+        return
+    if n_gaenge_neu < n_gaenge_alt * MIN_DATENVOLUMEN_ANTEIL:
+        raise RuntimeError(
+            f"Datenvolumen eingebrochen: {n_gaenge_neu} Gänge neu vs. {n_gaenge_alt} zuvor "
+            f"(< {MIN_DATENVOLUMEN_ANTEIL:.0%}). Breche ab, statt das produktive Modell mit "
+            "einem auf Bruchteil der Historie trainierten zu überschreiben -- vermutlich hat "
+            "fetch_raw nur ein kurzes Zeitfenster geladen (kein voller Rohdaten-Refetch)."
+        )
 
 
 def _aktuelle_form(gaenge) -> dict:
@@ -58,6 +90,7 @@ def main(source: str = "synth") -> dict:
     print("[2/7] Labels ableiten + deduplizieren + validieren ...", flush=True)
     gaenge, warnungen = dedupliziere(roh)
     print(f"      {len(gaenge)} deduplizierte Gänge, {len(warnungen)} Warnungen", flush=True)
+    _pruefe_datenvolumen(source, len(gaenge))
 
     print("[3/7] Elo-Baseline (chronologisch, leak-frei) ...", flush=True)
     elo_modell, snapshots = fahre_elo_durch(gaenge)
@@ -76,8 +109,11 @@ def main(source: str = "synth") -> dict:
 
     print("[6/7] 4-Wege-Benchmark (Heuristik/Elo/ML ohne Elo/ML komplett) ...", flush=True)
     benchmark_res = fuehre_benchmark_durch(X, y, meta)
-    for key, werte in benchmark_res["kandidaten"].items():
-        print(f"      {key:16s} Acc={werte['accuracy']:.4f}  Brier={werte['brier_score']:.4f}", flush=True)
+    if benchmark_res is None:
+        print("      übersprungen (Datenbasis deckt nur eine Saison ab, kein sinnvoller Split)", flush=True)
+    else:
+        for key, werte in benchmark_res["kandidaten"].items():
+            print(f"      {key:16s} Acc={werte['accuracy']:.4f}  Brier={werte['brier_score']:.4f}", flush=True)
 
     print("[7/7] Artefakte exportieren ...", flush=True)
     form_aktuell = _aktuelle_form(gaenge)
@@ -87,7 +123,8 @@ def main(source: str = "synth") -> dict:
     export.exportiere_schwinger(schwinger, form_aktuell, ueberraschung)
     export.exportiere_kopf_an_kopf(gaenge)
     export.exportiere_kantone(schwinger, elo_modell, gaenge)
-    export.exportiere_benchmark(benchmark_res)
+    if benchmark_res is not None:
+        export.exportiere_benchmark(benchmark_res)
     # Kommende Feste (FR-2): bei echten Daten aus dem Agenda-Scraper.
     kommende = []
     if source == "scrape":

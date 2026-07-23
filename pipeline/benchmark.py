@@ -93,8 +93,15 @@ def elo_baseline_wahrscheinlichkeiten(rating_diff_elo: np.ndarray) -> np.ndarray
     return p
 
 
-def fuehre_benchmark_durch(X: list[list[float]], y: list[int], meta: list[dict]) -> dict:
-    """Vergleicht alle 4 Kandidaten auf demselben zeitlichen Holdout (echte Gänge)."""
+def fuehre_benchmark_durch(X: list[list[float]], y: list[int], meta: list[dict]) -> dict | None:
+    """Vergleicht alle 4 Kandidaten auf demselben zeitlichen Holdout (echte Gänge).
+
+    Gibt None zurück, wenn der zeitliche Split entartet ist (z.B. weil die
+    Datenbasis nur eine einzelne Saison umfasst -- dann wäre "Training" auf
+    0 Zeilen oder nur 1 Klasse ohnehin bedeutungslos, s. bestimme_holdout_jahr).
+    Passiert z.B. beim taeglichen Update-Lauf, der nur ein kleines Zeitfenster
+    neu einliest (kein voller Historien-Refetch, s. fetch_raw --seit-datum).
+    """
     X_arr = np.asarray(X)
     y_arr = np.asarray(y)
     holdout = bestimme_holdout_jahr(meta)
@@ -106,6 +113,9 @@ def fuehre_benchmark_durch(X: list[list[float]], y: list[int], meta: list[dict])
 
     Xte, yte = X_arr[test_maske], y_arr[test_maske]
     Xtr, ytr = X_arr[train_maske], y_arr[train_maske]
+
+    if len(Xtr) == 0 or len(Xte) == 0 or len(np.unique(ytr)) < 2:
+        return None
 
     ergebnis: dict[str, dict] = {}
 

@@ -114,3 +114,14 @@ def test_fuehre_benchmark_durch_ignoriert_augmentierte_testzeilen():
     # Kranz-Heuristik ist auf diesen Daten deterministisch perfekt (Label
     # folgt exakt dem Vorzeichen von kranz_diff, s. Testdaten oben).
     assert ergebnis["kandidaten"]["kranz_heuristik"]["accuracy"] == 1.0
+
+
+def test_fuehre_benchmark_durch_gibt_none_bei_einzelner_saison():
+    # Deckt nur EINE Saison ab (z.B. taeglicher Update-Lauf mit kurzem
+    # Zeitfenster, s. fetch_raw --seit-datum) -> Holdout == einzige Saison,
+    # also 0 Trainingszeilen. Ein sinnvoller Vergleich ist dann nicht moeglich.
+    X = [_zeile(rating_diff=100, kranz_diff=1), _zeile(rating_diff=-100, kranz_diff=-1)]
+    y = [0, 2]
+    meta = [_meta("2026-01-01"), _meta("2026-01-02")]
+
+    assert fuehre_benchmark_durch(X, y, meta) is None
