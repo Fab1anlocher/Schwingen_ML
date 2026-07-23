@@ -36,6 +36,17 @@ KLASSEN = ["sieg_a", "gestellt", "sieg_b"]
 # Fest-Typen (§4.2).
 FEST_TYPEN = ["eidgenoessisch", "berg", "kantonal", "teilverband", "regional"]
 
+# Elo-Gewichtung nach Fest-Wichtigkeit: ein Resultat an einem prestigeträchtigen
+# Fest (grösseres, stärkeres Feld) bewegt das Rating stärker. Skaliert den
+# K-Faktor je Gang. Startwerte -- empirisch gegen den Holdout validierbar.
+FEST_K_GEWICHT = {
+    "eidgenoessisch": 1.0,
+    "berg": 0.8,
+    "teilverband": 0.6,
+    "kantonal": 0.6,
+    "regional": 0.4,
+}
+
 # Höfliches Scraping (NFR-4).
 SCRAPE_DELAY_SEKUNDEN = 2.0
 USER_AGENT = "Schwingen-ML/1.0 (nicht-kommerziell; Hobby-Projekt)"

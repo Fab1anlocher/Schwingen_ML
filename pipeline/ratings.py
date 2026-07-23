@@ -10,7 +10,7 @@ import math
 from collections import defaultdict
 from dataclasses import dataclass, field
 
-from .config import ELO_START, ELO_K, ELO_DRAW_WIDTH
+from .config import ELO_START, ELO_K, ELO_DRAW_WIDTH, FEST_K_GEWICHT
 from .labels import GangResultat
 
 
@@ -20,6 +20,9 @@ class EloModell:
     draw_width: float = ELO_DRAW_WIDTH
     ratings: dict[str, float] = field(default_factory=dict)
     gaenge_gezaehlt: dict[str, int] = field(default_factory=dict)
+    # K-Gewicht je Fest-Stufe (Eidgenössisch zählt am meisten). Unbekannte
+    # Stufe -> 0.6 (mittlere Gewichtung), damit Fremddaten nicht ausschlagen.
+    fest_gewicht: dict = field(default_factory=lambda: dict(FEST_K_GEWICHT))
 
     def get(self, sid: str) -> float:
         return self.ratings.get(sid, ELO_START)
@@ -55,8 +58,9 @@ class EloModell:
             s_a = 0.5
         else:
             s_a = 0.0
-        self.ratings[a] = ra + self.k * (s_a - e_a)
-        self.ratings[b] = rb + self.k * ((1.0 - s_a) - (1.0 - e_a))
+        k = self.k * self.fest_gewicht.get(gang.fest_typ, 0.6)
+        self.ratings[a] = ra + k * (s_a - e_a)
+        self.ratings[b] = rb + k * ((1.0 - s_a) - (1.0 - e_a))
         self.gaenge_gezaehlt[a] = self.gaenge_gezaehlt.get(a, 0) + 1
         self.gaenge_gezaehlt[b] = self.gaenge_gezaehlt.get(b, 0) + 1
 

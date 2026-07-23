@@ -29,13 +29,20 @@ from .benchmark import fuehre_benchmark_durch
 from .clustering import berechne_cluster
 
 
-def _lade_daten(source: str):
+def _lade_daten(source: str, *, von_jahr: int = 2010, mit_portraets: bool = True):
     if source == "synth":
         from .synth import erzeuge_datensatz
         return erzeuge_datensatz()
     elif source == "scrape":
         from .scrape import lade_echte_daten
         return lade_echte_daten()
+    elif source == "esv":
+        from datetime import date
+        from .scrape.esv_laden import lade_esv_daten
+        heute = date.today()
+        return lade_esv_daten(
+            von_jahr, heute.year, aktuelles_jahr=heute.year, mit_portraets=mit_portraets
+        )
     raise ValueError(f"Unbekannte Quelle: {source}")
 
 
@@ -108,10 +115,10 @@ def _aktive_schwinger(gaenge, referenz_jahr: int) -> set:
     return aktive
 
 
-def main(source: str = "synth") -> dict:
+def main(source: str = "synth", *, von_jahr: int = 2010, mit_portraets: bool = True) -> dict:
     config.ensure_dirs()
     print(f"[1/8] Lade Daten (Quelle={source}) ...", flush=True)
-    schwinger, events, roh = _lade_daten(source)
+    schwinger, events, roh = _lade_daten(source, von_jahr=von_jahr, mit_portraets=mit_portraets)
     print(f"      {len(schwinger)} Schwinger, {len(events)} Feste, {len(roh)} Roh-Einträge", flush=True)
 
     print("[2/8] Labels ableiten + deduplizieren + validieren ...", flush=True)
@@ -190,6 +197,9 @@ def main(source: str = "synth") -> dict:
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--source", choices=["synth", "scrape"], default="synth")
+    ap.add_argument("--source", choices=["synth", "scrape", "esv"], default="synth")
+    ap.add_argument("--von-jahr", type=int, default=2010, help="Startjahr (nur source=esv)")
+    ap.add_argument("--ohne-portraets", action="store_true",
+                    help="esv ohne Porträt-Anreicherung (schneller, ohne Physis/Alter/Schwünge)")
     args = ap.parse_args()
-    main(args.source)
+    main(args.source, von_jahr=args.von_jahr, mit_portraets=not args.ohne_portraets)
