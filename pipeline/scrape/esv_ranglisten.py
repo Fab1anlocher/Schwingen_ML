@@ -32,6 +32,84 @@ from typing import Optional
 _TITEL_RE = re.compile(r"^(?P<name>.*?)\s+vom\s+(?P<d>\d{2})\.(?P<m>\d{2})\.(?P<y>\d{4})")
 _SYMBOL_VON_ERGEBNIS = {"win": "+", "draw": "-", "loss": "o"}
 
+# --- Fest-Stufen (Hierarchie, für Elo-Gewichtung; s. Projekt-Memory) --------
+# Reihenfolge der Prüfung ist wichtig: eidgenössisch vor berg vor teilverband
+# vor kantonal, sonst greifen allgemeinere Regeln zu früh.
+_BERGFESTE = ("brünig", "bruenig", "rigi", "schwägalp", "schwaegalp",
+              "schwarzsee", "stoos", "weissenstein")
+_TEILVERBAND = ("innerschweizer", "nordostschweiz", "nordwestschweiz",
+                "südwestschweiz", "suedwestschweiz", "bernisch-kantonal",
+                "bernisch kantonal")
+# Berner Gauverbandsfeste gelten als kantonal-gleichwertig (s. Hierarchie).
+_KANTONAL_GAU = ("emmentalisch", "mittelländisch", "mittellaendisch",
+                 "oberländisch", "oberlaendisch", "oberaargauisch",
+                 "seeländisch", "seelaendisch", "berner-jura")
+
+
+def fest_stufe(name: str) -> str:
+    """Fest-Name -> Stufe: eidgenoessisch|berg|teilverband|kantonal|regional.
+
+    Heuristik über Namens-Schlüsselwörter (+ fixe Berg-/Eidg.-Listen); bewusst
+    konservativ, damit z.B. "Eidg. Schwinger-Fussballturnier" NICHT als
+    eidgenössisches Schwingfest zählt. Gewichte/Feinschliff s. Elo-Integration.
+    """
+    n = (name or "").lower()
+    eidg_kern = "schwingfest" in n or "älpler" in n or "aelpler" in n or "schwing- und" in n
+    if (("eidgenöss" in n or "eidgenoess" in n or "eidg." in n) and eidg_kern) \
+            or "kilchberg" in n or "unspunnen" in n:
+        return "eidgenoessisch"
+    if any(b in n for b in _BERGFESTE):
+        return "berg"
+    if any(t in n for t in _TEILVERBAND):
+        return "teilverband"
+    if "kantonal" in n or any(g in n for g in _KANTONAL_GAU):
+        return "kantonal"
+    return "regional"
+
+
+@dataclass
+class AnlassRef:
+    """Ein Fest aus dem Jahres-Index (?jahr=YYYY)."""
+    anlass_id: str
+    name: str
+    datum: Optional[str]          # ISO YYYY-MM-DD
+    kategorie: str                # "aktiv" | "jung" | ...
+    ort: Optional[str]
+    stufe: str                    # aus fest_stufe(name)
+
+
+def parse_jahr_index(html: str) -> list[AnlassRef]:
+    """?jahr=YYYY-Index -> Liste aller Feste (mit Kategorie/Datum/Ort/Stufe).
+
+    Die Kategorie kommt aus der tr-Klasse ("aktiv"/"jung"); für das Modell
+    interessieren i.d.R. nur die aktiv-Feste (Aktivschwinger)."""
+    from bs4 import BeautifulSoup
+
+    soup = BeautifulSoup(html, "html.parser")
+    refs: list[AnlassRef] = []
+    for tr in soup.find_all("tr", id=re.compile(r"^anlass\d+")):
+        anlass_id = tr.get("id", "")[len("anlass"):]
+        klassen = tr.get("class") or []
+        kategorie = klassen[0] if klassen else "?"
+        name_td = tr.find("td", class_="name")
+        name = name_td.get_text(" ", strip=True) if name_td else ""
+        datum = None
+        time_el = tr.find("time")
+        if time_el and time_el.get("datetime"):
+            datum = time_el["datetime"][:10]
+        ort_td = tr.find("td", class_="ort")
+        refs.append(
+            AnlassRef(
+                anlass_id=anlass_id,
+                name=name,
+                datum=datum,
+                kategorie=kategorie,
+                ort=ort_td.get_text(" ", strip=True) if ort_td else None,
+                stufe=fest_stufe(name),
+            )
+        )
+    return refs
+
 
 def _slug_aus_href(href: Optional[str]) -> Optional[str]:
     """.../schwingerportraets/<slug>/ -> <slug> (stabiler Personen-Schlüssel)."""

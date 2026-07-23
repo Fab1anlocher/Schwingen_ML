@@ -113,3 +113,64 @@ def test_gaenge_ergebnis_und_gegner():
 def test_leeres_html_bleibt_leer():
     rl = parse_rangliste("<html><body>nix</body></html>")
     assert rl.schwinger == [] and rl.gaenge == []
+
+
+# --- Fest-Klassifikator + Jahres-Index ---------------------------------------
+from pipeline.scrape.esv_ranglisten import fest_stufe, parse_jahr_index  # noqa: E402
+
+
+def test_fest_stufe_eidgenoessisch():
+    assert fest_stufe("Eidgenössisches Schwing- und Älplerfest (ESAF)") == "eidgenoessisch"
+    assert fest_stufe("Kilchberger Schwinget") == "eidgenoessisch"
+    assert fest_stufe("Unspunnen-Schwinget") == "eidgenoessisch"
+
+
+def test_fest_stufe_kein_falscher_eidg_treffer():
+    # "Eidg." im Namen, aber KEIN Schwingfest -> nicht eidgenössisch.
+    assert fest_stufe("Eidg. Schwinger-Fussballturnier") == "regional"
+
+
+def test_fest_stufe_berg_teilverband_kantonal_regional():
+    assert fest_stufe("Rigi Schwinget") == "berg"
+    assert fest_stufe("59. Weissenstein-Schwinget") == "berg"
+    assert fest_stufe("Nordostschweizer Schwingfest") == "teilverband"
+    assert fest_stufe("Bernisch-kantonales Schwingfest") == "teilverband"
+    assert fest_stufe("Zürcher Kantonalschwingfest") == "kantonal"
+    assert fest_stufe("Emmentalisches Schwingfest") == "kantonal"  # Berner Gauverband
+    assert fest_stufe("Abendschwinget Baar") == "regional"
+
+
+_INDEX_FIXTURE = """
+<table><tbody>
+<tr class="aktiv" id="anlass1226">
+  <td class="datum"><time datetime="2010-12-05">05.12<span class="year">.2010</span></time></td>
+  <td class="name"><a href="?anlass=1226">73. Niklausschwinget</a></td>
+  <td class="typ">aktiv</td><td class="ort">Dietikon ZH</td>
+</tr>
+<tr class="jung" id="anlass1452">
+  <td class="datum"><time datetime="2010-12-05">05.12</time></td>
+  <td class="name"><a href="?anlass=1452">Niklausschwinget</a></td>
+  <td class="typ">jung</td><td class="ort">Plaffeien FR</td>
+</tr>
+<tr class="aktiv" id="anlass999">
+  <td class="datum"><time datetime="2010-08-22">22.08</time></td>
+  <td class="name"><a href="?anlass=999">Eidgenössisches Schwing- und Älplerfest</a></td>
+  <td class="typ">aktiv</td><td class="ort">Frauenfeld TG</td>
+</tr>
+</tbody></table>
+"""
+
+
+def test_parse_jahr_index_felder_und_kategorie():
+    refs = parse_jahr_index(_INDEX_FIXTURE)
+    assert len(refs) == 3
+    r = next(x for x in refs if x.anlass_id == "1226")
+    assert r.name == "73. Niklausschwinget"
+    assert r.datum == "2010-12-05"
+    assert r.kategorie == "aktiv"
+    assert r.ort == "Dietikon ZH"
+    assert r.stufe == "regional"
+    esaf = next(x for x in refs if x.anlass_id == "999")
+    assert esaf.stufe == "eidgenoessisch"
+    jung = next(x for x in refs if x.anlass_id == "1452")
+    assert jung.kategorie == "jung"
