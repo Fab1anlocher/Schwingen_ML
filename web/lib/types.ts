@@ -95,6 +95,15 @@ export interface KantoneArtifact {
   kantone: KantonStatistik[];
 }
 
+export interface GauverbaendeArtifact {
+  schema_version: string;
+  top_schwelle_elo: number;
+  /** Gleiche Form wie KantonStatistik, aber `kanton` ist hier der Kantonal-
+   * /Gauverband selbst (29 Verbände), nicht der zusammengefasste politische
+   * Kanton — s. pipeline/kantone.py. */
+  gauverbaende: KantonStatistik[];
+}
+
 export interface BenchmarkKandidat {
   key: "kranz_heuristik" | "elo_baseline" | "ml_ohne_elo" | "ml_komplett";
   label: string;

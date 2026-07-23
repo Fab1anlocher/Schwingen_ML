@@ -1,18 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ladeKantone } from "@/lib/data";
-import type { KantoneArtifact } from "@/lib/types";
+import { ladeKantone, ladeGauverbaende } from "@/lib/data";
+import type { KantoneArtifact, GauverbaendeArtifact } from "@/lib/types";
 import { SchweizKarte } from "@/components/SchweizKarte";
+import { GauverbandVergleich } from "@/components/GauverbandVergleich";
+
+const BERN_GAUVERBAENDE = ["Berner-Jura", "Emmental", "Mittelland", "Oberaargau", "Oberland", "Seeland"];
 
 export default function Karte() {
   const [daten, setDaten] = useState<KantoneArtifact | null>(null);
+  const [gauverbaende, setGauverbaende] = useState<GauverbaendeArtifact | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     ladeKantone()
       .then(setDaten)
       .catch((e) => setError(String(e)));
+    ladeGauverbaende()
+      .then(setGauverbaende)
+      .catch(() => {});
   }, []);
 
   if (error) return <p className="warn">Fehler beim Laden: {error}</p>;
@@ -34,6 +41,16 @@ export default function Karte() {
         „Top-Schwinger" = oberste 10% aller erfassten Schwinger nach Elo-Rating (Schwelle{" "}
         {Math.round(daten.top_schwelle_elo)}).
       </p>
+
+      {gauverbaende && (
+        <div className="panel" style={{ marginTop: "1.5rem" }}>
+          <GauverbandVergleich
+            titel="Bern nach Gauverband"
+            gauverbaende={gauverbaende.gauverbaende}
+            namen={BERN_GAUVERBAENDE}
+          />
+        </div>
+      )}
     </div>
   );
 }

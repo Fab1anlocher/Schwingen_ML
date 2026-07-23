@@ -4,12 +4,12 @@ import { useMemo, useState } from "react";
 import { KANTON_PFADE, KANTON_VIEWBOX } from "@/lib/schweiz-kantone";
 import type { KantonStatistik } from "@/lib/types";
 
-type MetrikKey = "elo_avg" | "n_siege" | "n_top_schwinger" | "n_schwinger";
+type MetrikKey = "elo_avg" | "siegquote" | "top_schwinger_quote" | "n_schwinger";
 
 const METRIKEN: { key: MetrikKey; label: string; format: (v: number) => string }[] = [
   { key: "elo_avg", label: "Ø Elo-Rating", format: (v) => v.toFixed(0) },
-  { key: "n_siege", label: "Anzahl Siege (echte Gänge)", format: (v) => v.toFixed(0) },
-  { key: "n_top_schwinger", label: "Anzahl Top-Schwinger (oberste 10% Elo)", format: (v) => v.toFixed(0) },
+  { key: "siegquote", label: "Siegquote (echte Gänge)", format: (v) => `${(v * 100).toFixed(0)}%` },
+  { key: "top_schwinger_quote", label: "Anteil Top-Schwinger (oberste 10% Elo)", format: (v) => `${(v * 100).toFixed(0)}%` },
   { key: "n_schwinger", label: "Anzahl erfasste Schwinger", format: (v) => v.toFixed(0) },
   // Bewusst KEINE "Kranz-Quote": schlussgang.ch legt ein Porträt (und damit
   // einen Kantonal-/Gauverband) fast ausschliesslich für Schwinger an, die
@@ -21,7 +21,20 @@ const METRIKEN: { key: MetrikKey; label: string; format: (v: number) => string }
   // Verbandsdaten für die "kein"-Schwinger nicht sauber beheben lässt.
 ];
 
+// Absolute Zaehl-Metriken (Siege, Top-Schwinger) skalieren trivial mit der
+// Anzahl erfasster Schwinger pro Kanton -- ein Kanton mit mehr Schwingern
+// "gewinnt" dann fast automatisch, unabhaengig davon wie erfolgreich die
+// einzelnen Schwinger tatsaechlich sind. Deshalb hier als Quote (durch
+// Bevoelkerung normiert), damit Kantone unterschiedlicher Groesse fair
+// vergleichbar sind.
 function wertVon(k: KantonStatistik, metrik: MetrikKey): number | null {
+  if (metrik === "siegquote") {
+    const n = k.n_siege + k.n_gestellt + k.n_niederlagen;
+    return n > 0 ? k.n_siege / n : null;
+  }
+  if (metrik === "top_schwinger_quote") {
+    return k.n_schwinger > 0 ? k.n_top_schwinger / k.n_schwinger : null;
+  }
   const v = k[metrik];
   return v === null || v === undefined ? null : v;
 }

@@ -7,6 +7,7 @@ import type {
   FeatureImportanceEntry,
   EventsArtifact,
   KantoneArtifact,
+  GauverbaendeArtifact,
   BenchmarkArtifact,
 } from "./types";
 
@@ -20,6 +21,7 @@ export const ladeModel = () => ladeJson<ModelArtifact>("/data/model.json");
 export const ladeRatings = () => ladeJson<RatingsArtifact>("/data/ratings.json");
 export const ladeEvents = () => ladeJson<EventsArtifact>("/data/events.json");
 export const ladeKantone = () => ladeJson<KantoneArtifact>("/data/kantone.json");
+export const ladeGauverbaende = () => ladeJson<GauverbaendeArtifact>("/data/gauverbaende.json");
 export const ladeBenchmark = () => ladeJson<BenchmarkArtifact>("/data/benchmark.json");
 
 export async function ladeSchwinger(): Promise<Schwinger[]> {
