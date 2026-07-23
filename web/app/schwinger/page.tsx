@@ -112,8 +112,8 @@ export default function SchwingerListe() {
         </div>
       </div>
 
-      <div className="panel" style={{ padding: 0, overflowX: "auto" }}>
-        <table>
+      <div className="panel tabelle-wrap" style={{ padding: 0 }}>
+        <table style={{ minWidth: 600 }}>
           <thead>
             <tr>
               <th style={{ width: "3rem" }}>#</th>

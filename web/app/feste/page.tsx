@@ -120,67 +120,71 @@ function FestCard({
             Favoriten-/Kranz-Prognose (rating-basiert, informativ).
           </p>
           {favoriten.length > 0 && (
-            <table style={{ marginTop: "0.5rem" }}>
-              <thead>
-                <tr>
-                  <th>Favorit</th>
-                  <th>Rating</th>
-                  <th>Kranz</th>
-                  <th>Index</th>
-                </tr>
-              </thead>
-              <tbody>
-                {favoriten.map((f) => (
-                  <tr key={f.id}>
-                    <td>{f.name}</td>
-                    <td>{Math.round(f.elo)}</td>
-                    <td>{f.kranz}</td>
-                    <td>{f.index.toFixed(2)}</td>
+            <div className="tabelle-wrap" style={{ marginTop: "0.5rem" }}>
+              <table style={{ minWidth: 420 }}>
+                <thead>
+                  <tr>
+                    <th>Favorit</th>
+                    <th>Rating</th>
+                    <th>Kranz</th>
+                    <th>Index</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {favoriten.map((f) => (
+                    <tr key={f.id}>
+                      <td>{f.name}</td>
+                      <td>{Math.round(f.elo)}</td>
+                      <td>{f.kranz}</td>
+                      <td>{f.index.toFixed(2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </>
       )}
 
       {hatPaarungen && model && ratings && (
-        <table style={{ marginTop: "0.85rem" }}>
-          <thead>
-            <tr>
-              <th>Paarung</th>
-              <th>Sieg A</th>
-              <th>Gestellt</th>
-              <th>Sieg B</th>
-            </tr>
-          </thead>
-          <tbody>
-            {fest.paarungen!.map((pg, i) => {
-              const a = byId[pg.a_id];
-              const b = byId[pg.b_id];
-              if (!a || !b) return null;
-              const ra = ratings.ratings[pg.a_id] ?? { elo: ratings.elo_start, n_gaenge: 0 };
-              const rb = ratings.ratings[pg.b_id] ?? { elo: ratings.elo_start, n_gaenge: 0 };
-              const pr = prognostiziere(model, a, b, ra.elo, rb.elo, ra.n_gaenge, rb.n_gaenge);
-              const cell = (v: number) => (
-                <>
-                  {(v * 100).toFixed(0)}%
-                  <span className="muted small"> · {(1 / Math.max(v, 1e-6)).toFixed(2)}</span>
-                </>
-              );
-              return (
-                <tr key={i}>
-                  <td>
-                    {a.name} <span className="muted">vs</span> {b.name}
-                  </td>
-                  <td>{cell(pr.p.sieg_a)}</td>
-                  <td>{cell(pr.p.gestellt)}</td>
-                  <td>{cell(pr.p.sieg_b)}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <div className="tabelle-wrap" style={{ marginTop: "0.85rem" }}>
+          <table style={{ minWidth: 480 }}>
+            <thead>
+              <tr>
+                <th>Paarung</th>
+                <th>Sieg A</th>
+                <th>Gestellt</th>
+                <th>Sieg B</th>
+              </tr>
+            </thead>
+            <tbody>
+              {fest.paarungen!.map((pg, i) => {
+                const a = byId[pg.a_id];
+                const b = byId[pg.b_id];
+                if (!a || !b) return null;
+                const ra = ratings.ratings[pg.a_id] ?? { elo: ratings.elo_start, n_gaenge: 0 };
+                const rb = ratings.ratings[pg.b_id] ?? { elo: ratings.elo_start, n_gaenge: 0 };
+                const pr = prognostiziere(model, a, b, ra.elo, rb.elo, ra.n_gaenge, rb.n_gaenge);
+                const cell = (v: number) => (
+                  <>
+                    {(v * 100).toFixed(0)}%
+                    <span className="muted small"> · {(1 / Math.max(v, 1e-6)).toFixed(2)}</span>
+                  </>
+                );
+                return (
+                  <tr key={i}>
+                    <td>
+                      {a.name} <span className="muted">vs</span> {b.name}
+                    </td>
+                    <td>{cell(pr.p.sieg_a)}</td>
+                    <td>{cell(pr.p.gestellt)}</td>
+                    <td>{cell(pr.p.sieg_b)}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

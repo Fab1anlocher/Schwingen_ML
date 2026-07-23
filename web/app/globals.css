@@ -377,6 +377,7 @@ input:focus {
   font-weight: 700;
   padding: 0.15rem 0.5rem;
   border-radius: 999px;
+  white-space: nowrap;
 }
 .pill-a {
   background: rgba(227, 171, 69, 0.16);
@@ -386,8 +387,12 @@ input:focus {
   background: rgba(85, 153, 230, 0.16);
   color: var(--b);
 }
+.beitrag-label {
+  min-width: 150px;
+}
 .contrib-track {
   flex: 1;
+  min-width: 48px;
   height: 8px;
   background: var(--panel-2);
   border-radius: 999px;
@@ -396,6 +401,23 @@ input:focus {
 .contrib-fill {
   height: 100%;
   border-radius: 999px;
+}
+/* Unter ~640px reicht der Platz nicht für Namens-Pill + Label + Balken in
+   einer Zeile -- der Balken würde auf einen unsichtbaren Streifen
+   zusammengequetscht. Drei saubere Zeilen (Pill / Label / Balken) statt
+   einer gestauchten. */
+@media (max-width: 640px) {
+  .beitrag {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+  }
+  .beitrag > .pill {
+    align-self: flex-start;
+  }
+  .beitrag-label {
+    min-width: 0;
+  }
 }
 
 .warn {
@@ -424,6 +446,13 @@ table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
+}
+
+/* Breite Datentabellen: auf schmalen Viewports horizontal scrollen statt
+   Spalten bis zur Unlesbarkeit zu stauchen (Tabelle selbst bekommt eine
+   Mindestbreite per Inline-Style am Call-Site, je nach Spaltenzahl). */
+.tabelle-wrap {
+  overflow-x: auto;
 }
 th,
 td {
@@ -820,6 +849,13 @@ tbody tr:hover {
 }
 .kak-zeile:last-child {
   border-bottom: none;
+}
+@media (max-width: 640px) {
+  .kak-zeile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+  }
 }
 
 /* Schwingertypen (Clustering) */

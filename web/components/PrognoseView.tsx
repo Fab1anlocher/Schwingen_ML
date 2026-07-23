@@ -67,9 +67,7 @@ export function PrognoseView({
             <span className={`pill ${b.richtung === "a" ? "pill-a" : "pill-b"}`}>
               {b.richtung === "a" ? nameA : nameB}
             </span>
-            <span className="small" style={{ minWidth: 150 }}>
-              {b.label}
-            </span>
+            <span className="small beitrag-label">{b.label}</span>
             <div className="contrib-track">
               <div
                 className="contrib-fill"
