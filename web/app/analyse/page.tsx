@@ -5,6 +5,16 @@ import { ladeFeatureImportance, ladeBenchmark, ladeSchwinger, ladeRatings } from
 import type { FeatureImportanceEntry, BenchmarkArtifact, Schwinger, RatingsArtifact } from "@/lib/types";
 import { Konfusionsmatrix, VergleichBalken, VierWegeBenchmark } from "@/components/ModellGuete";
 import { StreudiagrammMitTrend } from "@/components/StreudiagrammMitTrend";
+import { SchwungVergleich, type SchwungStat } from "@/components/SchwungVergleich";
+
+// Rohdaten schreiben denselben Schwung uneinheitlich gross/klein
+// ("innerer Haken" vs. "Innerer Haken") -- sonst zwei Zeilen fürs Gleiche.
+// Gleiche Normalisierung wie pipeline/clustering.py:_normiert.
+function normiertesSchwung(name: string): string {
+  const t = name.trim();
+  return t ? t[0].toLowerCase() + t.slice(1) : t;
+}
+const MIN_SCHWINGER_PRO_SCHWUNG = 15;
 
 interface Report {
   lauf_id?: string;
@@ -71,6 +81,49 @@ export default function Analyse() {
       .map((s) => ({ s, r: ratings.ratings[s.id] }))
       .filter((e) => e.r && e.r.n_gaenge > 0 && e.s.gewicht_kg)
       .map((e) => ({ x: e.s.gewicht_kg as number, y: e.r!.elo, label: e.s.name }));
+  }, [schwinger, ratings]);
+
+  const streuAlter = useMemo(() => {
+    if (!ratings) return [];
+    const jahr = new Date().getFullYear();
+    return schwinger
+      .map((s) => ({ s, r: ratings.ratings[s.id] }))
+      .filter((e) => e.r && e.r.n_gaenge > 0 && e.s.jahrgang)
+      .map((e) => ({ x: jahr - (e.s.jahrgang as number), y: e.r!.elo, label: e.s.name }));
+  }, [schwinger, ratings]);
+
+  // Kategorial statt kontinuierlich: Ø Elo je bevorzugtem Schwung (nur wo
+  // genug Schwinger dafür vorliegen, sonst zu verrauscht).
+  const { schwungStats, gesamtschnittElo } = useMemo(() => {
+    if (!ratings) return { schwungStats: [] as SchwungStat[], gesamtschnittElo: 0 };
+    // Referenzlinie NUR über Schwinger mit erfasstem Schwung berechnen, nicht
+    // über alle n_gaenge>0 -- sonst zieht die riesige Masse an Stub-Schwingern
+    // (kein Porträt, kaum gespielt, Elo noch nah am Startwert 1500) den
+    // Gesamtschnitt künstlich runter und der Vergleich wird unfair (dieselbe
+    // Auswahlverzerrung wie bei der Kranzquote auf der Karte).
+    const mitSchwung = schwinger
+      .map((s) => ({ s, r: ratings.ratings[s.id] }))
+      .filter((e) => e.r && e.r.n_gaenge > 0 && (e.s.bevorzugte_schwuenge?.length ?? 0) > 0);
+    if (mitSchwung.length === 0) return { schwungStats: [], gesamtschnittElo: 0 };
+
+    const summeGesamt = mitSchwung.reduce((acc, e) => acc + e.r!.elo, 0);
+    const gesamtschnitt = summeGesamt / mitSchwung.length;
+
+    const gruppen = new Map<string, { summe: number; n: number }>();
+    for (const { s, r } of mitSchwung) {
+      for (const roh of s.bevorzugte_schwuenge ?? []) {
+        const name = normiertesSchwung(roh);
+        const g = gruppen.get(name) ?? { summe: 0, n: 0 };
+        g.summe += r!.elo;
+        g.n += 1;
+        gruppen.set(name, g);
+      }
+    }
+    const stats = [...gruppen.entries()]
+      .filter(([, g]) => g.n >= MIN_SCHWINGER_PRO_SCHWUNG)
+      .map(([schwung, g]) => ({ schwung, n: g.n, eloAvg: g.summe / g.n }))
+      .sort((a, b) => b.eloAvg - a.eloAvg);
+    return { schwungStats: stats, gesamtschnittElo: gesamtschnitt };
   }, [schwinger, ratings]);
 
   if (error) return <p className="warn">Fehler: {error}</p>;
@@ -225,9 +278,9 @@ export default function Analyse() {
         tatsächlicher Beitrag sichtbar.
       </p>
 
-      {(streuGroesse.length > 0 || streuGewicht.length > 0) && (
+      {(streuGroesse.length > 0 || streuGewicht.length > 0 || streuAlter.length > 0) && (
         <>
-          <h2>Macht Grösse oder Gewicht einen Unterschied?</h2>
+          <h2>Macht Grösse, Gewicht oder Alter einen Unterschied?</h2>
           <div className="panel">
             <p className="muted small" style={{ marginTop: 0, marginBottom: "1rem" }}>
               Jeder Punkt ein Schwinger mit mindestens einem erfassten Gang (Elo also eine
@@ -235,7 +288,7 @@ export default function Analyse() {
               Trendlinie; r zeigt, wie stark der Zusammenhang tatsächlich ist (0 = keiner,
               ±1 = perfekt).
             </p>
-            <div className="grid-2">
+            <div className="grid-3">
               <StreudiagrammMitTrend
                 titel="Grösse vs. Elo"
                 achseXLabel="Grösse (cm)"
@@ -248,7 +301,27 @@ export default function Analyse() {
                 punkte={streuGewicht}
                 formatX={(v) => `${v.toFixed(0)} kg`}
               />
+              <StreudiagrammMitTrend
+                titel="Alter vs. Elo"
+                achseXLabel="Alter (Jahre)"
+                punkte={streuAlter}
+                formatX={(v) => `${v.toFixed(0)}`}
+              />
             </div>
+          </div>
+        </>
+      )}
+
+      {schwungStats.length > 0 && (
+        <>
+          <h2>Macht der bevorzugte Schwung einen Unterschied?</h2>
+          <div className="panel">
+            <p className="muted small" style={{ marginTop: 0, marginBottom: "0.5rem" }}>
+              Ø Elo der Schwinger, die diesen Schwung bevorzugen (nur Schwünge mit mindestens{" "}
+              {MIN_SCHWINGER_PRO_SCHWUNG} Schwingern, sonst zu verrauscht — ein Schwinger kann
+              mehrere bevorzugte Schwünge haben und zählt dann bei mehreren mit).
+            </p>
+            <SchwungVergleich daten={schwungStats} gesamtschnitt={gesamtschnittElo} />
           </div>
         </>
       )}

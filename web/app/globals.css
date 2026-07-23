@@ -236,6 +236,22 @@ h2 {
   }
 }
 
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.1rem;
+}
+@media (max-width: 900px) {
+  .grid-3 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
 label.field {
   display: block;
   font-size: 0.82rem;
@@ -705,6 +721,28 @@ tbody tr:hover {
 .streu-achsentext {
   fill: var(--muted);
   font-size: 11px;
+}
+
+/* Schwung-vs-Elo-Dotplot (Analyse-Seite) */
+.schwung-svg {
+  width: 100%;
+  height: auto;
+  margin-top: 0.5rem;
+}
+.schwung-label {
+  fill: var(--text);
+  font-size: 12px;
+  dominant-baseline: middle;
+}
+.schwung-wert {
+  fill: var(--muted);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.schwung-referenz {
+  fill: var(--muted);
+  font-size: 10px;
+  font-weight: 600;
 }
 
 /* Teilen-Button (Paar-Prognose) */
