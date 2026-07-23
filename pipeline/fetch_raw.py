@@ -91,9 +91,19 @@ def main(argv: list[str] | None = None) -> int:
             print(f"[schlussgang] Normalisierte Schwinger geschrieben -> {_schwinger_path()}")
 
     if "esv" in args.sources:
-        stats = scrape_esv_statistiken(jahr=args.jahr, download_pdfs=args.download_pdfs)
-        write_esv_stats_json(_esv_path(), stats)
-        print(f"[esv] {len(stats.get('downloads', []))} PDFs gespeichert -> {_esv_path()}")
+        # esv.ch blockiert Anfragen von GitHub-Actions-Runnern (403, IP-basiert
+        # -- funktioniert lokal problemlos), ausserhalb unserer Kontrolle.
+        # esv_statistiken.json wird aktuell von keiner anderen Pipeline-Stufe
+        # gelesen (nur schwinger/events/gaenge sind für --source scrape
+        # nötig, s. pipeline/scrape/__init__.py:lade_echte_daten) -- ein
+        # Fehlschlag hier darf daher NICHT die wichtigeren Quellen
+        # (insb. "events", für NFR-1 tägliche Aktualität) verhindern.
+        try:
+            stats = scrape_esv_statistiken(jahr=args.jahr, download_pdfs=args.download_pdfs)
+            write_esv_stats_json(_esv_path(), stats)
+            print(f"[esv] {len(stats.get('downloads', []))} PDFs gespeichert -> {_esv_path()}")
+        except Exception as e:  # noqa: BLE001
+            print(f"[esv] übersprungen (Fehler beim Abruf, nicht kritisch): {e}")
 
     if "events" in args.sources:
         events, gaenge = scrape_events_und_gaenge(
