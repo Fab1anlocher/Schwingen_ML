@@ -16,27 +16,27 @@
     },
     {
       "kanton": "Appenzell Ausserrhoden",
-      "n_schwinger": 23,
+      "n_schwinger": 12,
       "elo_avg": 1682.8,
-      "n_top_schwinger": 4,
-      "n_kranzer": 22,
-      "n_eidgenosse": 1,
+      "n_top_schwinger": 2,
+      "n_kranzer": 11,
+      "n_eidgenosse": 0,
       "n_koenig": 0,
-      "n_siege": 1976,
-      "n_gestellt": 895,
-      "n_niederlagen": 1359
+      "n_siege": 988,
+      "n_gestellt": 448,
+      "n_niederlagen": 680
     },
     {
       "kanton": "Appenzell Innerrhoden",
-      "n_schwinger": 23,
+      "n_schwinger": 12,
       "elo_avg": 1682.8,
-      "n_top_schwinger": 4,
-      "n_kranzer": 22,
-      "n_eidgenosse": 1,
+      "n_top_schwinger": 2,
+      "n_kranzer": 11,
+      "n_eidgenosse": 0,
       "n_koenig": 0,
-      "n_siege": 1976,
-      "n_gestellt": 895,
-      "n_niederlagen": 1359
+      "n_siege": 988,
+      "n_gestellt": 448,
+      "n_niederlagen": 680
     },
     {
       "kanton": "Basel-Landschaft",
@@ -160,27 +160,27 @@
     },
     {
       "kanton": "Nidwalden",
-      "n_schwinger": 36,
+      "n_schwinger": 18,
       "elo_avg": 1703.9,
-      "n_top_schwinger": 13,
-      "n_kranzer": 35,
-      "n_eidgenosse": 1,
+      "n_top_schwinger": 6,
+      "n_kranzer": 18,
+      "n_eidgenosse": 0,
       "n_koenig": 0,
-      "n_siege": 2961,
-      "n_gestellt": 1872,
-      "n_niederlagen": 1769
+      "n_siege": 1480,
+      "n_gestellt": 936,
+      "n_niederlagen": 884
     },
     {
       "kanton": "Obwalden",
-      "n_schwinger": 36,
+      "n_schwinger": 18,
       "elo_avg": 1703.9,
-      "n_top_schwinger": 13,
-      "n_kranzer": 35,
-      "n_eidgenosse": 1,
+      "n_top_schwinger": 6,
+      "n_kranzer": 18,
+      "n_eidgenosse": 0,
       "n_koenig": 0,
-      "n_siege": 2961,
-      "n_gestellt": 1872,
-      "n_niederlagen": 1769
+      "n_siege": 1480,
+      "n_gestellt": 936,
+      "n_niederlagen": 884
     },
     {
       "kanton": "Schaffhausen",

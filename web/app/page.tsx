@@ -129,7 +129,7 @@ export default function Home() {
             <span className="auswahl-marker auswahl-marker-a" />
             Schwinger A
           </div>
-          <SchwingerSuche id="a" label="Schwinger A" schwinger={schwinger} value={aId} onChange={setAId} hideLabel />
+          <SchwingerSuche id="a" label="Schwinger A" schwinger={schwinger} value={aId} onChange={setAId} hideLabel nurAktive />
           <div className="auswahl-meta">{metaZeile(a)}</div>
         </div>
         <div className="auswahl-swap">
@@ -151,7 +151,7 @@ export default function Home() {
             <span className="auswahl-marker auswahl-marker-b" />
             Schwinger B
           </div>
-          <SchwingerSuche id="b" label="Schwinger B" schwinger={schwinger} value={bId} onChange={setBId} hideLabel />
+          <SchwingerSuche id="b" label="Schwinger B" schwinger={schwinger} value={bId} onChange={setBId} hideLabel nurAktive />
           <div className="auswahl-meta">{metaZeile(b)}</div>
         </div>
       </div>
@@ -168,17 +168,13 @@ export default function Home() {
             <div className="vs-seite vs-seite-a">
               <div className="vs-rolle">Schwinger A</div>
               <div className="vs-name">{eingaben.a.name}</div>
-              <div className="vs-meta">
-                {eingaben.a.teilverband ?? "—"} · Elo {Math.round(eingaben.eloA)}
-              </div>
+              <div className="vs-meta">{vsMeta(eingaben.a)}</div>
             </div>
             <div className="vs-mitte">vs</div>
             <div className="vs-seite vs-seite-b">
               <div className="vs-rolle">Schwinger B</div>
               <div className="vs-name">{eingaben.b.name}</div>
-              <div className="vs-meta">
-                {eingaben.b.teilverband ?? "—"} · Elo {Math.round(eingaben.eloB)}
-              </div>
+              <div className="vs-meta">{vsMeta(eingaben.b)}</div>
             </div>
           </div>
 
@@ -203,6 +199,16 @@ function metaZeile(s: Schwinger | undefined): string {
   const teile: string[] = [];
   if (s.teilverband) teile.push(s.teilverband);
   if (s.jahrgang) teile.push(`Jg. ${s.jahrgang}`);
+  if (s.anzahl_kraenze > 0)
+    teile.push(`${s.anzahl_kraenze} Kranz${s.anzahl_kraenze === 1 ? "" : "gewinne"}`);
+  return teile.join(" · ");
+}
+
+/** vs-Banner-Metazeile: Teilverband + Kränze (bewusst ohne Elo — die interne
+ * Rating-Zahl gehört nicht so prominent an die Spitze der Prognose). */
+function vsMeta(s: Schwinger): string {
+  const teile: string[] = [];
+  if (s.teilverband) teile.push(s.teilverband);
   if (s.anzahl_kraenze > 0)
     teile.push(`${s.anzahl_kraenze} Kranz${s.anzahl_kraenze === 1 ? "" : "gewinne"}`);
   return teile.join(" · ");

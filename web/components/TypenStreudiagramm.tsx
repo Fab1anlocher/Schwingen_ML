@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import type { ClusterPunkt, Schwinger } from "@/lib/types";
 
 const W = 760;
@@ -25,6 +26,7 @@ export function TypenStreudiagramm({
   hoverCluster: number | null;
 }) {
   const [hoverId, setHoverId] = useState<string | null>(null);
+  const router = useRouter();
 
   const { xScale, yScale } = useMemo(() => {
     const xs = punkte.map((p) => p.pca_x);
@@ -51,9 +53,10 @@ export function TypenStreudiagramm({
             opacity={gedimmt ? 0.12 : hoverId === p.schwinger_id ? 1 : 0.7}
             onMouseEnter={() => setHoverId(p.schwinger_id)}
             onMouseLeave={() => setHoverId((h) => (h === p.schwinger_id ? null : h))}
+            onClick={() => router.push(`/?a=${encodeURIComponent(p.schwinger_id)}`)}
             style={{ cursor: "pointer", transition: "opacity 0.15s ease, r 0.1s ease" }}
           >
-            <title>{name}</title>
+            <title>{name} — klicken für Prognose</title>
           </circle>
         );
       })}

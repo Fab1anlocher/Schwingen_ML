@@ -47,10 +47,12 @@ export function PrognoseView({
           {p.sieg_b > 0.08 ? pct(p.sieg_b) : ""}
         </div>
       </div>
+      {/* Legende spiegelt die Segmentbreiten: "Gestellt" sitzt so immer mittig
+          über dem grauen Segment, auch wenn die Prognose einseitig ist. */}
       <div className="prob-legend">
-        <span>Sieg {nameA}</span>
-        <span>Gestellt</span>
-        <span>Sieg {nameB}</span>
+        <span className="pl-a" style={{ flexBasis: pct(p.sieg_a) }}>Sieg {nameA}</span>
+        <span className="pl-draw" style={{ flexBasis: pct(p.gestellt) }}>Gestellt</span>
+        <span className="pl-b" style={{ flexBasis: pct(p.sieg_b) }}>Sieg {nameB}</span>
       </div>
 
       <div className="quote-row">
@@ -69,8 +71,6 @@ export function PrognoseView({
           entsprechend unsicher.
         </div>
       )}
-
-      <Spannungsanzeige p={p} />
 
       <h2>Warum diese Prognose?</h2>
       <p className="section-hint">
@@ -112,39 +112,6 @@ export function PrognoseView({
         bleiben gleich). Balkenlänge auf fester Skala, damit sie auch zwischen verschiedenen
         Paarungen vergleichbar ist.
       </p>
-    </div>
-  );
-}
-
-/** Fairness-/Spannungsgrad: normierte Entropie der 3-Klassen-Wahrscheinlichkeit.
- * 100% = völlig offen (alle drei gleich wahrscheinlich), 0% = eindeutiger Favorit. */
-function spannungsgrad(p: Record<string, number>): number {
-  const werte = Object.values(p).filter((v) => v > 0);
-  const entropie = -werte.reduce((s, v) => s + v * Math.log(v), 0);
-  return entropie / Math.log(3);
-}
-
-function Spannungsanzeige({ p }: { p: Record<string, number> }) {
-  const grad = spannungsgrad(p);
-  const label =
-    grad > 0.85
-      ? "Hochspannung — völlig offen"
-      : grad > 0.6
-      ? "Ausgeglichenes Duell"
-      : grad > 0.35
-      ? "Klarer Favorit"
-      : "Eindeutige Sache";
-  return (
-    <div
-      className="spannung-wrap"
-      title="Basiert auf der Entropie der Prognose (0 = klar, 100% = völlig offen)"
-    >
-      <div className="spannung-track">
-        <div className="spannung-fill" style={{ width: `${(grad * 100).toFixed(0)}%` }} />
-      </div>
-      <span className="spannung-label">
-        ⚡ {label} ({(grad * 100).toFixed(0)}%)
-      </span>
     </div>
   );
 }

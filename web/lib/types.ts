@@ -138,6 +138,7 @@ export interface ClusterZusammenfassung {
   kompaktheit_avg: number;
   elo_avg: number;
   erfahrung_avg: number;
+  alter_avg: number;
   top_schwuenge: string[];
   /** Menschenlesbarer Satz: was diesen Cluster am stärksten vom Durchschnitt
    * unterscheidet (grösster |z-Wert| des Zentrums über alle Merkmale). */

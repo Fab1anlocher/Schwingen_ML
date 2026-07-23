@@ -35,6 +35,7 @@ export function SchwingerSuche({
   value,
   onChange,
   hideLabel = false,
+  nurAktive = false,
 }: {
   id: string;
   label: string;
@@ -42,6 +43,8 @@ export function SchwingerSuche({
   value: string;
   onChange: (id: string) => void;
   hideLabel?: boolean;
+  /** Nur aktive Schwinger vorschlagen (zurückgetretene/verletzte ausblenden). */
+  nurAktive?: boolean;
 }) {
   const [query, setQuery] = useState("");
   const [offen, setOffen] = useState(false);
@@ -50,16 +53,21 @@ export function SchwingerSuche({
 
   const ausgewaehlt = schwinger.find((s) => s.id === value) ?? null;
 
+  const kandidaten = useMemo(
+    () => (nurAktive ? schwinger.filter((s) => s.aktiv) : schwinger),
+    [schwinger, nurAktive]
+  );
+
   const treffer = useMemo(() => {
     const qTokens = tokens(query);
-    if (qTokens.length === 0) return schwinger.slice(0, MAX_ERGEBNISSE);
+    if (qTokens.length === 0) return kandidaten.slice(0, MAX_ERGEBNISSE);
 
     // Rang 0 = exakter Name, 1 = Name beginnt mit dem ersten Token (egal ob
     // Vor- oder Nachname zuerst getippt wurde), 2 = alle Tokens irgendwo
     // enthalten (Name oder Klub/Kantonalverband). Innerhalb eines Rangs
     // bleibt die vom Aufrufer übergebene Reihenfolge erhalten (stable sort).
     const bewertet: { s: Schwinger; rang: number }[] = [];
-    for (const s of schwinger) {
+    for (const s of kandidaten) {
       const n = normalisiere(s.name);
       const nTokens = n.split(/\s+/);
       const zusatz = normalisiere([s.schwingklub, s.kanton].filter(Boolean).join(" "));
@@ -73,7 +81,7 @@ export function SchwingerSuche({
     }
     bewertet.sort((a, b) => a.rang - b.rang);
     return bewertet.slice(0, MAX_ERGEBNISSE).map((b) => b.s);
-  }, [query, schwinger]);
+  }, [query, kandidaten]);
 
   const waehle = (s: Schwinger) => {
     onChange(s.id);

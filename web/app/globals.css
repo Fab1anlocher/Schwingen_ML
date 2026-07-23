@@ -494,9 +494,28 @@ input:focus {
 }
 .prob-legend {
   display: flex;
-  justify-content: space-between;
   font-size: 0.8rem;
   color: var(--muted);
+  margin-top: 0.4rem;
+}
+.prob-legend span {
+  flex: 0 0 auto;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pl-a {
+  text-align: left;
+  padding-right: 0.4rem;
+}
+.pl-draw {
+  text-align: center;
+  padding: 0 0.4rem;
+}
+.pl-b {
+  text-align: right;
+  padding-left: 0.4rem;
 }
 
 /* ---------- Quote-Karten ---------- */
@@ -1016,52 +1035,27 @@ tbody tr:hover {
   font-weight: 600;
 }
 
-/* ---------- Spannungs-Anzeige ---------- */
-.spannung-wrap {
-  margin-top: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-}
-.spannung-track {
-  flex: 1;
-  height: 8px;
-  background: var(--surface-2);
-  border-radius: 999px;
-  overflow: hidden;
-  position: relative;
-}
-.spannung-fill {
-  height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--muted-2), var(--accent));
-  transition: width 0.4s var(--ease);
-}
-.spannung-label {
-  font-size: 0.8rem;
-  color: var(--muted);
-  white-space: nowrap;
-  min-width: 9rem;
-  text-align: right;
-}
-
 /* ---------- Kopf-an-Kopf ---------- */
 .kak-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.85rem;
-  margin-bottom: 1.3rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  margin-bottom: 1.4rem;
 }
 .kak-stat {
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--surface);
-  padding: 1.1rem 0.75rem;
+  padding: 1.35rem 0.75rem;
   text-align: center;
+  border-right: 1px solid var(--border);
+}
+.kak-stat:last-child {
+  border-right: none;
 }
 .kak-stat-zahl {
   font-family: var(--display);
-  font-size: 2.4rem;
+  font-size: 2.5rem;
   font-weight: 600;
   line-height: 1;
   font-variant-numeric: tabular-nums;
@@ -1069,44 +1063,49 @@ tbody tr:hover {
 .kak-stat-a .kak-stat-zahl {
   color: var(--accent);
 }
-.kak-stat-b .kak-stat-zahl {
-  color: var(--ink);
-}
 .kak-stat-label {
   font-size: 0.74rem;
-  color: var(--muted-2);
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  margin-top: 0.45rem;
+  color: var(--muted);
+  font-weight: 500;
+  margin-top: 0.5rem;
 }
 @media (max-width: 480px) {
   .kak-stat-zahl {
     font-size: 1.9rem;
   }
   .kak-stat {
-    padding: 0.9rem 0.5rem;
+    padding: 1rem 0.4rem;
   }
+  .kak-stat-label {
+    font-size: 0.68rem;
+  }
+}
+.kak-fest {
+  font-weight: 600;
 }
 .erg-pill {
   display: inline-block;
   font-size: 0.76rem;
   font-weight: 600;
-  padding: 0.2rem 0.6rem;
+  padding: 0.24rem 0.65rem;
   border-radius: 999px;
   white-space: nowrap;
 }
+/* Wie im Entwurf: beide Sieg-Pills rot, unterschieden durch Füllung (A) vs.
+   Umrandung (B); Gestellt neutral grau umrandet. */
 .erg-pill-a {
   color: var(--accent-dark);
-  border: 1px solid rgba(229, 50, 42, 0.35);
   background: var(--accent-soft);
+  border: 1px solid transparent;
 }
 .erg-pill-b {
-  color: #fff;
-  background: var(--ink);
+  color: var(--accent-dark);
+  background: var(--surface);
+  border: 1px solid rgba(229, 50, 42, 0.5);
 }
 .erg-pill-draw {
   color: var(--muted);
+  background: var(--surface);
   border: 1px solid var(--border-strong);
 }
 

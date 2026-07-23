@@ -142,9 +142,13 @@ def main(source: str = "synth") -> dict:
         for key, werte in benchmark_res["kandidaten"].items():
             print(f"      {key:16s} Acc={werte['accuracy']:.4f}  Brier={werte['brier_score']:.4f}", flush=True)
 
-    print("[7/8] Schwingertypen (K-Means über volles Profil) ...", flush=True)
+    print("[7/8] Schwingertypen (K-Means über volles Profil, nur Aktive) ...", flush=True)
     referenz_jahr = max(int(g.datum[:4]) for g in gaenge)
-    cluster_res = berechne_cluster(schwinger, elo_modell, referenz_jahr)
+    aktive = _aktive_schwinger(gaenge, referenz_jahr)
+    # Nur aktive Schwinger clustern -- die "Typen" sollen den aktuellen Kader
+    # abbilden, nicht Zurückgetretene. Zugleich Basis für "ähnliche Schwinger".
+    aktive_schwinger = {sid: s for sid, s in schwinger.items() if sid in aktive}
+    cluster_res = berechne_cluster(aktive_schwinger, elo_modell, referenz_jahr)
     if cluster_res is None:
         print("      übersprungen (zu wenig Schwinger mit Gewicht+Grösse)", flush=True)
     else:
@@ -155,7 +159,6 @@ def main(source: str = "synth") -> dict:
     form_aktuell = _aktuelle_form(gaenge)
     ueberraschung = berechne_ueberraschung(gaenge, snapshots)
     kraenze = _anzahl_kraenze(gaenge)
-    aktive = _aktive_schwinger(gaenge, referenz_jahr)
     export.exportiere_modell(train_res, fi)
     export.exportiere_ratings(elo_modell, schwinger)
     export.exportiere_schwinger(schwinger, form_aktuell, ueberraschung, kraenze, aktive)

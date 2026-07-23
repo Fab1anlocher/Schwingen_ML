@@ -234,6 +234,7 @@ def berechne_cluster(schwinger: dict[str, Schwinger], elo_modell, referenz_jahr:
             "kompaktheit_avg": round(float(mitglieder[:, 2].mean()), 2),
             "elo_avg": round(float(mitglieder[:, 3].mean()), 1),
             "erfahrung_avg": round(float(mitglieder[:, 4].mean()), 1),
+            "alter_avg": round(float(mitglieder[:, 5].mean()), 1),
             "top_schwuenge": top3_schwuenge,
             "auszeichnung": auszeichnung,
             "typische_vertreter": typische_vertreter,

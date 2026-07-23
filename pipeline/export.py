@@ -153,17 +153,20 @@ def _leerer_eintrag() -> dict:
 
 
 def _eintrag_zu_dict(name: str, e: dict) -> dict:
+    # Zähl-Felder auf ganze Zahlen runden: bei aufgeteilten Mehr-Kantons-
+    # Verbänden (s. exportiere_kantone) sind sie Bruchzahlen; für die Anzeige
+    # sollen es Anzahlen bleiben. Ø-Elo aus den ungerundeten Summen.
     return {
         "kanton": name,
-        "n_schwinger": e["n_schwinger"],
+        "n_schwinger": round(e["n_schwinger"]),
         "elo_avg": round(e["elo_summe"] / e["n_schwinger"], 1) if e["n_schwinger"] else None,
-        "n_top_schwinger": e["n_top"],
-        "n_kranzer": e["n_kranzer"],
-        "n_eidgenosse": e["n_eidgenosse"],
-        "n_koenig": e["n_koenig"],
-        "n_siege": e["n_siege"],
-        "n_gestellt": e["n_gestellt"],
-        "n_niederlagen": e["n_niederlagen"],
+        "n_top_schwinger": round(e["n_top"]),
+        "n_kranzer": round(e["n_kranzer"]),
+        "n_eidgenosse": round(e["n_eidgenosse"]),
+        "n_koenig": round(e["n_koenig"]),
+        "n_siege": round(e["n_siege"]),
+        "n_gestellt": round(e["n_gestellt"]),
+        "n_niederlagen": round(e["n_niederlagen"]),
     }
 
 
@@ -229,10 +232,19 @@ def exportiere_kantone(schwinger: dict, elo_modell, gaenge: list) -> None:
 
     kantone: dict[str, dict] = {}
     for verband_name, e in verbaende.items():
-        for kanton in kantone_fuer(verband_name):
+        ziel_kantone = kantone_fuer(verband_name)
+        if not ziel_kantone:
+            continue
+        # Verbände über mehrere Kantone (Appenzell -> AR+AI, Ob-/Nidwalden)
+        # werden GLEICHMÄSSIG aufgeteilt statt in jeden Kanton voll dupliziert.
+        # Sonst zählt ein Appenzeller Schwinger doppelt (in AR und AI) und die
+        # Kantons-Summe (767) läge über der echten Schwingerzahl (708). Der
+        # Ø-Elo bleibt exakt (Summe und Anzahl durch denselben Teiler geteilt).
+        teiler = len(ziel_kantone)
+        for kanton in ziel_kantone:
             k = kantone.setdefault(kanton, _leerer_eintrag())
             for feld in k:
-                k[feld] += e[feld]
+                k[feld] += e[feld] / teiler
 
     kantone_liste = sorted((_eintrag_zu_dict(n, e) for n, e in kantone.items()), key=lambda x: x["kanton"])
     _dump_beide("kantone.json", {

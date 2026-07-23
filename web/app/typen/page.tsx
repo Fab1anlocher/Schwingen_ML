@@ -31,12 +31,15 @@ export default function Typen() {
 
   return (
     <div>
-      <h1>🧬 Schwingertypen</h1>
+      <span className="eyebrow">Cluster-Analyse</span>
+      <h1>Schwingertypen</h1>
       <p className="subtitle">
-        {cluster.punkte.length} Schwinger, per K-Means über das volle Profil gruppiert: Körperbau,
-        Stil, Elo-Rating, Erfahrung, Alter und Kranzstatus — das Verfahren findet die Struktur
-        selbst, ohne dass wir Merkmale vorher wegkuratieren.
+        {cluster.punkte.length} aktive Schwinger, per K-Means über das volle Profil gruppiert:
+        Körperbau, Stil, Elo-Rating, Erfahrung, Alter und Kranzstatus — das Verfahren findet die
+        Struktur selbst, ohne dass wir Merkmale vorher wegkuratieren.
       </p>
+
+      <hr className="rule" />
 
       <div className="panel">
         <TypenStreudiagramm
@@ -44,6 +47,10 @@ export default function Typen() {
           schwingerById={schwingerById}
           hoverCluster={hoverCluster}
         />
+        <p className="muted small" style={{ marginTop: "0.6rem", textAlign: "center" }}>
+          Jeder Punkt ist ein Schwinger (Nähe = ähnliches Profil), Farbe = Typ. Auf einen Punkt
+          klicken öffnet ihn in der Prognose.
+        </p>
       </div>
 
       <div className="typen-karten">
@@ -72,8 +79,8 @@ export default function Typen() {
             <p className="typen-auszeichnung">{c.auszeichnung}</p>
             <p className="muted small" style={{ margin: "0.2rem 0" }}>
               Ø {c.gewicht_avg.toFixed(0)} kg · {c.groesse_avg.toFixed(0)} cm · Kompaktheit{" "}
-              {c.kompaktheit_avg.toFixed(1)} · Elo {c.elo_avg.toFixed(0)} · {c.erfahrung_avg.toFixed(0)}{" "}
-              Gänge Ø
+              {c.kompaktheit_avg.toFixed(1)} · Elo {c.elo_avg.toFixed(0)} · {c.alter_avg.toFixed(0)}{" "}
+              Jahre · {c.erfahrung_avg.toFixed(0)} Gänge Ø
               {c.top_schwuenge.length > 0 && <> · bevorzugt: {c.top_schwuenge.join(", ")}</>}
             </p>
             {c.typische_vertreter.length > 0 && (

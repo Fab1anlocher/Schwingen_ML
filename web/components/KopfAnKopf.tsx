@@ -73,7 +73,7 @@ export function KopfAnKopf({
           <tbody>
             {sortiert.map((t, i) => (
               <tr key={i}>
-                <td>{eventInfo[t.event_id]?.name ?? t.event_id}</td>
+                <td className="kak-fest">{eventInfo[t.event_id]?.name ?? t.event_id}</td>
                 <td className="muted">{eventInfo[t.event_id]?.datum ?? "—"}</td>
                 <td style={{ textAlign: "right" }}>
                   <span className={`erg-pill ${ERGEBNIS_KLASSE[t.ergebnis]}`}>
