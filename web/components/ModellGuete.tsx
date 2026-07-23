@@ -1,5 +1,7 @@
 "use client";
 
+import type { BenchmarkKandidat } from "@/lib/types";
+
 const LABELS: Record<string, string> = {
   sieg_a: "Sieg A",
   gestellt: "Gestellt",
@@ -58,6 +60,70 @@ export function VergleichBalken({ metriken }: { metriken: Metrik[] }) {
         </span>
         <span>
           <i className="vb-swatch vb-swatch-baseline" /> Baseline (Elo)
+        </span>
+      </div>
+    </div>
+  );
+}
+
+const BENCHMARK_REIHENFOLGE = ["kranz_heuristik", "elo_baseline", "ml_ohne_elo", "ml_komplett"];
+const CHAMPION_FARBE = "linear-gradient(90deg, var(--accent-2), color-mix(in srgb, var(--accent-2) 60%, #8fe0c0))";
+const VERGLEICH_FARBE = "#5a6674";
+
+/** 4-Wege-Vergleich Kranz-Heuristik / Elo-Baseline / ML ohne Elo / ML komplett.
+ * Champion (ML komplett, Produktionsmodell) ist immer gleich hervorgehoben
+ * (Grün) — alle Vergleichskandidaten teilen dieselbe neutrale Vergleichsfarbe,
+ * statt vier beliebiger kategorialer Farben (Farbe folgt hier der Rolle
+ * "Champion vs. Vergleich", nicht einer willkürlichen Identität). */
+export function VierWegeBenchmark({ kandidaten }: { kandidaten: BenchmarkKandidat[] }) {
+  const sortiert = [...kandidaten].sort(
+    (a, b) => BENCHMARK_REIHENFOLGE.indexOf(a.key) - BENCHMARK_REIHENFOLGE.indexOf(b.key)
+  );
+  const maxAcc = Math.max(...sortiert.map((k) => k.accuracy), 1e-9);
+  const maxBrier = Math.max(...sortiert.map((k) => k.brier_score), 1e-9);
+
+  const Balken = (
+    k: BenchmarkKandidat,
+    wert: number,
+    max: number,
+    format: (v: number) => string,
+    key: string
+  ) => (
+    <div className="vb-bar-row vwb-row" key={key}>
+      <span className={`vb-name${k.key === "ml_komplett" ? " vwb-champion-label" : ""}`}>{k.label}</span>
+      <div className="vb-track">
+        <div
+          className="vb-fill"
+          style={{
+            width: `${(wert / max) * 100}%`,
+            background: k.key === "ml_komplett" ? CHAMPION_FARBE : VERGLEICH_FARBE,
+          }}
+        />
+      </div>
+      <span className="vb-value">{format(wert)}</span>
+    </div>
+  );
+
+  return (
+    <div className="vwb-wrap">
+      <div className="vwb-gruppe">
+        <div className="vwb-titel">
+          Accuracy <span className="muted small">(höher = besser)</span>
+        </div>
+        {sortiert.map((k) => Balken(k, k.accuracy, maxAcc, (v) => `${(v * 100).toFixed(1)}%`, `acc-${k.key}`))}
+      </div>
+      <div className="vwb-gruppe" style={{ marginTop: "1.1rem" }}>
+        <div className="vwb-titel">
+          Brier-Score <span className="muted small">(tiefer = besser, 0 = perfekt kalibriert)</span>
+        </div>
+        {sortiert.map((k) => Balken(k, k.brier_score, maxBrier, (v) => v.toFixed(3), `brier-${k.key}`))}
+      </div>
+      <div className="vb-legend" style={{ marginTop: "0.7rem" }}>
+        <span>
+          <i className="vb-swatch" style={{ background: CHAMPION_FARBE }} /> ML komplett (Champion, Produktionsmodell)
+        </span>
+        <span>
+          <i className="vb-swatch" style={{ background: VERGLEICH_FARBE }} /> Vergleichskandidaten
         </span>
       </div>
     </div>

@@ -95,6 +95,20 @@ export interface KantoneArtifact {
   kantone: KantonStatistik[];
 }
 
+export interface BenchmarkKandidat {
+  key: "kranz_heuristik" | "elo_baseline" | "ml_ohne_elo" | "ml_komplett";
+  label: string;
+  accuracy: number;
+  brier_score: number;
+}
+
+export interface BenchmarkArtifact {
+  schema_version: string;
+  holdout_jahr: number;
+  n_test: number;
+  kandidaten: BenchmarkKandidat[];
+}
+
 export interface Prognose {
   p: Record<Klasse, number>;
   quote: Record<Klasse, number>; // 1/p, informativ (FR-2, AK-2.3)

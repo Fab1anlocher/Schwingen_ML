@@ -517,6 +517,23 @@ tbody tr:hover {
   background: #5a6674;
 }
 
+/* 4-Wege-Benchmark (Analyse-Seite) */
+.vwb-wrap {
+  margin-top: 0.4rem;
+}
+.vwb-titel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.vwb-row {
+  grid-template-columns: 10.5rem 1fr 4rem;
+}
+.vwb-champion-label {
+  color: var(--text);
+  font-weight: 600;
+}
+
 /* Konfusionsmatrix (Analyse-Seite) */
 .km-wrap {
   overflow-x: auto;

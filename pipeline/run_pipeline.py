@@ -6,7 +6,8 @@ Ablauf:
   3. Elo-Baseline chronologisch berechnen (leak-freie Pre-Gang-Ratings).
   4. Merkmale bilden (leak-frei, augmentiert).
   5. Logistic Regression trainieren + zeitlich evaluieren.
-  6. Artefakte als JSON exportieren.
+  6. 4-Wege-Benchmark (Heuristik/Elo/ML ohne Elo/ML komplett) auf demselben Holdout.
+  7. Artefakte als JSON exportieren.
 
 Reproduzierbar über festen SEED (NFR-3). Aufruf:
     python -m pipeline.run_pipeline [--source synth|scrape]
@@ -22,6 +23,7 @@ from .labels import dedupliziere
 from .ratings import fahre_elo_durch, bewerte_baseline, berechne_ueberraschung
 from .features import baue_features
 from .train import trainiere, feature_wichtigkeit
+from .benchmark import fuehre_benchmark_durch
 
 
 def _lade_daten(source: str):
@@ -49,30 +51,35 @@ def _aktuelle_form(gaenge) -> dict:
 
 def main(source: str = "synth") -> dict:
     config.ensure_dirs()
-    print(f"[1/6] Lade Daten (Quelle={source}) ...", flush=True)
+    print(f"[1/7] Lade Daten (Quelle={source}) ...", flush=True)
     schwinger, events, roh = _lade_daten(source)
     print(f"      {len(schwinger)} Schwinger, {len(events)} Feste, {len(roh)} Roh-Einträge", flush=True)
 
-    print("[2/6] Labels ableiten + deduplizieren + validieren ...", flush=True)
+    print("[2/7] Labels ableiten + deduplizieren + validieren ...", flush=True)
     gaenge, warnungen = dedupliziere(roh)
     print(f"      {len(gaenge)} deduplizierte Gänge, {len(warnungen)} Warnungen", flush=True)
 
-    print("[3/6] Elo-Baseline (chronologisch, leak-frei) ...", flush=True)
+    print("[3/7] Elo-Baseline (chronologisch, leak-frei) ...", flush=True)
     elo_modell, snapshots = fahre_elo_durch(gaenge)
     baseline = bewerte_baseline(gaenge, snapshots, config.KLASSEN)
     print(f"      Baseline Log-Loss={baseline['log_loss']:.4f} Acc={baseline['accuracy']:.4f}", flush=True)
 
-    print("[4/6] Merkmale bilden (leak-frei, augmentiert) ...", flush=True)
+    print("[4/7] Merkmale bilden (leak-frei, augmentiert) ...", flush=True)
     X, y, meta = baue_features(gaenge, snapshots, schwinger, augment=True)
     print(f"      {len(X)} Trainingsbeispiele x {len(X[0]) if X else 0} Merkmale", flush=True)
 
-    print("[5/6] Logistic Regression trainieren + zeitlich evaluieren ...", flush=True)
+    print("[5/7] Logistic Regression trainieren + zeitlich evaluieren ...", flush=True)
     train_res = trainiere(X, y, meta)
     fi = feature_wichtigkeit(train_res["modell"], train_res["sigma"])
     print(f"      Modell   Log-Loss={train_res['log_loss']:.4f} "
           f"Acc={train_res['accuracy']:.4f} (Holdout {train_res['holdout_jahr']})", flush=True)
 
-    print("[6/6] Artefakte exportieren ...", flush=True)
+    print("[6/7] 4-Wege-Benchmark (Heuristik/Elo/ML ohne Elo/ML komplett) ...", flush=True)
+    benchmark_res = fuehre_benchmark_durch(X, y, meta)
+    for key, werte in benchmark_res["kandidaten"].items():
+        print(f"      {key:16s} Acc={werte['accuracy']:.4f}  Brier={werte['brier_score']:.4f}", flush=True)
+
+    print("[7/7] Artefakte exportieren ...", flush=True)
     form_aktuell = _aktuelle_form(gaenge)
     ueberraschung = berechne_ueberraschung(gaenge, snapshots)
     export.exportiere_modell(train_res, fi)
@@ -80,6 +87,7 @@ def main(source: str = "synth") -> dict:
     export.exportiere_schwinger(schwinger, form_aktuell, ueberraschung)
     export.exportiere_kopf_an_kopf(gaenge)
     export.exportiere_kantone(schwinger, elo_modell, gaenge)
+    export.exportiere_benchmark(benchmark_res)
     # Kommende Feste (FR-2): bei echten Daten aus dem Agenda-Scraper.
     kommende = []
     if source == "scrape":

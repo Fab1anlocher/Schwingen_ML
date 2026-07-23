@@ -248,6 +248,37 @@ def exportiere_kopf_an_kopf(gaenge: list) -> None:
     _write(config.WEB_SERVER_DATA_DIR / "kopf_an_kopf.json", obj)
 
 
+_KANDIDAT_LABELS = {
+    "kranz_heuristik": "Kranz-Heuristik",
+    "elo_baseline": "Elo-Baseline",
+    "ml_ohne_elo": "ML ohne Elo/Historie",
+    "ml_komplett": "ML komplett (Champion)",
+}
+
+
+def exportiere_benchmark(benchmark_res: dict) -> None:
+    """benchmark.json: 4-Wege-Vergleich Heuristik/Elo/ML-ohne-Elo/ML-komplett.
+
+    Siehe pipeline/benchmark.py für Methodik (identischer Holdout, nur echte
+    -- nicht augmentierte -- Testgänge, Accuracy + multiklassiger Brier-Score).
+    """
+    kandidaten = [
+        {
+            "key": key,
+            "label": _KANDIDAT_LABELS.get(key, key),
+            "accuracy": werte["accuracy"],
+            "brier_score": werte["brier_score"],
+        }
+        for key, werte in benchmark_res["kandidaten"].items()
+    ]
+    _dump_beide("benchmark.json", {
+        "schema_version": config.SCHEMA_VERSION,
+        "holdout_jahr": benchmark_res["holdout_jahr"],
+        "n_test": benchmark_res["n_test"],
+        "kandidaten": kandidaten,
+    })
+
+
 def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
                       n_gaenge: int, n_schwinger: int) -> None:
     """report.json: Trainingslauf-Bericht (ML-6, reproduzierbar, versioniert)."""

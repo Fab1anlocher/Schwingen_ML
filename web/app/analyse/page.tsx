@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ladeFeatureImportance } from "@/lib/data";
-import type { FeatureImportanceEntry } from "@/lib/types";
-import { Konfusionsmatrix, VergleichBalken } from "@/components/ModellGuete";
+import { ladeFeatureImportance, ladeBenchmark } from "@/lib/data";
+import type { FeatureImportanceEntry, BenchmarkArtifact } from "@/lib/types";
+import { Konfusionsmatrix, VergleichBalken, VierWegeBenchmark } from "@/components/ModellGuete";
 
 interface Report {
   lauf_id?: string;
@@ -37,6 +37,7 @@ const FOKUS = new Set([
 export default function Analyse() {
   const [fi, setFi] = useState<FeatureImportanceEntry[]>([]);
   const [report, setReport] = useState<Report | null>(null);
+  const [benchmark, setBenchmark] = useState<BenchmarkArtifact | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -45,6 +46,7 @@ export default function Analyse() {
       .then((r) => r.json())
       .then(setReport)
       .catch(() => {});
+    ladeBenchmark().then(setBenchmark).catch(() => {});
   }, []);
 
   if (error) return <p className="warn">Fehler: {error}</p>;
@@ -130,6 +132,23 @@ export default function Analyse() {
             </p>
           )}
         </div>
+      )}
+
+      {benchmark && (
+        <>
+          <h2>4-Wege-Benchmark (Holdout {benchmark.holdout_jahr})</h2>
+          <div className="panel">
+            <p className="muted small" style={{ marginTop: 0, marginBottom: "1rem" }}>
+              Vier unabhängige Ansätze, ausgewertet auf denselben {benchmark.n_test} echten
+              Gängen der jüngsten Saison (keine gespiegelten Trainings-Duplikate): eine reine
+              Kranz-Heuristik ohne Statistik, das klassische Elo-Rating, ein ML-Modell{" "}
+              <em>ohne</em> Elo/Historie (nur Physis, Stil, Verband) und das komplette
+              Produktionsmodell. Beantwortet die Frage, ob Elo wirklich einen Mehrwert bringt —
+              und ob unser Modell besser ist als reines Elo-Ranking.
+            </p>
+            <VierWegeBenchmark kandidaten={benchmark.kandidaten} />
+          </div>
+        </>
       )}
 
       {report?.konfusionsmatrix && report.klassen && (
