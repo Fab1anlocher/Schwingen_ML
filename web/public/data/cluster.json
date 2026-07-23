@@ -1,0 +1,4240 @@
+{
+  "schema_version": "1.0.0",
+  "k": 5,
+  "silhouette": 0.471,
+  "punkte": [
+    {
+      "schwinger_id": "david achermann|2006",
+      "cluster": 0,
+      "pca_x": -0.263,
+      "pca_y": -1.018
+    },
+    {
+      "schwinger_id": "ivan achermann|2005",
+      "cluster": 0,
+      "pca_x": -1.055,
+      "pca_y": -0.768
+    },
+    {
+      "schwinger_id": "simon achermann|1995",
+      "cluster": 0,
+      "pca_x": -0.215,
+      "pca_y": -0.855
+    },
+    {
+      "schwinger_id": "ueli achermann|2001",
+      "cluster": 0,
+      "pca_x": 0.513,
+      "pca_y": -0.999
+    },
+    {
+      "schwinger_id": "remo ackermann|1993",
+      "cluster": 0,
+      "pca_x": 2.094,
+      "pca_y": 0.155
+    },
+    {
+      "schwinger_id": "rico ackermann|2003",
+      "cluster": 0,
+      "pca_x": -2.39,
+      "pca_y": -0.665
+    },
+    {
+      "schwinger_id": "adrian aebersold|2003",
+      "cluster": 0,
+      "pca_x": -0.623,
+      "pca_y": 0.385
+    },
+    {
+      "schwinger_id": "david aebersold|2001",
+      "cluster": 0,
+      "pca_x": -1.614,
+      "pca_y": -0.647
+    },
+    {
+      "schwinger_id": "fabian aebersold|2003",
+      "cluster": 0,
+      "pca_x": -0.997,
+      "pca_y": 0.403
+    },
+    {
+      "schwinger_id": "florian aellen|1995",
+      "cluster": 0,
+      "pca_x": 0.333,
+      "pca_y": -0.923
+    },
+    {
+      "schwinger_id": "philip aellen|1998",
+      "cluster": 2,
+      "pca_x": 1.894,
+      "pca_y": 0.15
+    },
+    {
+      "schwinger_id": "christian aerne|1991",
+      "cluster": 0,
+      "pca_x": 0.717,
+      "pca_y": 0.256
+    },
+    {
+      "schwinger_id": "matthias aeschbacher|1992",
+      "cluster": 3,
+      "pca_x": 0.441,
+      "pca_y": 1.133
+    },
+    {
+      "schwinger_id": "benno akeret|1991",
+      "cluster": 0,
+      "pca_x": -1.294,
+      "pca_y": -0.8
+    },
+    {
+      "schwinger_id": "nick alpiger|1996",
+      "cluster": 0,
+      "pca_x": 0.116,
+      "pca_y": 1.512
+    },
+    {
+      "schwinger_id": "thiben althaus|2006",
+      "cluster": 0,
+      "pca_x": -0.182,
+      "pca_y": -1.016
+    },
+    {
+      "schwinger_id": "cyril ambresin|1999",
+      "cluster": 0,
+      "pca_x": -0.821,
+      "pca_y": 0.542
+    },
+    {
+      "schwinger_id": "joel ambuhl|1998",
+      "cluster": 0,
+      "pca_x": 0.676,
+      "pca_y": -0.995
+    },
+    {
+      "schwinger_id": "roman amgarten|1988",
+      "cluster": 0,
+      "pca_x": -0.39,
+      "pca_y": -0.806
+    },
+    {
+      "schwinger_id": "jonas amrhyn|2003",
+      "cluster": 0,
+      "pca_x": -0.168,
+      "pca_y": 0.369
+    },
+    {
+      "schwinger_id": "enea ancona|2004",
+      "cluster": 0,
+      "pca_x": -0.128,
+      "pca_y": 0.37
+    },
+    {
+      "schwinger_id": "david anderegg|1992",
+      "cluster": 0,
+      "pca_x": -0.146,
+      "pca_y": 0.262
+    },
+    {
+      "schwinger_id": "reto andermatt|2002",
+      "cluster": 0,
+      "pca_x": -0.449,
+      "pca_y": -0.915
+    },
+    {
+      "schwinger_id": "dominic annen|1998",
+      "cluster": 0,
+      "pca_x": 0.687,
+      "pca_y": -1.049
+    },
+    {
+      "schwinger_id": "silvan appert|2003",
+      "cluster": 4,
+      "pca_x": 0.144,
+      "pca_y": 1.449
+    },
+    {
+      "schwinger_id": "fabian aregger|2001",
+      "cluster": 0,
+      "pca_x": -0.42,
+      "pca_y": -0.86
+    },
+    {
+      "schwinger_id": "andreas arnold|2011",
+      "cluster": 0,
+      "pca_x": -0.444,
+      "pca_y": -0.941
+    },
+    {
+      "schwinger_id": "marcel arnold|1991",
+      "cluster": 1,
+      "pca_x": 1.024,
+      "pca_y": 0.557
+    },
+    {
+      "schwinger_id": "janos bachmann|2004",
+      "cluster": 0,
+      "pca_x": 1.124,
+      "pca_y": 0.078
+    },
+    {
+      "schwinger_id": "roger bachmann|1992",
+      "cluster": 0,
+      "pca_x": -0.734,
+      "pca_y": -0.733
+    },
+    {
+      "schwinger_id": "christoph baeriswyl|2002",
+      "cluster": 0,
+      "pca_x": -0.828,
+      "pca_y": 1.704
+    },
+    {
+      "schwinger_id": "fabian balimann|1998",
+      "cluster": 0,
+      "pca_x": 0.362,
+      "pca_y": -0.868
+    },
+    {
+      "schwinger_id": "sandro balimann|2001",
+      "cluster": 0,
+      "pca_x": -0.42,
+      "pca_y": -0.86
+    },
+    {
+      "schwinger_id": "ludovic bapst|2002",
+      "cluster": 0,
+      "pca_x": -0.256,
+      "pca_y": 0.394
+    },
+    {
+      "schwinger_id": "renato barmettler|2003",
+      "cluster": 4,
+      "pca_x": -0.758,
+      "pca_y": 2.893
+    },
+    {
+      "schwinger_id": "severin barmettler|2005",
+      "cluster": 0,
+      "pca_x": -1.876,
+      "pca_y": -0.572
+    },
+    {
+      "schwinger_id": "andre barras|1996",
+      "cluster": 0,
+      "pca_x": -0.384,
+      "pca_y": -0.832
+    },
+    {
+      "schwinger_id": "francois barras|1998",
+      "cluster": 0,
+      "pca_x": -1.439,
+      "pca_y": -0.696
+    },
+    {
+      "schwinger_id": "fabian bartsch|2000",
+      "cluster": 0,
+      "pca_x": 1.044,
+      "pca_y": 0.264
+    },
+    {
+      "schwinger_id": "roger baumann|1995",
+      "cluster": 0,
+      "pca_x": -0.799,
+      "pca_y": -0.815
+    },
+    {
+      "schwinger_id": "ramon baumgartner|2002",
+      "cluster": 4,
+      "pca_x": -0.927,
+      "pca_y": 2.915
+    },
+    {
+      "schwinger_id": "peter beer|1999",
+      "cluster": 2,
+      "pca_x": 0.408,
+      "pca_y": 0.384
+    },
+    {
+      "schwinger_id": "jan berger|2004",
+      "cluster": 0,
+      "pca_x": -0.537,
+      "pca_y": -0.89
+    },
+    {
+      "schwinger_id": "lorenz berger|1997",
+      "cluster": 2,
+      "pca_x": 1.071,
+      "pca_y": 0.131
+    },
+    {
+      "schwinger_id": "loris berger|2006",
+      "cluster": 0,
+      "pca_x": -3.038,
+      "pca_y": 0.616
+    },
+    {
+      "schwinger_id": "sascha berger|1996",
+      "cluster": 0,
+      "pca_x": -0.781,
+      "pca_y": 0.355
+    },
+    {
+      "schwinger_id": "joel bernardi|1993",
+      "cluster": 0,
+      "pca_x": -0.303,
+      "pca_y": -0.83
+    },
+    {
+      "schwinger_id": "lukas bernhard|1996",
+      "cluster": 0,
+      "pca_x": -1.066,
+      "pca_y": -0.714
+    },
+    {
+      "schwinger_id": "marco bernhard|1998",
+      "cluster": 0,
+      "pca_x": -1.469,
+      "pca_y": -0.751
+    },
+    {
+      "schwinger_id": "christian bernold|1996",
+      "cluster": 1,
+      "pca_x": 1.609,
+      "pca_y": 0.705
+    },
+    {
+      "schwinger_id": "michael bernold|1999",
+      "cluster": 0,
+      "pca_x": -0.041,
+      "pca_y": -0.905
+    },
+    {
+      "schwinger_id": "jean-jacques bersier|1992",
+      "cluster": 0,
+      "pca_x": 0.061,
+      "pca_y": -0.607
+    },
+    {
+      "schwinger_id": "luca berthet|2001",
+      "cluster": 0,
+      "pca_x": 0.677,
+      "pca_y": 0.255
+    },
+    {
+      "schwinger_id": "marcel betschart|1993",
+      "cluster": 4,
+      "pca_x": 0.057,
+      "pca_y": 2.724
+    },
+    {
+      "schwinger_id": "patrick betschart|1999",
+      "cluster": 0,
+      "pca_x": 0.742,
+      "pca_y": 0.337
+    },
+    {
+      "schwinger_id": "ramon betschart|1998",
+      "cluster": 0,
+      "pca_x": -1.803,
+      "pca_y": 0.404
+    },
+    {
+      "schwinger_id": "christian biasch|1996",
+      "cluster": 0,
+      "pca_x": 0.624,
+      "pca_y": -0.943
+    },
+    {
+      "schwinger_id": "roman bickel|1998",
+      "cluster": 0,
+      "pca_x": 0.951,
+      "pca_y": -0.935
+    },
+    {
+      "schwinger_id": "andreas bieli|1996",
+      "cluster": 0,
+      "pca_x": 0.804,
+      "pca_y": -1.019
+    },
+    {
+      "schwinger_id": "romeo bienz|1997",
+      "cluster": 0,
+      "pca_x": 0.717,
+      "pca_y": 0.256
+    },
+    {
+      "schwinger_id": "marcel bieri|1994",
+      "cluster": 0,
+      "pca_x": 1.685,
+      "pca_y": 0.145
+    },
+    {
+      "schwinger_id": "dominik binggeli|1993",
+      "cluster": 0,
+      "pca_x": -1.422,
+      "pca_y": 0.547
+    },
+    {
+      "schwinger_id": "luca bircher|1999",
+      "cluster": 0,
+      "pca_x": -1.434,
+      "pca_y": -0.723
+    },
+    {
+      "schwinger_id": "fabian birchler|2000",
+      "cluster": 0,
+      "pca_x": -1.16,
+      "pca_y": 1.723
+    },
+    {
+      "schwinger_id": "fabian bissig|1994",
+      "cluster": 3,
+      "pca_x": 0.765,
+      "pca_y": 4.563
+    },
+    {
+      "schwinger_id": "luc bissig|2007",
+      "cluster": 0,
+      "pca_x": 1.096,
+      "pca_y": 0.211
+    },
+    {
+      "schwinger_id": "lukas bissig|2003",
+      "cluster": 3,
+      "pca_x": 1.094,
+      "pca_y": 2.211
+    },
+    {
+      "schwinger_id": "niklas blaser|1997",
+      "cluster": 0,
+      "pca_x": -0.384,
+      "pca_y": -0.832
+    },
+    {
+      "schwinger_id": "remo blatter|2000",
+      "cluster": 0,
+      "pca_x": -1.003,
+      "pca_y": -0.82
+    },
+    {
+      "schwinger_id": "ueli bleiker|2004",
+      "cluster": 3,
+      "pca_x": -3.303,
+      "pca_y": 2.691
+    },
+    {
+      "schwinger_id": "ralf boni|2004",
+      "cluster": 0,
+      "pca_x": -1.015,
+      "pca_y": 0.369
+    },
+    {
+      "schwinger_id": "clovis borcard|1999",
+      "cluster": 0,
+      "pca_x": 0.309,
+      "pca_y": -1.004
+    },
+    {
+      "schwinger_id": "johann borcard|1994",
+      "cluster": 2,
+      "pca_x": 0.408,
+      "pca_y": 0.384
+    },
+    {
+      "schwinger_id": "ion bordos|1995",
+      "cluster": 0,
+      "pca_x": -0.331,
+      "pca_y": -0.697
+    },
+    {
+      "schwinger_id": "mario bosch|2006",
+      "cluster": 0,
+      "pca_x": -1.551,
+      "pca_y": -0.753
+    },
+    {
+      "schwinger_id": "christian brand|1992",
+      "cluster": 0,
+      "pca_x": 0.894,
+      "pca_y": 0.395
+    },
+    {
+      "schwinger_id": "cedric brasey|1979",
+      "cluster": 0,
+      "pca_x": 2.123,
+      "pca_y": -1.041
+    },
+    {
+      "schwinger_id": "raphael briker|2006",
+      "cluster": 0,
+      "pca_x": -0.274,
+      "pca_y": 0.286
+    },
+    {
+      "schwinger_id": "adrian bruder|1996",
+      "cluster": 0,
+      "pca_x": 0.659,
+      "pca_y": -0.915
+    },
+    {
+      "schwinger_id": "fredi bruhin|1997",
+      "cluster": 0,
+      "pca_x": 0.921,
+      "pca_y": -0.989
+    },
+    {
+      "schwinger_id": "dominik brulisauer|2001",
+      "cluster": 3,
+      "pca_x": -3.145,
+      "pca_y": 1.613
+    },
+    {
+      "schwinger_id": "samuel brun|1999",
+      "cluster": 3,
+      "pca_x": 1.582,
+      "pca_y": 2.008
+    },
+    {
+      "schwinger_id": "timon brunner|1998",
+      "cluster": 0,
+      "pca_x": 2.33,
+      "pca_y": -0.216
+    },
+    {
+      "schwinger_id": "andre bucher|2001",
+      "cluster": 0,
+      "pca_x": -1.197,
+      "pca_y": 1.508
+    },
+    {
+      "schwinger_id": "christian bucher|1998",
+      "cluster": 1,
+      "pca_x": 1.31,
+      "pca_y": 0.564
+    },
+    {
+      "schwinger_id": "roland bucher|1994",
+      "cluster": 0,
+      "pca_x": 0.689,
+      "pca_y": 0.39
+    },
+    {
+      "schwinger_id": "roman bucher|2003",
+      "cluster": 0,
+      "pca_x": -1.993,
+      "pca_y": -0.602
+    },
+    {
+      "schwinger_id": "roman bucher|2002",
+      "cluster": 0,
+      "pca_x": 0.513,
+      "pca_y": -0.999
+    },
+    {
+      "schwinger_id": "thomas bucher|1996",
+      "cluster": 4,
+      "pca_x": -0.729,
+      "pca_y": 2.947
+    },
+    {
+      "schwinger_id": "livio buchler|2001",
+      "cluster": 0,
+      "pca_x": 0.192,
+      "pca_y": 0.217
+    },
+    {
+      "schwinger_id": "michael buchmann|1987",
+      "cluster": 0,
+      "pca_x": -1.992,
+      "pca_y": 0.648
+    },
+    {
+      "schwinger_id": "moritz buchmann|2005",
+      "cluster": 0,
+      "pca_x": -0.156,
+      "pca_y": -0.746
+    },
+    {
+      "schwinger_id": "dario buhler|2003",
+      "cluster": 0,
+      "pca_x": 2.407,
+      "pca_y": -1.223
+    },
+    {
+      "schwinger_id": "kilian buhler|2000",
+      "cluster": 0,
+      "pca_x": 0.616,
+      "pca_y": 1.282
+    },
+    {
+      "schwinger_id": "patrice buhler|1997",
+      "cluster": 0,
+      "pca_x": 0.047,
+      "pca_y": -0.93
+    },
+    {
+      "schwinger_id": "ramon buhler|2002",
+      "cluster": 1,
+      "pca_x": 1.953,
+      "pca_y": 0.633
+    },
+    {
+      "schwinger_id": "daniel buhlmann|2000",
+      "cluster": 0,
+      "pca_x": 0.758,
+      "pca_y": 0.257
+    },
+    {
+      "schwinger_id": "dean burch|2001",
+      "cluster": 1,
+      "pca_x": 0.331,
+      "pca_y": 0.728
+    },
+    {
+      "schwinger_id": "jonas burch|1999",
+      "cluster": 0,
+      "pca_x": 0.892,
+      "pca_y": -1.044
+    },
+    {
+      "schwinger_id": "etienne burger|2004",
+      "cluster": 0,
+      "pca_x": -0.251,
+      "pca_y": -0.883
+    },
+    {
+      "schwinger_id": "matthieu burger|2001",
+      "cluster": 0,
+      "pca_x": 1.62,
+      "pca_y": 0.063
+    },
+    {
+      "schwinger_id": "reto burgi|1993",
+      "cluster": 2,
+      "pca_x": -0.111,
+      "pca_y": 0.506
+    },
+    {
+      "schwinger_id": "patrick burgler|1996",
+      "cluster": 2,
+      "pca_x": 0.436,
+      "pca_y": 0.25
+    },
+    {
+      "schwinger_id": "patrick burkhard|1991",
+      "cluster": 0,
+      "pca_x": -0.769,
+      "pca_y": -0.761
+    },
+    {
+      "schwinger_id": "tobias burkhard|1989",
+      "cluster": 3,
+      "pca_x": 1.289,
+      "pca_y": 5.735
+    },
+    {
+      "schwinger_id": "roger burli|1997",
+      "cluster": 0,
+      "pca_x": 0.49,
+      "pca_y": -0.892
+    },
+    {
+      "schwinger_id": "ivan camenzind|1990",
+      "cluster": 1,
+      "pca_x": 0.0,
+      "pca_y": -0.315
+    },
+    {
+      "schwinger_id": "nathael cardinaux|2008",
+      "cluster": 0,
+      "pca_x": -0.384,
+      "pca_y": -0.832
+    },
+    {
+      "schwinger_id": "victor cardinaux|1996",
+      "cluster": 4,
+      "pca_x": 0.285,
+      "pca_y": 2.81
+    },
+    {
+      "schwinger_id": "fabio castelli|1999",
+      "cluster": 2,
+      "pca_x": -0.082,
+      "pca_y": 0.372
+    },
+    {
+      "schwinger_id": "gian paolo chiodo|2005",
+      "cluster": 0,
+      "pca_x": -0.156,
+      "pca_y": -0.746
+    },
+    {
+      "schwinger_id": "dario christ|2003",
+      "cluster": 0,
+      "pca_x": 0.339,
+      "pca_y": 0.301
+    },
+    {
+      "schwinger_id": "marino christ|2005",
+      "cluster": 0,
+      "pca_x": -1.527,
+      "pca_y": -0.672
+    },
+    {
+      "schwinger_id": "florian christen|2002",
+      "cluster": 0,
+      "pca_x": 3.327,
+      "pca_y": -0.273
+    },
+    {
+      "schwinger_id": "jerome christen|2002",
+      "cluster": 0,
+      "pca_x": -0.973,
+      "pca_y": -0.766
+    },
+    {
+      "schwinger_id": "aurelien clement|2003",
+      "cluster": 3,
+      "pca_x": -1.391,
+      "pca_y": 2.529
+    },
+    {
+      "schwinger_id": "bastien collaud|2005",
+      "cluster": 0,
+      "pca_x": -1.352,
+      "pca_y": -0.721
+    },
+    {
+      "schwinger_id": "romain collaud|2002",
+      "cluster": 0,
+      "pca_x": 1.184,
+      "pca_y": 0.187
+    },
+    {
+      "schwinger_id": "kilian colo|1999",
+      "cluster": 0,
+      "pca_x": 1.261,
+      "pca_y": 0.403
+    },
+    {
+      "schwinger_id": "florian cotting|1994",
+      "cluster": 0,
+      "pca_x": -0.565,
+      "pca_y": -0.756
+    },
+    {
+      "schwinger_id": "olivier crettaz|1995",
+      "cluster": 0,
+      "pca_x": 1.167,
+      "pca_y": 0.267
+    },
+    {
+      "schwinger_id": "lukas dallenbach|2006",
+      "cluster": 0,
+      "pca_x": 0.397,
+      "pca_y": -0.841
+    },
+    {
+      "schwinger_id": "shane dandliker|1995",
+      "cluster": 0,
+      "pca_x": 1.3,
+      "pca_y": -1.034
+    },
+    {
+      "schwinger_id": "dario de fusco|1998",
+      "cluster": 0,
+      "pca_x": -1.615,
+      "pca_y": 0.416
+    },
+    {
+      "schwinger_id": "cedric derron|1996",
+      "cluster": 0,
+      "pca_x": 0.938,
+      "pca_y": -1.07
+    },
+    {
+      "schwinger_id": "andreas dobeli|1998",
+      "cluster": 0,
+      "pca_x": 1.26,
+      "pca_y": 0.215
+    },
+    {
+      "schwinger_id": "lukas dobeli|2000",
+      "cluster": 0,
+      "pca_x": 2.194,
+      "pca_y": 0.264
+    },
+    {
+      "schwinger_id": "ueli doppmann|1998",
+      "cluster": 1,
+      "pca_x": -1.617,
+      "pca_y": 0.89
+    },
+    {
+      "schwinger_id": "urs doppmann|1994",
+      "cluster": 0,
+      "pca_x": 1.429,
+      "pca_y": 0.192
+    },
+    {
+      "schwinger_id": "theo dorsaz|1998",
+      "cluster": 2,
+      "pca_x": -1.352,
+      "pca_y": -0.506
+    },
+    {
+      "schwinger_id": "michel dousse|1992",
+      "cluster": 0,
+      "pca_x": 0.245,
+      "pca_y": -0.898
+    },
+    {
+      "schwinger_id": "damian dubach|2005",
+      "cluster": 0,
+      "pca_x": -0.381,
+      "pca_y": 1.339
+    },
+    {
+      "schwinger_id": "gael dubey|1992",
+      "cluster": 2,
+      "pca_x": 0.338,
+      "pca_y": -0.734
+    },
+    {
+      "schwinger_id": "etienne ducrest|1998",
+      "cluster": 0,
+      "pca_x": 1.976,
+      "pca_y": -1.125
+    },
+    {
+      "schwinger_id": "antoine ducry|1994",
+      "cluster": 0,
+      "pca_x": -1.311,
+      "pca_y": -0.72
+    },
+    {
+      "schwinger_id": "gil dufey|1997",
+      "cluster": 0,
+      "pca_x": -1.287,
+      "pca_y": -0.639
+    },
+    {
+      "schwinger_id": "tobias dunner|2005",
+      "cluster": 0,
+      "pca_x": 0.502,
+      "pca_y": 1.629
+    },
+    {
+      "schwinger_id": "steve duplan|1997",
+      "cluster": 2,
+      "pca_x": 0.315,
+      "pca_y": 0.435
+    },
+    {
+      "schwinger_id": "fabian durrer|1999",
+      "cluster": 0,
+      "pca_x": 0.887,
+      "pca_y": 0.233
+    },
+    {
+      "schwinger_id": "jonas durrer|2003",
+      "cluster": 0,
+      "pca_x": -0.064,
+      "pca_y": 1.588
+    },
+    {
+      "schwinger_id": "markus durrer|1999",
+      "cluster": 3,
+      "pca_x": -2.013,
+      "pca_y": 2.756
+    },
+    {
+      "schwinger_id": "nando durrer|1999",
+      "cluster": 0,
+      "pca_x": -2.676,
+      "pca_y": 0.652
+    },
+    {
+      "schwinger_id": "livio duss|2005",
+      "cluster": 4,
+      "pca_x": -0.963,
+      "pca_y": 2.888
+    },
+    {
+      "schwinger_id": "yvan duss|2003",
+      "cluster": 0,
+      "pca_x": -0.215,
+      "pca_y": 0.395
+    },
+    {
+      "schwinger_id": "marco eggimann|1998",
+      "cluster": 0,
+      "pca_x": -0.128,
+      "pca_y": -0.88
+    },
+    {
+      "schwinger_id": "adrian egli|2002",
+      "cluster": 2,
+      "pca_x": -2.345,
+      "pca_y": 0.66
+    },
+    {
+      "schwinger_id": "damian egli|1995",
+      "cluster": 0,
+      "pca_x": 0.339,
+      "pca_y": 0.301
+    },
+    {
+      "schwinger_id": "martin egli|1997",
+      "cluster": 0,
+      "pca_x": 0.134,
+      "pca_y": -0.954
+    },
+    {
+      "schwinger_id": "fabio eicher|2008",
+      "cluster": 1,
+      "pca_x": 1.263,
+      "pca_y": -0.661
+    },
+    {
+      "schwinger_id": "damian eisenring|2006",
+      "cluster": 1,
+      "pca_x": 2.336,
+      "pca_y": 0.373
+    },
+    {
+      "schwinger_id": "florian eisenring|2005",
+      "cluster": 4,
+      "pca_x": -0.444,
+      "pca_y": 2.766
+    },
+    {
+      "schwinger_id": "adrian elmer|1992",
+      "cluster": 0,
+      "pca_x": 0.053,
+      "pca_y": 0.294
+    },
+    {
+      "schwinger_id": "daniel elmer|1994",
+      "cluster": 0,
+      "pca_x": -1.644,
+      "pca_y": -0.701
+    },
+    {
+      "schwinger_id": "andreas elmiger|1995",
+      "cluster": 3,
+      "pca_x": 0.178,
+      "pca_y": 2.27
+    },
+    {
+      "schwinger_id": "matthias elmiger|1996",
+      "cluster": 0,
+      "pca_x": -0.507,
+      "pca_y": 0.415
+    },
+    {
+      "schwinger_id": "marcel elsener|1995",
+      "cluster": 0,
+      "pca_x": 0.136,
+      "pca_y": 0.484
+    },
+    {
+      "schwinger_id": "fabien emonet|1992",
+      "cluster": 0,
+      "pca_x": -0.303,
+      "pca_y": -0.83
+    },
+    {
+      "schwinger_id": "frederic emonet|1993",
+      "cluster": 0,
+      "pca_x": 0.975,
+      "pca_y": -0.854
+    },
+    {
+      "schwinger_id": "elias epp|2003",
+      "cluster": 0,
+      "pca_x": -2.377,
+      "pca_y": -0.531
+    },
+    {
+      "schwinger_id": "marcel ettlin|2007",
+      "cluster": 0,
+      "pca_x": -0.234,
+      "pca_y": -0.963
+    },
+    {
+      "schwinger_id": "martin ettlin|1998",
+      "cluster": 0,
+      "pca_x": 1.881,
+      "pca_y": 1.024
+    },
+    {
+      "schwinger_id": "stefan ettlin|1997",
+      "cluster": 4,
+      "pca_x": -0.03,
+      "pca_y": 2.749
+    },
+    {
+      "schwinger_id": "flurin eymann|2006",
+      "cluster": 0,
+      "pca_x": -0.005,
+      "pca_y": -0.877
+    },
+    {
+      "schwinger_id": "simon fah|2006",
+      "cluster": 0,
+      "pca_x": 0.542,
+      "pca_y": -0.945
+    },
+    {
+      "schwinger_id": "hans fankhauser|2001",
+      "cluster": 0,
+      "pca_x": -1.67,
+      "pca_y": -0.379
+    },
+    {
+      "schwinger_id": "marco fankhauser|1996",
+      "cluster": 0,
+      "pca_x": 0.368,
+      "pca_y": -0.895
+    },
+    {
+      "schwinger_id": "reto fankhauser|1994",
+      "cluster": 0,
+      "pca_x": -0.6,
+      "pca_y": -0.784
+    },
+    {
+      "schwinger_id": "thomas fankhauser|1990",
+      "cluster": 4,
+      "pca_x": 0.297,
+      "pca_y": 2.757
+    },
+    {
+      "schwinger_id": "kjetil fausch|1995",
+      "cluster": 0,
+      "pca_x": 0.368,
+      "pca_y": -0.895
+    },
+    {
+      "schwinger_id": "naim fejzaj|1995",
+      "cluster": 0,
+      "pca_x": 0.019,
+      "pca_y": -0.796
+    },
+    {
+      "schwinger_id": "ivan felder|2004",
+      "cluster": 0,
+      "pca_x": 0.402,
+      "pca_y": 0.195
+    },
+    {
+      "schwinger_id": "martin felder|1997",
+      "cluster": 0,
+      "pca_x": 1.358,
+      "pca_y": 0.137
+    },
+    {
+      "schwinger_id": "seppi felder|1992",
+      "cluster": 0,
+      "pca_x": -1.649,
+      "pca_y": -0.674
+    },
+    {
+      "schwinger_id": "patrik feldmann|2005",
+      "cluster": 0,
+      "pca_x": 0.134,
+      "pca_y": -0.954
+    },
+    {
+      "schwinger_id": "sandro fitze|2009",
+      "cluster": 0,
+      "pca_x": 1.217,
+      "pca_y": 0.026
+    },
+    {
+      "schwinger_id": "marco flutsch|1999",
+      "cluster": 0,
+      "pca_x": 1.574,
+      "pca_y": 0.088
+    },
+    {
+      "schwinger_id": "franco fohn|2009",
+      "cluster": 3,
+      "pca_x": -0.416,
+      "pca_y": 2.363
+    },
+    {
+      "schwinger_id": "anthony fontaine|2006",
+      "cluster": 0,
+      "pca_x": 2.4,
+      "pca_y": -0.16
+    },
+    {
+      "schwinger_id": "michael fontana|1986",
+      "cluster": 2,
+      "pca_x": -1.72,
+      "pca_y": -0.514
+    },
+    {
+      "schwinger_id": "david forrer|2009",
+      "cluster": 0,
+      "pca_x": 2.334,
+      "pca_y": 0.82
+    },
+    {
+      "schwinger_id": "marius frank|2004",
+      "cluster": 0,
+      "pca_x": 1.374,
+      "pca_y": 1.193
+    },
+    {
+      "schwinger_id": "romeo freund|1990",
+      "cluster": 0,
+      "pca_x": -0.332,
+      "pca_y": -0.885
+    },
+    {
+      "schwinger_id": "ivo fricker|1996",
+      "cluster": 0,
+      "pca_x": 0.513,
+      "pca_y": 0.251
+    },
+    {
+      "schwinger_id": "jonas fuchs|2006",
+      "cluster": 0,
+      "pca_x": 0.922,
+      "pca_y": 0.261
+    },
+    {
+      "schwinger_id": "nicola funk|1999",
+      "cluster": 0,
+      "pca_x": -0.576,
+      "pca_y": -0.703
+    },
+    {
+      "schwinger_id": "arjuna fuster|2003",
+      "cluster": 0,
+      "pca_x": -0.332,
+      "pca_y": -0.885
+    },
+    {
+      "schwinger_id": "karim gaber|2003",
+      "cluster": 0,
+      "pca_x": 3.02,
+      "pca_y": -1.208
+    },
+    {
+      "schwinger_id": "simon gabriel|2002",
+      "cluster": 0,
+      "pca_x": -1.066,
+      "pca_y": -0.714
+    },
+    {
+      "schwinger_id": "cedric galli|2001",
+      "cluster": 0,
+      "pca_x": -1.506,
+      "pca_y": 0.357
+    },
+    {
+      "schwinger_id": "sandro galli|2001",
+      "cluster": 0,
+      "pca_x": 0.526,
+      "pca_y": -0.864
+    },
+    {
+      "schwinger_id": "silvan galli|2007",
+      "cluster": 0,
+      "pca_x": 0.922,
+      "pca_y": 0.261
+    },
+    {
+      "schwinger_id": "william ganiere|1998",
+      "cluster": 0,
+      "pca_x": -1.06,
+      "pca_y": -0.741
+    },
+    {
+      "schwinger_id": "linard gantenbein|2004",
+      "cluster": 0,
+      "pca_x": -0.891,
+      "pca_y": -0.764
+    },
+    {
+      "schwinger_id": "benjamin gapany|1995",
+      "cluster": 0,
+      "pca_x": 1.038,
+      "pca_y": -0.96
+    },
+    {
+      "schwinger_id": "christian gasenzer|2004",
+      "cluster": 0,
+      "pca_x": -3.085,
+      "pca_y": 0.642
+    },
+    {
+      "schwinger_id": "dominik gasser|2000",
+      "cluster": 0,
+      "pca_x": 1.511,
+      "pca_y": 0.194
+    },
+    {
+      "schwinger_id": "simon gassmann|1993",
+      "cluster": 0,
+      "pca_x": 0.95,
+      "pca_y": 0.127
+    },
+    {
+      "schwinger_id": "damian gehrig|1993",
+      "cluster": 0,
+      "pca_x": -1.638,
+      "pca_y": -0.728
+    },
+    {
+      "schwinger_id": "philipp gehrig|1993",
+      "cluster": 0,
+      "pca_x": -0.6,
+      "pca_y": -0.784
+    },
+    {
+      "schwinger_id": "andrj gerber|2000",
+      "cluster": 0,
+      "pca_x": -0.576,
+      "pca_y": -0.703
+    },
+    {
+      "schwinger_id": "christian gerber|1991",
+      "cluster": 0,
+      "pca_x": 1.535,
+      "pca_y": 0.276
+    },
+    {
+      "schwinger_id": "dario gerber|2007",
+      "cluster": 0,
+      "pca_x": -1.376,
+      "pca_y": -0.802
+    },
+    {
+      "schwinger_id": "manuel gerber|1993",
+      "cluster": 1,
+      "pca_x": 1.434,
+      "pca_y": -0.496
+    },
+    {
+      "schwinger_id": "peter gerber|1993",
+      "cluster": 0,
+      "pca_x": 0.006,
+      "pca_y": 1.644
+    },
+    {
+      "schwinger_id": "sami gerber|2000",
+      "cluster": 0,
+      "pca_x": -0.641,
+      "pca_y": -0.785
+    },
+    {
+      "schwinger_id": "joel gfeller|2005",
+      "cluster": 0,
+      "pca_x": -0.739,
+      "pca_y": -0.706
+    },
+    {
+      "schwinger_id": "florian giger|2001",
+      "cluster": 0,
+      "pca_x": 0.251,
+      "pca_y": 0.326
+    },
+    {
+      "schwinger_id": "lorenz giger|2000",
+      "cluster": 2,
+      "pca_x": -1.638,
+      "pca_y": -0.512
+    },
+    {
+      "schwinger_id": "samuel giger|1998",
+      "cluster": 0,
+      "pca_x": 2.32,
+      "pca_y": 0.053
+    },
+    {
+      "schwinger_id": "urs giger|1992",
+      "cluster": 0,
+      "pca_x": -0.856,
+      "pca_y": -0.736
+    },
+    {
+      "schwinger_id": "jonas gisler|2001",
+      "cluster": 3,
+      "pca_x": -1.827,
+      "pca_y": 1.375
+    },
+    {
+      "schwinger_id": "timo gisler|2009",
+      "cluster": 0,
+      "pca_x": 2.648,
+      "pca_y": 0.693
+    },
+    {
+      "schwinger_id": "jonas glutz|2006",
+      "cluster": 0,
+      "pca_x": 2.612,
+      "pca_y": -1.218
+    },
+    {
+      "schwinger_id": "sandro gmur|1997",
+      "cluster": 0,
+      "pca_x": -0.799,
+      "pca_y": -0.815
+    },
+    {
+      "schwinger_id": "christian gnagi|1992",
+      "cluster": 0,
+      "pca_x": -0.417,
+      "pca_y": 1.284
+    },
+    {
+      "schwinger_id": "damian gnagi|1998",
+      "cluster": 0,
+      "pca_x": -0.18,
+      "pca_y": -0.828
+    },
+    {
+      "schwinger_id": "patrick gobeli|1998",
+      "cluster": 0,
+      "pca_x": -0.331,
+      "pca_y": -0.697
+    },
+    {
+      "schwinger_id": "marco good|1996",
+      "cluster": 0,
+      "pca_x": -1.159,
+      "pca_y": -0.663
+    },
+    {
+      "schwinger_id": "florian grab|2003",
+      "cluster": 0,
+      "pca_x": 1.509,
+      "pca_y": -1.244
+    },
+    {
+      "schwinger_id": "martin grab|1999",
+      "cluster": 0,
+      "pca_x": 0.832,
+      "pca_y": -1.153
+    },
+    {
+      "schwinger_id": "colin graber|1998",
+      "cluster": 0,
+      "pca_x": -0.087,
+      "pca_y": 0.371
+    },
+    {
+      "schwinger_id": "sandro graber|1995",
+      "cluster": 0,
+      "pca_x": -0.414,
+      "pca_y": -0.887
+    },
+    {
+      "schwinger_id": "nicola graf|2003",
+      "cluster": 2,
+      "pca_x": -1.487,
+      "pca_y": -0.643
+    },
+    {
+      "schwinger_id": "simon graf|2001",
+      "cluster": 0,
+      "pca_x": 0.624,
+      "pca_y": -0.943
+    },
+    {
+      "schwinger_id": "paxton grass|2008",
+      "cluster": 0,
+      "pca_x": 0.338,
+      "pca_y": -0.949
+    },
+    {
+      "schwinger_id": "enea grob|2003",
+      "cluster": 0,
+      "pca_x": -0.223,
+      "pca_y": -1.017
+    },
+    {
+      "schwinger_id": "florian gross|1989",
+      "cluster": 0,
+      "pca_x": -2.023,
+      "pca_y": -0.656
+    },
+    {
+      "schwinger_id": "john grossen|1996",
+      "cluster": 0,
+      "pca_x": 0.082,
+      "pca_y": -0.902
+    },
+    {
+      "schwinger_id": "simon grossenbacher|2002",
+      "cluster": 0,
+      "pca_x": 1.36,
+      "pca_y": 0.325
+    },
+    {
+      "schwinger_id": "michael gwerder|2000",
+      "cluster": 0,
+      "pca_x": 1.475,
+      "pca_y": 0.167
+    },
+    {
+      "schwinger_id": "andrin habegger|2005",
+      "cluster": 0,
+      "pca_x": -0.414,
+      "pca_y": 0.364
+    },
+    {
+      "schwinger_id": "christian hadorn|1993",
+      "cluster": 1,
+      "pca_x": 1.975,
+      "pca_y": 0.526
+    },
+    {
+      "schwinger_id": "marco hadorn|1999",
+      "cluster": 0,
+      "pca_x": -0.332,
+      "pca_y": -0.885
+    },
+    {
+      "schwinger_id": "stephane haenni|1991",
+      "cluster": 0,
+      "pca_x": 2.261,
+      "pca_y": 1.167
+    },
+    {
+      "schwinger_id": "sami haldi|1990",
+      "cluster": 0,
+      "pca_x": -0.81,
+      "pca_y": -0.762
+    },
+    {
+      "schwinger_id": "marc hanni|2001",
+      "cluster": 0,
+      "pca_x": -0.303,
+      "pca_y": -0.83
+    },
+    {
+      "schwinger_id": "jimmy hasler|1996",
+      "cluster": 0,
+      "pca_x": 0.526,
+      "pca_y": 0.386
+    },
+    {
+      "schwinger_id": "luis hasler|2002",
+      "cluster": 0,
+      "pca_x": 1.241,
+      "pca_y": 0.081
+    },
+    {
+      "schwinger_id": "urs hauri|1991",
+      "cluster": 0,
+      "pca_x": 0.542,
+      "pca_y": -0.945
+    },
+    {
+      "schwinger_id": "paul hayoz|1998",
+      "cluster": 0,
+      "pca_x": -0.659,
+      "pca_y": -0.893
+    },
+    {
+      "schwinger_id": "quentin hayoz|1995",
+      "cluster": 0,
+      "pca_x": 0.925,
+      "pca_y": -1.204
+    },
+    {
+      "schwinger_id": "ueli hegner|1999",
+      "cluster": 0,
+      "pca_x": 0.677,
+      "pca_y": 0.255
+    },
+    {
+      "schwinger_id": "nico hehlen|2002",
+      "cluster": 4,
+      "pca_x": 0.384,
+      "pca_y": 2.732
+    },
+    {
+      "schwinger_id": "pascal heierli|1999",
+      "cluster": 0,
+      "pca_x": 0.688,
+      "pca_y": 0.202
+    },
+    {
+      "schwinger_id": "michael heim|2001",
+      "cluster": 0,
+      "pca_x": 0.281,
+      "pca_y": 0.38
+    },
+    {
+      "schwinger_id": "diego heimann|2007",
+      "cluster": 0,
+      "pca_x": 0.011,
+      "pca_y": -0.957
+    },
+    {
+      "schwinger_id": "marco heiniger|1996",
+      "cluster": 0,
+      "pca_x": 0.047,
+      "pca_y": -0.93
+    },
+    {
+      "schwinger_id": "vincent heiniger|1987",
+      "cluster": 0,
+      "pca_x": 2.309,
+      "pca_y": 1.329
+    },
+    {
+      "schwinger_id": "benno heinzer|2006",
+      "cluster": 0,
+      "pca_x": 0.448,
+      "pca_y": -1.081
+    },
+    {
+      "schwinger_id": "lukas heinzer|2004",
+      "cluster": 0,
+      "pca_x": 0.688,
+      "pca_y": 0.202
+    },
+    {
+      "schwinger_id": "maurus heinzer|2007",
+      "cluster": 0,
+      "pca_x": 0.077,
+      "pca_y": 0.375
+    },
+    {
+      "schwinger_id": "ronny heinzer|1996",
+      "cluster": 1,
+      "pca_x": 1.399,
+      "pca_y": -0.523
+    },
+    {
+      "schwinger_id": "stefan heinzer|1990",
+      "cluster": 0,
+      "pca_x": 0.455,
+      "pca_y": -0.92
+    },
+    {
+      "schwinger_id": "ivo hengartner|1985",
+      "cluster": 0,
+      "pca_x": -0.565,
+      "pca_y": -0.756
+    },
+    {
+      "schwinger_id": "fabian herger|1996",
+      "cluster": 0,
+      "pca_x": -0.187,
+      "pca_y": -0.989
+    },
+    {
+      "schwinger_id": "flavio herger|2003",
+      "cluster": 0,
+      "pca_x": -0.128,
+      "pca_y": 0.37
+    },
+    {
+      "schwinger_id": "marco herger|2002",
+      "cluster": 0,
+      "pca_x": -0.566,
+      "pca_y": -0.944
+    },
+    {
+      "schwinger_id": "oliver hermann|1996",
+      "cluster": 4,
+      "pca_x": 0.54,
+      "pca_y": 3.898
+    },
+    {
+      "schwinger_id": "dominik hess|1994",
+      "cluster": 0,
+      "pca_x": -0.728,
+      "pca_y": -0.76
+    },
+    {
+      "schwinger_id": "michael hess|1992",
+      "cluster": 0,
+      "pca_x": -0.291,
+      "pca_y": -0.884
+    },
+    {
+      "schwinger_id": "fabio hiltbrunner|2005",
+      "cluster": 0,
+      "pca_x": 0.752,
+      "pca_y": -0.966
+    },
+    {
+      "schwinger_id": "remo hiltbrunner|2003",
+      "cluster": 0,
+      "pca_x": 0.951,
+      "pca_y": 0.315
+    },
+    {
+      "schwinger_id": "florian hitz|1999",
+      "cluster": 0,
+      "pca_x": -1.364,
+      "pca_y": 1.719
+    },
+    {
+      "schwinger_id": "ignaz hobi|1994",
+      "cluster": 0,
+      "pca_x": 0.95,
+      "pca_y": 0.127
+    },
+    {
+      "schwinger_id": "dominik hodel|2001",
+      "cluster": 0,
+      "pca_x": -0.152,
+      "pca_y": -0.961
+    },
+    {
+      "schwinger_id": "alex huber|1996",
+      "cluster": 0,
+      "pca_x": 0.338,
+      "pca_y": -0.949
+    },
+    {
+      "schwinger_id": "jan huber|2009",
+      "cluster": 0,
+      "pca_x": -0.063,
+      "pca_y": -0.798
+    },
+    {
+      "schwinger_id": "melchior huber|2002",
+      "cluster": 0,
+      "pca_x": -0.184,
+      "pca_y": -0.613
+    },
+    {
+      "schwinger_id": "lars hugelshofer|2001",
+      "cluster": 0,
+      "pca_x": 0.425,
+      "pca_y": -0.974
+    },
+    {
+      "schwinger_id": "kaj hugli|1997",
+      "cluster": 0,
+      "pca_x": 1.016,
+      "pca_y": -0.853
+    },
+    {
+      "schwinger_id": "marco hurlimann|2002",
+      "cluster": 0,
+      "pca_x": -1.352,
+      "pca_y": -0.721
+    },
+    {
+      "schwinger_id": "mathias hurlimann|2000",
+      "cluster": 4,
+      "pca_x": -0.292,
+      "pca_y": 2.823
+    },
+    {
+      "schwinger_id": "tobias hurschler|2003",
+      "cluster": 0,
+      "pca_x": -0.549,
+      "pca_y": 1.55
+    },
+    {
+      "schwinger_id": "christian huser|2000",
+      "cluster": 0,
+      "pca_x": 0.37,
+      "pca_y": 1.249
+    },
+    {
+      "schwinger_id": "david imfeld|2006",
+      "cluster": 0,
+      "pca_x": -1.593,
+      "pca_y": 0.382
+    },
+    {
+      "schwinger_id": "laurin imfeld|2004",
+      "cluster": 0,
+      "pca_x": 1.696,
+      "pca_y": 0.091
+    },
+    {
+      "schwinger_id": "matthias imobersteg|2001",
+      "cluster": 0,
+      "pca_x": 0.513,
+      "pca_y": -0.999
+    },
+    {
+      "schwinger_id": "andreas inauen|1994",
+      "cluster": 0,
+      "pca_x": -1.393,
+      "pca_y": -0.722
+    },
+    {
+      "schwinger_id": "daniel inderbitzin|1992",
+      "cluster": 0,
+      "pca_x": -0.565,
+      "pca_y": -0.756
+    },
+    {
+      "schwinger_id": "janis iseli|2003",
+      "cluster": 0,
+      "pca_x": 0.478,
+      "pca_y": 0.224
+    },
+    {
+      "schwinger_id": "marco iseli|1997",
+      "cluster": 0,
+      "pca_x": 0.543,
+      "pca_y": 0.306
+    },
+    {
+      "schwinger_id": "fabien jacquaz|2006",
+      "cluster": 0,
+      "pca_x": 1.919,
+      "pca_y": 0.204
+    },
+    {
+      "schwinger_id": "mathias jager|2006",
+      "cluster": 2,
+      "pca_x": -2.303,
+      "pca_y": -0.474
+    },
+    {
+      "schwinger_id": "lukas jaggi|1996",
+      "cluster": 0,
+      "pca_x": -0.331,
+      "pca_y": -0.697
+    },
+    {
+      "schwinger_id": "pascal joho|2004",
+      "cluster": 0,
+      "pca_x": -0.973,
+      "pca_y": -0.766
+    },
+    {
+      "schwinger_id": "philip joho|2002",
+      "cluster": 0,
+      "pca_x": 0.717,
+      "pca_y": 0.256
+    },
+    {
+      "schwinger_id": "enrico joos|2003",
+      "cluster": 0,
+      "pca_x": -1.382,
+      "pca_y": -0.776
+    },
+    {
+      "schwinger_id": "nando joos|2008",
+      "cluster": 0,
+      "pca_x": -0.823,
+      "pca_y": -0.897
+    },
+    {
+      "schwinger_id": "marc jorger|1994",
+      "cluster": 0,
+      "pca_x": 1.353,
+      "pca_y": 0.164
+    },
+    {
+      "schwinger_id": "markus jost|2007",
+      "cluster": 0,
+      "pca_x": -0.682,
+      "pca_y": -0.786
+    },
+    {
+      "schwinger_id": "matthias jund|1999",
+      "cluster": 3,
+      "pca_x": -0.346,
+      "pca_y": 2.419
+    },
+    {
+      "schwinger_id": "alexander kampf|1985",
+      "cluster": 0,
+      "pca_x": -1.025,
+      "pca_y": -0.713
+    },
+    {
+      "schwinger_id": "bernhard kampf|1988",
+      "cluster": 0,
+      "pca_x": 0.776,
+      "pca_y": -0.885
+    },
+    {
+      "schwinger_id": "marcel kampf|1982",
+      "cluster": 0,
+      "pca_x": -0.593,
+      "pca_y": -0.622
+    },
+    {
+      "schwinger_id": "severin kathriner|2000",
+      "cluster": 0,
+      "pca_x": -0.624,
+      "pca_y": -0.865
+    },
+    {
+      "schwinger_id": "reto kaufmann|2002",
+      "cluster": 4,
+      "pca_x": 2.702,
+      "pca_y": 2.223
+    },
+    {
+      "schwinger_id": "damian kehr|2001",
+      "cluster": 1,
+      "pca_x": 2.25,
+      "pca_y": 0.586
+    },
+    {
+      "schwinger_id": "janik keller|1996",
+      "cluster": 0,
+      "pca_x": -0.302,
+      "pca_y": 0.42
+    },
+    {
+      "schwinger_id": "lukas keller|1996",
+      "cluster": 0,
+      "pca_x": -0.356,
+      "pca_y": -0.966
+    },
+    {
+      "schwinger_id": "manuel keller|1993",
+      "cluster": 0,
+      "pca_x": 0.216,
+      "pca_y": -0.952
+    },
+    {
+      "schwinger_id": "werner keller|1995",
+      "cluster": 2,
+      "pca_x": -1.827,
+      "pca_y": 0.538
+    },
+    {
+      "schwinger_id": "fabian kempf|2002",
+      "cluster": 0,
+      "pca_x": -0.992,
+      "pca_y": -0.874
+    },
+    {
+      "schwinger_id": "joel kessler|1997",
+      "cluster": 0,
+      "pca_x": 1.824,
+      "pca_y": -1.183
+    },
+    {
+      "schwinger_id": "raphael kiener|2000",
+      "cluster": 0,
+      "pca_x": -1.486,
+      "pca_y": -0.671
+    },
+    {
+      "schwinger_id": "fabian kindlimann|1990",
+      "cluster": 0,
+      "pca_x": 2.147,
+      "pca_y": 0.29
+    },
+    {
+      "schwinger_id": "aron kiser|2001",
+      "cluster": 0,
+      "pca_x": 0.746,
+      "pca_y": 0.122
+    },
+    {
+      "schwinger_id": "dominik kiser|2006",
+      "cluster": 4,
+      "pca_x": 0.511,
+      "pca_y": 3.844
+    },
+    {
+      "schwinger_id": "jan klopfenstein|1998",
+      "cluster": 2,
+      "pca_x": -0.531,
+      "pca_y": -0.701
+    },
+    {
+      "schwinger_id": "adrian klossner|1993",
+      "cluster": 0,
+      "pca_x": -0.963,
+      "pca_y": 0.317
+    },
+    {
+      "schwinger_id": "sven klossner|1996",
+      "cluster": 0,
+      "pca_x": -0.327,
+      "pca_y": -0.912
+    },
+    {
+      "schwinger_id": "jonas knieling|2008",
+      "cluster": 0,
+      "pca_x": 0.0,
+      "pca_y": -0.904
+    },
+    {
+      "schwinger_id": "alexander knutti|1999",
+      "cluster": 0,
+      "pca_x": -0.518,
+      "pca_y": 0.542
+    },
+    {
+      "schwinger_id": "marcel kobel|1996",
+      "cluster": 0,
+      "pca_x": 0.321,
+      "pca_y": -0.869
+    },
+    {
+      "schwinger_id": "janosch kobler|2000",
+      "cluster": 0,
+      "pca_x": 1.277,
+      "pca_y": 0.135
+    },
+    {
+      "schwinger_id": "kilian kolb|2005",
+      "cluster": 0,
+      "pca_x": -0.011,
+      "pca_y": 0.4
+    },
+    {
+      "schwinger_id": "pirmin kolb|2001",
+      "cluster": 0,
+      "pca_x": -0.652,
+      "pca_y": -0.731
+    },
+    {
+      "schwinger_id": "this kolb|2003",
+      "cluster": 0,
+      "pca_x": 2.175,
+      "pca_y": 0.157
+    },
+    {
+      "schwinger_id": "fabian koller|1995",
+      "cluster": 0,
+      "pca_x": -1.765,
+      "pca_y": -0.516
+    },
+    {
+      "schwinger_id": "silvan koller|2002",
+      "cluster": 0,
+      "pca_x": -2.588,
+      "pca_y": 1.877
+    },
+    {
+      "schwinger_id": "janik korrodi|2004",
+      "cluster": 0,
+      "pca_x": -0.624,
+      "pca_y": -0.865
+    },
+    {
+      "schwinger_id": "lukas krahenbuhl|1994",
+      "cluster": 0,
+      "pca_x": -0.303,
+      "pca_y": -0.83
+    },
+    {
+      "schwinger_id": "dorian kramer|1999",
+      "cluster": 0,
+      "pca_x": 0.041,
+      "pca_y": 0.348
+    },
+    {
+      "schwinger_id": "lario kramer|1998",
+      "cluster": 0,
+      "pca_x": 0.204,
+      "pca_y": -0.899
+    },
+    {
+      "schwinger_id": "andri krauer|2005",
+      "cluster": 0,
+      "pca_x": -1.038,
+      "pca_y": -0.848
+    },
+    {
+      "schwinger_id": "clemens krebs|1994",
+      "cluster": 0,
+      "pca_x": -1.328,
+      "pca_y": -0.64
+    },
+    {
+      "schwinger_id": "cyrill krieg|2009",
+      "cluster": 0,
+      "pca_x": -0.757,
+      "pca_y": 0.436
+    },
+    {
+      "schwinger_id": "rolf kropf|1988",
+      "cluster": 0,
+      "pca_x": -0.769,
+      "pca_y": -0.761
+    },
+    {
+      "schwinger_id": "elias kundert|2005",
+      "cluster": 1,
+      "pca_x": 0.775,
+      "pca_y": 0.766
+    },
+    {
+      "schwinger_id": "lars kupferschmied|2007",
+      "cluster": 0,
+      "pca_x": 0.649,
+      "pca_y": 0.389
+    },
+    {
+      "schwinger_id": "patrick kurmann|2003",
+      "cluster": 0,
+      "pca_x": 0.496,
+      "pca_y": -0.919
+    },
+    {
+      "schwinger_id": "toni kurmann|1998",
+      "cluster": 0,
+      "pca_x": 0.052,
+      "pca_y": -0.956
+    },
+    {
+      "schwinger_id": "thomas kuster|1992",
+      "cluster": 0,
+      "pca_x": -0.565,
+      "pca_y": -0.756
+    },
+    {
+      "schwinger_id": "christian lagler|1992",
+      "cluster": 0,
+      "pca_x": -0.876,
+      "pca_y": 1.542
+    },
+    {
+      "schwinger_id": "patrik laimbacher|2010",
+      "cluster": 3,
+      "pca_x": 0.125,
+      "pca_y": 2.939
+    },
+    {
+      "schwinger_id": "sven lang|1998",
+      "cluster": 0,
+      "pca_x": 0.117,
+      "pca_y": -0.874
+    },
+    {
+      "schwinger_id": "philip langenstein|1995",
+      "cluster": 0,
+      "pca_x": -0.209,
+      "pca_y": 0.368
+    },
+    {
+      "schwinger_id": "christian lanter|1998",
+      "cluster": 0,
+      "pca_x": -0.332,
+      "pca_y": -0.885
+    },
+    {
+      "schwinger_id": "tobias lauper|2007",
+      "cluster": 0,
+      "pca_x": -1.527,
+      "pca_y": -0.672
+    },
+    {
+      "schwinger_id": "michael ledermann|2000",
+      "cluster": 0,
+      "pca_x": 1.271,
+      "pca_y": -1.088
+    },
+    {
+      "schwinger_id": "philipp lehmann|1999",
+      "cluster": 0,
+      "pca_x": 0.39,
+      "pca_y": -1.002
+    },
+    {
+      "schwinger_id": "lukas lemmenmeier|1997",
+      "cluster": 0,
+      "pca_x": 0.601,
+      "pca_y": 0.226
+    },
+    {
+      "schwinger_id": "jonas lengacher|1988",
+      "cluster": 0,
+      "pca_x": 2.43,
+      "pca_y": -0.106
+    },
+    {
+      "schwinger_id": "cedric lenherr|2003",
+      "cluster": 0,
+      "pca_x": -1.259,
+      "pca_y": -0.773
+    },
+    {
+      "schwinger_id": "flavio lenherr|2008",
+      "cluster": 0,
+      "pca_x": -0.682,
+      "pca_y": -0.786
+    },
+    {
+      "schwinger_id": "jonas lenherr|2005",
+      "cluster": 0,
+      "pca_x": -1.177,
+      "pca_y": -0.771
+    },
+    {
+      "schwinger_id": "michael leuenberger|1993",
+      "cluster": 0,
+      "pca_x": 0.799,
+      "pca_y": -0.992
+    },
+    {
+      "schwinger_id": "karim leuppi|1995",
+      "cluster": 0,
+      "pca_x": -0.18,
+      "pca_y": -0.828
+    },
+    {
+      "schwinger_id": "samir leuppi|1993",
+      "cluster": 0,
+      "pca_x": 4.494,
+      "pca_y": 0.898
+    },
+    {
+      "schwinger_id": "rudy liaudat|1988",
+      "cluster": 0,
+      "pca_x": -2.034,
+      "pca_y": -0.603
+    },
+    {
+      "schwinger_id": "alfred locher|1996",
+      "cluster": 4,
+      "pca_x": -0.233,
+      "pca_y": 2.932
+    },
+    {
+      "schwinger_id": "niklas lotscher|2006",
+      "cluster": 3,
+      "pca_x": -2.598,
+      "pca_y": 5.11
+    },
+    {
+      "schwinger_id": "alexandre loup|1997",
+      "cluster": 0,
+      "pca_x": 1.865,
+      "pca_y": 1.292
+    },
+    {
+      "schwinger_id": "gregoire loup|2000",
+      "cluster": 0,
+      "pca_x": -0.132,
+      "pca_y": 0.585
+    },
+    {
+      "schwinger_id": "elias luscher|2006",
+      "cluster": 0,
+      "pca_x": -0.526,
+      "pca_y": 1.443
+    },
+    {
+      "schwinger_id": "sinisha luscher|2006",
+      "cluster": 0,
+      "pca_x": -0.156,
+      "pca_y": -0.746
+    },
+    {
+      "schwinger_id": "josef lustenberger|1997",
+      "cluster": 0,
+      "pca_x": -0.507,
+      "pca_y": -0.835
+    },
+    {
+      "schwinger_id": "marc lustenberger|2003",
+      "cluster": 4,
+      "pca_x": 0.531,
+      "pca_y": 2.816
+    },
+    {
+      "schwinger_id": "tim lustenberger|2005",
+      "cluster": 4,
+      "pca_x": -0.385,
+      "pca_y": 2.875
+    },
+    {
+      "schwinger_id": "david luthi|2002",
+      "cluster": 1,
+      "pca_x": 2.26,
+      "pca_y": 0.56
+    },
+    {
+      "schwinger_id": "martin mangold|1996",
+      "cluster": 0,
+      "pca_x": -0.185,
+      "pca_y": 0.45
+    },
+    {
+      "schwinger_id": "michael mangold|1997",
+      "cluster": 0,
+      "pca_x": -0.128,
+      "pca_y": 0.37
+    },
+    {
+      "schwinger_id": "jan mannhart|2003",
+      "cluster": 0,
+      "pca_x": 1.899,
+      "pca_y": 1.132
+    },
+    {
+      "schwinger_id": "simon marti|2000",
+      "cluster": 0,
+      "pca_x": -0.128,
+      "pca_y": -0.88
+    },
+    {
+      "schwinger_id": "gael martin|2004",
+      "cluster": 0,
+      "pca_x": -1.148,
+      "pca_y": -0.716
+    },
+    {
+      "schwinger_id": "robin martin|1995",
+      "cluster": 0,
+      "pca_x": -1.614,
+      "pca_y": -0.647
+    },
+    {
+      "schwinger_id": "jaime marty|2000",
+      "cluster": 0,
+      "pca_x": -1.737,
+      "pca_y": -0.65
+    },
+    {
+      "schwinger_id": "simon mathys|1995",
+      "cluster": 0,
+      "pca_x": 0.485,
+      "pca_y": -0.865
+    },
+    {
+      "schwinger_id": "florian matter|2005",
+      "cluster": 0,
+      "pca_x": -1.01,
+      "pca_y": 0.342
+    },
+    {
+      "schwinger_id": "marco matter|1985",
+      "cluster": 0,
+      "pca_x": -0.565,
+      "pca_y": -0.756
+    },
+    {
+      "schwinger_id": "david maurer|1999",
+      "cluster": 0,
+      "pca_x": -0.013,
+      "pca_y": -1.038
+    },
+    {
+      "schwinger_id": "elia mayer|2004",
+      "cluster": 0,
+      "pca_x": -0.823,
+      "pca_y": -0.897
+    },
+    {
+      "schwinger_id": "lars mehr|2002",
+      "cluster": 0,
+      "pca_x": -0.275,
+      "pca_y": -0.964
+    },
+    {
+      "schwinger_id": "daniel meier|2000",
+      "cluster": 2,
+      "pca_x": -0.584,
+      "pca_y": 0.414
+    },
+    {
+      "schwinger_id": "niklaus meier|1981",
+      "cluster": 0,
+      "pca_x": -0.594,
+      "pca_y": -0.811
+    },
+    {
+      "schwinger_id": "urs meier|2003",
+      "cluster": 0,
+      "pca_x": -1.038,
+      "pca_y": -0.848
+    },
+    {
+      "schwinger_id": "valentin mettler|1996",
+      "cluster": 2,
+      "pca_x": -0.735,
+      "pca_y": -0.706
+    },
+    {
+      "schwinger_id": "adrian meuter|1985",
+      "cluster": 0,
+      "pca_x": 0.362,
+      "pca_y": -0.868
+    },
+    {
+      "schwinger_id": "florian minder|1993",
+      "cluster": 0,
+      "pca_x": -1.872,
+      "pca_y": 0.537
+    },
+    {
+      "schwinger_id": "christian ming|1996",
+      "cluster": 4,
+      "pca_x": -0.041,
+      "pca_y": 2.802
+    },
+    {
+      "schwinger_id": "hannes ming|1998",
+      "cluster": 0,
+      "pca_x": -1.02,
+      "pca_y": -0.74
+    },
+    {
+      "schwinger_id": "branighan monney|1997",
+      "cluster": 0,
+      "pca_x": 0.578,
+      "pca_y": -0.917
+    },
+    {
+      "schwinger_id": "matthias moser|1990",
+      "cluster": 0,
+      "pca_x": -0.128,
+      "pca_y": -0.88
+    },
+    {
+      "schwinger_id": "michael moser|2005",
+      "cluster": 0,
+      "pca_x": 0.518,
+      "pca_y": -1.026
+    },
+    {
+      "schwinger_id": "steven moser|1996",
+      "cluster": 0,
+      "pca_x": 1.259,
+      "pca_y": -1.035
+    },
+    {
+      "schwinger_id": "vincent mosimann|1987",
+      "cluster": 2,
+      "pca_x": -0.507,
+      "pca_y": -0.62
+    },
+    {
+      "schwinger_id": "marcel mosli|1999",
+      "cluster": 0,
+      "pca_x": -1.738,
+      "pca_y": 0.486
+    },
+    {
+      "schwinger_id": "timo mosli|2006",
+      "cluster": 2,
+      "pca_x": -1.394,
+      "pca_y": -0.695
+    },
+    {
+      "schwinger_id": "dominik muller|1995",
+      "cluster": 0,
+      "pca_x": -0.046,
+      "pca_y": -0.878
+    },
+    {
+      "schwinger_id": "jonas muller|2007",
+      "cluster": 2,
+      "pca_x": -0.993,
+      "pca_y": -0.846
+    },
+    {
+      "schwinger_id": "josias muller|2006",
+      "cluster": 0,
+      "pca_x": 1.293,
+      "pca_y": -1.195
+    },
+    {
+      "schwinger_id": "luca muller|2004",
+      "cluster": 0,
+      "pca_x": 1.789,
+      "pca_y": 0.04
+    },
+    {
+      "schwinger_id": "michael muller|1995",
+      "cluster": 1,
+      "pca_x": 0.939,
+      "pca_y": 0.77
+    },
+    {
+      "schwinger_id": "philipp muller|2005",
+      "cluster": 0,
+      "pca_x": 0.075,
+      "pca_y": 0.187
+    },
+    {
+      "schwinger_id": "roger muller|1995",
+      "cluster": 0,
+      "pca_x": -1.283,
+      "pca_y": 0.47
+    },
+    {
+      "schwinger_id": "roman muller|2009",
+      "cluster": 0,
+      "pca_x": -0.973,
+      "pca_y": -0.766
+    },
+    {
+      "schwinger_id": "remo murer|1996",
+      "cluster": 0,
+      "pca_x": 0.251,
+      "pca_y": -0.925
+    },
+    {
+      "schwinger_id": "daniel nageli|1996",
+      "cluster": 0,
+      "pca_x": 0.519,
+      "pca_y": 0.225
+    },
+    {
+      "schwinger_id": "leandro nageli|2003",
+      "cluster": 0,
+      "pca_x": 0.63,
+      "pca_y": -0.969
+    },
+    {
+      "schwinger_id": "marco nageli|1994",
+      "cluster": 0,
+      "pca_x": -0.593,
+      "pca_y": -0.622
+    },
+    {
+      "schwinger_id": "levin neuenschwander|2003",
+      "cluster": 0,
+      "pca_x": 0.746,
+      "pca_y": 0.122
+    },
+    {
+      "schwinger_id": "noel neuenschwander|2005",
+      "cluster": 0,
+      "pca_x": -1.131,
+      "pca_y": -0.796
+    },
+    {
+      "schwinger_id": "andreas niederer|2002",
+      "cluster": 0,
+      "pca_x": -1.937,
+      "pca_y": 0.455
+    },
+    {
+      "schwinger_id": "pascal nietlispach|1988",
+      "cluster": 0,
+      "pca_x": 0.893,
+      "pca_y": -0.856
+    },
+    {
+      "schwinger_id": "benjamin nock|2001",
+      "cluster": 0,
+      "pca_x": -0.979,
+      "pca_y": -0.739
+    },
+    {
+      "schwinger_id": "sandro nuesch|2005",
+      "cluster": 0,
+      "pca_x": -1.491,
+      "pca_y": -0.644
+    },
+    {
+      "schwinger_id": "sami nufer|1998",
+      "cluster": 0,
+      "pca_x": -1.503,
+      "pca_y": -0.59
+    },
+    {
+      "schwinger_id": "gabriel nussbaumer|1992",
+      "cluster": 0,
+      "pca_x": -0.769,
+      "pca_y": -0.761
+    },
+    {
+      "schwinger_id": "adrian odermatt|2001",
+      "cluster": 0,
+      "pca_x": 1.347,
+      "pca_y": -1.06
+    },
+    {
+      "schwinger_id": "gian maria odermatt|2004",
+      "cluster": 0,
+      "pca_x": 0.747,
+      "pca_y": 0.311
+    },
+    {
+      "schwinger_id": "jonas odermatt|2004",
+      "cluster": 1,
+      "pca_x": 2.226,
+      "pca_y": 0.505
+    },
+    {
+      "schwinger_id": "silvio oettli|2000",
+      "cluster": 0,
+      "pca_x": -0.07,
+      "pca_y": 0.291
+    },
+    {
+      "schwinger_id": "armon orlik|1995",
+      "cluster": 1,
+      "pca_x": 0.983,
+      "pca_y": 0.63
+    },
+    {
+      "schwinger_id": "curdin orlik|1993",
+      "cluster": 1,
+      "pca_x": 3.169,
+      "pca_y": 0.286
+    },
+    {
+      "schwinger_id": "damian ott|2000",
+      "cluster": 0,
+      "pca_x": 1.41,
+      "pca_y": -1.166
+    },
+    {
+      "schwinger_id": "yannick parvex|1985",
+      "cluster": 0,
+      "pca_x": -0.553,
+      "pca_y": -0.81
+    },
+    {
+      "schwinger_id": "loic pasquier|2001",
+      "cluster": 0,
+      "pca_x": 1.475,
+      "pca_y": -1.084
+    },
+    {
+      "schwinger_id": "leon pellet|2007",
+      "cluster": 0,
+      "pca_x": -2.069,
+      "pca_y": -0.631
+    },
+    {
+      "schwinger_id": "reto pfyl|2006",
+      "cluster": 0,
+      "pca_x": 1.637,
+      "pca_y": -0.017
+    },
+    {
+      "schwinger_id": "christian pianta|1997",
+      "cluster": 0,
+      "pca_x": 0.543,
+      "pca_y": 0.306
+    },
+    {
+      "schwinger_id": "elias pirkheim|2002",
+      "cluster": 0,
+      "pca_x": -0.275,
+      "pca_y": -0.964
+    },
+    {
+      "schwinger_id": "sven poller|2000",
+      "cluster": 0,
+      "pca_x": 1.272,
+      "pca_y": -0.9
+    },
+    {
+      "schwinger_id": "andrin poltera|1999",
+      "cluster": 0,
+      "pca_x": 1.009,
+      "pca_y": 0.236
+    },
+    {
+      "schwinger_id": "fabio portmann|1998",
+      "cluster": 0,
+      "pca_x": -0.215,
+      "pca_y": -0.855
+    },
+    {
+      "schwinger_id": "diey pouye|1982",
+      "cluster": 0,
+      "pca_x": 0.769,
+      "pca_y": -1.047
+    },
+    {
+      "schwinger_id": "gabriel probst|1990",
+      "cluster": 0,
+      "pca_x": -1.27,
+      "pca_y": -0.719
+    },
+    {
+      "schwinger_id": "david purro|2001",
+      "cluster": 3,
+      "pca_x": -0.981,
+      "pca_y": 2.511
+    },
+    {
+      "schwinger_id": "lukas raber|1996",
+      "cluster": 2,
+      "pca_x": -2.432,
+      "pca_y": 0.685
+    },
+    {
+      "schwinger_id": "marcel rabsamen|2000",
+      "cluster": 0,
+      "pca_x": 0.425,
+      "pca_y": -0.974
+    },
+    {
+      "schwinger_id": "thomas ramseier|1994",
+      "cluster": 0,
+      "pca_x": -1.089,
+      "pca_y": -0.607
+    },
+    {
+      "schwinger_id": "urban raschle|2003",
+      "cluster": 0,
+      "pca_x": 0.881,
+      "pca_y": 0.26
+    },
+    {
+      "schwinger_id": "adrian reichenbach|2004",
+      "cluster": 3,
+      "pca_x": -0.132,
+      "pca_y": 4.827
+    },
+    {
+      "schwinger_id": "lukas reichmuth|2000",
+      "cluster": 0,
+      "pca_x": -1.177,
+      "pca_y": -0.771
+    },
+    {
+      "schwinger_id": "marco reichmuth|1997",
+      "cluster": 2,
+      "pca_x": 0.787,
+      "pca_y": 0.339
+    },
+    {
+      "schwinger_id": "roland reichmuth|1997",
+      "cluster": 0,
+      "pca_x": 0.775,
+      "pca_y": 0.177
+    },
+    {
+      "schwinger_id": "marco reimann|1998",
+      "cluster": 0,
+      "pca_x": 0.435,
+      "pca_y": 0.008
+    },
+    {
+      "schwinger_id": "adrian reinhard|1997",
+      "cluster": 0,
+      "pca_x": -0.304,
+      "pca_y": 0.232
+    },
+    {
+      "schwinger_id": "michael reinhard|2002",
+      "cluster": 0,
+      "pca_x": -0.63,
+      "pca_y": -0.838
+    },
+    {
+      "schwinger_id": "pirmin reinhard|2001",
+      "cluster": 0,
+      "pca_x": -0.128,
+      "pca_y": -0.88
+    },
+    {
+      "schwinger_id": "lukas renfer|1996",
+      "cluster": 2,
+      "pca_x": -0.234,
+      "pca_y": -0.748
+    },
+    {
+      "schwinger_id": "christian rentsch|1998",
+      "cluster": 0,
+      "pca_x": 1.622,
+      "pca_y": 0.251
+    },
+    {
+      "schwinger_id": "lorin rhyner|2009",
+      "cluster": 0,
+      "pca_x": -0.384,
+      "pca_y": -0.832
+    },
+    {
+      "schwinger_id": "leon riebli|2003",
+      "cluster": 1,
+      "pca_x": -0.177,
+      "pca_y": 0.682
+    },
+    {
+      "schwinger_id": "urs riebli|2002",
+      "cluster": 0,
+      "pca_x": 0.077,
+      "pca_y": 0.375
+    },
+    {
+      "schwinger_id": "matteo riedweg|2005",
+      "cluster": 0,
+      "pca_x": -1.587,
+      "pca_y": 0.355
+    },
+    {
+      "schwinger_id": "ivan riget|1988",
+      "cluster": 0,
+      "pca_x": -1.614,
+      "pca_y": -0.647
+    },
+    {
+      "schwinger_id": "jorn ris|1998",
+      "cluster": 0,
+      "pca_x": 0.077,
+      "pca_y": 0.375
+    },
+    {
+      "schwinger_id": "vincent roch|1994",
+      "cluster": 3,
+      "pca_x": -1.513,
+      "pca_y": 1.248
+    },
+    {
+      "schwinger_id": "linus rogenmoser|2002",
+      "cluster": 0,
+      "pca_x": -0.331,
+      "pca_y": -0.697
+    },
+    {
+      "schwinger_id": "ryan rogenmoser|1999",
+      "cluster": 0,
+      "pca_x": 0.502,
+      "pca_y": 0.305
+    },
+    {
+      "schwinger_id": "theo rogivue|2003",
+      "cluster": 4,
+      "pca_x": -0.116,
+      "pca_y": 2.962
+    },
+    {
+      "schwinger_id": "ivan rohrbach|2003",
+      "cluster": 0,
+      "pca_x": 3.461,
+      "pca_y": 0.927
+    },
+    {
+      "schwinger_id": "jerome rohrbach|2000",
+      "cluster": 0,
+      "pca_x": -0.565,
+      "pca_y": -0.756
+    },
+    {
+      "schwinger_id": "ueli rohrer|1999",
+      "cluster": 0,
+      "pca_x": -0.739,
+      "pca_y": -0.706
+    },
+    {
+      "schwinger_id": "ueli rolli|2006",
+      "cluster": 3,
+      "pca_x": -1.652,
+      "pca_y": 1.325
+    },
+    {
+      "schwinger_id": "adrian roschi|1999",
+      "cluster": 0,
+      "pca_x": -1.382,
+      "pca_y": -0.776
+    },
+    {
+      "schwinger_id": "ruedi roschi|1991",
+      "cluster": 0,
+      "pca_x": 1.44,
+      "pca_y": 0.139
+    },
+    {
+      "schwinger_id": "yannick rossy|1986",
+      "cluster": 0,
+      "pca_x": -1.165,
+      "pca_y": -0.636
+    },
+    {
+      "schwinger_id": "lars rotach|2000",
+      "cluster": 0,
+      "pca_x": 1.447,
+      "pca_y": 0.3
+    },
+    {
+      "schwinger_id": "dominik roth|1996",
+      "cluster": 1,
+      "pca_x": 0.499,
+      "pca_y": 0.807
+    },
+    {
+      "schwinger_id": "jan roth|2004",
+      "cluster": 0,
+      "pca_x": 0.812,
+      "pca_y": 0.393
+    },
+    {
+      "schwinger_id": "lukas roth|1984",
+      "cluster": 0,
+      "pca_x": -1.737,
+      "pca_y": -0.65
+    },
+    {
+      "schwinger_id": "martin roth|1990",
+      "cluster": 0,
+      "pca_x": -0.513,
+      "pca_y": -0.809
+    },
+    {
+      "schwinger_id": "peter roth|1998",
+      "cluster": 3,
+      "pca_x": -5.438,
+      "pca_y": 3.519
+    },
+    {
+      "schwinger_id": "philipp roth|1995",
+      "cluster": 0,
+      "pca_x": 2.351,
+      "pca_y": -0.955
+    },
+    {
+      "schwinger_id": "tim roth|2004",
+      "cluster": 4,
+      "pca_x": 2.552,
+      "pca_y": 3.604
+    },
+    {
+      "schwinger_id": "florian rothlisberger|1999",
+      "cluster": 0,
+      "pca_x": 1.241,
+      "pca_y": -1.143
+    },
+    {
+      "schwinger_id": "simon rothlisberger|1998",
+      "cluster": 0,
+      "pca_x": -1.066,
+      "pca_y": -0.714
+    },
+    {
+      "schwinger_id": "oliver rubin|2004",
+      "cluster": 4,
+      "pca_x": 0.262,
+      "pca_y": 4.053
+    },
+    {
+      "schwinger_id": "dominik ruch|2003",
+      "cluster": 0,
+      "pca_x": 1.039,
+      "pca_y": 0.291
+    },
+    {
+      "schwinger_id": "daniel ruegg|2003",
+      "cluster": 1,
+      "pca_x": 1.609,
+      "pca_y": 0.705
+    },
+    {
+      "schwinger_id": "patrick ruegg|1999",
+      "cluster": 0,
+      "pca_x": -1.177,
+      "pca_y": -0.771
+    },
+    {
+      "schwinger_id": "aaron ruegger|1999",
+      "cluster": 0,
+      "pca_x": -0.594,
+      "pca_y": -0.811
+    },
+    {
+      "schwinger_id": "christian ruegsegger|2001",
+      "cluster": 1,
+      "pca_x": 0.17,
+      "pca_y": 0.913
+    },
+    {
+      "schwinger_id": "levin rufenacht|2007",
+      "cluster": 0,
+      "pca_x": -0.717,
+      "pca_y": -0.813
+    },
+    {
+      "schwinger_id": "giulio russo|2009",
+      "cluster": 0,
+      "pca_x": -0.57,
+      "pca_y": -0.729
+    },
+    {
+      "schwinger_id": "remo rutsch|2004",
+      "cluster": 0,
+      "pca_x": 0.309,
+      "pca_y": -1.004
+    },
+    {
+      "schwinger_id": "roger rychen|1991",
+      "cluster": 0,
+      "pca_x": 1.44,
+      "pca_y": 0.139
+    },
+    {
+      "schwinger_id": "simon salzmann|1991",
+      "cluster": 0,
+      "pca_x": 0.221,
+      "pca_y": -0.979
+    },
+    {
+      "schwinger_id": "claudio schafer|1989",
+      "cluster": 0,
+      "pca_x": -2.035,
+      "pca_y": 0.533
+    },
+    {
+      "schwinger_id": "dario schafroth|2004",
+      "cluster": 0,
+      "pca_x": 1.043,
+      "pca_y": 0.076
+    },
+    {
+      "schwinger_id": "noah schaller|2000",
+      "cluster": 0,
+      "pca_x": 2.93,
+      "pca_y": 0.914
+    },
+    {
+      "schwinger_id": "alex schar|2000",
+      "cluster": 2,
+      "pca_x": 0.028,
+      "pca_y": -0.822
+    },
+    {
+      "schwinger_id": "ari schar|2007",
+      "cluster": 0,
+      "pca_x": -1.438,
+      "pca_y": -0.508
+    },
+    {
+      "schwinger_id": "reto scharli|1993",
+      "cluster": 4,
+      "pca_x": 0.116,
+      "pca_y": 2.833
+    },
+    {
+      "schwinger_id": "adrian scharz|2008",
+      "cluster": 0,
+      "pca_x": -0.654,
+      "pca_y": -0.919
+    },
+    {
+      "schwinger_id": "fabian scharz|2004",
+      "cluster": 4,
+      "pca_x": -0.525,
+      "pca_y": 1.702
+    },
+    {
+      "schwinger_id": "remo scharz|2006",
+      "cluster": 4,
+      "pca_x": -1.097,
+      "pca_y": 1.688
+    },
+    {
+      "schwinger_id": "adrian schenk|1995",
+      "cluster": 0,
+      "pca_x": 0.314,
+      "pca_y": -1.031
+    },
+    {
+      "schwinger_id": "patrick schenk|1994",
+      "cluster": 0,
+      "pca_x": 1.598,
+      "pca_y": 0.17
+    },
+    {
+      "schwinger_id": "remo schenkel|1993",
+      "cluster": 0,
+      "pca_x": -0.303,
+      "pca_y": -0.83
+    },
+    {
+      "schwinger_id": "niklaus scherer|1995",
+      "cluster": 0,
+      "pca_x": 0.624,
+      "pca_y": -0.943
+    },
+    {
+      "schwinger_id": "fabian scherrer|2002",
+      "cluster": 0,
+      "pca_x": -0.156,
+      "pca_y": -0.746
+    },
+    {
+      "schwinger_id": "johann scherrer|1983",
+      "cluster": 0,
+      "pca_x": -0.505,
+      "pca_y": -0.647
+    },
+    {
+      "schwinger_id": "patrick scherrer|1993",
+      "cluster": 0,
+      "pca_x": 0.635,
+      "pca_y": -0.996
+    },
+    {
+      "schwinger_id": "valentin scherz|2007",
+      "cluster": 0,
+      "pca_x": 0.717,
+      "pca_y": -0.994
+    },
+    {
+      "schwinger_id": "adrian scheuner|2009",
+      "cluster": 0,
+      "pca_x": -0.769,
+      "pca_y": -0.761
+    },
+    {
+      "schwinger_id": "david scheuner|2005",
+      "cluster": 0,
+      "pca_x": 0.24,
+      "pca_y": -0.871
+    },
+    {
+      "schwinger_id": "janis schick|2003",
+      "cluster": 0,
+      "pca_x": 0.28,
+      "pca_y": -0.87
+    },
+    {
+      "schwinger_id": "patrik schiesser|1998",
+      "cluster": 0,
+      "pca_x": -0.973,
+      "pca_y": -0.766
+    },
+    {
+      "schwinger_id": "cornel schild|2004",
+      "cluster": 0,
+      "pca_x": -1.614,
+      "pca_y": -0.647
+    },
+    {
+      "schwinger_id": "daniel schilter|1989",
+      "cluster": 0,
+      "pca_x": 2.044,
+      "pca_y": 1.028
+    },
+    {
+      "schwinger_id": "hugo schlafli|2002",
+      "cluster": 0,
+      "pca_x": 0.514,
+      "pca_y": -0.811
+    },
+    {
+      "schwinger_id": "markus schlapfer|1987",
+      "cluster": 0,
+      "pca_x": -0.745,
+      "pca_y": -0.68
+    },
+    {
+      "schwinger_id": "reto schlegel|1997",
+      "cluster": 0,
+      "pca_x": -0.287,
+      "pca_y": 1.476
+    },
+    {
+      "schwinger_id": "werner schlegel|2002",
+      "cluster": 1,
+      "pca_x": 2.373,
+      "pca_y": 0.589
+    },
+    {
+      "schwinger_id": "colin schluchter|1997",
+      "cluster": 0,
+      "pca_x": 0.209,
+      "pca_y": 1.461
+    },
+    {
+      "schwinger_id": "fabio schmid|2011",
+      "cluster": 0,
+      "pca_x": -1.556,
+      "pca_y": -0.726
+    },
+    {
+      "schwinger_id": "gian schmid|2003",
+      "cluster": 0,
+      "pca_x": -0.076,
+      "pca_y": -0.932
+    },
+    {
+      "schwinger_id": "patrick schmid|1997",
+      "cluster": 0,
+      "pca_x": -0.745,
+      "pca_y": -0.68
+    },
+    {
+      "schwinger_id": "romain schmid|2003",
+      "cluster": 0,
+      "pca_x": 1.627,
+      "pca_y": -1.026
+    },
+    {
+      "schwinger_id": "samuel schmid|1995",
+      "cluster": 4,
+      "pca_x": 0.583,
+      "pca_y": 2.763
+    },
+    {
+      "schwinger_id": "simon schmid|2000",
+      "cluster": 0,
+      "pca_x": -1.724,
+      "pca_y": -0.515
+    },
+    {
+      "schwinger_id": "andre schmidli|1993",
+      "cluster": 0,
+      "pca_x": -0.098,
+      "pca_y": -0.826
+    },
+    {
+      "schwinger_id": "tobias schmidlin|2001",
+      "cluster": 0,
+      "pca_x": -0.741,
+      "pca_y": -0.895
+    },
+    {
+      "schwinger_id": "adrian schmutz|1993",
+      "cluster": 0,
+      "pca_x": -2.018,
+      "pca_y": 0.453
+    },
+    {
+      "schwinger_id": "simon schmutz|2000",
+      "cluster": 0,
+      "pca_x": 0.077,
+      "pca_y": 0.375
+    },
+    {
+      "schwinger_id": "domenic schneider|1994",
+      "cluster": 0,
+      "pca_x": 1.391,
+      "pca_y": -0.683
+    },
+    {
+      "schwinger_id": "mario schneider|1992",
+      "cluster": 4,
+      "pca_x": 2.334,
+      "pca_y": 2.832
+    },
+    {
+      "schwinger_id": "martin schonbachler|2007",
+      "cluster": 0,
+      "pca_x": 1.59,
+      "pca_y": -1.242
+    },
+    {
+      "schwinger_id": "tobias schonenberger|2004",
+      "cluster": 0,
+      "pca_x": -0.752,
+      "pca_y": 0.409
+    },
+    {
+      "schwinger_id": "aaron schonholzer|2007",
+      "cluster": 2,
+      "pca_x": -0.332,
+      "pca_y": 0.581
+    },
+    {
+      "schwinger_id": "dio schopfer|1997",
+      "cluster": 3,
+      "pca_x": -1.564,
+      "pca_y": 3.875
+    },
+    {
+      "schwinger_id": "marco schopfer|2003",
+      "cluster": 0,
+      "pca_x": -0.273,
+      "pca_y": -0.776
+    },
+    {
+      "schwinger_id": "ronny schopfer|1999",
+      "cluster": 0,
+      "pca_x": 0.682,
+      "pca_y": 0.228
+    },
+    {
+      "schwinger_id": "kevin schori|2004",
+      "cluster": 0,
+      "pca_x": -1.083,
+      "pca_y": -0.634
+    },
+    {
+      "schwinger_id": "raphael schreiber|2004",
+      "cluster": 3,
+      "pca_x": -0.432,
+      "pca_y": 2.632
+    },
+    {
+      "schwinger_id": "alex schuler|1998",
+      "cluster": 0,
+      "pca_x": -0.07,
+      "pca_y": 0.291
+    },
+    {
+      "schwinger_id": "martin schuler|1996",
+      "cluster": 0,
+      "pca_x": -0.005,
+      "pca_y": -0.877
+    },
+    {
+      "schwinger_id": "janick schupbach|1997",
+      "cluster": 0,
+      "pca_x": -2.046,
+      "pca_y": 0.586
+    },
+    {
+      "schwinger_id": "bruno schurpf|1995",
+      "cluster": 0,
+      "pca_x": -0.28,
+      "pca_y": -0.937
+    },
+    {
+      "schwinger_id": "guido schurpf|1995",
+      "cluster": 0,
+      "pca_x": 0.391,
+      "pca_y": 0.248
+    },
+    {
+      "schwinger_id": "sven schurtenberger|1991",
+      "cluster": 0,
+      "pca_x": 3.401,
+      "pca_y": 0.186
+    },
+    {
+      "schwinger_id": "severin schwander|1995",
+      "cluster": 0,
+      "pca_x": 2.5,
+      "pca_y": -1.274
+    },
+    {
+      "schwinger_id": "dominik schwegler|1997",
+      "cluster": 0,
+      "pca_x": 2.32,
+      "pca_y": 0.053
+    },
+    {
+      "schwinger_id": "lukas schwenkfelder|1993",
+      "cluster": 0,
+      "pca_x": 2.437,
+      "pca_y": 0.082
+    },
+    {
+      "schwinger_id": "adrian schwyn|1996",
+      "cluster": 0,
+      "pca_x": 0.981,
+      "pca_y": -0.88
+    },
+    {
+      "schwinger_id": "samuel schwyzer|2001",
+      "cluster": 0,
+      "pca_x": 0.793,
+      "pca_y": -0.966
+    },
+    {
+      "schwinger_id": "sebastian schwyzer|2004",
+      "cluster": 0,
+      "pca_x": -1.02,
+      "pca_y": -0.74
+    },
+    {
+      "schwinger_id": "leo siegenthaler|2005",
+      "cluster": 0,
+      "pca_x": -0.083,
+      "pca_y": 1.48
+    },
+    {
+      "schwinger_id": "lukas siegrist|1996",
+      "cluster": 0,
+      "pca_x": -2.896,
+      "pca_y": -0.409
+    },
+    {
+      "schwinger_id": "silas siegrist|1992",
+      "cluster": 0,
+      "pca_x": -2.756,
+      "pca_y": -0.486
+    },
+    {
+      "schwinger_id": "andy signer|2003",
+      "cluster": 0,
+      "pca_x": -0.915,
+      "pca_y": -0.845
+    },
+    {
+      "schwinger_id": "tobias signer|2004",
+      "cluster": 0,
+      "pca_x": -0.018,
+      "pca_y": -1.012
+    },
+    {
+      "schwinger_id": "mael sommer|2008",
+      "cluster": 0,
+      "pca_x": -0.614,
+      "pca_y": 1.468
+    },
+    {
+      "schwinger_id": "martin sommer|2001",
+      "cluster": 0,
+      "pca_x": -1.359,
+      "pca_y": 0.441
+    },
+    {
+      "schwinger_id": "roman sommer|1992",
+      "cluster": 2,
+      "pca_x": -0.438,
+      "pca_y": -0.752
+    },
+    {
+      "schwinger_id": "thomas sonnay|1991",
+      "cluster": 0,
+      "pca_x": 3.854,
+      "pca_y": -0.045
+    },
+    {
+      "schwinger_id": "jan spati|2002",
+      "cluster": 2,
+      "pca_x": -2.414,
+      "pca_y": 0.793
+    },
+    {
+      "schwinger_id": "kevin stadler|2002",
+      "cluster": 0,
+      "pca_x": 0.134,
+      "pca_y": 0.296
+    },
+    {
+      "schwinger_id": "noah staffelbach|2003",
+      "cluster": 0,
+      "pca_x": 0.461,
+      "pca_y": 0.304
+    },
+    {
+      "schwinger_id": "christian stamm|1996",
+      "cluster": 0,
+      "pca_x": -0.793,
+      "pca_y": -0.842
+    },
+    {
+      "schwinger_id": "simon stampfli|2004",
+      "cluster": 0,
+      "pca_x": -1.773,
+      "pca_y": 0.459
+    },
+    {
+      "schwinger_id": "ivan staub|1999",
+      "cluster": 0,
+      "pca_x": -0.687,
+      "pca_y": -0.759
+    },
+    {
+      "schwinger_id": "severin staub|2002",
+      "cluster": 0,
+      "pca_x": 0.24,
+      "pca_y": 0.379
+    },
+    {
+      "schwinger_id": "fabian staudenmann|2000",
+      "cluster": 0,
+      "pca_x": 1.096,
+      "pca_y": -1.039
+    },
+    {
+      "schwinger_id": "gustav steffen|1996",
+      "cluster": 0,
+      "pca_x": -1.427,
+      "pca_y": -0.562
+    },
+    {
+      "schwinger_id": "patrick steffen|1999",
+      "cluster": 0,
+      "pca_x": -2.327,
+      "pca_y": 0.553
+    },
+    {
+      "schwinger_id": "valentin steffen|1996",
+      "cluster": 0,
+      "pca_x": -0.728,
+      "pca_y": -0.76
+    },
+    {
+      "schwinger_id": "klemens stegmuller|1989",
+      "cluster": 0,
+      "pca_x": 0.315,
+      "pca_y": 0.22
+    },
+    {
+      "schwinger_id": "elia steiger|2007",
+      "cluster": 0,
+      "pca_x": -1.008,
+      "pca_y": -0.793
+    },
+    {
+      "schwinger_id": "kevin steinauer|2004",
+      "cluster": 0,
+      "pca_x": 0.338,
+      "pca_y": -0.949
+    },
+    {
+      "schwinger_id": "samuel steinauer|2007",
+      "cluster": 0,
+      "pca_x": -0.833,
+      "pca_y": 0.407
+    },
+    {
+      "schwinger_id": "severin steiner|2001",
+      "cluster": 1,
+      "pca_x": -0.286,
+      "pca_y": -0.322
+    },
+    {
+      "schwinger_id": "kevin steudler|2001",
+      "cluster": 0,
+      "pca_x": 0.613,
+      "pca_y": -0.889
+    },
+    {
+      "schwinger_id": "niklas stocker|2005",
+      "cluster": 0,
+      "pca_x": -0.332,
+      "pca_y": -0.885
+    },
+    {
+      "schwinger_id": "simon stoll|1993",
+      "cluster": 0,
+      "pca_x": 1.592,
+      "pca_y": 0.196
+    },
+    {
+      "schwinger_id": "thomas stoll|1998",
+      "cluster": 2,
+      "pca_x": -0.577,
+      "pca_y": -0.675
+    },
+    {
+      "schwinger_id": "dominic strebel|2005",
+      "cluster": 0,
+      "pca_x": -2.023,
+      "pca_y": -0.656
+    },
+    {
+      "schwinger_id": "joel strebel|1997",
+      "cluster": 0,
+      "pca_x": 2.146,
+      "pca_y": 0.102
+    },
+    {
+      "schwinger_id": "sascha streich|2001",
+      "cluster": 0,
+      "pca_x": 1.738,
+      "pca_y": -0.97
+    },
+    {
+      "schwinger_id": "dominik streiff|1994",
+      "cluster": 0,
+      "pca_x": 1.358,
+      "pca_y": 0.137
+    },
+    {
+      "schwinger_id": "fabian stucki|2005",
+      "cluster": 4,
+      "pca_x": -0.859,
+      "pca_y": 2.856
+    },
+    {
+      "schwinger_id": "jurg stucki|2001",
+      "cluster": 4,
+      "pca_x": -0.626,
+      "pca_y": 3.978
+    },
+    {
+      "schwinger_id": "marcel (1) stucki|2000",
+      "cluster": 0,
+      "pca_x": 0.036,
+      "pca_y": 0.374
+    },
+    {
+      "schwinger_id": "simon stucki|2005",
+      "cluster": 0,
+      "pca_x": 0.653,
+      "pca_y": 0.174
+    },
+    {
+      "schwinger_id": "remo studer|1996",
+      "cluster": 4,
+      "pca_x": -1.349,
+      "pca_y": 4.095
+    },
+    {
+      "schwinger_id": "robin studinger|2006",
+      "cluster": 0,
+      "pca_x": -1.662,
+      "pca_y": 0.515
+    },
+    {
+      "schwinger_id": "nicolas sturny|1998",
+      "cluster": 0,
+      "pca_x": 0.659,
+      "pca_y": -0.915
+    },
+    {
+      "schwinger_id": "yannick suchet|2007",
+      "cluster": 0,
+      "pca_x": 0.192,
+      "pca_y": 0.217
+    },
+    {
+      "schwinger_id": "beat suter|1996",
+      "cluster": 0,
+      "pca_x": 0.222,
+      "pca_y": 0.271
+    },
+    {
+      "schwinger_id": "bruno suter|2002",
+      "cluster": 4,
+      "pca_x": -0.205,
+      "pca_y": 2.798
+    },
+    {
+      "schwinger_id": "joel suter|2004",
+      "cluster": 0,
+      "pca_x": -1.773,
+      "pca_y": 0.459
+    },
+    {
+      "schwinger_id": "pirmin suter|1997",
+      "cluster": 0,
+      "pca_x": -0.327,
+      "pca_y": -0.912
+    },
+    {
+      "schwinger_id": "samuel suter|1999",
+      "cluster": 3,
+      "pca_x": -2.749,
+      "pca_y": 2.596
+    },
+    {
+      "schwinger_id": "flavio sutter|2008",
+      "cluster": 0,
+      "pca_x": 0.522,
+      "pca_y": -0.017
+    },
+    {
+      "schwinger_id": "marco sutter|2008",
+      "cluster": 0,
+      "pca_x": -0.736,
+      "pca_y": 1.465
+    },
+    {
+      "schwinger_id": "adrian thalmann|1999",
+      "cluster": 0,
+      "pca_x": 0.951,
+      "pca_y": -0.935
+    },
+    {
+      "schwinger_id": "beat theiler|1986",
+      "cluster": 0,
+      "pca_x": -1.748,
+      "pca_y": -0.596
+    },
+    {
+      "schwinger_id": "nils theiler|2004",
+      "cluster": 0,
+      "pca_x": 0.339,
+      "pca_y": 0.301
+    },
+    {
+      "schwinger_id": "marco thierstein|1997",
+      "cluster": 0,
+      "pca_x": -1.643,
+      "pca_y": 0.549
+    },
+    {
+      "schwinger_id": "christoph thoma|1997",
+      "cluster": 0,
+      "pca_x": 0.466,
+      "pca_y": -0.973
+    },
+    {
+      "schwinger_id": "daniel thomi|1986",
+      "cluster": 0,
+      "pca_x": -1.025,
+      "pca_y": -0.713
+    },
+    {
+      "schwinger_id": "ivan thoni|2003",
+      "cluster": 4,
+      "pca_x": 0.64,
+      "pca_y": 2.684
+    },
+    {
+      "schwinger_id": "reto thoni|2001",
+      "cluster": 0,
+      "pca_x": 0.949,
+      "pca_y": -1.123
+    },
+    {
+      "schwinger_id": "thomas tongi|1985",
+      "cluster": 0,
+      "pca_x": -0.46,
+      "pca_y": -0.861
+    },
+    {
+      "schwinger_id": "laurent tornare|2007",
+      "cluster": 0,
+      "pca_x": 1.295,
+      "pca_y": 0.243
+    },
+    {
+      "schwinger_id": "paul tornare|2001",
+      "cluster": 0,
+      "pca_x": 0.776,
+      "pca_y": -0.885
+    },
+    {
+      "schwinger_id": "philippe tornare|2004",
+      "cluster": 0,
+      "pca_x": 2.023,
+      "pca_y": 0.099
+    },
+    {
+      "schwinger_id": "silvan trittibach|2004",
+      "cluster": 0,
+      "pca_x": -0.134,
+      "pca_y": -0.853
+    },
+    {
+      "schwinger_id": "jonas troxler|2000",
+      "cluster": 0,
+      "pca_x": 0.251,
+      "pca_y": -0.925
+    },
+    {
+      "schwinger_id": "matthias tschan|1996",
+      "cluster": 0,
+      "pca_x": -1.994,
+      "pca_y": -0.79
+    },
+    {
+      "schwinger_id": "jeremy tschanz|2006",
+      "cluster": 0,
+      "pca_x": -2.227,
+      "pca_y": -0.661
+    },
+    {
+      "schwinger_id": "mario tschudi|2001",
+      "cluster": 0,
+      "pca_x": -1.083,
+      "pca_y": -0.634
+    },
+    {
+      "schwinger_id": "sales tschudi|2009",
+      "cluster": 0,
+      "pca_x": -0.996,
+      "pca_y": -0.659
+    },
+    {
+      "schwinger_id": "daniel tschumi|2005",
+      "cluster": 0,
+      "pca_x": 0.805,
+      "pca_y": 0.231
+    },
+    {
+      "schwinger_id": "lukas tschumi|2001",
+      "cluster": 1,
+      "pca_x": 1.241,
+      "pca_y": 0.696
+    },
+    {
+      "schwinger_id": "elias tschumper|2005",
+      "cluster": 0,
+      "pca_x": -1.97,
+      "pca_y": -0.709
+    },
+    {
+      "schwinger_id": "gian tschumper|2007",
+      "cluster": 3,
+      "pca_x": -1.559,
+      "pca_y": 1.274
+    },
+    {
+      "schwinger_id": "stepan tsirkin|1986",
+      "cluster": 0,
+      "pca_x": 1.033,
+      "pca_y": -0.933
+    },
+    {
+      "schwinger_id": "marcel tugulea|1998",
+      "cluster": 0,
+      "pca_x": -0.303,
+      "pca_y": -0.83
+    },
+    {
+      "schwinger_id": "fabian ulmann|1999",
+      "cluster": 0,
+      "pca_x": 0.758,
+      "pca_y": 0.257
+    },
+    {
+      "schwinger_id": "marco ulrich|1997",
+      "cluster": 3,
+      "pca_x": -1.162,
+      "pca_y": 1.337
+    },
+    {
+      "schwinger_id": "michael ulrich|2003",
+      "cluster": 0,
+      "pca_x": -0.799,
+      "pca_y": -0.815
+    },
+    {
+      "schwinger_id": "noe van messel|2002",
+      "cluster": 0,
+      "pca_x": 1.213,
+      "pca_y": -1.009
+    },
+    {
+      "schwinger_id": "luc varone|1997",
+      "cluster": 0,
+      "pca_x": 1.328,
+      "pca_y": -1.168
+    },
+    {
+      "schwinger_id": "tiago vieira|1991",
+      "cluster": 0,
+      "pca_x": 3.401,
+      "pca_y": 0.186
+    },
+    {
+      "schwinger_id": "julian vogel|2007",
+      "cluster": 0,
+      "pca_x": 0.892,
+      "pca_y": -1.044
+    },
+    {
+      "schwinger_id": "marcel vogel|1997",
+      "cluster": 0,
+      "pca_x": -0.891,
+      "pca_y": -0.764
+    },
+    {
+      "schwinger_id": "remo vogel|1994",
+      "cluster": 0,
+      "pca_x": -0.617,
+      "pca_y": -0.704
+    },
+    {
+      "schwinger_id": "luca vogeli|1999",
+      "cluster": 1,
+      "pca_x": 1.084,
+      "pca_y": 0.666
+    },
+    {
+      "schwinger_id": "janic voggensperger|1998",
+      "cluster": 0,
+      "pca_x": 2.465,
+      "pca_y": -0.051
+    },
+    {
+      "schwinger_id": "lars voggensperger|2001",
+      "cluster": 0,
+      "pca_x": 0.252,
+      "pca_y": -0.737
+    },
+    {
+      "schwinger_id": "til voggensperger|2004",
+      "cluster": 0,
+      "pca_x": -0.979,
+      "pca_y": -0.739
+    },
+    {
+      "schwinger_id": "sandro vogt|2004",
+      "cluster": 2,
+      "pca_x": -0.968,
+      "pca_y": 0.485
+    },
+    {
+      "schwinger_id": "jeremy vollenweider|1998",
+      "cluster": 2,
+      "pca_x": -0.089,
+      "pca_y": -0.852
+    },
+    {
+      "schwinger_id": "lukas von euw|2002",
+      "cluster": 0,
+      "pca_x": 0.105,
+      "pca_y": 0.242
+    },
+    {
+      "schwinger_id": "carlo von rickenbach|2005",
+      "cluster": 0,
+      "pca_x": 0.279,
+      "pca_y": -1.058
+    },
+    {
+      "schwinger_id": "pirmin von rickenbach|2002",
+      "cluster": 0,
+      "pca_x": -1.382,
+      "pca_y": -0.776
+    },
+    {
+      "schwinger_id": "kevin von wyl|2004",
+      "cluster": 0,
+      "pca_x": 1.84,
+      "pca_y": 1.023
+    },
+    {
+      "schwinger_id": "marco waeber|1996",
+      "cluster": 0,
+      "pca_x": 0.078,
+      "pca_y": -0.687
+    },
+    {
+      "schwinger_id": "remo wallimann|1997",
+      "cluster": 0,
+      "pca_x": -1.382,
+      "pca_y": -0.776
+    },
+    {
+      "schwinger_id": "adrian walther|2001",
+      "cluster": 2,
+      "pca_x": 2.657,
+      "pca_y": 0.034
+    },
+    {
+      "schwinger_id": "nicolas walther|1994",
+      "cluster": 0,
+      "pca_x": -0.25,
+      "pca_y": 0.367
+    },
+    {
+      "schwinger_id": "patrick walther|1996",
+      "cluster": 2,
+      "pca_x": 1.311,
+      "pca_y": 0.19
+    },
+    {
+      "schwinger_id": "reto walther|2003",
+      "cluster": 0,
+      "pca_x": 1.789,
+      "pca_y": 0.04
+    },
+    {
+      "schwinger_id": "roman wandeler|2002",
+      "cluster": 0,
+      "pca_x": 0.775,
+      "pca_y": 0.177
+    },
+    {
+      "schwinger_id": "christoph waser|2002",
+      "cluster": 0,
+      "pca_x": 2.175,
+      "pca_y": 0.157
+    },
+    {
+      "schwinger_id": "kevin waser|2006",
+      "cluster": 0,
+      "pca_x": -0.07,
+      "pca_y": -0.959
+    },
+    {
+      "schwinger_id": "raphael waser|1998",
+      "cluster": 0,
+      "pca_x": -0.183,
+      "pca_y": 1.344
+    },
+    {
+      "schwinger_id": "manuel weber|2003",
+      "cluster": 0,
+      "pca_x": -0.453,
+      "pca_y": -0.7
+    },
+    {
+      "schwinger_id": "marcel wenger|1999",
+      "cluster": 0,
+      "pca_x": 0.339,
+      "pca_y": 0.301
+    },
+    {
+      "schwinger_id": "silvan wetter|2000",
+      "cluster": 0,
+      "pca_x": -0.711,
+      "pca_y": -0.84
+    },
+    {
+      "schwinger_id": "nicola wey|1995",
+      "cluster": 0,
+      "pca_x": -0.145,
+      "pca_y": -0.8
+    },
+    {
+      "schwinger_id": "cedric wicki|1996",
+      "cluster": 0,
+      "pca_x": 0.293,
+      "pca_y": -0.736
+    },
+    {
+      "schwinger_id": "david wicki|1998",
+      "cluster": 4,
+      "pca_x": -1.05,
+      "pca_y": 1.662
+    },
+    {
+      "schwinger_id": "kevin wicki|1991",
+      "cluster": 0,
+      "pca_x": -0.36,
+      "pca_y": -0.751
+    },
+    {
+      "schwinger_id": "adrian widmer|1993",
+      "cluster": 0,
+      "pca_x": -0.128,
+      "pca_y": -0.88
+    },
+    {
+      "schwinger_id": "christian widmer|2002",
+      "cluster": 0,
+      "pca_x": 0.601,
+      "pca_y": 0.226
+    },
+    {
+      "schwinger_id": "david widmer|1995",
+      "cluster": 2,
+      "pca_x": -1.201,
+      "pca_y": -0.636
+    },
+    {
+      "schwinger_id": "tobias widmer|1996",
+      "cluster": 4,
+      "pca_x": 1.363,
+      "pca_y": 2.567
+    },
+    {
+      "schwinger_id": "janis wieland|1998",
+      "cluster": 0,
+      "pca_x": 1.183,
+      "pca_y": -1.064
+    },
+    {
+      "schwinger_id": "michael wiget|1998",
+      "cluster": 0,
+      "pca_x": 1.772,
+      "pca_y": -1.13
+    },
+    {
+      "schwinger_id": "ueli wiget|1999",
+      "cluster": 1,
+      "pca_x": 2.042,
+      "pca_y": 0.394
+    },
+    {
+      "schwinger_id": "thomas wild|1995",
+      "cluster": 4,
+      "pca_x": -0.088,
+      "pca_y": 2.828
+    },
+    {
+      "schwinger_id": "simon winzeler|2000",
+      "cluster": 0,
+      "pca_x": -2.035,
+      "pca_y": 0.533
+    },
+    {
+      "schwinger_id": "roman wittenwiler|1998",
+      "cluster": 0,
+      "pca_x": 0.292,
+      "pca_y": -0.924
+    },
+    {
+      "schwinger_id": "jan wittwer|1997",
+      "cluster": 0,
+      "pca_x": -0.418,
+      "pca_y": -0.672
+    },
+    {
+      "schwinger_id": "mathias wittwer|2002",
+      "cluster": 0,
+      "pca_x": -0.565,
+      "pca_y": -0.756
+    },
+    {
+      "schwinger_id": "roy wittwer|1995",
+      "cluster": 0,
+      "pca_x": 2.716,
+      "pca_y": -0.099
+    },
+    {
+      "schwinger_id": "raphael wolf|2007",
+      "cluster": 0,
+      "pca_x": -1.41,
+      "pca_y": -0.642
+    },
+    {
+      "schwinger_id": "stefan wolf|2006",
+      "cluster": 0,
+      "pca_x": -0.741,
+      "pca_y": -0.895
+    },
+    {
+      "schwinger_id": "lukas wolfer|1992",
+      "cluster": 0,
+      "pca_x": -1.09,
+      "pca_y": -0.795
+    },
+    {
+      "schwinger_id": "david wuest|2000",
+      "cluster": 0,
+      "pca_x": -1.066,
+      "pca_y": -0.714
+    },
+    {
+      "schwinger_id": "lars wursch|1996",
+      "cluster": 0,
+      "pca_x": 1.096,
+      "pca_y": 0.211
+    },
+    {
+      "schwinger_id": "jonas wuthrich|2003",
+      "cluster": 0,
+      "pca_x": 0.912,
+      "pca_y": -0.115
+    },
+    {
+      "schwinger_id": "jonas (1) wuthrich|2001",
+      "cluster": 3,
+      "pca_x": -2.749,
+      "pca_y": 3.847
+    },
+    {
+      "schwinger_id": "pascal wuthrich|2004",
+      "cluster": 0,
+      "pca_x": -2.08,
+      "pca_y": -0.577
+    },
+    {
+      "schwinger_id": "simon wuthrich|2002",
+      "cluster": 0,
+      "pca_x": -0.537,
+      "pca_y": -0.89
+    },
+    {
+      "schwinger_id": "thomas (2) wuthrich|2007",
+      "cluster": 0,
+      "pca_x": 0.136,
+      "pca_y": 0.484
+    },
+    {
+      "schwinger_id": "ueli wuthrich|2007",
+      "cluster": 0,
+      "pca_x": 0.87,
+      "pca_y": 0.313
+    },
+    {
+      "schwinger_id": "gabriel wyrsch|2001",
+      "cluster": 0,
+      "pca_x": -0.681,
+      "pca_y": 0.465
+    },
+    {
+      "schwinger_id": "marco wyrsch|1993",
+      "cluster": 0,
+      "pca_x": -0.973,
+      "pca_y": -0.766
+    },
+    {
+      "schwinger_id": "silvio wyrsch|1998",
+      "cluster": 1,
+      "pca_x": 2.863,
+      "pca_y": 0.601
+    },
+    {
+      "schwinger_id": "christian wyss|1993",
+      "cluster": 1,
+      "pca_x": 1.236,
+      "pca_y": 0.723
+    },
+    {
+      "schwinger_id": "kaspar wyss|2000",
+      "cluster": 0,
+      "pca_x": -0.117,
+      "pca_y": -0.933
+    },
+    {
+      "schwinger_id": "sven wyss|2001",
+      "cluster": 0,
+      "pca_x": -0.332,
+      "pca_y": 0.365
+    },
+    {
+      "schwinger_id": "lars zaugg|2002",
+      "cluster": 1,
+      "pca_x": 1.783,
+      "pca_y": -0.595
+    },
+    {
+      "schwinger_id": "adrian zbinden|1995",
+      "cluster": 0,
+      "pca_x": 2.731,
+      "pca_y": 0.883
+    },
+    {
+      "schwinger_id": "dario zbinden|2004",
+      "cluster": 4,
+      "pca_x": 0.402,
+      "pca_y": 2.84
+    },
+    {
+      "schwinger_id": "lukas zbinden|2003",
+      "cluster": 0,
+      "pca_x": -0.863,
+      "pca_y": 0.426
+    },
+    {
+      "schwinger_id": "silvan zbinden|2004",
+      "cluster": 4,
+      "pca_x": 0.745,
+      "pca_y": 3.903
+    },
+    {
+      "schwinger_id": "christian zemp|2004",
+      "cluster": 2,
+      "pca_x": -0.817,
+      "pca_y": -0.708
+    },
+    {
+      "schwinger_id": "christian zemp|2000",
+      "cluster": 0,
+      "pca_x": -0.431,
+      "pca_y": -0.807
+    },
+    {
+      "schwinger_id": "matteo zenklusen|2005",
+      "cluster": 0,
+      "pca_x": -0.041,
+      "pca_y": -0.905
+    },
+    {
+      "schwinger_id": "fabian zgraggen|1992",
+      "cluster": 0,
+      "pca_x": -1.335,
+      "pca_y": 1.773
+    },
+    {
+      "schwinger_id": "andreas ziegler|2002",
+      "cluster": 0,
+      "pca_x": 1.024,
+      "pca_y": 1.191
+    },
+    {
+      "schwinger_id": "elias ziegler|1999",
+      "cluster": 0,
+      "pca_x": 0.764,
+      "pca_y": 0.23
+    },
+    {
+      "schwinger_id": "nicolas zimmermann|2001",
+      "cluster": 0,
+      "pca_x": -0.011,
+      "pca_y": -0.85
+    },
+    {
+      "schwinger_id": "jan zingrich|1999",
+      "cluster": 0,
+      "pca_x": -0.331,
+      "pca_y": -0.697
+    },
+    {
+      "schwinger_id": "cedric zoss|1999",
+      "cluster": 0,
+      "pca_x": 1.644,
+      "pca_y": 0.144
+    },
+    {
+      "schwinger_id": "remo zosso|1993",
+      "cluster": 0,
+      "pca_x": 0.076,
+      "pca_y": -0.875
+    },
+    {
+      "schwinger_id": "benjamin zuger|2004",
+      "cluster": 0,
+      "pca_x": -1.621,
+      "pca_y": 0.516
+    },
+    {
+      "schwinger_id": "roman zumstein|2006",
+      "cluster": 0,
+      "pca_x": 0.396,
+      "pca_y": 0.222
+    },
+    {
+      "schwinger_id": "remo zurcher|1996",
+      "cluster": 0,
+      "pca_x": -0.593,
+      "pca_y": -0.622
+    },
+    {
+      "schwinger_id": "ueli zurcher|2000",
+      "cluster": 0,
+      "pca_x": 0.862,
+      "pca_y": -1.098
+    },
+    {
+      "schwinger_id": "michael zurfluh|1999",
+      "cluster": 0,
+      "pca_x": -0.646,
+      "pca_y": -0.758
+    }
+  ],
+  "cluster_zusammenfassung": [
+    {
+      "cluster": 0,
+      "n": 566,
+      "gewicht_avg": 101.3,
+      "groesse_avg": 183.6,
+      "top_schwuenge": [
+        "Kurz",
+        "Fussstich",
+        "Hüfter"
+      ]
+    },
+    {
+      "cluster": 1,
+      "n": 31,
+      "gewicht_avg": 103.6,
+      "groesse_avg": 185.7,
+      "top_schwuenge": [
+        "Übersprung",
+        "Kurz",
+        "Hüfter"
+      ]
+    },
+    {
+      "cluster": 2,
+      "n": 36,
+      "gewicht_avg": 98.9,
+      "groesse_avg": 182.9,
+      "top_schwuenge": [
+        "Brienzer",
+        "Kurz",
+        "Fussstich"
+      ]
+    },
+    {
+      "cluster": 3,
+      "n": 26,
+      "gewicht_avg": 99.8,
+      "groesse_avg": 178.9,
+      "top_schwuenge": [
+        "innerer Haken",
+        "Kurz",
+        "Fussstich"
+      ]
+    },
+    {
+      "cluster": 4,
+      "n": 37,
+      "gewicht_avg": 100.0,
+      "groesse_avg": 181.9,
+      "top_schwuenge": [
+        "Wyberhaken",
+        "Kurz",
+        "Fussstich"
+      ]
+    }
+  ]
+}

@@ -118,6 +118,29 @@ export interface BenchmarkArtifact {
   kandidaten: BenchmarkKandidat[];
 }
 
+export interface ClusterPunkt {
+  schwinger_id: string;
+  cluster: number;
+  pca_x: number;
+  pca_y: number;
+}
+
+export interface ClusterZusammenfassung {
+  cluster: number;
+  n: number;
+  gewicht_avg: number;
+  groesse_avg: number;
+  top_schwuenge: string[];
+}
+
+export interface ClusterArtifact {
+  schema_version: string;
+  k: number;
+  silhouette: number;
+  punkte: ClusterPunkt[];
+  cluster_zusammenfassung: ClusterZusammenfassung[];
+}
+
 export interface Prognose {
   p: Record<Klasse, number>;
   quote: Record<Klasse, number>; // 1/p, informativ (FR-2, AK-2.3)

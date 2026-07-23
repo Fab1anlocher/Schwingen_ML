@@ -752,6 +752,33 @@ tbody tr:hover {
   border-bottom: none;
 }
 
+/* Schwingertypen (Clustering) */
+.typen-svg {
+  width: 100%;
+  height: auto;
+  background: var(--panel-2);
+  border-radius: 10px;
+}
+.typen-legende {
+  margin-top: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.typen-legende-zeile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.4rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  cursor: default;
+  transition: background 0.15s ease;
+}
+.typen-legende-zeile:hover {
+  background: var(--panel);
+}
+
 /* Schweiz-Karte */
 .karte-svg {
   width: 100%;

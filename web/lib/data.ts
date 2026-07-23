@@ -9,6 +9,7 @@ import type {
   KantoneArtifact,
   GauverbaendeArtifact,
   BenchmarkArtifact,
+  ClusterArtifact,
 } from "./types";
 
 async function ladeJson<T>(pfad: string): Promise<T> {
@@ -23,6 +24,7 @@ export const ladeEvents = () => ladeJson<EventsArtifact>("/data/events.json");
 export const ladeKantone = () => ladeJson<KantoneArtifact>("/data/kantone.json");
 export const ladeGauverbaende = () => ladeJson<GauverbaendeArtifact>("/data/gauverbaende.json");
 export const ladeBenchmark = () => ladeJson<BenchmarkArtifact>("/data/benchmark.json");
+export const ladeCluster = () => ladeJson<ClusterArtifact>("/data/cluster.json");
 
 export async function ladeSchwinger(): Promise<Schwinger[]> {
   const obj = await ladeJson<{ schwinger: Schwinger[] }>("/data/schwinger.json");

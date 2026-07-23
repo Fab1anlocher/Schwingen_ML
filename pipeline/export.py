@@ -281,6 +281,21 @@ def exportiere_kopf_an_kopf(gaenge: list) -> None:
     _write(config.WEB_SERVER_DATA_DIR / "kopf_an_kopf.json", obj)
 
 
+def exportiere_cluster(cluster_res: dict | None) -> None:
+    """cluster.json: Schwingertypen (K-Means über Physis+Stil, s. pipeline/clustering.py).
+
+    None wenn zu wenig Schwinger mit Profildaten (z.B. synthetische Demodaten) --
+    dann bleibt eine evtl. vorher exportierte Datei unangetastet (kein Überschreiben
+    mit leerem/irreführendem Zustand, gleiche Konvention wie exportiere_benchmark).
+    """
+    if cluster_res is None:
+        return
+    _dump_beide("cluster.json", {
+        "schema_version": config.SCHEMA_VERSION,
+        **cluster_res,
+    })
+
+
 _KANDIDAT_LABELS = {
     "kranz_heuristik": "Kranz-Heuristik",
     "elo_baseline": "Elo-Baseline",

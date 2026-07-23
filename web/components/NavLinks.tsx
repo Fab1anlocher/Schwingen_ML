@@ -7,6 +7,7 @@ const NAV = [
   { href: "/", label: "Prognose" },
   { href: "/feste", label: "Feste" },
   { href: "/schwinger", label: "Schwinger" },
+  { href: "/typen", label: "Typen" },
   { href: "/karte", label: "Karte" },
   { href: "/analyse", label: "Analyse" },
 ];

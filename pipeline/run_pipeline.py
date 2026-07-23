@@ -7,7 +7,8 @@ Ablauf:
   4. Merkmale bilden (leak-frei, augmentiert).
   5. Logistic Regression trainieren + zeitlich evaluieren.
   6. 4-Wege-Benchmark (Heuristik/Elo/ML ohne Elo/ML komplett) auf demselben Holdout.
-  7. Artefakte als JSON exportieren.
+  7. Schwingertypen per K-Means-Clustering (Physis + Stil).
+  8. Artefakte als JSON exportieren.
 
 Reproduzierbar über festen SEED (NFR-3). Aufruf:
     python -m pipeline.run_pipeline [--source synth|scrape]
@@ -25,6 +26,7 @@ from .ratings import fahre_elo_durch, bewerte_baseline, berechne_ueberraschung
 from .features import baue_features
 from .train import trainiere, feature_wichtigkeit
 from .benchmark import fuehre_benchmark_durch
+from .clustering import berechne_cluster
 
 
 def _lade_daten(source: str):
@@ -83,31 +85,31 @@ def _aktuelle_form(gaenge) -> dict:
 
 def main(source: str = "synth") -> dict:
     config.ensure_dirs()
-    print(f"[1/7] Lade Daten (Quelle={source}) ...", flush=True)
+    print(f"[1/8] Lade Daten (Quelle={source}) ...", flush=True)
     schwinger, events, roh = _lade_daten(source)
     print(f"      {len(schwinger)} Schwinger, {len(events)} Feste, {len(roh)} Roh-Einträge", flush=True)
 
-    print("[2/7] Labels ableiten + deduplizieren + validieren ...", flush=True)
+    print("[2/8] Labels ableiten + deduplizieren + validieren ...", flush=True)
     gaenge, warnungen = dedupliziere(roh)
     print(f"      {len(gaenge)} deduplizierte Gänge, {len(warnungen)} Warnungen", flush=True)
     _pruefe_datenvolumen(source, len(gaenge))
 
-    print("[3/7] Elo-Baseline (chronologisch, leak-frei) ...", flush=True)
+    print("[3/8] Elo-Baseline (chronologisch, leak-frei) ...", flush=True)
     elo_modell, snapshots = fahre_elo_durch(gaenge)
     baseline = bewerte_baseline(gaenge, snapshots, config.KLASSEN)
     print(f"      Baseline Log-Loss={baseline['log_loss']:.4f} Acc={baseline['accuracy']:.4f}", flush=True)
 
-    print("[4/7] Merkmale bilden (leak-frei, augmentiert) ...", flush=True)
+    print("[4/8] Merkmale bilden (leak-frei, augmentiert) ...", flush=True)
     X, y, meta = baue_features(gaenge, snapshots, schwinger, augment=True)
     print(f"      {len(X)} Trainingsbeispiele x {len(X[0]) if X else 0} Merkmale", flush=True)
 
-    print("[5/7] Logistic Regression trainieren + zeitlich evaluieren ...", flush=True)
+    print("[5/8] Logistic Regression trainieren + zeitlich evaluieren ...", flush=True)
     train_res = trainiere(X, y, meta)
     fi = feature_wichtigkeit(train_res["modell"], train_res["sigma"])
     print(f"      Modell   Log-Loss={train_res['log_loss']:.4f} "
           f"Acc={train_res['accuracy']:.4f} (Holdout {train_res['holdout_jahr']})", flush=True)
 
-    print("[6/7] 4-Wege-Benchmark (Heuristik/Elo/ML ohne Elo/ML komplett) ...", flush=True)
+    print("[6/8] 4-Wege-Benchmark (Heuristik/Elo/ML ohne Elo/ML komplett) ...", flush=True)
     benchmark_res = fuehre_benchmark_durch(X, y, meta)
     if benchmark_res is None:
         print("      übersprungen (Datenbasis deckt nur eine Saison ab, kein sinnvoller Split)", flush=True)
@@ -115,7 +117,15 @@ def main(source: str = "synth") -> dict:
         for key, werte in benchmark_res["kandidaten"].items():
             print(f"      {key:16s} Acc={werte['accuracy']:.4f}  Brier={werte['brier_score']:.4f}", flush=True)
 
-    print("[7/7] Artefakte exportieren ...", flush=True)
+    print("[7/8] Schwingertypen (K-Means über Physis+Stil) ...", flush=True)
+    cluster_res = berechne_cluster(schwinger)
+    if cluster_res is None:
+        print("      übersprungen (zu wenig Schwinger mit Gewicht+Grösse)", flush=True)
+    else:
+        print(f"      k={cluster_res['k']}  Silhouette={cluster_res['silhouette']:.3f}  "
+              f"({len(cluster_res['punkte'])} Schwinger)", flush=True)
+
+    print("[8/8] Artefakte exportieren ...", flush=True)
     form_aktuell = _aktuelle_form(gaenge)
     ueberraschung = berechne_ueberraschung(gaenge, snapshots)
     export.exportiere_modell(train_res, fi)
@@ -123,6 +133,7 @@ def main(source: str = "synth") -> dict:
     export.exportiere_schwinger(schwinger, form_aktuell, ueberraschung)
     export.exportiere_kopf_an_kopf(gaenge)
     export.exportiere_kantone(schwinger, elo_modell, gaenge)
+    export.exportiere_cluster(cluster_res)
     if benchmark_res is not None:
         export.exportiere_benchmark(benchmark_res)
     # Kommende Feste (FR-2): bei echten Daten aus dem Agenda-Scraper.
