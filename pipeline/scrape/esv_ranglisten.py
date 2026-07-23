@@ -30,7 +30,7 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 _TITEL_RE = re.compile(r"^(?P<name>.*?)\s+vom\s+(?P<d>\d{2})\.(?P<m>\d{2})\.(?P<y>\d{4})")
-_SYMBOL_VON_ERGEBNIS = {"win": "+", "draw": "-", "loss": "o"}
+_ERGEBNIS_VON_SYMBOL = {"+": "win", "-": "draw", "o": "loss"}
 
 # --- Fest-Stufen (Hierarchie, für Elo-Gewichtung; s. Projekt-Memory) --------
 # Reihenfolge der Prüfung ist wichtig: eidgenössisch vor berg vor teilverband
@@ -229,16 +229,15 @@ def parse_rangliste(html: str, anlass_id: Optional[str] = None) -> EsvRangliste:
         uid = det.get("data-detail-uid")
         if not uid:
             continue
-        zelle = det.find("td", class_="gang-score-cell")
-        ergebnis = None
-        if zelle:
-            for k in ("win", "draw", "loss"):
-                if k in (zelle.get("class") or []):
-                    ergebnis = k
-                    break
+        # Massgeblich ist das gang-sym (+/-/o) aus Sicht des Zeilen-Schwingers,
+        # NICHT die CSS-Klasse gang-score-cell win/draw/loss -- die ist bei esv
+        # unzuverlässig (gestellt/verloren vertauscht; das Symbol stimmt dagegen
+        # mit der Note überein und ergibt spiegelbildliche Perspektiven).
+        sym_el = det.find("span", class_="gang-sym")
+        symbol = sym_el.get_text(strip=True) if sym_el else ""
+        ergebnis = _ERGEBNIS_VON_SYMBOL.get(symbol)
         if ergebnis is None:
             continue
-        sym_el = det.find("span", class_="gang-sym")
         pt_el = det.find("span", class_="gang-pt")
         gegner_td = det.find("td", class_="gang-gegner")
         ga = gegner_td.find("a") if gegner_td else None
@@ -249,7 +248,7 @@ def parse_rangliste(html: str, anlass_id: Optional[str] = None) -> EsvRangliste:
                 gegner_slug=_slug_aus_href(ga.get("href")) if ga else None,
                 gegner_name=_name_ohne_kennung(ga) if ga else (gegner_td.get_text(" ", strip=True) if gegner_td else ""),
                 gegner_verband=gverband_td.get_text(strip=True) if gverband_td else None,
-                symbol=_SYMBOL_VON_ERGEBNIS.get(ergebnis, "?"),
+                symbol=symbol,
                 ergebnis=ergebnis,
                 punkte=_float(pt_el.get_text()) if pt_el else None,
             )
