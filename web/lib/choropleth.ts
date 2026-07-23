@@ -7,12 +7,15 @@
 // (ungefähr) gleich viele Kantone/Gauverbände statt gleich breite Wertspannen,
 // robust gegenüber schiefen Verteilungen (z.B. viele Kantone mit 0 Top-Schwingern).
 
+// Sequenzielle Grün-Stufen (hell→dunkel), auf hellem Papier-Hintergrund
+// kalibriert: die hellste Stufe ist noch klar von der Hintergrundfarbe
+// unterscheidbar (nicht mehr das dunkle Theme von früher).
 export const KLASSEN_FARBEN = [
-  "hsl(157 26% 80%)",
-  "hsl(157 30% 63%)",
-  "hsl(157 36% 46%)",
-  "hsl(157 44% 32%)",
-  "hsl(157 52% 19%)",
+  "#c3e3d3",
+  "#8ccbb0",
+  "#4ea987",
+  "#2c7e62",
+  "#184f3d",
 ];
 
 /** Quantil-Grenzen für n Klassen; dedupliziert (z.B. bei vielen Nullen fallen

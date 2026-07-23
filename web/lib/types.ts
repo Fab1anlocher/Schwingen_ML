@@ -173,6 +173,8 @@ export interface ClusterArtifact {
 export interface Prognose {
   p: Record<Klasse, number>;
   quote: Record<Klasse, number>; // 1/p, informativ (FR-2, AK-2.3)
-  beitraege: { label: string; richtung: "a" | "b"; staerke: number }[];
+  /** staerke = Prozentpunkte, um die sich p(Sieg A) ändern würde, gäbe es
+   * diesen Merkmalsunterschied nicht (Gegenprobe mit z=0 für dieses Merkmal). */
+  beitraege: { titel: string; unterzeile: string; richtung: "a" | "b"; staerke: number }[];
   unsicher: boolean; // FR-1 / AK-1.2
 }

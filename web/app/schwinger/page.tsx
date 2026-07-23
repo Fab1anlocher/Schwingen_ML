@@ -81,7 +81,8 @@ export default function SchwingerListe() {
       <p className="subtitle">
         {schwinger.length} erfasste Schwinger, nach Elo-Rating (Power-Rating) sortiert — kein
         offizielles ESV-Ranking, sondern die modellinterne Einstufung. Suchen, filtern oder
-        auf einen Namen klicken für Profildetails.
+        auf einen Namen klicken für Profildetails. Kränze zählen nur Feste seit 2023 (Beginn
+        unserer Datenbasis) — nicht die ganze Karriere.
       </p>
 
       <div className="panel" style={{ marginBottom: "1.25rem" }}>
@@ -145,7 +146,9 @@ export default function SchwingerListe() {
               <th>Jg.</th>
               <th title="Höchste je erreichte Kranzstufe">Kranz</th>
               <th>Elo</th>
-              <th title="Anzahl Feste mit Kranz">Kränze</th>
+              <th title="Anzahl Feste mit Kranz seit 2023 (Beginn der Datenbasis) -- nicht die ganze Karriere">
+                Kränze
+              </th>
               <th>Form</th>
             </tr>
           </thead>
@@ -187,7 +190,7 @@ export default function SchwingerListe() {
                   </tr>
                   {offen === s.id && (
                     <tr>
-                      <td colSpan={7} style={{ background: "var(--panel-2)" }}>
+                      <td colSpan={7} style={{ background: "var(--surface-2)" }}>
                         <SchwingerDetail schwinger={s} alle={schwinger} cluster={cluster} />
                       </td>
                     </tr>
@@ -249,7 +252,7 @@ function SchwingerDetail({
       {index !== null && s.n_bewertete_gaenge > 0 && (
         <div style={{ marginTop: "0.5rem" }}>
           <strong>Überraschungs-Index:</strong>{" "}
-          <span style={{ color: index >= 0 ? "#7fd6a8" : "#f0c675" }}>
+          <span style={{ color: index >= 0 ? "var(--accent-2)" : "#b26a00" }}>
             {index >= 0 ? "+" : ""}
             {(index * 100).toFixed(1)}%
           </span>{" "}

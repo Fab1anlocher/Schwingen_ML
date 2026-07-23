@@ -89,7 +89,7 @@ export function SchweizKarte({
 
   const farbeFuer = (stat: KantonStatistik | undefined) => {
     const wert = stat ? wertVon(stat, metrikKey) : null;
-    if (wert === null || grenzen.length < 2) return "#232b35"; // keine Daten
+    if (wert === null || grenzen.length < 2) return "#e0ddd2"; // keine Daten
     return KLASSEN_FARBEN[klasseFuer(wert, grenzen)];
   };
 
@@ -180,7 +180,7 @@ export function SchweizKarte({
           </div>
         ))}
         <div className="karte-legende-klasse">
-          <i className="karte-legende-swatch" style={{ background: "#232b35" }} />
+          <i className="karte-legende-swatch" style={{ background: "#e0ddd2" }} />
           <span className="muted small">keine Daten</span>
         </div>
       </div>

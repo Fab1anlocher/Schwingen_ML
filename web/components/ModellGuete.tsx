@@ -67,8 +67,8 @@ export function VergleichBalken({ metriken }: { metriken: Metrik[] }) {
 }
 
 const BENCHMARK_REIHENFOLGE = ["kranz_heuristik", "elo_baseline", "ml_ohne_elo", "ml_komplett"];
-const CHAMPION_FARBE = "linear-gradient(90deg, var(--accent-2), color-mix(in srgb, var(--accent-2) 60%, #8fe0c0))";
-const VERGLEICH_FARBE = "#5a6674";
+const CHAMPION_FARBE = "var(--accent-2)";
+const VERGLEICH_FARBE = "#9b978c";
 
 /** 4-Wege-Vergleich Kranz-Heuristik / Elo-Baseline / ML ohne Elo / ML komplett.
  * Champion (ML komplett, Produktionsmodell) ist immer gleich hervorgehoben
@@ -175,7 +175,7 @@ export function Konfusionsmatrix({
                     <td
                       key={j}
                       className={`km-cell${richtig ? " km-cell-diag" : ""}`}
-                      style={{ background: `rgba(61, 139, 110, ${0.08 + anteil * 0.72})` }}
+                      style={{ background: `rgba(18, 135, 106, ${0.06 + anteil * 0.6})` }}
                       title={`${wert} von ${summe} tatsächlichen "${LABELS[klassen[i]] ?? klassen[i]}"-Gängen als "${
                         LABELS[klassen[j]] ?? klassen[j]
                       }" vorhergesagt (${(anteilZeile * 100).toFixed(0)}%)`}

@@ -85,7 +85,7 @@ export function StreudiagrammMitTrend({
             x2={px1}
             y1={py0 + f * (py1 - py0)}
             y2={py0 + f * (py1 - py0)}
-            stroke="var(--border-soft)"
+            stroke="var(--border)"
             strokeWidth={1}
           />
         ))}

@@ -16,7 +16,6 @@ export default function Home() {
   const [aId, setAId] = useState("");
   const [bId, setBId] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [kopiert, setKopiert] = useState(false);
   const [eventInfo, setEventInfo] = useState<Record<string, { name: string; datum: string }>>({});
   const [h2hTreffer, setH2hTreffer] = useState<H2HTreffer[] | null>(null);
 
@@ -110,47 +109,50 @@ export default function Home() {
   if (error) return <p className="warn">Fehler beim Laden: {error}</p>;
   if (!model) return <p className="loading">Modell wird geladen …</p>;
 
+  const a = byId[aId];
+  const b = byId[bId];
+
   return (
     <div>
-      <h1>Paar-Prognose</h1>
+      <span className="eyebrow">Paar-Prognose</span>
+      <h1>Wer schwingt obenaus?</h1>
       <p className="subtitle">
-        Wähle zwei Schwinger — das Modell schätzt Sieg A / Gestellt / Sieg B und erklärt,
+        Zwei Schwinger wählen — das Modell schätzt Sieg A, Gestellt und Sieg B, und legt offen,
         welche Merkmale den Ausschlag geben.
       </p>
 
-      <div className="panel">
-        <div className="grid-2">
-          <SchwingerSuche id="a" label="Schwinger A" schwinger={schwinger} value={aId} onChange={setAId} />
-          <SchwingerSuche id="b" label="Schwinger B" schwinger={schwinger} value={bId} onChange={setBId} />
+      <hr className="rule" />
+
+      <div className="auswahl">
+        <div className="auswahl-zelle">
+          <div className="auswahl-label">
+            <span className="auswahl-marker auswahl-marker-a" />
+            Schwinger A
+          </div>
+          <SchwingerSuche id="a" label="Schwinger A" schwinger={schwinger} value={aId} onChange={setAId} hideLabel />
+          <div className="auswahl-meta">{metaZeile(a)}</div>
         </div>
-        <div className="row" style={{ marginTop: "0.7rem" }}>
+        <div className="auswahl-swap">
           <button
             type="button"
-            className="badge tausch-btn"
+            className="swap-btn"
             title="Schwinger A und B tauschen"
+            aria-label="Schwinger A und B tauschen"
             onClick={() => {
               setAId(bId);
               setBId(aId);
             }}
           >
-            ⇄ tauschen
+            ⇄
           </button>
-          <button
-            type="button"
-            className={`badge teilen-btn${kopiert ? " teilen-kopiert" : ""}`}
-            title="Link zu diesem Vergleich kopieren"
-            onClick={async () => {
-              try {
-                await navigator.clipboard.writeText(window.location.href);
-                setKopiert(true);
-                setTimeout(() => setKopiert(false), 1800);
-              } catch {
-                /* Zwischenablage evtl. nicht verfügbar — kein Absturz nötig. */
-              }
-            }}
-          >
-            {kopiert ? "✓ Link kopiert" : "🔗 Link teilen"}
-          </button>
+        </div>
+        <div className="auswahl-zelle">
+          <div className="auswahl-label">
+            <span className="auswahl-marker auswahl-marker-b" />
+            Schwinger B
+          </div>
+          <SchwingerSuche id="b" label="Schwinger B" schwinger={schwinger} value={bId} onChange={setBId} hideLabel />
+          <div className="auswahl-meta">{metaZeile(b)}</div>
         </div>
       </div>
 
@@ -160,55 +162,48 @@ export default function Home() {
         </div>
       )}
 
-      {prognose && (
-        <div style={{ marginTop: "1.5rem" }}>
-          <PrognoseView
-            prognose={prognose}
-            nameA={byId[aId]?.name ?? "A"}
-            nameB={byId[bId]?.name ?? "B"}
-          />
-          <Spannungsanzeige p={prognose.p} />
-        </div>
-      )}
-
-      {prognose && (
+      {prognose && eingaben && (
         <>
-          <h2>Kopf an Kopf</h2>
-          <div className="panel">
-            <KopfAnKopf
-              treffer={h2hTreffer}
-              nameA={byId[aId]?.name ?? "A"}
-              nameB={byId[bId]?.name ?? "B"}
-              eventInfo={eventInfo}
-            />
+          <div className="vs-banner">
+            <div className="vs-seite vs-seite-a">
+              <div className="vs-rolle">Schwinger A</div>
+              <div className="vs-name">{eingaben.a.name}</div>
+              <div className="vs-meta">
+                {eingaben.a.teilverband ?? "—"} · Elo {Math.round(eingaben.eloA)}
+              </div>
+            </div>
+            <div className="vs-mitte">vs</div>
+            <div className="vs-seite vs-seite-b">
+              <div className="vs-rolle">Schwinger B</div>
+              <div className="vs-name">{eingaben.b.name}</div>
+              <div className="vs-meta">
+                {eingaben.b.teilverband ?? "—"} · Elo {Math.round(eingaben.eloB)}
+              </div>
+            </div>
           </div>
+
+          <PrognoseView prognose={prognose} nameA={eingaben.a.name} nameB={eingaben.b.name} />
+
+          <h2>Kopf an Kopf</h2>
+          <KopfAnKopf
+            treffer={h2hTreffer}
+            nameA={eingaben.a.name}
+            nameB={eingaben.b.name}
+            eventInfo={eventInfo}
+          />
         </>
       )}
-
     </div>
   );
 }
 
-/** Fairness-/Spannungsgrad: normierte Entropie der 3-Klassen-Wahrscheinlichkeit.
- * 100% = völlig offen (alle drei gleich wahrscheinlich), 0% = eindeutiger Favorit. */
-function spannungsgrad(p: Record<string, number>): number {
-  const werte = Object.values(p).filter((v) => v > 0);
-  const entropie = -werte.reduce((s, v) => s + v * Math.log(v), 0);
-  return entropie / Math.log(3);
-}
-
-function Spannungsanzeige({ p }: { p: Record<string, number> }) {
-  const grad = spannungsgrad(p);
-  const label =
-    grad > 0.85 ? "Hochspannung — völlig offen" : grad > 0.6 ? "Ausgeglichenes Duell" : grad > 0.35 ? "Klarer Favorit" : "Eindeutige Sache";
-  return (
-    <div className="spannung-wrap" title="Basiert auf der Entropie der Prognose (0 = klar, 100% = völlig offen)">
-      <div className="spannung-track">
-        <div className="spannung-fill" style={{ width: `${(grad * 100).toFixed(0)}%` }} />
-      </div>
-      <span className="spannung-label">
-        ⚡ {label} ({(grad * 100).toFixed(0)}%)
-      </span>
-    </div>
-  );
+/** Kurze Metazeile unter dem Auswahlfeld: Teilverband · Jahrgang · Kränze. */
+function metaZeile(s: Schwinger | undefined): string {
+  if (!s) return "";
+  const teile: string[] = [];
+  if (s.teilverband) teile.push(s.teilverband);
+  if (s.jahrgang) teile.push(`Jg. ${s.jahrgang}`);
+  if (s.anzahl_kraenze > 0)
+    teile.push(`${s.anzahl_kraenze} Kranz${s.anzahl_kraenze === 1 ? "" : "gewinne"}`);
+  return teile.join(" · ");
 }

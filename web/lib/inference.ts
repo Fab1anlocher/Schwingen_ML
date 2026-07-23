@@ -60,6 +60,31 @@ function softmax(logits: number[]): number[] {
   return exp.map((e) => e / sum);
 }
 
+function wahrscheinlichkeiten(model: ModelArtifact, z: number[]): number[] {
+  const logits = model.coef.map(
+    (row, k) => row.reduce((s, w, i) => s + w * z[i], 0) + model.intercept[k]
+  );
+  return softmax(logits);
+}
+
+// Zweizeilige Beschriftung je Merkmal (Titel + neutrale Unterzeile). Die
+// Richtung (wem es nützt) kommt datengetrieben aus dem Modell, nicht aus dem
+// Text hier -- die Unterzeile beschreibt nur, was das Merkmal misst.
+const BEITRAG_TEXT: Record<string, { titel: string; unter: string }> = {
+  rating_diff: { titel: "Rating-Vorsprung", unter: "Elo-Differenz" },
+  rating_abstand: { titel: "Ausgeglichenheit", unter: "Wie nah die Ratings liegen" },
+  form_diff: { titel: "Aktuelle Form", unter: "Letzte Gänge" },
+  kranz_diff: { titel: "Kranzstärke", unter: "Kranzstatus" },
+  alter_diff: { titel: "Frische", unter: "Altersunterschied" },
+  gewicht_diff: { titel: "Gewicht & Physis", unter: "Körpermasse" },
+  groesse_diff: { titel: "Körpergrösse", unter: "Grössenunterschied" },
+  erfahrung_diff: { titel: "Erfahrung", unter: "Anzahl Gänge" },
+  same_teilverband: { titel: "Teilverband", unter: "Gleicher Verband" },
+  schwung_overlap: { titel: "Ähnlicher Stil", unter: "Gemeinsame Schwünge" },
+  schwung_count_diff: { titel: "Schwung-Vielfalt", unter: "Anzahl bevorzugter Schwünge" },
+  kopf_an_kopf: { titel: "Direkte Duelle", unter: "Bisherige Begegnungen" },
+};
+
 /** Vollständige Prognose inkl. Erklärbarkeit (FR-1, FR-3). */
 export function prognostiziere(
   model: ModelArtifact,
@@ -75,11 +100,7 @@ export function prognostiziere(
   const { mu, sigma } = model.standardisierung;
   const z = x.map((xi, i) => (xi - mu[i]) / (sigma[i] || 1));
 
-  // Logits je Klasse.
-  const logits = model.coef.map(
-    (row, k) => row.reduce((s, w, i) => s + w * z[i], 0) + model.intercept[k]
-  );
-  const probs = softmax(logits);
+  const probs = wahrscheinlichkeiten(model, z);
   const p: Record<Klasse, number> = {} as any;
   model.klassen.forEach((kl, i) => (p[kl] = probs[i]));
 
@@ -87,21 +108,29 @@ export function prognostiziere(
   const quote: Record<Klasse, number> = {} as any;
   (Object.keys(p) as Klasse[]).forEach((kl) => (quote[kl] = 1 / Math.max(p[kl], 1e-6)));
 
-  // Erklärbarkeit (FR-3): Beitrag jedes Merkmals zur A-vs-B-Log-Odds.
-  const iA = model.klassen.indexOf("sieg_a");
-  const iB = model.klassen.indexOf("sieg_b");
+  // Erklärbarkeit (FR-3): Beitrag jedes Merkmals in Prozentpunkten von
+  // p(Sieg A) -- Gegenprobe "was wäre p(Sieg A), wenn genau dieses Merkmal
+  // keinen Unterschied machen würde (z=0), alle anderen unverändert". Direkt
+  // in derselben Einheit wie die Hauptzahlen oben auf der Seite, statt eines
+  // abstrakten, nicht weiter interpretierbaren Koeffizienten-Produkts.
+  const iSiegA = model.klassen.indexOf("sieg_a");
   const beitraege = model.features
     .map((feat, i) => {
-      const contrib = (model.coef[iA][i] - model.coef[iB][i]) * z[i];
+      const zOhneMerkmal = z.slice();
+      zOhneMerkmal[i] = 0;
+      const probsOhne = wahrscheinlichkeiten(model, zOhneMerkmal);
+      const einflussPp = (probs[iSiegA] - probsOhne[iSiegA]) * 100;
+      const text = BEITRAG_TEXT[feat] ?? { titel: model.feature_labels[feat] ?? feat, unter: "" };
       return {
-        label: model.feature_labels[feat] ?? feat,
-        richtung: (contrib >= 0 ? "a" : "b") as "a" | "b",
-        staerke: Math.abs(contrib),
+        titel: text.titel,
+        unterzeile: text.unter,
+        richtung: (einflussPp >= 0 ? "a" : "b") as "a" | "b",
+        staerke: Math.abs(einflussPp),
       };
     })
-    .filter((c) => c.staerke > 1e-6)
+    .filter((c) => c.staerke > 0.1)
     .sort((x, y) => y.staerke - x.staerke)
-    .slice(0, 4);
+    .slice(0, 6);
 
   const minG = model.config.min_gaenge_fuer_sicherheit;
   const unsicher = nA < minG || nB < minG;

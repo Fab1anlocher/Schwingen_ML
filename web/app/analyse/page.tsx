@@ -184,11 +184,11 @@ export default function Analyse() {
           />
           <p style={{ marginTop: "0.9rem" }}>
             {report.schlaegt_baseline ? (
-              <span className="badge" style={{ color: "#7fd6a8", borderColor: "#3d8b6e" }}>
+              <span className="badge" style={{ color: "var(--accent-2)", borderColor: "rgba(18,135,106,0.4)" }}>
                 ✓ schlägt Baseline um {report.verbesserung_log_loss.toFixed(4)} Log-Loss
               </span>
             ) : (
-              <span className="badge" style={{ color: "#f0c675" }}>
+              <span className="badge" style={{ color: "#b26a00" }}>
                 ✗ schlägt Baseline (noch) nicht
               </span>
             )}

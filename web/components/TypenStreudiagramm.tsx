@@ -11,8 +11,8 @@ const PAD = 16;
 // nie neu vergeben wenn sich die Punktzahl ändert) — erste zwei sind die
 // bestehenden Marken-Akzentfarben, Rest ergänzt für bis zu 8 Cluster.
 export const CLUSTER_FARBEN = [
-  "#d1502f", "#45a17f", "#e3ab45", "#5599e6",
-  "#a45de3", "#e35d9c", "#5ec8d8", "#c2c94a",
+  "#d1502f", "#1f8a63", "#b5801a", "#356fbf",
+  "#8148c9", "#c94f8b", "#1f97a8", "#7c8526",
 ];
 
 export function TypenStreudiagramm({

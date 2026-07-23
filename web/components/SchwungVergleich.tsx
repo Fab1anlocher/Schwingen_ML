@@ -71,7 +71,7 @@ export function SchwungVergleich({
                 cy={y}
                 r={5.5}
                 fill={ueberdurchschnitt ? "var(--accent-2)" : "var(--muted-2)"}
-                stroke="var(--panel)"
+                stroke="var(--surface)"
                 strokeWidth={1.5}
               >
                 <title>

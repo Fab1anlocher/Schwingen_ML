@@ -34,12 +34,14 @@ export function SchwingerSuche({
   schwinger,
   value,
   onChange,
+  hideLabel = false,
 }: {
   id: string;
   label: string;
   schwinger: Schwinger[];
   value: string;
   onChange: (id: string) => void;
+  hideLabel?: boolean;
 }) {
   const [query, setQuery] = useState("");
   const [offen, setOffen] = useState(false);
@@ -82,14 +84,17 @@ export function SchwingerSuche({
 
   return (
     <div className="such-wrap">
-      <label className="field" htmlFor={id}>
-        {label}
-      </label>
+      {!hideLabel && (
+        <label className="field" htmlFor={id}>
+          {label}
+        </label>
+      )}
       <input
         ref={inputRef}
         id={id}
         type="text"
         autoComplete="off"
+        aria-label={hideLabel ? label : undefined}
         placeholder={ausgewaehlt ? anzeigeName(ausgewaehlt) : "Name suchen …"}
         value={query}
         onFocus={() => setOffen(true)}
