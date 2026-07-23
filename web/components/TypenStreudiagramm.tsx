@@ -10,7 +10,7 @@ const PAD = 16;
 // Feste, nicht rotierende Farbzuordnung je Cluster-Index (Farbe = Identität,
 // nie neu vergeben wenn sich die Punktzahl ändert) — erste zwei sind die
 // bestehenden Marken-Akzentfarben, Rest ergänzt für bis zu 8 Cluster.
-const CLUSTER_FARBEN = [
+export const CLUSTER_FARBEN = [
   "#d1502f", "#45a17f", "#e3ab45", "#5599e6",
   "#a45de3", "#e35d9c", "#5ec8d8", "#c2c94a",
 ];

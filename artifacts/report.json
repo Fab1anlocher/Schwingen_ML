@@ -1,26 +1,26 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-07-23T11:15:41.274902+00:00",
-  "lauf_id": "20260723T111541Z",
+  "erstellt": "2026-07-23T12:19:46.133286+00:00",
+  "lauf_id": "20260723T121946Z",
   "seed": 42,
   "datenbasis": {
-    "n_gaenge": 125553,
+    "n_gaenge": 127020,
     "n_schwinger": 2890
   },
   "holdout_jahr": 2026,
-  "n_train": 190304,
+  "n_train": 193238,
   "n_test": 60798,
   "modell": {
-    "log_loss": 0.8015,
+    "log_loss": 0.8019,
     "accuracy": 0.6522
   },
   "baseline_elo": {
-    "log_loss": 0.9028,
-    "accuracy": 0.6173
+    "log_loss": 0.9022,
+    "accuracy": 0.6177
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0349,
-  "verbesserung_log_loss": 0.1013,
+  "accuracy_gg_baseline": 0.0345,
+  "verbesserung_log_loss": 0.1003,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -28,19 +28,19 @@
   ],
   "konfusionsmatrix": [
     [
-      19452,
+      19456,
       473,
-      4150
+      4146
     ],
     [
-      5948,
-      752,
-      5948
+      5953,
+      742,
+      5953
     ],
     [
-      4151,
+      4147,
       473,
-      19451
+      19455
     ]
   ],
   "erfolgskriterien": {
@@ -100,5 +100,5 @@
     "schlussgang-21055 erb roger|?/ulrich florian|?: nur eine Perspektive vorhanden",
     "schlussgang-21055 luis hasler|2002/ulrich florian|?: nur eine Perspektive vorhanden"
   ],
-  "n_parsing_warnungen": 20715
+  "n_parsing_warnungen": 21044
 }

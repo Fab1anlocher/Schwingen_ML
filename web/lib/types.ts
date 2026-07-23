@@ -130,7 +130,19 @@ export interface ClusterZusammenfassung {
   n: number;
   gewicht_avg: number;
   groesse_avg: number;
+  /** Gewicht / (Grösse/100)² — BMI-artiger Kompaktheits-Index. */
+  kompaktheit_avg: number;
   top_schwuenge: string[];
+  /** Menschenlesbarer Satz: was diesen Cluster am stärksten vom Durchschnitt
+   * unterscheidet (grösster |z-Wert| des Zentrums über alle Merkmale). */
+  auszeichnung: string;
+  /** Die 3 Schwinger, die im standardisierten Merkmalsraum am nächsten am
+   * Cluster-Zentrum liegen — konkrete "typische Vertreter" dieses Typs. */
+  typische_vertreter: string[];
+  /** Teilverband, der in diesem Cluster deutlich überrepräsentiert ist
+   * gegenüber der Gesamtverteilung; null wenn keiner klar heraussticht.
+   * Rein beschreibend, fliesst NICHT ins Clustering ein. */
+  teilverband_schwerpunkt: string | null;
 }
 
 export interface AehnlichkeitsTreffer {
@@ -142,6 +154,9 @@ export interface ClusterArtifact {
   schema_version: string;
   k: number;
   silhouette: number;
+  /** Merkmalsnamen in Spaltenreihenfolge (Gewicht/Grösse/Kompaktheit + die je
+   * nach Datenlage automatisch gewählten häufigsten Schwünge). */
+  merkmale: string[];
   punkte: ClusterPunkt[];
   cluster_zusammenfassung: ClusterZusammenfassung[];
   /** KNN im selben standardisierten Merkmalsraum wie das Clustering (Physis+Stil,

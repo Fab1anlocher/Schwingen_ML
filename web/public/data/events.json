@@ -442,6 +442,14 @@
       "ort": "Kiental"
     },
     {
+      "id": "schlussgang-22403",
+      "name": "Brünig-Schwinget 2023",
+      "datum": "2023-07-30",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Brünig Passhöhe"
+    },
+    {
       "id": "schlussgang-22406",
       "name": "Sertig-Schwinget Davos 2023",
       "datum": "2023-07-30",
@@ -826,6 +834,22 @@
       "ort": "Oberarth"
     },
     {
+      "id": "schlussgang-22323",
+      "name": "Surentaler Frühjahrsschwinget Sursee 2024",
+      "datum": "2024-04-13",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sursee"
+    },
+    {
+      "id": "schlussgang-32686",
+      "name": "Abendschwinget Alterswil 2024",
+      "datum": "2024-04-13",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Alterswil"
+    },
+    {
       "id": "schlussgang-37059",
       "name": "Frühlingsschwinget Vinelz 2024",
       "datum": "2024-04-13",
@@ -1208,6 +1232,14 @@
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
       "ort": "Davos"
+    },
+    {
+      "id": "schlussgang-22265",
+      "name": "Nordwestschweizer Schwingfest Lausen 2024",
+      "datum": "2024-06-16",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lausen"
     },
     {
       "id": "schlussgang-22267",
@@ -2408,6 +2440,14 @@
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
       "ort": "Neuchâtel"
+    },
+    {
+      "id": "schlussgang-21068",
+      "name": "Rigi-Schwinget 2025",
+      "datum": "2025-07-13",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Rigi Staffel"
     },
     {
       "id": "schlussgang-35143",

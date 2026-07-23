@@ -89,6 +89,17 @@ def _zu_float(wert) -> float | None:
         return None
 
 
+def _koerpermass(wert, min_wert: float, max_wert: float) -> float | None:
+    """Wie _zu_float, aber verwirft physisch unplausible Werte (z.B. Gross-/
+    Gewicht-Felder auf schlussgang.ch vertauscht -- real beobachtet: ein
+    Profil mit "Grösse: 97cm"). Grosszügige Grenzen, nur um Dateneingabe-
+    fehler abzufangen, nicht um echte Ausreisser zu zensieren."""
+    zahl = _zu_float(wert)
+    if zahl is None or not (min_wert <= zahl <= max_wert):
+        return None
+    return zahl
+
+
 _SENNE_TURNER = {"S": "senne", "T": "turner"}
 
 
@@ -137,8 +148,8 @@ def scrape_schlussgang_portraets(max_profiles: int | None = None, page_size: int
                 "id": schwinger_key(name, jahrgang),
                 "name": name,
                 "jahrgang": jahrgang,
-                "groesse_cm": _zu_float(item.get("field_portrait_body_size")),
-                "gewicht_kg": _zu_float(item.get("field_portrait_body_weight")),
+                "groesse_cm": _koerpermass(item.get("field_portrait_body_size"), 140, 230),
+                "gewicht_kg": _koerpermass(item.get("field_portrait_body_weight"), 40, 250),
                 "kranzstatus": _kranzstatus(wreath_status, ist_koenig, status_name, counts),
                 "teilverband": association or None,
                 "kanton": kanton or None,

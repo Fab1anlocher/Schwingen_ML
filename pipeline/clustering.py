@@ -3,16 +3,35 @@ Hand-Heuristik).
 
 Ersetzt fuer die "Schwingertypen"-Ansicht UND die "Ähnliche Schwinger"-Anzeige
 die hand-gewichtete Distanz aus web/lib/aehnlichkeit.ts durch echtes
-Clustering/KNN ueber Physis + Stil (Gewicht, Grösse, bevorzugte Schwünge) --
-bewusst OHNE Elo/Kranzstatus, damit "ähnlich"/"Typ" wirklich Körperbau+Stil
-meint und nicht Erfolg misst (Nutzerwunsch: "Klassifikation ... anstelle
-von Elo").
+Clustering/KNN ueber Physis + Stil -- bewusst OHNE Elo/Kranzstatus, damit
+"ähnlich"/"Typ" wirklich Körperbau+Stil meint und nicht Erfolg misst
+(Nutzerwunsch: "Klassifikation ... anstelle von Elo").
+
+Merkmale (alle aus echten Portrait-Daten, keine synthetischen Zusatzwerte):
+  - Gewicht, Grösse
+  - Kompaktheits-Index (Gewicht / (Grösse/100)², BMI-artig) -- eigene
+    Dimension fuer "kompakt/stämmig vs. schlank/lang", die aus den rohen
+    Gewicht/Grösse-Werten allein nicht linear herauskommt.
+  - Bevorzugte Schwünge als One-Hot -- Schwelle statt fixer Top-N-Liste,
+    Namen werden vorher gross/klein-normalisiert (Rohdaten schreiben
+    "innerer Haken" und "Innerer Haken" uneinheitlich).
 
 K wird per Silhouette-Score automatisch aus einem Bereich gewaehlt statt
 willkuerlich fixiert -- ML-6-Prinzip dieses Projekts (Metriken statt Gefühl).
 Eine 2D-PCA-Projektion macht das Ergebnis als Streudiagramm visualisierbar.
+
+Zur Interpretierbarkeit bekommt jeder Cluster zusätzlich:
+  - "typische_vertreter": die 3 Schwinger am nächsten am Cluster-Zentrum.
+  - "auszeichnung": die Merkmale, die den Cluster am stärksten vom
+    Gesamtdurchschnitt unterscheiden (grösster |z-Wert| des Zentrums).
+  - "teilverband_schwerpunkt": Teilverband, der in diesem Cluster deutlich
+    überrepräsentiert ist gegenüber der Gesamtverteilung -- rein
+    beschreibend, fliesst NICHT ins Clustering selbst ein (sonst würde
+    "Typ" Region statt Körperbau/Stil messen).
 """
 from __future__ import annotations
+
+from collections import Counter
 
 import numpy as np
 from sklearn.cluster import KMeans
@@ -24,29 +43,63 @@ from .config import SEED
 from .schema import Schwinger
 
 N_AEHNLICHSTE = 5
-
-# Haeufigste bevorzugte Schwuenge in den echten Daten (s. artifacts/schwinger.json);
-# als One-Hot-Merkmale genutzt. Seltenere Schwuenge fliessen nicht separat ein,
-# um das Clustering nicht auf Dutzende duenn besetzte Spalten zu verteilen.
-TOP_SCHWUENGE = [
-    "Kurz", "Fussstich", "Brienzer", "Höfter", "Wyberhaken",
-    "Gammen", "Übersprung", "innerer Haken",
-]
-
+N_VERTRETER = 3
+MIN_SCHWUNG_HAEUFIGKEIT = 10  # Schwelle statt fixer Top-N-Liste (datengetrieben)
 K_BEREICH = range(3, 9)
+
+_FIXE_MERKMALE = ["gewicht_kg", "groesse_cm", "kompaktheit"]
+_MERKMAL_LABEL = {
+    "gewicht_kg": ("schwer", "leicht"),
+    "groesse_cm": ("gross", "klein"),
+    "kompaktheit": ("kompakt/stämmig gebaut", "schlank für die Grösse"),
+}
 
 
 def _hat_profildaten(s: Schwinger) -> bool:
     return s.gewicht_kg is not None and s.groesse_cm is not None
 
 
-def _feature_vektor(s: Schwinger) -> list[float]:
-    schwuenge = set(s.bevorzugte_schwuenge or [])
+def _normiert(name: str) -> str:
+    """Gross-/Kleinschreibung vereinheitlichen (Rohdaten uneinheitlich, z.B.
+    "innerer Haken" vs. "Innerer Haken" -- sonst zwei Spalten für dasselbe."""
+    return name.strip()[:1].lower() + name.strip()[1:] if name.strip() else name
+
+
+def _ermittle_top_schwuenge(kandidaten: list[tuple[str, Schwinger]]) -> list[str]:
+    zaehler: Counter[str] = Counter()
+    for _, s in kandidaten:
+        for name in s.bevorzugte_schwuenge or []:
+            zaehler[_normiert(name)] += 1
+    return [name for name, n in zaehler.most_common() if n >= MIN_SCHWUNG_HAEUFIGKEIT]
+
+
+def _feature_vektor(s: Schwinger, top_schwuenge: list[str]) -> list[float]:
+    schwuenge = {_normiert(n) for n in (s.bevorzugte_schwuenge or [])}
+    kompaktheit = s.gewicht_kg / (s.groesse_cm / 100.0) ** 2
     return [
         float(s.gewicht_kg),
         float(s.groesse_cm),
-        *(1.0 if name in schwuenge else 0.0 for name in TOP_SCHWUENGE),
+        float(kompaktheit),
+        *(1.0 if name in schwuenge else 0.0 for name in top_schwuenge),
     ]
+
+
+def _auszeichnung(zentrum_std: np.ndarray, merkmal_namen: list[str], top_n: int = 2) -> str:
+    """Menschlicher Satz: welche Merkmale unterscheiden diesen Cluster am
+    stärksten vom Gesamtdurchschnitt (0 im standardisierten Raum)?"""
+    reihenfolge = np.argsort(-np.abs(zentrum_std))[:top_n]
+    teile = []
+    for idx in reihenfolge:
+        name = merkmal_namen[idx]
+        z = zentrum_std[idx]
+        if abs(z) < 0.3:
+            continue  # zu nah am Durchschnitt, keine echte Auszeichnung
+        if name in _MERKMAL_LABEL:
+            hoch, tief = _MERKMAL_LABEL[name]
+            teile.append(f"überdurchschnittlich {hoch}" if z > 0 else f"eher {tief}")
+        elif z > 0:
+            teile.append(f"bevorzugt auffällig oft {name}")
+    return " · ".join(teile) if teile else "nahe am Durchschnitt in allen Merkmalen"
 
 
 def berechne_cluster(schwinger: dict[str, Schwinger]) -> dict | None:
@@ -55,8 +108,11 @@ def berechne_cluster(schwinger: dict[str, Schwinger]) -> dict | None:
     if len(kandidaten) < 3 * K_BEREICH.stop:  # genug Punkte pro moeglichem Cluster
         return None
 
+    top_schwuenge = _ermittle_top_schwuenge(kandidaten)
+    merkmal_namen = _FIXE_MERKMALE + top_schwuenge
+
     ids = [sid for sid, _ in kandidaten]
-    X = np.array([_feature_vektor(s) for _, s in kandidaten])
+    X = np.array([_feature_vektor(s, top_schwuenge) for _, s in kandidaten])
     mu = X.mean(axis=0)
     sigma = X.std(axis=0)
     sigma[sigma == 0] = 1.0
@@ -102,27 +158,64 @@ def berechne_cluster(schwinger: dict[str, Schwinger]) -> dict | None:
         for sid, label, (x, y) in zip(ids, labels, koordinaten)
     ]
 
+    # Teilverband-Gesamtverteilung als Referenz fuer "Schwerpunkt" je Cluster.
+    verband_gesamt: Counter[str] = Counter(
+        s.teilverband for _, s in kandidaten if s.teilverband
+    )
+    n_mit_verband = sum(verband_gesamt.values())
+
     zusammenfassung = []
     for cluster_id in range(bestes_k):
         mask = labels == cluster_id
         mitglieder = X[mask]
         mitglieder_paare = [kandidaten[i] for i in range(len(kandidaten)) if mask[i]]
-        schwuenge_zaehler: dict[str, int] = {}
+
+        schwuenge_zaehler: Counter[str] = Counter()
         for _, s in mitglieder_paare:
             for name in s.bevorzugte_schwuenge or []:
-                schwuenge_zaehler[name] = schwuenge_zaehler.get(name, 0) + 1
-        top_schwuenge = sorted(schwuenge_zaehler, key=schwuenge_zaehler.get, reverse=True)[:3]
+                schwuenge_zaehler[_normiert(name)] += 1
+        top3_schwuenge = [n for n, _ in schwuenge_zaehler.most_common(3)]
+
+        zentrum_std = bestes_modell.cluster_centers_[cluster_id]
+        auszeichnung = _auszeichnung(zentrum_std, merkmal_namen)
+
+        # Naeheste Mitglieder zum Zentrum (im standardisierten Raum) als
+        # konkrete, greifbare "typische Vertreter" dieses Typs.
+        mitglieder_idx = [i for i in range(len(kandidaten)) if mask[i]]
+        distanzen_zentrum = np.linalg.norm(X_std[mitglieder_idx] - zentrum_std, axis=1)
+        reihenfolge = np.argsort(distanzen_zentrum)[:N_VERTRETER]
+        typische_vertreter = [ids[mitglieder_idx[i]] for i in reihenfolge]
+
+        verband_cluster: Counter[str] = Counter(
+            s.teilverband for _, s in mitglieder_paare if s.teilverband
+        )
+        teilverband_schwerpunkt = None
+        n_cluster_verband = sum(verband_cluster.values())
+        if n_cluster_verband >= 5 and n_mit_verband > 0:
+            anteile = {
+                v: (n / n_cluster_verband) / (verband_gesamt[v] / n_mit_verband)
+                for v, n in verband_cluster.items()
+            }
+            bester = max(anteile, key=anteile.get)
+            if anteile[bester] >= 1.3:  # deutlich überrepräsentiert, nicht nur Rauschen
+                teilverband_schwerpunkt = bester
+
         zusammenfassung.append({
             "cluster": cluster_id,
             "n": int(mask.sum()),
             "gewicht_avg": round(float(mitglieder[:, 0].mean()), 1),
             "groesse_avg": round(float(mitglieder[:, 1].mean()), 1),
-            "top_schwuenge": top_schwuenge,
+            "kompaktheit_avg": round(float(mitglieder[:, 2].mean()), 2),
+            "top_schwuenge": top3_schwuenge,
+            "auszeichnung": auszeichnung,
+            "typische_vertreter": typische_vertreter,
+            "teilverband_schwerpunkt": teilverband_schwerpunkt,
         })
 
     return {
         "k": bestes_k,
         "silhouette": round(float(beste_silhouette), 3),
+        "merkmale": merkmal_namen,
         "punkte": punkte,
         "cluster_zusammenfassung": zusammenfassung,
         "aehnlichste": aehnlichste,
