@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { KANTON_PFADE, KANTON_VIEWBOX } from "@/lib/schweiz-kantone";
 import { BERN_GAUVERBAND_PFADE } from "@/lib/bern-gauverbaende";
+import { KLASSEN_FARBEN, quantilGrenzen, klasseFuer } from "@/lib/choropleth";
 import type { KantonStatistik } from "@/lib/types";
 
 type MetrikKey = "elo_avg" | "siegquote" | "top_schwinger_quote" | "n_schwinger";
@@ -76,26 +77,20 @@ export function SchweizKarte({
     return [...politisch, ...bernVerbaende];
   }, [kantone, gauverbandByName]);
 
-  const { min, max } = useMemo(() => {
+  // Quantil-Klassen statt stufenloser Farbe: jede Klasse enthält ungefähr
+  // gleich viele Kantone/Gauverbände, robust auch bei schiefen Verteilungen
+  // (z.B. viele Kantone mit 0 Top-Schwingern) -- s. lib/choropleth.ts.
+  const grenzen = useMemo(() => {
     const werte = gezeichneteFlaechen
       .map((k) => wertVon(k, metrikKey))
       .filter((v): v is number => v !== null);
-    // Bei Zähl-Metriken ist 0 ein echter, aussagekräftiger Boden ("keine
-    // Siege"). Beim Elo-Schnitt würde ein 0-Boden die tatsächliche Spanne
-    // (hier z.B. 1477-1776) auf ein paar Farbnuancen stauchen — dort zählt
-    // die tatsächliche Min/Max-Spanne der Kantone.
-    const nullBoden = metrikKey !== "elo_avg";
-    return {
-      min: nullBoden ? Math.min(...werte, 0) : Math.min(...werte),
-      max: Math.max(...werte, nullBoden ? 1 : 0),
-    };
+    return quantilGrenzen(werte, KLASSEN_FARBEN.length);
   }, [gezeichneteFlaechen, metrikKey]);
 
   const farbeFuer = (stat: KantonStatistik | undefined) => {
     const wert = stat ? wertVon(stat, metrikKey) : null;
-    if (wert === null) return "#232b35"; // keine Daten
-    const anteil = max > min ? (wert - min) / (max - min) : 0.5;
-    return `rgba(69, 161, 127, ${0.12 + anteil * 0.8})`;
+    if (wert === null || grenzen.length < 2) return "#232b35"; // keine Daten
+    return KLASSEN_FARBEN[klasseFuer(wert, grenzen)];
   };
 
   const angezeigt = hover ? byName[hover] ?? gauverbandByName[hover] : null;
@@ -175,9 +170,19 @@ export function SchweizKarte({
       </svg>
 
       <div className="karte-legende">
-        <span className="muted small">{metrik.format(min)}</span>
-        <div className="karte-legende-balken" />
-        <span className="muted small">{metrik.format(max)}</span>
+        {grenzen.slice(0, -1).map((untergrenze, i) => (
+          <div className="karte-legende-klasse" key={i}>
+            <i className="karte-legende-swatch" style={{ background: KLASSEN_FARBEN[i] }} />
+            <span className="muted small">
+              {metrik.format(untergrenze)}
+              {i < grenzen.length - 2 ? `–${metrik.format(grenzen[i + 1])}` : "+"}
+            </span>
+          </div>
+        ))}
+        <div className="karte-legende-klasse">
+          <i className="karte-legende-swatch" style={{ background: "#232b35" }} />
+          <span className="muted small">keine Daten</span>
+        </div>
       </div>
       <p className="muted small" style={{ marginTop: "0.5rem" }}>
         Kantonszuordnung basiert auf dem Kantonal-/Gauverband der Schwinger. Bern wird als

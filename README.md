@@ -1,41 +1,50 @@
-# Schwingen ML — Gang-Prognosetool
+# Schwingen ML
 
-Datengetriebene, **erklärbare** Prognose für Schwingen-Gänge: für ein Schwinger-Paar
-die Wahrscheinlichkeit von **Sieg A / Gestellt / Sieg B**, plus Fest-Vorschau,
-Merkmalswichtigkeit und Schwinger-Profile. Prognosen sind **informativ, kein
-Wettangebot**.
+Datengetriebene, **erklärbare** Prognose für Schwingen-Gänge — trainiert auf echten
+Resultaten von schlussgang.ch (2023–heute, 450+ Feste, 125'000+ Gänge). Für ein
+Schwinger-Paar die Wahrscheinlichkeit von **Sieg A / Gestellt / Sieg B**, plus
+Rangliste, Kopf-an-Kopf-Historie, eine Schweiz-Karte, echtes K-Means-Clustering
+der Schwingertypen und eine 4-Wege-Modellevaluierung. Prognosen sind
+**informativ, kein Wettangebot**.
 
-> Status: **MVP lauffähig** — komplette Pipeline (Labels → Elo-Baseline →
-> Logistic Regression → JSON-Artefakte) und Next.js-Web-App mit clientseitiger
-> Inferenz. Läuft end-to-end mit synthetischen Demodaten; produktive Läufe sind
-> über `--source scrape` mit lokalen Raw-Daten (`artifacts/raw`) vorbereitet.
+**Live:** [schwingen-ml.vercel.app](https://schwingen-ml.vercel.app/)
 
 ---
 
-## Entscheidungen (Antworten auf §11 der Spec)
+## Was die App kann
 
-| # | Frage | Entscheidung | Begründung |
-|---|---|---|---|
-| 1 | Stack / Sprache | **Next.js App Router + TypeScript** | Typsicherheit für Modell-Artefakte (JSON-Gewichte), Standard, gute Vercel-Integration. |
-| 2 | MVP-Datensatz | **Aktive Elite, letzte ~2–3 Saisons** aus schlussgang.ch-PDFs zuerst | Sauberste, maschinenlesbare Quelle. zwilch.ch-Historie kommt in Phase 2 dazu. |
-| 3 | Metrik-Schwelle | **Log-Loss < Elo-Baseline** auf zeitlichem Holdout | „Gut genug" = schlägt Baseline messbar. Aktuell (synthetisch): 0.76 vs. 0.85. |
-| 4 | Betrieb / Datastore | **Öffentliches Repo + Vercel Hobby, KEIN Supabase** | Siehe unten. |
+| Seite | Was man sieht |
+|---|---|
+| **Prognose** | Zwei Schwinger wählen (Fuzzy-Suche) → Sieg-A/Gestellt/Sieg-B-Wahrscheinlichkeit mit Merkmalsbeiträgen ("warum diese Prognose"), Kopf-an-Kopf-Historie falls die beiden sich schon begegnet sind, teilbarer Link (`?a=...&b=...`). |
+| **Schwinger** | Alle erfassten Schwinger, durchsuchbar, nach Elo sortiert, mit Rang/Medaillen. Profil-Aufklappen zeigt Überraschungs-Index (Elo-erwartete vs. tatsächliche Leistung) und per KNN berechnete ähnliche Schwinger. |
+| **Feste** | Vergangene und kommende Feste inkl. Paarungs-Vorschau. |
+| **Karte** | Choroplethen-Karte der Schweiz (Elo-Schnitt, Siegquote, Anteil Top-Schwinger, Kaderbreite) — Bern einzeln nach seinen 6 Gauverbänden statt als ein Kanton, mit echten Grenzen der BFS-Verwaltungskreise. |
+| **Typen** | Echtes K-Means-Clustering über das volle Schwinger-Profil (Physis, Stil, Elo, Erfahrung, Alter, Kranzstatus) — Cluster-Anzahl per Silhouette-Score automatisch gewählt, mit PCA-Streudiagramm, typischen Vertretern und Teilverband-Schwerpunkten je Typ. |
+| **Analyse** | Modellgüte vs. Elo-Baseline, Konfusionsmatrix, Merkmalswichtigkeit, 4-Wege-Benchmark (Kranz-Heuristik / Elo / ML ohne Elo / ML komplett) und Streudiagramme zu Grösse/Gewicht vs. Elo. |
 
-### Warum kein Supabase (für ein Gratis-Heim-Projekt am besten)
+---
 
-Für den MVP genügen **im Repo versionierte JSON-Artefakte**, die die Web-App
-clientseitig lädt. Das ist die einfachste, wirklich wartungsfreie **$0**-Lösung:
+## Wie das Modell funktioniert
 
-- **Keine Datenbank, kein Account, keine Inaktivitäts-Pause** (Supabase Free pausiert
-  Projekte nach ~1 Woche Inaktivität — für ein Hobby-Projekt lästig).
-- **GitHub Actions** (öffentliches Repo = gratis, ohne Minutenlimit) macht das
-  Rechnen: scrapen, trainieren, Artefakte committen.
-- **Vercel Hobby** hostet die statische App und rechnet die Prognose im Browser.
-- Neue Artefakte → Commit → Vercel deployt automatisch.
-
-Eine DB (Supabase o. Ä.) lohnt sich erst, wenn die **volle zwilch.ch-Historie**
-(~1,48 Mio. Paarungen) durchsuchbar gemacht werden soll. Selbst dann sind
-vorberechnete JSON-Artefakte für die Inferenz weiterhin die richtige Wahl.
+- **Elo-Baseline** (`pipeline/ratings.py`): klassisches, chronologisch fortgeschriebenes
+  Rating — jedes komplexere Modell muss das schlagen.
+- **Logistic Regression** (`pipeline/train.py`) auf **leak-freien** A-minus-B-Merkmalen
+  (`pipeline/features.py`): Rating-Vorsprung, Form, Kranzstatus, Alter, Gewicht/Grösse,
+  Erfahrung, Verband, bevorzugte Schwünge, Kopf-an-Kopf-Bilanz. Alle Merkmale nutzen
+  ausschliesslich Daten von **vor** dem jeweiligen Gang; zeitlicher Holdout (jüngste
+  Saison) statt zufälligem Split.
+- **4-Wege-Benchmark** (`pipeline/benchmark.py`): vergleicht Kranz-Heuristik,
+  reine Elo-Baseline, ML ohne Elo/Historie und das komplette Modell auf demselben
+  Holdout mit Accuracy und (multiklassigem) Brier-Score — beantwortet ehrlich, ob
+  Elo wirklich einen Mehrwert bringt.
+- **K-Means-Clustering + KNN** (`pipeline/clustering.py`): gruppiert Schwinger nach
+  ihrem vollen Profil; Cluster-Anzahl wird per Silhouette-Score aus einem Bereich
+  automatisch gewählt statt fest vorgegeben. Dieselbe KNN-Distanz treibt auch die
+  "Ähnliche Schwinger"-Anzeige.
+- **Client-seitige Inferenz** (`web/lib/inference.ts`): spiegelt `features.py` +
+  die trainierten Gewichte exakt in TypeScript — die Prognose läuft im Browser,
+  kein Server-Rechenaufwand. `pipeline/verify_inference.py` prüft bei jedem
+  Pipeline-Lauf, dass beide Implementierungen identisch rechnen.
 
 ---
 
@@ -57,7 +66,8 @@ vorberechnete JSON-Artefakte für die Inferenz weiterhin die richtige Wahl.
 └─────────────────────────────────────────────┘
 ```
 
-Trennung von **Pipeline / Training / Web-App** (NFR-6). Alle Artefakte als JSON.
+Trennung von **Pipeline / Training / Web-App**, alle Artefakte als JSON — keine
+Datenbank nötig, komplett $0 Betriebskosten (öffentliches Repo + Vercel Hobby).
 
 ---
 
@@ -65,24 +75,30 @@ Trennung von **Pipeline / Training / Web-App** (NFR-6). Alle Artefakte als JSON.
 
 ```
 pipeline/                 Python-Datenpipeline (GitHub Actions)
-  config.py               Seeds, Pfade, Hyperparameter (reproduzierbar, NFR-3)
-  schema.py               Kanonisches Schema + Schwinger-Identität (§4.2, R-5)
-  labels.py               Symbol→Ergebnis, Dedup, Validierung (§4.3, KRITISCH)
-  ratings.py              Elo-Baseline, chronologisch/leak-frei (ML-2, ML-5)
-  features.py             A-minus-B-Merkmale, leak-frei, augmentiert (ML-4/5)
-  train.py                Logistic Regression + zeitliche Evaluation (ML-3/6)
-  export.py               JSON-Artefakte schreiben (§7)
-  synth.py                Synthetischer Datensatz (Demo, bis Scraper aktiv)
-  run_pipeline.py         Orchestrator (FR-6)
-  verify_inference.py     Cross-Check: JSON-Inferenz == sklearn-Modell
-  scrape/                 Echte Scraper-Gerüste (schlussgang.ch, agenda) — höflich
-  tests/                  pytest für die Label-Logik
-artifacts/                Generierte JSON-Artefakte (versioniert)
-web/                      Next.js App Router + TypeScript
-  lib/inference.ts        Clientseitige LR-Inferenz (spiegelt features.py)
-  app/                    Seiten: Paar-Prognose, Feste, Schwinger, Analyse
-  public/data/            Artefakt-Kopie, die die App lädt
-.github/workflows/        CI (Tests+Build) und geplanter Update-Lauf
+  config.py                Seeds, Pfade, Hyperparameter (reproduzierbar)
+  schema.py                Kanonisches Schema + Schwinger-Identität
+  labels.py                Symbol→Ergebnis, Dedup, Validierung
+  ratings.py                Elo-Baseline, chronologisch/leak-frei
+  features.py               A-minus-B-Merkmale, leak-frei, augmentiert
+  train.py                  Logistic Regression + zeitliche Evaluation
+  benchmark.py               4-Wege-Modellvergleich (Accuracy + Brier-Score)
+  clustering.py              K-Means-Schwingertypen + KNN-Ähnlichkeit
+  kantone.py                 Kantonal-/Gauverband → politischer Kanton
+  export.py                  JSON-Artefakte schreiben
+  fetch_raw.py               CLI zum Befüllen von artifacts/raw aus Webquellen
+  synth.py                   Synthetischer Datensatz (Demo)
+  run_pipeline.py            Orchestrator
+  verify_inference.py        Cross-Check: JSON-Inferenz == sklearn-Modell
+  scrape/                    Scraper (schlussgang.ch, esv.ch) — rate-limitiert, robots.txt
+  tests/                     pytest (Pipeline-Logik, ~50 Tests)
+artifacts/                 Generierte JSON-Artefakte (versioniert, ausser artifacts/raw/)
+web/                        Next.js App Router + TypeScript
+  lib/inference.ts           Clientseitige LR-Inferenz (spiegelt features.py)
+  lib/clustering, choropleth, aehnlichkeit, regression  Client-Helfer für die ML-Ansichten
+  app/                       Seiten: Prognose, Schwinger, Feste, Karte, Typen, Analyse
+  components/                 Wiederverwendbare Chart-/UI-Komponenten
+  public/data/                Artefakt-Kopie, die die App lädt
+.github/workflows/          ci.yml (Tests+Build), update.yml (täglicher Datenlauf)
 ```
 
 ---
@@ -93,9 +109,9 @@ web/                      Next.js App Router + TypeScript
 
 ```bash
 pip install -r requirements-pipeline.txt
-python -m pipeline.run_pipeline --source synth   # erzeugt artifacts/ + web/public/data/
+python -m pipeline.run_pipeline --source synth   # schnell, synthetische Demodaten
 python -m pipeline.verify_inference               # prüft Inferenz-Konsistenz
-python -m pytest pipeline/tests -q                # Label-Logik-Tests
+python -m pytest pipeline/tests -q                # ~50 Tests
 ```
 
 ### Web-App (Next.js)
@@ -106,239 +122,72 @@ npm install
 npm run dev        # http://localhost:3000
 ```
 
----
-
-## Tutorial: von Demo-/Synth-Daten zu echtem Training
-
-Die Web-App zeigt immer die Daten aus `web/public/data/`. Diese Dateien werden
-von der Pipeline erzeugt und aus `artifacts/` dorthin kopiert.
-
-### 1) Demo-Training prüfen (aktueller Standard)
+### Mit echten Daten
 
 ```bash
-python -m pipeline.run_pipeline --source synth
-python -m pipeline.verify_inference
-```
-
-Danach zeigt die Web-App weiterhin synthetische Daten — das ist korrekt.
-
-### 2) Echte Rohdaten vorbereiten
-
-`artifacts/raw/` ist **nicht versioniert** (`.gitignore`) — die echten Rohdaten
-(insb. `gaenge.json`) werden gross und sind jederzeit reproduzierbar aus den
-Webquellen (via `pipeline.fetch_raw`, s. Abschnitt 6) oder CI. Versioniert
-werden nur die daraus abgeleiteten, kompakten Artefakte in `artifacts/` und
-`web/public/data/`.
-
-Für einen manuellen Test lege den Ordner `artifacts/raw/` lokal an und
-erstelle drei Dateien:
-
-- `artifacts/raw/schwinger.json`
-- `artifacts/raw/events.json`
-- `artifacts/raw/gaenge.json`
-
-Minimalbeispiel:
-
-`artifacts/raw/schwinger.json`
-
-```json
-{
-  "schwinger": [
-    {
-      "id": "max-muster",
-      "name": "Max Muster",
-      "jahrgang": 1998,
-      "kranzstatus": "kein"
-    },
-    {
-      "id": "peter-beispiel",
-      "name": "Peter Beispiel",
-      "jahrgang": 1997,
-      "kranzstatus": "kein"
-    }
-  ]
-}
-```
-
-`artifacts/raw/events.json`
-
-```json
-{
-  "events": [
-    {
-      "id": "ev-2026-test",
-      "name": "Testschwinget",
-      "datum": "2026-07-20",
-      "typ": "kantonal"
-    }
-  ]
-}
-```
-
-`artifacts/raw/gaenge.json`
-
-```json
-{
-  "gaenge": [
-    {
-      "event_id": "ev-2026-test",
-      "datum": "2026-07-20",
-      "fest_typ": "kantonal",
-      "schwinger_id": "max-muster",
-      "gegner_id": "peter-beispiel",
-      "symbol": "+",
-      "note": 10.0
-    },
-    {
-      "event_id": "ev-2026-test",
-      "datum": "2026-07-20",
-      "fest_typ": "kantonal",
-      "schwinger_id": "peter-beispiel",
-      "gegner_id": "max-muster",
-      "symbol": "o",
-      "note": 8.75
-    }
-  ]
-}
-```
-
-Hinweise:
-- Für Schwinger ist `name` Pflicht; `id` ist optional (wird sonst abgeleitet).
-- Für Events sind `id`, `datum`, `name` Pflicht.
-- Für Gänge sind `event_id`, `datum`, `symbol` (`+`, `-`, `o`) und beide
-  Schwinger (per ID oder Name) nötig.
-
-### 3) Echtes Training starten
-
-```bash
+python -m pipeline.fetch_raw --sources schlussgang esv events --materialize-schwinger
 python -m pipeline.run_pipeline --source scrape
 python -m pipeline.verify_inference
 ```
 
-Wenn `--source scrape` erfolgreich läuft, sind `artifacts/*.json` und
-`web/public/data/*.json` auf echten Rohdaten basiert.
-
-### 4) Web-App mit neuen Artefakten prüfen
-
-```bash
-cd web
-npm run dev
-```
-
-Browser neu laden; Prognosen und Listen kommen jetzt aus den neu erzeugten
-Artefakten statt aus Synth-Daten.
-
-### 5) Optional: automatische tägliche Updates
-
-Der Workflow `.github/workflows/update.yml` führt die Pipeline täglich aus
-(Standard `source=scrape`) und committet geänderte Artefakte. Dafür müssen
-die Raw-Daten in `artifacts/raw/` verfügbar sein.
-
-### 6) Rohdaten automatisch holen
-
-Wenn du die Rohdaten nicht manuell pflegen willst, kannst du sie jetzt direkt
-aus den Webquellen ziehen:
-
-```bash
-python -m pipeline.fetch_raw --sources schlussgang esv events
-```
-
-Das schreibt die Schlussgang-Porträts nach `artifacts/raw/schlussgang_portraits.json`
-und erfasst die ESV-Statistiken aus `esv.ch/ranglisten/statistiken/` in
-`artifacts/raw/esv_statistiken.json`. Wenn du zusätzlich eine normalisierte
-`artifacts/raw/schwinger.json` willst, nutze `--materialize-schwinger`.
-Wenn du die PDF-Texte zusätzlich brauchst, nutze `--download-pdfs`.
-
-Die Quelle `events` lädt **echte, abgeschlossene Feste** direkt von
-schlussgang.ch und schreibt `artifacts/raw/events.json` +
-`artifacts/raw/gaenge.json` — damit ist die Rohdaten-Kette für
-`--source scrape` vollständig, ohne dass du diese beiden Dateien mehr von
-Hand pflegen musst:
-
-- listet Feste über die JSON:API (`node/event`, Status `finished`), Standard-
-  Filter `field_event_type=Aktivschwinger` seit `--seit-datum` (Default
-  `2024-01-01`), Fest-Typ (`eidgenoessisch`/`berg`/`kantonal`/`teilverband`/
-  `regional`) aus der `field_category`-Taxonomie des Fests;
-- lädt je Fest die finale Statistik-PDF
-  (`.../event-ranking-list/<nid>-statistic-final.pdf`) und parst die
-  Tabelle spaltenweise (`pipeline/scrape/schlussgang_pdf.py`) zu
-  Roh-Gang-Einträgen — jeder Gang liegt zweimal vor (eine Zeile je
-  Schwinger-Perspektive), was direkt auf `labels.dedupliziere()` passt;
-  die Summe der Gang-Noten je Schwinger wird gegen das ausgewiesene
-  Punktetotal geprüft (§4.3 Regel 4);
-- ergänzt für Teilnehmer ohne Porträt automatisch einen Stub-Eintrag in
-  `artifacts/raw/schwinger.json` (per Namensabgleich dedupliziert gegen
-  vorhandene Porträt-Einträge), damit deren Gänge beim Training nicht
-  mangels bekannter Schwinger-ID verworfen werden.
-
-```bash
-python -m pipeline.fetch_raw --sources events --event-limit 50 --seit-datum 2025-01-01
-```
-
-`--event-limit` (Default 10) begrenzt die Anzahl Feste, `--fest-typ` (Default
-`Aktivschwinger`) filtert die Teilnehmerkategorie (leer = alle Kategorien).
-Für einen produktiven Lauf `--event-limit` deutlich erhöhen bzw. weglassen
-(dann werden alle Feste seit `--seit-datum` geholt) — höflich, aber langsam,
-da pro Fest eine PDF geladen wird (NFR-4: 2s Rate-Limit pro Host).
+`fetch_raw` holt Porträts, ESV-Statistiken und abgeschlossene Feste direkt von den
+Webquellen nach `artifacts/raw/` (nicht versioniert, jederzeit reproduzierbar).
+`--seit-datum`/`--event-limit` steuern den Zeitraum; ohne Angabe wird nur ein
+kleines Zeitfenster geholt (siehe unten für den vollen Historien-Refetch).
 
 ---
 
-## Features (Umsetzungsstand)
+## Automatische tägliche Updates
 
-| Anf. | Feature | Status |
-|---|---|---|
-| FR-1 | Paar-Prognose (Sieg A / Gestellt / Sieg B) | ✅ |
-| FR-3 | Erklärbarkeit (Top-Merkmalsbeiträge) | ✅ |
-| FR-4 | Feature-Wichtigkeit / Analyse-Sicht | ✅ |
-| FR-5 | Schwinger-Suche & Profil | ✅ |
-| ML-2 | Elo-Baseline | ✅ |
-| ML-3 | Logistic Regression (schlägt Baseline) | ✅ |
-| ML-5 | Kein Data Leakage (zeitliche Trennung) | ✅ |
-| ML-6 | Log-Loss / Accuracy-Report | ✅ |
-| FR-2 | Fest-Vorschau + Quote | ✅ inkl. Fallback-Favoriten bei offenen Paarungen |
-| FR-6 | Automatische Datenpipeline | ✅ Workflow täglich, default `source=scrape` |
-| — | Gradient Boosting + ONNX, Kalibrierung, zwilch-Historie | ⬜ Phase 2 |
+`.github/workflows/update.yml` läuft täglich per Cron, holt neue Resultate und
+committet geänderte Artefakte (Vercel deployt danach automatisch). Damit der
+Cron-Lauf nicht jeden Tag bei null anfängt, wird `artifacts/raw/` über
+`actions/cache` zwischen Läufen persistiert — der tägliche Lauf holt dann nur
+das kurze Zeitfenster seit dem letzten Mal und baut auf dem Cache auf.
+
+Der Cache startet leer. Einmalig (oder falls er je zurückgesetzt werden muss)
+über **Actions → Datenpipeline aktualisieren → Run workflow** mit Häkchen bei
+**„Volle Historie neu laden"** die komplette Historie neu laden — dauert
+15–20 Minuten, danach reichen die täglichen inkrementellen Läufe.
+
+Ein eingebautes Sicherheitsnetz (`_pruefe_datenvolumen` in `run_pipeline.py`)
+bricht einen Lauf hart ab, statt das produktive Modell mit einem auf einem
+Bruchteil der Historie trainierten zu überschreiben, falls der Cache doch
+einmal leer sein sollte.
 
 ---
 
-## Datenquellen
+## Datenquellen & Fairness
 
-Der MVP läuft weiterhin mit **synthetischen** Daten (`pipeline/synth.py`) für
-eine sofort lauffähige Demo. Für produktive Läufe unterstützt die Pipeline
-`--source scrape` mit lokalen Raw-Daten in `artifacts/raw/`:
+- `pipeline/scrape/schlussgang_resultate.py` — abgeschlossene Feste (JSON:API `node/event`)
+- `pipeline/scrape/schlussgang_pdf.py` — Ranglisten-PDFs, spaltenbasiert geparst,
+  Punktetotal-Kreuzcheck gegen die ausgewiesene Summe
+- `pipeline/scrape/schlussgang_portraet.py` — Schwinger-Porträts (Gewicht, Grösse,
+  Verband, bevorzugte Schwünge); physisch unplausible Werte werden beim Parsen
+  verworfen statt blind übernommen
+- `pipeline/scrape/agenda.py` — kommende Feste + Spitzenpaarungen
+- `pipeline/scrape/http.py` — höflicher Client: Rate-Limit pro Host, echter
+  User-Agent, robots.txt wird respektiert
 
-- `schwinger.json` (`{"schwinger":[...]}`)
-- `events.json` (`{"events":[...]}`)
-- `gaenge.json` (`{"gaenge":[...]}`)
-
-Zusätzlich liest `pipeline/scrape/agenda.py` kommende Feste von
-`schlussgang.ch/agenda` (JSON-LD) und extrahiert optionale Paarungen.
-
-- `pipeline/scrape/schlussgang_resultate.py` — abgeschlossene Feste (JSON:API
-  `node/event`) inkl. Fest-Typ-Klassifikation aus der `field_category`-Taxonomie
-- `pipeline/scrape/schlussgang_pdf.py` — Ranglisten-PDF
-  (`event-ranking-list/<nid>-statistic-final.pdf`), kalibriert anhand echter
-  PDFs (spaltenbasierte Statistik-Tabelle, Punktetotal-Kreuzcheck §4.3 Regel 4)
-- `pipeline/scrape/schlussgang_portraet.py` — Schwinger-Porträts (JSON:API `node/portrait`)
-- `pipeline/scrape/agenda.py` — kommende Feste + Spitzenpaarungen (FR-2)
-- `pipeline/scrape/http.py` — höflicher Client: Rate-Limit, User-Agent, **robots.txt** (NFR-4)
-
-**Recht/Fairness (NFR-4/5):** höfliches, rate-limitiertes Abrufen; keine
-Voll-Replikation der Quell-DBs; Quellenattribution in der App; nur abgeleitete
-Kennzahlen. Sensible Felder (Geburtsdatum, Zivilstand) werden nicht gespeichert/
-angezeigt — fürs Modell nur **Alter**.
+Keine Voll-Replikation der Quell-Datenbanken, nur abgeleitete Kennzahlen,
+Quellenattribution in der App. Sensible Felder (Geburtsdatum, Zivilstand)
+werden nicht gespeichert — fürs Modell nur **Alter** (Jahrgang).
 
 ---
 
 ## Deployment
 
-**Web-App auf Vercel (Hobby, gratis, nicht-kommerziell):**
-- Neues Vercel-Projekt, **Root Directory = `web`**.
-- Framework Next.js wird automatisch erkannt. Kein Env-Var nötig (Daten sind statisch).
+**Web-App auf Vercel (Hobby, gratis):** Root Directory = `web`, Next.js wird
+automatisch erkannt, keine Env-Vars nötig (Daten sind statische JSON-Dateien).
 
-**Pipeline auf GitHub Actions:**
-- `.github/workflows/update.yml` läuft täglich (Cron) oder manuell, erzeugt neue
-  Artefakte und committet sie → Vercel deployt automatisch.
-- **Repo öffentlich halten** = gesamte Rechenlast gratis (§8).
+**Pipeline auf GitHub Actions:** `.github/workflows/update.yml` (täglich) und
+`ci.yml` (Tests + Build bei jedem Push). Öffentliches Repo = gesamte Rechenlast
+gratis.
 
-Kosten: als persönliches, nicht-kommerzielles Projekt **komplett $0**.
+---
+
+## Lizenz / Disclaimer
+
+Nicht-kommerzielles Hobby-Projekt. Prognosen sind informativ und **kein
+Wettangebot**. Betriebskosten: **$0** (öffentliches Repo + Vercel Hobby + GitHub
+Actions, keine Datenbank).
