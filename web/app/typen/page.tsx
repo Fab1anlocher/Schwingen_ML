@@ -33,9 +33,9 @@ export default function Typen() {
     <div>
       <h1>🧬 Schwingertypen</h1>
       <p className="subtitle">
-        {cluster.punkte.length} Schwinger mit erfasster Grösse und Gewicht, per K-Means über
-        Körperbau und bevorzugte Schwünge gruppiert — bewusst ohne Elo oder Erfolg, „Typ" meint
-        hier reinen Körperbau/Stil, nicht Stärke.
+        {cluster.punkte.length} Schwinger, per K-Means über das volle Profil gruppiert: Körperbau,
+        Stil, Elo-Rating, Erfahrung, Alter und Kranzstatus — das Verfahren findet die Struktur
+        selbst, ohne dass wir Merkmale vorher wegkuratieren.
       </p>
 
       <div className="panel">
@@ -72,7 +72,8 @@ export default function Typen() {
             <p className="typen-auszeichnung">{c.auszeichnung}</p>
             <p className="muted small" style={{ margin: "0.2rem 0" }}>
               Ø {c.gewicht_avg.toFixed(0)} kg · {c.groesse_avg.toFixed(0)} cm · Kompaktheit{" "}
-              {c.kompaktheit_avg.toFixed(1)}
+              {c.kompaktheit_avg.toFixed(1)} · Elo {c.elo_avg.toFixed(0)} · {c.erfahrung_avg.toFixed(0)}{" "}
+              Gänge Ø
               {c.top_schwuenge.length > 0 && <> · bevorzugt: {c.top_schwuenge.join(", ")}</>}
             </p>
             {c.typische_vertreter.length > 0 && (
@@ -101,9 +102,10 @@ export default function Typen() {
       <p className="muted small" style={{ marginTop: "0.75rem" }}>
         k={cluster.k} Cluster automatisch per Silhouette-Score gewählt (aus 3–8 getestet,
         Silhouette={cluster.silhouette.toFixed(2)} — Mass für Clustergüte, 0 = keine Struktur,
-        1 = perfekt getrennt). Merkmale: Gewicht, Grösse, Kompaktheits-Index (Gewicht/Grösse²)
-        und bevorzugte Schwünge (One-Hot der häufigsten, Schwelle statt fixer Liste). „Schwerpunkt"
-        markiert einen Teilverband, der in diesem Cluster gegenüber der Gesamtverteilung deutlich
+        1 = perfekt getrennt). Merkmale: Gewicht, Grösse, Kompaktheits-Index (Gewicht/Grösse²),
+        Elo-Rating, Erfahrung (Anzahl Gänge), Alter, Kranzstatus und bevorzugte Schwünge
+        (One-Hot der häufigsten, Schwelle statt fixer Liste). „Schwerpunkt" markiert einen
+        Teilverband, der in diesem Cluster gegenüber der Gesamtverteilung deutlich
         überrepräsentiert ist — rein beschreibend, fliesst nicht ins Clustering ein. Nur Schwinger
         mit eigenem Porträt haben diese Werte erfasst. Für namentlichen Vergleich:{" "}
         <Link href="/schwinger">Schwinger-Übersicht</Link>.

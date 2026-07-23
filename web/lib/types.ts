@@ -132,6 +132,8 @@ export interface ClusterZusammenfassung {
   groesse_avg: number;
   /** Gewicht / (Grösse/100)² — BMI-artiger Kompaktheits-Index. */
   kompaktheit_avg: number;
+  elo_avg: number;
+  erfahrung_avg: number;
   top_schwuenge: string[];
   /** Menschenlesbarer Satz: was diesen Cluster am stärksten vom Durchschnitt
    * unterscheidet (grösster |z-Wert| des Zentrums über alle Merkmale). */

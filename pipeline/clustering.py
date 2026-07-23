@@ -3,15 +3,17 @@ Hand-Heuristik).
 
 Ersetzt fuer die "Schwingertypen"-Ansicht UND die "Ähnliche Schwinger"-Anzeige
 die hand-gewichtete Distanz aus web/lib/aehnlichkeit.ts durch echtes
-Clustering/KNN ueber Physis + Stil -- bewusst OHNE Elo/Kranzstatus, damit
-"ähnlich"/"Typ" wirklich Körperbau+Stil meint und nicht Erfolg misst
-(Nutzerwunsch: "Klassifikation ... anstelle von Elo").
+Clustering/KNN. Nutzt bewusst das VOLLE verfügbare Profil eines Schwingers
+(Physis, Stil, Erfolg/Elo, Erfahrung, Alter) statt einer vorab eingeschränkten
+Merkmalsauswahl -- das unsupervised Verfahren soll selbst finden, welche
+Struktur in den Daten steckt, statt dass wir sie vorher wegkuratieren.
 
-Merkmale (alle aus echten Portrait-Daten, keine synthetischen Zusatzwerte):
+Merkmale (alle aus echten Portrait-/Gang-Daten, keine synthetischen Zusatzwerte):
   - Gewicht, Grösse
   - Kompaktheits-Index (Gewicht / (Grösse/100)², BMI-artig) -- eigene
     Dimension fuer "kompakt/stämmig vs. schlank/lang", die aus den rohen
     Gewicht/Grösse-Werten allein nicht linear herauskommt.
+  - Elo-Rating, Erfahrung (Anzahl gewertete Gänge), Alter, Kranzstatus (ordinal)
   - Bevorzugte Schwünge als One-Hot -- Schwelle statt fixer Top-N-Liste,
     Namen werden vorher gross/klein-normalisiert (Rohdaten schreiben
     "innerer Haken" und "Innerer Haken" uneinheitlich).
@@ -26,8 +28,7 @@ Zur Interpretierbarkeit bekommt jeder Cluster zusätzlich:
     Gesamtdurchschnitt unterscheiden (grösster |z-Wert| des Zentrums).
   - "teilverband_schwerpunkt": Teilverband, der in diesem Cluster deutlich
     überrepräsentiert ist gegenüber der Gesamtverteilung -- rein
-    beschreibend, fliesst NICHT ins Clustering selbst ein (sonst würde
-    "Typ" Region statt Körperbau/Stil messen).
+    beschreibend, fliesst NICHT ins Clustering selbst ein.
 """
 from __future__ import annotations
 
@@ -40,18 +41,22 @@ from sklearn.metrics import silhouette_score
 from sklearn.neighbors import NearestNeighbors
 
 from .config import SEED
-from .schema import Schwinger
+from .schema import KRANZSTATUS_ORDINAL, Schwinger
 
 N_AEHNLICHSTE = 5
 N_VERTRETER = 3
 MIN_SCHWUNG_HAEUFIGKEIT = 10  # Schwelle statt fixer Top-N-Liste (datengetrieben)
 K_BEREICH = range(3, 9)
 
-_FIXE_MERKMALE = ["gewicht_kg", "groesse_cm", "kompaktheit"]
+_FIXE_MERKMALE = ["gewicht_kg", "groesse_cm", "kompaktheit", "elo", "erfahrung", "alter", "kranzstatus"]
 _MERKMAL_LABEL = {
     "gewicht_kg": ("schwer", "leicht"),
     "groesse_cm": ("gross", "klein"),
     "kompaktheit": ("kompakt/stämmig gebaut", "schlank für die Grösse"),
+    "elo": ("starkes Elo-Rating", "schwaches Elo-Rating"),
+    "erfahrung": ("erfahren (viele Gänge)", "wenig erfahren"),
+    "alter": ("älter", "jünger"),
+    "kranzstatus": ("hoher Kranzstatus (Kranz/Eidg./König)", "kein/niedriger Kranzstatus"),
 }
 
 
@@ -73,13 +78,20 @@ def _ermittle_top_schwuenge(kandidaten: list[tuple[str, Schwinger]]) -> list[str
     return [name for name, n in zaehler.most_common() if n >= MIN_SCHWUNG_HAEUFIGKEIT]
 
 
-def _feature_vektor(s: Schwinger, top_schwuenge: list[str]) -> list[float]:
+def _feature_vektor(
+    sid: str, s: Schwinger, elo_modell, referenz_jahr: int, top_schwuenge: list[str]
+) -> list[float]:
     schwuenge = {_normiert(n) for n in (s.bevorzugte_schwuenge or [])}
     kompaktheit = s.gewicht_kg / (s.groesse_cm / 100.0) ** 2
+    alter = float(referenz_jahr - s.jahrgang) if s.jahrgang else float("nan")
     return [
         float(s.gewicht_kg),
         float(s.groesse_cm),
         float(kompaktheit),
+        float(elo_modell.get(sid)),
+        float(elo_modell.gaenge_gezaehlt.get(sid, 0)),
+        alter,
+        float(KRANZSTATUS_ORDINAL.get(s.kranzstatus, 0)),
         *(1.0 if name in schwuenge else 0.0 for name in top_schwuenge),
     ]
 
@@ -102,8 +114,8 @@ def _auszeichnung(zentrum_std: np.ndarray, merkmal_namen: list[str], top_n: int 
     return " · ".join(teile) if teile else "nahe am Durchschnitt in allen Merkmalen"
 
 
-def berechne_cluster(schwinger: dict[str, Schwinger]) -> dict | None:
-    """K-Means über Physis+Stil; None wenn zu wenig Schwinger mit Profildaten."""
+def berechne_cluster(schwinger: dict[str, Schwinger], elo_modell, referenz_jahr: int) -> dict | None:
+    """K-Means über das volle Schwinger-Profil; None wenn zu wenig Profildaten."""
     kandidaten = [(sid, s) for sid, s in schwinger.items() if _hat_profildaten(s)]
     if len(kandidaten) < 3 * K_BEREICH.stop:  # genug Punkte pro moeglichem Cluster
         return None
@@ -112,7 +124,21 @@ def berechne_cluster(schwinger: dict[str, Schwinger]) -> dict | None:
     merkmal_namen = _FIXE_MERKMALE + top_schwuenge
 
     ids = [sid for sid, _ in kandidaten]
-    X = np.array([_feature_vektor(s, top_schwuenge) for _, s in kandidaten])
+    X = np.array([
+        _feature_vektor(sid, s, elo_modell, referenz_jahr, top_schwuenge)
+        for sid, s in kandidaten
+    ])
+
+    # Alter kann fehlen (kein Jahrgang bekannt) -- mit dem Spaltenmittel
+    # auffuellen statt den Schwinger auszuschliessen, damit ein einzelnes
+    # fehlendes Merkmal nicht die sonst vollstaendigen Profildaten verwirft.
+    alter_idx = _FIXE_MERKMALE.index("alter")
+    spalte = X[:, alter_idx]
+    fehlt = np.isnan(spalte)
+    if fehlt.any():
+        mittel = float(np.mean(spalte[~fehlt])) if not fehlt.all() else 0.0
+        X[:, alter_idx] = np.where(fehlt, mittel, spalte)
+
     mu = X.mean(axis=0)
     sigma = X.std(axis=0)
     sigma[sigma == 0] = 1.0
@@ -206,6 +232,8 @@ def berechne_cluster(schwinger: dict[str, Schwinger]) -> dict | None:
             "gewicht_avg": round(float(mitglieder[:, 0].mean()), 1),
             "groesse_avg": round(float(mitglieder[:, 1].mean()), 1),
             "kompaktheit_avg": round(float(mitglieder[:, 2].mean()), 2),
+            "elo_avg": round(float(mitglieder[:, 3].mean()), 1),
+            "erfahrung_avg": round(float(mitglieder[:, 4].mean()), 1),
             "top_schwuenge": top3_schwuenge,
             "auszeichnung": auszeichnung,
             "typische_vertreter": typische_vertreter,

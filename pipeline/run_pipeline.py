@@ -117,8 +117,9 @@ def main(source: str = "synth") -> dict:
         for key, werte in benchmark_res["kandidaten"].items():
             print(f"      {key:16s} Acc={werte['accuracy']:.4f}  Brier={werte['brier_score']:.4f}", flush=True)
 
-    print("[7/8] Schwingertypen (K-Means über Physis+Stil) ...", flush=True)
-    cluster_res = berechne_cluster(schwinger)
+    print("[7/8] Schwingertypen (K-Means über volles Profil) ...", flush=True)
+    referenz_jahr = max(int(g.datum[:4]) for g in gaenge)
+    cluster_res = berechne_cluster(schwinger, elo_modell, referenz_jahr)
     if cluster_res is None:
         print("      übersprungen (zu wenig Schwinger mit Gewicht+Grösse)", flush=True)
     else:
