@@ -774,8 +774,3 @@ tbody tr:hover {
   border-radius: 999px;
   background: linear-gradient(90deg, rgba(69, 161, 127, 0.12), rgba(69, 161, 127, 0.92));
 }
-.karte-gauverband-panel {
-  margin-top: 1.25rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--border-soft);
-}
