@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { ladeFeatureImportance, ladeBenchmark } from "@/lib/data";
-import type { FeatureImportanceEntry, BenchmarkArtifact } from "@/lib/types";
+import { useEffect, useMemo, useState } from "react";
+import { ladeFeatureImportance, ladeBenchmark, ladeSchwinger, ladeRatings } from "@/lib/data";
+import type { FeatureImportanceEntry, BenchmarkArtifact, Schwinger, RatingsArtifact } from "@/lib/types";
 import { Konfusionsmatrix, VergleichBalken, VierWegeBenchmark } from "@/components/ModellGuete";
+import { StreudiagrammMitTrend } from "@/components/StreudiagrammMitTrend";
 
 interface Report {
   lauf_id?: string;
@@ -38,6 +39,8 @@ export default function Analyse() {
   const [fi, setFi] = useState<FeatureImportanceEntry[]>([]);
   const [report, setReport] = useState<Report | null>(null);
   const [benchmark, setBenchmark] = useState<BenchmarkArtifact | null>(null);
+  const [schwinger, setSchwinger] = useState<Schwinger[]>([]);
+  const [ratings, setRatings] = useState<RatingsArtifact | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -47,7 +50,28 @@ export default function Analyse() {
       .then(setReport)
       .catch(() => {});
     ladeBenchmark().then(setBenchmark).catch(() => {});
+    ladeSchwinger().then(setSchwinger).catch(() => {});
+    ladeRatings().then(setRatings).catch(() => {});
   }, []);
+
+  // Nur Schwinger mit tatsächlich erfassten Gängen (nicht der Elo-Startwert
+  // ohne jede Messung) und erfasstem Körperwert -- sonst würde die Nulllinie
+  // Rauschen ins Streudiagramm bringen statt eine echte Elo-Messung.
+  const streuGroesse = useMemo(() => {
+    if (!ratings) return [];
+    return schwinger
+      .map((s) => ({ s, r: ratings.ratings[s.id] }))
+      .filter((e) => e.r && e.r.n_gaenge > 0 && e.s.groesse_cm)
+      .map((e) => ({ x: e.s.groesse_cm as number, y: e.r!.elo, label: e.s.name }));
+  }, [schwinger, ratings]);
+
+  const streuGewicht = useMemo(() => {
+    if (!ratings) return [];
+    return schwinger
+      .map((s) => ({ s, r: ratings.ratings[s.id] }))
+      .filter((e) => e.r && e.r.n_gaenge > 0 && e.s.gewicht_kg)
+      .map((e) => ({ x: e.s.gewicht_kg as number, y: e.r!.elo, label: e.s.name }));
+  }, [schwinger, ratings]);
 
   if (error) return <p className="warn">Fehler: {error}</p>;
   const max = Math.max(...fi.map((f) => f.wichtigkeit), 1e-6);
@@ -200,6 +224,34 @@ export default function Analyse() {
         Demodaten sind diese Werte illustrativ; mit echten Gang-Daten wird ihr
         tatsächlicher Beitrag sichtbar.
       </p>
+
+      {(streuGroesse.length > 0 || streuGewicht.length > 0) && (
+        <>
+          <h2>Macht Grösse oder Gewicht einen Unterschied?</h2>
+          <div className="panel">
+            <p className="muted small" style={{ marginTop: 0, marginBottom: "1rem" }}>
+              Jeder Punkt ein Schwinger mit mindestens einem erfassten Gang (Elo also eine
+              echte Messung, kein Startwert). Die gestrichelte Linie ist die lineare
+              Trendlinie; r zeigt, wie stark der Zusammenhang tatsächlich ist (0 = keiner,
+              ±1 = perfekt).
+            </p>
+            <div className="grid-2">
+              <StreudiagrammMitTrend
+                titel="Grösse vs. Elo"
+                achseXLabel="Grösse (cm)"
+                punkte={streuGroesse}
+                formatX={(v) => `${v.toFixed(0)} cm`}
+              />
+              <StreudiagrammMitTrend
+                titel="Gewicht vs. Elo"
+                achseXLabel="Gewicht (kg)"
+                punkte={streuGewicht}
+                formatX={(v) => `${v.toFixed(0)} kg`}
+              />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

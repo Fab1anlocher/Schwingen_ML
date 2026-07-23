@@ -661,6 +661,20 @@ tbody tr:hover {
   font-size: 0.88rem;
 }
 
+/* Streudiagramm mit Trendlinie (Analyse-Seite) */
+.streu-wrap {
+  min-width: 0;
+}
+.streu-svg {
+  width: 100%;
+  height: auto;
+  margin-top: 0.5rem;
+}
+.streu-achsentext {
+  fill: var(--muted);
+  font-size: 11px;
+}
+
 /* Teilen-Button (Paar-Prognose) */
 .teilen-btn {
   cursor: pointer;
