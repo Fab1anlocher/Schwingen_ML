@@ -19,6 +19,10 @@ import argparse
 import json
 from collections import deque, defaultdict
 
+# Frühe Meldung VOR den schweren Imports (sklearn/scipy brauchen beim ersten
+# Start 10-30 s) -- sonst wirkt der Start eingefroren, obwohl er nur lädt.
+print("Pipeline startet – lade Bibliotheken (beim ersten Mal 10-30 s) ...", flush=True)
+
 from . import config, export
 from .config import FORM_FENSTER_K
 from .labels import dedupliziere
