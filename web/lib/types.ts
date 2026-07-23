@@ -133,12 +133,20 @@ export interface ClusterZusammenfassung {
   top_schwuenge: string[];
 }
 
+export interface AehnlichkeitsTreffer {
+  schwinger_id: string;
+  score: number;
+}
+
 export interface ClusterArtifact {
   schema_version: string;
   k: number;
   silhouette: number;
   punkte: ClusterPunkt[];
   cluster_zusammenfassung: ClusterZusammenfassung[];
+  /** KNN im selben standardisierten Merkmalsraum wie das Clustering (Physis+Stil,
+   * ohne Elo) -- ersetzt die frühere Hand-Heuristik in lib/aehnlichkeit.ts. */
+  aehnlichste: Record<string, AehnlichkeitsTreffer[]>;
 }
 
 export interface Prognose {

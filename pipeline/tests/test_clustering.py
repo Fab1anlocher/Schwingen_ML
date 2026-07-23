@@ -1,7 +1,7 @@
 """Tests für die Schwingertyp-Clusterung (K-Means über Physis+Stil)."""
 from __future__ import annotations
 
-from pipeline.clustering import K_BEREICH, berechne_cluster
+from pipeline.clustering import K_BEREICH, N_AEHNLICHSTE, berechne_cluster
 from pipeline.schema import Schwinger
 
 
@@ -63,3 +63,18 @@ def test_zwei_klar_getrennte_gruppen_werden_sinnvoll_gruppiert():
 
     summe_n = sum(c["n"] for c in ergebnis["cluster_zusammenfassung"])
     assert summe_n == len(schwinger)
+
+    # KNN-Ähnlichkeit (ersetzt die alte Hand-Heuristik): jeder "leicht*"
+    # sollte nur andere "leicht*" als Top-Treffer bekommen, nie "schwer*" --
+    # die Gruppen sind dafür weit genug auseinander.
+    aehnlichste = ergebnis["aehnlichste"]
+    assert set(aehnlichste.keys()) == set(schwinger.keys())
+    for sid in leicht:
+        treffer = aehnlichste[sid]
+        assert 1 <= len(treffer) <= N_AEHNLICHSTE
+        assert all(t["schwinger_id"] in leicht for t in treffer)
+        assert all(t["schwinger_id"] != sid for t in treffer)  # nie sich selbst
+        assert all(0.0 < t["score"] <= 1.0 for t in treffer)
+        # Absteigend nach Ähnlichkeit sortiert (naechster Nachbar zuerst).
+        scores = [t["score"] for t in treffer]
+        assert scores == sorted(scores, reverse=True)

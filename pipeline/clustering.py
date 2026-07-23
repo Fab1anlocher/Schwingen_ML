@@ -1,10 +1,12 @@
-"""Schwingertypen per K-Means-Clustering (echtes ML statt Hand-Heuristik).
+"""Schwingertypen per K-Means-Clustering + KNN-Ähnlichkeit (echtes ML statt
+Hand-Heuristik).
 
-Ersetzt fuer die "Schwingertypen"-Ansicht die hand-gewichtete Distanz aus
-web/lib/aehnlichkeit.ts durch echtes Clustering ueber Physis + Stil
-(Gewicht, Grösse, bevorzugte Schwünge) -- bewusst OHNE Elo/Kranzstatus,
-damit "Typ" wirklich Körperbau+Stil meint und nicht Erfolg misst (Nutzer-
-wunsch: "Klassifikation ... anstelle von Elo").
+Ersetzt fuer die "Schwingertypen"-Ansicht UND die "Ähnliche Schwinger"-Anzeige
+die hand-gewichtete Distanz aus web/lib/aehnlichkeit.ts durch echtes
+Clustering/KNN ueber Physis + Stil (Gewicht, Grösse, bevorzugte Schwünge) --
+bewusst OHNE Elo/Kranzstatus, damit "ähnlich"/"Typ" wirklich Körperbau+Stil
+meint und nicht Erfolg misst (Nutzerwunsch: "Klassifikation ... anstelle
+von Elo").
 
 K wird per Silhouette-Score automatisch aus einem Bereich gewaehlt statt
 willkuerlich fixiert -- ML-6-Prinzip dieses Projekts (Metriken statt Gefühl).
@@ -16,9 +18,12 @@ import numpy as np
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from sklearn.metrics import silhouette_score
+from sklearn.neighbors import NearestNeighbors
 
 from .config import SEED
 from .schema import Schwinger
+
+N_AEHNLICHSTE = 5
 
 # Haeufigste bevorzugte Schwuenge in den echten Daten (s. artifacts/schwinger.json);
 # als One-Hot-Merkmale genutzt. Seltenere Schwuenge fliessen nicht separat ein,
@@ -73,6 +78,20 @@ def berechne_cluster(schwinger: dict[str, Schwinger]) -> dict | None:
     pca = PCA(n_components=2, random_state=SEED)
     koordinaten = pca.fit_transform(X_std)
 
+    # KNN im selben standardisierten Merkmalsraum -- ersetzt die alte
+    # Hand-Heuristik in web/lib/aehnlichkeit.ts fuer "Ähnliche Schwinger".
+    nn = NearestNeighbors(n_neighbors=min(N_AEHNLICHSTE + 1, len(X_std)))
+    nn.fit(X_std)
+    distanzen, indizes = nn.kneighbors(X_std)
+    aehnlichste: dict[str, list[dict]] = {}
+    for i, sid in enumerate(ids):
+        treffer = [
+            {"schwinger_id": ids[j], "score": round(float(1.0 / (1.0 + dist)), 3)}
+            for dist, j in zip(distanzen[i], indizes[i])
+            if j != i
+        ]
+        aehnlichste[sid] = treffer[:N_AEHNLICHSTE]
+
     punkte = [
         {
             "schwinger_id": sid,
@@ -106,4 +125,5 @@ def berechne_cluster(schwinger: dict[str, Schwinger]) -> dict | None:
         "silhouette": round(float(beste_silhouette), 3),
         "punkte": punkte,
         "cluster_zusammenfassung": zusammenfassung,
+        "aehnlichste": aehnlichste,
     }

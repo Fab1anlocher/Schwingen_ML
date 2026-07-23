@@ -2,9 +2,9 @@
 
 import { Fragment, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { ladeRatings, ladeSchwinger } from "@/lib/data";
-import type { RatingsArtifact, Schwinger } from "@/lib/types";
-import { findeAehnliche, hatProfildaten } from "@/lib/aehnlichkeit";
+import { ladeCluster, ladeRatings, ladeSchwinger } from "@/lib/data";
+import type { ClusterArtifact, RatingsArtifact, Schwinger } from "@/lib/types";
+import { gruende, hatProfildaten } from "@/lib/aehnlichkeit";
 
 const KRANZ_LABEL: Record<string, string> = {
   kein: "—",
@@ -30,6 +30,7 @@ const MAX_OHNE_SUCHE = 150;
 export default function SchwingerListe() {
   const [schwinger, setSchwinger] = useState<Schwinger[]>([]);
   const [ratings, setRatings] = useState<RatingsArtifact | null>(null);
+  const [cluster, setCluster] = useState<ClusterArtifact | null>(null);
   const [q, setQ] = useState("");
   const [teilverband, setTeilverband] = useState("");
   const [minGaenge, setMinGaenge] = useState(0);
@@ -38,6 +39,7 @@ export default function SchwingerListe() {
   useEffect(() => {
     ladeSchwinger().then(setSchwinger);
     ladeRatings().then(setRatings);
+    ladeCluster().then(setCluster).catch(() => {});
   }, []);
 
   const verfuegbareTeilverbaende = useMemo(() => {
@@ -155,7 +157,7 @@ export default function SchwingerListe() {
                   {offen === s.id && (
                     <tr>
                       <td colSpan={7} style={{ background: "var(--panel-2)" }}>
-                        <SchwingerDetail schwinger={s} alle={schwinger} />
+                        <SchwingerDetail schwinger={s} alle={schwinger} cluster={cluster} />
                       </td>
                     </tr>
                   )}
@@ -179,8 +181,22 @@ export default function SchwingerListe() {
   );
 }
 
-function SchwingerDetail({ schwinger: s, alle }: { schwinger: Schwinger; alle: Schwinger[] }) {
-  const aehnliche = useMemo(() => findeAehnliche(s, alle, 5), [s, alle]);
+function SchwingerDetail({
+  schwinger: s,
+  alle,
+  cluster,
+}: {
+  schwinger: Schwinger;
+  alle: Schwinger[];
+  cluster: ClusterArtifact | null;
+}) {
+  const byId = useMemo(() => Object.fromEntries(alle.map((sw) => [sw.id, sw])), [alle]);
+  const aehnliche = useMemo(() => {
+    const treffer = cluster?.aehnlichste[s.id] ?? [];
+    return treffer
+      .map((t) => ({ schwinger: byId[t.schwinger_id], score: t.score }))
+      .filter((t): t is { schwinger: Schwinger; score: number } => t.schwinger !== undefined);
+  }, [cluster, s.id, byId]);
   const index = s.ueberraschungsindex;
 
   return (
@@ -224,6 +240,8 @@ function SchwingerDetail({ schwinger: s, alle }: { schwinger: Schwinger; alle: S
         <strong>Ähnliche Schwinger:</strong>{" "}
         {!hatProfildaten(s) ? (
           <span className="muted">kein Porträt erfasst — kein sinnvoller Vergleich möglich.</span>
+        ) : !cluster ? (
+          <span className="muted">wird geladen …</span>
         ) : aehnliche.length === 0 ? (
           <span className="muted">keine vergleichbaren Profile gefunden.</span>
         ) : (
@@ -233,7 +251,7 @@ function SchwingerDetail({ schwinger: s, alle }: { schwinger: Schwinger; alle: S
                 key={t.schwinger.id}
                 href={`/?a=${encodeURIComponent(t.schwinger.id)}&b=${encodeURIComponent(s.id)}`}
                 className="badge"
-                title={t.gruende.join(", ") || "ähnliches Profil"}
+                title={gruende(s, t.schwinger).join(", ") || "ähnliches Profil (K-Means/KNN)"}
                 style={{ color: "var(--text)" }}
               >
                 {t.schwinger.name} · {(t.score * 100).toFixed(0)}%
