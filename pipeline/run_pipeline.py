@@ -19,18 +19,14 @@ import argparse
 import json
 from collections import deque, defaultdict
 
-# Frühe Meldung VOR den schweren Imports (sklearn/scipy brauchen beim ersten
-# Start 10-30 s) -- sonst wirkt der Start eingefroren, obwohl er nur lädt.
-print("Pipeline startet – lade Bibliotheken (beim ersten Mal 10-30 s) ...", flush=True)
-
 from . import config, export
 from .config import FORM_FENSTER_K
 from .labels import dedupliziere
 from .ratings import fahre_elo_durch, bewerte_baseline, berechne_ueberraschung
 from .features import baue_features
-from .train import trainiere, feature_wichtigkeit
-from .benchmark import fuehre_benchmark_durch
-from .clustering import berechne_cluster
+# sklearn-abhängige Module (train/benchmark/clustering) werden bewusst ERST in
+# main() importiert -- nach dem Daten-Fetch. So läuft das (bei esv stundenlange)
+# Datenholen sofort los, statt am langsamen sklearn/scipy-Import zu hängen.
 
 
 def _lade_daten(source: str, *, von_jahr: int = 2010, mit_portraets: bool = True):
@@ -140,6 +136,10 @@ def main(source: str = "synth", *, von_jahr: int = 2010, mit_portraets: bool = T
     print(f"      {len(X)} Trainingsbeispiele x {len(X[0]) if X else 0} Merkmale", flush=True)
 
     print("[5/8] Logistic Regression trainieren + zeitlich evaluieren ...", flush=True)
+    print("      (lade sklearn – beim ersten Mal 10-30 s) ...", flush=True)
+    from .train import trainiere, feature_wichtigkeit
+    from .benchmark import fuehre_benchmark_durch
+    from .clustering import berechne_cluster
     train_res = trainiere(X, y, meta)
     fi = feature_wichtigkeit(train_res["modell"], train_res["sigma"])
     print(f"      Modell   Log-Loss={train_res['log_loss']:.4f} "
