@@ -18,6 +18,13 @@ from typing import Optional
 from ..labels import RohGangEintrag
 from ..schema import Event, Schwinger
 
+
+def _log(msg: str) -> None:
+    """Fortschritts-Ausgabe, die auch bei Umleitung in eine Datei sofort
+    erscheint (flush) -- so sieht man den Backfill live im Terminal."""
+    print(msg, flush=True)
+
+
 _TEILVERBAND_PREFIX = {
     "BKSV": "Bern",
     "ISV": "Innerschweiz",
@@ -58,10 +65,10 @@ def lade_esv_daten(
     max_feste: Optional[int] = None,
     aktuelles_jahr: Optional[int] = None,
     mit_portraets: bool = False,
-    log=print,
+    log=_log,
 ):
     """(schwinger: dict[str,Schwinger], events: list[Event], roh: list[RohGangEintrag])."""
-    from .esv_fetch import feste_im_zeitraum, hole_rangliste
+    from .esv_fetch import ESV_CACHE, feste_im_zeitraum, hole_rangliste
     from .esv_ranglisten import parse_rangliste
 
     refs = feste_im_zeitraum(von_jahr, bis_jahr, nur_aktiv=nur_aktiv, aktuelles_jahr=aktuelles_jahr)
@@ -69,22 +76,31 @@ def lade_esv_daten(
     refs.sort(key=lambda r: r.datum or "")
     if max_feste:
         refs = refs[:max_feste]
-    log(f"      {len(refs)} Aktiv-Feste {von_jahr}-{bis_jahr}")
+    n_total = len(refs)
+    log(f"      {n_total} Aktiv-Feste {von_jahr}-{bis_jahr} -- lade Ranglisten ...")
 
     schwinger: dict[str, Schwinger] = {}
     slug_zu_uid: dict[str, str] = {}
     events: list[Event] = []
     geparste: list = []
+    n_gaenge_roh = 0
 
     for i, ref in enumerate(refs, 1):
+        aus_cache = (ESV_CACHE / f"anlass_{ref.anlass_id}.html").exists()
         try:
             html = hole_rangliste(ref.anlass_id, erzwinge_neu=False)
             rl = parse_rangliste(html, anlass_id=ref.anlass_id)
         except Exception as e:  # noqa: BLE001 - einzelnes Fest darf den Lauf nicht stoppen
-            log(f"      [{i}/{len(refs)}] {ref.name}: nicht ladbar/parsbar: {e}")
+            log(f"      [{i}/{n_total}] {ref.name}: nicht ladbar/parsbar: {e}")
             continue
+        # Fortschrittszeile je Fest (Cache-Treffer vs. neu geladen).
+        marker = "cache" if aus_cache else " neu "
+        log(f"      [{i}/{n_total}] {marker} {ref.datum} {ref.name[:42]:42} "
+            f"({len(rl.schwinger)} Schw., {len(rl.gaenge)} Gänge) "
+            f"· Σ {len(schwinger)} Schwinger")
         if not rl.schwinger:
             continue
+        n_gaenge_roh += len(rl.gaenge)
         events.append(
             Event(id=ref.anlass_id, name=rl.name or ref.name, datum=rl.datum or ref.datum,
                   typ=ref.stufe, quelle="esv.ch", ort=ref.ort)
@@ -130,7 +146,7 @@ def lade_esv_daten(
     return schwinger, events, roh
 
 
-def _reichere_portraets_an(schwinger: dict, slug_zu_uid: dict, *, log=print) -> None:
+def _reichere_portraets_an(schwinger: dict, slug_zu_uid: dict, *, log=_log) -> None:
     """Lädt je Schwinger das Porträt (gecacht) und ergänzt Stammdaten
     (Jahrgang, Gewicht, Grösse, Senne/Turner, Schwünge)."""
     from .esv_fetch import hole_portraet
