@@ -77,6 +77,7 @@ pipeline/                 Python-Datenpipeline (GitHub Actions)
   synth.py                Synthetischer Datensatz (Demo, bis Scraper aktiv)
   run_pipeline.py         Orchestrator (FR-6)
   verify_inference.py     Cross-Check: JSON-Inferenz (LR+GBM) == sklearn
+  scrape/discover.py      Automatischer Fest-Finder (schlussgang JSON:API)
   scrape/schlussgang_pdf.py  PDF-Parser statistic-final.pdf (primär, Cloud)
   scrape/esv.py           ESV-Ranglisten-Scraper (esv.ch) — nur Heimrechner (WAF)
   scrape/http.py          Höflicher Client + Browser-Fallback (WAF/JS)
@@ -171,16 +172,25 @@ Die PDFs nutzen die offizielle Schwingen-Notation (`+` Sieg / `-` Gestellt /
 Wort-Positionen und ist **gegen echte PDFs verifiziert** (z. B. Pfäffikon 2026:
 259 Gänge korrekt dedupliziert/gelabelt).
 
+**Feste werden automatisch entdeckt** über die schlussgang.ch **JSON:API**
+(`pipeline/scrape/discover.py`): `backend.schlussgang.ch/jsonapi/node/event`
+listet alle Feste mit ihrer Statistik-PDF; die Pipeline lädt die jüngsten
+`SCHLUSSGANG_MAX_FESTE` (config, Default 80, nur Aktivschwinger) — **keine
+manuellen IDs nötig**. Neue Feste erscheinen automatisch.
+
 **Vollautomatischer Ablauf** (`.github/workflows/update.yml`, täglich/dispatch):
-scrape → parse → Features → LR+GBM trainieren → Artefakte committen → Vercel
-deployt. Kein manueller Schritt.
+Feste finden → PDFs laden → parsen → Features → LR+GBM trainieren → Artefakte
+committen → Vercel deployt. Kein manueller Schritt.
 
-### Feste hinzufügen
+**Real verifiziert (GitHub Actions):** ~80 Feste automatisch entdeckt →
+**11'834 Gänge / 3'318 Schwinger**; Holdout Saison 2026 → **GBM Log-Loss 0.878
+schlägt Elo-Baseline 1.041**.
 
-Die Fest-IDs stehen in `pipeline/config.py` → `SCHLUSSGANG_EVENT_IDS`. Neue Feste
-einfach als ID ergänzen (Name/Datum/Typ liest die Pipeline aus dem PDF). Nicht
-existierende IDs werden im Lauf übersprungen. Mehr Feste = stärkeres Modell
-(erst mit mehreren Saisons greift der zeitliche Holdout richtig).
+### Mehr/weniger Feste
+
+`SCHLUSSGANG_MAX_FESTE` in `pipeline/config.py` steuert, wie viele der jüngsten
+Feste verarbeitet werden (mehr = mehr Historie/stärkeres Modell, längerer Lauf).
+`SCHLUSSGANG_NUR_AKTIV=True` filtert auf Aktivschwinger-Feste.
 
 ```bash
 python -m pipeline.run_pipeline --source schlussgang   # echter Lauf (mit Internet)
