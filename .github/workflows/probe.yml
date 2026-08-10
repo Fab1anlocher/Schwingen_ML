@@ -6,7 +6,7 @@ on:
   push:
     branches: ["claude/schwingen-gang-prognose-zfeyko"]
     paths:
-      - "pipeline/scrape/probe.py"
+      - "pipeline/scrape/**"
       - ".github/workflows/probe.yml"
 
 jobs:
