@@ -1,11 +1,16 @@
-"""Erreichbarkeits-Sonde für Datenquellen (aus GitHub Actions).
+"""Kalibrier-Sonde für schlussgang.ch (aus GitHub Actions).
 
-Testet, welche Schwingen-Quellen vom Cloud-Runner (Rechenzentrums-IP) OHNE
-403/WAF erreichbar sind — Grundlage für die Wahl der automatisch scrapebaren
-Quelle. Tolerant (exit 0), druckt Status/Content-Type/Grösse in die Logs.
+schlussgang.ch ist vom Cloud-Runner erreichbar (kein WAF gegen Rechenzentrums-
+IPs). Diese Sonde dumpt:
+  1. den extrahierten Text einer statistic-final.pdf (Gang-Statistik, §4.1),
+  2. relevante Links der /resultate-Seite (Event-Discovery),
+damit der PDF-Parser + die Event-Auflösung exakt gebaut werden können.
+Tolerant (exit 0).
 """
 from __future__ import annotations
 
+import io
+import re
 import urllib.request
 import urllib.error
 
@@ -13,45 +18,63 @@ UA = (
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
     "Chrome/124.0.0.0 Safari/537.36"
 )
-
-ZIELE = [
-    # schlussgang.ch (ursprüngliche Quelle: HTML + PDF-Backend)
-    "https://schlussgang.ch/",
-    "https://www.schlussgang.ch/resultate",
-    "https://backend-api.schlussgang.ch/sites/default/files/event-ranking-list/52026-statistic-final.pdf",
-    "https://backend-api.schlussgang.ch/sites/default/files/event-ranking-list/21068-final.pdf",
-    "https://backend.schlussgang.ch/sites/default/files/event-ranking-list/22403-final.pdf",
-    # zwilch.ch (grosse Historie)
-    "https://zwilch.ch/",
-    # SRF (Quer-Validierung)
-    "https://www.srf.ch/sport/schwingen",
-]
+PDF_URL = ("https://backend-api.schlussgang.ch/sites/default/files/"
+           "event-ranking-list/52026-statistic-final.pdf")
+RESULTATE_URL = "https://www.schlussgang.ch/resultate"
 
 
-def probe(url: str) -> None:
+def _get(url: str, binaer: bool = False):
     req = urllib.request.Request(url, headers={
         "User-Agent": UA,
-        "Accept": "text/html,application/xhtml+xml,application/pdf,*/*;q=0.8",
+        "Accept": "text/html,application/pdf,*/*;q=0.8",
         "Accept-Language": "de-CH,de;q=0.9",
     })
+    with urllib.request.urlopen(req, timeout=45) as resp:
+        return resp.read()
+
+
+def dump_pdf():
+    print("=== PDF-Text: statistic-final.pdf ===")
     try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            body = resp.read(2048)
-            ct = resp.headers.get("Content-Type", "?")
-            clen = resp.headers.get("Content-Length", "?")
-            print(f"  OK  {resp.status}  {ct}  len={clen}  first={body[:16]!r}")
-            print(f"      -> ERREICHBAR: {url}")
-    except urllib.error.HTTPError as e:
-        print(f"  {e.code} {e.reason}  (blockiert/fehlt): {url}")
+        import pdfplumber  # type: ignore
+    except ImportError:
+        print("  pdfplumber fehlt"); return
+    try:
+        data = _get(PDF_URL, binaer=True)
     except Exception as e:  # noqa: BLE001
-        print(f"  Fehler {type(e).__name__}: {e}: {url}")
+        print(f"  Download-Fehler: {e}"); return
+    with pdfplumber.open(io.BytesIO(data)) as pdf:
+        print(f"  Seiten: {len(pdf.pages)}")
+        for pi, page in enumerate(pdf.pages[:2]):
+            print(f"\n--- Seite {pi+1}: TEXT ---")
+            txt = page.extract_text() or ""
+            for line in txt.splitlines()[:70]:
+                print(f"  | {line}")
+            tables = page.extract_tables()
+            print(f"\n--- Seite {pi+1}: {len(tables)} Tabelle(n) ---")
+            for ti, tb in enumerate(tables[:1]):
+                for row in tb[:8]:
+                    print(f"  T{ti}| {row}")
+
+
+def dump_resultate():
+    print("\n=== /resultate: Event-/PDF-Links ===")
+    try:
+        html = _get(RESULTATE_URL).decode("utf-8", "replace")
+    except Exception as e:  # noqa: BLE001
+        print(f"  Fehler: {e}"); return
+    hrefs = re.findall(r'href="([^"]+)"', html)
+    rel = [h for h in hrefs if re.search(r"event|statistic|ranking|-final|anlass|\.pdf", h, re.I)]
+    for h in list(dict.fromkeys(rel))[:30]:
+        print(f"  {h}")
+    # IDs im HTML (Event-/Anlass-IDs, statistic-URLs)
+    ids = re.findall(r"event-ranking-list/(\d+)-", html)
+    print(f"  Gefundene Ranking-IDs: {sorted(set(ids))[:20]}")
 
 
 def main():
-    print("=== Datenquellen-Erreichbarkeit vom Cloud-Runner ===")
-    for z in ZIELE:
-        print(f"\n>>> {z}")
-        probe(z)
+    dump_pdf()
+    dump_resultate()
 
 
 if __name__ == "__main__":
