@@ -55,11 +55,12 @@ def _zeilen_je_spalte(woerter, kanten: list[float]) -> dict[int, list[list[dict]
     """Ordnet Wörter Spalten (per x) und Zeilen (per y) zu."""
     if not kanten:
         return {}
-    grenzen = [(kanten[i] + kanten[i + 1]) / 2 for i in range(len(kanten) - 1)]
+    # Grenzen = linke Kanten der Folgespalten (Spalten sind breit: „Symbol Name Note").
+    grenzen = kanten[1:]
 
     def spalte(x: float) -> int:
         for i, g in enumerate(grenzen):
-            if x < g:
+            if x < g - 2:  # kleine Toleranz
                 return i
         return len(kanten) - 1
 
