@@ -53,16 +53,50 @@ def _diagnose(html: str) -> None:
         print(f"        | {zellen}")
 
 
+def _probe(url: str, out: Path) -> bool:
+    """Testet einen Endpunkt tolerant und protokolliert das Ergebnis."""
+    import urllib.error
+    print(f"\n>>> PROBE {url}")
+    try:
+        html = hole(url)
+    except urllib.error.HTTPError as e:
+        print(f"    HTTP {e.code} {e.reason}  (Bot-/WAF-Sperre wahrscheinlich)")
+        return False
+    except Exception as e:  # noqa: BLE001
+        print(f"    Fehler: {type(e).__name__}: {e}")
+        return False
+    name = url.replace("https://", "").replace("/", "_").replace("?", "_")[:60]
+    (out / f"{name}.html").write_text(html, encoding="utf-8")
+    print(f"    OK  {len(html)} Zeichen  -> {name}.html")
+    _diagnose(html)
+    return True
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--anlass", help="Konkrete Anlass-ID (sonst erste von der Indexseite)")
+    ap.add_argument("--anlass", default="3694", help="Anlass-ID (Default 3694 = ESAF 2025)")
     ap.add_argument("--out", default=str(ROOT / "recon"), help="Zielordner für HTML-Dumps")
     args = ap.parse_args()
 
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
 
-    print(f"[1/3] Index laden: {ESV_BASE}")
+    # Diagnose: Welche esv.ch-Endpunkte sind von hier erreichbar?
+    print("=== ERREICHBARKEITS-DIAGNOSE esv.ch ===")
+    ziele = [
+        "https://esv.ch/",
+        ESV_BASE,
+        f"{ESV_BASE}?anlass={args.anlass}",
+        f"https://isv.esv.ch/ranglisten/?anlass={args.anlass}",
+    ]
+    erreichbar = [z for z in ziele if _probe(z, out)]
+    print(f"\n=== Ergebnis: {len(erreichbar)}/{len(ziele)} Endpunkte erreichbar ===")
+    if not erreichbar:
+        print("KEIN Endpunkt erreichbar — esv.ch blockt diese IP (WAF/Cloudflare).")
+        print("→ Von einer Wohn-IP (Heimrechner) erneut versuchen, ggf. mit Playwright.")
+        return
+    # Falls erreichbar: die Rangliste regulär durchparsen.
+    print("\n[Parser] Rangliste interpretieren ...")
     index_html = hole(ESV_BASE)
     (out / "index.html").write_text(index_html, encoding="utf-8")
     ids = esv.finde_anlass_ids(index_html)
