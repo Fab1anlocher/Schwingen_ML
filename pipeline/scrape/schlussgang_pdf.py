@@ -150,6 +150,10 @@ def parse_statistic_pdf(pdf_bytes: bytes, event_id: str, datum: str, fest_typ: s
                 print("[dbg] erste Wörter:",
                       [(w["text"], round(w["x0"]), round(w["top"])) for w in woerter[:8]])
             zeilen = _zeilen_je_spalte(woerter, kanten)
+            if debug and pi == 0:
+                for zl in zeilen.get(0, [])[:6]:
+                    tk = _text(zl)
+                    print(f"[dbg] col0 line={tk} kopf={_parse_kopf(tk)} gang={_parse_gang(tk)}")
             for c in sorted(zeilen):
                 aktiv: str | None = None
                 for zeile in zeilen[c]:
