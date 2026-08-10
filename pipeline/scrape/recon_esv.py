@@ -23,6 +23,36 @@ from .http import hole
 from . import esv
 
 
+def _diagnose(html: str) -> None:
+    """Druckt die reale Seitenstruktur in die Logs (Parser-Kalibrierung)."""
+    try:
+        from bs4 import BeautifulSoup  # type: ignore
+    except ImportError:
+        print("      (bs4 fehlt — Diagnose übersprungen)")
+        return
+    soup = BeautifulSoup(html, "html.parser")
+    tabellen = soup.find_all("table")
+    print(f"      Diagnose: {len(tabellen)} <table>-Elemente")
+    if not tabellen:
+        # Möglicher Hinweis auf JS-gerenderte SPA.
+        n_script = len(soup.find_all("script"))
+        print(f"      ⚠ Keine Tabelle im HTML. {n_script} <script>-Tags — evtl. JS-gerendert.")
+        print("        In diesem Fall ist ein Headless-Browser (Playwright) nötig.")
+        # Sichtbare Textstruktur andeuten.
+        txt = soup.get_text("\n", strip=True)
+        print("      --- erste 40 sichtbare Textzeilen ---")
+        for line in txt.splitlines()[:40]:
+            print(f"        | {line[:120]}")
+        return
+    tabelle = max(tabellen, key=lambda t: len(t.find_all("tr")))
+    zeilen = tabelle.find_all("tr")
+    print(f"      Grösste Tabelle: {len(zeilen)} Zeilen")
+    print("      --- erste 6 Zeilen (Zellen-Text) ---")
+    for tr in zeilen[:6]:
+        zellen = [td.get_text(" ", strip=True) for td in tr.find_all(["td", "th"])]
+        print(f"        | {zellen}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--anlass", help="Konkrete Anlass-ID (sonst erste von der Indexseite)")
@@ -50,6 +80,9 @@ def main():
     dump = out / f"anlass_{aid}.html"
     dump.write_text(html, encoding="utf-8")
     print(f"      HTML gespeichert: {dump}  ({len(html)} Zeichen)")
+
+    # --- Diagnose: Struktur der echten Seite (für Parser-Kalibrierung) ---
+    _diagnose(html)
 
     print(f"[3/3] Aktueller Parser interpretiert die Seite so:")
     try:
