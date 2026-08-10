@@ -63,14 +63,26 @@ def _zeilen_je_spalte(woerter, kanten: list[float]) -> dict[int, list[list[dict]
                 return i
         return len(kanten) - 1
 
-    aus: dict[int, dict[int, list[dict]]] = {i: {} for i in range(len(kanten))}
+    # Wörter je Spalte sammeln, dann in Zeilen clustern (Toleranz gegen leicht
+    # unterschiedliche top-Werte innerhalb einer visuellen Zeile).
+    proSpalte: dict[int, list[dict]] = {i: [] for i in range(len(kanten))}
     for w in woerter:
-        c = spalte(w["x0"])
-        y = round(w["top"])
-        aus[c].setdefault(y, []).append(w)
+        proSpalte[spalte(w["x0"])].append(w)
+
     zeilen: dict[int, list[list[dict]]] = {}
-    for c, ys in aus.items():
-        zeilen[c] = [sorted(ys[y], key=lambda w: w["x0"]) for y in sorted(ys)]
+    for c, ws in proSpalte.items():
+        ws.sort(key=lambda w: (w["top"], w["x0"]))
+        lines: list[list[dict]] = []
+        ref = None
+        for w in ws:
+            if ref is None or w["top"] - ref > 3.5:
+                lines.append([w])
+                ref = w["top"]
+            else:
+                lines[-1].append(w)
+        for ln in lines:
+            ln.sort(key=lambda w: w["x0"])
+        zeilen[c] = lines
     return zeilen
 
 
