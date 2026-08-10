@@ -17,6 +17,8 @@ def _get(url: str) -> bytes:
 
 
 def main():
+    import os
+    os.environ["SCHWINGEN_PDF_DEBUG"] = "1"
     from pipeline.scrape.schlussgang_pdf import parse_statistic_pdf
     from pipeline.labels import dedupliziere
 

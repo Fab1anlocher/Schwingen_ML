@@ -34,17 +34,21 @@ def _open(pdf_bytes: bytes):
     return pdfplumber.open(io.BytesIO(pdf_bytes))
 
 
-def _spalten_grenzen(woerter) -> list[float]:
-    """Ermittelt die linken Spaltenkanten aus den Rang-Kopf-Tokens (3 Spalten)."""
-    xs = sorted({round(w["x0"]) for w in woerter if _RANG_RE.match(w["text"])})
-    if not xs:
-        return []
-    # Kanten zu ~3 Clustern zusammenfassen (Toleranz 25px).
+def _spalten_grenzen(woerter, seitenbreite: float) -> list[float]:
+    """Linke Spaltenkanten der 3 Schwinger-Spalten.
+
+    Bevorzugt die x-Positionen der Rang-Kopf-Tokens (1a, 2b, …); fällt sonst
+    auf Drittel der Seitenbreite zurück (robust gegen ragged Randblöcke).
+    """
+    xs = sorted(round(w["x0"]) for w in woerter if _RANG_RE.match(w["text"]))
     kanten: list[float] = []
     for x in xs:
-        if not kanten or x - kanten[-1] > 25:
-            kanten.append(x)
-    return kanten
+        if not kanten or x - kanten[-1] > 40:
+            kanten.append(float(x))
+    if len(kanten) >= 2:
+        return kanten[:3]
+    # Fallback: Drittel der Seite.
+    return [0.0, seitenbreite / 3.0, 2.0 * seitenbreite / 3.0]
 
 
 def _zeilen_je_spalte(woerter, kanten: list[float]) -> dict[int, list[list[dict]]]:
@@ -122,10 +126,17 @@ def parse_statistic_pdf(pdf_bytes: bytes, event_id: str, datum: str, fest_typ: s
             schwinger[sid].kranzstatus = kranz
         return sid
 
+    import os
+    debug = os.environ.get("SCHWINGEN_PDF_DEBUG") == "1"
+
     with _open(pdf_bytes) as pdf:
-        for page in pdf.pages:
+        for pi, page in enumerate(pdf.pages):
             woerter = page.extract_words(x_tolerance=1.5, y_tolerance=2)
-            kanten = _spalten_grenzen(woerter)
+            kanten = _spalten_grenzen(woerter, float(page.width))
+            if debug and pi == 0:
+                print(f"[dbg] Seite1 breite={page.width} woerter={len(woerter)} kanten={kanten}")
+                print("[dbg] erste Wörter:",
+                      [(w["text"], round(w["x0"]), round(w["top"])) for w in woerter[:8]])
             zeilen = _zeilen_je_spalte(woerter, kanten)
             for c in sorted(zeilen):
                 aktiv: str | None = None
