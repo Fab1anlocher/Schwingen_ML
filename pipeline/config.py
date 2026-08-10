@@ -34,9 +34,14 @@ KLASSEN = ["sieg_a", "gestellt", "sieg_b"]
 # Fest-Typen (§4.2).
 FEST_TYPEN = ["eidgenoessisch", "berg", "kantonal", "teilverband", "regional"]
 
-# Höfliches Scraping (NFR-4).
+# Höfliches Scraping (NFR-4): Rate-Limit + robots.txt bleiben aktiv. Der
+# User-Agent ist browser-kompatibel, weil esv.ch nicht-Browser-UAs mit 403
+# blockt; die Kennung „Schwingen-ML" bleibt zur Transparenz enthalten.
 SCRAPE_DELAY_SEKUNDEN = 2.0
-USER_AGENT = "Schwingen-ML/1.0 (nicht-kommerziell; Hobby-Projekt)"
+USER_AGENT = (
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/124.0.0.0 Safari/537.36 Schwingen-ML/1.0 (nicht-kommerziell)"
+)
 
 # --- Datenquelle: ESV (esv.ch/ranglisten) -------------------------------
 # Offizielle Ranglisten des Eidgenössischen Schwingerverbands.

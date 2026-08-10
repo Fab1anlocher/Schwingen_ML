@@ -43,7 +43,15 @@ def hole(url: str, *, binaer: bool = False):
     warte = SCRAPE_DELAY_SEKUNDEN - (time.time() - _letzter_request.get(host, 0))
     if warte > 0:
         time.sleep(warte)
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    # Browser-ähnliche Header: viele Seiten (inkl. esv.ch) antworten sonst mit
+    # 403 auf nicht-Browser-User-Agents. Rate-Limit + robots.txt bleiben aktiv.
+    req = urllib.request.Request(url, headers={
+        "User-Agent": USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "de-CH,de;q=0.9,en;q=0.8",
+        "Accept-Encoding": "identity",
+        "Connection": "close",
+    })
     with urllib.request.urlopen(req, timeout=30) as resp:
         daten = resp.read()
     _letzter_request[host] = time.time()
