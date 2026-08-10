@@ -55,9 +55,9 @@ export default function Feste() {
       {kommende.length === 0 ? (
         <div className="panel">
           <p>
-            Aktuell sind keine bevorstehenden Feste erfasst. Sobald der Agenda-Scraper
-            (schlussgang.ch/agenda) aktiv ist, erscheinen hier kommende Feste samt
-            veröffentlichter Spitzenpaarungen.
+            Aktuell sind keine bevorstehenden Feste erfasst. Die ESV-Ranglisten
+            (esv.ch) sind resultatorientiert; sobald eine Agenda-Quelle angebunden
+            ist, erscheinen hier kommende Feste samt veröffentlichter Paarungen.
           </p>
           <p className="muted small">
             Bis dahin lässt sich jedes Paar direkt über die{" "}

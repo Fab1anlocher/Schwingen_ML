@@ -36,8 +36,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="main">{children}</main>
         <footer className="footer">
           <p>
-            Prognosen sind informativ und <strong>kein Wettangebot</strong>. Datenquellen:
-            schlussgang.ch u. a. · Nicht-kommerzielles Hobby-Projekt.
+            Prognosen sind informativ und <strong>kein Wettangebot</strong>. Datenquelle:
+            offizielle ESV-Ranglisten (esv.ch) · Nicht-kommerzielles Hobby-Projekt.
           </p>
         </footer>
       </body>

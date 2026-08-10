@@ -7,8 +7,9 @@ Wettangebot**.
 
 > Status: **Phase-1-MVP lauffähig** — komplette Pipeline (Labels → Elo-Baseline →
 > Logistic Regression → JSON-Artefakte) und Next.js-Web-App mit clientseitiger
-> Inferenz. Läuft end-to-end mit synthetischen Demodaten; die echten Scraper sind
-> als Gerüst angelegt (siehe [Datenquellen](#datenquellen)).
+> Inferenz. Läuft end-to-end mit synthetischen Demodaten; der ESV-Scraper
+> (esv.ch/ranglisten) ist implementiert und mechanisch getestet, offen ist nur
+> die Kalibrierung gegen das reale HTML (siehe [Datenquelle](#datenquelle-esv-ranglisten-esvchranglisten)).
 
 ---
 
@@ -17,7 +18,7 @@ Wettangebot**.
 | # | Frage | Entscheidung | Begründung |
 |---|---|---|---|
 | 1 | Stack / Sprache | **Next.js App Router + TypeScript** | Typsicherheit für Modell-Artefakte (JSON-Gewichte), Standard, gute Vercel-Integration. |
-| 2 | MVP-Datensatz | **Aktive Elite, letzte ~2–3 Saisons** aus schlussgang.ch-PDFs zuerst | Sauberste, maschinenlesbare Quelle. zwilch.ch-Historie kommt in Phase 2 dazu. |
+| 2 | MVP-Datensatz | **Offizielle ESV-Ranglisten** (esv.ch/ranglisten), aktive Feste zuerst | Offizielle Quelle, einheitliche Notation, über `?anlass=<id>` je Fest abrufbar. |
 | 3 | Metrik-Schwelle | **Log-Loss < Elo-Baseline** auf zeitlichem Holdout | „Gut genug" = schlägt Baseline messbar. Aktuell (synthetisch): 0.76 vs. 0.85. |
 | 4 | Betrieb / Datastore | **Öffentliches Repo + Vercel Hobby, KEIN Supabase** | Siehe unten. |
 
@@ -75,7 +76,8 @@ pipeline/                 Python-Datenpipeline (GitHub Actions)
   synth.py                Synthetischer Datensatz (Demo, bis Scraper aktiv)
   run_pipeline.py         Orchestrator (FR-6)
   verify_inference.py     Cross-Check: JSON-Inferenz == sklearn-Modell
-  scrape/                 Echte Scraper-Gerüste (schlussgang.ch, agenda) — höflich
+  scrape/esv.py           ESV-Ranglisten-Scraper (esv.ch/ranglisten) — höflich
+  scrape/recon_esv.py     Kalibrierhilfe: echtes HTML abgreifen + Parser prüfen
   tests/                  pytest für die Label-Logik
 artifacts/                Generierte JSON-Artefakte (versioniert)
 web/                      Next.js App Router + TypeScript
@@ -126,16 +128,37 @@ npm run dev        # http://localhost:3000
 
 ---
 
-## Datenquellen
+## Datenquelle: ESV-Ranglisten (esv.ch/ranglisten)
 
-Der MVP läuft mit **synthetischen** Daten (`pipeline/synth.py`), damit die ganze
-Pipeline und die Web-App sofort funktionieren. Die echten Scraper sind mit den
-**realen URL-Mustern** angelegt, aber die Parser müssen gegen echte Dateien
-kalibriert werden (R-6), bevor produktiv geschaltet wird:
+Primäre Quelle sind die **offiziellen ESV-Ranglisten**:
 
-- `pipeline/scrape/schlussgang_pdf.py` — Ranglisten-PDF (`<eventId>-statistic-final.pdf`)
-- `pipeline/scrape/agenda.py` — kommende Feste + Spitzenpaarungen (FR-2)
+- Index:      `https://esv.ch/ranglisten/`
+- Einzelfest: `https://esv.ch/ranglisten/?anlass=<ANLASS_ID>` (z. B. `?anlass=3694` = ESAF 2025)
+
+Die Ranglisten nutzen die offizielle Schwingen-Notation (Symbol `+`/`-`/`o` + Note),
+identisch zur Label-Logik (§4.3) — diese bleibt unverändert.
+
+- `pipeline/scrape/esv.py` — Index + Rangliste laden und parsen → Roh-Gang-Einträge
+- `pipeline/scrape/recon_esv.py` — Kalibrierhilfe (echtes HTML abgreifen + Parser prüfen)
 - `pipeline/scrape/http.py` — höflicher Client: Rate-Limit, User-Agent, **robots.txt** (NFR-4)
+
+**Kalibrierung (R-6):** Das exakte HTML-Layout ist gegen eine echte Seite zu
+verifizieren. Da diese Sandbox esv.ch nicht erreicht (Egress-Sperre), läuft die
+Kalibrierung dort, wo das Internet offen ist:
+
+```bash
+python -m pipeline.scrape.recon_esv --anlass 3694   # lädt HTML + zeigt Parser-Ergebnis
+python -m pipeline.run_pipeline --source esv         # echter Lauf (nach Kalibrierung)
+```
+
+Bis zur Kalibrierung bleibt `--source synth` der lauffähige Default. Der
+Parser ist mechanisch getestet (nachgebildete Ranglisten-Tabelle → korrekte
+Dedup/Labels); offen ist nur die Anpassung an das reale Spaltenlayout.
+
+**Recht/Fairness (NFR-4/5):** höfliches, rate-limitiertes Abrufen; keine
+Voll-Replikation der Quell-DBs; Quellenattribution in der App; nur abgeleitete
+Kennzahlen. Sensible Felder (Geburtsdatum, Zivilstand) werden nicht gespeichert/
+angezeigt — fürs Modell nur **Alter**.
 
 **Recht/Fairness (NFR-4/5):** höfliches, rate-limitiertes Abrufen; keine
 Voll-Replikation der Quell-DBs; Quellenattribution in der App; nur abgeleitete

@@ -9,7 +9,7 @@ Ablauf:
   6. Artefakte als JSON exportieren.
 
 Reproduzierbar über festen SEED (NFR-3). Aufruf:
-    python -m pipeline.run_pipeline [--source synth|scrape]
+    python -m pipeline.run_pipeline [--source synth|esv]
 """
 from __future__ import annotations
 
@@ -28,7 +28,7 @@ def _lade_daten(source: str):
     if source == "synth":
         from .synth import erzeuge_datensatz
         return erzeuge_datensatz()
-    elif source == "scrape":
+    elif source in ("esv", "scrape"):
         from .scrape import lade_echte_daten
         return lade_echte_daten()
     raise ValueError(f"Unbekannte Quelle: {source}")
@@ -79,7 +79,7 @@ def main(source: str = "synth") -> dict:
     export.exportiere_schwinger(schwinger, form_aktuell)
     # Kommende Feste (FR-2): bei echten Daten aus dem Agenda-Scraper.
     kommende = []
-    if source == "scrape":
+    if source in ("esv", "scrape"):
         try:
             from .scrape import lade_kommende_feste
             kommende = lade_kommende_feste()
@@ -100,6 +100,6 @@ def main(source: str = "synth") -> dict:
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--source", choices=["synth", "scrape"], default="synth")
+    ap.add_argument("--source", choices=["synth", "esv", "scrape"], default="synth")
     args = ap.parse_args()
     main(args.source)

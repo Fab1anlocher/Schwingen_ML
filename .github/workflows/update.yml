@@ -9,7 +9,7 @@ on:
       source:
         description: "Datenquelle"
         type: choice
-        options: ["synth", "scrape"]
+        options: ["synth", "esv"]
         default: "synth"
 
 permissions:

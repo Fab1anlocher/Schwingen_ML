@@ -2,7 +2,7 @@
 numpy>=1.26
 pandas>=2.0
 scikit-learn>=1.4
-# Optional für echte PDF-Extraktion (schlussgang.ch statistic-final.pdf):
-pdfplumber>=0.11
+# HTML-Parsing der ESV-Ranglisten (esv.ch/ranglisten):
+beautifulsoup4>=4.12
 # Tests:
 pytest>=8.0

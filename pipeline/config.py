@@ -38,6 +38,15 @@ FEST_TYPEN = ["eidgenoessisch", "berg", "kantonal", "teilverband", "regional"]
 SCRAPE_DELAY_SEKUNDEN = 2.0
 USER_AGENT = "Schwingen-ML/1.0 (nicht-kommerziell; Hobby-Projekt)"
 
+# --- Datenquelle: ESV (esv.ch/ranglisten) -------------------------------
+# Offizielle Ranglisten des Eidgenössischen Schwingerverbands.
+# Einzelfest-Rangliste: <ESV_BASE>?anlass=<ID>
+ESV_BASE = "https://esv.ch/ranglisten/"
+# Regionale Subdomains fahren dasselbe System (nur andere Vorauswahl);
+# esv.ch selbst liefert alle Anlässe.
+ESV_REGIONEN = ["esv", "isv", "nosv", "bksv", "nwsv", "swsv", "zksv"]
+QUELLE = "esv.ch"
+
 
 def ensure_dirs() -> None:
     ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
