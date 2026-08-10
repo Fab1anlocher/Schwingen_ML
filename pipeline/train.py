@@ -99,6 +99,15 @@ def trainiere(X, y, meta) -> dict:
     holdout = bestimme_holdout_jahr(meta)
     Xtr, ytr, Xte, yte = _split_zeitlich(X, y, meta, holdout)
 
+    # Fallback bei nur einer Saison / leerem Split: positionaler 80/20-Split
+    # (chronologisch geordnet, letzte 20 % = Test).
+    if len(Xtr) == 0 or len(Xte) == 0:
+        n = len(X)
+        cut = max(1, int(n * 0.8))
+        Xtr = np.array(X[:cut]); ytr = np.array(y[:cut])
+        Xte = np.array(X[cut:]) if n - cut else np.array(X[:0])
+        yte = np.array(y[cut:]) if n - cut else np.array(y[:0])
+
     # --- Logistic Regression (standardisiert) ---------------------------
     mu = Xtr.mean(axis=0)
     sigma = Xtr.std(axis=0)

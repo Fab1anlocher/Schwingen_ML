@@ -1,13 +1,18 @@
-name: Modell-Refresh (Cloud)
+name: Daten-Update & Modell (Cloud)
 
-# NFR-1. WICHTIG: esv.ch blockt Rechenzentrums-IPs (WAF) — echtes Scraping
-# läuft NUR vom Heimrechner (siehe README, Abschnitt „Echte ESV-Daten“).
-# Dieser Cloud-Workflow trainiert reproduzierbar auf der committeten Datenbasis
-# (Default: synthetisch) und aktualisiert die Artefakte.
+# NFR-1: VOLLAUTOMATISCH. Scrapt schlussgang.ch (statistic-final.pdf, kein WAF
+# gegen Cloud-IPs), parst Gänge, trainiert die Modelle und committet die
+# Artefakte -> Vercel deployt automatisch. Fest-IDs in pipeline/config.py.
 on:
   schedule:
     - cron: "0 4 * * *" # täglich 04:00 UTC
   workflow_dispatch:
+    inputs:
+      source:
+        description: "Datenquelle"
+        type: choice
+        options: ["schlussgang", "synth"]
+        default: "schlussgang"
 
 permissions:
   contents: write
@@ -28,8 +33,8 @@ jobs:
           cache-dependency-path: requirements-pipeline.txt
       - run: pip install -r requirements-pipeline.txt
 
-      - name: Pipeline ausführen (synthetisch/Training-Refresh)
-        run: python -m pipeline.run_pipeline --source synth
+      - name: Pipeline ausführen (Scrape + Training)
+        run: python -m pipeline.run_pipeline --source ${{ github.event.inputs.source || 'schlussgang' }}
 
       - name: Artefakte committen (falls geändert)
         run: |

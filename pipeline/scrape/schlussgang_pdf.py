@@ -19,8 +19,12 @@ from __future__ import annotations
 import io
 import re
 
-from ..schema import Schwinger, schwinger_key
+from ..schema import Schwinger, Event, schwinger_key
 from ..labels import RohGangEintrag
+from .http import hole
+
+QUELLE = "schlussgang.ch"
+_PDF_BASIS = "https://backend-api.schlussgang.ch/sites/default/files/event-ranking-list"
 
 _SYMBOLE = {"+", "-", "o", "O", "0"}
 _RANG_RE = re.compile(r"^\d+[a-z]?$")           # 5a, 10c, 1 …
@@ -139,22 +143,11 @@ def parse_statistic_pdf(pdf_bytes: bytes, event_id: str, datum: str, fest_typ: s
             schwinger[sid].kranzstatus = kranz
         return sid
 
-    import os
-    debug = os.environ.get("SCHWINGEN_PDF_DEBUG") == "1"
-
     with _open(pdf_bytes) as pdf:
-        for pi, page in enumerate(pdf.pages):
+        for page in pdf.pages:
             woerter = page.extract_words(x_tolerance=1.5, y_tolerance=2)
             kanten = _spalten_grenzen(woerter, float(page.width))
-            if debug and pi == 0:
-                print(f"[dbg] Seite1 breite={page.width} woerter={len(woerter)} kanten={kanten}")
-                print("[dbg] erste Wörter:",
-                      [(w["text"], round(w["x0"]), round(w["top"])) for w in woerter[:8]])
             zeilen = _zeilen_je_spalte(woerter, kanten)
-            if debug and pi == 0:
-                for zl in zeilen.get(0, [])[:6]:
-                    tk = _text(zl)
-                    print(f"[dbg] col0 line={tk} kopf={_parse_kopf(tk)} gang={_parse_gang(tk)}")
             for c in sorted(zeilen):
                 aktiv: str | None = None
                 for zeile in zeilen[c]:
@@ -177,3 +170,51 @@ def parse_statistic_pdf(pdf_bytes: bytes, event_id: str, datum: str, fest_typ: s
                         event_id=event_id, datum=datum, schwinger_id=aktiv,
                         gegner_id=gid, symbol=symbol, note=note, fest_typ=fest_typ))
     return schwinger, roh
+
+
+# --- Event-Metadaten + Download ----------------------------------------
+
+def pdf_url(event_id: str | int) -> str:
+    return f"{_PDF_BASIS}/{event_id}-statistic-final.pdf"
+
+
+def _fest_typ(name: str) -> str:
+    n = name.lower()
+    if "eidg" in n or "esaf" in n:
+        return "eidgenoessisch"
+    if any(b in n for b in ("berg", "brünig", "bruenig", "rigi", "stoos", "weissenstein",
+                            "schwägalp", "schwaegalp")):
+        return "berg"
+    if "kantonal" in n:
+        return "kantonal"
+    if any(t in n for t in ("teilverband", "nordost", "innerschw", "berner", "nordwest",
+                            "südwest", "suedwest")):
+        return "teilverband"
+    return "regional"
+
+
+def _event_meta(pdf_bytes: bytes) -> tuple[str, str | None]:
+    """Liest Fest-Name + Datum aus dem PDF-Kopf ('Statistische Tabelle <Name>' / 'dd.mm.yyyy')."""
+    with _open(pdf_bytes) as pdf:
+        zeilen = (pdf.pages[0].extract_text() or "").splitlines()
+    name, datum = "", None
+    for ln in zeilen[:8]:
+        if "Statistische Tabelle" in ln and not name:
+            name = ln.split("Statistische Tabelle", 1)[1].strip()
+        m = re.search(r"(\d{2})\.(\d{2})\.((?:19|20)\d{2})", ln)
+        if m and not datum:
+            datum = f"{m.group(3)}-{m.group(2)}-{m.group(1)}"
+    return name, datum
+
+
+def lade_event(event_id: str | int) -> tuple[dict[str, Schwinger], Event, list[RohGangEintrag]]:
+    """Lädt + parst eine statistic-final.pdf zu (schwinger, Event, roh)."""
+    data = hole(pdf_url(event_id), binaer=True)
+    name, datum = _event_meta(data)
+    typ = _fest_typ(name)
+    datum = datum or "1900-01-01"
+    ev_id = f"sg-{event_id}"
+    schwinger, roh = parse_statistic_pdf(data, ev_id, datum, typ)
+    event = Event(id=ev_id, name=name or f"Fest {event_id}", datum=datum, typ=typ,
+                  quelle=QUELLE)
+    return schwinger, event, roh

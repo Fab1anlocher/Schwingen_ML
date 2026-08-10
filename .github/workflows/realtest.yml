@@ -1,0 +1,22 @@
+name: Real-Test schlussgang (temporär)
+
+on:
+  push:
+    branches: ["claude/schwingen-gang-prognose-zfeyko"]
+    paths:
+      - ".github/workflows/realtest.yml"
+      - "pipeline/**"
+
+jobs:
+  realtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements-pipeline.txt
+      - name: Volle Pipeline mit echten schlussgang-Daten
+        run: python -m pipeline.run_pipeline --source schlussgang
+      - name: Report anzeigen
+        run: cat artifacts/report.json

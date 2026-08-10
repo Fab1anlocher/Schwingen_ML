@@ -43,14 +43,21 @@ USER_AGENT = (
     "Chrome/124.0.0.0 Safari/537.36 Schwingen-ML/1.0 (nicht-kommerziell)"
 )
 
-# --- Datenquelle: ESV (esv.ch/ranglisten) -------------------------------
-# Offizielle Ranglisten des Eidgenössischen Schwingerverbands.
-# Einzelfest-Rangliste: <ESV_BASE>?anlass=<ID>
+# --- Datenquelle: schlussgang.ch (statistic-final.pdf) ------------------
+# Primäre, VOLLAUTOMATISCH cloud-scrapebare Quelle (kein WAF gegen Cloud-IPs,
+# anders als esv.ch). Die PDFs stammen laut Fusszeile direkt vom ESV.
+#   backend-api.schlussgang.ch/sites/default/files/event-ranking-list/<ID>-statistic-final.pdf
+QUELLE = "schlussgang.ch"
+# Fest-IDs (statistic-final.pdf). Erweiterbar; nicht existierende werden im
+# Lauf übersprungen. Metadaten (Name/Datum/Typ) kommen aus dem PDF selbst.
+SCHLUSSGANG_EVENT_IDS: list[int] = [
+    52026,   # Frühjahrsschwinget Pfäffikon 2026 (verifiziert)
+]
+
+# --- Datenquelle: ESV (esv.ch/ranglisten) — nur vom Heimrechner ----------
+# esv.ch blockt Cloud-IPs (WAF); nur mit Wohn-IP/Browser nutzbar (siehe README).
 ESV_BASE = "https://esv.ch/ranglisten/"
-# Regionale Subdomains fahren dasselbe System (nur andere Vorauswahl);
-# esv.ch selbst liefert alle Anlässe.
 ESV_REGIONEN = ["esv", "isv", "nosv", "bksv", "nwsv", "swsv", "zksv"]
-QUELLE = "esv.ch"
 
 
 def ensure_dirs() -> None:

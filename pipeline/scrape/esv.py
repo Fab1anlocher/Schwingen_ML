@@ -22,7 +22,9 @@ from typing import Optional
 from urllib.parse import urljoin, urlparse, parse_qs
 
 from .http import hole
-from ..config import ESV_BASE, QUELLE, FEST_TYPEN
+from ..config import ESV_BASE, FEST_TYPEN
+
+QUELLE = "esv.ch"
 from ..schema import Schwinger, Event, schwinger_key
 from ..labels import RohGangEintrag
 

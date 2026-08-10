@@ -2,9 +2,11 @@
 numpy>=1.26
 pandas>=2.0
 scikit-learn>=1.4
-# HTML-Parsing der ESV-Ranglisten (esv.ch/ranglisten):
+# PDF-Parsing der schlussgang.ch statistic-final.pdf (primäre Cloud-Quelle):
+pdfplumber>=0.11
+# HTML-Parsing der ESV-Ranglisten (esv.ch, nur vom Heimrechner):
 beautifulsoup4>=4.12
-# Optional, nur fürs Scraping vom Heimrechner (esv.ch WAF/JS umgehen):
+# Optional, nur fürs esv.ch-Scraping vom Heimrechner (WAF/JS umgehen):
 #   pip install playwright && playwright install chromium
 # playwright>=1.44
 # Tests:

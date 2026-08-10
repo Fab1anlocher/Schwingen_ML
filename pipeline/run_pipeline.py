@@ -28,9 +28,9 @@ def _lade_daten(source: str):
     if source == "synth":
         from .synth import erzeuge_datensatz
         return erzeuge_datensatz()
-    elif source in ("esv", "scrape"):
+    elif source in ("schlussgang", "esv", "scrape"):
         from .scrape import lade_echte_daten
-        return lade_echte_daten()
+        return lade_echte_daten(source)
     raise ValueError(f"Unbekannte Quelle: {source}")
 
 
@@ -97,7 +97,7 @@ def main(source: str = "synth") -> dict:
     export.exportiere_schwinger(schwinger, stats_aktuell)
     # Kommende Feste (FR-2): bei echten Daten aus dem Agenda-Scraper.
     kommende = []
-    if source in ("esv", "scrape"):
+    if source in ("schlussgang", "esv", "scrape"):
         try:
             from .scrape import lade_kommende_feste
             kommende = lade_kommende_feste()
@@ -118,6 +118,7 @@ def main(source: str = "synth") -> dict:
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--source", choices=["synth", "esv", "scrape"], default="synth")
+    ap.add_argument("--source", choices=["synth", "schlussgang", "esv", "scrape"],
+                    default="synth")
     args = ap.parse_args()
     main(args.source)

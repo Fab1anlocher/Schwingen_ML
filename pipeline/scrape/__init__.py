@@ -1,27 +1,50 @@
-"""Echte Datenquelle: ESV-Ranglisten (esv.ch/ranglisten) (§4.1).
+"""Echte Datenquellen (§4.1).
 
-Höflich und rate-limitiert (NFR-4): fester User-Agent, Delay zwischen
-Requests, robots.txt respektieren (siehe http.py). Die Parser in esv.py sind
-gegen eine echte Seite zu kalibrieren (recon_esv.py, R-6); bis dahin läuft die
-Pipeline mit `--source synth`.
+Primär und VOLLAUTOMATISCH (Cloud/GitHub Actions): schlussgang.ch
+statistic-final.pdf (kein WAF gegen Cloud-IPs; PDFs stammen laut Fusszeile
+vom ESV). Sekundär (nur vom Heimrechner, WAF): esv.ch/ranglisten.
+
+Höflich und rate-limitiert (NFR-4): fester User-Agent, Delay, robots.txt.
 """
 from __future__ import annotations
 
-# Anzahl der zu ladenden Anlässe im Standard-Lauf (None = alle von der Indexseite).
-STANDARD_MAX_ANLAESSE = 30
 
+def lade_echte_daten(source: str = "schlussgang"):
+    """Lädt & parst echte Daten zu (schwinger, events, roh).
 
-def lade_echte_daten(anlass_ids: list[str] | None = None, max_anzahl: int | None = STANDARD_MAX_ANLAESSE):
-    """Lädt & parst ESV-Ranglisten zu (schwinger, events, roh).
-
-    Rückgabe-Schema identisch zu synth.erzeuge_datensatz(), damit
-    run_pipeline die Quelle transparent tauschen kann.
+    Rückgabe-Schema identisch zu synth.erzeuge_datensatz(), damit run_pipeline
+    die Quelle transparent tauschen kann.
     """
-    from .esv import scrape_anlaesse
-    return scrape_anlaesse(anlass_ids=anlass_ids, max_anzahl=max_anzahl)
+    if source in ("schlussgang", "scrape"):
+        return _lade_schlussgang()
+    if source == "esv":
+        from .esv import scrape_anlaesse
+        return scrape_anlaesse(max_anzahl=30)
+    raise ValueError(f"Unbekannte echte Quelle: {source}")
+
+
+def _lade_schlussgang():
+    """Fest-PDFs von schlussgang.ch laden (Cloud-tauglich)."""
+    from ..config import SCHLUSSGANG_EVENT_IDS
+    from .schlussgang_pdf import lade_event
+
+    schwinger: dict = {}
+    events: list = []
+    roh: list = []
+    for eid in SCHLUSSGANG_EVENT_IDS:
+        try:
+            s, ev, r = lade_event(eid)
+        except Exception as e:  # noqa: BLE001 - fehlende/kaputte PDFs überspringen
+            print(f"      (Fest {eid} übersprungen: {type(e).__name__}: {e})")
+            continue
+        events.append(ev)
+        roh.extend(r)
+        for sid, sw in s.items():
+            schwinger.setdefault(sid, sw)
+        print(f"      Fest {eid}: {ev.name} — {len(r)} Roh-Einträge")
+    return schwinger, events, roh
 
 
 def lade_kommende_feste():
-    """Kommende Feste (FR-2). Die ESV-Ranglisten sind resultatorientiert;
-    eine Agenda-Quelle wird separat angebunden. Bis dahin leer."""
+    """Kommende Feste (FR-2) — Agenda-Anbindung folgt; bis dahin leer."""
     return []
