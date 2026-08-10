@@ -48,11 +48,14 @@ USER_AGENT = (
 # anders als esv.ch). Die PDFs stammen laut Fusszeile direkt vom ESV.
 #   backend-api.schlussgang.ch/sites/default/files/event-ranking-list/<ID>-statistic-final.pdf
 QUELLE = "schlussgang.ch"
-# Fest-IDs (statistic-final.pdf). Erweiterbar; nicht existierende werden im
-# Lauf übersprungen. Metadaten (Name/Datum/Typ) kommen aus dem PDF selbst.
-SCHLUSSGANG_EVENT_IDS: list[int] = [
-    52026,   # Frühjahrsschwinget Pfäffikon 2026 (verifiziert)
-]
+# Feste werden AUTOMATISCH über die JSON:API entdeckt (discover.liste_feste).
+# Anzahl der jüngsten Feste, die pro Lauf verarbeitet werden (mehr = mehr
+# Saisons/Daten fürs Modell, aber längerer Lauf).
+SCHLUSSGANG_MAX_FESTE = 80
+# Nur Aktivschwinger-Feste (Spec-Zielgruppe; saubere Standard-PDFs).
+SCHLUSSGANG_NUR_AKTIV = True
+# Manuelle Fallback-IDs, falls die JSON:API nichts liefert.
+SCHLUSSGANG_EVENT_IDS: list[int] = [52026]
 
 # --- Datenquelle: ESV (esv.ch/ranglisten) — nur vom Heimrechner ----------
 # esv.ch blockt Cloud-IPs (WAF); nur mit Wohn-IP/Browser nutzbar (siehe README).

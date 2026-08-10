@@ -207,14 +207,19 @@ def _event_meta(pdf_bytes: bytes) -> tuple[str, str | None]:
     return name, datum
 
 
-def lade_event(event_id: str | int) -> tuple[dict[str, Schwinger], Event, list[RohGangEintrag]]:
-    """Lädt + parst eine statistic-final.pdf zu (schwinger, Event, roh)."""
-    data = hole(pdf_url(event_id), binaer=True)
-    name, datum = _event_meta(data)
-    typ = _fest_typ(name)
-    datum = datum or "1900-01-01"
-    ev_id = f"sg-{event_id}"
+def lade_von_url(pdf_url_str: str, ev_id: str, name: str = "", datum: str | None = None,
+                 typ: str | None = None) -> tuple[dict[str, Schwinger], Event, list[RohGangEintrag]]:
+    """Lädt + parst eine statistic-final.pdf von gegebener URL (für den Finder)."""
+    data = hole(pdf_url_str, binaer=True)
+    pdf_name, pdf_datum = _event_meta(data)
+    name = name or pdf_name
+    datum = datum or pdf_datum or "1900-01-01"
+    typ = typ or _fest_typ(name)
     schwinger, roh = parse_statistic_pdf(data, ev_id, datum, typ)
-    event = Event(id=ev_id, name=name or f"Fest {event_id}", datum=datum, typ=typ,
-                  quelle=QUELLE)
+    event = Event(id=ev_id, name=name or ev_id, datum=datum, typ=typ, quelle=QUELLE)
     return schwinger, event, roh
+
+
+def lade_event(event_id: str | int) -> tuple[dict[str, Schwinger], Event, list[RohGangEintrag]]:
+    """Lädt + parst eine statistic-final.pdf über ihre Fest-ID (config-Fallback)."""
+    return lade_von_url(pdf_url(event_id), f"sg-{event_id}")

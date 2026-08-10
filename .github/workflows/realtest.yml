@@ -1,0 +1,23 @@
+name: Real-Test Finder (temporär)
+
+on:
+  push:
+    branches: ["claude/schwingen-gang-prognose-zfeyko"]
+    paths:
+      - ".github/workflows/realtest.yml"
+      - "pipeline/**"
+
+jobs:
+  realtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements-pipeline.txt
+      - name: Volle Pipeline mit automatischem Finder (echte Daten)
+        run: python -m pipeline.run_pipeline --source schlussgang
+      - name: Report
+        run: |
+          python -c "import json;r=json.load(open('artifacts/report.json'));print('Feste/Gänge:',r['datenbasis']);print('Holdout:',r['holdout_jahr'],'train/test:',r['n_train'],r['n_test']);print('LR:',r['logistic_regression']['log_loss'],'GBM:',r['gradient_boosting']['log_loss'],'Baseline:',r['baseline_elo']['log_loss']);print('schlaegt_baseline:',r['schlaegt_baseline'],'bestes:',r['bestes_modell'])"

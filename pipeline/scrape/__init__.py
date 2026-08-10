@@ -24,24 +24,52 @@ def lade_echte_daten(source: str = "schlussgang"):
 
 
 def _lade_schlussgang():
-    """Fest-PDFs von schlussgang.ch laden (Cloud-tauglich)."""
-    from ..config import SCHLUSSGANG_EVENT_IDS
-    from .schlussgang_pdf import lade_event
+    """Fest-PDFs von schlussgang.ch laden (Cloud-tauglich, automatischer Finder).
+
+    Entdeckt Feste automatisch über die JSON:API (discover.liste_feste). Fällt
+    auf die manuelle ID-Liste in config zurück, falls die API nichts liefert.
+    """
+    from ..config import SCHLUSSGANG_EVENT_IDS, SCHLUSSGANG_MAX_FESTE, SCHLUSSGANG_NUR_AKTIV
+    from .schlussgang_pdf import lade_von_url, lade_event
 
     schwinger: dict = {}
     events: list = []
     roh: list = []
-    for eid in SCHLUSSGANG_EVENT_IDS:
+
+    quellen = []  # (loader, kennung, name, datum, typ)
+    try:
+        from .discover import liste_feste
+        feste = liste_feste(max_feste=SCHLUSSGANG_MAX_FESTE)
+        if SCHLUSSGANG_NUR_AKTIV:
+            feste = [f for f in feste if (f.get("typ") or "").lower().startswith("aktiv")]
+        print(f"      Finder: {len(feste)} Feste mit Statistik-PDF entdeckt")
+        for f in feste:
+            quellen.append(("url", f["pdf_url"], f.get("name", ""), f.get("datum"), None))
+    except Exception as e:  # noqa: BLE001
+        print(f"      (Finder nicht verfügbar: {type(e).__name__}: {e})")
+
+    if not quellen:  # Fallback: manuelle IDs
+        for eid in SCHLUSSGANG_EVENT_IDS:
+            quellen.append(("id", eid, "", None, None))
+
+    for art, kennung, name, datum, typ in quellen:
         try:
-            s, ev, r = lade_event(eid)
+            if art == "url":
+                ev_id = "sg-" + kennung.rstrip("/").split("/")[-1].split("-statistic")[0].split(".")[0]
+                s, ev, r = lade_von_url(kennung, ev_id, name, datum, typ)
+            else:
+                s, ev, r = lade_event(kennung)
         except Exception as e:  # noqa: BLE001 - fehlende/kaputte PDFs überspringen
-            print(f"      (Fest {eid} übersprungen: {type(e).__name__}: {e})")
+            print(f"      (übersprungen {kennung}: {type(e).__name__}: {e})")
+            continue
+        if not r:
             continue
         events.append(ev)
         roh.extend(r)
         for sid, sw in s.items():
             schwinger.setdefault(sid, sw)
-        print(f"      Fest {eid}: {ev.name} — {len(r)} Roh-Einträge")
+    print(f"      Total: {len(events)} Feste geparst, {len(roh)} Roh-Einträge, "
+          f"{len(schwinger)} Schwinger")
     return schwinger, events, roh
 
 
