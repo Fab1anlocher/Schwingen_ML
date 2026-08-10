@@ -7,10 +7,10 @@ Wettangebot**.
 
 > Status: **Phase-1-MVP lauffähig** — komplette Pipeline (Labels → Elo-Baseline →
 > Logistic Regression + Gradient Boosting → JSON-Artefakte) und Next.js-Web-App
-> mit clientseitiger Inferenz. Läuft end-to-end mit synthetischen Demodaten; der
-> ESV-Scraper (esv.ch/ranglisten) ist implementiert und mechanisch getestet.
-> Hinweis: esv.ch blockt Cloud-IPs (WAF) — echtes Scraping läuft vom Heimrechner
-> (siehe [Datenquelle](#datenquelle-esv-ranglisten-esvchranglisten)).
+> mit clientseitiger Inferenz. **Vollautomatisch in der Cloud**: der
+> schlussgang.ch-PDF-Scraper ist gegen echte Feste verifiziert und läuft direkt
+> in GitHub Actions (kein Heimrechner, keine WAF-Sperre — siehe
+> [Datenquelle](#datenquelle-schlussgangch-vollautomatisch-cloud)).
 
 ---
 
@@ -19,7 +19,7 @@ Wettangebot**.
 | # | Frage | Entscheidung | Begründung |
 |---|---|---|---|
 | 1 | Stack / Sprache | **Next.js App Router + TypeScript** | Typsicherheit für Modell-Artefakte (JSON-Gewichte), Standard, gute Vercel-Integration. |
-| 2 | MVP-Datensatz | **Offizielle ESV-Ranglisten** (esv.ch/ranglisten), aktive Feste zuerst | Offizielle Quelle, einheitliche Notation, über `?anlass=<id>` je Fest abrufbar. |
+| 2 | MVP-Datensatz | **schlussgang.ch statistic-final.pdf** (ESV-Daten), Feste per ID | Cloud-scrapebar (kein WAF), offizielle Notation, maschinenlesbar. esv.ch nur vom Heimrechner. |
 | 3 | Metrik-Schwelle | **Log-Loss < Elo-Baseline** auf zeitlichem Holdout | „Gut genug" = schlägt Baseline messbar. Aktuell (synthetisch): GBM 0.67 vs. Baseline 0.85. |
 | 4 | Betrieb / Datastore | **Öffentliches Repo + Vercel Hobby, KEIN Supabase** | Siehe unten. |
 
@@ -77,9 +77,10 @@ pipeline/                 Python-Datenpipeline (GitHub Actions)
   synth.py                Synthetischer Datensatz (Demo, bis Scraper aktiv)
   run_pipeline.py         Orchestrator (FR-6)
   verify_inference.py     Cross-Check: JSON-Inferenz (LR+GBM) == sklearn
-  scrape/esv.py           ESV-Ranglisten-Scraper (esv.ch/ranglisten) — höflich
+  scrape/schlussgang_pdf.py  PDF-Parser statistic-final.pdf (primär, Cloud)
+  scrape/esv.py           ESV-Ranglisten-Scraper (esv.ch) — nur Heimrechner (WAF)
   scrape/http.py          Höflicher Client + Browser-Fallback (WAF/JS)
-  scrape/recon_esv.py     Lokale Diagnose (Erreichbarkeit + Parser)
+  scrape/recon_esv.py     Lokale ESV-Diagnose
   tests/                  pytest: Label-Logik + ESV-Parser
 scripts/update_daheim.sh  Echtes ESV-Update vom Heimrechner (scrape→train→push)
 artifacts/                Generierte JSON-Artefakte (model.json, model_gbm.json …)
@@ -126,7 +127,7 @@ npm run dev        # http://localhost:3000
 | ML-5 | Kein Data Leakage (zeitliche Trennung) | ✅ |
 | ML-6 | Log-Loss / Accuracy / Brier / Reliability + CV | ✅ |
 | FR-2 | Fest-Vorschau + Quote | ✅ UI, wartet auf Agenda-Scraper |
-| FR-6 | Automatische Datenpipeline | ✅ (Scraping vom Heimrechner, WAF) |
+| FR-6 | Automatische Datenpipeline | ✅ vollautomatisch (schlussgang.ch, Cloud) |
 | — | zwilch-Historie, Fest-Agenda, Reliability-Diagramm-UI | ⬜ Phase 2 |
 
 ### Modelle (ML)
@@ -150,54 +151,52 @@ die JS-Inferenz bit-genau der sklearn-Ausgabe entspricht (LR **und** GBM).
 
 ---
 
-## Datenquelle: ESV-Ranglisten (esv.ch/ranglisten)
+## Datenquelle: schlussgang.ch (vollautomatisch, Cloud)
 
-Primäre Quelle sind die **offiziellen ESV-Ranglisten**:
+Primäre Quelle sind die **statistic-final.pdf** von schlussgang.ch (die PDFs
+stammen laut Fusszeile direkt vom ESV):
 
-- Index:      `https://esv.ch/ranglisten/`
-- Einzelfest: `https://esv.ch/ranglisten/?anlass=<ANLASS_ID>` (z. B. `?anlass=3694` = ESAF 2025)
-
-Die Ranglisten nutzen die offizielle Schwingen-Notation (Symbol `+`/`-`/`o` + Note),
-identisch zur Label-Logik (§4.3). Der Parser ist mechanisch getestet
-(`pipeline/tests/test_esv.py`: nachgebildete Tabelle → korrekte Dedup/Labels).
-
-### ⚠️ Wichtig: esv.ch blockt Cloud-/Rechenzentrums-IPs (WAF)
-
-Getestet über GitHub Actions: **esv.ch antwortet Rechenzentrums-IPs mit HTTP 403**
-(WAF/Cloudflare, auch der Homepage). Automatisiertes Scraping aus **GitHub
-Actions oder Vercel funktioniert daher nicht**. Echtes ESV-Scraping muss von
-einer **Wohn-IP (deinem Heimrechner)** laufen — dort ggf. mit echtem Browser:
-
-```bash
-# Einmalig:
-pip install -r requirements-pipeline.txt playwright
-playwright install chromium
-
-# Echtes Update (scrapt esv.ch, trainiert, committet, pusht → Vercel deployt):
-bash scripts/update_daheim.sh
+```
+https://backend-api.schlussgang.ch/sites/default/files/event-ranking-list/<ID>-statistic-final.pdf
 ```
 
-`update_daheim.sh` setzt `SCHWINGEN_USE_BROWSER=1`, sodass `pipeline/scrape/http.py`
-bei 403 automatisch auf einen Headless-Browser (Playwright) ausweicht. Als
-geplanten Task einrichten (cron / Windows-Aufgabenplanung) = automatische
-Aktualisierung von zu Hause.
+**Warum schlussgang.ch statt esv.ch:** Über GitHub Actions verifiziert —
+`esv.ch` blockt Rechenzentrums-/Cloud-IPs mit HTTP 403 (WAF), `schlussgang.ch`
+**nicht**. Damit ist **vollautomatisches Scraping direkt aus GitHub Actions**
+möglich (kein Heimrechner nötig).
 
-- `pipeline/scrape/esv.py` — Index + Rangliste laden und parsen → Roh-Gang-Einträge
-- `pipeline/scrape/http.py` — höflicher Client: Rate-Limit, robots.txt, Browser-Fallback (NFR-4)
-- `pipeline/scrape/recon_esv.py` — lokale Diagnose/Kalibrierhilfe (Erreichbarkeit + Parser)
+Die PDFs nutzen die offizielle Schwingen-Notation (`+` Sieg / `-` Gestellt /
+`o` Niederlage + Note), identisch zur Label-Logik (§4.3). Der PDF-Parser
+(`pipeline/scrape/schlussgang_pdf.py`) clustert die 3-Spalten-Statistik über
+Wort-Positionen und ist **gegen echte PDFs verifiziert** (z. B. Pfäffikon 2026:
+259 Gänge korrekt dedupliziert/gelabelt).
 
-Bis echte Daten vorliegen bleibt `--source synth` der lauffähige Default. Der
-Cloud-Workflow (`update.yml`) trainiert reproduzierbar auf der committeten
-Datenbasis; das **Scraping** kommt vom Heimrechner.
+**Vollautomatischer Ablauf** (`.github/workflows/update.yml`, täglich/dispatch):
+scrape → parse → Features → LR+GBM trainieren → Artefakte committen → Vercel
+deployt. Kein manueller Schritt.
 
-**Recht/Fairness (NFR-4/5):** höfliches, rate-limitiertes Abrufen; keine
-Voll-Replikation der Quell-DBs; Quellenattribution in der App; nur abgeleitete
-Kennzahlen. Sensible Felder (Geburtsdatum, Zivilstand) werden nicht gespeichert/
-angezeigt — fürs Modell nur **Alter**.
+### Feste hinzufügen
 
-**Recht/Fairness (NFR-4/5):** höfliches, rate-limitiertes Abrufen; keine
-Voll-Replikation der Quell-DBs; Quellenattribution in der App; nur abgeleitete
-Kennzahlen. Sensible Felder (Geburtsdatum, Zivilstand) werden nicht gespeichert/
+Die Fest-IDs stehen in `pipeline/config.py` → `SCHLUSSGANG_EVENT_IDS`. Neue Feste
+einfach als ID ergänzen (Name/Datum/Typ liest die Pipeline aus dem PDF). Nicht
+existierende IDs werden im Lauf übersprungen. Mehr Feste = stärkeres Modell
+(erst mit mehreren Saisons greift der zeitliche Holdout richtig).
+
+```bash
+python -m pipeline.run_pipeline --source schlussgang   # echter Lauf (mit Internet)
+python -m pipeline.run_pipeline --source synth          # Demodaten (offline)
+```
+
+### Sekundär: esv.ch (nur vom Heimrechner)
+
+`esv.ch/ranglisten/?anlass=<ID>` ist ebenfalls implementiert
+(`pipeline/scrape/esv.py`), aber wegen der WAF-Sperre nur von einer Wohn-IP
+nutzbar — `scripts/update_daheim.sh` setzt dafür `SCHWINGEN_USE_BROWSER=1`
+(Playwright-Fallback). Für die Automatik nicht nötig.
+
+**Recht/Fairness (NFR-4/5):** höfliches, rate-limitiertes Abrufen (robots.txt,
+fester User-Agent); keine Voll-Replikation der Quell-DBs; Quellenattribution in
+der App; nur abgeleitete Kennzahlen. Sensible Felder werden nicht gespeichert/
 angezeigt — fürs Modell nur **Alter**.
 
 ---
