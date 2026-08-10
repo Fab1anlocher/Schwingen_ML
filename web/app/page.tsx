@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ladeModel, ladeRatings, ladeSchwinger } from "@/lib/data";
+import { ladeGbm, ladeModel, ladeRatings, ladeSchwinger } from "@/lib/data";
 import { prognostiziere } from "@/lib/inference";
-import type { ModelArtifact, RatingsArtifact, Schwinger, Prognose } from "@/lib/types";
+import type { GbmModel, ModelArtifact, RatingsArtifact, Schwinger, Prognose } from "@/lib/types";
 import { PrognoseView } from "@/components/PrognoseView";
 
 const FEST_TYPEN = [
@@ -16,6 +16,7 @@ const FEST_TYPEN = [
 
 export default function Home() {
   const [model, setModel] = useState<ModelArtifact | null>(null);
+  const [gbm, setGbm] = useState<GbmModel | null>(null);
   const [ratings, setRatings] = useState<RatingsArtifact | null>(null);
   const [schwinger, setSchwinger] = useState<Schwinger[]>([]);
   const [aId, setAId] = useState("");
@@ -24,9 +25,10 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    Promise.all([ladeModel(), ladeRatings(), ladeSchwinger()])
-      .then(([m, r, s]) => {
+    Promise.all([ladeModel(), ladeGbm(), ladeRatings(), ladeSchwinger()])
+      .then(([m, g, r, s]) => {
         setModel(m);
+        setGbm(g);
         setRatings(r);
         setSchwinger(s);
         if (s.length >= 2) {
@@ -49,8 +51,8 @@ export default function Home() {
     if (!a || !b) return null;
     const ra = ratings.ratings[aId] ?? { elo: ratings.elo_start, n_gaenge: 0 };
     const rb = ratings.ratings[bId] ?? { elo: ratings.elo_start, n_gaenge: 0 };
-    return prognostiziere(model, a, b, ra.elo, rb.elo, ra.n_gaenge, rb.n_gaenge, festTyp);
-  }, [model, ratings, aId, bId, byId, festTyp]);
+    return prognostiziere(model, gbm, a, b, ra.elo, rb.elo, ra.n_gaenge, rb.n_gaenge, festTyp);
+  }, [model, gbm, ratings, aId, bId, byId, festTyp]);
 
   if (error) return <p className="warn">Fehler beim Laden: {error}</p>;
   if (!model) return <p className="loading">Modell wird geladen …</p>;

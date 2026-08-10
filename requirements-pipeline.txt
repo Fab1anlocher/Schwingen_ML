@@ -4,5 +4,8 @@ pandas>=2.0
 scikit-learn>=1.4
 # HTML-Parsing der ESV-Ranglisten (esv.ch/ranglisten):
 beautifulsoup4>=4.12
+# Optional, nur fürs Scraping vom Heimrechner (esv.ch WAF/JS umgehen):
+#   pip install playwright && playwright install chromium
+# playwright>=1.44
 # Tests:
 pytest>=8.0

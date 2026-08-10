@@ -11,9 +11,11 @@ export interface ModelArtifact {
   standardisierung: { mu: number[]; sigma: number[] };
   coef: number[][]; // [n_klassen][n_features]
   intercept: number[]; // [n_klassen]
+  bestes_modell: "lr" | "gbm";
   config: {
     min_gaenge_fuer_sicherheit: number;
     form_fenster_k: number;
+    form_lang_fenster: number;
     elo_start: number;
     kranzstatus_ordinal: Record<string, number>;
   };
@@ -32,7 +34,26 @@ export interface Schwinger {
   schwingklub: string | null;
   bevorzugte_schwuenge: string[];
   form: number;
+  form_lang: number;
+  career: number;
   quellen: string[];
+}
+
+// Gradient-Boosting-Artefakt (Tree-JSON, §7).
+export interface GbmTree {
+  children_left: number[];
+  children_right: number[];
+  feature: number[];
+  threshold: number[];
+  value: number[];
+}
+export interface GbmModel {
+  typ: "gradient_boosting";
+  klassen: Klasse[];
+  features: string[];
+  learning_rate: number;
+  init_raw: number[];
+  stages: GbmTree[][]; // [n_stages][n_klassen]
 }
 
 export interface RatingsArtifact {
@@ -45,7 +66,7 @@ export interface FeatureImportanceEntry {
   feature: string;
   label: string;
   wichtigkeit: number;
-  koeffizienten: Record<Klasse, number>;
+  koeffizienten?: Record<Klasse, number>; // nur bei LR
 }
 
 export interface KommendesFest {
@@ -69,4 +90,5 @@ export interface Prognose {
   quote: Record<Klasse, number>; // 1/p, informativ (FR-2, AK-2.3)
   beitraege: { label: string; richtung: "a" | "b"; staerke: number }[];
   unsicher: boolean; // FR-1 / AK-1.2
+  modell: "lr" | "gbm"; // welches Modell die Wahrscheinlichkeit lieferte
 }

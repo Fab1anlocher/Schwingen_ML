@@ -16,6 +16,8 @@
         "Kurzzug"
       ],
       "form": 0.4,
+      "form_lang": 0.55,
+      "career": 0.726,
       "quellen": [
         "synthetisch"
       ]
@@ -36,6 +38,8 @@
         "Wyberhaggen"
       ],
       "form": 0.4,
+      "form_lang": 0.3,
+      "career": 0.302,
       "quellen": [
         "synthetisch"
       ]
@@ -56,6 +60,8 @@
         "Gammen"
       ],
       "form": 0.6,
+      "form_lang": 0.35,
+      "career": 0.291,
       "quellen": [
         "synthetisch"
       ]
@@ -76,6 +82,8 @@
         "Kurz"
       ],
       "form": 0.7,
+      "form_lang": 0.5,
+      "career": 0.5,
       "quellen": [
         "synthetisch"
       ]
@@ -94,6 +102,8 @@
         "Gammen"
       ],
       "form": 0.2,
+      "form_lang": 0.15,
+      "career": 0.318,
       "quellen": [
         "synthetisch"
       ]
@@ -114,6 +124,8 @@
         "Kurz"
       ],
       "form": 0.6,
+      "form_lang": 0.65,
+      "career": 0.716,
       "quellen": [
         "synthetisch"
       ]
@@ -132,6 +144,8 @@
         "Kurzzug"
       ],
       "form": 0.6,
+      "form_lang": 0.6,
+      "career": 0.448,
       "quellen": [
         "synthetisch"
       ]
@@ -150,6 +164,8 @@
         "Kurzzug"
       ],
       "form": 0.5,
+      "form_lang": 0.5,
+      "career": 0.672,
       "quellen": [
         "synthetisch"
       ]
@@ -168,6 +184,8 @@
         "Kurz"
       ],
       "form": 0.1,
+      "form_lang": 0.1,
+      "career": 0.182,
       "quellen": [
         "synthetisch"
       ]
@@ -187,6 +205,8 @@
         "Fussstich"
       ],
       "form": 0.7,
+      "form_lang": 0.45,
+      "career": 0.431,
       "quellen": [
         "synthetisch"
       ]
@@ -207,6 +227,8 @@
         "Wyberhaggen"
       ],
       "form": 1.0,
+      "form_lang": 0.9,
+      "career": 0.776,
       "quellen": [
         "synthetisch"
       ]
@@ -227,6 +249,8 @@
         "Hüfter"
       ],
       "form": 0.7,
+      "form_lang": 0.5,
+      "career": 0.486,
       "quellen": [
         "synthetisch"
       ]
@@ -245,6 +269,8 @@
         "Wyberhaggen"
       ],
       "form": 1.0,
+      "form_lang": 0.95,
+      "career": 0.905,
       "quellen": [
         "synthetisch"
       ]
@@ -263,6 +289,8 @@
         "Kurzzug"
       ],
       "form": 1.0,
+      "form_lang": 0.95,
+      "career": 0.917,
       "quellen": [
         "synthetisch"
       ]
@@ -281,6 +309,8 @@
         "Gammen"
       ],
       "form": 0.8,
+      "form_lang": 0.75,
+      "career": 0.757,
       "quellen": [
         "synthetisch"
       ]
@@ -301,6 +331,8 @@
         "Bur"
       ],
       "form": 0.6,
+      "form_lang": 0.6,
+      "career": 0.769,
       "quellen": [
         "synthetisch"
       ]
@@ -320,6 +352,8 @@
         "Fussstich"
       ],
       "form": 0.6,
+      "form_lang": 0.75,
+      "career": 0.721,
       "quellen": [
         "synthetisch"
       ]
@@ -340,6 +374,8 @@
         "Übersprung"
       ],
       "form": 1.0,
+      "form_lang": 0.6,
+      "career": 0.592,
       "quellen": [
         "synthetisch"
       ]
@@ -359,6 +395,8 @@
         "Fussstich"
       ],
       "form": 0.2,
+      "form_lang": 0.35,
+      "career": 0.195,
       "quellen": [
         "synthetisch"
       ]
@@ -377,6 +415,8 @@
         "Gammen"
       ],
       "form": 0.4,
+      "form_lang": 0.7,
+      "career": 0.51,
       "quellen": [
         "synthetisch"
       ]
@@ -397,6 +437,8 @@
         "Gammen"
       ],
       "form": 1.0,
+      "form_lang": 0.75,
+      "career": 0.547,
       "quellen": [
         "synthetisch"
       ]
@@ -416,6 +458,8 @@
         "Kurz"
       ],
       "form": 0.8,
+      "form_lang": 0.7,
+      "career": 0.475,
       "quellen": [
         "synthetisch"
       ]
@@ -434,6 +478,8 @@
         "Hüfter"
       ],
       "form": 0.2,
+      "form_lang": 0.3,
+      "career": 0.289,
       "quellen": [
         "synthetisch"
       ]
@@ -452,6 +498,8 @@
         "Hüfter"
       ],
       "form": 0.8,
+      "form_lang": 0.4,
+      "career": 0.449,
       "quellen": [
         "synthetisch"
       ]
@@ -472,6 +520,8 @@
         "Fussstich"
       ],
       "form": 0.8,
+      "form_lang": 0.75,
+      "career": 0.562,
       "quellen": [
         "synthetisch"
       ]
@@ -492,6 +542,8 @@
         "Bur"
       ],
       "form": 1.0,
+      "form_lang": 0.9,
+      "career": 0.919,
       "quellen": [
         "synthetisch"
       ]
@@ -510,6 +562,8 @@
         "Kurzzug"
       ],
       "form": 0.1,
+      "form_lang": 0.1,
+      "career": 0.244,
       "quellen": [
         "synthetisch"
       ]
@@ -530,6 +584,8 @@
         "Hüfter"
       ],
       "form": 0.6,
+      "form_lang": 0.35,
+      "career": 0.227,
       "quellen": [
         "synthetisch"
       ]
@@ -550,6 +606,8 @@
         "Hüfter"
       ],
       "form": 0.2,
+      "form_lang": 0.1,
+      "career": 0.062,
       "quellen": [
         "synthetisch"
       ]
@@ -570,6 +628,8 @@
         "Kurzzug"
       ],
       "form": 0.8,
+      "form_lang": 0.75,
+      "career": 0.783,
       "quellen": [
         "synthetisch"
       ]
@@ -590,6 +650,8 @@
         "Fussstich"
       ],
       "form": 0.3,
+      "form_lang": 0.5,
+      "career": 0.5,
       "quellen": [
         "synthetisch"
       ]
@@ -610,6 +672,8 @@
         "Hüfter"
       ],
       "form": 0.5,
+      "form_lang": 0.5,
+      "career": 0.71,
       "quellen": [
         "synthetisch"
       ]
@@ -630,6 +694,8 @@
         "Kurz"
       ],
       "form": 0.4,
+      "form_lang": 0.35,
+      "career": 0.26,
       "quellen": [
         "synthetisch"
       ]
@@ -650,6 +716,8 @@
         "Übersprung"
       ],
       "form": 0.5,
+      "form_lang": 0.6,
+      "career": 0.648,
       "quellen": [
         "synthetisch"
       ]
@@ -668,6 +736,8 @@
         "Fussstich"
       ],
       "form": 0.6,
+      "form_lang": 0.55,
+      "career": 0.538,
       "quellen": [
         "synthetisch"
       ]
@@ -688,6 +758,8 @@
         "Kurzzug"
       ],
       "form": 0.8,
+      "form_lang": 0.8,
+      "career": 0.865,
       "quellen": [
         "synthetisch"
       ]
@@ -707,6 +779,8 @@
         "Fussstich"
       ],
       "form": 1.0,
+      "form_lang": 0.9,
+      "career": 0.882,
       "quellen": [
         "synthetisch"
       ]
@@ -725,6 +799,8 @@
         "Übersprung"
       ],
       "form": 1.0,
+      "form_lang": 0.75,
+      "career": 0.627,
       "quellen": [
         "synthetisch"
       ]
@@ -744,6 +820,8 @@
         "Bur"
       ],
       "form": 0.8,
+      "form_lang": 0.9,
+      "career": 0.866,
       "quellen": [
         "synthetisch"
       ]
@@ -763,6 +841,8 @@
         "Wyberhaggen"
       ],
       "form": 1.0,
+      "form_lang": 0.95,
+      "career": 0.66,
       "quellen": [
         "synthetisch"
       ]
@@ -783,6 +863,8 @@
         "Fussstich"
       ],
       "form": 0.5,
+      "form_lang": 0.5,
+      "career": 0.575,
       "quellen": [
         "synthetisch"
       ]
@@ -802,6 +884,8 @@
         "Wyberhaggen"
       ],
       "form": 0.5,
+      "form_lang": 0.65,
+      "career": 0.382,
       "quellen": [
         "synthetisch"
       ]
@@ -820,6 +904,8 @@
         "Hüfter"
       ],
       "form": 0.5,
+      "form_lang": 0.5,
+      "career": 0.37,
       "quellen": [
         "synthetisch"
       ]
@@ -838,6 +924,8 @@
         "Kurzzug"
       ],
       "form": 0.6,
+      "form_lang": 0.4,
+      "career": 0.469,
       "quellen": [
         "synthetisch"
       ]
@@ -856,6 +944,8 @@
         "Brienzer"
       ],
       "form": 0.2,
+      "form_lang": 0.3,
+      "career": 0.317,
       "quellen": [
         "synthetisch"
       ]
@@ -876,6 +966,8 @@
         "Bur"
       ],
       "form": 0.4,
+      "form_lang": 0.5,
+      "career": 0.5,
       "quellen": [
         "synthetisch"
       ]
@@ -894,6 +986,8 @@
         "Brienzer"
       ],
       "form": 0.7,
+      "form_lang": 0.5,
+      "career": 0.4,
       "quellen": [
         "synthetisch"
       ]
@@ -912,6 +1006,8 @@
         "Hüfter"
       ],
       "form": 0.7,
+      "form_lang": 0.6,
+      "career": 0.714,
       "quellen": [
         "synthetisch"
       ]
@@ -931,6 +1027,8 @@
         "Hüfter"
       ],
       "form": 1.0,
+      "form_lang": 0.85,
+      "career": 0.75,
       "quellen": [
         "synthetisch"
       ]
@@ -949,6 +1047,8 @@
         "Übersprung"
       ],
       "form": 0.0,
+      "form_lang": 0.3,
+      "career": 0.451,
       "quellen": [
         "synthetisch"
       ]
@@ -967,6 +1067,8 @@
         "Gammen"
       ],
       "form": 0.5,
+      "form_lang": 0.5,
+      "career": 0.6,
       "quellen": [
         "synthetisch"
       ]
@@ -986,6 +1088,8 @@
         "Übersprung"
       ],
       "form": 0.2,
+      "form_lang": 0.45,
+      "career": 0.524,
       "quellen": [
         "synthetisch"
       ]
@@ -1006,6 +1110,8 @@
         "Wyberhaggen"
       ],
       "form": 0.3,
+      "form_lang": 0.35,
+      "career": 0.489,
       "quellen": [
         "synthetisch"
       ]
@@ -1026,6 +1132,8 @@
         "Brienzer"
       ],
       "form": 0.7,
+      "form_lang": 0.65,
+      "career": 0.565,
       "quellen": [
         "synthetisch"
       ]
@@ -1046,6 +1154,8 @@
         "Kurz"
       ],
       "form": 0.1,
+      "form_lang": 0.15,
+      "career": 0.076,
       "quellen": [
         "synthetisch"
       ]
@@ -1065,6 +1175,8 @@
         "Wyberhaggen"
       ],
       "form": 0.3,
+      "form_lang": 0.2,
+      "career": 0.349,
       "quellen": [
         "synthetisch"
       ]
@@ -1083,6 +1195,8 @@
         "Hüfter"
       ],
       "form": 1.0,
+      "form_lang": 1.0,
+      "career": 0.941,
       "quellen": [
         "synthetisch"
       ]
@@ -1103,6 +1217,8 @@
         "Übersprung"
       ],
       "form": 0.4,
+      "form_lang": 0.2,
+      "career": 0.297,
       "quellen": [
         "synthetisch"
       ]
@@ -1122,6 +1238,8 @@
         "Bur"
       ],
       "form": 0.0,
+      "form_lang": 0.0,
+      "career": 0.094,
       "quellen": [
         "synthetisch"
       ]
@@ -1141,6 +1259,8 @@
         "Brienzer"
       ],
       "form": 0.4,
+      "form_lang": 0.25,
+      "career": 0.333,
       "quellen": [
         "synthetisch"
       ]
@@ -1160,6 +1280,8 @@
         "Hüfter"
       ],
       "form": 0.1,
+      "form_lang": 0.35,
+      "career": 0.595,
       "quellen": [
         "synthetisch"
       ]
@@ -1178,6 +1300,8 @@
         "Übersprung"
       ],
       "form": 0.8,
+      "form_lang": 0.85,
+      "career": 0.659,
       "quellen": [
         "synthetisch"
       ]
@@ -1198,6 +1322,8 @@
         "Bur"
       ],
       "form": 0.0,
+      "form_lang": 0.0,
+      "career": 0.106,
       "quellen": [
         "synthetisch"
       ]
@@ -1218,6 +1344,8 @@
         "Fussstich"
       ],
       "form": 0.5,
+      "form_lang": 0.35,
+      "career": 0.37,
       "quellen": [
         "synthetisch"
       ]
@@ -1238,6 +1366,8 @@
         "Bur"
       ],
       "form": 0.8,
+      "form_lang": 0.6,
+      "career": 0.72,
       "quellen": [
         "synthetisch"
       ]
@@ -1257,6 +1387,8 @@
         "Bur"
       ],
       "form": 0.9,
+      "form_lang": 0.85,
+      "career": 0.864,
       "quellen": [
         "synthetisch"
       ]
@@ -1276,6 +1408,8 @@
         "Bur"
       ],
       "form": 0.2,
+      "form_lang": 0.3,
+      "career": 0.266,
       "quellen": [
         "synthetisch"
       ]
@@ -1296,6 +1430,8 @@
         "Brienzer"
       ],
       "form": 0.4,
+      "form_lang": 0.5,
+      "career": 0.414,
       "quellen": [
         "synthetisch"
       ]
@@ -1315,6 +1451,8 @@
         "Fussstich"
       ],
       "form": 0.5,
+      "form_lang": 0.45,
+      "career": 0.564,
       "quellen": [
         "synthetisch"
       ]
@@ -1334,6 +1472,8 @@
         "Kurz"
       ],
       "form": 0.6,
+      "form_lang": 0.8,
+      "career": 0.821,
       "quellen": [
         "synthetisch"
       ]
@@ -1352,6 +1492,8 @@
         "Bur"
       ],
       "form": 0.6,
+      "form_lang": 0.35,
+      "career": 0.391,
       "quellen": [
         "synthetisch"
       ]
@@ -1370,6 +1512,8 @@
         "Hüfter"
       ],
       "form": 0.4,
+      "form_lang": 0.2,
+      "career": 0.132,
       "quellen": [
         "synthetisch"
       ]
@@ -1389,6 +1533,8 @@
         "Übersprung"
       ],
       "form": 0.2,
+      "form_lang": 0.2,
+      "career": 0.182,
       "quellen": [
         "synthetisch"
       ]
@@ -1407,6 +1553,8 @@
         "Fussstich"
       ],
       "form": 0.8,
+      "form_lang": 0.65,
+      "career": 0.539,
       "quellen": [
         "synthetisch"
       ]
@@ -1426,6 +1574,8 @@
         "Hüfter"
       ],
       "form": 0.2,
+      "form_lang": 0.15,
+      "career": 0.114,
       "quellen": [
         "synthetisch"
       ]
@@ -1446,6 +1596,8 @@
         "Kurz"
       ],
       "form": 1.0,
+      "form_lang": 1.0,
+      "career": 0.973,
       "quellen": [
         "synthetisch"
       ]
@@ -1464,6 +1616,8 @@
         "Gammen"
       ],
       "form": 0.4,
+      "form_lang": 0.3,
+      "career": 0.385,
       "quellen": [
         "synthetisch"
       ]
@@ -1482,6 +1636,8 @@
         "Kurz"
       ],
       "form": 0.6,
+      "form_lang": 0.75,
+      "career": 0.843,
       "quellen": [
         "synthetisch"
       ]
@@ -1502,6 +1658,8 @@
         "Kurz"
       ],
       "form": 0.6,
+      "form_lang": 0.75,
+      "career": 0.716,
       "quellen": [
         "synthetisch"
       ]
@@ -1522,6 +1680,8 @@
         "Kurzzug"
       ],
       "form": 0.8,
+      "form_lang": 0.8,
+      "career": 0.741,
       "quellen": [
         "synthetisch"
       ]
@@ -1542,6 +1702,8 @@
         "Fussstich"
       ],
       "form": 0.0,
+      "form_lang": 0.05,
+      "career": 0.097,
       "quellen": [
         "synthetisch"
       ]
@@ -1560,6 +1722,8 @@
         "Bur"
       ],
       "form": 0.4,
+      "form_lang": 0.25,
+      "career": 0.239,
       "quellen": [
         "synthetisch"
       ]
@@ -1579,6 +1743,8 @@
         "Hüfter"
       ],
       "form": 0.0,
+      "form_lang": 0.2,
+      "career": 0.19,
       "quellen": [
         "synthetisch"
       ]
@@ -1599,6 +1765,8 @@
         "Gammen"
       ],
       "form": 0.9,
+      "form_lang": 0.95,
+      "career": 0.905,
       "quellen": [
         "synthetisch"
       ]
@@ -1618,6 +1786,8 @@
         "Kurzzug"
       ],
       "form": 0.3,
+      "form_lang": 0.5,
+      "career": 0.587,
       "quellen": [
         "synthetisch"
       ]
@@ -1636,6 +1806,8 @@
         "Hüfter"
       ],
       "form": 0.5,
+      "form_lang": 0.55,
+      "career": 0.581,
       "quellen": [
         "synthetisch"
       ]
@@ -1654,6 +1826,8 @@
         "Wyberhaggen"
       ],
       "form": 0.8,
+      "form_lang": 0.75,
+      "career": 0.756,
       "quellen": [
         "synthetisch"
       ]
@@ -1674,6 +1848,8 @@
         "Hüfter"
       ],
       "form": 0.6,
+      "form_lang": 0.3,
+      "career": 0.229,
       "quellen": [
         "synthetisch"
       ]
@@ -1694,6 +1870,8 @@
         "Bur"
       ],
       "form": 0.8,
+      "form_lang": 0.6,
+      "career": 0.524,
       "quellen": [
         "synthetisch"
       ]
@@ -1712,6 +1890,8 @@
         "Übersprung"
       ],
       "form": 0.6,
+      "form_lang": 0.6,
+      "career": 0.562,
       "quellen": [
         "synthetisch"
       ]
@@ -1732,6 +1912,8 @@
         "Hüfter"
       ],
       "form": 0.4,
+      "form_lang": 0.3,
+      "career": 0.129,
       "quellen": [
         "synthetisch"
       ]
@@ -1752,6 +1934,8 @@
         "Kurz"
       ],
       "form": 0.9,
+      "form_lang": 0.65,
+      "career": 0.667,
       "quellen": [
         "synthetisch"
       ]
@@ -1772,6 +1956,8 @@
         "Wyberhaggen"
       ],
       "form": 0.8,
+      "form_lang": 0.9,
+      "career": 0.681,
       "quellen": [
         "synthetisch"
       ]
@@ -1790,6 +1976,8 @@
         "Fussstich"
       ],
       "form": 0.3,
+      "form_lang": 0.45,
+      "career": 0.322,
       "quellen": [
         "synthetisch"
       ]
@@ -1808,6 +1996,8 @@
         "Wyberhaggen"
       ],
       "form": 0.3,
+      "form_lang": 0.2,
+      "career": 0.389,
       "quellen": [
         "synthetisch"
       ]
@@ -1826,6 +2016,8 @@
         "Brienzer"
       ],
       "form": 0.2,
+      "form_lang": 0.5,
+      "career": 0.468,
       "quellen": [
         "synthetisch"
       ]
@@ -1844,6 +2036,8 @@
         "Wyberhaggen"
       ],
       "form": 0.8,
+      "form_lang": 0.85,
+      "career": 0.857,
       "quellen": [
         "synthetisch"
       ]
@@ -1862,6 +2056,8 @@
         "Brienzer"
       ],
       "form": 0.4,
+      "form_lang": 0.3,
+      "career": 0.19,
       "quellen": [
         "synthetisch"
       ]
@@ -1881,6 +2077,8 @@
         "Kurz"
       ],
       "form": 0.9,
+      "form_lang": 0.85,
+      "career": 0.754,
       "quellen": [
         "synthetisch"
       ]
@@ -1900,6 +2098,8 @@
         "Kurz"
       ],
       "form": 0.5,
+      "form_lang": 0.3,
+      "career": 0.375,
       "quellen": [
         "synthetisch"
       ]
@@ -1920,6 +2120,8 @@
         "Wyberhaggen"
       ],
       "form": 0.4,
+      "form_lang": 0.25,
+      "career": 0.19,
       "quellen": [
         "synthetisch"
       ]
@@ -1940,6 +2142,8 @@
         "Kurz"
       ],
       "form": 0.2,
+      "form_lang": 0.5,
+      "career": 0.619,
       "quellen": [
         "synthetisch"
       ]
@@ -1960,6 +2164,8 @@
         "Fussstich"
       ],
       "form": 0.0,
+      "form_lang": 0.05,
+      "career": 0.104,
       "quellen": [
         "synthetisch"
       ]
@@ -1979,6 +2185,8 @@
         "Brienzer"
       ],
       "form": 0.5,
+      "form_lang": 0.4,
+      "career": 0.7,
       "quellen": [
         "synthetisch"
       ]
@@ -1998,6 +2206,8 @@
         "Hüfter"
       ],
       "form": 0.4,
+      "form_lang": 0.6,
+      "career": 0.69,
       "quellen": [
         "synthetisch"
       ]
@@ -2017,6 +2227,8 @@
         "Brienzer"
       ],
       "form": 0.0,
+      "form_lang": 0.0,
+      "career": 0.031,
       "quellen": [
         "synthetisch"
       ]
@@ -2036,6 +2248,8 @@
         "Brienzer"
       ],
       "form": 1.0,
+      "form_lang": 1.0,
+      "career": 0.962,
       "quellen": [
         "synthetisch"
       ]
@@ -2054,6 +2268,8 @@
         "Kurzzug"
       ],
       "form": 0.2,
+      "form_lang": 0.2,
+      "career": 0.42,
       "quellen": [
         "synthetisch"
       ]
@@ -2073,6 +2289,8 @@
         "Übersprung"
       ],
       "form": 0.1,
+      "form_lang": 0.15,
+      "career": 0.147,
       "quellen": [
         "synthetisch"
       ]
@@ -2092,6 +2310,8 @@
         "Hüfter"
       ],
       "form": 0.6,
+      "form_lang": 0.4,
+      "career": 0.595,
       "quellen": [
         "synthetisch"
       ]
@@ -2110,6 +2330,8 @@
         "Bur"
       ],
       "form": 0.7,
+      "form_lang": 0.35,
+      "career": 0.35,
       "quellen": [
         "synthetisch"
       ]
@@ -2128,6 +2350,8 @@
         "Fussstich"
       ],
       "form": 0.0,
+      "form_lang": 0.1,
+      "career": 0.177,
       "quellen": [
         "synthetisch"
       ]
@@ -2148,6 +2372,8 @@
         "Gammen"
       ],
       "form": 0.3,
+      "form_lang": 0.4,
+      "career": 0.589,
       "quellen": [
         "synthetisch"
       ]
@@ -2166,6 +2392,8 @@
         "Kurzzug"
       ],
       "form": 0.6,
+      "form_lang": 0.55,
+      "career": 0.625,
       "quellen": [
         "synthetisch"
       ]
@@ -2185,6 +2413,8 @@
         "Wyberhaggen"
       ],
       "form": 0.6,
+      "form_lang": 0.6,
+      "career": 0.462,
       "quellen": [
         "synthetisch"
       ]
@@ -2205,6 +2435,8 @@
         "Kurzzug"
       ],
       "form": 0.5,
+      "form_lang": 0.45,
+      "career": 0.489,
       "quellen": [
         "synthetisch"
       ]
@@ -2223,6 +2455,8 @@
         "Übersprung"
       ],
       "form": 0.3,
+      "form_lang": 0.25,
+      "career": 0.364,
       "quellen": [
         "synthetisch"
       ]
@@ -2243,6 +2477,8 @@
         "Brienzer"
       ],
       "form": 0.6,
+      "form_lang": 0.65,
+      "career": 0.4,
       "quellen": [
         "synthetisch"
       ]
@@ -2263,6 +2499,8 @@
         "Übersprung"
       ],
       "form": 0.2,
+      "form_lang": 0.1,
+      "career": 0.22,
       "quellen": [
         "synthetisch"
       ]
@@ -2283,6 +2521,8 @@
         "Hüfter"
       ],
       "form": 0.8,
+      "form_lang": 0.9,
+      "career": 0.779,
       "quellen": [
         "synthetisch"
       ]

@@ -52,7 +52,43 @@ def hole(url: str, *, binaer: bool = False):
         "Accept-Encoding": "identity",
         "Connection": "close",
     })
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        daten = resp.read()
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            daten = resp.read()
+    except urllib.error.HTTPError as e:
+        # esv.ch blockt Nicht-Browser-Clients/Cloud-IPs mit 403 (WAF). Auf einer
+        # Wohn-IP kann ein echter Browser (Playwright) helfen: opt-in per
+        # Umgebungsvariable SCHWINGEN_USE_BROWSER=1.
+        if e.code == 403 and _browser_aktiv() and not binaer:
+            _letzter_request[host] = time.time()
+            return hole_via_browser(url)
+        raise
     _letzter_request[host] = time.time()
     return daten if binaer else daten.decode("utf-8", errors="replace")
+
+
+def _browser_aktiv() -> bool:
+    import os
+    return os.environ.get("SCHWINGEN_USE_BROWSER", "").lower() in ("1", "true", "yes")
+
+
+def hole_via_browser(url: str) -> str:
+    """Lädt eine Seite mit echtem Headless-Browser (Playwright).
+
+    Für Quellen mit WAF/JS-Schutz (esv.ch) von einer Wohn-IP. Benötigt
+    `pip install playwright && playwright install chromium`.
+    """
+    try:
+        from playwright.sync_api import sync_playwright  # type: ignore
+    except ImportError as e:  # noqa: BLE001
+        raise RuntimeError(
+            "SCHWINGEN_USE_BROWSER gesetzt, aber Playwright fehlt. "
+            "`pip install playwright && playwright install chromium`."
+        ) from e
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        seite = browser.new_page(user_agent=USER_AGENT, locale="de-CH")
+        seite.goto(url, wait_until="networkidle", timeout=45000)
+        html = seite.content()
+        browser.close()
+    return html

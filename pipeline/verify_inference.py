@@ -1,19 +1,22 @@
-"""Cross-Check: JSON-Artefakt-Inferenz == sklearn-Modell (NFR-3).
+"""Cross-Check: JSON-Artefakt-Inferenz == sklearn-Modelle (NFR-3).
 
-Stellt sicher, dass die clientseitige Inferenz (die exakt diese JSON-Logik
-in TypeScript spiegelt) dieselben Wahrscheinlichkeiten liefert wie das
-trainierte sklearn-Modell. Verhindert Drift zwischen Training und Web-App.
+Stellt sicher, dass die clientseitige Inferenz (die exakt diese JSON-Logik in
+TypeScript spiegelt) für BEIDE Modelle (Logistic Regression und Gradient
+Boosting) dieselben Wahrscheinlichkeiten liefert wie die trainierten
+sklearn-Modelle. Verhindert Drift zwischen Training und Web-App.
 """
 from __future__ import annotations
 
-import json
 import math
-from pathlib import Path
 
 import numpy as np
 
-ROOT = Path(__file__).resolve().parent.parent
-ART = ROOT / "artifacts"
+from .synth import erzeuge_datensatz
+from .labels import dedupliziere
+from .ratings import fahre_elo_durch
+from .features import baue_features
+from .train import trainiere
+from .export import serialisiere_gbm
 
 
 def _softmax(logits):
@@ -23,73 +26,68 @@ def _softmax(logits):
     return [e / s for e in exp]
 
 
-def json_inferenz(model, x):
-    """Reine JSON-Logik (identisch zu web/lib/inference.ts)."""
-    mu = model["standardisierung"]["mu"]
-    sigma = model["standardisierung"]["sigma"]
+def _lr_json_inferenz(model, x):
+    mu, sigma = model["mu"], model["sigma"]
     z = [(x[i] - mu[i]) / (sigma[i] or 1) for i in range(len(x))]
-    logits = [
-        sum(model["coef"][k][i] * z[i] for i in range(len(z))) + model["intercept"][k]
-        for k in range(len(model["coef"]))
-    ]
+    logits = [sum(model["coef"][k][i] * z[i] for i in range(len(z))) + model["intercept"][k]
+              for k in range(len(model["coef"]))]
     return _softmax(logits)
 
 
+def _tree_value(tree, x):
+    node = 0
+    while tree["children_left"][node] != -1:      # -1 == Blatt
+        f = tree["feature"][node]
+        node = (tree["children_left"][node] if x[f] <= tree["threshold"][node]
+                else tree["children_right"][node])
+    return tree["value"][node]
+
+
+def _gbm_json_inferenz(gbm_json, x):
+    raw = list(gbm_json["init_raw"])
+    lr = gbm_json["learning_rate"]
+    for stage in gbm_json["stages"]:
+        for k, tree in enumerate(stage):
+            raw[k] += lr * _tree_value(tree, x)
+    return _softmax(raw)
+
+
 def main():
-    model = json.loads((ART / "model.json").read_text())
-    schwinger = {s["id"]: s for s in json.loads((ART / "schwinger.json").read_text())["schwinger"]}
-    ratings = json.loads((ART / "ratings.json").read_text())["ratings"]
+    schwinger, events, roh = erzeuge_datensatz()
+    gaenge, _ = dedupliziere(roh)
+    _, snapshots = fahre_elo_durch(gaenge)
+    X, y, meta = baue_features(gaenge, snapshots, schwinger, augment=True)
+    train_res = trainiere(X, y, meta)
 
-    kranz = model["config"]["kranzstatus_ordinal"]
-    jahr = __import__("datetime").date.today().year
+    lr = train_res["lr"]["modell"]
+    gbm = train_res["gbm"]["modell"]
+    lr_json = {
+        "mu": [float(v) for v in train_res["mu"]],
+        "sigma": [float(v) for v in train_res["sigma"]],
+        "coef": [[float(v) for v in row] for row in lr.coef_],
+        "intercept": [float(v) for v in lr.intercept_],
+    }
+    gbm_json = serialisiere_gbm(gbm)
 
-    ids = list(schwinger.keys())[:6]
-    max_abw = 0.0
-    for i in range(0, len(ids) - 1, 2):
-        a, b = schwinger[ids[i]], schwinger[ids[i + 1]]
-        ra = ratings.get(a["id"], {"elo": 1500, "n_gaenge": 0})
-        rb = ratings.get(b["id"], {"elo": 1500, "n_gaenge": 0})
+    Xarr = np.array(X)
+    mu = np.array(train_res["mu"]); sigma = np.array(train_res["sigma"])
+    p_lr_ref = lr.predict_proba((Xarr - mu) / np.where(sigma == 0, 1, sigma))
+    p_gbm_ref = gbm.predict_proba(Xarr)
 
-        def alter(s):
-            return jahr - s["jahrgang"] if s["jahrgang"] else None
+    max_lr = max_gbm = 0.0
+    idxs = range(0, len(X), max(1, len(X) // 50))  # ~50 Stichproben
+    for i in idxs:
+        x = X[i]
+        p_lr = _lr_json_inferenz(lr_json, x)
+        p_gbm = _gbm_json_inferenz(gbm_json, x)
+        max_lr = max(max_lr, max(abs(a - b) for a, b in zip(p_lr, p_lr_ref[i])))
+        max_gbm = max(max_gbm, max(abs(a - b) for a, b in zip(p_gbm, p_gbm_ref[i])))
 
-        def d(x, y):
-            return (x - y) if (x is not None and y is not None) else 0.0
-
-        x = [
-            (ra["elo"] - rb["elo"]) / 100.0,
-            a["form"] - b["form"],
-            float(kranz.get(a["kranzstatus"], 0) - kranz.get(b["kranzstatus"], 0)),
-            d(alter(a), alter(b)),
-            d(a["gewicht_kg"], b["gewicht_kg"]),
-            d(a["groesse_cm"], b["groesse_cm"]),
-            float(ra["n_gaenge"] - rb["n_gaenge"]),
-            0.0,  # bergfest
-            0.0,  # gross_fest
-            1.0 if a["teilverband"] and a["teilverband"] == b["teilverband"] else 0.0,
-        ]
-
-        p_json = json_inferenz(model, x)
-
-        # Referenz: sklearn-Logik direkt (coef·z + intercept -> softmax) ist
-        # identisch zu predict_proba der Multinomial-LR.
-        mu = np.array(model["standardisierung"]["mu"])
-        sigma = np.array(model["standardisierung"]["sigma"])
-        z = (np.array(x) - mu) / np.where(sigma == 0, 1, sigma)
-        logits = np.array(model["coef"]) @ z + np.array(model["intercept"])
-        p_ref = np.exp(logits - logits.max())
-        p_ref = p_ref / p_ref.sum()
-
-        abw = max(abs(pj - pr) for pj, pr in zip(p_json, p_ref))
-        max_abw = max(max_abw, abw)
-        print(
-            f"{a['name']} vs {b['name']}: "
-            f"P={[round(v,3) for v in p_json]} (Summe {sum(p_json):.3f}) abw={abw:.2e}"
-        )
-
-    print(f"\nMax. Abweichung JSON vs Referenz: {max_abw:.2e}")
-    assert max_abw < 1e-9, "Inferenz-Drift!"
-    print("✓ Inferenz konsistent (clientseitige TS-Logik = Modell).")
+    print(f"LR : max. Abweichung JSON vs sklearn = {max_lr:.2e}")
+    print(f"GBM: max. Abweichung JSON vs sklearn = {max_gbm:.2e}")
+    assert max_lr < 1e-9, "LR-Inferenz-Drift!"
+    assert max_gbm < 1e-9, "GBM-Inferenz-Drift!"
+    print("✓ Beide Modelle konsistent (clientseitige TS-Logik = sklearn).")
 
 
 if __name__ == "__main__":

@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ladeEvents, ladeModel, ladeRatings, ladeSchwinger } from "@/lib/data";
+import { ladeEvents, ladeGbm, ladeModel, ladeRatings, ladeSchwinger } from "@/lib/data";
 import { prognostiziere } from "@/lib/inference";
 import type {
   EventsArtifact,
+  GbmModel,
   ModelArtifact,
   RatingsArtifact,
   Schwinger,
@@ -22,14 +23,16 @@ const TYP_LABEL: Record<string, string> = {
 export default function Feste() {
   const [events, setEvents] = useState<EventsArtifact | null>(null);
   const [model, setModel] = useState<ModelArtifact | null>(null);
+  const [gbm, setGbm] = useState<GbmModel | null>(null);
   const [ratings, setRatings] = useState<RatingsArtifact | null>(null);
   const [schwinger, setSchwinger] = useState<Schwinger[]>([]);
 
   useEffect(() => {
-    Promise.all([ladeEvents(), ladeModel(), ladeRatings(), ladeSchwinger()]).then(
-      ([e, m, r, s]) => {
+    Promise.all([ladeEvents(), ladeModel(), ladeGbm(), ladeRatings(), ladeSchwinger()]).then(
+      ([e, m, g, r, s]) => {
         setEvents(e);
         setModel(m);
+        setGbm(g);
         setRatings(r);
         setSchwinger(s);
       }
@@ -74,6 +77,7 @@ export default function Feste() {
               key={fest.id}
               fest={fest}
               model={model}
+              gbm={gbm}
               ratings={ratings}
               byId={byId}
             />
@@ -87,11 +91,13 @@ export default function Feste() {
 function FestCard({
   fest,
   model,
+  gbm,
   ratings,
   byId,
 }: {
   fest: KommendesFest;
   model: ModelArtifact | null;
+  gbm: GbmModel | null;
   ratings: RatingsArtifact | null;
   byId: Record<string, Schwinger>;
 }) {
@@ -138,6 +144,7 @@ function FestCard({
               const rb = ratings.ratings[pg.b_id] ?? { elo: ratings.elo_start, n_gaenge: 0 };
               const pr = prognostiziere(
                 model,
+                gbm,
                 a,
                 b,
                 ra.elo,

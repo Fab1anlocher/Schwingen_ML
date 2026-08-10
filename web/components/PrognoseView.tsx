@@ -40,6 +40,13 @@ export function PrognoseView({
         <span>{nameB} ◨</span>
       </div>
 
+      <div className="row" style={{ justifyContent: "flex-end", marginTop: "0.5rem" }}>
+        <span className="badge">
+          Modell:{" "}
+          {prognose.modell === "gbm" ? "Gradient Boosting" : "Logistic Regression"}
+        </span>
+      </div>
+
       <div className="quote-row">
         {(["sieg_a", "gestellt", "sieg_b"] as const).map((k) => (
           <div className="quote-card" key={k}>

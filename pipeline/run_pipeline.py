@@ -21,7 +21,7 @@ from .config import FORM_FENSTER_K
 from .labels import dedupliziere
 from .ratings import fahre_elo_durch, bewerte_baseline
 from .features import baue_features
-from .train import trainiere, feature_wichtigkeit
+from .train import trainiere, feature_wichtigkeit, feature_wichtigkeit_gbm
 
 
 def _lade_daten(source: str):
@@ -34,17 +34,30 @@ def _lade_daten(source: str):
     raise ValueError(f"Unbekannte Quelle: {source}")
 
 
-def _aktuelle_form(gaenge) -> dict:
-    """Form-Zustand NACH allen Gängen (für Live-Prognose-Artefakt)."""
-    hist = defaultdict(lambda: deque(maxlen=FORM_FENSTER_K))
+def _aktuelle_stats(gaenge) -> dict:
+    """Zustand NACH allen Gängen je Schwinger: {form, form_lang, career}.
+
+    Für die Live-Prognose-Artefakte (identische Merkmale wie im Training).
+    """
+    from .features import FORM_LANG_FENSTER
+    form = defaultdict(lambda: deque(maxlen=FORM_FENSTER_K))
+    form_lang = defaultdict(lambda: deque(maxlen=FORM_LANG_FENSTER))
+    pts = defaultdict(float)
+    n = defaultdict(int)
     for g in sorted(gaenge, key=lambda x: (x.datum, x.event_id)):
-        if g.ergebnis == "sieg_a":
-            hist[g.schwinger_a_id].append(1.0); hist[g.schwinger_b_id].append(0.0)
-        elif g.ergebnis == "sieg_b":
-            hist[g.schwinger_a_id].append(0.0); hist[g.schwinger_b_id].append(1.0)
-        else:
-            hist[g.schwinger_a_id].append(0.5); hist[g.schwinger_b_id].append(0.5)
-    return {sid: (sum(h) / len(h) if h else 0.5) for sid, h in hist.items()}
+        s_a = 1.0 if g.ergebnis == "sieg_a" else (0.0 if g.ergebnis == "sieg_b" else 0.5)
+        for sid, s in ((g.schwinger_a_id, s_a), (g.schwinger_b_id, 1.0 - s_a)):
+            form[sid].append(s); form_lang[sid].append(s)
+            pts[sid] += s; n[sid] += 1
+    alle = set(form) | set(n)
+    return {
+        sid: {
+            "form": round(sum(form[sid]) / len(form[sid]), 3) if form[sid] else 0.5,
+            "form_lang": round(sum(form_lang[sid]) / len(form_lang[sid]), 3) if form_lang[sid] else 0.5,
+            "career": round(pts[sid] / n[sid], 3) if n[sid] else 0.5,
+        }
+        for sid in alle
+    }
 
 
 def main(source: str = "synth") -> dict:
@@ -66,17 +79,22 @@ def main(source: str = "synth") -> dict:
     X, y, meta = baue_features(gaenge, snapshots, schwinger, augment=True)
     print(f"      {len(X)} Trainingsbeispiele x {len(X[0]) if X else 0} Merkmale")
 
-    print("[5/6] Logistic Regression trainieren + zeitlich evaluieren ...")
+    print("[5/6] Modelle trainieren (LR + Gradient Boosting) + zeitlich evaluieren ...")
     train_res = trainiere(X, y, meta)
-    fi = feature_wichtigkeit(train_res["modell"], train_res["sigma"])
-    print(f"      Modell   Log-Loss={train_res['log_loss']:.4f} "
-          f"Acc={train_res['accuracy']:.4f} (Holdout {train_res['holdout_jahr']})")
+    fi_lr = feature_wichtigkeit(train_res["lr"]["modell"], train_res["sigma"])
+    fi_gbm = feature_wichtigkeit_gbm(train_res["gbm"]["modell"])
+    lr, gbm = train_res["lr"], train_res["gbm"]
+    print(f"      LR   Log-Loss={lr['log_loss']:.4f} Acc={lr['accuracy']:.4f} "
+          f"Brier={lr['brier']:.4f}")
+    print(f"      GBM  Log-Loss={gbm['log_loss']:.4f} Acc={gbm['accuracy']:.4f} "
+          f"Brier={gbm['brier']:.4f}  (Params {gbm.get('params')})")
+    print(f"      Bestes Modell: {train_res['bestes'].upper()} (Holdout {train_res['holdout_jahr']})")
 
     print("[6/6] Artefakte exportieren ...")
-    form_aktuell = _aktuelle_form(gaenge)
-    export.exportiere_modell(train_res, fi)
+    stats_aktuell = _aktuelle_stats(gaenge)
+    export.exportiere_modell(train_res, fi_lr, fi_gbm)
     export.exportiere_ratings(elo_modell, schwinger)
-    export.exportiere_schwinger(schwinger, form_aktuell)
+    export.exportiere_schwinger(schwinger, stats_aktuell)
     # Kommende Feste (FR-2): bei echten Daten aus dem Agenda-Scraper.
     kommende = []
     if source in ("esv", "scrape"):

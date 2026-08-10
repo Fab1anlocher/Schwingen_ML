@@ -25,7 +25,12 @@ FEATURE_NAMES = [
     "bergfest",          # 1 wenn Bergfest, sonst 0 (geteilter Kontext)
     "gross_fest",        # 1 wenn eidg./berg (Grossanlass), sonst 0
     "same_teilverband",  # 1 wenn gleicher Teilverband (symmetrisch)
+    "career_diff",       # Karriere-Siegquote A - B (leak-frei, all-time pre-gang)
+    "form_lang_diff",    # Form über langes Fenster (letzte 10) A - B (leak-frei)
 ]
+
+# Langes Formfenster (zusätzlich zu FORM_FENSTER_K aus config).
+FORM_LANG_FENSTER = 10
 
 # Menschenlesbare Labels für Erklärbarkeit (FR-3).
 FEATURE_LABELS = {
@@ -39,6 +44,8 @@ FEATURE_LABELS = {
     "bergfest": "Bergfest",
     "gross_fest": "Grossanlass",
     "same_teilverband": "gleicher Teilverband",
+    "career_diff": "Karriere-Siegquote",
+    "form_lang_diff": "Form (langfristig)",
 }
 
 
@@ -83,6 +90,12 @@ def baue_features(
         s["event_id"] + s["schwinger_a_id"] + s["schwinger_b_id"]: s for s in snapshots
     }
     form_hist: dict[str, deque] = defaultdict(lambda: deque(maxlen=FORM_FENSTER_K))
+    form_lang_hist: dict[str, deque] = defaultdict(lambda: deque(maxlen=FORM_LANG_FENSTER))
+    career_pts: dict[str, float] = defaultdict(float)   # kumulierte Punkte (S=1, G=0.5)
+    career_n: dict[str, int] = defaultdict(int)
+
+    def _career(sid: str) -> float:
+        return career_pts[sid] / career_n[sid] if career_n[sid] else 0.5
 
     X: list[list[float]] = []
     y: list[int] = []
@@ -102,58 +115,59 @@ def baue_features(
         n_b = snap.get("n_b_pre", 0)
 
         # Merkmale VOR dem Gang berechnen (leak-frei).
-        form_a = _form_wert(form_hist[a_id])
-        form_b = _form_wert(form_hist[b_id])
+        stats_a = _StatSnap(_form_wert(form_hist[a_id]), _form_wert(form_lang_hist[a_id]),
+                            _career(a_id))
+        stats_b = _StatSnap(_form_wert(form_hist[b_id]), _form_wert(form_lang_hist[b_id]),
+                            _career(b_id))
 
-        feats = _feature_vektor(
-            elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb, gang.fest_typ, gang.datum
-        )
+        feats = _feature_vektor(elo_a, elo_b, n_a, n_b, stats_a, stats_b, sa, sb,
+                                gang.fest_typ, gang.datum)
         label = klass_idx[gang.ergebnis]
         X.append(feats)
         y.append(label)
-        meta.append(
-            {
-                "event_id": gang.event_id,
-                "datum": gang.datum,
-                "schwinger_a_id": a_id,
-                "schwinger_b_id": b_id,
-                "n_a": n_a,
-                "n_b": n_b,
-            }
-        )
+        meta.append({
+            "event_id": gang.event_id, "datum": gang.datum,
+            "schwinger_a_id": a_id, "schwinger_b_id": b_id, "n_a": n_a, "n_b": n_b,
+        })
 
         if augment:
-            feats_swap = _feature_vektor(
-                elo_b, elo_a, form_b, form_a, n_b, n_a, sb, sa, gang.fest_typ, gang.datum
-            )
+            feats_swap = _feature_vektor(elo_b, elo_a, n_b, n_a, stats_b, stats_a, sb, sa,
+                                         gang.fest_typ, gang.datum)
             label_swap = {0: 2, 1: 1, 2: 0}[label]
             X.append(feats_swap)
             y.append(label_swap)
             meta.append({**meta[-1], "augmented": True})
 
-        # NACH Feature-Berechnung Form aktualisieren.
-        if gang.ergebnis == "sieg_a":
-            form_hist[a_id].append(1.0)
-            form_hist[b_id].append(0.0)
-        elif gang.ergebnis == "sieg_b":
-            form_hist[a_id].append(0.0)
-            form_hist[b_id].append(1.0)
-        else:
-            form_hist[a_id].append(0.5)
-            form_hist[b_id].append(0.5)
+        # NACH Feature-Berechnung Zustände aktualisieren.
+        s_a = 1.0 if gang.ergebnis == "sieg_a" else (0.0 if gang.ergebnis == "sieg_b" else 0.5)
+        for sid, s in ((a_id, s_a), (b_id, 1.0 - s_a)):
+            form_hist[sid].append(s)
+            form_lang_hist[sid].append(s)
+            career_pts[sid] += s
+            career_n[sid] += 1
 
     return X, y, meta
 
 
+class _StatSnap:
+    """Leak-freier Merkmals-Snapshot eines Schwingers VOR dem Gang."""
+    __slots__ = ("form", "form_lang", "career")
+
+    def __init__(self, form: float, form_lang: float, career: float):
+        self.form = form
+        self.form_lang = form_lang
+        self.career = career
+
+
 def _feature_vektor(
-    elo_a, elo_b, form_a, form_b, n_a, n_b, sa: Schwinger, sb: Schwinger,
-    fest_typ: str, datum: str,
+    elo_a, elo_b, n_a, n_b, stats_a: "_StatSnap", stats_b: "_StatSnap",
+    sa: Schwinger, sb: Schwinger, fest_typ: str, datum: str,
 ) -> list[float]:
     kranz_a = KRANZSTATUS_ORDINAL.get(sa.kranzstatus, 0)
     kranz_b = KRANZSTATUS_ORDINAL.get(sb.kranzstatus, 0)
     return [
         (elo_a - elo_b) / 100.0,                       # rating_diff (skaliert)
-        form_a - form_b,                                # form_diff
+        stats_a.form - stats_b.form,                    # form_diff
         float(kranz_a - kranz_b),                       # kranz_diff
         _diff_oder_null(_alter(sa, datum), _alter(sb, datum)),  # alter_diff
         _diff_oder_null(sa.gewicht_kg, sb.gewicht_kg),  # gewicht_diff
@@ -162,12 +176,14 @@ def _feature_vektor(
         1.0 if fest_typ == "berg" else 0.0,             # bergfest
         1.0 if fest_typ in ("eidgenoessisch", "berg") else 0.0,  # gross_fest
         1.0 if sa.teilverband and sa.teilverband == sb.teilverband else 0.0,
+        stats_a.career - stats_b.career,                # career_diff
+        stats_a.form_lang - stats_b.form_lang,          # form_lang_diff
     ]
 
 
 def feature_vektor_fuer_prognose(
-    elo_a, elo_b, form_a, form_b, n_a, n_b, sa: Schwinger, sb: Schwinger,
-    fest_typ: str, datum: str,
+    elo_a, elo_b, n_a, n_b, stats_a: "_StatSnap", stats_b: "_StatSnap",
+    sa: Schwinger, sb: Schwinger, fest_typ: str, datum: str,
 ) -> list[float]:
     """Öffentliche Variante für Live-Prognose (identische Berechnung)."""
-    return _feature_vektor(elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb, fest_typ, datum)
+    return _feature_vektor(elo_a, elo_b, n_a, n_b, stats_a, stats_b, sa, sb, fest_typ, datum)
