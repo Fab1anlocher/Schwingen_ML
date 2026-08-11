@@ -7,6 +7,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 ARTIFACTS_DIR = ROOT / "artifacts"
 WEB_PUBLIC_DIR = ROOT / "web" / "public" / "data"
+# Serverseitig genutzte Artefakte (NICHT clientseitig geladen, s. web/app/api/).
+WEB_SERVER_DATA_DIR = ROOT / "web" / "data"
 
 # --- Reproduzierbarkeit (NFR-3 / AK-6.2) --------------------------------
 SEED = 42
@@ -34,31 +36,22 @@ KLASSEN = ["sieg_a", "gestellt", "sieg_b"]
 # Fest-Typen (§4.2).
 FEST_TYPEN = ["eidgenoessisch", "berg", "kantonal", "teilverband", "regional"]
 
-# Höfliches Scraping (NFR-4): Rate-Limit + robots.txt bleiben aktiv. Der
-# User-Agent ist browser-kompatibel, weil esv.ch nicht-Browser-UAs mit 403
-# blockt; die Kennung „Schwingen-ML" bleibt zur Transparenz enthalten.
+# Elo-Gewichtung nach Fest-Wichtigkeit: ein Resultat an einem prestigeträchtigen
+# Fest (grösseres, stärkeres Feld) bewegt das Rating stärker. Skaliert den
+# K-Faktor je Gang. Startwerte -- empirisch gegen den Holdout validierbar.
+FEST_K_GEWICHT = {
+    "eidgenoessisch": 1.0,
+    "berg": 0.8,
+    "teilverband": 0.6,
+    "kantonal": 0.6,
+    "regional": 0.4,
+}
+
+# Höfliches Scraping (NFR-4).
 SCRAPE_DELAY_SEKUNDEN = 2.0
-USER_AGENT = (
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
-    "Chrome/124.0.0.0 Safari/537.36 Schwingen-ML/1.0 (nicht-kommerziell)"
-)
+USER_AGENT = "Schwingen-ML/1.0 (nicht-kommerziell; Hobby-Projekt)"
 
-# --- Datenquelle: schlussgang.ch (statistic-final.pdf) ------------------
-# Primäre, VOLLAUTOMATISCH cloud-scrapebare Quelle (kein WAF gegen Cloud-IPs,
-# anders als esv.ch). Die PDFs stammen laut Fusszeile direkt vom ESV.
-#   backend-api.schlussgang.ch/sites/default/files/event-ranking-list/<ID>-statistic-final.pdf
-QUELLE = "schlussgang.ch"
-# Feste werden AUTOMATISCH über die JSON:API entdeckt (discover.liste_feste).
-# Anzahl der jüngsten Feste, die pro Lauf verarbeitet werden (mehr = mehr
-# Saisons/Daten fürs Modell, aber längerer Lauf).
-SCHLUSSGANG_MAX_FESTE = 80
-# Nur Aktivschwinger-Feste (Spec-Zielgruppe; saubere Standard-PDFs).
-SCHLUSSGANG_NUR_AKTIV = True
-# Manuelle Fallback-IDs, falls die JSON:API nichts liefert.
-SCHLUSSGANG_EVENT_IDS: list[int] = [52026]
-
-# --- Datenquelle: ESV (esv.ch/ranglisten) — nur vom Heimrechner ----------
-# esv.ch blockt Cloud-IPs (WAF); nur mit Wohn-IP/Browser nutzbar (siehe README).
+# ESV-Ranglisten-Basis (Rückwärtskompatibilität für bestehende ESV-Scraper).
 ESV_BASE = "https://esv.ch/ranglisten/"
 ESV_REGIONEN = ["esv", "isv", "nosv", "bksv", "nwsv", "swsv", "zksv"]
 
@@ -66,3 +59,4 @@ ESV_REGIONEN = ["esv", "isv", "nosv", "bksv", "nwsv", "swsv", "zksv"]
 def ensure_dirs() -> None:
     ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
     WEB_PUBLIC_DIR.mkdir(parents=True, exist_ok=True)
+    WEB_SERVER_DATA_DIR.mkdir(parents=True, exist_ok=True)

@@ -81,6 +81,38 @@ def test_dedup_einzelne_perspektive_warnt():
     assert any("nur eine Perspektive" in w for w in warnungen)
 
 
+def test_dedup_kranz_wird_pro_seite_uebernommen():
+    roh = [
+        RohGangEintrag("ev1", "2024-05-01", "anna|1995", "beat|1996", "+", 10.0, "kantonal", kranz=True),
+        RohGangEintrag("ev1", "2024-05-01", "beat|1996", "anna|1995", "o", 8.75, "kantonal", kranz=False),
+    ]
+    gaenge, _ = dedupliziere(roh)
+    g = gaenge[0]
+    assert g.schwinger_a_id == "anna|1995"  # kanonische A-Seite
+    assert g.kranz_a is True
+    assert g.kranz_b is False
+
+
+def test_dedup_kranz_default_false():
+    roh = [
+        RohGangEintrag("ev1", "2024-05-01", "anna|1995", "beat|1996", "+", 10.0, "kantonal"),
+        RohGangEintrag("ev1", "2024-05-01", "beat|1996", "anna|1995", "o", 8.75, "kantonal"),
+    ]
+    gaenge, _ = dedupliziere(roh)
+    assert gaenge[0].kranz_a is False
+    assert gaenge[0].kranz_b is False
+
+
+def test_dedup_einzelne_perspektive_kranz_nur_fuer_vorhandene_seite():
+    roh = [
+        RohGangEintrag("ev1", "2024-05-01", "anna|1995", "beat|1996", "+", 10.0, "regional", kranz=True),
+    ]
+    gaenge, _ = dedupliziere(roh)
+    g = gaenge[0]
+    assert g.kranz_a is True   # anna's eigene Kopfzeile war vorhanden
+    assert g.kranz_b is False  # beats Kopfzeile wurde nie gesehen -> unbekannt, nicht geraten
+
+
 def test_punktetotal_ok():
     assert validiere_punktetotal("anna|1995", [10.0, 9.75, 8.75], 28.50) is None
 

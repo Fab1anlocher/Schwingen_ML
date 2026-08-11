@@ -1,8 +1,7 @@
-// Clientseitige Inferenz (§7, NFR-2: < 500 ms).
-// Spiegelt pipeline/features._feature_vektor, train und export.serialisiere_gbm
-// exakt (per verify_inference.py auf Bit-Parität geprüft).
+// Clientseitige Logistic-Regression-Inferenz (§7, NFR-2: < 500 ms).
+// Spiegelt pipeline/features._feature_vektor und pipeline/train exakt.
 
-import type { ModelArtifact, GbmModel, GbmTree, Schwinger, Prognose, Klasse } from "./types";
+import type { ModelArtifact, Schwinger, Prognose, Klasse } from "./types";
 
 const AKTUELLES_JAHR = new Date().getFullYear();
 
@@ -11,7 +10,17 @@ function diffOderNull(a: number | null, b: number | null): number {
   return a - b;
 }
 
-/** Baut den Merkmalsvektor A-vs-B (identisch zur Python-Pipeline, 12 Merkmale). */
+function schwungOverlap(a: Schwinger, b: Schwinger): number {
+  const sa = new Set(a.bevorzugte_schwuenge ?? []);
+  const sb = new Set(b.bevorzugte_schwuenge ?? []);
+  const union = new Set([...sa, ...sb]);
+  if (union.size === 0) return 0;
+  let inter = 0;
+  for (const x of sa) if (sb.has(x)) inter += 1;
+  return inter / union.size;
+}
+
+/** Baut den Merkmalsvektor A-vs-B (identisch zur Python-Pipeline). */
 export function baueFeatures(
   model: ModelArtifact,
   a: Schwinger,
@@ -20,7 +29,7 @@ export function baueFeatures(
   eloB: number,
   nA: number,
   nB: number,
-  festTyp: string
+  kopfAnKopfA: number = 0
 ): number[] {
   const kranz = model.config.kranzstatus_ordinal;
   const kranzA = kranz[a.kranzstatus] ?? 0;
@@ -30,17 +39,17 @@ export function baueFeatures(
 
   return [
     (eloA - eloB) / 100.0, // rating_diff
+    Math.abs(eloA - eloB) / 100.0, // rating_abstand
     a.form - b.form, // form_diff
     kranzA - kranzB, // kranz_diff
     diffOderNull(alterA, alterB), // alter_diff
     diffOderNull(a.gewicht_kg, b.gewicht_kg), // gewicht_diff
     diffOderNull(a.groesse_cm, b.groesse_cm), // groesse_diff
     nA - nB, // erfahrung_diff
-    festTyp === "berg" ? 1 : 0, // bergfest
-    festTyp === "eidgenoessisch" || festTyp === "berg" ? 1 : 0, // gross_fest
     a.teilverband && a.teilverband === b.teilverband ? 1 : 0, // same_teilverband
-    a.career - b.career, // career_diff
-    a.form_lang - b.form_lang, // form_lang_diff
+    schwungOverlap(a, b), // schwung_overlap
+    (a.bevorzugte_schwuenge?.length ?? 0) - (b.bevorzugte_schwuenge?.length ?? 0), // schwung_count_diff
+    kopfAnKopfA, // kopf_an_kopf
   ];
 }
 
@@ -51,79 +60,80 @@ function softmax(logits: number[]): number[] {
   return exp.map((e) => e / sum);
 }
 
-/** Logistic-Regression-Wahrscheinlichkeiten (standardisiert). */
-function lrProbs(model: ModelArtifact, x: number[]): number[] {
-  const { mu, sigma } = model.standardisierung;
-  const z = x.map((xi, i) => (xi - mu[i]) / (sigma[i] || 1));
+function wahrscheinlichkeiten(model: ModelArtifact, z: number[]): number[] {
   const logits = model.coef.map(
     (row, k) => row.reduce((s, w, i) => s + w * z[i], 0) + model.intercept[k]
   );
   return softmax(logits);
 }
 
-function treeValue(tree: GbmTree, x: number[]): number {
-  let node = 0;
-  while (tree.children_left[node] !== -1) {
-    const f = tree.feature[node];
-    node = x[f] <= tree.threshold[node] ? tree.children_left[node] : tree.children_right[node];
-  }
-  return tree.value[node];
-}
+// Zweizeilige Beschriftung je Merkmal (Titel + neutrale Unterzeile). Die
+// Richtung (wem es nützt) kommt datengetrieben aus dem Modell, nicht aus dem
+// Text hier -- die Unterzeile beschreibt nur, was das Merkmal misst.
+const BEITRAG_TEXT: Record<string, { titel: string; unter: string }> = {
+  rating_diff: { titel: "Rating-Vorsprung", unter: "Elo-Differenz" },
+  rating_abstand: { titel: "Ausgeglichenheit", unter: "Wie nah die Ratings liegen" },
+  form_diff: { titel: "Aktuelle Form", unter: "Letzte Gänge" },
+  kranz_diff: { titel: "Kranzstärke", unter: "Kranzstatus" },
+  alter_diff: { titel: "Frische", unter: "Altersunterschied" },
+  gewicht_diff: { titel: "Gewicht & Physis", unter: "Körpermasse" },
+  groesse_diff: { titel: "Körpergrösse", unter: "Grössenunterschied" },
+  erfahrung_diff: { titel: "Erfahrung", unter: "Anzahl Gänge" },
+  same_teilverband: { titel: "Teilverband", unter: "Gleicher Verband" },
+  schwung_overlap: { titel: "Ähnlicher Stil", unter: "Gemeinsame Schwünge" },
+  schwung_count_diff: { titel: "Schwung-Vielfalt", unter: "Anzahl bevorzugter Schwünge" },
+  kopf_an_kopf: { titel: "Direkte Duelle", unter: "Bisherige Begegnungen" },
+};
 
-/** Gradient-Boosting-Wahrscheinlichkeiten (Tree-Walk, spiegelt sklearn). */
-export function gbmProbs(gbm: GbmModel, x: number[]): number[] {
-  const raw = [...gbm.init_raw];
-  for (const stage of gbm.stages) {
-    for (let k = 0; k < stage.length; k++) {
-      raw[k] += gbm.learning_rate * treeValue(stage[k], x);
-    }
-  }
-  return softmax(raw);
-}
-
-/** Vollständige Prognose: GBM für die Wahrscheinlichkeit (falls vorhanden),
- *  Logistic Regression für die Erklärbarkeit (FR-1, FR-3). */
+/** Vollständige Prognose inkl. Erklärbarkeit (FR-1, FR-3). */
 export function prognostiziere(
   model: ModelArtifact,
-  gbm: GbmModel | null,
   a: Schwinger,
   b: Schwinger,
   eloA: number,
   eloB: number,
   nA: number,
   nB: number,
-  festTyp: string
+  kopfAnKopfA: number = 0
 ): Prognose {
-  const x = baueFeatures(model, a, b, eloA, eloB, nA, nB, festTyp);
+  const x = baueFeatures(model, a, b, eloA, eloB, nA, nB, kopfAnKopfA);
+  const { mu, sigma } = model.standardisierung;
+  const z = x.map((xi, i) => (xi - mu[i]) / (sigma[i] || 1));
 
-  const nutzeGbm = gbm !== null && model.bestes_modell === "gbm";
-  const probs = nutzeGbm ? gbmProbs(gbm as GbmModel, x) : lrProbs(model, x);
+  const probs = wahrscheinlichkeiten(model, z);
   const p: Record<Klasse, number> = {} as any;
   model.klassen.forEach((kl, i) => (p[kl] = probs[i]));
 
+  // Quote = 1/p (informativ, FR-2 / AK-2.3).
   const quote: Record<Klasse, number> = {} as any;
   (Object.keys(p) as Klasse[]).forEach((kl) => (quote[kl] = 1 / Math.max(p[kl], 1e-6)));
 
-  // Erklärbarkeit stets über die interpretierbare LR (Richtung + Stärke, FR-3).
-  const { mu, sigma } = model.standardisierung;
-  const z = x.map((xi, i) => (xi - mu[i]) / (sigma[i] || 1));
-  const iA = model.klassen.indexOf("sieg_a");
-  const iB = model.klassen.indexOf("sieg_b");
+  // Erklärbarkeit (FR-3): Beitrag jedes Merkmals in Prozentpunkten von
+  // p(Sieg A) -- Gegenprobe "was wäre p(Sieg A), wenn genau dieses Merkmal
+  // keinen Unterschied machen würde (z=0), alle anderen unverändert". Direkt
+  // in derselben Einheit wie die Hauptzahlen oben auf der Seite, statt eines
+  // abstrakten, nicht weiter interpretierbaren Koeffizienten-Produkts.
+  const iSiegA = model.klassen.indexOf("sieg_a");
   const beitraege = model.features
     .map((feat, i) => {
-      const contrib = (model.coef[iA][i] - model.coef[iB][i]) * z[i];
+      const zOhneMerkmal = z.slice();
+      zOhneMerkmal[i] = 0;
+      const probsOhne = wahrscheinlichkeiten(model, zOhneMerkmal);
+      const einflussPp = (probs[iSiegA] - probsOhne[iSiegA]) * 100;
+      const text = BEITRAG_TEXT[feat] ?? { titel: model.feature_labels[feat] ?? feat, unter: "" };
       return {
-        label: model.feature_labels[feat] ?? feat,
-        richtung: (contrib >= 0 ? "a" : "b") as "a" | "b",
-        staerke: Math.abs(contrib),
+        titel: text.titel,
+        unterzeile: text.unter,
+        richtung: (einflussPp >= 0 ? "a" : "b") as "a" | "b",
+        staerke: Math.abs(einflussPp),
       };
     })
-    .filter((c) => c.staerke > 1e-6)
+    .filter((c) => c.staerke > 0.1)
     .sort((x, y) => y.staerke - x.staerke)
-    .slice(0, 4);
+    .slice(0, 6);
 
   const minG = model.config.min_gaenge_fuer_sicherheit;
   const unsicher = nA < minG || nB < minG;
 
-  return { p, quote, beitraege, unsicher, modell: nutzeGbm ? "gbm" : "lr" };
+  return { p, quote, beitraege, unsicher };
 }

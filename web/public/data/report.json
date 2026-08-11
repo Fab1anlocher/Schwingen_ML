@@ -1,175 +1,104 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-08-10T11:52:33.129068+00:00",
+  "erstellt": "2026-07-23T18:39:03.452380+00:00",
+  "lauf_id": "20260723T183903Z",
   "seed": 42,
   "datenbasis": {
-    "n_gaenge": 2706,
-    "n_schwinger": 120
+    "n_gaenge": 128768,
+    "n_schwinger": 2899
   },
-  "holdout_jahr": 2025,
-  "n_train": 3708,
-  "n_test": 1704,
-  "bestes_modell": "gbm",
-  "logistic_regression": {
-    "log_loss": 0.7692,
-    "accuracy": 0.6455,
-    "brier": 0.4343,
-    "cv_log_loss": 0.7976,
-    "reliability": [
-      {
-        "bin": 0.45,
-        "konfidenz": 0.4457,
-        "trefferquote": 0.2815,
-        "anzahl": 604
-      },
-      {
-        "bin": 0.55,
-        "konfidenz": 0.5536,
-        "trefferquote": 0.6522,
-        "anzahl": 161
-      },
-      {
-        "bin": 0.65,
-        "konfidenz": 0.6546,
-        "trefferquote": 0.7836,
-        "anzahl": 305
-      },
-      {
-        "bin": 0.75,
-        "konfidenz": 0.7481,
-        "trefferquote": 0.8788,
-        "anzahl": 330
-      },
-      {
-        "bin": 0.85,
-        "konfidenz": 0.8524,
-        "trefferquote": 0.9481,
-        "anzahl": 154
-      },
-      {
-        "bin": 0.95,
-        "konfidenz": 0.9293,
-        "trefferquote": 1.0,
-        "anzahl": 150
-      }
-    ]
-  },
-  "gradient_boosting": {
-    "log_loss": 0.6684,
-    "accuracy": 0.7224,
-    "brier": 0.3803,
-    "cv_log_loss": 0.7523,
-    "reliability": [
-      {
-        "bin": 0.35,
-        "konfidenz": 0.3816,
-        "trefferquote": 0.2679,
-        "anzahl": 56
-      },
-      {
-        "bin": 0.45,
-        "konfidenz": 0.447,
-        "trefferquote": 0.4795,
-        "anzahl": 342
-      },
-      {
-        "bin": 0.55,
-        "konfidenz": 0.542,
-        "trefferquote": 0.5775,
-        "anzahl": 142
-      },
-      {
-        "bin": 0.65,
-        "konfidenz": 0.657,
-        "trefferquote": 0.669,
-        "anzahl": 142
-      },
-      {
-        "bin": 0.75,
-        "konfidenz": 0.7492,
-        "trefferquote": 0.6899,
-        "anzahl": 258
-      },
-      {
-        "bin": 0.85,
-        "konfidenz": 0.8494,
-        "trefferquote": 0.8379,
-        "anzahl": 290
-      },
-      {
-        "bin": 0.95,
-        "konfidenz": 0.9484,
-        "trefferquote": 0.9578,
-        "anzahl": 474
-      }
-    ],
-    "params": {
-      "learning_rate": 0.05,
-      "max_depth": 2,
-      "n_estimators": 300
-    }
+  "holdout_jahr": 2026,
+  "n_train": 196328,
+  "n_test": 61204,
+  "modell": {
+    "log_loss": 0.8029,
+    "accuracy": 0.6512
   },
   "baseline_elo": {
-    "log_loss": 0.8511,
-    "accuracy": 0.6918
-  },
-  "modell": {
-    "log_loss": 0.6684,
-    "accuracy": 0.7224,
-    "brier": 0.3803,
-    "cv_log_loss": 0.7523,
-    "reliability": [
-      {
-        "bin": 0.35,
-        "konfidenz": 0.3816,
-        "trefferquote": 0.2679,
-        "anzahl": 56
-      },
-      {
-        "bin": 0.45,
-        "konfidenz": 0.447,
-        "trefferquote": 0.4795,
-        "anzahl": 342
-      },
-      {
-        "bin": 0.55,
-        "konfidenz": 0.542,
-        "trefferquote": 0.5775,
-        "anzahl": 142
-      },
-      {
-        "bin": 0.65,
-        "konfidenz": 0.657,
-        "trefferquote": 0.669,
-        "anzahl": 142
-      },
-      {
-        "bin": 0.75,
-        "konfidenz": 0.7492,
-        "trefferquote": 0.6899,
-        "anzahl": 258
-      },
-      {
-        "bin": 0.85,
-        "konfidenz": 0.8494,
-        "trefferquote": 0.8379,
-        "anzahl": 290
-      },
-      {
-        "bin": 0.95,
-        "konfidenz": 0.9484,
-        "trefferquote": 0.9578,
-        "anzahl": 474
-      }
-    ],
-    "params": {
-      "learning_rate": 0.05,
-      "max_depth": 2,
-      "n_estimators": 300
-    }
+    "log_loss": 0.9028,
+    "accuracy": 0.6169
   },
   "schlaegt_baseline": true,
-  "verbesserung_log_loss": 0.1827,
-  "parsing_warnungen": [],
-  "n_parsing_warnungen": 0
+  "accuracy_gg_baseline": 0.0343,
+  "verbesserung_log_loss": 0.0999,
+  "klassen": [
+    "sieg_a",
+    "gestellt",
+    "sieg_b"
+  ],
+  "konfusionsmatrix": [
+    [
+      19568,
+      470,
+      4168
+    ],
+    [
+      6035,
+      722,
+      6035
+    ],
+    [
+      4169,
+      470,
+      19567
+    ]
+  ],
+  "erfolgskriterien": {
+    "log_loss_besser_als_baseline": true,
+    "accuracy_mindestens_baseline": true,
+    "gesamt_erfuellt": true
+  },
+  "parsing_warnungen": [
+    "schlussgang-22406 mario bosch|2006/urban raschle|2003: nur eine Perspektive vorhanden",
+    "schlussgang-22406 hochholdinger roman|?/sprecher martin|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 bernhard thomas|?/hochholdinger roman|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 hochholdinger roman|?/patrick schmid|1997: Inkonsistente Symbole: A='+' erwartet B='o', gefunden B='-' -> verworfen",
+    "schlussgang-22406 hochholdinger roman|?/hochholdinger roman|?: Inkonsistente Symbole: A='+' erwartet B='o', gefunden B='+' -> verworfen",
+    "schlussgang-22406 diem hansruedi|?/fabian kempf|2002: nur eine Perspektive vorhanden",
+    "schlussgang-22406 fabian kempf|2002/jorger corsin|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 josias muller|2006/patrick schmid|1997: nur eine Perspektive vorhanden",
+    "schlussgang-22406 elia mayer|2004/hochholdinger roman|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 arnold robin|?/josias muller|2006: nur eine Perspektive vorhanden",
+    "schlussgang-22406 krebser silvan|?/michael bernold|1999: nur eine Perspektive vorhanden",
+    "schlussgang-22406 fabian kempf|2002/patrik schiesser|1998: nur eine Perspektive vorhanden",
+    "schlussgang-22406 fabian kempf|2002/lukas keller|1996: nur eine Perspektive vorhanden",
+    "schlussgang-22406 jan mannhart|2003/patrik schiesser|1998: nur eine Perspektive vorhanden",
+    "schlussgang-22406 arnold robin|?/jan mannhart|2003: nur eine Perspektive vorhanden",
+    "schlussgang-22406 jan mannhart|2003/linard gantenbein|2004: nur eine Perspektive vorhanden",
+    "schlussgang-22406 jan mannhart|2003/vogler elias|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 jan mannhart|2003/janik korrodi|2004: nur eine Perspektive vorhanden",
+    "schlussgang-22406 luca bircher|1999/stricker andy|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 luca bircher|1999/waldmeier marco|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 galbier joel|?/luca bircher|1999: nur eine Perspektive vorhanden",
+    "schlussgang-22406 gabriel wyrsch|2001/luthi noah|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 michael bernold|1999/sandro gmur|1997: nur eine Perspektive vorhanden",
+    "schlussgang-22406 jorger corsin|?/michael bernold|1999: nur eine Perspektive vorhanden",
+    "schlussgang-22406 schlegel jamie|?/tschudi pirmin|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 diem hansruedi|?/patrik schiesser|1998: nur eine Perspektive vorhanden",
+    "schlussgang-22406 janik korrodi|2004/patrik schiesser|1998: nur eine Perspektive vorhanden",
+    "schlussgang-22406 marc hanni|2001/patrik schiesser|1998: nur eine Perspektive vorhanden",
+    "schlussgang-22406 arnold kilian|?/elias epp|2003: nur eine Perspektive vorhanden",
+    "schlussgang-22406 christian pianta|1997/hofmann frederic|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 christian pianta|1997/wuthrich damian|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 kobler stefan|?/niklas lotscher|2006: nur eine Perspektive vorhanden",
+    "schlussgang-22406 adrian schwyn|1996/steiger tim|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 adrian schwyn|1996/puntener luca|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 kjetil fausch|1995/roger betschart|2003: nur eine Perspektive vorhanden",
+    "schlussgang-22406 risch christian|?/stricker andy|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 nay kyron|?/sandro gmur|1997: nur eine Perspektive vorhanden",
+    "schlussgang-22406 bernhard thomas|?/sandro gmur|1997: nur eine Perspektive vorhanden",
+    "schlussgang-22406 janik korrodi|2004/wuthrich damian|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 janik korrodi|2004/schwyn patrick|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 janik korrodi|2004/wuthrich christian|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 galbier joel|?/sprecher martin|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 lusti remo|?/urban raschle|2003: nur eine Perspektive vorhanden",
+    "schlussgang-22406 luthi noah|?/urban raschle|2003: nur eine Perspektive vorhanden",
+    "schlussgang-22406 lukas keller|1996/nay kyron|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 arnold david|?/lukas keller|1996: nur eine Perspektive vorhanden",
+    "schlussgang-22406 arnold elias|?/kobler stefan|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 arnold elias|?/wuthrich damian|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 adrian schwyn|1996/arnold elias|?: nur eine Perspektive vorhanden",
+    "schlussgang-22406 arnold elias|?/wuthrich christian|?: nur eine Perspektive vorhanden"
+  ],
+  "n_parsing_warnungen": 21472
 }

@@ -8,6 +8,14 @@ const LABELS: Record<string, string> = {
   sieg_b: "Sieg B",
 };
 
+// Feste statt relative Skala: sonst wäre der stärkste Balken einer Paarung
+// immer voll ausgeschlagen, egal ob er 2 oder 40 Prozentpunkte ausmacht --
+// genau das würde verschleiern, wie dominant z.B. der Rating-Vorsprung
+// typischerweise ist. 40 %-Pkt. ist empirisch der ~p95-Wert des jeweils
+// stärksten Merkmals über 3000 zufällige echte Paarungen -- bei sehr
+// einseitigen Merkmalen darf ein Balken darum voll ausschlagen (Clamping).
+const BEITRAG_SKALA_MAX_PP = 40;
+
 export function PrognoseView({
   prognose,
   nameA,
@@ -19,7 +27,12 @@ export function PrognoseView({
 }) {
   const { p, quote, beitraege, unsicher } = prognose;
   const pct = (v: number) => `${(v * 100).toFixed(0)}%`;
-  const maxStaerke = Math.max(...beitraege.map((b) => b.staerke), 1e-6);
+
+  const quoteMeta = [
+    { key: "sieg_a", klasse: "quote-card-a" },
+    { key: "gestellt", klasse: "quote-card-draw" },
+    { key: "sieg_b", klasse: "quote-card-b" },
+  ] as const;
 
   return (
     <div>
@@ -34,25 +47,20 @@ export function PrognoseView({
           {p.sieg_b > 0.08 ? pct(p.sieg_b) : ""}
         </div>
       </div>
+      {/* Legende spiegelt die Segmentbreiten: "Gestellt" sitzt so immer mittig
+          über dem grauen Segment, auch wenn die Prognose einseitig ist. */}
       <div className="prob-legend">
-        <span>◧ {nameA}</span>
-        <span>Gestellt</span>
-        <span>{nameB} ◨</span>
-      </div>
-
-      <div className="row" style={{ justifyContent: "flex-end", marginTop: "0.5rem" }}>
-        <span className="badge">
-          Modell:{" "}
-          {prognose.modell === "gbm" ? "Gradient Boosting" : "Logistic Regression"}
-        </span>
+        <span className="pl-a" style={{ flexBasis: pct(p.sieg_a) }}>Sieg {nameA}</span>
+        <span className="pl-draw" style={{ flexBasis: pct(p.gestellt) }}>Gestellt</span>
+        <span className="pl-b" style={{ flexBasis: pct(p.sieg_b) }}>Sieg {nameB}</span>
       </div>
 
       <div className="quote-row">
-        {(["sieg_a", "gestellt", "sieg_b"] as const).map((k) => (
-          <div className="quote-card" key={k}>
-            <div className="k">{LABELS[k]}</div>
-            <div className="p">{pct(p[k])}</div>
-            <div className="q">Quote {quote[k].toFixed(2)}</div>
+        {quoteMeta.map(({ key, klasse }) => (
+          <div className={`quote-card ${klasse}`} key={key}>
+            <div className="k">{LABELS[key]}</div>
+            <div className="p">{pct(p[key])}</div>
+            <div className="q">Quote {quote[key].toFixed(2)}</div>
           </div>
         ))}
       </div>
@@ -65,32 +73,44 @@ export function PrognoseView({
       )}
 
       <h2>Warum diese Prognose?</h2>
+      <p className="section-hint">
+        Jeder Balken zeigt, wie stark ein Merkmal zugunsten von{" "}
+        <strong style={{ color: "var(--accent)" }}>{nameA}</strong> (rot, rechts) oder{" "}
+        <strong style={{ color: "var(--ink)" }}>{nameB}</strong> (dunkel, links) wirkt — in
+        Prozentpunkten der Siegchance.
+      </p>
       <div className="panel">
         {beitraege.length === 0 && (
           <p className="muted small">Keine ausgeprägten Merkmalsbeiträge.</p>
         )}
-        {beitraege.map((b, i) => (
-          <div className="beitrag" key={i}>
-            <span className={`pill ${b.richtung === "a" ? "pill-a" : "pill-b"}`}>
-              {b.richtung === "a" ? nameA : nameB}
-            </span>
-            <span className="small" style={{ minWidth: 150 }}>
-              {b.label}
-            </span>
-            <div className="contrib-track">
-              <div
-                className="contrib-fill"
-                style={{
-                  width: `${(b.staerke / maxStaerke) * 100}%`,
-                  background: b.richtung === "a" ? "var(--a)" : "var(--b)",
-                }}
-              />
+        {beitraege.map((b, i) => {
+          const anteil = Math.min(b.staerke / BEITRAG_SKALA_MAX_PP, 1) * 50;
+          const favorit = b.richtung === "a" ? nameA : nameB;
+          return (
+            <div className="beitrag" key={i}>
+              <div className="beitrag-labels">
+                <div className="beitrag-titel">{b.titel}</div>
+                {b.unterzeile && <div className="beitrag-sub">{b.unterzeile}</div>}
+              </div>
+              <div className="beitrag-track" aria-hidden>
+                <div
+                  className={`beitrag-fill beitrag-fill-${b.richtung}`}
+                  style={{ width: `${anteil}%` }}
+                />
+              </div>
+              <div className={`beitrag-name beitrag-name-${b.richtung}`}>
+                {favorit}
+                <span className="beitrag-wert">+{b.staerke.toFixed(1)} %-Pkt.</span>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
-      <p className="muted small" style={{ marginTop: "0.75rem" }}>
-        Balken zeigen, welches Merkmal wie stark zugunsten von A oder B wirkt.
+      <p className="muted small" style={{ marginTop: "0.85rem" }}>
+        „+X %-Pkt.“ = um so viele Prozentpunkte würde sich {nameA}s Siegchance ändern, gäbe es
+        bei genau diesem Merkmal keinen Unterschied zwischen den beiden (alle anderen Merkmale
+        bleiben gleich). Balkenlänge auf fester Skala, damit sie auch zwischen verschiedenen
+        Paarungen vergleichbar ist.
       </p>
     </div>
   );

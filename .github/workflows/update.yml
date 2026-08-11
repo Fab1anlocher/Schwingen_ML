@@ -1,8 +1,6 @@
-name: Daten-Update & Modell (Cloud)
+name: Datenpipeline aktualisieren
 
-# NFR-1: VOLLAUTOMATISCH. Scrapt schlussgang.ch (statistic-final.pdf, kein WAF
-# gegen Cloud-IPs), parst Gänge, trainiert die Modelle und committet die
-# Artefakte -> Vercel deployt automatisch. Fest-IDs in pipeline/config.py.
+# NFR-1: neue Feste automatisch < 24 h. Geplanter Lauf (kostenlos, §8).
 on:
   schedule:
     - cron: "0 4 * * *" # täglich 04:00 UTC
@@ -11,30 +9,61 @@ on:
       source:
         description: "Datenquelle"
         type: choice
-        options: ["schlussgang", "synth"]
-        default: "schlussgang"
+        options: ["synth", "scrape"]
+        default: "scrape"
+      voller_refetch:
+        description: "Volle Historie neu laden statt nur letzte 7 Tage (zum Cache-Aufbau/-Reparieren)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
 
-concurrency:
-  group: modell-refresh
-  cancel-in-progress: false
-
 jobs:
-  refresh:
+  update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          cache: "pip"
-          cache-dependency-path: requirements-pipeline.txt
       - run: pip install -r requirements-pipeline.txt
 
-      - name: Pipeline ausführen (Scrape + Training)
-        run: python -m pipeline.run_pipeline --source ${{ github.event.inputs.source || 'schlussgang' }}
+      # artifacts/raw wird NICHT committet (zu gross fürs Repo, s. .gitignore),
+      # muss also über Runs hinweg gecacht werden -- sonst sieht jeder
+      # Cron-Lauf nur das enge --seit-datum-Fenster von heute statt der vollen
+      # Historie (fetch_raw's merge_*_raw_json ist genau dafür gebaut, NFR-1).
+      # Eindeutiger Save-Key + Praefix-Restore = "immer wachsender" Cache.
+      - name: Rohdaten-Cache laden
+        if: ${{ github.event.inputs.source != 'synth' }}
+        uses: actions/cache/restore@v4
+        with:
+          path: artifacts/raw
+          key: rohdaten-${{ github.run_id }}
+          restore-keys: |
+            rohdaten-
+
+      - name: Rohdaten holen (Porträts, ESV, abgeschlossene Feste)
+        if: ${{ github.event.inputs.source != 'synth' }}
+        run: |
+          if [ "${{ github.event.inputs.voller_refetch }}" = "true" ]; then
+            python -m pipeline.fetch_raw --sources schlussgang esv events \
+              --materialize-schwinger --seit-datum "2023-01-01" --event-limit 1000
+          else
+            SEIT=$(date -u -d '7 days ago' +%Y-%m-%d)
+            python -m pipeline.fetch_raw --sources schlussgang esv events \
+              --materialize-schwinger --seit-datum "$SEIT" --event-limit 300
+          fi
+
+      - name: Rohdaten-Cache speichern
+        if: ${{ github.event.inputs.source != 'synth' && !cancelled() }}
+        uses: actions/cache/save@v4
+        with:
+          path: artifacts/raw
+          key: rohdaten-${{ github.run_id }}
+
+      - name: Pipeline ausführen
+        run: python -m pipeline.run_pipeline --source ${{ github.event.inputs.source || 'scrape' }}
 
       - name: Artefakte committen (falls geändert)
         run: |

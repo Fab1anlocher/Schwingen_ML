@@ -1,78 +1,146 @@
-"""Echte Datenquellen (§4.1).
-
-Primär und VOLLAUTOMATISCH (Cloud/GitHub Actions): schlussgang.ch
-statistic-final.pdf (kein WAF gegen Cloud-IPs; PDFs stammen laut Fusszeile
-vom ESV). Sekundär (nur vom Heimrechner, WAF): esv.ch/ranglisten.
-
-Höflich und rate-limitiert (NFR-4): fester User-Agent, Delay, robots.txt.
-"""
+"""Echte Datenquellen-Scraper (§4.1)."""
 from __future__ import annotations
 
+import json
+from pathlib import Path
 
-def lade_echte_daten(source: str = "schlussgang"):
-    """Lädt & parst echte Daten zu (schwinger, events, roh).
+from ..labels import RohGangEintrag
+from ..schema import Event, Schwinger, normalize_name, schwinger_key
 
-    Rückgabe-Schema identisch zu synth.erzeuge_datensatz(), damit run_pipeline
-    die Quelle transparent tauschen kann.
+RAW_DIR = Path(__file__).resolve().parent.parent.parent / "artifacts" / "raw"
+
+
+def _lade_raw_json(name: str, default):
+    p = RAW_DIR / name
+    if not p.exists():
+        return default
+    return json.loads(p.read_text(encoding="utf-8"))
+
+
+def schwinger_index(schwinger: dict[str, Schwinger]) -> dict[str, str]:
+    idx: dict[str, str] = {}
+    for sid, s in schwinger.items():
+        idx[normalize_name(s.name)] = sid
+    return idx
+
+
+def map_name(name: str, idx: dict[str, str]) -> str | None:
+    n = normalize_name(name)
+    if n in idx:
+        return idx[n]
+    teile = n.split()
+    if len(teile) >= 2:
+        kandidaten = [sid for nm, sid in idx.items() if all(t in nm for t in teile)]
+        if len(kandidaten) == 1:
+            return kandidaten[0]
+    return None
+
+
+def lade_echte_daten():
+    """Lädt echte Daten aus lokalen Raw-Dateien (artifacts/raw).
+
+    Erwartete Dateien:
+      - schwinger.json: {"schwinger":[...]}
+      - events.json: {"events":[...]}
+      - gaenge.json: {"gaenge":[...]} (Roh-Perspektiven mit Symbolen)
     """
-    if source in ("schlussgang", "scrape"):
-        return _lade_schlussgang()
-    if source == "esv":
-        from .esv import scrape_anlaesse
-        return scrape_anlaesse(max_anzahl=30)
-    raise ValueError(f"Unbekannte echte Quelle: {source}")
+    raw_s = _lade_raw_json("schwinger.json", {"schwinger": []}).get("schwinger", [])
+    raw_e = _lade_raw_json("events.json", {"events": []}).get("events", [])
+    raw_g = _lade_raw_json("gaenge.json", {"gaenge": []}).get("gaenge", [])
 
-
-def _lade_schlussgang():
-    """Fest-PDFs von schlussgang.ch laden (Cloud-tauglich, automatischer Finder).
-
-    Entdeckt Feste automatisch über die JSON:API (discover.liste_feste). Fällt
-    auf die manuelle ID-Liste in config zurück, falls die API nichts liefert.
-    """
-    from ..config import SCHLUSSGANG_EVENT_IDS, SCHLUSSGANG_MAX_FESTE, SCHLUSSGANG_NUR_AKTIV
-    from .schlussgang_pdf import lade_von_url, lade_event
-
-    schwinger: dict = {}
-    events: list = []
-    roh: list = []
-
-    quellen = []  # (loader, kennung, name, datum, typ)
-    try:
-        from .discover import liste_feste
-        feste = liste_feste(max_feste=SCHLUSSGANG_MAX_FESTE)
-        if SCHLUSSGANG_NUR_AKTIV:
-            feste = [f for f in feste if (f.get("typ") or "").lower().startswith("aktiv")]
-        print(f"      Finder: {len(feste)} Feste mit Statistik-PDF entdeckt")
-        for f in feste:
-            quellen.append(("url", f["pdf_url"], f.get("name", ""), f.get("datum"), None))
-    except Exception as e:  # noqa: BLE001
-        print(f"      (Finder nicht verfügbar: {type(e).__name__}: {e})")
-
-    if not quellen:  # Fallback: manuelle IDs
-        for eid in SCHLUSSGANG_EVENT_IDS:
-            quellen.append(("id", eid, "", None, None))
-
-    for art, kennung, name, datum, typ in quellen:
-        try:
-            if art == "url":
-                ev_id = "sg-" + kennung.rstrip("/").split("/")[-1].split("-statistic")[0].split(".")[0]
-                s, ev, r = lade_von_url(kennung, ev_id, name, datum, typ)
-            else:
-                s, ev, r = lade_event(kennung)
-        except Exception as e:  # noqa: BLE001 - fehlende/kaputte PDFs überspringen
-            print(f"      (übersprungen {kennung}: {type(e).__name__}: {e})")
+    schwinger: dict[str, Schwinger] = {}
+    for r in raw_s:
+        name = str(r.get("name", "")).strip()
+        if not name:
             continue
-        if not r:
+        jg = r.get("jahrgang")
+        sid = r.get("id") or schwinger_key(name, jg)
+        sw = r.get("bevorzugte_schwuenge") or r.get("schwuenge") or []
+        schwinger[sid] = Schwinger(
+            id=sid,
+            name=name,
+            jahrgang=jg,
+            groesse_cm=r.get("groesse_cm"),
+            gewicht_kg=r.get("gewicht_kg"),
+            kranzstatus=str(r.get("kranzstatus", "kein")),
+            teilverband=r.get("teilverband"),
+            kanton=r.get("kanton"),
+            schwingklub=r.get("schwingklub"),
+            senne_turner=r.get("senne_turner"),
+            bevorzugte_schwuenge=list(sw) if isinstance(sw, list) else [],
+            quellen=list(r.get("quellen") or ["schlussgang.ch"]),
+        )
+
+    events: list[Event] = []
+    for r in raw_e:
+        if not r.get("id") or not r.get("datum") or not r.get("name"):
             continue
-        events.append(ev)
-        roh.extend(r)
-        for sid, sw in s.items():
-            schwinger.setdefault(sid, sw)
-    print(f"      Total: {len(events)} Feste geparst, {len(roh)} Roh-Einträge, "
-          f"{len(schwinger)} Schwinger")
+        events.append(
+            Event(
+                id=str(r["id"]),
+                name=str(r["name"]),
+                datum=str(r["datum"])[:10],
+                typ=str(r.get("typ") or "regional"),
+                ort=r.get("ort"),
+                quelle=str(r.get("quelle") or "schlussgang.ch"),
+            )
+        )
+
+    roh: list[RohGangEintrag] = []
+    idx = schwinger_index(schwinger)
+    for r in raw_g:
+        event_id = str(r.get("event_id") or "")
+        datum = str(r.get("datum") or "")[:10]
+        fest_typ = str(r.get("fest_typ") or "regional")
+        symbol = str(r.get("symbol") or "")
+        sid = r.get("schwinger_id")
+        gid = r.get("gegner_id")
+        if not sid and r.get("schwinger_name"):
+            sid = map_name(str(r.get("schwinger_name")), idx)
+        if not gid and r.get("gegner_name"):
+            gid = map_name(str(r.get("gegner_name")), idx)
+        if not (event_id and datum and sid and gid and symbol):
+            continue
+        roh.append(
+            RohGangEintrag(
+                event_id=event_id,
+                datum=datum,
+                schwinger_id=str(sid),
+                gegner_id=str(gid),
+                symbol=symbol,
+                note=r.get("note"),
+                fest_typ=fest_typ,
+                kranz=bool(r.get("kranz", False)),
+            )
+        )
+
+    if not schwinger or not events or not roh:
+        raise RuntimeError(
+            "Für --source scrape fehlen lokale Raw-Daten in artifacts/raw "
+            "(schwinger.json, events.json, gaenge.json)."
+        )
     return schwinger, events, roh
 
 
 def lade_kommende_feste():
-    """Kommende Feste (FR-2) — Agenda-Anbindung folgt; bis dahin leer."""
-    return []
+    """Kommende Feste + gemappte Paarungen (FR-2)."""
+    from .agenda import scrape_agenda
+
+    kommende = scrape_agenda()
+    try:
+        raw_s = _lade_raw_json("schwinger.json", {"schwinger": []}).get("schwinger", [])
+        idx = {normalize_name(str(s.get("name", ""))): str(s.get("id")) for s in raw_s if s.get("id")}
+        for fest in kommende:
+            mapped = []
+            for p in fest.get("paarungen_namen", []):
+                a_id = map_name(str(p.get("a_name", "")), idx)
+                b_id = map_name(str(p.get("b_name", "")), idx)
+                if a_id and b_id and a_id != b_id:
+                    mapped.append({"a_id": a_id, "b_id": b_id})
+            if mapped:
+                fest["paarungen"] = mapped
+            fest.pop("paarungen_namen", None)
+    except Exception:
+        for fest in kommende:
+            fest.pop("paarungen_namen", None)
+    return kommende
