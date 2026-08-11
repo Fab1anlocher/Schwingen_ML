@@ -70,6 +70,13 @@ def _kategorie_name(item: dict, included_by_id: dict[str, dict]) -> str | None:
     return inc.get("attributes", {}).get("name")
 
 
+# Sicherheitsgrenze für die Blätterschleife. Ignoriert die API ein `page[offset]`
+# (oder ändert sie ihr Verhalten), liefe die Schleife sonst endlos und lüde
+# dieselben Feste immer wieder -- bei 2 s Rate-Limit je PDF sind das schnell
+# Stunden. Bewusst grosszügig: die echte Historie liegt weit darunter.
+MAX_SEITEN = 60
+
+
 def scrape_events(
     max_events: int | None = None,
     *,
@@ -77,15 +84,22 @@ def scrape_events(
     typ: str = "Aktivschwinger",
     page_size: int = 50,
 ) -> list[dict]:
-    """Lädt abgeschlossene Feste (Standard: Aktivschwinger, s. README §"MVP-Datensatz")."""
+    """Lädt abgeschlossene Feste (Standard: Aktivschwinger).
+
+    Bricht ab, sobald eine Seite kein einziges neues Fest mehr liefert --
+    dann blättert die API nicht weiter, und Weitermachen würde nur Duplikate
+    erzeugen.
+    """
     events: list[dict] = []
+    gesehen: set[str] = set()
     offset = 0
-    while True:
+    for seite in range(MAX_SEITEN):
         response = json.loads(hole(_listen_url(offset, page_size, seit_datum=seit_datum, typ=typ)))
         items = response.get("data", [])
         if not items:
             break
         included_by_id = {inc["id"]: inc for inc in response.get("included", [])}
+        neu_auf_seite = 0
         for item in items:
             if max_events is not None and len(events) >= max_events:
                 return events
@@ -96,6 +110,10 @@ def scrape_events(
             name = name.strip()
             if not nid or not datum or not name:
                 continue
+            if f"schlussgang-{nid}" in gesehen:
+                continue  # dieselbe Seite nochmals erhalten
+            gesehen.add(f"schlussgang-{nid}")
+            neu_auf_seite += 1
             kategorie = _kategorie_name(item, included_by_id)
             fest_typ = _KATEGORIE_TYP.get(kategorie or "") or typ_von_name(name)
             events.append(
@@ -111,9 +129,14 @@ def scrape_events(
                     "quelle": "schlussgang.ch/event",
                 }
             )
+        if neu_auf_seite == 0:
+            print(f"      (Blättern beendet: Seite {seite + 1} brachte keine neuen Feste)", flush=True)
+            break
         if len(items) < page_size:
             break
         offset += page_size
+    else:
+        print(f"      (Seitenlimit {MAX_SEITEN} erreicht -- Historie evtl. unvollständig)", flush=True)
     return events
 
 

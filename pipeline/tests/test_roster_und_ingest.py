@@ -158,3 +158,51 @@ class TestRawMerge:
         ]}), encoding="utf-8")
         zusammen = merge_gaenge_raw_json(pfad, [], set(), bekannte_events={"schlussgang-1"})
         assert [g["event_id"] for g in zusammen] == ["schlussgang-1"]
+
+
+class TestBlaetternAbbruch:
+    """Die Blätterschleife über die JSON:API darf nicht endlos laufen.
+
+    Ohne `--event-limit` (Standard beim vollen Refetch) war sie nur durch das
+    Verhalten der Gegenseite begrenzt: liefert die API bei wachsendem
+    `page[offset]` immer dieselbe Seite, würden dieselben Feste endlos erneut
+    geladen -- bei 2 s Rate-Limit je Statistik-PDF sind das Stunden.
+    """
+
+    @staticmethod
+    def _antwort(nids):
+        return json.dumps({"data": [
+            {"attributes": {"drupal_internal__nid": n, "field_event_date": "2026-05-01",
+                            "title": f"Fest {n}"}} for n in nids]})
+
+    def test_stoppt_wenn_api_dieselbe_seite_wiederholt(self, monkeypatch):
+        from pipeline.scrape import schlussgang_resultate as sr
+        aufrufe = []
+
+        def immer_gleich(url, **kw):
+            aufrufe.append(url)
+            return self._antwort(range(1, 51))  # ignoriert page[offset]
+
+        monkeypatch.setattr(sr, "hole", immer_gleich)
+        events = sr.scrape_events(seit_datum="2023-01-01", page_size=50)
+        assert len(events) == 50            # nicht 50 * MAX_SEITEN
+        assert len(aufrufe) == 2            # zweite Seite bringt nichts Neues -> Stopp
+
+    def test_blaettert_normal_bis_zur_letzten_seite(self, monkeypatch):
+        from pipeline.scrape import schlussgang_resultate as sr
+        seiten = [self._antwort(range(1, 51)), self._antwort(range(51, 101)),
+                  self._antwort(range(101, 131))]
+        monkeypatch.setattr(sr, "hole", lambda url, **kw: seiten.pop(0))
+        events = sr.scrape_events(seit_datum="2023-01-01", page_size=50)
+        assert len(events) == 130
+        assert len({e["id"] for e in events}) == 130   # keine Duplikate
+
+    def test_seitenlimit_greift(self, monkeypatch):
+        from pipeline.scrape import schlussgang_resultate as sr
+        zaehler = iter(range(1, 10**6))
+        monkeypatch.setattr(
+            sr, "hole",
+            lambda url, **kw: self._antwort([next(zaehler) for _ in range(50)]),
+        )
+        events = sr.scrape_events(seit_datum="2023-01-01", page_size=50)
+        assert len(events) == 50 * sr.MAX_SEITEN   # hart begrenzt, kein Endlosloop
