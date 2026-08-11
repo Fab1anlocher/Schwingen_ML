@@ -22,6 +22,9 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
+    env:
+      SOURCE: ${{ github.event.inputs.source || 'scrape' }}
+      VOLLER_REFETCH: ${{ github.event.inputs.voller_refetch || 'false' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -35,7 +38,7 @@ jobs:
       # Historie (fetch_raw's merge_*_raw_json ist genau dafür gebaut, NFR-1).
       # Eindeutiger Save-Key + Praefix-Restore = "immer wachsender" Cache.
       - name: Rohdaten-Cache laden
-        if: ${{ github.event.inputs.source != 'synth' }}
+        if: ${{ env.SOURCE != 'synth' }}
         uses: actions/cache/restore@v4
         with:
           path: artifacts/raw
@@ -44,26 +47,48 @@ jobs:
             rohdaten-
 
       - name: Rohdaten holen (Porträts, ESV, abgeschlossene Feste)
-        if: ${{ github.event.inputs.source != 'synth' }}
+        if: ${{ env.SOURCE != 'synth' }}
         run: |
-          if [ "${{ github.event.inputs.voller_refetch }}" = "true" ]; then
+          if [ "${VOLLER_REFETCH}" = "true" ]; then
             python -m pipeline.fetch_raw --sources schlussgang esv events \
               --materialize-schwinger --seit-datum "2023-01-01" --event-limit 1000
           else
-            SEIT=$(date -u -d '7 days ago' +%Y-%m-%d)
+            SEIT=$(python - <<'PY'
+            import json
+            from datetime import datetime, timedelta
+            from pathlib import Path
+
+            p = Path("artifacts/raw/events.json")
+            fallback = (datetime.utcnow().date() - timedelta(days=30)).isoformat()
+            if not p.exists():
+                print(fallback)
+                raise SystemExit
+            try:
+                payload = json.loads(p.read_text(encoding="utf-8"))
+                events = payload.get("events", [])
+                daten = sorted(str(e.get("datum") or "")[:10] for e in events if e.get("datum"))
+                if not daten:
+                    print(fallback)
+                    raise SystemExit
+                neuestes = datetime.strptime(daten[-1], "%Y-%m-%d").date()
+                print((neuestes - timedelta(days=14)).isoformat())
+            except Exception:
+                print(fallback)
+            PY
+            )
             python -m pipeline.fetch_raw --sources schlussgang esv events \
-              --materialize-schwinger --seit-datum "$SEIT" --event-limit 300
+              --materialize-schwinger --seit-datum "$SEIT" --event-limit 500
           fi
 
       - name: Rohdaten-Cache speichern
-        if: ${{ github.event.inputs.source != 'synth' && !cancelled() }}
+        if: ${{ env.SOURCE != 'synth' && !cancelled() }}
         uses: actions/cache/save@v4
         with:
           path: artifacts/raw
           key: rohdaten-${{ github.run_id }}
 
       - name: Pipeline ausführen
-        run: python -m pipeline.run_pipeline --source ${{ github.event.inputs.source || 'scrape' }}
+        run: python -m pipeline.run_pipeline --source "${SOURCE}"
 
       - name: Artefakte committen (falls geändert)
         run: |
