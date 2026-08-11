@@ -28,6 +28,11 @@ def _zeilen(report: dict) -> list[str]:
     dq = report.get("datenqualitaet") or {}
     basis = report.get("datenbasis") or {}
     z: list[str] = ["## Datenqualität", ""]
+    # Immer ausweisen, WELCHEN Lauf dieser Bericht beschreibt: bei einem
+    # abgebrochenen Lauf bleibt report.json unverändert, der Bericht zeigt dann
+    # den letzten erfolgreichen Stand -- das darf nicht wie "aktuell" aussehen.
+    if report.get("erstellt"):
+        z += [f"_Report erstellt: {report['erstellt']} (Lauf `{report.get('lauf_id', '?')}`)_", ""]
 
     if not dq:
         z += ["_Kein Datenqualitätsblock im Report (Lauf mit älterer Pipeline-Version)._", ""]

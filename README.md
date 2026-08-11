@@ -137,8 +137,8 @@ Run workflow → „Volle Historie ab 2023 neu laden"** starten (~15–20 min).
 * Netzzugriff auf `schlussgang.ch` / `backend-api.schlussgang.ch` (nur für
   echte Daten; der synthetische Modus läuft offline)
 
-Python-Abhängigkeiten (`requirements-pipeline.txt`): `numpy`, `pandas`,
-`scikit-learn`, `pdfplumber` (PDF-Parsing), `beautifulsoup4`, `pytest`.
+Python-Abhängigkeiten (`requirements-pipeline.txt`): `numpy`, `scikit-learn`,
+`pdfplumber` (PDF-Parsing), `pytest`.
 
 ---
 
