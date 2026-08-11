@@ -118,7 +118,11 @@ def main(argv: list[str] | None = None) -> int:
             f"[events] {len(gaenge)} Roh-Gang-Einträge neu geladen, {len(alle_gaenge)} total "
             f"-> {_gaenge_path()}"
         )
-        neu = ergaenze_schwinger_stubs(_schwinger_path(), gaenge)
+        # Wichtig: Stubs aus der GESAMTEN Historie erhalten, nicht nur aus
+        # den frisch geladenen Events. Sonst kann ein inkrementeller Lauf
+        # ältere, porträtlose Teilnehmer verlieren und run_pipeline würde
+        # dadurch deutlich weniger gültige Gänge sehen (Datenvolumen-Einbruch).
+        neu = ergaenze_schwinger_stubs(_schwinger_path(), alle_gaenge)
         if neu:
             print(f"[events] {neu} Schwinger-Stubs ohne Porträt ergänzt -> {_schwinger_path()}")
 
