@@ -47,10 +47,19 @@ def baue_roster(portraits: list[dict], gaenge: list[dict]) -> tuple[list[dict], 
     pdf_namen = namen_aus_gaengen(gaenge)
     zugeordnet = 0
     stubs: dict[str, dict] = {}
+    unaufloesbar: list[str] = []
 
     for name in sorted(pdf_namen):  # sortiert = deterministisch
         if index.finde(name) is not None:
             zugeordnet += 1
+            continue
+        if namens_tokens(name) in index.mehrdeutig:
+            # Mehrere echte Personen dieses Namens (verschiedene Jahrgänge), das
+            # PDF nennt aber nur den Namen -- eine Zuordnung wäre geraten. Auch
+            # kein Stub: den könnte lade_echte_daten aus demselben Grund nie
+            # auflösen, er bliebe ein toter Kadereintrag. Die betroffenen Gänge
+            # werden beim Einlesen verworfen und dort gezählt.
+            unaufloesbar.append(name)
             continue
         sid = stub_id(name)
         if sid in stubs:
@@ -72,6 +81,8 @@ def baue_roster(portraits: list[dict], gaenge: list[dict]) -> tuple[list[dict], 
         "n_gesamt": len(eintraege),
         "n_mehrdeutige_namen": len(index.mehrdeutig),
         "mehrdeutige_namen": sorted(" ".join(k) for k in index.mehrdeutig)[:20],
+        "n_pdf_namen_unaufloesbar": len(unaufloesbar),
+        "pdf_namen_unaufloesbar": sorted(unaufloesbar)[:20],
     }
     return eintraege, statistik
 

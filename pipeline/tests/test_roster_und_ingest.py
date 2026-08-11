@@ -62,13 +62,23 @@ class TestBaueRoster:
         assert not pruefe_kader(eintraege)
 
     def test_mehrdeutiger_name_wird_gemeldet_nicht_geraten(self):
+        """Zwei echte Namensvettern -- das PDF nennt nur den Namen, eine
+        Zuordnung wäre geraten. Real im Kader: Roman Bucher (2002/2003),
+        Christian Zemp (2000/2004), Jonas Wüthrich (2001/2003)."""
         portraits = [
             {"id": "lukas gisler|1998", "name": "Lukas 1 Gisler", "jahrgang": 1998},
             {"id": "lukas gisler|2003", "name": "Lukas 2 Gisler", "jahrgang": 2003},
         ]
-        _, stat = baue_roster(portraits, [_gang("e1", "Gisler Lukas", "Muster Hans")])
+        eintraege, stat = baue_roster(portraits, [_gang("e1", "Gisler Lukas", "Muster Hans")])
         assert stat["n_mehrdeutige_namen"] == 1
         assert stat["n_pdf_namen_auf_portraet_gemappt"] == 0  # nicht geraten
+        # Auch KEIN Stub: den könnte lade_echte_daten nie auflösen (derselbe
+        # mehrdeutige Schlüssel), er bliebe ein toter Kadereintrag.
+        assert stat["n_pdf_namen_unaufloesbar"] == 1
+        assert "Gisler Lukas" in stat["pdf_namen_unaufloesbar"]
+        assert not any(e["id"].startswith("gisler lukas") for e in eintraege)
+        assert {e["id"] for e in eintraege} == {
+            "lukas gisler|1998", "lukas gisler|2003", "hans muster|?"}
 
     def test_namen_aus_gaengen_sammelt_beide_seiten(self):
         assert namen_aus_gaengen([_gang("e1", "A B", "C D")]) == {"A B", "C D"}
