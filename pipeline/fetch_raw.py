@@ -1,17 +1,31 @@
-"""Kleines CLI zum Befüllen von artifacts/raw aus den Webquellen."""
+"""CLI zum Befüllen von ``artifacts/raw`` aus den Webquellen (§4.1).
+
+Ablauf:
+  1. **Porträts** (schlussgang.ch JSON:API ``node/portrait``) -> Physis,
+     Verband, Kranzstatus, bevorzugte Schwünge.
+  2. **Feste + Gänge** (JSON:API ``node/event`` + Statistik-PDF je Fest)
+     -> die eigentlichen Resultate.
+  3. **Kader** aus 1 + 2 zustandslos neu bauen (``pipeline.roster``).
+
+Schritt 3 ist bewusst kein inkrementelles Nachpflegen: der Kader ist eine
+reine Funktion von Porträts + PDF-Namen. Vorher hing er am Stand des
+CI-Caches und schwankte zwischen Läufen um Faktor 3, ohne dass sich an den
+Quelldaten etwas geändert hatte.
+"""
 from __future__ import annotations
 
 import argparse
+import json
+from datetime import date, timedelta
 from pathlib import Path
 
 from . import config
-from .scrape.esv_statistiken import scrape_esv_statistiken, write_esv_stats_json
+from .roster import baue_roster, pruefe_kader
 from .scrape.schlussgang_portraet import (
     scrape_schlussgang_portraets,
     write_schlussgang_raw_json,
 )
 from .scrape.schlussgang_resultate import (
-    ergaenze_schwinger_stubs,
     merge_events_raw_json,
     merge_gaenge_raw_json,
     scrape_events_und_gaenge,
@@ -20,56 +34,89 @@ from .scrape.schlussgang_resultate import (
 RAW_DIR = config.ARTIFACTS_DIR / "raw"
 
 
-def _schwinger_path() -> Path:
-    return RAW_DIR / "schwinger.json"
+def _pfad(name: str) -> Path:
+    return RAW_DIR / name
 
 
-def _schlussgang_raw_path() -> Path:
-    return RAW_DIR / "schlussgang_portraits.json"
+def _lade(name: str, schluessel: str) -> list[dict]:
+    p = _pfad(name)
+    if not p.exists():
+        return []
+    return json.loads(p.read_text(encoding="utf-8")).get(schluessel, [])
 
 
-def _esv_path() -> Path:
-    return RAW_DIR / "esv_statistiken.json"
+def bestimme_seit_datum(events: list[dict], *, rueckblick_tage: int = 14,
+                        heute: date | None = None) -> str:
+    """Startdatum für den inkrementellen Lauf aus den bereits geladenen Festen.
+
+    Nimmt das jüngste bekannte Fest minus ``rueckblick_tage`` (Überlappung für
+    Resultate, die erst später nachgetragen werden). Ohne bekannte Feste:
+    30 Tage zurück -- der volle Neuaufbau läuft über ``--seit-datum``.
+
+    Lag früher als Shell-Heredoc im Workflow-YAML und war damit weder testbar
+    noch bei Fehlern sichtbar.
+    """
+    heute = heute or date.today()
+    daten = sorted(str(e.get("datum") or "")[:10] for e in events if e.get("datum"))
+    if not daten:
+        return (heute - timedelta(days=30)).isoformat()
+    try:
+        juengstes = date.fromisoformat(daten[-1])
+    except ValueError:
+        return (heute - timedelta(days=30)).isoformat()
+    return (juengstes - timedelta(days=rueckblick_tage)).isoformat()
 
 
-def _events_path() -> Path:
-    return RAW_DIR / "events.json"
-
-
-def _gaenge_path() -> Path:
-    return RAW_DIR / "gaenge.json"
+def _schreibe_kader(portraits: list[dict], gaenge: list[dict]) -> dict:
+    eintraege, statistik = baue_roster(portraits, gaenge)
+    pfad = _pfad("schwinger.json")
+    pfad.parent.mkdir(parents=True, exist_ok=True)
+    pfad.write_text(
+        json.dumps({"schwinger": eintraege}, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    probleme = pruefe_kader(eintraege)
+    print(
+        f"[kader] {statistik['n_gesamt']} Schwinger "
+        f"({statistik['n_portraits']} Porträts + {statistik['n_stubs']} nur-PDF), "
+        f"{statistik['n_pdf_namen_auf_portraet_gemappt']} PDF-Namen einem Porträt zugeordnet "
+        f"-> {pfad}"
+    )
+    if statistik["n_mehrdeutige_namen"]:
+        print(
+            f"[kader] {statistik['n_mehrdeutige_namen']} mehrdeutige Namen (nicht aufgelöst): "
+            f"{statistik['mehrdeutige_namen'][:5]}"
+        )
+    for problem in probleme:
+        print(f"[kader] WARNUNG: {problem}")
+    return statistik
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Lädt Rohdaten aus Schlussgang-Porträts und ESV-Statistiken."
+        description="Lädt Rohdaten von schlussgang.ch nach artifacts/raw."
     )
     parser.add_argument(
         "--sources",
         nargs="*",
-        choices=["schlussgang", "esv", "events"],
-        default=["schlussgang", "esv", "events"],
+        choices=["portraets", "events"],
+        default=["portraets", "events"],
         help="Welche Quellen geholt werden sollen.",
     )
     parser.add_argument("--limit", type=int, default=None, help="Maximale Anzahl Porträts")
-    parser.add_argument("--jahr", type=int, default=2026, help="ESV-Download-Jahr")
     parser.add_argument(
-        "--download-pdfs",
-        action="store_true",
-        help="ESV-PDFs auch wirklich herunterladen und Text extrahieren.",
-    )
-    parser.add_argument(
-        "--materialize-schwinger",
-        action="store_true",
-        help="Zusätzlich eine normalisierte schwinger.json aus den Porträts schreiben.",
-    )
-    parser.add_argument(
-        "--event-limit", type=int, default=10, help="Maximale Anzahl Feste (Quelle 'events')."
+        "--event-limit", type=int, default=None, help="Maximale Anzahl Feste (Quelle 'events')."
     )
     parser.add_argument(
         "--seit-datum",
-        default="2024-01-01",
-        help="Nur Feste ab diesem Datum (Quelle 'events', ISO YYYY-MM-DD).",
+        default="auto",
+        help="Nur Feste ab diesem Datum (ISO YYYY-MM-DD) oder 'auto' = ab dem "
+             "jüngsten bereits geladenen Fest minus --rueckblick-tage.",
+    )
+    parser.add_argument(
+        "--rueckblick-tage",
+        type=int,
+        default=14,
+        help="Überlappung bei --seit-datum auto (fängt nachgetragene Resultate ein).",
     )
     parser.add_argument(
         "--fest-typ",
@@ -80,52 +127,38 @@ def main(argv: list[str] | None = None) -> int:
 
     RAW_DIR.mkdir(parents=True, exist_ok=True)
 
-    if "schlussgang" in args.sources:
-        profiles = scrape_schlussgang_portraets(max_profiles=args.limit)
-        write_schlussgang_raw_json(_schlussgang_raw_path(), profiles)
-        print(f"[schlussgang] {len(profiles)} Porträts gespeichert -> {_schlussgang_raw_path()}")
-        if args.materialize_schwinger:
-            from .scrape.schlussgang_portraet import write_schwinger_json
-
-            write_schwinger_json(_schwinger_path(), profiles)
-            print(f"[schlussgang] Normalisierte Schwinger geschrieben -> {_schwinger_path()}")
-
-    if "esv" in args.sources:
-        # esv.ch blockiert Anfragen von GitHub-Actions-Runnern (403, IP-basiert
-        # -- funktioniert lokal problemlos), ausserhalb unserer Kontrolle.
-        # esv_statistiken.json wird aktuell von keiner anderen Pipeline-Stufe
-        # gelesen (nur schwinger/events/gaenge sind für --source scrape
-        # nötig, s. pipeline/scrape/__init__.py:lade_echte_daten) -- ein
-        # Fehlschlag hier darf daher NICHT die wichtigeren Quellen
-        # (insb. "events", für NFR-1 tägliche Aktualität) verhindern.
-        try:
-            stats = scrape_esv_statistiken(jahr=args.jahr, download_pdfs=args.download_pdfs)
-            write_esv_stats_json(_esv_path(), stats)
-            print(f"[esv] {len(stats.get('downloads', []))} PDFs gespeichert -> {_esv_path()}")
-        except Exception as e:  # noqa: BLE001
-            print(f"[esv] übersprungen (Fehler beim Abruf, nicht kritisch): {e}")
+    if "portraets" in args.sources:
+        portraits = scrape_schlussgang_portraets(max_profiles=args.limit)
+        write_schlussgang_raw_json(_pfad("schlussgang_portraits.json"), portraits)
+        print(f"[portraets] {len(portraits)} Porträts gespeichert")
 
     if "events" in args.sources:
+        seit = args.seit_datum
+        if seit == "auto":
+            seit = bestimme_seit_datum(
+                _lade("events.json", "events"), rueckblick_tage=args.rueckblick_tage
+            )
+            print(f"[events] inkrementell ab {seit} (auto)")
         events, gaenge = scrape_events_und_gaenge(
-            args.event_limit, seit_datum=args.seit_datum, typ=args.fest_typ
+            args.event_limit, seit_datum=seit, typ=args.fest_typ
         )
-        alle_events = merge_events_raw_json(_events_path(), events)
+        alle_events = merge_events_raw_json(_pfad("events.json"), events)
+        bekannte = {str(e["id"]) for e in alle_events}
         alle_gaenge = merge_gaenge_raw_json(
-            _gaenge_path(), gaenge, {e["id"] for e in events}
+            _pfad("gaenge.json"),
+            gaenge,
+            {e["id"] for e in events},
+            bekannte_events=bekannte,
         )
-        print(f"[events] {len(events)} Feste neu geladen, {len(alle_events)} total -> {_events_path()}")
-        print(
-            f"[events] {len(gaenge)} Roh-Gang-Einträge neu geladen, {len(alle_gaenge)} total "
-            f"-> {_gaenge_path()}"
-        )
-        # Wichtig: Stubs aus der GESAMTEN Historie erhalten, nicht nur aus
-        # den frisch geladenen Events. Sonst kann ein inkrementeller Lauf
-        # ältere, porträtlose Teilnehmer verlieren und run_pipeline würde
-        # dadurch deutlich weniger gültige Gänge sehen (Datenvolumen-Einbruch).
-        neu = ergaenze_schwinger_stubs(_schwinger_path(), alle_gaenge)
-        if neu:
-            print(f"[events] {neu} Schwinger-Stubs ohne Porträt ergänzt -> {_schwinger_path()}")
+        print(f"[events] {len(events)} Feste neu, {len(alle_events)} total")
+        print(f"[events] {len(gaenge)} Roh-Gang-Einträge neu, {len(alle_gaenge)} total")
 
+    # Kader IMMER neu bauen: er hängt an beiden Quellen und muss zum aktuellen
+    # Stand von portraits + gaenge passen, egal welche davon gerade lief.
+    _schreibe_kader(
+        _lade("schlussgang_portraits.json", "profiles"),
+        _lade("gaenge.json", "gaenge"),
+    )
     return 0
 
 

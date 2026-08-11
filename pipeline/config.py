@@ -51,11 +51,6 @@ FEST_K_GEWICHT = {
 SCRAPE_DELAY_SEKUNDEN = 2.0
 USER_AGENT = "Schwingen-ML/1.0 (nicht-kommerziell; Hobby-Projekt)"
 
-# ESV-Ranglisten-Basis (Rückwärtskompatibilität für bestehende ESV-Scraper).
-ESV_BASE = "https://esv.ch/ranglisten/"
-ESV_REGIONEN = ["esv", "isv", "nosv", "bksv", "nwsv", "swsv", "zksv"]
-
-
 def ensure_dirs() -> None:
     ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
     WEB_PUBLIC_DIR.mkdir(parents=True, exist_ok=True)

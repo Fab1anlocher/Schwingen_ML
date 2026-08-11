@@ -19,6 +19,7 @@ import argparse
 import json
 import sys
 from collections import deque, defaultdict
+from datetime import date
 
 # Windows-Konsole/Dateiausgabe nutzt sonst cp1252 und stürzt bei Sonderzeichen
 # (Umlaute, Σ, …) mit UnicodeEncodeError ab. UTF-8 erzwingen, Fehler ersetzen.
@@ -34,56 +35,126 @@ from .labels import dedupliziere
 from .ratings import fahre_elo_durch, bewerte_baseline, berechne_ueberraschung
 from .features import baue_features
 # sklearn-abhängige Module (train/benchmark/clustering) werden bewusst ERST in
-# main() importiert -- nach dem Daten-Fetch. So läuft das (bei esv stundenlange)
-# Datenholen sofort los, statt am langsamen sklearn/scipy-Import zu hängen.
+# main() importiert -- nach dem Daten-Fetch, damit das Einlesen sofort startet
+# statt am langsamen sklearn/scipy-Import zu hängen.
 
 
-def _lade_daten(source: str, *, von_jahr: int = 2010, mit_portraets: bool = True):
+def _lade_daten(source: str):
+    """(schwinger, events, roh, bericht) -- bericht ist None bei synth."""
     if source == "synth":
         from .synth import erzeuge_datensatz
-        return erzeuge_datensatz()
-    elif source == "scrape":
+        schwinger, events, roh = erzeuge_datensatz()
+        return schwinger, events, roh, None
+    if source == "scrape":
         from .scrape import lade_echte_daten
-        return lade_echte_daten()
-    elif source == "esv":
-        from datetime import date
-        from .scrape.esv_laden import lade_esv_daten
-        heute = date.today()
-        return lade_esv_daten(
-            von_jahr, heute.year, aktuelles_jahr=heute.year, mit_portraets=mit_portraets
-        )
+        return lade_echte_daten(mit_bericht=True)
     raise ValueError(f"Unbekannte Quelle: {source}")
 
 
-# Sicherheitsnetz gegen den taeglichen Update-Workflow (NFR-1): der laedt
-# Rohdaten nur inkrementell fuer ein kurzes Zeitfenster (fetch_raw
-# --seit-datum), da artifacts/raw/ nicht zwischen CI-Laeufen persistiert
-# wird (zu gross fuers Repo). Faellt dieser Fetch aus irgendeinem Grund auf
-# ein winziges Zeitfenster ohne Historie zurueck, wuerde run_pipeline sonst
-# das produktive, auf der vollen Historie trainierte Modell stillschweigend
-# durch ein auf ein paar hundert Gaengen trainiertes ersetzen UND committen.
-# Deshalb: bricht hart ab, statt ein drastisch kleineres Modell zu exportieren.
-MIN_DATENVOLUMEN_ANTEIL = 0.5
+# --- Sicherheitsnetz gegen stillen Datenverlust (NFR-1) -------------------
+# Der taegliche Lauf holt nur ein kurzes Zeitfenster nach und baut auf dem
+# Rohdaten-Cache auf. Geht dabei etwas schief, darf NICHT stillschweigend ein
+# auf Bruchteilen trainiertes Modell exportiert und committet werden.
+#
+# Frueher verglich diese Pruefung nur "Gaenge neu vs. Gaenge im letzten
+# Report" -- und konnte dadurch nicht zwischen "Cache kaputt" und "Verarbeitung
+# kaputt" unterscheiden. Sie ist 20 Tage in Folge gelaufen und hat den Workflow
+# dauerhaft blockiert, obwohl der Download einwandfrei funktionierte: der
+# Fehler lag in der Namensaufloesung. Deshalb wird jetzt getrennt geprueft.
+
+# Anteil der Roh-Eintraege, der hoechstens verworfen werden darf.
+MAX_VERLUSTQUOTE = 0.25
+# Anteil, den Rohabdeckung bzw. abgeleitete Gaenge gegenueber dem letzten Lauf
+# mindestens halten muessen.
+MIN_ANTEIL_VORLAUF = 0.5
 
 
-def _pruefe_datenvolumen(source: str, n_gaenge_neu: int) -> None:
-    if source != "scrape":
-        return
-    report_pfad = config.ARTIFACTS_DIR / "report.json"
-    if not report_pfad.exists():
-        return
+def _voriger_report() -> dict | None:
+    pfad = config.ARTIFACTS_DIR / "report.json"
+    if not pfad.exists():
+        return None
     try:
-        alt = json.loads(report_pfad.read_text(encoding="utf-8"))
-        n_gaenge_alt = alt["datenbasis"]["n_gaenge"]
-    except Exception:  # noqa: BLE001 - fehlendes/kaputtes altes Artefakt ist kein Grund zum Abbruch
+        return json.loads(pfad.read_text(encoding="utf-8"))
+    except Exception:  # noqa: BLE001 - kaputtes Altartefakt ist kein Abbruchgrund
+        return None
+
+
+def _pruefe_datenqualitaet(source: str, bericht, n_gaenge_neu: int, *, streng: bool = True) -> None:
+    if source != "scrape" or bericht is None:
         return
-    if n_gaenge_neu < n_gaenge_alt * MIN_DATENVOLUMEN_ANTEIL:
+
+    # 1. Verarbeitung: wie viel der geladenen Rohdaten kommt tatsaechlich an?
+    if bericht.verlustquote > MAX_VERLUSTQUOTE:
         raise RuntimeError(
-            f"Datenvolumen eingebrochen: {n_gaenge_neu} Gänge neu vs. {n_gaenge_alt} zuvor "
-            f"(< {MIN_DATENVOLUMEN_ANTEIL:.0%}). Breche ab, statt das produktive Modell mit "
-            "einem auf Bruchteil der Historie trainierten zu überschreiben -- vermutlich hat "
-            "fetch_raw nur ein kurzes Zeitfenster geladen (kein voller Rohdaten-Refetch)."
+            f"Zu viele Roh-Einträge verworfen: {bericht.verlustquote:.1%} von "
+            f"{bericht.n_roh_gesamt} (Grenze {MAX_VERLUSTQUOTE:.0%}). "
+            f"Gründe: {dict(bericht.verworfen)}. "
+            f"Unauflösbare Namen (Beispiele): {bericht.beispiele_unaufloesbar[:5]}. "
+            "Das deutet auf einen Fehler in der Identitätsauflösung hin, nicht auf "
+            "fehlende Daten -- Lauf abgebrochen, Artefakte bleiben unverändert."
         )
+    if not streng:
+        return
+
+    alt = _voriger_report()
+    if not alt:
+        return
+    vorher = (alt.get("datenqualitaet") or {}).get("roh_eintraege_gelesen")
+
+    # 2. Rohabdeckung: der additive Cache darf nie schrumpfen.
+    if vorher and bericht.n_roh_gesamt < vorher * MIN_ANTEIL_VORLAUF:
+        raise RuntimeError(
+            f"Rohdaten-Abdeckung eingebrochen: {bericht.n_roh_gesamt} Einträge neu vs. "
+            f"{vorher} zuvor. Der Rohdaten-Cache ist vermutlich verloren gegangen -- "
+            "Workflow einmalig mit „Volle Historie neu laden“ starten."
+        )
+
+    # 3. Abgeleitete Gaenge: nur pruefen, wenn die Rohabdeckung intakt ist,
+    #    sonst wuerde Punkt 2 doppelt und irrefuehrend melden.
+    n_alt = (alt.get("datenbasis") or {}).get("n_gaenge")
+    if n_alt and n_gaenge_neu < n_alt * MIN_ANTEIL_VORLAUF and (
+        not vorher or bericht.n_roh_gesamt >= vorher * MIN_ANTEIL_VORLAUF
+    ):
+        raise RuntimeError(
+            f"Abgeleitete Gänge eingebrochen: {n_gaenge_neu} neu vs. {n_alt} zuvor, "
+            f"obwohl die Rohabdeckung stimmt ({bericht.n_roh_gesamt} Einträge). "
+            "Das ist ein Verarbeitungsfehler -- Lauf abgebrochen."
+        )
+
+
+def _datenqualitaet(bericht, gaenge, events, warnungen: list[str]) -> dict:
+    """Nachvollziehbare Kennzahlen darüber, was aus den Rohdaten geworden ist.
+
+    Landet in report.json und ist damit von Lauf zu Lauf vergleichbar --
+    Grundlage sowohl für die Volumenprüfung als auch für die Frage "kann ich
+    diesen Zahlen trauen?".
+    """
+    from collections import Counter
+
+    kategorien: Counter = Counter()
+    for w in warnungen:
+        if "nur eine Perspektive" in w:
+            kategorien["nur_eine_perspektive"] += 1
+        elif "Inkonsistente Symbole" in w:
+            kategorien["inkonsistente_symbole"] += 1
+        else:
+            kategorien["sonstige"] += 1
+
+    daten = sorted(e.datum for e in events if e.datum)
+    ergebnisse = Counter(g.ergebnis for g in gaenge)
+    n = len(gaenge) or 1
+    qualitaet = {
+        "warnungen_nach_kategorie": dict(kategorien),
+        "anteil_unvollstaendiger_gaenge": round(kategorien["nur_eine_perspektive"] / n, 4),
+        "ergebnisverteilung": {k: round(v / n, 4) for k, v in sorted(ergebnisse.items())},
+        "feste_zeitraum": {"von": daten[0], "bis": daten[-1]} if daten else None,
+        "tage_seit_juengstem_fest": (
+            (date.today() - date.fromisoformat(daten[-1])).days if daten else None
+        ),
+    }
+    if bericht is not None:
+        qualitaet.update(bericht.als_dict())
+    return qualitaet
 
 
 def _aktuelle_form(gaenge) -> dict:
@@ -124,16 +195,24 @@ def _aktive_schwinger(gaenge, referenz_jahr: int) -> set:
     return aktive
 
 
-def main(source: str = "synth", *, von_jahr: int = 2010, mit_portraets: bool = True) -> dict:
+def main(source: str = "synth", *, streng: bool = True) -> dict:
     config.ensure_dirs()
     print(f"[1/8] Lade Daten (Quelle={source}) ...", flush=True)
-    schwinger, events, roh = _lade_daten(source, von_jahr=von_jahr, mit_portraets=mit_portraets)
+    schwinger, events, roh, bericht = _lade_daten(source)
     print(f"      {len(schwinger)} Schwinger, {len(events)} Feste, {len(roh)} Roh-Einträge", flush=True)
+    if bericht is not None:
+        print(
+            f"      Rohdaten: {bericht.n_roh_uebernommen}/{bericht.n_roh_gesamt} übernommen "
+            f"({bericht.verlustquote:.1%} verworfen) -- {dict(bericht.verworfen)}",
+            flush=True,
+        )
+        if bericht.events_verworfen:
+            print(f"      Feste verworfen: {dict(bericht.events_verworfen)}", flush=True)
 
     print("[2/8] Labels ableiten + deduplizieren + validieren ...", flush=True)
     gaenge, warnungen = dedupliziere(roh)
     print(f"      {len(gaenge)} deduplizierte Gänge, {len(warnungen)} Warnungen", flush=True)
-    _pruefe_datenvolumen(source, len(gaenge))
+    _pruefe_datenqualitaet(source, bericht, len(gaenge), streng=streng)
 
     print("[3/8] Elo-Baseline (chronologisch, leak-frei) ...", flush=True)
     elo_modell, snapshots = fahre_elo_durch(gaenge)
@@ -197,22 +276,34 @@ def main(source: str = "synth", *, von_jahr: int = 2010, mit_portraets: bool = T
             print(f"      (Agenda konnte nicht geladen werden: {e})", flush=True)
     export.exportiere_events(events, kommende)
     report = export.exportiere_report(
-        train_res, baseline, warnungen, len(gaenge), len(schwinger)
+        train_res, baseline, warnungen, len(gaenge), len(schwinger),
+        datenqualitaet=_datenqualitaet(bericht, gaenge, events, warnungen),
     )
 
     print("\n=== Ergebnis ===", flush=True)
     print(f"Log-Loss  Modell={report['modell']['log_loss']}  "
           f"Baseline={report['baseline_elo']['log_loss']}  "
           f"schlägt Baseline: {report['schlaegt_baseline']}", flush=True)
+    dq = report.get("datenqualitaet") or {}
+    if dq.get("feste_zeitraum"):
+        print(f"Daten     {dq['feste_zeitraum']['von']} .. {dq['feste_zeitraum']['bis']}  "
+              f"(jüngstes Fest vor {dq['tage_seit_juengstem_fest']} Tagen)", flush=True)
+    if "verlustquote" in dq:
+        print(f"Ingest    {dq['roh_eintraege_uebernommen']}/{dq['roh_eintraege_gelesen']} "
+              f"Roh-Einträge übernommen ({dq['verlustquote']:.1%} verworfen)", flush=True)
     print(f"Artefakte in: {config.ARTIFACTS_DIR}  und  {config.WEB_PUBLIC_DIR}", flush=True)
     return report
 
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--source", choices=["synth", "scrape", "esv"], default="synth")
-    ap.add_argument("--von-jahr", type=int, default=2010, help="Startjahr (nur source=esv)")
-    ap.add_argument("--ohne-portraets", action="store_true",
-                    help="esv ohne Porträt-Anreicherung (schneller, ohne Physis/Alter/Schwünge)")
+    ap = argparse.ArgumentParser(description="Schwingen-ML-Pipeline (Daten -> Modell -> Artefakte).")
+    ap.add_argument("--source", choices=["synth", "scrape"], default="synth",
+                    help="synth = synthetische Demodaten (offline), scrape = artifacts/raw")
+    ap.add_argument(
+        "--ohne-volumenpruefung",
+        action="store_true",
+        help="Vergleich mit dem vorigen Lauf überspringen (nur für den bewussten "
+             "Neuaufbau nach vollem Refetch; die Verlustquoten-Prüfung bleibt aktiv).",
+    )
     args = ap.parse_args()
-    main(args.source, von_jahr=args.von_jahr, mit_portraets=not args.ohne_portraets)
+    main(args.source, streng=not args.ohne_volumenpruefung)
