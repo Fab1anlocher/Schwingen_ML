@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ladeEvents, ladeModel, ladeRatings, ladeSchwinger } from "@/lib/data";
 import { prognostiziere } from "@/lib/inference";
+import { ladeKopfAnKopf, kopfAnKopfVorteilA } from "@/lib/kopfAnKopf";
 import type {
   EventsArtifact,
   ModelArtifact,
@@ -10,6 +11,9 @@ import type {
   Schwinger,
   KommendesFest,
 } from "@/lib/types";
+
+// Spiegelt pipeline/scrape/agenda.HORIZONT_TAGE — wie weit die Vorschau reicht.
+const HORIZONT_TAGE = 60;
 
 const TYP_LABEL: Record<string, string> = {
   eidgenoessisch: "Eidgenössisches",
@@ -55,16 +59,16 @@ export default function Feste() {
       {kommende.length === 0 ? (
         <div className="panel">
           <p>
-            Aktuell sind keine bevorstehenden Feste erfasst. Sobald der Agenda-Scraper
-            (schlussgang.ch/agenda) aktiv ist, erscheinen hier kommende Feste samt
-            veröffentlichter Spitzenpaarungen.
+            Für die nächsten {HORIZONT_TAGE} Tage ist derzeit kein Fest erfasst. Ausserhalb
+            der Saison (Ende Oktober bis März) ist das der Normalfall — mitten in der Saison
+            ein Hinweis darauf, dass die Fest-Beschaffung nicht durchgelaufen ist.
           </p>
           <p className="muted small">
-            Bis dahin lässt sich jedes Paar direkt über die{" "}
+            Unabhängig davon lässt sich jede Paarung direkt über die{" "}
             <a href="/" style={{ color: "var(--accent-2)" }}>
               Paar-Prognose
             </a>{" "}
-            durchspielen.
+            durchspielen — dieselbe Rechnung, dieselben Quoten, frei wählbare Schwinger.
           </p>
         </div>
       ) : (
@@ -143,6 +147,14 @@ function FestCard({
               </table>
             </div>
           )}
+          {favoriten.length >= 2 && model && ratings && (
+            <SpitzenpaarungVorschau
+              a={byId[favoriten[0].id]}
+              b={byId[favoriten[1].id]}
+              ratings={ratings}
+              model={model}
+            />
+          )}
         </>
       )}
 
@@ -158,34 +170,118 @@ function FestCard({
               </tr>
             </thead>
             <tbody>
-              {fest.paarungen!.map((pg, i) => {
-                const a = byId[pg.a_id];
-                const b = byId[pg.b_id];
-                if (!a || !b) return null;
-                const ra = ratings.ratings[pg.a_id] ?? { elo: ratings.elo_start, n_gaenge: 0 };
-                const rb = ratings.ratings[pg.b_id] ?? { elo: ratings.elo_start, n_gaenge: 0 };
-                const pr = prognostiziere(model, a, b, ra.elo, rb.elo, ra.n_gaenge, rb.n_gaenge);
-                const cell = (v: number) => (
-                  <>
-                    {(v * 100).toFixed(0)}%
-                    <span className="muted small"> · {(1 / Math.max(v, 1e-6)).toFixed(2)}</span>
-                  </>
-                );
-                return (
-                  <tr key={i}>
-                    <td>
-                      {a.name} <span className="muted">vs</span> {b.name}
-                    </td>
-                    <td>{cell(pr.p.sieg_a)}</td>
-                    <td>{cell(pr.p.gestellt)}</td>
-                    <td>{cell(pr.p.sieg_b)}</td>
-                  </tr>
-                );
-              })}
+              {fest.paarungen!.map((pg, i) => (
+                <PaarungZeile
+                  key={`${pg.a_id}|${pg.b_id}|${i}`}
+                  a={byId[pg.a_id]}
+                  b={byId[pg.b_id]}
+                  ratings={ratings}
+                  model={model}
+                />
+              ))}
             </tbody>
           </table>
         </div>
       )}
+    </div>
+  );
+}
+
+/** Eine Paarungszeile mit Prognose und informativer Quote.
+ *
+ *  Lädt die Kopf-an-Kopf-Historie nach, bevor sie rechnet. Ohne das ging die
+ *  Seite von "noch nie gegeneinander" aus und wich für dieselbe Paarung von
+ *  der Prognose-Seite ab (Staudenmann vs. Moser: 55 % statt 66 %) — bei neun
+ *  gemeinsamen Gängen ist das der zweitstärkste Faktor im Modell. Bis die
+ *  Historie da ist, wird mit 0 gerechnet; der Wert korrigiert sich selbst. */
+function PaarungZeile({
+  a,
+  b,
+  ratings,
+  model,
+}: {
+  a?: Schwinger;
+  b?: Schwinger;
+  ratings: RatingsArtifact;
+  model: ModelArtifact;
+}) {
+  const [h2h, setH2h] = useState(0);
+  const aId = a?.id;
+  const bId = b?.id;
+  useEffect(() => {
+    if (!aId || !bId) return;
+    let abgebrochen = false;
+    ladeKopfAnKopf(aId, bId)
+      .then((treffer) => {
+        if (!abgebrochen) setH2h(kopfAnKopfVorteilA(treffer));
+      })
+      .catch(() => {
+        /* ohne Historie bleibt es bei 0 — dieselbe Annahme wie bisher */
+      });
+    return () => {
+      abgebrochen = true;
+    };
+  }, [aId, bId]);
+
+  if (!a || !b) return null;
+  const ra = ratings.ratings[a.id] ?? { elo: ratings.elo_start, n_gaenge: 0 };
+  const rb = ratings.ratings[b.id] ?? { elo: ratings.elo_start, n_gaenge: 0 };
+  const pr = prognostiziere(model, a, b, ra.elo, rb.elo, ra.n_gaenge, rb.n_gaenge, h2h);
+  const zelle = (v: number) => (
+    <>
+      {(v * 100).toFixed(0)}%
+      <span className="muted small"> · Quote {(1 / Math.max(v, 1e-6)).toFixed(2)}</span>
+    </>
+  );
+  return (
+    <tr>
+      <td>
+        {a.name} <span className="muted">vs</span> {b.name}
+      </td>
+      <td>{zelle(pr.p.sieg_a)}</td>
+      <td>{zelle(pr.p.gestellt)}</td>
+      <td>{zelle(pr.p.sieg_b)}</td>
+    </tr>
+  );
+}
+
+/** Prognose + Quote für die stärkste denkbare Paarung, solange das Fest noch
+ *  keine offiziellen Paarungen ausweist. Ausdrücklich hypothetisch beschriftet:
+ *  ob sich die beiden treffen, entscheidet erst die Einteilung am Fest. */
+function SpitzenpaarungVorschau({
+  a,
+  b,
+  ratings,
+  model,
+}: {
+  a?: Schwinger;
+  b?: Schwinger;
+  ratings: RatingsArtifact;
+  model: ModelArtifact;
+}) {
+  if (!a || !b) return null;
+  return (
+    <div className="tabelle-wrap" style={{ marginTop: "0.85rem" }}>
+      <p className="muted small" style={{ margin: "0 0 0.4rem" }}>
+        <span className="badge" style={{ marginRight: 6 }}>
+          hypothetisch
+        </span>
+        Mögliche Spitzenpaarung der zwei Topfavoriten — ob sie sich treffen, entscheidet die
+        Einteilung am Fest.
+      </p>
+      <table style={{ minWidth: 480 }}>
+        <thead>
+          <tr>
+            <th>Paarung</th>
+            <th>Sieg A</th>
+            <th>Gestellt</th>
+            <th>Sieg B</th>
+          </tr>
+        </thead>
+        <tbody>
+          <PaarungZeile a={a} b={b} ratings={ratings} model={model} />
+        </tbody>
+      </table>
     </div>
   );
 }
@@ -197,14 +293,17 @@ function baueFavoriten(
   byId: Record<string, Schwinger>
 ) {
   const ord = model.config.kranzstatus_ordinal;
-  const bonus = fest.typ === "berg" ? 12 : fest.typ === "eidgenoessisch" ? 18 : 0;
+  // Ein Fest-Bonus (berg/eidgenössisch) war hier wirkungslos: er ist für jeden
+  // Schwinger derselbe und kürzt sich in der Rangfolge weg — die Liste war für
+  // JEDES Fest identisch. Was den Unterschied macht, ist der Aktiv-Filter:
+  // ratings.ratings enthält auch zurückgetretene Schwinger (1058 Einträge),
+  // die in einer Favoritenliste nichts verloren haben.
   return Object.entries(ratings.ratings)
     .map(([id, r]) => {
       const s = byId[id];
-      if (!s) return null;
+      if (!s || !s.aktiv) return null;
       const kranz = ord[s.kranzstatus] ?? 0;
-      const index = r.elo + kranz * 25 + bonus;
-      return { id, name: s.name, elo: r.elo, kranz: s.kranzstatus, index };
+      return { id, name: s.name, elo: r.elo, kranz: s.kranzstatus, index: r.elo + kranz * 25 };
     })
     .filter((x): x is NonNullable<typeof x> => x !== null)
     .sort((a, b) => b.index - a.index)

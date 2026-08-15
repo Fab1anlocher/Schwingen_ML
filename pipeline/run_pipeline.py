@@ -122,7 +122,9 @@ def _pruefe_datenqualitaet(source: str, bericht, n_gaenge_neu: int, *, streng: b
         )
 
 
-def _datenqualitaet(bericht, gaenge, events, warnungen: list[str]) -> dict:
+def _datenqualitaet(bericht, gaenge, events, warnungen: list[str], *,
+                    kommende: list | None = None,
+                    kommende_diagnose: dict | None = None) -> dict:
     """Nachvollziehbare Kennzahlen darüber, was aus den Rohdaten geworden ist.
 
     Landet in report.json und ist damit von Lauf zu Lauf vergleichbar --
@@ -151,6 +153,17 @@ def _datenqualitaet(bericht, gaenge, events, warnungen: list[str]) -> dict:
         "tage_seit_juengstem_fest": (
             (date.today() - date.fromisoformat(daten[-1])).days if daten else None
         ),
+    }
+    # Kommende Feste (FR-2): sichtbar machen, ob und woher sie kamen. Ein
+    # leerer Kalender mitten in der Saison ist ein Befund, kein Normalzustand.
+    kommende = kommende or []
+    diagnose = kommende_diagnose or {}
+    qualitaet["kommende_feste"] = {
+        "n": len(kommende),
+        "n_mit_paarungen": sum(1 for f in kommende if f.get("paarungen")),
+        "quelle": diagnose.get("pfad"),
+        "versuche": diagnose.get("versuche", []),
+        "naechstes": min((f["datum"] for f in kommende), default=None),
     }
     if bericht is not None:
         qualitaet.update(bericht.als_dict())
@@ -266,18 +279,38 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
     export.exportiere_cluster(cluster_res)
     if benchmark_res is not None:
         export.exportiere_benchmark(benchmark_res)
-    # Kommende Feste (FR-2): bei echten Daten aus dem Agenda-Scraper.
-    kommende = []
+    # Kommende Feste (FR-2): bei echten Daten aus der Fest-API (Agenda-HTML als
+    # Fallback). Das Ergebnis wird IMMER protokolliert -- ein leerer Kalender
+    # blieb früher unbemerkt, weil die Ausnahme nur weggedruckt wurde.
+    kommende: list = []
+    kommende_diagnose: dict = {"pfad": None, "versuche": [], "n_feste": 0, "n_mit_paarungen": 0}
     if source == "scrape":
         try:
             from .scrape import lade_kommende_feste
-            kommende = lade_kommende_feste()
+            kommende, kommende_diagnose = lade_kommende_feste()
         except Exception as e:  # noqa: BLE001
-            print(f"      (Agenda konnte nicht geladen werden: {e})", flush=True)
+            kommende_diagnose["versuche"].append(
+                {"pfad": "gesamt", "fehler": f"{type(e).__name__}: {e}"}
+            )
+        if kommende:
+            print(
+                f"      {len(kommende)} kommende Feste über '{kommende_diagnose.get('pfad')}' "
+                f"({kommende_diagnose.get('n_mit_paarungen', 0)} mit veröffentlichten Paarungen)",
+                flush=True,
+            )
+        else:
+            print(
+                "      WARNUNG: keine kommenden Feste geladen -- "
+                f"{kommende_diagnose.get('versuche')}",
+                flush=True,
+            )
     export.exportiere_events(events, kommende)
     report = export.exportiere_report(
         train_res, baseline, warnungen, len(gaenge), len(schwinger),
-        datenqualitaet=_datenqualitaet(bericht, gaenge, events, warnungen),
+        datenqualitaet=_datenqualitaet(
+            bericht, gaenge, events, warnungen, kommende=kommende,
+            kommende_diagnose=kommende_diagnose,
+        ),
     )
 
     print("\n=== Ergebnis ===", flush=True)
