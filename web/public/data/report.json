@@ -1,26 +1,26 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-07-23T18:39:03.452380+00:00",
-  "lauf_id": "20260723T183903Z",
+  "erstellt": "2026-08-15T06:23:46.687085+00:00",
+  "lauf_id": "20260815T062346Z",
   "seed": 42,
   "datenbasis": {
-    "n_gaenge": 128768,
-    "n_schwinger": 2899
+    "n_gaenge": 129990,
+    "n_schwinger": 2884
   },
   "holdout_jahr": 2026,
-  "n_train": 196328,
-  "n_test": 61204,
+  "n_train": 192216,
+  "n_test": 67764,
   "modell": {
-    "log_loss": 0.8029,
-    "accuracy": 0.6512
+    "log_loss": 0.8321,
+    "accuracy": 0.6391
   },
   "baseline_elo": {
-    "log_loss": 0.9028,
-    "accuracy": 0.6169
+    "log_loss": 0.9523,
+    "accuracy": 0.5983
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0343,
-  "verbesserung_log_loss": 0.0999,
+  "accuracy_gg_baseline": 0.0407,
+  "verbesserung_log_loss": 0.1202,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -28,19 +28,19 @@
   ],
   "konfusionsmatrix": [
     [
-      19568,
-      470,
-      4168
+      21317,
+      469,
+      5001
     ],
     [
-      6035,
-      722,
-      6035
+      6759,
+      672,
+      6759
     ],
     [
-      4169,
-      470,
-      19567
+      5001,
+      469,
+      21317
     ]
   ],
   "erfolgskriterien": {
@@ -49,56 +49,92 @@
     "gesamt_erfuellt": true
   },
   "parsing_warnungen": [
-    "schlussgang-22406 mario bosch|2006/urban raschle|2003: nur eine Perspektive vorhanden",
-    "schlussgang-22406 hochholdinger roman|?/sprecher martin|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 bernhard thomas|?/hochholdinger roman|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 hochholdinger roman|?/patrick schmid|1997: Inkonsistente Symbole: A='+' erwartet B='o', gefunden B='-' -> verworfen",
-    "schlussgang-22406 hochholdinger roman|?/hochholdinger roman|?: Inkonsistente Symbole: A='+' erwartet B='o', gefunden B='+' -> verworfen",
-    "schlussgang-22406 diem hansruedi|?/fabian kempf|2002: nur eine Perspektive vorhanden",
-    "schlussgang-22406 fabian kempf|2002/jorger corsin|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 josias muller|2006/patrick schmid|1997: nur eine Perspektive vorhanden",
-    "schlussgang-22406 elia mayer|2004/hochholdinger roman|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 arnold robin|?/josias muller|2006: nur eine Perspektive vorhanden",
-    "schlussgang-22406 krebser silvan|?/michael bernold|1999: nur eine Perspektive vorhanden",
-    "schlussgang-22406 fabian kempf|2002/patrik schiesser|1998: nur eine Perspektive vorhanden",
-    "schlussgang-22406 fabian kempf|2002/lukas keller|1996: nur eine Perspektive vorhanden",
-    "schlussgang-22406 jan mannhart|2003/patrik schiesser|1998: nur eine Perspektive vorhanden",
-    "schlussgang-22406 arnold robin|?/jan mannhart|2003: nur eine Perspektive vorhanden",
-    "schlussgang-22406 jan mannhart|2003/linard gantenbein|2004: nur eine Perspektive vorhanden",
-    "schlussgang-22406 jan mannhart|2003/vogler elias|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 jan mannhart|2003/janik korrodi|2004: nur eine Perspektive vorhanden",
-    "schlussgang-22406 luca bircher|1999/stricker andy|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 luca bircher|1999/waldmeier marco|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 galbier joel|?/luca bircher|1999: nur eine Perspektive vorhanden",
-    "schlussgang-22406 gabriel wyrsch|2001/luthi noah|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 michael bernold|1999/sandro gmur|1997: nur eine Perspektive vorhanden",
-    "schlussgang-22406 jorger corsin|?/michael bernold|1999: nur eine Perspektive vorhanden",
-    "schlussgang-22406 schlegel jamie|?/tschudi pirmin|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 diem hansruedi|?/patrik schiesser|1998: nur eine Perspektive vorhanden",
-    "schlussgang-22406 janik korrodi|2004/patrik schiesser|1998: nur eine Perspektive vorhanden",
-    "schlussgang-22406 marc hanni|2001/patrik schiesser|1998: nur eine Perspektive vorhanden",
-    "schlussgang-22406 arnold kilian|?/elias epp|2003: nur eine Perspektive vorhanden",
-    "schlussgang-22406 christian pianta|1997/hofmann frederic|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 christian pianta|1997/wuthrich damian|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 kobler stefan|?/niklas lotscher|2006: nur eine Perspektive vorhanden",
-    "schlussgang-22406 adrian schwyn|1996/steiger tim|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 adrian schwyn|1996/puntener luca|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 kjetil fausch|1995/roger betschart|2003: nur eine Perspektive vorhanden",
-    "schlussgang-22406 risch christian|?/stricker andy|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 nay kyron|?/sandro gmur|1997: nur eine Perspektive vorhanden",
-    "schlussgang-22406 bernhard thomas|?/sandro gmur|1997: nur eine Perspektive vorhanden",
-    "schlussgang-22406 janik korrodi|2004/wuthrich damian|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 janik korrodi|2004/schwyn patrick|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 janik korrodi|2004/wuthrich christian|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 galbier joel|?/sprecher martin|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 lusti remo|?/urban raschle|2003: nur eine Perspektive vorhanden",
-    "schlussgang-22406 luthi noah|?/urban raschle|2003: nur eine Perspektive vorhanden",
-    "schlussgang-22406 lukas keller|1996/nay kyron|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 arnold david|?/lukas keller|1996: nur eine Perspektive vorhanden",
-    "schlussgang-22406 arnold elias|?/kobler stefan|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 arnold elias|?/wuthrich damian|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 adrian schwyn|1996/arnold elias|?: nur eine Perspektive vorhanden",
-    "schlussgang-22406 arnold elias|?/wuthrich christian|?: nur eine Perspektive vorhanden"
+    "schlussgang-38142 brander ruedi|?/koch silvan|?: Inkonsistente Symbole: A='o' erwartet B='+', gefunden B='o' -> verworfen",
+    "schlussgang-33468 gehrig ueli|?/mathias wuthrich|?: Inkonsistente Symbole: A='+' erwartet B='o', gefunden B='-' -> verworfen",
+    "schlussgang-54093 andre reichmuth|?/inderbitzin tobias|?: nur eine Perspektive vorhanden",
+    "schlussgang-45973 marco ulrich|1997/matter roman|?: Inkonsistente Symbole: A='+' erwartet B='o', gefunden B='+' -> verworfen",
+    "schlussgang-21055 joel kessler|1997/kaj hugli|1997: nur eine Perspektive vorhanden",
+    "schlussgang-21055 fabian birchler|2000/nicolas zimmermann|2001: nur eine Perspektive vorhanden",
+    "schlussgang-21055 fabian aebersold|2003/janik korrodi|2004: nur eine Perspektive vorhanden",
+    "schlussgang-21055 florian aellen|1995/janik korrodi|2004: nur eine Perspektive vorhanden",
+    "schlussgang-21055 florian aellen|1995/nicolas zimmermann|2001: nur eine Perspektive vorhanden",
+    "schlussgang-21055 etienne burger|2004/florian aellen|1995: nur eine Perspektive vorhanden",
+    "schlussgang-21055 florian aellen|1995/matthey mickael|?: nur eine Perspektive vorhanden",
+    "schlussgang-21055 dorian kramer|1999/florian aellen|1995: nur eine Perspektive vorhanden",
+    "schlussgang-21055 florian aellen|1995/robin studinger|2006: nur eine Perspektive vorhanden",
+    "schlussgang-21055 florian aellen|1995/kjetil fausch|1995: nur eine Perspektive vorhanden",
+    "schlussgang-21055 florian aellen|1995/paul tornare|2001: nur eine Perspektive vorhanden",
+    "schlussgang-21055 andy murer|?/florian aellen|1995: nur eine Perspektive vorhanden",
+    "schlussgang-21055 adrian aebersold|2003/florian aellen|1995: nur eine Perspektive vorhanden",
+    "schlussgang-21055 florian aellen|1995/valentin mettler|1996: nur eine Perspektive vorhanden",
+    "schlussgang-21055 etienne ducrest|1998/florian aellen|1995: nur eine Perspektive vorhanden",
+    "schlussgang-21055 florian aellen|1995/mario schneider|1992: nur eine Perspektive vorhanden",
+    "schlussgang-21055 florian aellen|1995/leandro nageli|2003: nur eine Perspektive vorhanden",
+    "schlussgang-21055 florian aellen|1995/kaj hugli|1997: nur eine Perspektive vorhanden",
+    "schlussgang-21055 fabian birchler|2000/kjetil fausch|1995: nur eine Perspektive vorhanden",
+    "schlussgang-21055 fabien jacquaz|2006/silvan trittibach|2004: nur eine Perspektive vorhanden",
+    "schlussgang-21055 fabien jacquaz|2006/luis hasler|2002: nur eine Perspektive vorhanden",
+    "schlussgang-21055 etienne burger|2004/fabian birchler|2000: nur eine Perspektive vorhanden",
+    "schlussgang-21055 janik korrodi|2004/michael ledermann|2000: nur eine Perspektive vorhanden",
+    "schlussgang-21055 joel kessler|1997/mario schneider|1992: nur eine Perspektive vorhanden",
+    "schlussgang-21055 adrian aebersold|2003/joel kessler|1997: nur eine Perspektive vorhanden",
+    "schlussgang-21055 andy murer|?/joel kessler|1997: nur eine Perspektive vorhanden",
+    "schlussgang-21055 dorian kramer|1999/fabian birchler|2000: nur eine Perspektive vorhanden",
+    "schlussgang-21055 marco thierstein|1997/sales tschudi|2009: Inkonsistente Symbole: A='+' erwartet B='o', gefunden B='+' -> verworfen",
+    "schlussgang-21055 fabian birchler|2000/sales tschudi|2009: nur eine Perspektive vorhanden",
+    "schlussgang-21055 michael ledermann|2000/sales tschudi|2009: nur eine Perspektive vorhanden",
+    "schlussgang-21055 fankhauser reto|?/sales tschudi|2009: nur eine Perspektive vorhanden",
+    "schlussgang-21055 sales tschudi|2009/tobias dunner|2005: nur eine Perspektive vorhanden",
+    "schlussgang-21055 roland reichmuth|1997/sales tschudi|2009: nur eine Perspektive vorhanden",
+    "schlussgang-21055 fabian aebersold|2003/sales tschudi|2009: nur eine Perspektive vorhanden",
+    "schlussgang-21055 benno heinzer|2006/sales tschudi|2009: nur eine Perspektive vorhanden",
+    "schlussgang-21055 fabian birchler|2000/paul tornare|2001: nur eine Perspektive vorhanden",
+    "schlussgang-21055 etienne ducrest|1998/joel kessler|1997: nur eine Perspektive vorhanden",
+    "schlussgang-21055 janik korrodi|2004/roland reichmuth|1997: nur eine Perspektive vorhanden",
+    "schlussgang-21055 erb roger|?/fabien jacquaz|2006: nur eine Perspektive vorhanden",
+    "schlussgang-21055 fabian birchler|2000/robin studinger|2006: nur eine Perspektive vorhanden",
+    "schlussgang-21055 fabien jacquaz|2006/jonas glutz|2006: nur eine Perspektive vorhanden",
+    "schlussgang-21055 fabien jacquaz|2006/michael zurfluh|1999: nur eine Perspektive vorhanden",
+    "schlussgang-21055 fankhauser reto|?/janik korrodi|2004: nur eine Perspektive vorhanden",
+    "schlussgang-21055 janik korrodi|2004/tobias dunner|2005: nur eine Perspektive vorhanden",
+    "schlussgang-21055 florian ulrich|?/leandro nageli|2003: Inkonsistente Symbole: A='o' erwartet B='+', gefunden B='o' -> verworfen",
+    "schlussgang-21055 florian ulrich|?/silvan trittibach|2004: nur eine Perspektive vorhanden"
   ],
-  "n_parsing_warnungen": 21472
+  "n_parsing_warnungen": 21319,
+  "datenqualitaet": {
+    "warnungen_nach_kategorie": {
+      "inkonsistente_symbole": 63,
+      "nur_eine_perspektive": 21256
+    },
+    "anteil_unvollstaendiger_gaenge": 0.1635,
+    "ergebnisverteilung": {
+      "gestellt": 0.2285,
+      "sieg_a": 0.3524,
+      "sieg_b": 0.4191
+    },
+    "feste_zeitraum": {
+      "von": "2023-04-01",
+      "bis": "2026-08-09"
+    },
+    "tage_seit_juengstem_fest": 6,
+    "roh_eintraege_gelesen": 243479,
+    "roh_eintraege_uebernommen": 241748,
+    "roh_eintraege_verworfen": {
+      "name_nicht_aufloesbar": 1724,
+      "schwinger_gegen_sich_selbst": 7
+    },
+    "verlustquote": 0.0071,
+    "feste_gelesen": 466,
+    "feste_uebernommen": 466,
+    "feste_verworfen": {},
+    "schwinger_im_kader": 2884,
+    "unaufloesbare_namen": 5,
+    "beispiele_unaufloesbare_namen": [
+      "Wüthrich Jonas",
+      "Zemp Christian",
+      "Bucher Roman",
+      "Wüthrich Jonas (1)",
+      "Wüthrich Jonas (2)"
+    ]
+  }
 }

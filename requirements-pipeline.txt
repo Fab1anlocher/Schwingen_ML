@@ -1,9 +1,7 @@
-# Python-Abhängigkeiten der Datenpipeline (läuft auf GitHub Actions, §7).
+# Python-Abhängigkeiten der Datenpipeline (läuft auf GitHub Actions).
 numpy>=1.26
-pandas>=2.0
 scikit-learn>=1.4
-# Für pipeline.fetch_raw (echte Rohdaten von schlussgang.ch/esv.ch):
+# Statistik-PDFs von schlussgang.ch parsen (pipeline/scrape/schlussgang_pdf.py):
 pdfplumber>=0.11
-beautifulsoup4>=4.12
 # Tests:
 pytest>=8.0

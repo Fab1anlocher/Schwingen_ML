@@ -2,23 +2,22 @@
 
 Listet abgeschlossene Feste über die JSON:API (node/event, analog zu
 schlussgang_portraet.py), lädt je Fest die finale Statistik-PDF und
-parst sie über schlussgang_pdf.py zu Roh-Gang-Einträgen. Ergänzt zudem
-Schwinger-"Stubs" für Teilnehmer ohne Porträt, damit deren Gänge beim
-Training nicht mangels bekannter Schwinger-ID verworfen werden
-(vgl. features.baue_features, das Gänge mit unbekannter ID überspringt).
+parst sie über schlussgang_pdf.py zu Roh-Gang-Einträgen.
+
+Der Kader (inkl. Teilnehmer ohne Porträt) wird NICHT hier ergänzt, sondern
+zustandslos aus Porträts + PDF-Namen gebaut -- s. ``pipeline.roster``.
 """
 from __future__ import annotations
 
 import json
 from pathlib import Path
-from types import SimpleNamespace
 from urllib.parse import urlencode
 
-from ..schema import normalize_name, schwinger_key
-from . import map_name, schwinger_index
 from .agenda import typ_von_name
 from .http import hole
 from .schlussgang_pdf import parse_pdf_bytes, pdf_url
+
+from . import EVENT_ID_PRAEFIX  # noqa: E402  (eine Quelle der Wahrheit)
 
 EVENT_LIST_URL = "https://backend-api.schlussgang.ch/jsonapi/node/event"
 
@@ -71,6 +70,13 @@ def _kategorie_name(item: dict, included_by_id: dict[str, dict]) -> str | None:
     return inc.get("attributes", {}).get("name")
 
 
+# Sicherheitsgrenze für die Blätterschleife. Ignoriert die API ein `page[offset]`
+# (oder ändert sie ihr Verhalten), liefe die Schleife sonst endlos und lüde
+# dieselben Feste immer wieder -- bei 2 s Rate-Limit je PDF sind das schnell
+# Stunden. Bewusst grosszügig: die echte Historie liegt weit darunter.
+MAX_SEITEN = 60
+
+
 def scrape_events(
     max_events: int | None = None,
     *,
@@ -78,15 +84,22 @@ def scrape_events(
     typ: str = "Aktivschwinger",
     page_size: int = 50,
 ) -> list[dict]:
-    """Lädt abgeschlossene Feste (Standard: Aktivschwinger, s. README §"MVP-Datensatz")."""
+    """Lädt abgeschlossene Feste (Standard: Aktivschwinger).
+
+    Bricht ab, sobald eine Seite kein einziges neues Fest mehr liefert --
+    dann blättert die API nicht weiter, und Weitermachen würde nur Duplikate
+    erzeugen.
+    """
     events: list[dict] = []
+    gesehen: set[str] = set()
     offset = 0
-    while True:
+    for seite in range(MAX_SEITEN):
         response = json.loads(hole(_listen_url(offset, page_size, seit_datum=seit_datum, typ=typ)))
         items = response.get("data", [])
         if not items:
             break
         included_by_id = {inc["id"]: inc for inc in response.get("included", [])}
+        neu_auf_seite = 0
         for item in items:
             if max_events is not None and len(events) >= max_events:
                 return events
@@ -97,6 +110,10 @@ def scrape_events(
             name = name.strip()
             if not nid or not datum or not name:
                 continue
+            if f"schlussgang-{nid}" in gesehen:
+                continue  # dieselbe Seite nochmals erhalten
+            gesehen.add(f"schlussgang-{nid}")
+            neu_auf_seite += 1
             kategorie = _kategorie_name(item, included_by_id)
             fest_typ = _KATEGORIE_TYP.get(kategorie or "") or typ_von_name(name)
             events.append(
@@ -112,9 +129,14 @@ def scrape_events(
                     "quelle": "schlussgang.ch/event",
                 }
             )
+        if neu_auf_seite == 0:
+            print(f"      (Blättern beendet: Seite {seite + 1} brachte keine neuen Feste)", flush=True)
+            break
         if len(items) < page_size:
             break
         offset += page_size
+    else:
+        print(f"      (Seitenlimit {MAX_SEITEN} erreicht -- Historie evtl. unvollständig)", flush=True)
     return events
 
 
@@ -159,6 +181,12 @@ def merge_events_raw_json(path: Path, neue_events: list[dict]) -> list[dict]:
 
     Wichtig für den täglichen Cron-Lauf (NFR-1): ein enges `--seit-datum`-
     Fenster darf die zuvor gesammelte Historie nicht verwerfen.
+
+    Zugleich werden Einträge ohne offizielle ``schlussgang-<nid>``-ID entfernt.
+    Der Cache ist additiv und kannte bisher keinen Weg, etwas wieder
+    loszuwerden -- so haben es Testfeste ("Testschwinget", ``ev-2026-test``)
+    bis in die ausgelieferten Artefakte geschafft und dort sogar das jüngste
+    Fest-Datum bestimmt.
     """
     vorhandene: list[dict] = []
     if path.exists():
@@ -166,7 +194,10 @@ def merge_events_raw_json(path: Path, neue_events: list[dict]) -> list[dict]:
     nach_id = {str(e.get("id")): e for e in vorhandene}
     for e in neue_events:
         nach_id[str(e["id"])] = e
-    zusammengefuehrt = sorted(nach_id.values(), key=lambda e: (e.get("datum") or "", e.get("id")))
+    zusammengefuehrt = sorted(
+        (e for eid, e in nach_id.items() if eid.startswith(EVENT_ID_PRAEFIX)),
+        key=lambda e: (e.get("datum") or "", e.get("id")),
+    )
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
         json.dumps({"events": zusammengefuehrt}, ensure_ascii=False, indent=2), encoding="utf-8"
@@ -174,72 +205,27 @@ def merge_events_raw_json(path: Path, neue_events: list[dict]) -> list[dict]:
     return zusammengefuehrt
 
 
-def merge_gaenge_raw_json(path: Path, neue_gaenge: list[dict], event_ids: set[str]) -> list[dict]:
-    """gaenge.json additiv aktualisieren: Gänge der frisch geladenen Feste
+def merge_gaenge_raw_json(
+    path: Path, neue_gaenge: list[dict], event_ids: set[str], *, bekannte_events: set[str] | None = None
+) -> list[dict]:
+    """gaenge.json additiv aktualisieren.
 
-    ersetzen (Re-Parse desselben Fests darf nicht duplizieren), Gänge anderer
-    (früher geladener) Feste bleiben unangetastet.
+    Gänge der frisch geladenen Feste werden ersetzt (ein Re-Parse desselben
+    Fests darf nicht duplizieren), Gänge früher geladener Feste bleiben
+    erhalten. ``bekannte_events`` (optional) entfernt verwaiste Gänge, deren
+    Fest nicht mehr in events.json steht.
     """
     vorhandene: list[dict] = []
     if path.exists():
         vorhandene = json.loads(path.read_text(encoding="utf-8")).get("gaenge", [])
     behalten = [g for g in vorhandene if str(g.get("event_id")) not in event_ids]
     zusammengefuehrt = behalten + neue_gaenge
+    if bekannte_events is not None:
+        zusammengefuehrt = [
+            g for g in zusammengefuehrt if str(g.get("event_id")) in bekannte_events
+        ]
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
         json.dumps({"gaenge": zusammengefuehrt}, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     return zusammengefuehrt
-
-
-def ergaenze_schwinger_stubs(path: Path, gaenge: list[dict]) -> int:
-    """Schwinger ohne Porträt als Stub in schwinger.json ergänzen (per Name-Abgleich).
-
-    Ohne diese Ergänzung würde features.baue_features Gänge mit unbekannter
-    Schwinger-ID stillschweigend verwerfen (nicht jeder Teilnehmer hat ein
-    Porträt bei schlussgang.ch/portraet).
-    """
-    namen: set[str] = set()
-    for g in gaenge:
-        for feld in ("schwinger_name", "gegner_name"):
-            n = str(g.get(feld) or "").strip()
-            if n:
-                namen.add(n)
-
-    payload = {"schwinger": []}
-    if path.exists():
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    vorhandene = payload.get("schwinger", [])
-
-    idx = schwinger_index(
-        {
-            str(r.get("id") or schwinger_key(str(r.get("name", "")), r.get("jahrgang"))): SimpleNamespace(
-                name=str(r.get("name", ""))
-            )
-            for r in vorhandene
-            if r.get("name")
-        }
-    )
-
-    hinzugefuegt = 0
-    for name in sorted(namen):
-        if map_name(name, idx) is not None:
-            continue
-        sid = schwinger_key(name, None)
-        vorhandene.append(
-            {
-                "id": sid,
-                "name": name,
-                "jahrgang": None,
-                "kranzstatus": "kein",
-                "quellen": ["schlussgang.ch/statistic-pdf"],
-            }
-        )
-        idx[normalize_name(name)] = sid
-        hinzugefuegt += 1
-
-    if hinzugefuegt:
-        payload["schwinger"] = vorhandene
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    return hinzugefuegt

@@ -1,104 +1,107 @@
 name: Datenpipeline aktualisieren
 
-# NFR-1: neue Feste automatisch < 24 h. Geplanter Lauf (kostenlos, §8).
+# NFR-1: neue Feste automatisch < 24 h im Web verfügbar.
 on:
   schedule:
     - cron: "0 4 * * *" # täglich 04:00 UTC
   workflow_dispatch:
     inputs:
-      source:
-        description: "Datenquelle"
-        type: choice
-        options: ["synth", "scrape"]
-        default: "scrape"
       voller_refetch:
-        description: "Volle Historie neu laden statt nur letzte 7 Tage (zum Cache-Aufbau/-Reparieren)"
+        description: "Volle Historie ab 2023 neu laden (Cache-Aufbau/-Reparatur, ~15-20 min)"
         type: boolean
         default: false
 
 permissions:
   contents: write
 
+concurrency:
+  # Zwei gleichzeitige Läufe würden sich beim Commit der Artefakte in die Quere
+  # kommen und den Rohdaten-Cache widersprüchlich fortschreiben.
+  group: datenpipeline
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
     env:
-      SOURCE: ${{ github.event.inputs.source || 'scrape' }}
       VOLLER_REFETCH: ${{ github.event.inputs.voller_refetch || 'false' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-pipeline.txt
       - run: pip install -r requirements-pipeline.txt
 
-      # artifacts/raw wird NICHT committet (zu gross fürs Repo, s. .gitignore),
-      # muss also über Runs hinweg gecacht werden -- sonst sieht jeder
-      # Cron-Lauf nur das enge --seit-datum-Fenster von heute statt der vollen
-      # Historie (fetch_raw's merge_*_raw_json ist genau dafür gebaut, NFR-1).
-      # Eindeutiger Save-Key + Praefix-Restore = "immer wachsender" Cache.
+      # artifacts/raw wird NICHT committet (gaenge.json allein >50 MB, s.
+      # .gitignore) und muss darum über Läufe hinweg gecacht werden -- sonst
+      # sieht jeder Cron-Lauf nur das Tagesfenster statt der vollen Historie.
+      # Eindeutiger Save-Key + Präfix-Restore = "immer wachsender" Cache.
       - name: Rohdaten-Cache laden
-        if: ${{ env.SOURCE != 'synth' }}
         uses: actions/cache/restore@v4
         with:
           path: artifacts/raw
           key: rohdaten-${{ github.run_id }}
-          restore-keys: |
-            rohdaten-
+          restore-keys: rohdaten-
 
-      - name: Rohdaten holen (Porträts, ESV, abgeschlossene Feste)
-        if: ${{ env.SOURCE != 'synth' }}
+      - name: Rohdaten holen (Porträts, Feste, Statistik-PDFs)
         run: |
           if [ "${VOLLER_REFETCH}" = "true" ]; then
-            python -m pipeline.fetch_raw --sources schlussgang esv events \
-              --materialize-schwinger --seit-datum "2023-01-01" --event-limit 1000
+            python -m pipeline.fetch_raw --seit-datum 2023-01-01
           else
-            SEIT=$(python - <<'PY'
-            import json
-            from datetime import datetime, timedelta
-            from pathlib import Path
-
-            p = Path("artifacts/raw/events.json")
-            fallback = (datetime.utcnow().date() - timedelta(days=30)).isoformat()
-            if not p.exists():
-                print(fallback)
-                raise SystemExit
-            try:
-                payload = json.loads(p.read_text(encoding="utf-8"))
-                events = payload.get("events", [])
-                daten = sorted(str(e.get("datum") or "")[:10] for e in events if e.get("datum"))
-                if not daten:
-                    print(fallback)
-                    raise SystemExit
-                neuestes = datetime.strptime(daten[-1], "%Y-%m-%d").date()
-                print((neuestes - timedelta(days=14)).isoformat())
-            except Exception:
-                print(fallback)
-            PY
-            )
-            python -m pipeline.fetch_raw --sources schlussgang esv events \
-              --materialize-schwinger --seit-datum "$SEIT" --event-limit 500
+            python -m pipeline.fetch_raw --seit-datum auto
           fi
 
       - name: Rohdaten-Cache speichern
-        if: ${{ env.SOURCE != 'synth' && !cancelled() }}
+        if: ${{ !cancelled() }}
         uses: actions/cache/save@v4
         with:
           path: artifacts/raw
           key: rohdaten-${{ github.run_id }}
 
+      # Bricht ab, statt stillschweigend ein auf Bruchteilen trainiertes Modell
+      # zu committen: zu hohe Verlustquote (Verarbeitung kaputt) oder
+      # geschrumpfte Rohabdeckung (Cache verloren). Beim bewussten Neuaufbau
+      # entfällt nur der Vergleich mit dem Vorlauf, nicht die Verlustprüfung.
       - name: Pipeline ausführen
-        run: python -m pipeline.run_pipeline --source "${SOURCE}"
+        run: |
+          if [ "${VOLLER_REFETCH}" = "true" ]; then
+            python -m pipeline.run_pipeline --source scrape --ohne-volumenpruefung
+          else
+            python -m pipeline.run_pipeline --source scrape
+          fi
 
+      - name: Inferenz-Konsistenz prüfen (JSON == sklearn)
+        run: python -m pipeline.verify_inference
+
+      - name: Datenqualität ins Job-Summary
+        if: ${{ !cancelled() }}
+        run: python -m pipeline.datenqualitaet >> "$GITHUB_STEP_SUMMARY"
+
+      # Der Push kann scheitern, wenn während des Laufs jemand auf denselben
+      # Branch gepusht hat (real passiert). Der Lauf hatte dann korrekt neue
+      # Artefakte erzeugt und verwarf sie trotzdem. Darum: rebasen und
+      # nochmals versuchen. Die Artefakte sind reproduzierbare Ableitungen,
+      # ein Rebase darauf ist unkritisch.
       - name: Artefakte committen (falls geändert)
         run: |
           git config user.name "schwingen-ml-bot"
           git config user.email "actions@github.com"
-          git add artifacts/ web/public/data/
+          git add artifacts/ web/public/data/ web/data/
           if git diff --staged --quiet; then
             echo "Keine Änderungen an Artefakten."
-          else
-            git commit -m "chore: Artefakte automatisch aktualisiert ($(date -u +%Y-%m-%d))"
-            git push
+            exit 0
           fi
-    # Vercel deployt automatisch bei neuem Commit (§7).
+          git commit -m "chore: Artefakte automatisch aktualisiert ($(date -u +%Y-%m-%d))"
+          for versuch in 1 2 3; do
+            if git push; then
+              echo "Push erfolgreich (Versuch $versuch)."
+              exit 0
+            fi
+            echo "Push abgelehnt -- hole neuen Stand und rebase (Versuch $versuch) ..."
+            git pull --rebase origin "${GITHUB_REF_NAME}" || exit 1
+          done
+          echo "::error::Push nach 3 Versuchen fehlgeschlagen."
+          exit 1
+    # Vercel deployt automatisch bei neuem Commit.
