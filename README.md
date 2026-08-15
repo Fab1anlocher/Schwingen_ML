@@ -281,6 +281,15 @@ Wettangebot**. Betriebskosten: **$0**.
 
 ## Offene Punkte / bekannte Unsicherheiten
 
+* **Kommende Feste sind leer** (`events.json` -> `kommende: []`). Der
+  Agenda-Scraper (`scrape/agenda.py`) erwartet JSON-LD-`Event`-Blöcke auf
+  `schlussgang.ch/agenda`; er liefert seit mindestens dem 23.07. nichts. Das
+  betrifft nur die Paarungs-Vorschau auf der Feste-Seite, nicht Training oder
+  Prognose. Ungeprüft, weil die Seite aus der Analyse-Umgebung nicht erreichbar
+  war. Verifizieren: `python -c "from pipeline.scrape.agenda import scrape_agenda;
+  print(len(scrape_agenda()))"` — liefert das 0, hat die Seite ihr Markup
+  geändert und der Parser muss neu kalibriert werden.
+
 * **Feste ohne Statistik-PDF** werden bei jedem vollen Refetch erneut
   angefragt (2 s Rate-Limit je Versuch). Ein „hat keine PDF"-Vermerk in
   `events.json` würde den vollen Refetch deutlich verkürzen. Der tägliche
