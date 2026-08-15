@@ -842,14 +842,6 @@
       "ort": "Sursee"
     },
     {
-      "id": "schlussgang-32686",
-      "name": "Abendschwinget Alterswil 2024",
-      "datum": "2024-04-13",
-      "typ": "regional",
-      "quelle": "schlussgang.ch/event",
-      "ort": "Alterswil"
-    },
-    {
       "id": "schlussgang-37059",
       "name": "Frühlingsschwinget Vinelz 2024",
       "datum": "2024-04-13",
@@ -1232,14 +1224,6 @@
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
       "ort": "Davos"
-    },
-    {
-      "id": "schlussgang-22265",
-      "name": "Nordwestschweizer Schwingfest Lausen 2024",
-      "datum": "2024-06-16",
-      "typ": "teilverband",
-      "quelle": "schlussgang.ch/event",
-      "ort": "Lausen"
     },
     {
       "id": "schlussgang-22267",
@@ -1632,14 +1616,6 @@
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
       "ort": "Reinach AG"
-    },
-    {
-      "id": "schlussgang-22222",
-      "name": "Herbstschwinget Siebnen 2024",
-      "datum": "2024-09-22",
-      "typ": "regional",
-      "quelle": "schlussgang.ch/event",
-      "ort": "Siebnen"
     },
     {
       "id": "schlussgang-22223",
@@ -2424,14 +2400,6 @@
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
       "ort": "Obergösgen"
-    },
-    {
-      "id": "schlussgang-21066",
-      "name": "Berner Kantonalschwingfest Langnau im Emmental 2025",
-      "datum": "2025-07-13",
-      "typ": "teilverband",
-      "quelle": "schlussgang.ch/event",
-      "ort": "Langnau i.E"
     },
     {
       "id": "schlussgang-21067",
@@ -3650,20 +3618,116 @@
       "ort": "Rigi Staffel"
     },
     {
-      "id": "ev-2026-test",
-      "name": "Testschwinget",
-      "datum": "2026-07-20",
-      "typ": "kantonal",
-      "quelle": "schlussgang.ch",
-      "ort": null
+      "id": "schlussgang-52184",
+      "name": "Scheidegg-Schwinget ob Grindelwald 2026",
+      "datum": "2026-07-25",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Grindelwald"
     },
     {
-      "id": "ev-2026-draw",
-      "name": "Testschwinget II",
-      "datum": "2026-07-21",
+      "id": "schlussgang-21041",
+      "name": "Sertig-Schwinget Davos 2026",
+      "datum": "2026-07-26",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Davos Sertig"
+    },
+    {
+      "id": "schlussgang-21043",
+      "name": "Südwestschweizer Schwingfest Freiburg 2026",
+      "datum": "2026-07-26",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Fribourg"
+    },
+    {
+      "id": "schlussgang-46196",
+      "name": "Brünig-Schwinget 2026",
+      "datum": "2026-07-26",
+      "typ": "berg",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Brünig Passhöhe"
+    },
+    {
+      "id": "schlussgang-50954",
+      "name": "Bachtel-Schwinget ob Hinwil 2026",
+      "datum": "2026-08-01",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Hinwil"
+    },
+    {
+      "id": "schlussgang-37076",
+      "name": "Bergschwinget Sörenberg 2026",
+      "datum": "2026-08-02",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Sörenberg"
+    },
+    {
+      "id": "schlussgang-43559",
+      "name": "Niklaus-Thut-Schwinget Zofingen 2026",
+      "datum": "2026-08-02",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Zofingen"
+    },
+    {
+      "id": "schlussgang-46138",
+      "name": "Ricken-Schwinget 2026",
+      "datum": "2026-08-02",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Ricken"
+    },
+    {
+      "id": "schlussgang-38132",
+      "name": "Steinegg-Schwinget Himmelried 2026",
+      "datum": "2026-08-09",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "ob Himmelried"
+    },
+    {
+      "id": "schlussgang-46136",
+      "name": "Urnerboden-Schwinget 2026",
+      "datum": "2026-08-09",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Urnerboden"
+    },
+    {
+      "id": "schlussgang-49178",
+      "name": "Bern-Jurassisches Schwingfest Werdtberg 2026",
+      "datum": "2026-08-09",
       "typ": "kantonal",
-      "quelle": "schlussgang.ch",
-      "ort": null
+      "quelle": "schlussgang.ch/event",
+      "ort": "Werdtberg"
+    },
+    {
+      "id": "schlussgang-51251",
+      "name": "Schaffhauser Kantonalschwingfest Schaffhausen 2026",
+      "datum": "2026-08-09",
+      "typ": "kantonal",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schaffhausen"
+    },
+    {
+      "id": "schlussgang-51915",
+      "name": "Frutt-Schwinget Melchsee-Frutt 2026",
+      "datum": "2026-08-09",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Melchsee- Frutt"
+    },
+    {
+      "id": "schlussgang-52181",
+      "name": "Lüderen-Schwinget ob Langnau 2026",
+      "datum": "2026-08-09",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lüderen"
     }
   ],
   "kommende": []
