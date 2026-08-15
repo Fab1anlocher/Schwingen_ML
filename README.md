@@ -290,6 +290,31 @@ Wettangebot**. Betriebskosten: **$0**.
   auseinanderhalten — die nennen nur den Namen, keinen Jahrgang. Ihre Gänge
   werden bewusst verworfen und im Datenqualitätsbericht ausgewiesen, statt
   geraten.
-* **Physis fehlt für die Mehrheit des Kaders** (nur Schwinger mit Porträt haben
-  Gewicht/Grösse/Verband). Die Differenz-Merkmale werden dort mit `0.0`
-  imputiert, tragen also kein Signal.
+* **Fehlende Physis ist nicht zufällig verteilt — und das Modell nutzt das
+  nicht.** Nur Schwinger mit Porträt haben Gewicht/Grösse/Verband, und
+  schlussgang.ch porträtiert vor allem die Spitze. Gemessen an den aktuellen
+  Daten (129'990 Gänge):
+
+  | Paarung | A gewinnt | gestellt | B gewinnt | n |
+  |---|---:|---:|---:|---:|
+  | Porträt vs. Porträt | 34.4 % | 29.9 % | 35.7 % | 37'109 |
+  | Porträt vs. Stub | **67.2 %** | 19.5 % | 13.4 % | 15'967 |
+  | Stub vs. Porträt | 12.5 % | 18.6 % | **68.8 %** | 28'784 |
+  | Stub vs. Stub | 38.9 % | 21.1 % | 40.1 % | 48'130 |
+
+  Gleiche Kategorien sind sauber symmetrisch (kein Zuordnungsfehler), aber ein
+  Schwinger mit Porträt gewinnt gegen einen ohne rund 68 % seiner Gänge. „Hat
+  ein Porträt" ist damit selbst ein starker Stärke-Indikator.
+
+  `features._diff_oder_null` imputiert bei fehlendem Wert eine Differenz von
+  `0.0` — also „beide gleich schwer/gross/alt". Damit wird ein informativer
+  Unterschied als Gleichstand kodiert. Elo fängt den grössten Teil davon ohnehin
+  ein; wer die Physis-Merkmale ernst nehmen will, sollte statt der Null-Imputation
+  ein explizites „Wert fehlt"-Merkmal je Seite ergänzen und den Effekt gegen den
+  Holdout messen.
+
+* **Die aggregierte Ergebnisverteilung ist deshalb nicht 50/50** (35.2 % sieg_a
+  vs. 41.9 % sieg_b). Das ist ein Nebeneffekt obiger Selektion in Kombination
+  damit, wie die kanonische A-Seite bestimmt wird (lexikographisch kleinere ID),
+  kein Label-Fehler: das Training augmentiert jeden Gang gespiegelt und ist
+  dadurch paar-symmetrisch.
