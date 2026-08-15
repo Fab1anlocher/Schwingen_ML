@@ -80,6 +80,18 @@ class TestBaueRoster:
         assert {e["id"] for e in eintraege} == {
             "lukas gisler|1998", "lukas gisler|2003", "hans muster|?"}
 
+    def test_name_mit_zaehler_bekommt_trotz_mehrdeutigkeit_einen_eintrag(self):
+        """Der Zähler macht ihn unterscheidbar -- der Stub ist auflösbar."""
+        portraits = [
+            {"id": "jonas (1) wuthrich|2001", "name": "Jonas (1) Wüthrich", "jahrgang": 2001},
+            {"id": "jonas wuthrich|2003", "name": "Jonas Wüthrich", "jahrgang": 2003},
+        ]
+        eintraege, stat = baue_roster(
+            portraits, [_gang("e1", "Wüthrich Jonas (2)", "Muster Hans")]
+        )
+        assert stat["n_pdf_namen_unaufloesbar"] == 0
+        assert any(e["name"] == "Wüthrich Jonas (2)" for e in eintraege)
+
     def test_namen_aus_gaengen_sammelt_beide_seiten(self):
         assert namen_aus_gaengen([_gang("e1", "A B", "C D")]) == {"A B", "C D"}
 

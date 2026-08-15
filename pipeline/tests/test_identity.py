@@ -65,6 +65,43 @@ class TestNamensindex:
         assert idx.finde("Muster Beat") == "b|2"
 
 
+class TestZaehlerAufloesung:
+    """Der Zähler der Quelle trennt echte Namensvettern.
+
+    Real im Datenqualitätsbericht aufgetaucht: die Statistik-PDFs führen
+    "Wüthrich Jonas (1)" und "Wüthrich Jonas (2)", die Porträts
+    "Jonas (1) Wüthrich" und "Jonas Wüthrich". Wird der Zähler weggeworfen,
+    werden unterscheidbare Personen künstlich mehrdeutig und ihre Gänge
+    verworfen.
+    """
+
+    @staticmethod
+    def _index():
+        return baue_namensindex([
+            {"id": "jonas (1) wuthrich|2001", "name": "Jonas (1) Wüthrich"},
+            {"id": "jonas wuthrich|2003", "name": "Jonas Wüthrich"},
+        ])
+
+    def test_zaehler_loest_namensvetter_auf(self):
+        assert self._index().finde("Wüthrich Jonas (1)") == "jonas (1) wuthrich|2001"
+
+    def test_fehlender_zaehler_wird_nicht_geraten(self):
+        # Ohne Zähler sagt die Quelle nicht, wer gemeint ist -> nicht raten.
+        assert self._index().finde("Wüthrich Jonas") is None
+
+    def test_unbekannter_zaehler_faellt_nicht_auf_falsche_person(self):
+        # "(2)" existiert in den Porträts nicht -> lieber unaufgelöst.
+        assert self._index().finde("Wüthrich Jonas (2)") is None
+
+    def test_zaehler_bleibt_in_der_stub_id(self):
+        assert stub_id("Wüthrich Jonas (1)") != stub_id("Wüthrich Jonas (2)")
+
+    def test_einzelner_gleichnamiger_wird_weiterhin_gefunden(self):
+        # Nur EIN "Lukas Gisler" im Kader -> zählerfreier PDF-Name findet ihn.
+        idx = baue_namensindex([{"id": "lukas gisler|1998", "name": "Lukas 1 Gisler"}])
+        assert idx.finde("Gisler Lukas") == "lukas gisler|1998"
+
+
 class TestStubId:
     def test_ist_reihenfolgeunabhaengig(self):
         # Derselbe Schwinger darf nie zwei IDs bekommen, egal wie das PDF ihn schreibt.

@@ -31,21 +31,41 @@ import re
 from .schema import normalize_name, schwinger_key
 
 # schlussgang.ch hängt bei Namensgleichheit einen Zähler an ("Lukas 1 Gisler",
-# "Marcel (1) Stucki", "Thomas (2) Wüthrich"). Der Zähler steht nur im Porträt,
-# nie im PDF -- als Token würde er den Abgleich verhindern.
+# "Marcel (1) Stucki"). Er steht MEIST nur im Porträt, gelegentlich aber auch
+# im PDF ("Wüthrich Jonas (1)", "Wüthrich Jonas (2)" -- real beobachtet).
+# Darum wird er beim Abgleich zweistufig behandelt, s. Namensindex.finde().
 _ZAEHLER_TOKEN = re.compile(r"^\(?\d{1,2}\)?$")
 
 
-def namens_tokens(name: str) -> tuple[str, ...]:
+def namens_tokens(name: str, *, mit_zaehler: bool = False) -> tuple[str, ...]:
     """Reihenfolgeunabhängiger Identitätsschlüssel eines Namens.
+
+    ``mit_zaehler=False`` (Standard) ignoriert den Unterscheidungs-Zähler --
+    damit findet "Gisler Lukas" das Porträt "Lukas 1 Gisler".
+    ``mit_zaehler=True`` behält ihn und trennt damit echte Namensvettern.
 
     >>> namens_tokens("Dominik Gasser") == namens_tokens("Gasser Dominik")
     True
     >>> namens_tokens("Lukas 1 Gisler") == namens_tokens("Gisler Lukas")
     True
+    >>> namens_tokens("Wüthrich Jonas (1)", mit_zaehler=True) != \
+        namens_tokens("Wüthrich Jonas (2)", mit_zaehler=True)
+    True
     """
-    tokens = [t for t in normalize_name(name).split() if not _ZAEHLER_TOKEN.match(t)]
+    tokens = normalize_name(name).split()
+    if not mit_zaehler:
+        tokens = [t for t in tokens if not _ZAEHLER_TOKEN.match(t)]
     return tuple(sorted(tokens))
+
+
+def hat_zaehler(name: str) -> bool:
+    """Trägt der Name einen Unterscheidungs-Zähler ("(1)", "1")?
+
+    Ein vorhandener Zähler ist ein positiver Hinweis der Quelle, WELCHER von
+    mehreren Gleichnamigen gemeint ist. Sein Fehlen ist dagegen KEIN Hinweis --
+    darum wird nur auf vorhandene Zähler hin aufgelöst, nie auf ihr Fehlen.
+    """
+    return any(_ZAEHLER_TOKEN.match(t) for t in normalize_name(name).split())
 
 
 class Namensindex:
@@ -59,6 +79,7 @@ class Namensindex:
 
     def __init__(self) -> None:
         self._nach_tokens: dict[tuple[str, ...], str] = {}
+        self._mit_zaehler: dict[tuple[str, ...], str] = {}
         self.mehrdeutig: set[tuple[str, ...]] = set()
 
     def __len__(self) -> int:
@@ -73,8 +94,21 @@ class Namensindex:
             self._nach_tokens[key] = sid
         elif vorhanden != sid:
             self.mehrdeutig.add(key)
+        if hat_zaehler(name):
+            self._mit_zaehler.setdefault(namens_tokens(name, mit_zaehler=True), sid)
 
     def finde(self, name: str) -> str | None:
+        """Name -> Schwinger-ID, oder None wenn nicht eindeutig auflösbar.
+
+        Zuerst über den Zähler, falls der Name einen trägt: die Quelle sagt
+        damit selbst, welcher von mehreren Gleichnamigen gemeint ist
+        (PDF "Wüthrich Jonas (1)" == Porträt "Jonas (1) Wüthrich"). Erst danach
+        über die zählerfreie Form -- und die nur, wenn sie eindeutig ist.
+        """
+        if hat_zaehler(name):
+            treffer = self._mit_zaehler.get(namens_tokens(name, mit_zaehler=True))
+            if treffer is not None:
+                return treffer
         key = namens_tokens(name)
         if not key or key in self.mehrdeutig:
             return None
@@ -96,6 +130,8 @@ def stub_id(name: str) -> str:
     """Deterministische ID für einen Schwinger ohne Porträt (nur PDF-Name).
 
     Basiert auf der sortierten Token-Menge, damit derselbe Schwinger unabhängig
-    von der Schreibreihenfolge im PDF immer dieselbe ID bekommt.
+    von der Schreibreihenfolge im PDF immer dieselbe ID bekommt. Ein
+    Unterscheidungs-Zähler bleibt erhalten -- sonst fielen "Wüthrich Jonas (1)"
+    und "Wüthrich Jonas (2)" auf dieselbe ID zusammen.
     """
-    return schwinger_key(" ".join(namens_tokens(name)), None)
+    return schwinger_key(" ".join(namens_tokens(name, mit_zaehler=True)), None)

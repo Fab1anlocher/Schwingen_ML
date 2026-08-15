@@ -11,7 +11,7 @@ hätten. Genau daran ist der tägliche Update-Lauf 20-mal in Folge gescheitert.
 """
 from __future__ import annotations
 
-from .identity import Namensindex, baue_namensindex, namens_tokens, stub_id
+from .identity import Namensindex, baue_namensindex, hat_zaehler, namens_tokens, stub_id
 
 # Felder, die nur intern beim Porträt-Scrapen anfallen (Bild, Suchstrings, ...).
 _INTERNE_FELDER = "portrait_"
@@ -53,12 +53,14 @@ def baue_roster(portraits: list[dict], gaenge: list[dict]) -> tuple[list[dict], 
         if index.finde(name) is not None:
             zugeordnet += 1
             continue
-        if namens_tokens(name) in index.mehrdeutig:
-            # Mehrere echte Personen dieses Namens (verschiedene Jahrgänge), das
-            # PDF nennt aber nur den Namen -- eine Zuordnung wäre geraten. Auch
+        if namens_tokens(name) in index.mehrdeutig and not hat_zaehler(name):
+            # Mehrere echte Personen dieses Namens, und das PDF nennt hier
+            # keinen Unterscheidungs-Zähler -- eine Zuordnung wäre geraten. Auch
             # kein Stub: den könnte lade_echte_daten aus demselben Grund nie
             # auflösen, er bliebe ein toter Kadereintrag. Die betroffenen Gänge
-            # werden beim Einlesen verworfen und dort gezählt.
+            # werden beim Einlesen verworfen und dort gezählt. Trägt der Name
+            # dagegen einen Zähler, ist er unterscheidbar und bekommt unten
+            # einen eigenen Eintrag.
             unaufloesbar.append(name)
             continue
         sid = stub_id(name)
