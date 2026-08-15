@@ -126,7 +126,14 @@ Der Lauf **bricht ab, statt schlechte Daten zu committen**, wenn
 * die abgeleiteten Gänge einbrechen, obwohl die Rohabdeckung stimmt.
 
 Ist der Cache je verloren, einmalig **Actions → Datenpipeline aktualisieren →
-Run workflow → „Volle Historie ab 2023 neu laden"** starten (~15–20 min).
+Run workflow → „Volle Historie ab 2023 neu laden"** starten.
+
+> **Laufzeit-Warnung:** Ein voller Refetch dauert **mehrere Stunden**, nicht die
+> früher dokumentierten 15–20 Minuten. Der Grund: es wird pro Fest eine
+> Statistik-PDF angefragt (2 s Rate-Limit, NFR-4), auch für Feste, die gar keine
+> haben. Die alte Angabe stimmte nur, weil der Workflow ein hartes
+> `--event-limit 1000` mitgab, das die Historie stillschweigend abschnitt.
+> Der tägliche inkrementelle Lauf ist davon nicht betroffen.
 
 ---
 
@@ -160,7 +167,7 @@ python -m pytest pipeline/tests -q               # ~97 Tests
 ### Pipeline — echte Daten
 
 ```bash
-# 1. Rohdaten holen (volle Historie; dauert 15-20 min)
+# 1. Rohdaten holen (volle Historie; dauert MEHRERE STUNDEN, s. oben)
 python -m pipeline.fetch_raw --seit-datum 2023-01-01
 
 #    …oder nur nachführen, was seit dem letzten Lauf dazukam:
@@ -268,3 +275,27 @@ werden nicht gespeichert — fürs Modell nur der **Jahrgang**.
 
 Nicht-kommerzielles Hobby-Projekt. Prognosen sind informativ und **kein
 Wettangebot**. Betriebskosten: **$0**.
+
+---
+
+## Offene Punkte / bekannte Unsicherheiten
+
+* **Wirkt der Datumsfilter der Fest-API?** `scrape_events` setzt
+  `filter[datum][…][operator]=>=`. Beobachtet wurde, dass auch ein enges
+  Zeitfenster sehr lange lädt — was dafür spräche, dass der Filter serverseitig
+  nicht greift und jeder Lauf faktisch die ganze Fest-Liste durchgeht (nur die
+  PDF-Downloads sind teuer). Verifizieren: einen Lauf mit engem `--seit-datum`
+  starten und im Log `"N abgeschlossene Feste gefunden"` gegen die tatsächlich
+  erwartete Zahl halten. Falls der Filter nicht greift, clientseitig nach Datum
+  filtern, bevor PDFs geholt werden — das würde den täglichen Lauf deutlich
+  verkürzen.
+* **Feste ohne Statistik-PDF** werden bei jedem vollen Refetch erneut
+  angefragt. Ein „hat keine PDF"-Vermerk in `events.json` würde das sparen.
+* **Drei echte Namensvettern** (Roman Bucher 2002/2003, Christian Zemp
+  2000/2004, Jonas Wüthrich 2001/2003) lassen sich aus den Statistik-PDFs nicht
+  auseinanderhalten — die nennen nur den Namen, keinen Jahrgang. Ihre Gänge
+  werden bewusst verworfen und im Datenqualitätsbericht ausgewiesen, statt
+  geraten.
+* **Physis fehlt für die Mehrheit des Kaders** (nur Schwinger mit Porträt haben
+  Gewicht/Grösse/Verband). Die Differenz-Merkmale werden dort mit `0.0`
+  imputiert, tragen also kein Signal.
