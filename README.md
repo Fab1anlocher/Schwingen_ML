@@ -27,7 +27,7 @@ Verbesserung, egal wie aufwendig es ist.
 |---|---|
 | **Prognose** | Zwei Schwinger wählen → Sieg-A/Gestellt/Sieg-B-Wahrscheinlichkeit mit Merkmalsbeiträgen, Kopf-an-Kopf-Historie, teilbarer Link (`?a=…&b=…`). |
 | **Schwinger** | Alle erfassten Schwinger, durchsuchbar, nach Elo sortiert. Profil zeigt Überraschungs-Index (Elo-erwartete vs. tatsächliche Leistung) und per KNN ähnliche Schwinger. |
-| **Feste** | Vergangene Feste; kommende Feste inkl. Paarungs-Vorschau, sofern die Agenda welche ausweist. |
+| **Feste** | Vergangene Feste; kommende Feste der nächsten 60 Tage. Je veröffentlichter Paarung Prognose + informative Quote; sind noch keine publiziert, Favoritenliste plus hypothetische Spitzenpaarung. |
 | **Karte** | Choroplethen-Karte (Elo-Schnitt, Siegquote, Anteil Top-Schwinger, Kaderbreite) — Bern nach seinen 6 Gauverbänden statt als ein Kanton. |
 | **Typen** | K-Means-Clustering über das volle Schwinger-Profil, Cluster-Anzahl per Silhouette-Score gewählt, mit PCA-Streudiagramm. |
 | **Analyse** | Modellgüte vs. Elo-Baseline, Konfusionsmatrix, Merkmalswichtigkeit, 4-Wege-Benchmark. |
@@ -44,7 +44,7 @@ Datenbestände — alles ist jederzeit aus der Quelle reproduzierbar.
 | Abgeschlossene Feste | JSON:API `backend-api.schlussgang.ch/jsonapi/node/event` (gefiltert auf `field_event_state=finished`) | `scrape/schlussgang_resultate.py` |
 | Gänge (Symbol + Note je Gang) | Statistik-PDF je Fest (`…/event-ranking-list/<nid>-statistic-final.pdf`) | `scrape/schlussgang_pdf.py` |
 | Porträts (Gewicht, Grösse, Verband, Kranzstatus, Schwünge) | JSON:API `node/portrait` | `scrape/schlussgang_portraet.py` |
-| Kommende Feste | JSON-LD der Agenda-Seite | `scrape/agenda.py` |
+| Kommende Feste | JSON:API `node/event`, ab heute (Agenda-HTML als Fallback) | `scrape/agenda.py` |
 
 `scrape/http.py` ist ein höflicher Client: Rate-Limit pro Host, echter
 User-Agent, `robots.txt` wird respektiert.
@@ -158,7 +158,7 @@ Python-Abhängigkeiten (`requirements-pipeline.txt`): `numpy`, `scikit-learn`,
 pip install -r requirements-pipeline.txt
 python -m pipeline.run_pipeline --source synth   # erzeugt alle Artefakte
 python -m pipeline.verify_inference              # Inferenz-Konsistenz
-python -m pytest pipeline/tests -q               # ~97 Tests
+python -m pytest pipeline/tests -q               # 124 Tests
 ```
 
 > `--source synth` **überschreibt die Artefakte** mit Demodaten. Danach
@@ -217,6 +217,7 @@ pipeline/                  Python-Datenpipeline
   fetch_raw.py               CLI: Webquellen → artifacts/raw
   run_pipeline.py            Orchestrator (8 Stufen)
   datenqualitaet.py          Qualitätsbericht aus report.json
+  diagnose_agenda.py         CLI: warum die Vorschau "kommende Feste" leer ist
   verify_inference.py        Cross-Check: TS-Inferenz == sklearn-Modell
   synth.py                   Synthetischer Datensatz (offline/CI)
   scrape/                    schlussgang.ch-Scraper + Rohdaten-Einlesen
@@ -252,6 +253,29 @@ auf.
   TypeScript; `verify_inference.py` prüft bei jedem Lauf, dass beide identisch
   rechnen.
 
+### Warum der ältere Schwinger beim Alters-Merkmal im Vorteil ist
+
+`alter_diff` (Alter A − Alter B) hat für `sieg_a` einen **positiven**
+Koeffizienten (+0.0197). Älter zu sein zählt im Modell also leicht **für**
+einen Schwinger — was der Anschauung „Frische" widerspricht, aber genau das
+ist, was in den Daten steht:
+
+| A ist … | n | Sieg A | gestellt | Sieg B |
+|---|---:|---:|---:|---:|
+| älter | 17'074 | **40.0 %** | 29.6 % | 30.3 % |
+| gleich alt | 2'135 | 33.9 % | 30.2 % | 36.0 % |
+| jünger | 17'900 | 29.1 % | 30.1 % | **40.8 %** |
+
+Der Zusammenhang ist über den ganzen Bereich monoton (bei −12 Jahren 23.2 %
+Siegquote, bei +12 Jahren 45.4 %). Im Aktivschwinger-Feld heisst „älter" in
+aller Regel „ausgereift", nicht „verbraucht"; die Jüngsten sind 18–21 und noch
+im Aufbau. Das Merkmal ist mit Koeffizient 0.0197 gegenüber `rating_diff`
+(0.747) allerdings rund 38-mal schwächer — Elo trägt den Löwenanteil, `alter_diff`
+nur einen Rest, den Elo noch nicht eingepreist hat.
+
+Die UI beschriftet das Merkmal deshalb neutral mit **„Alter"**. Der frühere
+Titel „Frische" behauptete eine Richtung, die das Modell nie gelernt hat.
+
 Fehlende Werte (z. B. Gewicht bei Schwingern ohne Porträt) werden in den
 Differenz-Merkmalen als `0.0` imputiert — die Merkmale tragen für solche Paare
 also kein Signal.
@@ -281,14 +305,24 @@ Wettangebot**. Betriebskosten: **$0**.
 
 ## Offene Punkte / bekannte Unsicherheiten
 
-* **Kommende Feste sind leer** (`events.json` -> `kommende: []`). Der
-  Agenda-Scraper (`scrape/agenda.py`) erwartet JSON-LD-`Event`-Blöcke auf
-  `schlussgang.ch/agenda`; er liefert seit mindestens dem 23.07. nichts. Das
-  betrifft nur die Paarungs-Vorschau auf der Feste-Seite, nicht Training oder
-  Prognose. Ungeprüft, weil die Seite aus der Analyse-Umgebung nicht erreichbar
-  war. Verifizieren: `python -c "from pipeline.scrape.agenda import scrape_agenda;
-  print(len(scrape_agenda()))"` — liefert das 0, hat die Seite ihr Markup
-  geändert und der Parser muss neu kalibriert werden.
+* **Kommende Feste kamen aus der falschen Quelle** (behoben, aber noch nicht
+  gegen die echte Quelle verifiziert). Der Scraper las ausschliesslich
+  JSON-LD-`Event`-Blöcke aus dem HTML von `schlussgang.ch/agenda` und lieferte
+  dauerhaft `kommende: []`. Primärquelle ist jetzt dieselbe JSON:API, aus der
+  auch die 466 abgeschlossenen Feste kommen — nur ohne `finished`-Filter und ab
+  heute. Das HTML bleibt als Fallback. Beide Pfade werden protokolliert und im
+  Datenqualitätsbericht ausgewiesen.
+
+  Verifizieren (braucht Netzzugriff auf schlussgang.ch):
+
+  ```bash
+  python -m pipeline.diagnose_agenda
+  ```
+
+  Das prüft robots.txt, JSON:API und Agenda-HTML einzeln und sagt, welche Stufe
+  klemmt. Bleibt der Kalender mitten in der Saison leer, steht der Grund seither
+  auch im Job-Summary des Actions-Laufs statt nur in einer weggedruckten
+  Ausnahme.
 
 * **Feste ohne Statistik-PDF** werden bei jedem vollen Refetch erneut
   angefragt (2 s Rate-Limit je Versuch). Ein „hat keine PDF"-Vermerk in

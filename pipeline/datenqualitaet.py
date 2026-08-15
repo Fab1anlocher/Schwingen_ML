@@ -20,6 +20,18 @@ GRENZE_UNVOLLSTAENDIG = 0.10
 GRENZE_TAGE_OHNE_FEST = 21
 
 
+def _tausender(wert) -> str:
+    """Zahl mit Schweizer Tausendertrennung; fehlende Werte als "?".
+
+    Vorher stand hier ``f"{wert:,}"`` direkt auf dem Rohwert -- mit dem
+    Default "?" (Report ohne ``datenbasis``) warf das ``ValueError`` und riss
+    den kompletten Qualitätsbericht mit, statt eine Lücke auszuweisen.
+    """
+    if not isinstance(wert, (int, float)):
+        return "?"
+    return f"{wert:,}".replace(",", "'")
+
+
 def _ampel(ok: bool, warn: bool = False) -> str:
     return "⚠️" if warn else ("✅" if ok else "❌")
 
@@ -44,8 +56,8 @@ def _zeilen(report: dict) -> list[str]:
     unvollstaendig = dq.get("anteil_unvollstaendiger_gaenge")
 
     z += ["| Kennzahl | Wert | Status |", "|---|---:|:--:|"]
-    z += [f"| Gänge (dedupliziert) | {basis.get('n_gaenge', '?'):,} | |".replace(",", "'")]
-    z += [f"| Schwinger im Kader | {basis.get('n_schwinger', '?'):,} | |".replace(",", "'")]
+    z += [f"| Gänge (dedupliziert) | {_tausender(basis.get('n_gaenge'))} | |"]
+    z += [f"| Schwinger im Kader | {_tausender(basis.get('n_schwinger'))} | |"]
     if zeitraum:
         z += [f"| Zeitraum der Feste | {zeitraum.get('von')} – {zeitraum.get('bis')} | |"]
     if tage is not None:
@@ -58,6 +70,21 @@ def _zeilen(report: dict) -> list[str]:
         z += [f"| Gänge mit nur einer Perspektive | {unvollstaendig:.1%} | "
               f"{_ampel(unvollstaendig <= GRENZE_UNVOLLSTAENDIG, warn=unvollstaendig > GRENZE_UNVOLLSTAENDIG)} |"]
     z += [""]
+
+    # Kommende Feste (FR-2). Mitten in der Saison ist eine leere Vorschau ein
+    # Fehler der Beschaffung, kein Normalzustand -- darum mit Ampel und Grund.
+    kf = dq.get("kommende_feste")
+    if kf is not None:
+        n = kf.get("n", 0)
+        z += ["**Kommende Feste (Vorschau)**", ""]
+        z += [f"- {_ampel(n > 0, warn=n == 0)} {n} Fest(e) geladen"
+              + (f", Quelle `{kf.get('quelle')}`" if kf.get("quelle") else "")
+              + (f", nächstes am {kf['naechstes']}" if kf.get("naechstes") else "")]
+        z += [f"- davon mit veröffentlichten Paarungen: {kf.get('n_mit_paarungen', 0)}"]
+        for v in kf.get("versuche") or []:
+            if v.get("fehler"):
+                z.append(f"- Pfad `{v.get('pfad')}` fehlgeschlagen: {v['fehler']}")
+        z.append("")
 
     if dq.get("roh_eintraege_verworfen"):
         z += ["**Verworfene Roh-Einträge nach Grund**", ""]

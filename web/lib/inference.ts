@@ -75,7 +75,10 @@ const BEITRAG_TEXT: Record<string, { titel: string; unter: string }> = {
   rating_abstand: { titel: "Ausgeglichenheit", unter: "Wie nah die Ratings liegen" },
   form_diff: { titel: "Aktuelle Form", unter: "Letzte Gänge" },
   kranz_diff: { titel: "Kranzstärke", unter: "Kranzstatus" },
-  alter_diff: { titel: "Frische", unter: "Altersunterschied" },
+  // NICHT "Frische": das Modell lernt aus den Daten das Gegenteil davon —
+  // der ältere Schwinger gewinnt häufiger (empirisch 40.0 % vs. 29.1 %).
+  // Der Titel muss richtungsneutral bleiben, die Richtung kommt aus dem Modell.
+  alter_diff: { titel: "Alter", unter: "Altersunterschied in Jahren" },
   gewicht_diff: { titel: "Gewicht & Physis", unter: "Körpermasse" },
   groesse_diff: { titel: "Körpergrösse", unter: "Grössenunterschied" },
   erfahrung_diff: { titel: "Erfahrung", unter: "Anzahl Gänge" },

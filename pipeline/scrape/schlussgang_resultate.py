@@ -13,7 +13,7 @@ import json
 from pathlib import Path
 from urllib.parse import urlencode
 
-from .agenda import typ_von_name
+from .agenda import KATEGORIE_TYP as _KATEGORIE_TYP, typ_von_name
 from .http import hole
 from .schlussgang_pdf import parse_pdf_bytes, pdf_url
 
@@ -21,19 +21,6 @@ from . import EVENT_ID_PRAEFIX  # noqa: E402  (eine Quelle der Wahrheit)
 
 EVENT_LIST_URL = "https://backend-api.schlussgang.ch/jsonapi/node/event"
 
-# Taxonomie "event_tags" (field_category) -> config.FEST_TYPEN. Jungschwingen/
-# Frauenschwingen/Nationalturnen haben keine eigene Skalenstufe und fallen
-# mangels Alternative auf "regional".
-_KATEGORIE_TYP = {
-    "Eidgenössische Anlässe": "eidgenoessisch",
-    "Bergkranzfest": "berg",
-    "Teilverbandsfest": "teilverband",
-    "Kantonal-/Gaufest": "kantonal",
-    "Regionalfeste": "regional",
-    "Jungschwingen": "regional",
-    "Frauenschwingen": "regional",
-    "Nationalturnen": "regional",
-}
 
 
 def _listen_url(offset: int, limit: int, *, seit_datum: str, typ: str) -> str:

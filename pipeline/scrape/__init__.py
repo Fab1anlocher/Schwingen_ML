@@ -202,11 +202,15 @@ def lade_echte_daten(*, mit_bericht: bool = False):
     return schwinger, events, roh
 
 
-def lade_kommende_feste():
-    """Kommende Feste + auf Schwinger-IDs gemappte Paarungen (FR-2)."""
-    from .agenda import scrape_agenda
+def lade_kommende_feste(*, heute=None):
+    """Kommende Feste + auf Schwinger-IDs gemappte Paarungen (FR-2).
 
-    kommende = scrape_agenda()
+    Rückgabe: ``(feste, diagnose)``. Die Diagnose landet im Qualitätsbericht,
+    damit ein leerer Kalender als Befund erkennbar ist statt als Stille.
+    """
+    from .agenda import lade_kommende
+
+    kommende, diagnose = lade_kommende(heute=heute)
     raw_s = _lade_raw_json("schwinger.json", {"schwinger": []}).get("schwinger", [])
     index = baue_namensindex(raw_s)
     for fest in kommende:
@@ -219,4 +223,6 @@ def lade_kommende_feste():
         if gemappt:
             fest["paarungen"] = gemappt
         fest.pop("paarungen_namen", None)
-    return kommende
+    diagnose["n_feste"] = len(kommende)
+    diagnose["n_mit_paarungen"] = sum(1 for f in kommende if f.get("paarungen"))
+    return kommende, diagnose
