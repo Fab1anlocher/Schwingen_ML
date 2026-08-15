@@ -79,6 +79,11 @@ jobs:
         if: ${{ !cancelled() }}
         run: python -m pipeline.datenqualitaet >> "$GITHUB_STEP_SUMMARY"
 
+      # Der Push kann scheitern, wenn während des Laufs jemand auf denselben
+      # Branch gepusht hat (real passiert). Der Lauf hatte dann korrekt neue
+      # Artefakte erzeugt und verwarf sie trotzdem. Darum: rebasen und
+      # nochmals versuchen. Die Artefakte sind reproduzierbare Ableitungen,
+      # ein Rebase darauf ist unkritisch.
       - name: Artefakte committen (falls geändert)
         run: |
           git config user.name "schwingen-ml-bot"
@@ -86,8 +91,17 @@ jobs:
           git add artifacts/ web/public/data/ web/data/
           if git diff --staged --quiet; then
             echo "Keine Änderungen an Artefakten."
-          else
-            git commit -m "chore: Artefakte automatisch aktualisiert ($(date -u +%Y-%m-%d))"
-            git push
+            exit 0
           fi
+          git commit -m "chore: Artefakte automatisch aktualisiert ($(date -u +%Y-%m-%d))"
+          for versuch in 1 2 3; do
+            if git push; then
+              echo "Push erfolgreich (Versuch $versuch)."
+              exit 0
+            fi
+            echo "Push abgelehnt -- hole neuen Stand und rebase (Versuch $versuch) ..."
+            git pull --rebase origin "${GITHUB_REF_NAME}" || exit 1
+          done
+          echo "::error::Push nach 3 Versuchen fehlgeschlagen."
+          exit 1
     # Vercel deployt automatisch bei neuem Commit.

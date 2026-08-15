@@ -129,11 +129,12 @@ Ist der Cache je verloren, einmalig **Actions → Datenpipeline aktualisieren �
 Run workflow → „Volle Historie ab 2023 neu laden"** starten.
 
 > **Laufzeit-Warnung:** Ein voller Refetch dauert **mehrere Stunden**, nicht die
-> früher dokumentierten 15–20 Minuten. Der Grund: es wird pro Fest eine
-> Statistik-PDF angefragt (2 s Rate-Limit, NFR-4), auch für Feste, die gar keine
-> haben. Die alte Angabe stimmte nur, weil der Workflow ein hartes
+> früher dokumentierten 15–20 Minuten. Der Grund ist die schiere Menge: pro Fest
+> wird eine Statistik-PDF angefragt (2 s Rate-Limit, NFR-4), auch für Feste, die
+> gar keine haben. Die alte Angabe stimmte nur, weil der Workflow ein hartes
 > `--event-limit 1000` mitgab, das die Historie stillschweigend abschnitt.
-> Der tägliche inkrementelle Lauf ist davon nicht betroffen.
+> Der **tägliche inkrementelle Lauf ist davon nicht betroffen** — gemessen:
+> 13 Feste in 72 Sekunden, kompletter Job inkl. Training unter 2 Minuten.
 
 ---
 
@@ -280,17 +281,10 @@ Wettangebot**. Betriebskosten: **$0**.
 
 ## Offene Punkte / bekannte Unsicherheiten
 
-* **Wirkt der Datumsfilter der Fest-API?** `scrape_events` setzt
-  `filter[datum][…][operator]=>=`. Beobachtet wurde, dass auch ein enges
-  Zeitfenster sehr lange lädt — was dafür spräche, dass der Filter serverseitig
-  nicht greift und jeder Lauf faktisch die ganze Fest-Liste durchgeht (nur die
-  PDF-Downloads sind teuer). Verifizieren: einen Lauf mit engem `--seit-datum`
-  starten und im Log `"N abgeschlossene Feste gefunden"` gegen die tatsächlich
-  erwartete Zahl halten. Falls der Filter nicht greift, clientseitig nach Datum
-  filtern, bevor PDFs geholt werden — das würde den täglichen Lauf deutlich
-  verkürzen.
 * **Feste ohne Statistik-PDF** werden bei jedem vollen Refetch erneut
-  angefragt. Ein „hat keine PDF"-Vermerk in `events.json` würde das sparen.
+  angefragt (2 s Rate-Limit je Versuch). Ein „hat keine PDF"-Vermerk in
+  `events.json` würde den vollen Refetch deutlich verkürzen. Der tägliche
+  inkrementelle Lauf ist nicht betroffen (13 Feste in 72 s gemessen).
 * **Drei echte Namensvettern** (Roman Bucher 2002/2003, Christian Zemp
   2000/2004, Jonas Wüthrich 2001/2003) lassen sich aus den Statistik-PDFs nicht
   auseinanderhalten — die nennen nur den Namen, keinen Jahrgang. Ihre Gänge
