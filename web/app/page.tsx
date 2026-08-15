@@ -199,9 +199,15 @@ function metaZeile(s: Schwinger | undefined): string {
   const teile: string[] = [];
   if (s.teilverband) teile.push(s.teilverband);
   if (s.jahrgang) teile.push(`Jg. ${s.jahrgang}`);
-  if (s.anzahl_kraenze > 0)
-    teile.push(`${s.anzahl_kraenze} Kranz${s.anzahl_kraenze === 1 ? "" : "gewinne"}`);
+  if (s.anzahl_kraenze > 0) teile.push(kraenzeText(s.anzahl_kraenze));
   return teile.join(" · ");
+}
+
+/** "N Kränze seit 2023" — der Zusatz ist nicht Kosmetik: gezählt wird nur, was
+ *  in der Datenbasis liegt (Feste ab 2023), nicht die Karriere-Bilanz. Ohne
+ *  ihn liest sich "3 Kranzgewinne" bei einem Eidgenossen schlicht als falsch. */
+function kraenzeText(n: number): string {
+  return `${n} ${n === 1 ? "Kranz" : "Kränze"} seit 2023`;
 }
 
 /** vs-Banner-Metazeile: Teilverband + Kränze (bewusst ohne Elo — die interne
@@ -209,7 +215,6 @@ function metaZeile(s: Schwinger | undefined): string {
 function vsMeta(s: Schwinger): string {
   const teile: string[] = [];
   if (s.teilverband) teile.push(s.teilverband);
-  if (s.anzahl_kraenze > 0)
-    teile.push(`${s.anzahl_kraenze} Kranz${s.anzahl_kraenze === 1 ? "" : "gewinne"}`);
+  if (s.anzahl_kraenze > 0) teile.push(kraenzeText(s.anzahl_kraenze));
   return teile.join(" · ");
 }

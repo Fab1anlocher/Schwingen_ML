@@ -26,7 +26,38 @@ _SPALTEN = [(0.0, 200.0), (200.0, 380.0), (380.0, 600.0)]
 _RANG_RE = re.compile(r"^\d+[a-z]?$")
 _SYMBOL_RE = re.compile(r"^[+\-o]$")
 _NOTE_RE = re.compile(r"^\d{1,2}\.\d{2}$")
-_STERN_RE = re.compile(r"^\*{1,3}$")
+# Kranz-Markierung in der Kopfzeile. Die Statistik-PDFs setzen den Stern
+# uneinheitlich: mal als eigenes Token zwischen Name und Punktetotal, mal
+# direkt am Namen klebend ("Meier**"), mal hinter dem Total. pdfplumber
+# trennt nur an Leerzeichen, ein klebender Stern bleibt also Teil des
+# Namens-Tokens. Die frühere Prüfung sah ausschliesslich EINE Position --
+# das letzte Token vor dem Total -- und übersah dadurch den Grossteil der
+# Kränze (650 statt der ~3'000 plausiblen).
+_STERN_ZEICHEN = "*\u2217\u2731\u204e\uff0a"
+_STERN_RE = re.compile(rf"^[{re.escape(_STERN_ZEICHEN)}]{{1,3}}$")
+_STERN_SUFFIX_RE = re.compile(rf"^(.+?)[{re.escape(_STERN_ZEICHEN)}]{{1,3}}$")
+
+
+def _kranz_abtrennen(tokens: list[str]) -> tuple[bool, list[str]]:
+    """Sterne aus einer Token-Liste entfernen; True, wenn welche da waren.
+
+    Sucht an JEDER Position, nicht nur am Ende, und löst auch Sterne, die
+    ohne Leerzeichen am vorangehenden Token hängen. Ein Stern kann weder
+    Teil eines Namens noch einer Note sein, das Abtrennen ist also gefahrlos.
+    """
+    kranz = False
+    sauber: list[str] = []
+    for tok in tokens:
+        if _STERN_RE.match(tok):
+            kranz = True
+            continue
+        treffer = _STERN_SUFFIX_RE.match(tok)
+        if treffer:
+            kranz = True
+            tok = treffer.group(1)
+        if tok:
+            sauber.append(tok)
+    return kranz, sauber
 
 
 def pdf_url(nid: int | str) -> str:
@@ -98,16 +129,13 @@ def tabellen_bloecke(pages_words: Iterable[list[dict]]) -> list[dict]:
             erstes = tokens[0]
             if _RANG_RE.match(erstes) and len(tokens) >= 2:
                 rest = tokens[1:]
+                # Sterne ZUERST abtrennen: steht der Stern hinter dem Total,
+                # war das letzte Token vorher nicht die Note, das Total ging
+                # verloren und der Stern landete mitsamt Total im Namen.
+                kranz, rest = _kranz_abtrennen(rest)
                 total = None
                 if rest and _NOTE_RE.match(rest[-1]):
                     total = float(rest[-1])
-                    rest = rest[:-1]
-                # Sterne in der Kopfzeile = Kranz an DIESEM Fest (offizielle
-                # PDF-Spalte "Kranz-Sterne", s. Moduldocstring) -- vorher
-                # geparst und sofort verworfen; jetzt für die Kranz-Zählung
-                # (Schwinger-Seite) festgehalten statt weggeworfen.
-                kranz = bool(rest and _STERN_RE.match(rest[-1]))
-                if kranz:
                     rest = rest[:-1]
                 name = " ".join(rest)
                 if not name:
@@ -121,11 +149,13 @@ def tabellen_bloecke(pages_words: Iterable[list[dict]]) -> list[dict]:
                 if aktuell is None:
                     continue
                 rest = tokens[1:]
+                # Sterne in der Gang-Zeile markieren keinen Kranz, müssen aber
+                # weg -- klebten sie am Gegnernamen, war der Name nicht mehr
+                # auflösbar und der Gang fiel still aus dem Training.
+                _, rest = _kranz_abtrennen(rest)
                 note = None
                 if rest and _NOTE_RE.match(rest[-1]):
                     note = float(rest[-1])
-                    rest = rest[:-1]
-                if rest and _STERN_RE.match(rest[-1]):
                     rest = rest[:-1]
                 gegner_name = " ".join(rest)
                 if not gegner_name:

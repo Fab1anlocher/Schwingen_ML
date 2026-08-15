@@ -197,3 +197,50 @@ def test_bericht_ueberlebt_report_ohne_datenbasis():
     assert _tausender(None) == "?"
     text = "\n".join(_zeilen({"datenqualitaet": {"anteil_unvollstaendiger_gaenge": 0.16}}))
     assert "Gänge (dedupliziert) | ?" in text
+
+
+# --- Kranz-Plausibilität ---------------------------------------------------
+
+def _gang(event_id, a, b, *, kranz_a=False, kranz_b=False, typ="kantonal"):
+    from pipeline.labels import GangResultat
+
+    return GangResultat(
+        event_id=event_id, datum="2026-05-01", schwinger_a_id=a, schwinger_b_id=b,
+        symbol_a="+", note_a=10.0, symbol_b="o", note_b=8.5, ergebnis="sieg_a",
+        fest_typ=typ, kranz_a=kranz_a, kranz_b=kranz_b,
+    )
+
+
+class _Ev:
+    def __init__(self, id, typ):
+        self.id, self.typ, self.datum, self.name = id, typ, "2026-05-01", id
+
+
+def test_kranzquote_meldet_kaputte_sternerkennung():
+    from pipeline.run_pipeline import _kranz_plausibilitaet
+
+    # 20 Teilnehmer an einem Kantonalfest, kein einziger Kranz erkannt.
+    gaenge = [_gang("ev1", f"s{i}", f"s{i + 1}") for i in range(0, 20, 2)]
+    res = _kranz_plausibilitaet(gaenge, [_Ev("ev1", "kantonal")])
+    assert res["n_kranzfeste"] == 1
+    assert res["kranzquote_median"] == 0.0
+    assert res["plausibel"] is False
+    assert res["kranzfeste_ohne_kranz"] == 1
+
+
+def test_kranzquote_im_erwartungsband_ist_plausibel():
+    from pipeline.run_pipeline import _kranz_plausibilitaet
+
+    # 10 Teilnehmer, 2 davon mit Kranz -> 20 %.
+    gaenge = [_gang("ev1", f"s{i}", f"s{i + 1}") for i in range(0, 10, 2)]
+    gaenge.append(_gang("ev1", "s0", "s2", kranz_a=True, kranz_b=True))
+    res = _kranz_plausibilitaet(gaenge, [_Ev("ev1", "kantonal")])
+    assert res["plausibel"] is True
+    assert res["kraenze_gesamt"] == 2
+
+
+def test_regionalfeste_zaehlen_nicht_als_kranzfeste():
+    from pipeline.run_pipeline import _kranz_plausibilitaet
+
+    gaenge = [_gang("ev1", "a", "b", typ="regional")]
+    assert _kranz_plausibilitaet(gaenge, [_Ev("ev1", "regional")])["n_kranzfeste"] == 0

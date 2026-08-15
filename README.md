@@ -158,7 +158,7 @@ Python-Abhängigkeiten (`requirements-pipeline.txt`): `numpy`, `scikit-learn`,
 pip install -r requirements-pipeline.txt
 python -m pipeline.run_pipeline --source synth   # erzeugt alle Artefakte
 python -m pipeline.verify_inference              # Inferenz-Konsistenz
-python -m pytest pipeline/tests -q               # 124 Tests
+python -m pytest pipeline/tests -q               # 134 Tests
 ```
 
 > `--source synth` **überschreibt die Artefakte** mit Demodaten. Danach
@@ -323,6 +323,34 @@ Wettangebot**. Betriebskosten: **$0**.
   klemmt. Bleibt der Kalender mitten in der Saison leer, steht der Grund seither
   auch im Job-Summary des Actions-Laufs statt nur in einer weggedruckten
   Ausnahme.
+
+* **Kranz-Zahlen sind zu tief, bis ein voller Refetch gelaufen ist.** Der
+  PDF-Parser suchte den Kranz-Stern nur an genau einer Position: dem letzten
+  Token vor dem Punktetotal. Tatsächlich steht er mal davor, mal dahinter, mal
+  klebt er ohne Leerzeichen am Namen (`Meier**`) — pdfplumber trennt nur an
+  Leerzeichen. Ergebnis: **650 gezählte Kränze statt der ~3'000 plausiblen**
+  (146 Kranzfeste × Ø 145 Teilnehmer × 12–18 % Kranzquote), 13 von 57
+  Eidgenossen mit null Kränzen.
+
+  Dieselbe Ursache erklärt einen Teil der nicht auflösbaren Namen: blieb der
+  Stern am Namen hängen, war der Schwinger nicht mehr zuzuordnen, und bei
+  `Name Total *` wanderte sogar das Punktetotal in den Namen.
+
+  `_kranz_abtrennen` sucht Sterne jetzt an jeder Position, gelöst und klebend,
+  inkl. Unicode-Varianten. **Die Korrektur wirkt erst nach einem vollen
+  Refetch**, weil `artifacts/raw/gaenge.json` die bereits geparsten Einträge
+  hält und die PDFs selbst nicht gecacht sind:
+
+  **Actions → Datenpipeline aktualisieren → Run workflow → „Volle Historie ab
+  2023 neu laden"** (mehrere Stunden, s. Laufzeit-Warnung oben).
+
+  Ob es gewirkt hat, steht danach im Qualitätsbericht unter
+  **Kranz-Erkennung**: die Kranzquote je Kranzfest muss im Band 8–25 % liegen.
+
+* **Kränze zählen nur Feste ab 2023**, nicht die Karriere. Die Prognose-Seite
+  weist das jetzt aus („3 Kränze seit 2023"); vorher stand dort bloss
+  „3 Kranzgewinne", was bei einem Eidgenossen wie ein Fehler aussieht — und
+  wegen des Parser-Fehlers oben auch einer war.
 
 * **Feste ohne Statistik-PDF** werden bei jedem vollen Refetch erneut
   angefragt (2 s Rate-Limit je Versuch). Ein „hat keine PDF"-Vermerk in
