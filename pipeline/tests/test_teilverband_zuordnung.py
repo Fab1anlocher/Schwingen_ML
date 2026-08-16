@@ -121,3 +121,33 @@ def test_alle_fuenf_teilverbaende_abgedeckt():
     assert {tv for tv, _ in _muster_aus_typescript()} == {
         "Bern", "Innerschweiz", "Nordostschweiz", "Nordwestschweiz", "Suedwestschweiz"
     }
+
+
+def test_typescript_fallback_stimmt_mit_python_ueberein():
+    """Zwei Implementierungen derselben Regel -- sie dürfen nicht auseinanderlaufen.
+
+    Massgeblich ist Python (die Pipeline schreibt das Ergebnis ins Artefakt);
+    das TS-Modul ist nur der Fallback für Artefakte ohne das Feld.
+    """
+    from pipeline.teilnehmerkreis import TEILVERBAND_MUSTER as PY_MUSTER
+
+    ts = {tv: rx.pattern for tv, rx in _muster_aus_typescript()}
+    py = {tv: rx.pattern for tv, rx in PY_MUSTER}
+    assert set(ts) == set(py)
+    for tv in py:
+        # Leerzeichen/Zeilenumbrüche der Quelltext-Formatierung ignorieren.
+        assert ts[tv].replace(" ", "") == py[tv].replace(" ", "").replace("\n", ""), tv
+
+
+def test_beide_implementierungen_urteilen_gleich(echte_feste):
+    from pipeline.teilnehmerkreis import teilverband_aus_name
+
+    muster = _muster_aus_typescript()
+    for event, _ in echte_feste:
+        ts_urteil = _teilverband(event["name"], event["typ"], muster)
+        py_urteil = teilverband_aus_name(event["name"], event["typ"])
+        # Das TS-Modul kennt nur teilverband/kantonal; Python schränkt
+        # zusätzlich offene Typen aus. Bei Regionalfesten darf Python mehr
+        # erkennen -- verglichen wird darum nur, wo TS überhaupt urteilt.
+        if event["typ"] in BESCHRAENKTE_TYPEN:
+            assert ts_urteil == py_urteil, event["name"]

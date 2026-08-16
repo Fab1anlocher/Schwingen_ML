@@ -129,11 +129,9 @@ function FestCard({
               keine Startliste
             </span>
             {(() => {
-              const tv = teilverbandFuerFest(fest.name, fest.typ);
+              const tv = kreisFuerFest(fest);
               return tv
-                ? `Stärkste aktive Schwinger des Teilverbands ${TV_LABEL[tv] ?? tv} — an ${
-                    fest.typ === "teilverband" ? "einem Teilverbandsfest" : "einem Kantonalfest"
-                  } startet fast nur, wer ihm angehört. Wer tatsächlich antritt, gibt erst die Startliste her.`
+                ? `Stärkste aktive Schwinger des Teilverbands ${TV_LABEL[tv] ?? tv} — an diesem Fest startet fast nur, wer ihm angehört. Wer tatsächlich antritt, gibt erst die Startliste her.`
                 : "Offenes Feld: an diesem Fest können Schwinger aus allen Teilverbänden starten. Gezeigt sind die stärksten aktiven — nicht die gemeldeten.";
             })()}
           </p>
@@ -300,6 +298,14 @@ function SpitzenpaarungVorschau({
   );
 }
 
+/** Teilnehmerkreis eines Fests: was die Pipeline ermittelt hat, sonst das
+ *  Namensmuster. `teilverband: null` aus der Pipeline heisst ausdrücklich
+ *  "offenes Feld" und darf NICHT auf das Namensmuster zurückfallen. */
+function kreisFuerFest(fest: KommendesFest): string | null {
+  if ("teilverband" in fest) return fest.teilverband ?? null;
+  return teilverbandFuerFest(fest.name, fest.typ);
+}
+
 function baueFavoriten(
   fest: KommendesFest,
   model: ModelArtifact,
@@ -313,7 +319,10 @@ function baueFavoriten(
   // Nordwestschweizer Fest also sechs Namen, von denen keiner antritt.
   // Ein Fest-Bonus (berg/eidgenössisch) stand hier zusätzlich im Code, war
   // aber wirkungslos: für alle gleich, kürzt sich in der Rangfolge weg.
-  const teilverband = teilverbandFuerFest(fest.name, fest.typ);
+  // Bevorzugt der von der Pipeline aus der Vorausgabe bestimmte Kreis
+  // (deckt auch Regionalfeste ab, deren Name nur einen Ort nennt). Das
+  // Namensmuster greift nur bei Artefakten ohne dieses Feld.
+  const teilverband = kreisFuerFest(fest);
   return Object.entries(ratings.ratings)
     .map(([id, r]) => {
       const s = byId[id];

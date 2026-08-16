@@ -351,6 +351,12 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
                 f"{kommende_diagnose.get('versuche')}",
                 flush=True,
             )
+    if kommende:
+        from .teilnehmerkreis import bestimme_teilnehmerkreis
+        bestimme_teilnehmerkreis(kommende, events, gaenge, schwinger)
+        eingeschraenkt = sum(1 for f in kommende if f.get("teilverband"))
+        print(f"      Teilnehmerkreis bestimmt: {eingeschraenkt}/{len(kommende)} Feste "
+              "auf einen Teilverband eingeschränkt", flush=True)
     export.exportiere_events(events, kommende)
     report = export.exportiere_report(
         train_res, baseline, warnungen, len(gaenge), len(schwinger),

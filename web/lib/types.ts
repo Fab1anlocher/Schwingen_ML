@@ -71,6 +71,10 @@ export interface KommendesFest {
   typ: string;
   ort?: string;
   quelle?: string;
+  /** Teilverband, dessen Schwinger hier starten; null/fehlend = offenes Feld.
+   *  Kommt aus pipeline/teilnehmerkreis.py (Vorausgabe des Fests). */
+  teilverband?: string | null;
+  teilverband_quelle?: string;
   paarungen?: { a_id: string; b_id: string }[];
 }
 

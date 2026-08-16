@@ -1,4 +1,10 @@
-// Teilnehmerkreis eines Fests aus seinem Namen ableiten.
+// Teilnehmerkreis eines Fests aus seinem Namen ableiten — FALLBACK.
+//
+// Massgeblich ist `KommendesFest.teilverband` aus dem Artefakt: die Pipeline
+// bestimmt den Kreis aus den Teilnehmern der Vorausgabe desselben Fests
+// (pipeline/teilnehmerkreis.py) und deckt damit auch Regionalfeste ab, deren
+// Name nur einen Ort nennt ("Herbstschwinget Unteriberg"). Diese Muster
+// greifen nur bei Artefakten, die das Feld noch nicht führen.
 //
 // Warum das nötig ist: an Teilverbands- und Kantonalfesten startet fast
 // ausschliesslich, wer dem betreffenden Verband angehört. Gemessen an den
@@ -31,7 +37,7 @@ export const TEILVERBAND_MUSTER: [string, RegExp][] = [
   ],
   [
     "Nordostschweiz",
-    /\b(nordostschweizer|appenzeller|glarner|bündner|schaffhauser|st\.\s*galler|thurgauer|zürcher)\b/,
+    /\b(nordostschweizer|appenzeller|glarner|bündner|schaffhauser|st\.\s*galler|thurgauer|toggenburger|zürcher)\b/,
   ],
   [
     "Nordwestschweiz",
