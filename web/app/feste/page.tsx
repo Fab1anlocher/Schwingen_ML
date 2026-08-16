@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ladeEvents, ladeModel, ladeRatings, ladeSchwinger } from "@/lib/data";
 import { prognostiziere } from "@/lib/inference";
 import { ladeKopfAnKopf, kopfAnKopfVorteilA } from "@/lib/kopfAnKopf";
+import { teilverbandFuerFest } from "@/lib/teilverband";
 import type {
   EventsArtifact,
   ModelArtifact,
@@ -14,6 +15,12 @@ import type {
 
 // Spiegelt pipeline/scrape/agenda.HORIZONT_TAGE — wie weit die Vorschau reicht.
 const HORIZONT_TAGE = 60;
+
+// "Suedwestschweiz" ist der Datenwert (ASCII-Schlüssel), nicht die Schreibweise
+// für die Anzeige.
+const TV_LABEL: Record<string, string> = {
+  Suedwestschweiz: "Südwestschweiz",
+};
 
 const TYP_LABEL: Record<string, string> = {
   eidgenoessisch: "Eidgenössisches",
@@ -119,9 +126,16 @@ function FestCard({
         <>
           <p className="muted small" style={{ marginTop: "0.75rem" }}>
             <span className="badge" style={{ marginRight: 6 }}>
-              Paarungen noch offen
+              keine Startliste
             </span>
-            Favoriten-/Kranz-Prognose (rating-basiert, informativ).
+            {(() => {
+              const tv = teilverbandFuerFest(fest.name, fest.typ);
+              return tv
+                ? `Stärkste aktive Schwinger des Teilverbands ${TV_LABEL[tv] ?? tv} — an ${
+                    fest.typ === "teilverband" ? "einem Teilverbandsfest" : "einem Kantonalfest"
+                  } startet fast nur, wer ihm angehört. Wer tatsächlich antritt, gibt erst die Startliste her.`
+                : "Offenes Feld: an diesem Fest können Schwinger aus allen Teilverbänden starten. Gezeigt sind die stärksten aktiven — nicht die gemeldeten.";
+            })()}
           </p>
           {favoriten.length > 0 && (
             <div className="tabelle-wrap" style={{ marginTop: "0.5rem" }}>
@@ -293,15 +307,20 @@ function baueFavoriten(
   byId: Record<string, Schwinger>
 ) {
   const ord = model.config.kranzstatus_ordinal;
-  // Ein Fest-Bonus (berg/eidgenössisch) war hier wirkungslos: er ist für jeden
-  // Schwinger derselbe und kürzt sich in der Rangfolge weg — die Liste war für
-  // JEDES Fest identisch. Was den Unterschied macht, ist der Aktiv-Filter:
-  // ratings.ratings enthält auch zurückgetretene Schwinger (1058 Einträge),
-  // die in einer Favoritenliste nichts verloren haben.
+  // An Teilverbands- und Kantonalfesten startet fast nur, wer dem Verband
+  // angehört (79–97 %, s. lib/teilverband.ts). Ohne diesen Filter zeigte die
+  // Liste an JEDEM Fest dieselben national stärksten Schwinger — an einem
+  // Nordwestschweizer Fest also sechs Namen, von denen keiner antritt.
+  // Ein Fest-Bonus (berg/eidgenössisch) stand hier zusätzlich im Code, war
+  // aber wirkungslos: für alle gleich, kürzt sich in der Rangfolge weg.
+  const teilverband = teilverbandFuerFest(fest.name, fest.typ);
   return Object.entries(ratings.ratings)
     .map(([id, r]) => {
       const s = byId[id];
       if (!s || !s.aktiv) return null;
+      // Ohne erfassten Teilverband (Schwinger ohne Porträt) lässt sich die
+      // Startberechtigung nicht beurteilen — dann lieber weglassen als raten.
+      if (teilverband && s.teilverband !== teilverband) return null;
       const kranz = ord[s.kranzstatus] ?? 0;
       return { id, name: s.name, elo: r.elo, kranz: s.kranzstatus, index: r.elo + kranz * 25 };
     })
