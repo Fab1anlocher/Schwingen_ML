@@ -1,26 +1,26 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-08-15T06:23:46.687085+00:00",
-  "lauf_id": "20260815T062346Z",
+  "erstellt": "2026-08-16T04:35:53.534326+00:00",
+  "lauf_id": "20260816T043553Z",
   "seed": 42,
   "datenbasis": {
-    "n_gaenge": 129990,
-    "n_schwinger": 2884
+    "n_gaenge": 129676,
+    "n_schwinger": 2897
   },
   "holdout_jahr": 2026,
-  "n_train": 192216,
-  "n_test": 67764,
+  "n_train": 191542,
+  "n_test": 67810,
   "modell": {
-    "log_loss": 0.8321,
-    "accuracy": 0.6391
+    "log_loss": 0.832,
+    "accuracy": 0.6389
   },
   "baseline_elo": {
-    "log_loss": 0.9523,
-    "accuracy": 0.5983
+    "log_loss": 0.9524,
+    "accuracy": 0.5982
   },
   "schlaegt_baseline": true,
   "accuracy_gg_baseline": 0.0407,
-  "verbesserung_log_loss": 0.1202,
+  "verbesserung_log_loss": 0.1205,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -28,19 +28,19 @@
   ],
   "konfusionsmatrix": [
     [
-      21317,
-      469,
-      5001
+      21326,
+      472,
+      5008
     ],
     [
-      6759,
-      672,
-      6759
+      6764,
+      670,
+      6764
     ],
     [
-      5001,
-      469,
-      21317
+      5007,
+      472,
+      21327
     ]
   ],
   "erfolgskriterien": {
@@ -49,8 +49,6 @@
     "gesamt_erfuellt": true
   },
   "parsing_warnungen": [
-    "schlussgang-38142 brander ruedi|?/koch silvan|?: Inkonsistente Symbole: A='o' erwartet B='+', gefunden B='o' -> verworfen",
-    "schlussgang-33468 gehrig ueli|?/mathias wuthrich|?: Inkonsistente Symbole: A='+' erwartet B='o', gefunden B='-' -> verworfen",
     "schlussgang-54093 andre reichmuth|?/inderbitzin tobias|?: nur eine Perspektive vorhanden",
     "schlussgang-45973 marco ulrich|1997/matter roman|?: Inkonsistente Symbole: A='+' erwartet B='o', gefunden B='+' -> verworfen",
     "schlussgang-21055 joel kessler|1997/kaj hugli|1997: nur eine Perspektive vorhanden",
@@ -98,43 +96,62 @@
     "schlussgang-21055 fankhauser reto|?/janik korrodi|2004: nur eine Perspektive vorhanden",
     "schlussgang-21055 janik korrodi|2004/tobias dunner|2005: nur eine Perspektive vorhanden",
     "schlussgang-21055 florian ulrich|?/leandro nageli|2003: Inkonsistente Symbole: A='o' erwartet B='+', gefunden B='o' -> verworfen",
-    "schlussgang-21055 florian ulrich|?/silvan trittibach|2004: nur eine Perspektive vorhanden"
+    "schlussgang-21055 florian ulrich|?/silvan trittibach|2004: nur eine Perspektive vorhanden",
+    "schlussgang-21055 erb roger|?/florian ulrich|?: nur eine Perspektive vorhanden",
+    "schlussgang-21055 florian ulrich|?/luis hasler|2002: nur eine Perspektive vorhanden"
   ],
-  "n_parsing_warnungen": 21319,
+  "n_parsing_warnungen": 21227,
   "datenqualitaet": {
     "warnungen_nach_kategorie": {
-      "inkonsistente_symbole": 63,
-      "nur_eine_perspektive": 21256
+      "nur_eine_perspektive": 21169,
+      "inkonsistente_symbole": 58
     },
-    "anteil_unvollstaendiger_gaenge": 0.1635,
+    "anteil_unvollstaendiger_gaenge": 0.1632,
     "ergebnisverteilung": {
-      "gestellt": 0.2285,
-      "sieg_a": 0.3524,
-      "sieg_b": 0.4191
+      "gestellt": 0.2284,
+      "sieg_a": 0.3519,
+      "sieg_b": 0.4197
     },
     "feste_zeitraum": {
       "von": "2023-04-01",
       "bis": "2026-08-09"
     },
-    "tage_seit_juengstem_fest": 6,
+    "tage_seit_juengstem_fest": 7,
+    "kommende_feste": {
+      "n": 14,
+      "n_mit_paarungen": 0,
+      "quelle": "jsonapi",
+      "versuche": [
+        {
+          "pfad": "jsonapi",
+          "n": 14
+        }
+      ],
+      "naechstes": "2026-08-16"
+    },
     "roh_eintraege_gelesen": 243479,
-    "roh_eintraege_uebernommen": 241748,
+    "roh_eintraege_uebernommen": 241159,
     "roh_eintraege_verworfen": {
-      "name_nicht_aufloesbar": 1724,
+      "name_nicht_aufloesbar": 2313,
       "schwinger_gegen_sich_selbst": 7
     },
-    "verlustquote": 0.0071,
+    "verlustquote": 0.0095,
     "feste_gelesen": 466,
     "feste_uebernommen": 466,
     "feste_verworfen": {},
-    "schwinger_im_kader": 2884,
-    "unaufloesbare_namen": 5,
+    "schwinger_im_kader": 2897,
+    "unaufloesbare_namen": 10,
     "beispiele_unaufloesbare_namen": [
       "Wüthrich Jonas",
       "Zemp Christian",
       "Bucher Roman",
-      "Wüthrich Jonas (1)",
-      "Wüthrich Jonas (2)"
+      "Gerber Adrian",
+      "Zemp Silvan",
+      "Koch Silvan",
+      "Herger Elias",
+      "Aegerter Manuel",
+      "Portmann Jonas",
+      "Betschart Fabian"
     ]
   }
 }

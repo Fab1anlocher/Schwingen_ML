@@ -3730,5 +3730,132 @@
       "ort": "Lüderen"
     }
   ],
-  "kommende": []
+  "kommende": [
+    {
+      "id": "schlussgang-21038",
+      "name": "Nordwestschweizer Schwingfest Mümliswil 2026",
+      "datum": "2026-08-16",
+      "typ": "teilverband",
+      "kategorie": "Teilverbandsfest",
+      "ort": "Mümliswil",
+      "quelle": "schlussgang.ch/event"
+    },
+    {
+      "id": "schlussgang-21039",
+      "name": "Schwägalp-Schwinget 2026",
+      "datum": "2026-08-16",
+      "typ": "berg",
+      "kategorie": "Bergkranzfest",
+      "ort": "Schwägalp AR",
+      "quelle": "schlussgang.ch/event"
+    },
+    {
+      "id": "schlussgang-50010",
+      "name": "Engstlenalp-Schwinget ob Innertkirchen 2026",
+      "datum": "2026-08-22",
+      "typ": "regional",
+      "kategorie": "Regionalfeste",
+      "ort": "Engstlenalp",
+      "quelle": "schlussgang.ch/event"
+    },
+    {
+      "id": "schlussgang-50988",
+      "name": "Wartenberg-Schwinget Muttenz 2026",
+      "datum": "2026-08-22",
+      "typ": "regional",
+      "kategorie": "Regionalfeste",
+      "ort": "Muttenz",
+      "quelle": "schlussgang.ch/event"
+    },
+    {
+      "id": "schlussgang-52071",
+      "name": "Kilbischwinget Einsiedeln 2026",
+      "datum": "2026-08-23",
+      "typ": "regional",
+      "kategorie": "Regionalfeste",
+      "ort": "Einsiedeln",
+      "quelle": "schlussgang.ch/event"
+    },
+    {
+      "id": "schlussgang-52038",
+      "name": "Kemmeriboden-Schwinget Schangnau 2026",
+      "datum": "2026-08-30",
+      "typ": "regional",
+      "kategorie": "Regionalfeste",
+      "ort": "Kemmeribodenbad",
+      "quelle": "schlussgang.ch/event"
+    },
+    {
+      "id": "schlussgang-46147",
+      "name": "Kilchberger Schwinget Kilchberg 2026",
+      "datum": "2026-09-05",
+      "typ": "eidgenoessisch",
+      "kategorie": "Eidgenössische Anlässe",
+      "ort": "Kilchberg ZH",
+      "quelle": "schlussgang.ch/event"
+    },
+    {
+      "id": "schlussgang-48341",
+      "name": "Allweg-Schwinget Ennetmoos 2026",
+      "datum": "2026-09-13",
+      "typ": "regional",
+      "kategorie": "Regionalfeste",
+      "ort": "Ennetmoos",
+      "quelle": "schlussgang.ch/event"
+    },
+    {
+      "id": "schlussgang-51858",
+      "name": "Lueg-Schwinget Kaltacker 2026",
+      "datum": "2026-09-13",
+      "typ": "regional",
+      "kategorie": "Regionalfeste",
+      "ort": "Lueg Kaltacker",
+      "quelle": "schlussgang.ch/event"
+    },
+    {
+      "id": "schlussgang-51612",
+      "name": "Toggenburger Herbstschwinget Bütschwil 2026",
+      "datum": "2026-09-13",
+      "typ": "regional",
+      "kategorie": "Regionalfeste",
+      "ort": "Bütschwil",
+      "quelle": "schlussgang.ch/event"
+    },
+    {
+      "id": "schlussgang-52146",
+      "name": "Chemihütte-Schwinget Aeschiried 2026",
+      "datum": "2026-09-27",
+      "typ": "regional",
+      "kategorie": "Regionalfeste",
+      "ort": "Aeschiried",
+      "quelle": "schlussgang.ch/event"
+    },
+    {
+      "id": "schlussgang-37073",
+      "name": "Herbstschwinget Schachen 2026",
+      "datum": "2026-09-27",
+      "typ": "regional",
+      "kategorie": "Regionalfeste",
+      "ort": "Schachen",
+      "quelle": "schlussgang.ch/event"
+    },
+    {
+      "id": "schlussgang-52024",
+      "name": "Herbstschwinget Siebnen 2026",
+      "datum": "2026-09-27",
+      "typ": "regional",
+      "kategorie": "Regionalfeste",
+      "ort": "Siebnen",
+      "quelle": "schlussgang.ch/event"
+    },
+    {
+      "id": "schlussgang-52069",
+      "name": "Herbstschwinget Unteriberg 2026",
+      "datum": "2026-10-04",
+      "typ": "regional",
+      "kategorie": "Regionalfeste",
+      "ort": "Unteriberg",
+      "quelle": "schlussgang.ch/event"
+    }
+  ]
 }
