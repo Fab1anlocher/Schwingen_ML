@@ -158,7 +158,7 @@ Python-Abhängigkeiten (`requirements-pipeline.txt`): `numpy`, `scikit-learn`,
 pip install -r requirements-pipeline.txt
 python -m pipeline.run_pipeline --source synth   # erzeugt alle Artefakte
 python -m pipeline.verify_inference              # Inferenz-Konsistenz
-python -m pytest pipeline/tests -q               # 134 Tests
+python -m pytest pipeline/tests -q               # 140 Tests
 ```
 
 > `--source synth` **überschreibt die Artefakte** mit Demodaten. Danach
@@ -218,6 +218,7 @@ pipeline/                  Python-Datenpipeline
   run_pipeline.py            Orchestrator (8 Stufen)
   datenqualitaet.py          Qualitätsbericht aus report.json
   diagnose_agenda.py         CLI: warum die Vorschau "kommende Feste" leer ist
+  diagnose_kranz.py          CLI: was der Kranz-Stern in der PDF bedeutet
   verify_inference.py        Cross-Check: TS-Inferenz == sklearn-Modell
   synth.py                   Synthetischer Datensatz (offline/CI)
   scrape/                    schlussgang.ch-Scraper + Rohdaten-Einlesen
@@ -324,33 +325,62 @@ Wettangebot**. Betriebskosten: **$0**.
   auch im Job-Summary des Actions-Laufs statt nur in einer weggedruckten
   Ausnahme.
 
-* **Kranz-Zahlen sind zu tief, bis ein voller Refetch gelaufen ist.** Der
-  PDF-Parser suchte den Kranz-Stern nur an genau einer Position: dem letzten
-  Token vor dem Punktetotal. Tatsächlich steht er mal davor, mal dahinter, mal
-  klebt er ohne Leerzeichen am Namen (`Meier**`) — pdfplumber trennt nur an
-  Leerzeichen. Ergebnis: **650 gezählte Kränze statt der ~3'000 plausiblen**
-  (146 Kranzfeste × Ø 145 Teilnehmer × 12–18 % Kranzquote), 13 von 57
-  Eidgenossen mit null Kränzen.
+* **Die Kranz-Zahlen sind falsch, und die Ursache ist noch nicht abschliessend
+  geklärt.** Zwei Defekte stapeln sich:
 
-  Dieselbe Ursache erklärt einen Teil der nicht auflösbaren Namen: blieb der
-  Stern am Namen hängen, war der Schwinger nicht mehr zuzuordnen, und bei
-  `Name Total *` wanderte sogar das Punktetotal in den Namen.
+  **(a) Der Stern wurde nur an einer Position gesucht.** Die Kopfzeilen-Analyse
+  prüfte ausschliesslich das letzte Token vor dem Punktetotal. Real steht der
+  Stern an wechselnden Stellen, und pdfplumber trennt nur an Leerzeichen — ein
+  klebender Stern (`Meier**`) bleibt Teil des Namens. Von fünf realistischen
+  Varianten kam genau eine sauber durch; in dreien landete der Stern oder gar
+  das Punktetotal im Namen, womit der Schwinger nicht mehr auflösbar war.
+  `_kranz_abtrennen` sucht jetzt an jeder Position, gelöst wie klebend, inkl.
+  Unicode-Varianten.
 
-  `_kranz_abtrennen` sucht Sterne jetzt an jeder Position, gelöst und klebend,
-  inkl. Unicode-Varianten. **Die Korrektur wirkt erst nach einem vollen
-  Refetch**, weil `artifacts/raw/gaenge.json` die bereits geparsten Einträge
-  hält und die PDFs selbst nicht gecacht sind:
+  **(b) Unklar ist, was der Stern überhaupt bedeutet.** Zwei Deutungen sind mit
+  der Quelle vereinbar:
 
-  **Actions → Datenpipeline aktualisieren → Run workflow → „Volle Historie ab
-  2023 neu laden"** (mehrere Stunden, s. Laufzeit-Warnung oben).
+  | Deutung | erwartete Sternquote je Fest | Folge für `_anzahl_kraenze` |
+  |---|---|---|
+  | Kranzgewinn an diesem Fest | 12–18 %, lückenlos auf den vordersten Rängen | Zählung ist richtig angesetzt |
+  | Statusabzeichen des Schwingers | jeder Kranzer an *jedem* Fest, über das ganze Rangfeld gestreut | zählt faktisch besuchte Feste — unbrauchbar |
 
-  Ob es gewirkt hat, steht danach im Qualitätsbericht unter
-  **Kranz-Erkennung**: die Kranzquote je Kranzfest muss im Band 8–25 % liegen.
+  Die zweite Deutung ist nicht aus der Luft gegriffen: im Porträt bedeutet
+  `field_portrait_wreath_status` mit `*`/`**`/`***` genau den **Status**
+  (Kranzer/Eidgenosse), nicht eine Anzahl. Solange das offen ist, kann Fix (a)
+  die Zahlen ebenso gut verschlimmern wie verbessern.
 
-* **Kränze zählen nur Feste ab 2023**, nicht die Karriere. Die Prognose-Seite
-  weist das jetzt aus („3 Kränze seit 2023"); vorher stand dort bloss
-  „3 Kranzgewinne", was bei einem Eidgenossen wie ein Fehler aussieht — und
-  wegen des Parser-Fehlers oben auch einer war.
+  **Entscheiden lässt sich das in einem Lauf** (braucht Netzzugriff):
+
+  ```bash
+  python -m pipeline.diagnose_kranz
+  ```
+
+  Es lädt eine echte Statistik-PDF eines Kranzfests, misst die Sternquote und
+  prüft, ob die Sterne ein lückenloses Rang-Präfix bilden — das unterscheidet
+  die beiden Deutungen eindeutig. Zusätzlich listet es alle Felder eines
+  Porträts ohne `fields[]`-Filter auf, um ein Feld mit der **Karriere**-Kranzzahl
+  zu finden.
+
+  Der Qualitätsbericht weist die Kranzquote je Kranzfest seither gegen ein
+  Erwartungsband von 8–25 % aus und schlägt in **beide** Richtungen an: zu
+  wenige Sterne (Parser findet sie nicht) wie zu viele (Statusabzeichen).
+
+  Die Korrektur wirkt ohnehin erst nach **Actions → Datenpipeline aktualisieren
+  → Run workflow → „Volle Historie ab 2023 neu laden"**, weil
+  `artifacts/raw/gaenge.json` die bereits geparsten Einträge hält und die PDFs
+  selbst nicht gecacht sind.
+
+* **Kränze zählen nur Feste ab 2023**, nicht die Karriere. Das erklärt einen
+  Teil der Diskrepanz unabhängig von den Punkten oben: Fabian Staudenmann hat
+  über seine Laufbahn ein Vielfaches der hier gezählten Kränze. Die
+  Prognose-Seite weist den Zeitbezug jetzt aus („3 Kränze seit 2023"); vorher
+  stand dort bloss „3 Kranzgewinne".
+
+* **`_status_counts` erfand Zahlen.** Die Funktion leitete aus dem Statustext
+  („Eidgenosse"/„Kranzer") eine Tabelle `{"Kränze": 1, "ESAF": 0, …}` ab und
+  gab sie als Zählung aus. Das waren keine Daten aus der Quelle, sondern eine
+  aus einem Kategorienamen erfundene Eins. Entfernt.
 
 * **Feste ohne Statistik-PDF** werden bei jedem vollen Refetch erneut
   angefragt (2 s Rate-Limit je Versuch). Ein „hat keine PDF"-Vermerk in

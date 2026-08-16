@@ -144,7 +144,12 @@ def tabellen_bloecke(pages_words: Iterable[list[dict]]) -> list[dict]:
                     continue
                 if aktuell is not None:
                     bloecke.append(aktuell)
-                aktuell = {"name": name, "total": total, "kranz": kranz, "gaenge": []}
+                # Der Rang wurde bisher nur als Zeilenmarker benutzt und dann
+                # verworfen. Er ist der einzige Weg zu prüfen, ob die Sterne
+                # auf den vorderen Rängen sitzen (= Kranzgewinn) oder über das
+                # ganze Feld streuen (= Statusabzeichen des Schwingers).
+                aktuell = {"rang": erstes, "name": name, "total": total,
+                           "kranz": kranz, "gaenge": []}
             elif _SYMBOL_RE.match(erstes):
                 if aktuell is None:
                     continue

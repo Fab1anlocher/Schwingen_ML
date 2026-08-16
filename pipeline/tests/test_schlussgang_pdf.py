@@ -107,3 +107,13 @@ def test_stern_am_gegnernamen_verfaelscht_den_namen_nicht():
     b = tabellen_bloecke([woerter])[0]
     assert b["gaenge"][0]["gegner_name"] == "Peter Muster"
     assert b["gaenge"][0]["note"] == 9.75
+
+
+def test_rang_wird_mitgefuehrt():
+    """Der Rang war nur Zeilenmarker und wurde verworfen. Ohne ihn lässt sich
+    nicht prüfen, ob die Sterne auf den vorderen Rängen sitzen (Kranzgewinn)
+    oder über das Feld streuen (Statusabzeichen)."""
+    b = tabellen_bloecke([_kopf("7", "Hans", "Meier", "*", "57.50")])[0]
+    assert b["rang"] == "7"
+    b2 = tabellen_bloecke([_kopf("3a", "Lisa", "Kunz", "55.00")])[0]
+    assert b2["rang"] == "3a"
