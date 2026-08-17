@@ -1,26 +1,26 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-08-16T04:35:53.534326+00:00",
-  "lauf_id": "20260816T043553Z",
+  "erstellt": "2026-08-17T04:41:58.330476+00:00",
+  "lauf_id": "20260817T044158Z",
   "seed": 42,
   "datenbasis": {
-    "n_gaenge": 129676,
+    "n_gaenge": 130303,
     "n_schwinger": 2897
   },
   "holdout_jahr": 2026,
   "n_train": 191542,
-  "n_test": 67810,
+  "n_test": 69064,
   "modell": {
-    "log_loss": 0.832,
-    "accuracy": 0.6389
+    "log_loss": 0.8314,
+    "accuracy": 0.6391
   },
   "baseline_elo": {
-    "log_loss": 0.9524,
-    "accuracy": 0.5982
+    "log_loss": 0.9521,
+    "accuracy": 0.5984
   },
   "schlaegt_baseline": true,
   "accuracy_gg_baseline": 0.0407,
-  "verbesserung_log_loss": 0.1205,
+  "verbesserung_log_loss": 0.1207,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -28,19 +28,19 @@
   ],
   "konfusionsmatrix": [
     [
-      21326,
-      472,
-      5008
+      21726,
+      479,
+      5065
     ],
     [
-      6764,
-      670,
-      6764
+      6918,
+      688,
+      6918
     ],
     [
-      5007,
-      472,
-      21327
+      5064,
+      479,
+      21727
     ]
   ],
   "erfolgskriterien": {
@@ -106,38 +106,38 @@
       "nur_eine_perspektive": 21169,
       "inkonsistente_symbole": 58
     },
-    "anteil_unvollstaendiger_gaenge": 0.1632,
+    "anteil_unvollstaendiger_gaenge": 0.1625,
     "ergebnisverteilung": {
-      "gestellt": 0.2284,
-      "sieg_a": 0.3519,
+      "gestellt": 0.2286,
+      "sieg_a": 0.3517,
       "sieg_b": 0.4197
     },
     "feste_zeitraum": {
       "von": "2023-04-01",
-      "bis": "2026-08-09"
+      "bis": "2026-08-16"
     },
-    "tage_seit_juengstem_fest": 7,
+    "tage_seit_juengstem_fest": 1,
     "kommende_feste": {
-      "n": 14,
+      "n": 12,
       "n_mit_paarungen": 0,
       "quelle": "jsonapi",
       "versuche": [
         {
           "pfad": "jsonapi",
-          "n": 14
+          "n": 12
         }
       ],
-      "naechstes": "2026-08-16"
+      "naechstes": "2026-08-22"
     },
-    "roh_eintraege_gelesen": 243479,
-    "roh_eintraege_uebernommen": 241159,
+    "roh_eintraege_gelesen": 244733,
+    "roh_eintraege_uebernommen": 242413,
     "roh_eintraege_verworfen": {
       "name_nicht_aufloesbar": 2313,
       "schwinger_gegen_sich_selbst": 7
     },
     "verlustquote": 0.0095,
-    "feste_gelesen": 466,
-    "feste_uebernommen": 466,
+    "feste_gelesen": 468,
+    "feste_uebernommen": 468,
     "feste_verworfen": {},
     "schwinger_im_kader": 2897,
     "unaufloesbare_namen": 10,

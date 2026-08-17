@@ -3728,27 +3728,25 @@
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
       "ort": "Lüderen"
-    }
-  ],
-  "kommende": [
+    },
     {
       "id": "schlussgang-21038",
       "name": "Nordwestschweizer Schwingfest Mümliswil 2026",
       "datum": "2026-08-16",
       "typ": "teilverband",
-      "kategorie": "Teilverbandsfest",
-      "ort": "Mümliswil",
-      "quelle": "schlussgang.ch/event"
+      "quelle": "schlussgang.ch/event",
+      "ort": "Mümliswil"
     },
     {
       "id": "schlussgang-21039",
       "name": "Schwägalp-Schwinget 2026",
       "datum": "2026-08-16",
       "typ": "berg",
-      "kategorie": "Bergkranzfest",
-      "ort": "Schwägalp AR",
-      "quelle": "schlussgang.ch/event"
-    },
+      "quelle": "schlussgang.ch/event",
+      "ort": "Schwägalp AR"
+    }
+  ],
+  "kommende": [
     {
       "id": "schlussgang-50010",
       "name": "Engstlenalp-Schwinget ob Innertkirchen 2026",
