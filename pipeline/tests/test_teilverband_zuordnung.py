@@ -18,6 +18,8 @@ from pathlib import Path
 
 import pytest
 
+from pipeline.scrape import EVENT_ID_PRAEFIX
+
 ROOT = Path(__file__).resolve().parent.parent.parent
 TS_DATEI = ROOT / "web" / "lib" / "teilverband.ts"
 ARTIFACTS = ROOT / "artifacts"
@@ -49,11 +51,21 @@ def _teilverband(name: str, typ: str, muster) -> str | None:
 
 @pytest.fixture(scope="module")
 def echte_feste():
-    """(Fest, empirisch dominierender Teilverband) aus den eingecheckten Artefakten."""
+    """(Fest, empirisch dominierender Teilverband) aus den eingecheckten Artefakten.
+
+    Prüft gegen ECHTE Daten und überspringt sich sonst. ``--source synth``
+    überschreibt die Artefakte mit rund 40 Demofesten, deren Namen ("Schwingfest
+    000") und Verbände ("nordwestschweizer") einem anderen Vokabular folgen --
+    daran gemessen wäre die Zuordnung sinnlos. Erkennungsmerkmal ist die
+    Event-ID: echte Feste tragen immer ``schlussgang-<nid>``.
+    """
     events_pfad = ARTIFACTS / "events.json"
     kk_pfad = ARTIFACTS / "kopf_an_kopf.json"
     if not events_pfad.exists() or not kk_pfad.exists():
-        pytest.skip("Artefakte nicht vorhanden (z.B. nach --source synth)")
+        pytest.skip("Artefakte nicht vorhanden")
+    roh_events = json.loads(events_pfad.read_text(encoding="utf-8"))["vergangene"]
+    if not any(str(e.get("id", "")).startswith(EVENT_ID_PRAEFIX) for e in roh_events):
+        pytest.skip("synthetische Artefakte (kein 'schlussgang-'-Fest) -- s. --source synth")
 
     schwinger = {s["id"]: s for s in json.loads(
         (ARTIFACTS / "schwinger.json").read_text(encoding="utf-8"))["schwinger"]}
@@ -87,6 +99,9 @@ def echte_feste():
 def test_zuordnung_trifft_jedes_erfasste_kantonal_und_teilverbandsfest(echte_feste):
     muster = _muster_aus_typescript()
     relevant = [(e, emp) for e, emp in echte_feste if e["typ"] in BESCHRAENKTE_TYPEN]
+    # Untergrenze gegen einen stillen Datenverlust: die echte Historie führt
+    # weit über 100 solcher Feste. Synthetische Artefakte sind oben bereits
+    # ausgesiebt, hier zählt nur noch ein Einbruch in echten Daten.
     assert len(relevant) >= 100, f"zu wenige Feste zum Prüfen: {len(relevant)}"
 
     fehler = []
