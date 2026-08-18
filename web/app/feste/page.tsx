@@ -135,30 +135,6 @@ function FestCard({
                 : "Offenes Feld: an diesem Fest können Schwinger aus allen Teilverbänden starten. Gezeigt sind die stärksten aktiven — nicht die gemeldeten.";
             })()}
           </p>
-          {favoriten.length > 0 && (
-            <div className="tabelle-wrap" style={{ marginTop: "0.5rem" }}>
-              <table style={{ minWidth: 420 }}>
-                <thead>
-                  <tr>
-                    <th>Favorit</th>
-                    <th>Rating</th>
-                    <th>Kranz</th>
-                    <th>Index</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {favoriten.map((f) => (
-                    <tr key={f.id}>
-                      <td>{f.name}</td>
-                      <td>{Math.round(f.elo)}</td>
-                      <td>{f.kranz}</td>
-                      <td>{f.index.toFixed(2)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
           {favoriten.length >= 2 && model && ratings && (
             <SpitzenpaarungVorschau
               a={byId[favoriten[0].id]}
@@ -331,7 +307,7 @@ function baueFavoriten(
       // Startberechtigung nicht beurteilen — dann lieber weglassen als raten.
       if (teilverband && s.teilverband !== teilverband) return null;
       const kranz = ord[s.kranzstatus] ?? 0;
-      return { id, name: s.name, elo: r.elo, kranz: s.kranzstatus, index: r.elo + kranz * 25 };
+      return { id, name: s.name, elo: r.elo, index: r.elo + kranz * 25 };
     })
     .filter((x): x is NonNullable<typeof x> => x !== null)
     .sort((a, b) => b.index - a.index)
