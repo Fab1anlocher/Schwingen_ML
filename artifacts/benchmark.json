@@ -6,8 +6,8 @@
     {
       "key": "kranz_heuristik",
       "label": "Kranz-Heuristik",
-      "accuracy": 0.4233,
-      "brier_score": 1.1534
+      "accuracy": 0.4236,
+      "brier_score": 1.1528
     },
     {
       "key": "elo_baseline",
@@ -18,14 +18,14 @@
     {
       "key": "ml_ohne_elo",
       "label": "ML ohne Elo/Historie",
-      "accuracy": 0.5166,
-      "brier_score": 0.5642
+      "accuracy": 0.5177,
+      "brier_score": 0.5637
     },
     {
       "key": "ml_komplett",
       "label": "ML komplett (Champion)",
       "accuracy": 0.6391,
-      "brier_score": 0.4785
+      "brier_score": 0.4784
     }
   ]
 }

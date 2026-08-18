@@ -793,34 +793,6 @@
       ]
     },
     {
-      "id": "adrian schwyn|1996",
-      "name": "Adrian Schwyn",
-      "jahrgang": 1996,
-      "groesse_cm": 186.0,
-      "gewicht_kg": 125.0,
-      "kranzstatus": "kranzer",
-      "teilverband": "Nordostschweiz",
-      "kanton": "Schaffhausen",
-      "schwingklub": null,
-      "bevorzugte_schwuenge": [],
-      "form": 0.2,
-      "ueberraschungsindex": 0.0233,
-      "n_bewertete_gaenge": 197,
-      "anzahl_kraenze": 3,
-      "aktiv": true,
-      "groesster_erfolg": {
-        "gegner_name": "Roland Bucher",
-        "event_id": "schlussgang-45169",
-        "datum": "2025-04-06",
-        "eigenes_elo": 1518.1,
-        "gegner_elo": 1657.0
-      },
-      "quellen": [
-        "schlussgang.ch/portraet",
-        "https://www.schlussgang.ch/portraet/adrian-schwyn"
-      ]
-    },
-    {
       "id": "adrian scharz|2008",
       "name": "Adrian Schärz",
       "jahrgang": 2008,
@@ -10333,6 +10305,33 @@
       ]
     },
     {
+      "id": "burgler patrick|?",
+      "name": "Bürgler Patrick",
+      "jahrgang": null,
+      "groesse_cm": null,
+      "gewicht_kg": null,
+      "kranzstatus": "kein",
+      "teilverband": null,
+      "kanton": null,
+      "schwingklub": null,
+      "bevorzugte_schwuenge": [],
+      "form": 0.2,
+      "ueberraschungsindex": -0.0161,
+      "n_bewertete_gaenge": 173,
+      "anzahl_kraenze": 3,
+      "aktiv": true,
+      "groesster_erfolg": {
+        "gegner_name": "Andreas Ziegler",
+        "event_id": "schlussgang-21044",
+        "datum": "2026-06-28",
+        "eigenes_elo": 1452.3,
+        "gegner_elo": 1600.7
+      },
+      "quellen": [
+        "schlussgang.ch/statistic-pdf"
+      ]
+    },
+    {
       "id": "burke cyrill|?",
       "name": "Bürke Cyrill",
       "jahrgang": null,
@@ -12710,7 +12709,7 @@
       "name": "Cédric Wicki",
       "jahrgang": 1996,
       "groesse_cm": 180.0,
-      "gewicht_kg": 121.0,
+      "gewicht_kg": 120.0,
       "kranzstatus": "kranzer",
       "teilverband": "Suedwestschweiz",
       "kanton": "Fribourgeoise",
@@ -50238,37 +50237,6 @@
       ]
     },
     {
-      "id": "patrick burgler|1996",
-      "name": "Patrick Bürgler",
-      "jahrgang": 1996,
-      "groesse_cm": 190.0,
-      "gewicht_kg": 95.0,
-      "kranzstatus": "kranzer",
-      "teilverband": "Nordostschweiz",
-      "kanton": "Schaffhausen",
-      "schwingklub": null,
-      "bevorzugte_schwuenge": [
-        "Kurz",
-        "Brienzer"
-      ],
-      "form": 0.2,
-      "ueberraschungsindex": -0.0161,
-      "n_bewertete_gaenge": 173,
-      "anzahl_kraenze": 3,
-      "aktiv": true,
-      "groesster_erfolg": {
-        "gegner_name": "Andreas Ziegler",
-        "event_id": "schlussgang-21044",
-        "datum": "2026-06-28",
-        "eigenes_elo": 1452.3,
-        "gegner_elo": 1600.7
-      },
-      "quellen": [
-        "schlussgang.ch/portraet",
-        "https://www.schlussgang.ch/portraet/patrick-buergler"
-      ]
-    },
-    {
       "id": "patrick gobeli|1998",
       "name": "Patrick Gobeli",
       "jahrgang": 1998,
@@ -55412,28 +55380,6 @@
       ]
     },
     {
-      "id": "roman bucher|2003",
-      "name": "Roman Bucher",
-      "jahrgang": 2003,
-      "groesse_cm": 173.0,
-      "gewicht_kg": 80.0,
-      "kranzstatus": "kranzer",
-      "teilverband": "Nordostschweiz",
-      "kanton": "Zürich",
-      "schwingklub": "Zürcher Oberland",
-      "bevorzugte_schwuenge": [],
-      "form": 0.5,
-      "ueberraschungsindex": null,
-      "n_bewertete_gaenge": 0,
-      "anzahl_kraenze": 0,
-      "aktiv": false,
-      "groesster_erfolg": null,
-      "quellen": [
-        "schlussgang.ch/portraet",
-        "https://www.schlussgang.ch/portraet/roman-bucher"
-      ]
-    },
-    {
       "id": "roman bucher|2002",
       "name": "Roman Bucher",
       "jahrgang": 2002,
@@ -55453,6 +55399,28 @@
       "quellen": [
         "schlussgang.ch/portraet",
         "https://www.schlussgang.ch/portraet/roman-bucher-0"
+      ]
+    },
+    {
+      "id": "roman bucher|2003",
+      "name": "Roman Bucher",
+      "jahrgang": 2003,
+      "groesse_cm": 173.0,
+      "gewicht_kg": 80.0,
+      "kranzstatus": "kranzer",
+      "teilverband": "Nordostschweiz",
+      "kanton": "Zürich",
+      "schwingklub": "Zürcher Oberland",
+      "bevorzugte_schwuenge": [],
+      "form": 0.5,
+      "ueberraschungsindex": null,
+      "n_bewertete_gaenge": 0,
+      "anzahl_kraenze": 0,
+      "aktiv": false,
+      "groesster_erfolg": null,
+      "quellen": [
+        "schlussgang.ch/portraet",
+        "https://www.schlussgang.ch/portraet/roman-bucher"
       ]
     },
     {
@@ -61334,6 +61302,33 @@
         "datum": "2026-05-17",
         "eigenes_elo": 1450.4,
         "gegner_elo": 1542.6
+      },
+      "quellen": [
+        "schlussgang.ch/statistic-pdf"
+      ]
+    },
+    {
+      "id": "adrian schwyn|?",
+      "name": "Schwyn Adrian",
+      "jahrgang": null,
+      "groesse_cm": null,
+      "gewicht_kg": null,
+      "kranzstatus": "kein",
+      "teilverband": null,
+      "kanton": null,
+      "schwingklub": null,
+      "bevorzugte_schwuenge": [],
+      "form": 0.2,
+      "ueberraschungsindex": 0.0233,
+      "n_bewertete_gaenge": 197,
+      "anzahl_kraenze": 3,
+      "aktiv": true,
+      "groesster_erfolg": {
+        "gegner_name": "Roland Bucher",
+        "event_id": "schlussgang-45169",
+        "datum": "2025-04-06",
+        "eigenes_elo": 1518.1,
+        "gegner_elo": 1657.0
       },
       "quellen": [
         "schlussgang.ch/statistic-pdf"

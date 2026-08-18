@@ -362,11 +362,11 @@
       "elo": 1734.7,
       "n_gaenge": 394
     },
-    "roman bucher|2003": {
+    "roman bucher|2002": {
       "elo": 1500.0,
       "n_gaenge": 0
     },
-    "roman bucher|2002": {
+    "roman bucher|2003": {
       "elo": 1500.0,
       "n_gaenge": 0
     },
@@ -425,10 +425,6 @@
     "reto burgi|1993": {
       "elo": 1708.9,
       "n_gaenge": 263
-    },
-    "patrick burgler|1996": {
-      "elo": 1444.1,
-      "n_gaenge": 173
     },
     "patrick burkhard|1991": {
       "elo": 1500.0,
@@ -2198,10 +2194,6 @@
       "elo": 1500.0,
       "n_gaenge": 0
     },
-    "adrian schwyn|1996": {
-      "elo": 1550.6,
-      "n_gaenge": 197
-    },
     "samuel schwyzer|2001": {
       "elo": 1970.2,
       "n_gaenge": 381
@@ -3089,6 +3081,10 @@
     "adrian rytz|?": {
       "elo": 1360.8,
       "n_gaenge": 81
+    },
+    "adrian schwyn|?": {
+      "elo": 1550.6,
+      "n_gaenge": 197
     },
     "adrian steffen|?": {
       "elo": 1436.0,
@@ -4885,6 +4881,10 @@
     "burgin cedric|?": {
       "elo": 1476.4,
       "n_gaenge": 8
+    },
+    "burgler patrick|?": {
+      "elo": 1444.1,
+      "n_gaenge": 173
     },
     "burgy frank|?": {
       "elo": 1496.6,

@@ -208,15 +208,15 @@
     },
     {
       "kanton": "Schaffhausen",
-      "n_schwinger": 7,
-      "elo_avg": 1587.6,
+      "n_schwinger": 5,
+      "elo_avg": 1623.7,
       "n_top_schwinger": 1,
-      "n_kranzer": 6,
+      "n_kranzer": 4,
       "n_eidgenosse": 1,
       "n_koenig": 0,
-      "n_siege": 468,
-      "n_gestellt": 222,
-      "n_niederlagen": 330
+      "n_siege": 324,
+      "n_gestellt": 158,
+      "n_niederlagen": 168
     },
     {
       "kanton": "Schwyz",
