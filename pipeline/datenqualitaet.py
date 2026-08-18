@@ -71,6 +71,24 @@ def _zeilen(report: dict) -> list[str]:
               f"{_ampel(unvollstaendig <= GRENZE_UNVOLLSTAENDIG, warn=unvollstaendig > GRENZE_UNVOLLSTAENDIG)} |"]
     z += [""]
 
+    # Kranz-Erkennung. Die Quote je Kranzfest ist der einzige Selbsttest dafür,
+    # ob der PDF-Parser die Kranz-Sterne überhaupt findet.
+    kp = dq.get("kranz_plausibilitaet") or {}
+    if kp.get("n_kranzfeste"):
+        lo, hi = kp.get("erwartungsband", [0.08, 0.25])
+        ok = bool(kp.get("plausibel"))
+        z += ["**Kranz-Erkennung**", ""]
+        z += [f"- {_ampel(ok, warn=not ok)} Kranzquote je Kranzfest (Median): "
+              f"{kp.get('kranzquote_median', 0):.1%} — erwartet {lo:.0%}–{hi:.0%}"]
+        z += [f"- {kp.get('kraenze_gesamt', 0)} Kränze über {kp['n_kranzfeste']} Kranzfeste"]
+        if kp.get("kranzfeste_ohne_kranz"):
+            z += [f"- {_ampel(False, warn=True)} {kp['kranzfeste_ohne_kranz']} Kranzfeste "
+                  "ohne einen einzigen erkannten Kranz"]
+        if not ok:
+            z += ["- Liegt die Quote deutlich unter dem Band, findet der PDF-Parser die "
+                  "Kranz-Sterne nicht (`schlussgang_pdf._kranz_abtrennen`)."]
+        z.append("")
+
     # Kommende Feste (FR-2). Mitten in der Saison ist eine leere Vorschau ein
     # Fehler der Beschaffung, kein Normalzustand -- darum mit Ampel und Grund.
     kf = dq.get("kommende_feste")

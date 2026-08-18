@@ -56,11 +56,14 @@ def _format_name(item: dict) -> str:
     return ""
 
 
-def _kranzstatus(
-    wreath_status: str, ist_koenig: bool, status_name: str, counts: dict[str, int]
-) -> str:
-    """Kranzstatus primär aus field_portrait_wreath_status ('*'/'**'/'***', s.
-    auch das Sterne-Schema in den Statistik-PDFs) + schwingerkoenig-Flag.
+def _kranzstatus(wreath_status: str, ist_koenig: bool, status_name: str) -> str:
+    """Kranzstatus aus field_portrait_wreath_status ('*'/'**'/'***') + König-Flag.
+
+    ACHTUNG: Diese Sterne sind der **Status** eines Schwingers (Kranzer /
+    Eidgenosse), nicht die Anzahl gewonnener Kränze. Ob die Sterne in den
+    Statistik-PDFs dasselbe bedeuten oder dort einen Kranzgewinn am
+    jeweiligen Fest markieren, ist offen -- s. ``pipeline.diagnose_kranz``.
+
     Fallback auf die Text-Heuristik für ältere Profile ohne diese Felder.
     """
     if ist_koenig:
@@ -70,9 +73,9 @@ def _kranzstatus(
     if wreath_status in ("*", "**"):
         return "kranzer"
     s = status_name.lower()
-    if counts.get("ESAF", 0) > 0 or "eidgen" in s:
+    if "eidgen" in s:
         return "eidgenosse"
-    if counts.get("Kränze", 0) > 0 or "kranz" in s:
+    if "kranz" in s:
         return "kranzer"
     return "kein"
 
@@ -135,7 +138,6 @@ def scrape_schlussgang_portraets(max_profiles: int | None = None, page_size: int
             kanton = str((item.get("field_portrait_cant_association") or {}).get("name") or "")
             schwingklub = str((item.get("field_portrait_club") or {}).get("name") or "")
             image_url = str((item.get("field_portrait_image") or {}).get("uri", {}).get("url") or "")
-            counts = _status_counts(status_name)
             wreath_status = str(item.get("field_portrait_wreath_status") or "")
             ist_koenig = bool(item.get("field_portrait_schwingerkoenig"))
             schwuenge = [
@@ -150,7 +152,7 @@ def scrape_schlussgang_portraets(max_profiles: int | None = None, page_size: int
                 "jahrgang": jahrgang,
                 "groesse_cm": _koerpermass(item.get("field_portrait_body_size"), 140, 230),
                 "gewicht_kg": _koerpermass(item.get("field_portrait_body_weight"), 40, 250),
-                "kranzstatus": _kranzstatus(wreath_status, ist_koenig, status_name, counts),
+                "kranzstatus": _kranzstatus(wreath_status, ist_koenig, status_name),
                 "teilverband": association or None,
                 "kanton": kanton or None,
                 "schwingklub": schwingklub or None,
@@ -161,7 +163,6 @@ def scrape_schlussgang_portraets(max_profiles: int | None = None, page_size: int
                     profile_url,
                 ],
                 "portrait_status": status_name or None,
-                "portrait_counts": counts,
                 "portrait_image": image_url or None,
                 "portrait_search_strings": item.get("field_portrait_search_strings"),
                 "portrait_title": title or None,
@@ -173,14 +174,6 @@ def scrape_schlussgang_portraets(max_profiles: int | None = None, page_size: int
         offset += page_size
     return raw_profiles
 
-
-def _status_counts(status_name: str) -> dict[str, int]:
-    s = status_name.lower()
-    if "eidgen" in s:
-        return {"Kränze": 0, "ESAF": 1, "Berg": 0, "Teilverband": 0, "Kantonal/Gau": 0, "Kranzfestsiege": 0}
-    if "kranz" in s:
-        return {"Kränze": 1, "ESAF": 0, "Berg": 0, "Teilverband": 0, "Kantonal/Gau": 0, "Kranzfestsiege": 0}
-    return {"Kränze": 0, "ESAF": 0, "Berg": 0, "Teilverband": 0, "Kantonal/Gau": 0, "Kranzfestsiege": 0}
 
 
 def write_schwinger_json(path, profiles: list[dict]) -> None:

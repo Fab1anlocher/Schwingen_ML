@@ -3754,7 +3754,9 @@
       "typ": "regional",
       "kategorie": "Regionalfeste",
       "ort": "Engstlenalp",
-      "quelle": "schlussgang.ch/event"
+      "quelle": "schlussgang.ch/event",
+      "teilverband": "Bern",
+      "teilverband_quelle": "vorausgabe"
     },
     {
       "id": "schlussgang-50988",
@@ -3763,7 +3765,9 @@
       "typ": "regional",
       "kategorie": "Regionalfeste",
       "ort": "Muttenz",
-      "quelle": "schlussgang.ch/event"
+      "quelle": "schlussgang.ch/event",
+      "teilverband": "Nordwestschweiz",
+      "teilverband_quelle": "vorausgabe"
     },
     {
       "id": "schlussgang-52071",
@@ -3772,7 +3776,9 @@
       "typ": "regional",
       "kategorie": "Regionalfeste",
       "ort": "Einsiedeln",
-      "quelle": "schlussgang.ch/event"
+      "quelle": "schlussgang.ch/event",
+      "teilverband": "Innerschweiz",
+      "teilverband_quelle": "vorausgabe"
     },
     {
       "id": "schlussgang-52038",
@@ -3781,7 +3787,9 @@
       "typ": "regional",
       "kategorie": "Regionalfeste",
       "ort": "Kemmeribodenbad",
-      "quelle": "schlussgang.ch/event"
+      "quelle": "schlussgang.ch/event",
+      "teilverband": "Bern",
+      "teilverband_quelle": "vorausgabe"
     },
     {
       "id": "schlussgang-46147",
@@ -3790,7 +3798,9 @@
       "typ": "eidgenoessisch",
       "kategorie": "Eidgenössische Anlässe",
       "ort": "Kilchberg ZH",
-      "quelle": "schlussgang.ch/event"
+      "quelle": "schlussgang.ch/event",
+      "teilverband": null,
+      "teilverband_quelle": "offen"
     },
     {
       "id": "schlussgang-48341",
@@ -3799,7 +3809,9 @@
       "typ": "regional",
       "kategorie": "Regionalfeste",
       "ort": "Ennetmoos",
-      "quelle": "schlussgang.ch/event"
+      "quelle": "schlussgang.ch/event",
+      "teilverband": "Innerschweiz",
+      "teilverband_quelle": "vorausgabe"
     },
     {
       "id": "schlussgang-51858",
@@ -3808,7 +3820,9 @@
       "typ": "regional",
       "kategorie": "Regionalfeste",
       "ort": "Lueg Kaltacker",
-      "quelle": "schlussgang.ch/event"
+      "quelle": "schlussgang.ch/event",
+      "teilverband": "Bern",
+      "teilverband_quelle": "vorausgabe"
     },
     {
       "id": "schlussgang-51612",
@@ -3817,7 +3831,9 @@
       "typ": "regional",
       "kategorie": "Regionalfeste",
       "ort": "Bütschwil",
-      "quelle": "schlussgang.ch/event"
+      "quelle": "schlussgang.ch/event",
+      "teilverband": "Nordostschweiz",
+      "teilverband_quelle": "namensmuster"
     },
     {
       "id": "schlussgang-52146",
@@ -3826,7 +3842,9 @@
       "typ": "regional",
       "kategorie": "Regionalfeste",
       "ort": "Aeschiried",
-      "quelle": "schlussgang.ch/event"
+      "quelle": "schlussgang.ch/event",
+      "teilverband": "Bern",
+      "teilverband_quelle": "vorausgabe"
     },
     {
       "id": "schlussgang-37073",
@@ -3835,7 +3853,9 @@
       "typ": "regional",
       "kategorie": "Regionalfeste",
       "ort": "Schachen",
-      "quelle": "schlussgang.ch/event"
+      "quelle": "schlussgang.ch/event",
+      "teilverband": "Innerschweiz",
+      "teilverband_quelle": "vorausgabe"
     },
     {
       "id": "schlussgang-52024",
@@ -3844,7 +3864,9 @@
       "typ": "regional",
       "kategorie": "Regionalfeste",
       "ort": "Siebnen",
-      "quelle": "schlussgang.ch/event"
+      "quelle": "schlussgang.ch/event",
+      "teilverband": "Innerschweiz",
+      "teilverband_quelle": "vorausgabe"
     },
     {
       "id": "schlussgang-52069",
@@ -3853,7 +3875,9 @@
       "typ": "regional",
       "kategorie": "Regionalfeste",
       "ort": "Unteriberg",
-      "quelle": "schlussgang.ch/event"
+      "quelle": "schlussgang.ch/event",
+      "teilverband": "Innerschweiz",
+      "teilverband_quelle": "vorausgabe"
     }
   ]
 }

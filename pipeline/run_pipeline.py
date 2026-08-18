@@ -165,6 +165,7 @@ def _datenqualitaet(bericht, gaenge, events, warnungen: list[str], *,
         "versuche": diagnose.get("versuche", []),
         "naechstes": min((f["datum"] for f in kommende), default=None),
     }
+    qualitaet["kranz_plausibilitaet"] = _kranz_plausibilitaet(gaenge, events)
     if bericht is not None:
         qualitaet.update(bericht.als_dict())
     return qualitaet
@@ -194,6 +195,52 @@ def _anzahl_kraenze(gaenge) -> dict:
         if g.kranz_b:
             feste[g.schwinger_b_id].add(g.event_id)
     return {sid: len(evts) for sid, evts in feste.items()}
+
+
+# An einem Kranzfest erhalten rund 12-18 % der Teilnehmer einen Kranz. Liegt
+# die gemessene Quote weit darunter, findet der PDF-Parser die Kranz-Sterne
+# nicht -- genau das war der Fall (650 statt ~3'000 Kränze), ohne dass es
+# irgendwo aufgefallen wäre.
+KRANZ_FEST_TYPEN = {"eidgenoessisch", "berg", "teilverband", "kantonal"}
+KRANZQUOTE_PLAUSIBEL = (0.08, 0.25)
+
+
+def _kranz_plausibilitaet(gaenge, events) -> dict:
+    """Kranzquote je Kranzfest -- macht eine kaputte Sternerkennung sichtbar."""
+    typ_von_event = {e.id: e.typ for e in events}
+    teilnehmer: dict[str, set] = defaultdict(set)
+    mit_kranz: dict[str, set] = defaultdict(set)
+    for g in gaenge:
+        teilnehmer[g.event_id].update((g.schwinger_a_id, g.schwinger_b_id))
+        if g.kranz_a:
+            mit_kranz[g.event_id].add(g.schwinger_a_id)
+        if g.kranz_b:
+            mit_kranz[g.event_id].add(g.schwinger_b_id)
+
+    quoten: list[float] = []
+    n_kranzfeste = n_ohne_kranz = 0
+    for eid, teiln in teilnehmer.items():
+        if typ_von_event.get(eid) not in KRANZ_FEST_TYPEN or not teiln:
+            continue
+        n_kranzfeste += 1
+        anteil = len(mit_kranz.get(eid, ())) / len(teiln)
+        quoten.append(anteil)
+        if not mit_kranz.get(eid):
+            n_ohne_kranz += 1
+
+    if not quoten:
+        return {"n_kranzfeste": 0}
+    quoten.sort()
+    median = quoten[len(quoten) // 2]
+    lo, hi = KRANZQUOTE_PLAUSIBEL
+    return {
+        "n_kranzfeste": n_kranzfeste,
+        "kranzquote_median": round(median, 4),
+        "kranzfeste_ohne_kranz": n_ohne_kranz,
+        "kraenze_gesamt": sum(len(v) for v in mit_kranz.values()),
+        "plausibel": lo <= median <= hi,
+        "erwartungsband": [lo, hi],
+    }
 
 
 def _aktive_schwinger(gaenge, referenz_jahr: int) -> set:
@@ -304,6 +351,12 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
                 f"{kommende_diagnose.get('versuche')}",
                 flush=True,
             )
+    if kommende:
+        from .teilnehmerkreis import bestimme_teilnehmerkreis
+        bestimme_teilnehmerkreis(kommende, events, gaenge, schwinger)
+        eingeschraenkt = sum(1 for f in kommende if f.get("teilverband"))
+        print(f"      Teilnehmerkreis bestimmt: {eingeschraenkt}/{len(kommende)} Feste "
+              "auf einen Teilverband eingeschränkt", flush=True)
     export.exportiere_events(events, kommende)
     report = export.exportiere_report(
         train_res, baseline, warnungen, len(gaenge), len(schwinger),
