@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-08-18T04:34:53.196522+00:00",
-  "lauf_id": "20260818T043453Z",
+  "erstellt": "2026-08-19T04:36:28.167110+00:00",
+  "lauf_id": "20260819T043628Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 130303,
@@ -29,8 +29,8 @@
   "konfusionsmatrix": [
     [
       21722,
-      481,
-      5067
+      482,
+      5066
     ],
     [
       6915,
@@ -38,9 +38,9 @@
       6915
     ],
     [
-      5066,
-      481,
-      21723
+      5067,
+      482,
+      21721
     ]
   ],
   "erfolgskriterien": {
@@ -116,7 +116,7 @@
       "von": "2023-04-01",
       "bis": "2026-08-16"
     },
-    "tage_seit_juengstem_fest": 2,
+    "tage_seit_juengstem_fest": 3,
     "kommende_feste": {
       "n": 12,
       "n_mit_paarungen": 0,
@@ -128,6 +128,17 @@
         }
       ],
       "naechstes": "2026-08-22"
+    },
+    "kranz_plausibilitaet": {
+      "n_kranzfeste": 148,
+      "kranzquote_median": 0.0,
+      "kranzfeste_ohne_kranz": 141,
+      "kraenze_gesamt": 803,
+      "plausibel": false,
+      "erwartungsband": [
+        0.08,
+        0.25
+      ]
     },
     "roh_eintraege_gelesen": 244733,
     "roh_eintraege_uebernommen": 242413,
