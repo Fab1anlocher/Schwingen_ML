@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-08-20T04:36:48.972524+00:00",
-  "lauf_id": "20260820T043648Z",
+  "erstellt": "2026-08-21T04:38:02.645641+00:00",
+  "lauf_id": "20260821T043802Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 130303,
@@ -116,15 +116,15 @@
       "von": "2023-04-01",
       "bis": "2026-08-16"
     },
-    "tage_seit_juengstem_fest": 4,
+    "tage_seit_juengstem_fest": 5,
     "kommende_feste": {
-      "n": 12,
+      "n": 13,
       "n_mit_paarungen": 0,
       "quelle": "jsonapi",
       "versuche": [
         {
           "pfad": "jsonapi",
-          "n": 12
+          "n": 13
         }
       ],
       "naechstes": "2026-08-22"

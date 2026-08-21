@@ -55380,28 +55380,6 @@
       ]
     },
     {
-      "id": "roman bucher|2003",
-      "name": "Roman Bucher",
-      "jahrgang": 2003,
-      "groesse_cm": 173.0,
-      "gewicht_kg": 80.0,
-      "kranzstatus": "kranzer",
-      "teilverband": "Nordostschweiz",
-      "kanton": "Zürich",
-      "schwingklub": "Zürcher Oberland",
-      "bevorzugte_schwuenge": [],
-      "form": 0.5,
-      "ueberraschungsindex": null,
-      "n_bewertete_gaenge": 0,
-      "anzahl_kraenze": 0,
-      "aktiv": false,
-      "groesster_erfolg": null,
-      "quellen": [
-        "schlussgang.ch/portraet",
-        "https://www.schlussgang.ch/portraet/roman-bucher"
-      ]
-    },
-    {
       "id": "roman bucher|2002",
       "name": "Roman Bucher",
       "jahrgang": 2002,
@@ -55421,6 +55399,28 @@
       "quellen": [
         "schlussgang.ch/portraet",
         "https://www.schlussgang.ch/portraet/roman-bucher-0"
+      ]
+    },
+    {
+      "id": "roman bucher|2003",
+      "name": "Roman Bucher",
+      "jahrgang": 2003,
+      "groesse_cm": 173.0,
+      "gewicht_kg": 80.0,
+      "kranzstatus": "kranzer",
+      "teilverband": "Nordostschweiz",
+      "kanton": "Zürich",
+      "schwingklub": "Zürcher Oberland",
+      "bevorzugte_schwuenge": [],
+      "form": 0.5,
+      "ueberraschungsindex": null,
+      "n_bewertete_gaenge": 0,
+      "anzahl_kraenze": 0,
+      "aktiv": false,
+      "groesster_erfolg": null,
+      "quellen": [
+        "schlussgang.ch/portraet",
+        "https://www.schlussgang.ch/portraet/roman-bucher"
       ]
     },
     {
