@@ -3744,31 +3744,25 @@
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
       "ort": "Schwägalp AR"
-    }
-  ],
-  "kommende": [
+    },
     {
       "id": "schlussgang-50010",
       "name": "Engstlenalp-Schwinget ob Innertkirchen 2026",
       "datum": "2026-08-22",
       "typ": "regional",
-      "kategorie": "Regionalfeste",
-      "ort": "Engstlenalp",
       "quelle": "schlussgang.ch/event",
-      "teilverband": "Bern",
-      "teilverband_quelle": "vorausgabe"
+      "ort": "Engstlenalp"
     },
     {
       "id": "schlussgang-50988",
       "name": "Wartenberg-Schwinget Muttenz 2026",
       "datum": "2026-08-22",
       "typ": "regional",
-      "kategorie": "Regionalfeste",
-      "ort": "Muttenz",
       "quelle": "schlussgang.ch/event",
-      "teilverband": "Nordwestschweiz",
-      "teilverband_quelle": "vorausgabe"
-    },
+      "ort": "Muttenz"
+    }
+  ],
+  "kommende": [
     {
       "id": "schlussgang-52071",
       "name": "Kilbischwinget Einsiedeln 2026",

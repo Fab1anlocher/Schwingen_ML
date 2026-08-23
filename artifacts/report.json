@@ -1,26 +1,26 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-08-22T04:32:01.655996+00:00",
-  "lauf_id": "20260822T043201Z",
+  "erstellt": "2026-08-23T04:36:50.107279+00:00",
+  "lauf_id": "20260823T043650Z",
   "seed": 42,
   "datenbasis": {
-    "n_gaenge": 130303,
-    "n_schwinger": 2897
+    "n_gaenge": 130703,
+    "n_schwinger": 2899
   },
   "holdout_jahr": 2026,
   "n_train": 191542,
-  "n_test": 69064,
+  "n_test": 69864,
   "modell": {
-    "log_loss": 0.8312,
-    "accuracy": 0.6391
+    "log_loss": 0.8315,
+    "accuracy": 0.6386
   },
   "baseline_elo": {
-    "log_loss": 0.9521,
-    "accuracy": 0.5984
+    "log_loss": 0.952,
+    "accuracy": 0.5983
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0407,
-  "verbesserung_log_loss": 0.1209,
+  "accuracy_gg_baseline": 0.0403,
+  "verbesserung_log_loss": 0.1205,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -28,19 +28,19 @@
   ],
   "konfusionsmatrix": [
     [
-      21722,
-      482,
-      5066
+      21962,
+      484,
+      5105
     ],
     [
-      6915,
+      7034,
       694,
-      6915
+      7034
     ],
     [
-      5067,
-      482,
-      21721
+      5106,
+      484,
+      21961
     ]
   ],
   "erfolgskriterien": {
@@ -106,51 +106,51 @@
       "nur_eine_perspektive": 21169,
       "inkonsistente_symbole": 58
     },
-    "anteil_unvollstaendiger_gaenge": 0.1625,
+    "anteil_unvollstaendiger_gaenge": 0.162,
     "ergebnisverteilung": {
-      "gestellt": 0.2286,
+      "gestellt": 0.2288,
       "sieg_a": 0.3516,
-      "sieg_b": 0.4198
+      "sieg_b": 0.4196
     },
     "feste_zeitraum": {
       "von": "2023-04-01",
-      "bis": "2026-08-16"
+      "bis": "2026-08-22"
     },
-    "tage_seit_juengstem_fest": 6,
+    "tage_seit_juengstem_fest": 1,
     "kommende_feste": {
-      "n": 13,
+      "n": 11,
       "n_mit_paarungen": 0,
       "quelle": "jsonapi",
       "versuche": [
         {
           "pfad": "jsonapi",
-          "n": 13
+          "n": 11
         }
       ],
-      "naechstes": "2026-08-22"
+      "naechstes": "2026-08-23"
     },
     "kranz_plausibilitaet": {
       "n_kranzfeste": 148,
       "kranzquote_median": 0.0,
       "kranzfeste_ohne_kranz": 141,
-      "kraenze_gesamt": 803,
+      "kraenze_gesamt": 849,
       "plausibel": false,
       "erwartungsband": [
         0.08,
         0.25
       ]
     },
-    "roh_eintraege_gelesen": 244733,
-    "roh_eintraege_uebernommen": 242413,
+    "roh_eintraege_gelesen": 245545,
+    "roh_eintraege_uebernommen": 243213,
     "roh_eintraege_verworfen": {
-      "name_nicht_aufloesbar": 2313,
+      "name_nicht_aufloesbar": 2325,
       "schwinger_gegen_sich_selbst": 7
     },
     "verlustquote": 0.0095,
-    "feste_gelesen": 468,
-    "feste_uebernommen": 468,
+    "feste_gelesen": 470,
+    "feste_uebernommen": 470,
     "feste_verworfen": {},
-    "schwinger_im_kader": 2897,
+    "schwinger_im_kader": 2899,
     "unaufloesbare_namen": 10,
     "beispiele_unaufloesbare_namen": [
       "Wüthrich Jonas",
