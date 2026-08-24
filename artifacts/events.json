@@ -3760,20 +3760,17 @@
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
       "ort": "Muttenz"
-    }
-  ],
-  "kommende": [
+    },
     {
       "id": "schlussgang-52071",
       "name": "Kilbischwinget Einsiedeln 2026",
       "datum": "2026-08-23",
       "typ": "regional",
-      "kategorie": "Regionalfeste",
-      "ort": "Einsiedeln",
       "quelle": "schlussgang.ch/event",
-      "teilverband": "Innerschweiz",
-      "teilverband_quelle": "vorausgabe"
-    },
+      "ort": "Einsiedeln"
+    }
+  ],
+  "kommende": [
     {
       "id": "schlussgang-52038",
       "name": "Kemmeriboden-Schwinget Schangnau 2026",
