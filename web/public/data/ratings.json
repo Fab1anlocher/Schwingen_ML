@@ -314,10 +314,6 @@
       "elo": 1409.2,
       "n_gaenge": 62
     },
-    "christian brand|1992": {
-      "elo": 1633.0,
-      "n_gaenge": 146
-    },
     "simon brand|2010": {
       "elo": 1500.0,
       "n_gaenge": 0
@@ -821,10 +817,6 @@
     "dario gerber|2007": {
       "elo": 1563.5,
       "n_gaenge": 354
-    },
-    "manuel gerber|1993": {
-      "elo": 1623.9,
-      "n_gaenge": 205
     },
     "peter gerber|1993": {
       "elo": 1500.0,
@@ -4554,6 +4546,10 @@
       "elo": 1365.0,
       "n_gaenge": 74
     },
+    "brand christian|?": {
+      "elo": 1633.0,
+      "n_gaenge": 146
+    },
     "brand kevin|?": {
       "elo": 1405.1,
       "n_gaenge": 65
@@ -7113,6 +7109,10 @@
     "gerber lukas|?": {
       "elo": 1461.1,
       "n_gaenge": 61
+    },
+    "gerber manuel|?": {
+      "elo": 1623.9,
+      "n_gaenge": 205
     },
     "gerber marcel|?": {
       "elo": 1437.9,

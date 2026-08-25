@@ -7285,6 +7285,33 @@
       ]
     },
     {
+      "id": "brand christian|?",
+      "name": "Brand Christian",
+      "jahrgang": null,
+      "groesse_cm": null,
+      "gewicht_kg": null,
+      "kranzstatus": "kein",
+      "teilverband": null,
+      "kanton": null,
+      "schwingklub": null,
+      "bevorzugte_schwuenge": [],
+      "form": 0.6,
+      "ueberraschungsindex": 0.0786,
+      "n_bewertete_gaenge": 146,
+      "anzahl_kraenze": 3,
+      "aktiv": true,
+      "groesster_erfolg": {
+        "gegner_name": "Christian Bucher",
+        "event_id": "schlussgang-22242",
+        "datum": "2024-07-20",
+        "eigenes_elo": 1543.9,
+        "gegner_elo": 1687.7
+      },
+      "quellen": [
+        "schlussgang.ch/statistic-pdf"
+      ]
+    },
+    {
       "id": "brand kevin|?",
       "name": "Brand Kevin",
       "jahrgang": null,
@@ -11360,36 +11387,6 @@
       "quellen": [
         "schlussgang.ch/portraet",
         "https://www.schlussgang.ch/portraet/christian-biaesch"
-      ]
-    },
-    {
-      "id": "christian brand|1992",
-      "name": "Christian Brand",
-      "jahrgang": 1992,
-      "groesse_cm": 180.0,
-      "gewicht_kg": 120.0,
-      "kranzstatus": "kranzer",
-      "teilverband": "Nordwestschweiz",
-      "kanton": "Baselland",
-      "schwingklub": "Oberwil BL",
-      "bevorzugte_schwuenge": [
-        "Kurz"
-      ],
-      "form": 0.6,
-      "ueberraschungsindex": 0.0786,
-      "n_bewertete_gaenge": 146,
-      "anzahl_kraenze": 3,
-      "aktiv": true,
-      "groesster_erfolg": {
-        "gegner_name": "Christian Bucher",
-        "event_id": "schlussgang-22242",
-        "datum": "2024-07-20",
-        "eigenes_elo": 1543.9,
-        "gegner_elo": 1687.7
-      },
-      "quellen": [
-        "schlussgang.ch/portraet",
-        "https://www.schlussgang.ch/portraet/christian-brand"
       ]
     },
     {
@@ -22900,6 +22897,33 @@
         "datum": "2025-09-07",
         "eigenes_elo": 1464.6,
         "gegner_elo": 1502.5
+      },
+      "quellen": [
+        "schlussgang.ch/statistic-pdf"
+      ]
+    },
+    {
+      "id": "gerber manuel|?",
+      "name": "Gerber Manuel",
+      "jahrgang": null,
+      "groesse_cm": null,
+      "gewicht_kg": null,
+      "kranzstatus": "kein",
+      "teilverband": null,
+      "kanton": null,
+      "schwingklub": null,
+      "bevorzugte_schwuenge": [],
+      "form": 0.8,
+      "ueberraschungsindex": 0.0614,
+      "n_bewertete_gaenge": 205,
+      "anzahl_kraenze": 2,
+      "aktiv": true,
+      "groesster_erfolg": {
+        "gegner_name": "Bader Fabian",
+        "event_id": "schlussgang-22382",
+        "datum": "2023-08-13",
+        "eigenes_elo": 1511.3,
+        "gegner_elo": 1637.6
       },
       "quellen": [
         "schlussgang.ch/statistic-pdf"
@@ -41548,38 +41572,6 @@
       "groesster_erfolg": null,
       "quellen": [
         "schlussgang.ch/statistic-pdf"
-      ]
-    },
-    {
-      "id": "manuel gerber|1993",
-      "name": "Manuel Gerber",
-      "jahrgang": 1993,
-      "groesse_cm": 186.0,
-      "gewicht_kg": 115.0,
-      "kranzstatus": "kranzer",
-      "teilverband": "Nordwestschweiz",
-      "kanton": "Baselland",
-      "schwingklub": "Muttenz",
-      "bevorzugte_schwuenge": [
-        "Hüfter",
-        "Übersprung",
-        "Bodenschwünge"
-      ],
-      "form": 0.8,
-      "ueberraschungsindex": 0.0614,
-      "n_bewertete_gaenge": 205,
-      "anzahl_kraenze": 2,
-      "aktiv": true,
-      "groesster_erfolg": {
-        "gegner_name": "Bader Fabian",
-        "event_id": "schlussgang-22382",
-        "datum": "2023-08-13",
-        "eigenes_elo": 1511.3,
-        "gegner_elo": 1637.6
-      },
-      "quellen": [
-        "schlussgang.ch/portraet",
-        "https://www.schlussgang.ch/portraet/manuel-gerber"
       ]
     },
     {

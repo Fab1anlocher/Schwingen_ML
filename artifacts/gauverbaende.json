@@ -40,15 +40,15 @@
     },
     {
       "kanton": "Baselland",
-      "n_schwinger": 13,
-      "elo_avg": 1669.3,
+      "n_schwinger": 11,
+      "elo_avg": 1676.7,
       "n_top_schwinger": 6,
-      "n_kranzer": 10,
+      "n_kranzer": 8,
       "n_eidgenosse": 3,
       "n_koenig": 0,
-      "n_siege": 1232,
-      "n_gestellt": 823,
-      "n_niederlagen": 595
+      "n_siege": 1070,
+      "n_gestellt": 735,
+      "n_niederlagen": 494
     },
     {
       "kanton": "Berner-Jura",
