@@ -18,7 +18,7 @@
     {
       "key": "ml_ohne_elo",
       "label": "ML ohne Elo/Historie",
-      "accuracy": 0.517,
+      "accuracy": 0.5297,
       "brier_score": 0.5644
     },
     {
