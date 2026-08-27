@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-08-26T04:39:06.523243+00:00",
-  "lauf_id": "20260826T043906Z",
+  "erstellt": "2026-08-27T15:01:03.948092+00:00",
+  "lauf_id": "20260827T150103Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 130894,
@@ -116,7 +116,7 @@
       "von": "2023-04-01",
       "bis": "2026-08-23"
     },
-    "tage_seit_juengstem_fest": 3,
+    "tage_seit_juengstem_fest": 4,
     "kommende_feste": {
       "n": 10,
       "n_mit_paarungen": 0,
