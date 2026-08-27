@@ -107,8 +107,6 @@ function FestCard({
   byId: Record<string, Schwinger>;
 }) {
   const hatPaarungen = fest.paarungen && fest.paarungen.length > 0;
-  const favoriten =
-    !hatPaarungen && model && ratings ? baueFavoriten(fest, model, ratings, byId) : [];
   return (
     <div className="fest-card">
       <div className="row" style={{ justifyContent: "space-between" }}>
@@ -122,28 +120,30 @@ function FestCard({
         <span className="badge">{TYP_LABEL[fest.typ] ?? fest.typ}</span>
       </div>
 
+      {/* Ohne veröffentlichte Startliste wird NICHT prognostiziert. Vorher stand
+          hier eine "hypothetische Spitzenpaarung" aus den zwei stärksten aktiven
+          Schwingern des startberechtigten Teilverbands. Das war frei erfunden:
+          die Rangfolge hängt nur am Teilverband, nicht am Fest, also erschien an
+          allen drei Berner Festen dieselbe Paarung Staudenmann vs. Moser, an
+          allen vier Innerschweizer Bissig vs. Bieri — und am "Clubschwingen
+          Schwingclub Flawil" traten Staudenmann und Orlik an. An einem
+          Regionalfest starten Spitzenschwinger in aller Regel gar nicht. Wer
+          antritt, weiss erst die Startliste; bis dahin gibt es hier nichts zu
+          rechnen. */}
       {!hatPaarungen && (
-        <>
-          <p className="muted small" style={{ marginTop: "0.75rem" }}>
-            <span className="badge" style={{ marginRight: 6 }}>
-              keine Startliste
-            </span>
-            {(() => {
-              const tv = kreisFuerFest(fest);
-              return tv
-                ? `Stärkste aktive Schwinger des Teilverbands ${TV_LABEL[tv] ?? tv} — an diesem Fest startet fast nur, wer ihm angehört. Wer tatsächlich antritt, gibt erst die Startliste her.`
-                : "Offenes Feld: an diesem Fest können Schwinger aus allen Teilverbänden starten. Gezeigt sind die stärksten aktiven — nicht die gemeldeten.";
-            })()}
-          </p>
-          {favoriten.length >= 2 && model && ratings && (
-            <SpitzenpaarungVorschau
-              a={byId[favoriten[0].id]}
-              b={byId[favoriten[1].id]}
-              ratings={ratings}
-              model={model}
-            />
-          )}
-        </>
+        <p className="muted small" style={{ marginTop: "0.75rem" }}>
+          <span className="badge" style={{ marginRight: 6 }}>
+            keine Startliste
+          </span>
+          {(() => {
+            const tv = kreisFuerFest(fest);
+            return tv
+              ? `Startberechtigt sind fast ausschliesslich Schwinger des Teilverbands ${
+                  TV_LABEL[tv] ?? tv
+                }. Wer antritt, gibt erst die Startliste her — bis dahin keine Prognose.`
+              : "Offenes Feld: an diesem Fest können Schwinger aus allen Teilverbänden starten. Wer antritt, gibt erst die Startliste her — bis dahin keine Prognose.";
+          })()}
+        </p>
       )}
 
       {hatPaarungen && model && ratings && (
@@ -233,83 +233,10 @@ function PaarungZeile({
   );
 }
 
-/** Prognose + Quote für die stärkste denkbare Paarung, solange das Fest noch
- *  keine offiziellen Paarungen ausweist. Ausdrücklich hypothetisch beschriftet:
- *  ob sich die beiden treffen, entscheidet erst die Einteilung am Fest. */
-function SpitzenpaarungVorschau({
-  a,
-  b,
-  ratings,
-  model,
-}: {
-  a?: Schwinger;
-  b?: Schwinger;
-  ratings: RatingsArtifact;
-  model: ModelArtifact;
-}) {
-  if (!a || !b) return null;
-  return (
-    <div className="tabelle-wrap" style={{ marginTop: "0.85rem" }}>
-      <p className="muted small" style={{ margin: "0 0 0.4rem" }}>
-        <span className="badge" style={{ marginRight: 6 }}>
-          hypothetisch
-        </span>
-        Mögliche Spitzenpaarung der zwei Topfavoriten — ob sie sich treffen, entscheidet die
-        Einteilung am Fest.
-      </p>
-      <table style={{ minWidth: 480 }}>
-        <thead>
-          <tr>
-            <th>Paarung</th>
-            <th>Sieg A</th>
-            <th>Gestellt</th>
-            <th>Sieg B</th>
-          </tr>
-        </thead>
-        <tbody>
-          <PaarungZeile a={a} b={b} ratings={ratings} model={model} />
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
 /** Teilnehmerkreis eines Fests: was die Pipeline ermittelt hat, sonst das
  *  Namensmuster. `teilverband: null` aus der Pipeline heisst ausdrücklich
  *  "offenes Feld" und darf NICHT auf das Namensmuster zurückfallen. */
 function kreisFuerFest(fest: KommendesFest): string | null {
   if ("teilverband" in fest) return fest.teilverband ?? null;
   return teilverbandFuerFest(fest.name, fest.typ);
-}
-
-function baueFavoriten(
-  fest: KommendesFest,
-  model: ModelArtifact,
-  ratings: RatingsArtifact,
-  byId: Record<string, Schwinger>
-) {
-  const ord = model.config.kranzstatus_ordinal;
-  // An Teilverbands- und Kantonalfesten startet fast nur, wer dem Verband
-  // angehört (79–97 %, s. lib/teilverband.ts). Ohne diesen Filter zeigte die
-  // Liste an JEDEM Fest dieselben national stärksten Schwinger — an einem
-  // Nordwestschweizer Fest also sechs Namen, von denen keiner antritt.
-  // Ein Fest-Bonus (berg/eidgenössisch) stand hier zusätzlich im Code, war
-  // aber wirkungslos: für alle gleich, kürzt sich in der Rangfolge weg.
-  // Bevorzugt der von der Pipeline aus der Vorausgabe bestimmte Kreis
-  // (deckt auch Regionalfeste ab, deren Name nur einen Ort nennt). Das
-  // Namensmuster greift nur bei Artefakten ohne dieses Feld.
-  const teilverband = kreisFuerFest(fest);
-  return Object.entries(ratings.ratings)
-    .map(([id, r]) => {
-      const s = byId[id];
-      if (!s || !s.aktiv) return null;
-      // Ohne erfassten Teilverband (Schwinger ohne Porträt) lässt sich die
-      // Startberechtigung nicht beurteilen — dann lieber weglassen als raten.
-      if (teilverband && s.teilverband !== teilverband) return null;
-      const kranz = ord[s.kranzstatus] ?? 0;
-      return { id, name: s.name, elo: r.elo, index: r.elo + kranz * 25 };
-    })
-    .filter((x): x is NonNullable<typeof x> => x !== null)
-    .sort((a, b) => b.index - a.index)
-    .slice(0, 6);
 }
