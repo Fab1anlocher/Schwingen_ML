@@ -3768,20 +3768,17 @@
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
       "ort": "Einsiedeln"
-    }
-  ],
-  "kommende": [
+    },
     {
       "id": "schlussgang-52038",
       "name": "Kemmeriboden-Schwinget Schangnau 2026",
       "datum": "2026-08-30",
       "typ": "regional",
-      "kategorie": "Regionalfeste",
-      "ort": "Kemmeribodenbad",
       "quelle": "schlussgang.ch/event",
-      "teilverband": "Bern",
-      "teilverband_quelle": "vorausgabe"
-    },
+      "ort": "Kemmeribodenbad"
+    }
+  ],
+  "kommende": [
     {
       "id": "schlussgang-46147",
       "name": "Kilchberger Schwinget Kilchberg 2026",
@@ -3836,17 +3833,6 @@
       "quelle": "schlussgang.ch/event",
       "teilverband": "Bern",
       "teilverband_quelle": "vorausgabe"
-    },
-    {
-      "id": "schlussgang-58457",
-      "name": "Clubschwingen Schwingclub Flawil",
-      "datum": "2026-09-27",
-      "typ": "regional",
-      "kategorie": null,
-      "ort": "Nassen",
-      "quelle": "schlussgang.ch/event",
-      "teilverband": null,
-      "teilverband_quelle": "offen"
     },
     {
       "id": "schlussgang-37073",

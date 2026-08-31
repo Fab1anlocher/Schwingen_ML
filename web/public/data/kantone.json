@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "top_schwelle_elo": 1647.2,
+  "top_schwelle_elo": 1647.1,
   "kantone": [
     {
       "kanton": "Aargau",
@@ -65,26 +65,26 @@
     {
       "kanton": "Bern",
       "n_schwinger": 171,
-      "elo_avg": 1652.3,
+      "elo_avg": 1653.4,
       "n_top_schwinger": 75,
       "n_kranzer": 152,
       "n_eidgenosse": 19,
       "n_koenig": 0,
-      "n_siege": 13229,
-      "n_gestellt": 8108,
-      "n_niederlagen": 6831
+      "n_siege": 13331,
+      "n_gestellt": 8173,
+      "n_niederlagen": 6863
     },
     {
       "kanton": "Fribourg",
       "n_schwinger": 63,
-      "elo_avg": 1601.6,
+      "elo_avg": 1601.5,
       "n_top_schwinger": 17,
       "n_kranzer": 60,
       "n_eidgenosse": 3,
       "n_koenig": 0,
-      "n_siege": 4198,
-      "n_gestellt": 2022,
-      "n_niederlagen": 2640
+      "n_siege": 4207,
+      "n_gestellt": 2024,
+      "n_niederlagen": 2647
     },
     {
       "kanton": "Genève",
@@ -142,9 +142,9 @@
       "n_kranzer": 81,
       "n_eidgenosse": 4,
       "n_koenig": 0,
-      "n_siege": 7887,
-      "n_gestellt": 4045,
-      "n_niederlagen": 4418
+      "n_siege": 7905,
+      "n_gestellt": 4053,
+      "n_niederlagen": 4428
     },
     {
       "kanton": "Neuchâtel",
@@ -161,26 +161,26 @@
     {
       "kanton": "Nidwalden",
       "n_schwinger": 18,
-      "elo_avg": 1618.1,
+      "elo_avg": 1618.2,
       "n_top_schwinger": 6,
       "n_kranzer": 18,
       "n_eidgenosse": 0,
       "n_koenig": 0,
-      "n_siege": 1384,
+      "n_siege": 1388,
       "n_gestellt": 886,
-      "n_niederlagen": 832
+      "n_niederlagen": 834
     },
     {
       "kanton": "Obwalden",
       "n_schwinger": 18,
-      "elo_avg": 1618.1,
+      "elo_avg": 1618.2,
       "n_top_schwinger": 6,
       "n_kranzer": 18,
       "n_eidgenosse": 0,
       "n_koenig": 0,
-      "n_siege": 1384,
+      "n_siege": 1388,
       "n_gestellt": 886,
-      "n_niederlagen": 832
+      "n_niederlagen": 834
     },
     {
       "kanton": "Schaffhausen",
@@ -197,14 +197,14 @@
     {
       "kanton": "Schwyz",
       "n_schwinger": 48,
-      "elo_avg": 1651.2,
-      "n_top_schwinger": 22,
+      "elo_avg": 1650.8,
+      "n_top_schwinger": 23,
       "n_kranzer": 46,
       "n_eidgenosse": 2,
       "n_koenig": 0,
-      "n_siege": 4333,
-      "n_gestellt": 2449,
-      "n_niederlagen": 2304
+      "n_siege": 4334,
+      "n_gestellt": 2450,
+      "n_niederlagen": 2308
     },
     {
       "kanton": "Solothurn",
