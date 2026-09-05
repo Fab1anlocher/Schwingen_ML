@@ -3791,6 +3791,17 @@
       "teilverband_quelle": "offen"
     },
     {
+      "id": "schlussgang-50715",
+      "name": "Klubschwinget SK Tavannes 2026",
+      "datum": "2026-09-12",
+      "typ": "regional",
+      "kategorie": "Regionalfeste",
+      "ort": "Tavannes",
+      "quelle": "schlussgang.ch/event",
+      "teilverband": null,
+      "teilverband_quelle": "offen"
+    },
+    {
       "id": "schlussgang-48341",
       "name": "Allweg-Schwinget Ennetmoos 2026",
       "datum": "2026-09-13",
