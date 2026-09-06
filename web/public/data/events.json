@@ -3776,20 +3776,17 @@
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
       "ort": "Kemmeribodenbad"
-    }
-  ],
-  "kommende": [
+    },
     {
       "id": "schlussgang-46147",
       "name": "Kilchberger Schwinget Kilchberg 2026",
       "datum": "2026-09-05",
       "typ": "eidgenoessisch",
-      "kategorie": "Eidgenössische Anlässe",
-      "ort": "Kilchberg ZH",
       "quelle": "schlussgang.ch/event",
-      "teilverband": null,
-      "teilverband_quelle": "offen"
-    },
+      "ort": "Kilchberg ZH"
+    }
+  ],
+  "kommende": [
     {
       "id": "schlussgang-50715",
       "name": "Klubschwinget SK Tavannes 2026",

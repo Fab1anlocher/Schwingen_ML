@@ -1,26 +1,26 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-09-05T08:04:51.771936+00:00",
-  "lauf_id": "20260905T080451Z",
+  "erstellt": "2026-09-06T08:23:38.521071+00:00",
+  "lauf_id": "20260906T082338Z",
   "seed": 42,
   "datenbasis": {
-    "n_gaenge": 131327,
+    "n_gaenge": 131492,
     "n_schwinger": 2901
   },
   "holdout_jahr": 2026,
   "n_train": 191542,
-  "n_test": 71112,
+  "n_test": 71442,
   "modell": {
-    "log_loss": 0.8316,
-    "accuracy": 0.6389
+    "log_loss": 0.8325,
+    "accuracy": 0.6383
   },
   "baseline_elo": {
     "log_loss": 0.9518,
-    "accuracy": 0.5985
+    "accuracy": 0.5984
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0404,
-  "verbesserung_log_loss": 0.1202,
+  "accuracy_gg_baseline": 0.0399,
+  "verbesserung_log_loss": 0.1193,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -28,19 +28,19 @@
   ],
   "konfusionsmatrix": [
     [
-      22365,
+      22450,
       482,
-      5186
+      5223
     ],
     [
-      7172,
+      7215,
       702,
-      7172
+      7215
     ],
     [
-      5185,
+      5222,
       482,
-      22366
+      22451
     ]
   ],
   "erfolgskriterien": {
@@ -106,49 +106,49 @@
       "nur_eine_perspektive": 21169,
       "inkonsistente_symbole": 58
     },
-    "anteil_unvollstaendiger_gaenge": 0.1612,
+    "anteil_unvollstaendiger_gaenge": 0.161,
     "ergebnisverteilung": {
       "gestellt": 0.2288,
       "sieg_a": 0.3518,
-      "sieg_b": 0.4194
+      "sieg_b": 0.4193
     },
     "feste_zeitraum": {
       "von": "2023-04-01",
-      "bis": "2026-08-30"
+      "bis": "2026-09-05"
     },
-    "tage_seit_juengstem_fest": 6,
+    "tage_seit_juengstem_fest": 1,
     "kommende_feste": {
-      "n": 9,
+      "n": 8,
       "n_mit_paarungen": 0,
       "quelle": "jsonapi",
       "versuche": [
         {
           "pfad": "jsonapi",
-          "n": 9
+          "n": 8
         }
       ],
-      "naechstes": "2026-09-05"
+      "naechstes": "2026-09-12"
     },
     "kranz_plausibilitaet": {
-      "n_kranzfeste": 148,
+      "n_kranzfeste": 149,
       "kranzquote_median": 0.0,
       "kranzfeste_ohne_kranz": 141,
-      "kraenze_gesamt": 919,
+      "kraenze_gesamt": 978,
       "plausibel": false,
       "erwartungsband": [
         0.08,
         0.25
       ]
     },
-    "roh_eintraege_gelesen": 246807,
-    "roh_eintraege_uebernommen": 244463,
+    "roh_eintraege_gelesen": 247145,
+    "roh_eintraege_uebernommen": 244793,
     "roh_eintraege_verworfen": {
-      "name_nicht_aufloesbar": 2337,
+      "name_nicht_aufloesbar": 2345,
       "schwinger_gegen_sich_selbst": 7
     },
     "verlustquote": 0.0095,
-    "feste_gelesen": 472,
-    "feste_uebernommen": 472,
+    "feste_gelesen": 473,
+    "feste_uebernommen": 473,
     "feste_verworfen": {},
     "schwinger_im_kader": 2901,
     "unaufloesbare_namen": 10,

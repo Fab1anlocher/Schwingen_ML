@@ -592,10 +592,10 @@
       "bevorzugte_schwuenge": [
         "je nach Gegner"
       ],
-      "form": 1.0,
-      "ueberraschungsindex": 0.1095,
-      "n_bewertete_gaenge": 273,
-      "anzahl_kraenze": 4,
+      "form": 0.6,
+      "ueberraschungsindex": 0.1077,
+      "n_bewertete_gaenge": 279,
+      "anzahl_kraenze": 5,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Werner Schlegel",
@@ -862,10 +862,10 @@
         "Kurz",
         "Brienzer"
       ],
-      "form": 0.9,
-      "ueberraschungsindex": 0.1146,
-      "n_bewertete_gaenge": 317,
-      "anzahl_kraenze": 2,
+      "form": 0.8,
+      "ueberraschungsindex": 0.1141,
+      "n_bewertete_gaenge": 323,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Fabian Staudenmann",
@@ -2042,10 +2042,10 @@
       "bevorzugte_schwuenge": [
         "Kurz"
       ],
-      "form": 0.9,
-      "ueberraschungsindex": 0.1744,
-      "n_bewertete_gaenge": 149,
-      "anzahl_kraenze": 3,
+      "form": 0.4,
+      "ueberraschungsindex": 0.163,
+      "n_bewertete_gaenge": 153,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Lukas Bissig",
@@ -2419,10 +2419,10 @@
       "kanton": "St. Gallen",
       "schwingklub": "St. Gallen u. Umgebung",
       "bevorzugte_schwuenge": [],
-      "form": 0.8,
-      "ueberraschungsindex": 0.1125,
-      "n_bewertete_gaenge": 277,
-      "anzahl_kraenze": 3,
+      "form": 0.3,
+      "ueberraschungsindex": 0.1102,
+      "n_bewertete_gaenge": 283,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Marcel Räbsamen",
@@ -2784,10 +2784,10 @@
         "Hüfter",
         "Übersprung"
       ],
-      "form": 0.8,
-      "ueberraschungsindex": 0.1394,
-      "n_bewertete_gaenge": 289,
-      "anzahl_kraenze": 3,
+      "form": 0.7,
+      "ueberraschungsindex": 0.1376,
+      "n_bewertete_gaenge": 295,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Burkhalter Thomas",
@@ -5149,10 +5149,10 @@
         "Hakenschwünge",
         "Bodenschwünge"
       ],
-      "form": 0.9,
-      "ueberraschungsindex": 0.1182,
-      "n_bewertete_gaenge": 250,
-      "anzahl_kraenze": 3,
+      "form": 0.6,
+      "ueberraschungsindex": 0.1144,
+      "n_bewertete_gaenge": 256,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Romain Collaud",
@@ -11372,10 +11372,10 @@
       "kanton": "Graubünden",
       "schwingklub": "Davos",
       "bevorzugte_schwuenge": [],
-      "form": 0.7,
-      "ueberraschungsindex": 0.1102,
-      "n_bewertete_gaenge": 288,
-      "anzahl_kraenze": 1,
+      "form": 0.5,
+      "ueberraschungsindex": 0.106,
+      "n_bewertete_gaenge": 294,
+      "anzahl_kraenze": 2,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Gnägi Florian",
@@ -11841,30 +11841,6 @@
       ]
     },
     {
-      "id": "christian zemp|2000",
-      "name": "Christian Zemp",
-      "jahrgang": 2000,
-      "groesse_cm": 182.0,
-      "gewicht_kg": 99.0,
-      "kranzstatus": "kranzer",
-      "teilverband": "Innerschweiz",
-      "kanton": "Zug",
-      "schwingklub": "Zug und Umgebung",
-      "bevorzugte_schwuenge": [
-        "Innerer Haken"
-      ],
-      "form": 0.5,
-      "ueberraschungsindex": null,
-      "n_bewertete_gaenge": 0,
-      "anzahl_kraenze": 0,
-      "aktiv": false,
-      "groesster_erfolg": null,
-      "quellen": [
-        "schlussgang.ch/portraet",
-        "https://www.schlussgang.ch/portraet/christian-zemp-1"
-      ]
-    },
-    {
       "id": "christian zemp|2004",
       "name": "Christian Zemp",
       "jahrgang": 2004,
@@ -11887,6 +11863,30 @@
       "quellen": [
         "schlussgang.ch/portraet",
         "https://www.schlussgang.ch/portraet/christian-zemp-0"
+      ]
+    },
+    {
+      "id": "christian zemp|2000",
+      "name": "Christian Zemp",
+      "jahrgang": 2000,
+      "groesse_cm": 182.0,
+      "gewicht_kg": 99.0,
+      "kranzstatus": "kranzer",
+      "teilverband": "Innerschweiz",
+      "kanton": "Zug",
+      "schwingklub": "Zug und Umgebung",
+      "bevorzugte_schwuenge": [
+        "Innerer Haken"
+      ],
+      "form": 0.5,
+      "ueberraschungsindex": null,
+      "n_bewertete_gaenge": 0,
+      "anzahl_kraenze": 0,
+      "aktiv": false,
+      "groesster_erfolg": null,
+      "quellen": [
+        "schlussgang.ch/portraet",
+        "https://www.schlussgang.ch/portraet/christian-zemp-1"
       ]
     },
     {
@@ -12943,10 +12943,10 @@
       "kanton": "St. Gallen",
       "schwingklub": "Wil",
       "bevorzugte_schwuenge": [],
-      "form": 0.7,
-      "ueberraschungsindex": 0.1121,
-      "n_bewertete_gaenge": 341,
-      "anzahl_kraenze": 3,
+      "form": 0.5,
+      "ueberraschungsindex": 0.1106,
+      "n_bewertete_gaenge": 347,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Reichmuth Pirmin",
@@ -13696,10 +13696,10 @@
       "kanton": "Oberland",
       "schwingklub": "Thun",
       "bevorzugte_schwuenge": [],
-      "form": 0.9,
-      "ueberraschungsindex": 0.1533,
-      "n_bewertete_gaenge": 172,
-      "anzahl_kraenze": 4,
+      "form": 0.3,
+      "ueberraschungsindex": 0.148,
+      "n_bewertete_gaenge": 177,
+      "anzahl_kraenze": 5,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Matthias Aeschbacher",
@@ -14699,10 +14699,10 @@
       "bevorzugte_schwuenge": [
         "Souplesse"
       ],
-      "form": 0.6,
+      "form": 0.8,
       "ueberraschungsindex": 0.0883,
-      "n_bewertete_gaenge": 369,
-      "anzahl_kraenze": 2,
+      "n_bewertete_gaenge": 375,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Nick Alpiger",
@@ -14848,10 +14848,10 @@
       "bevorzugte_schwuenge": [
         "Kurz"
       ],
-      "form": 0.9,
-      "ueberraschungsindex": 0.0365,
-      "n_bewertete_gaenge": 590,
-      "anzahl_kraenze": 6,
+      "form": 0.8,
+      "ueberraschungsindex": 0.0379,
+      "n_bewertete_gaenge": 596,
+      "anzahl_kraenze": 7,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Michael Gwerder",
@@ -17608,10 +17608,10 @@
       "kanton": "Seeland",
       "schwingklub": "Biel",
       "bevorzugte_schwuenge": [],
-      "form": 0.8,
-      "ueberraschungsindex": 0.1007,
-      "n_bewertete_gaenge": 313,
-      "anzahl_kraenze": 4,
+      "form": 0.6,
+      "ueberraschungsindex": 0.0982,
+      "n_bewertete_gaenge": 319,
+      "anzahl_kraenze": 5,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Matthias Aeschbacher",
@@ -18237,10 +18237,10 @@
         "Kurz",
         "Kreuzgriff"
       ],
-      "form": 0.8,
-      "ueberraschungsindex": 0.0924,
-      "n_bewertete_gaenge": 319,
-      "anzahl_kraenze": 3,
+      "form": 0.5,
+      "ueberraschungsindex": 0.0921,
+      "n_bewertete_gaenge": 324,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Mario Schneider",
@@ -18353,10 +18353,10 @@
       "kanton": "Mittelland",
       "schwingklub": "Schwarzenburg",
       "bevorzugte_schwuenge": [],
-      "form": 1.0,
-      "ueberraschungsindex": 0.134,
-      "n_bewertete_gaenge": 348,
-      "anzahl_kraenze": 4,
+      "form": 0.8,
+      "ueberraschungsindex": 0.1311,
+      "n_bewertete_gaenge": 354,
+      "anzahl_kraenze": 5,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Reto Thöni",
@@ -20637,10 +20637,10 @@
       "bevorzugte_schwuenge": [
         "Bodenarbeiet"
       ],
-      "form": 0.7,
-      "ueberraschungsindex": 0.1859,
-      "n_bewertete_gaenge": 141,
-      "anzahl_kraenze": 3,
+      "form": 0.4,
+      "ueberraschungsindex": 0.1771,
+      "n_bewertete_gaenge": 147,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Burkhalter Thomas",
@@ -31404,10 +31404,10 @@
       "bevorzugte_schwuenge": [
         "Kurz"
       ],
-      "form": 0.7,
-      "ueberraschungsindex": 0.0977,
-      "n_bewertete_gaenge": 282,
-      "anzahl_kraenze": 2,
+      "form": 0.4,
+      "ueberraschungsindex": 0.0931,
+      "n_bewertete_gaenge": 286,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Mario Schneider",
@@ -31886,17 +31886,17 @@
       "kanton": "Luzern",
       "schwingklub": "Wiggertal",
       "bevorzugte_schwuenge": [],
-      "form": 0.9,
-      "ueberraschungsindex": 0.1352,
-      "n_bewertete_gaenge": 233,
-      "anzahl_kraenze": 3,
+      "form": 0.6,
+      "ueberraschungsindex": 0.136,
+      "n_bewertete_gaenge": 239,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Mario Schneider",
-        "event_id": "schlussgang-22427",
-        "datum": "2023-07-02",
-        "eigenes_elo": 1626.1,
-        "gegner_elo": 1666.7
+        "gegner_name": "Matthieu Burger",
+        "event_id": "schlussgang-46147",
+        "datum": "2026-09-05",
+        "eigenes_elo": 1895.0,
+        "gegner_elo": 1966.8
       },
       "quellen": [
         "schlussgang.ch/portraet",
@@ -31996,9 +31996,9 @@
         "Hakenschwünge"
       ],
       "form": 0.8,
-      "ueberraschungsindex": 0.1506,
-      "n_bewertete_gaenge": 215,
-      "anzahl_kraenze": 3,
+      "ueberraschungsindex": 0.1503,
+      "n_bewertete_gaenge": 221,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Curdin Orlik",
@@ -32056,10 +32056,10 @@
         "Kurz",
         "Brienzer"
       ],
-      "form": 0.8,
-      "ueberraschungsindex": 0.1341,
-      "n_bewertete_gaenge": 147,
-      "anzahl_kraenze": 3,
+      "form": 0.4,
+      "ueberraschungsindex": 0.1281,
+      "n_bewertete_gaenge": 153,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Romain Collaud",
@@ -32174,10 +32174,10 @@
       "bevorzugte_schwuenge": [
         "Kurz"
       ],
-      "form": 0.8,
-      "ueberraschungsindex": 0.0951,
-      "n_bewertete_gaenge": 313,
-      "anzahl_kraenze": 2,
+      "form": 0.7,
+      "ueberraschungsindex": 0.0963,
+      "n_bewertete_gaenge": 319,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Werner Schlegel",
@@ -32327,17 +32327,17 @@
       "bevorzugte_schwuenge": [
         "Kurz / Kreuzgriff"
       ],
-      "form": 0.9,
-      "ueberraschungsindex": 0.08,
-      "n_bewertete_gaenge": 251,
-      "anzahl_kraenze": 2,
+      "form": 0.2,
+      "ueberraschungsindex": 0.0768,
+      "n_bewertete_gaenge": 257,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Roman Wandeler",
-        "event_id": "schlussgang-21061",
-        "datum": "2025-07-27",
-        "eigenes_elo": 1605.4,
-        "gegner_elo": 1745.1
+        "gegner_name": "Christian Biäsch",
+        "event_id": "schlussgang-46147",
+        "datum": "2026-09-05",
+        "eigenes_elo": 1734.2,
+        "gegner_elo": 1877.4
       },
       "quellen": [
         "schlussgang.ch/portraet",
@@ -32663,10 +32663,10 @@
       "kanton": "Graubünden",
       "schwingklub": "Heinzenberg",
       "bevorzugte_schwuenge": [],
-      "form": 0.7,
-      "ueberraschungsindex": 0.0757,
-      "n_bewertete_gaenge": 390,
-      "anzahl_kraenze": 4,
+      "form": 0.6,
+      "ueberraschungsindex": 0.0775,
+      "n_bewertete_gaenge": 396,
+      "anzahl_kraenze": 5,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Marc Lustenberger",
@@ -37976,10 +37976,10 @@
       "kanton": "Fribourgeoise",
       "schwingklub": "Kerzers/Chiètres",
       "bevorzugte_schwuenge": [],
-      "form": 0.8,
-      "ueberraschungsindex": 0.1024,
-      "n_bewertete_gaenge": 329,
-      "anzahl_kraenze": 2,
+      "form": 0.6,
+      "ueberraschungsindex": 0.1026,
+      "n_bewertete_gaenge": 335,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Nick Alpiger",
@@ -38123,10 +38123,10 @@
       "bevorzugte_schwuenge": [
         "je nach Gegner"
       ],
-      "form": 0.9,
-      "ueberraschungsindex": 0.1099,
-      "n_bewertete_gaenge": 316,
-      "anzahl_kraenze": 2,
+      "form": 0.5,
+      "ueberraschungsindex": 0.1057,
+      "n_bewertete_gaenge": 322,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Nick Alpiger",
@@ -38185,10 +38185,10 @@
         "Räbikurz",
         "Übersprung"
       ],
-      "form": 0.9,
+      "form": 0.7,
       "ueberraschungsindex": 0.1165,
-      "n_bewertete_gaenge": 310,
-      "anzahl_kraenze": 5,
+      "n_bewertete_gaenge": 316,
+      "anzahl_kraenze": 6,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Matthias Aeschbacher",
@@ -38323,10 +38323,10 @@
       "bevorzugte_schwuenge": [
         "Kurz"
       ],
-      "form": 0.8,
-      "ueberraschungsindex": 0.1202,
-      "n_bewertete_gaenge": 191,
-      "anzahl_kraenze": 2,
+      "form": 0.2,
+      "ueberraschungsindex": 0.1139,
+      "n_bewertete_gaenge": 195,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Silvan Appert",
@@ -38435,10 +38435,10 @@
       "kanton": "Oberland",
       "schwingklub": "Hasliberg",
       "bevorzugte_schwuenge": [],
-      "form": 0.7,
-      "ueberraschungsindex": 0.0947,
-      "n_bewertete_gaenge": 311,
-      "anzahl_kraenze": 4,
+      "form": 0.6,
+      "ueberraschungsindex": 0.0939,
+      "n_bewertete_gaenge": 317,
+      "anzahl_kraenze": 5,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Gustav Steffen",
@@ -39798,10 +39798,10 @@
         "Kurz",
         "Lätz"
       ],
-      "form": 0.7,
-      "ueberraschungsindex": 0.0939,
-      "n_bewertete_gaenge": 301,
-      "anzahl_kraenze": 2,
+      "form": 0.1,
+      "ueberraschungsindex": 0.0884,
+      "n_bewertete_gaenge": 305,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Leandro Nägeli",
@@ -40116,10 +40116,10 @@
         "Kurz",
         "innerer Haken"
       ],
-      "form": 1.0,
-      "ueberraschungsindex": 0.1298,
-      "n_bewertete_gaenge": 293,
-      "anzahl_kraenze": 4,
+      "form": 0.8,
+      "ueberraschungsindex": 0.1276,
+      "n_bewertete_gaenge": 299,
+      "anzahl_kraenze": 5,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Patrick Gobeli",
@@ -40206,10 +40206,10 @@
       "bevorzugte_schwuenge": [
         "Kurz"
       ],
-      "form": 0.8,
-      "ueberraschungsindex": 0.0882,
-      "n_bewertete_gaenge": 359,
-      "anzahl_kraenze": 2,
+      "form": 0.3,
+      "ueberraschungsindex": 0.0863,
+      "n_bewertete_gaenge": 365,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Sinisha Lüscher",
@@ -41782,10 +41782,10 @@
         "Kurz",
         "Wyberhaken"
       ],
-      "form": 0.7,
-      "ueberraschungsindex": 0.0909,
-      "n_bewertete_gaenge": 336,
-      "anzahl_kraenze": 3,
+      "form": 0.4,
+      "ueberraschungsindex": 0.087,
+      "n_bewertete_gaenge": 341,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Fankhauser Erich",
@@ -41908,10 +41908,10 @@
         "Hüfter",
         "Flankenschwünge"
       ],
-      "form": 1.0,
-      "ueberraschungsindex": 0.1654,
-      "n_bewertete_gaenge": 239,
-      "anzahl_kraenze": 3,
+      "form": 0.8,
+      "ueberraschungsindex": 0.1644,
+      "n_bewertete_gaenge": 245,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Wicki Joel",
@@ -42307,10 +42307,10 @@
       "bevorzugte_schwuenge": [
         "Stöckli"
       ],
-      "form": 0.8,
-      "ueberraschungsindex": 0.0936,
-      "n_bewertete_gaenge": 281,
-      "anzahl_kraenze": 3,
+      "form": 0.7,
+      "ueberraschungsindex": 0.0951,
+      "n_bewertete_gaenge": 287,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Oliver Hermann",
@@ -42874,10 +42874,10 @@
       "kanton": "Appenzell",
       "schwingklub": "Herisau",
       "bevorzugte_schwuenge": [],
-      "form": 0.6,
-      "ueberraschungsindex": 0.0629,
-      "n_bewertete_gaenge": 286,
-      "anzahl_kraenze": 3,
+      "form": 0.2,
+      "ueberraschungsindex": 0.058,
+      "n_bewertete_gaenge": 290,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Andrin Habegger",
@@ -42905,10 +42905,10 @@
         "Kurz",
         "Wyberhaken"
       ],
-      "form": 0.7,
-      "ueberraschungsindex": 0.0797,
-      "n_bewertete_gaenge": 342,
-      "anzahl_kraenze": 3,
+      "form": 0.4,
+      "ueberraschungsindex": 0.0787,
+      "n_bewertete_gaenge": 348,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Marcel Räbsamen",
@@ -42965,9 +42965,9 @@
         "Fussstich"
       ],
       "form": 0.7,
-      "ueberraschungsindex": 0.1101,
-      "n_bewertete_gaenge": 299,
-      "anzahl_kraenze": 3,
+      "ueberraschungsindex": 0.1088,
+      "n_bewertete_gaenge": 305,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Nick Alpiger",
@@ -43338,10 +43338,10 @@
       "kanton": "Appenzell",
       "schwingklub": "Herisau",
       "bevorzugte_schwuenge": [],
-      "form": 0.7,
-      "ueberraschungsindex": 0.0775,
-      "n_bewertete_gaenge": 335,
-      "anzahl_kraenze": 3,
+      "form": 0.5,
+      "ueberraschungsindex": 0.0757,
+      "n_bewertete_gaenge": 341,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Michael Moser",
@@ -43394,10 +43394,10 @@
       "kanton": "Schwyz",
       "schwingklub": "Einsiedeln",
       "bevorzugte_schwuenge": [],
-      "form": 0.8,
-      "ueberraschungsindex": 0.2053,
-      "n_bewertete_gaenge": 110,
-      "anzahl_kraenze": 2,
+      "form": 0.3,
+      "ueberraschungsindex": 0.1869,
+      "n_bewertete_gaenge": 116,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Marcel Bieri",
@@ -43972,10 +43972,10 @@
       "bevorzugte_schwuenge": [
         "innerer Haken"
       ],
-      "form": 0.9,
-      "ueberraschungsindex": 0.0943,
-      "n_bewertete_gaenge": 393,
-      "anzahl_kraenze": 2,
+      "form": 0.3,
+      "ueberraschungsindex": 0.0884,
+      "n_bewertete_gaenge": 396,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Adrian Walther",
@@ -44147,10 +44147,10 @@
       "bevorzugte_schwuenge": [
         "Kurz"
       ],
-      "form": 0.7,
-      "ueberraschungsindex": 0.1208,
-      "n_bewertete_gaenge": 292,
-      "anzahl_kraenze": 3,
+      "form": 0.4,
+      "ueberraschungsindex": 0.1185,
+      "n_bewertete_gaenge": 298,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Matthias Aeschbacher",
@@ -45209,10 +45209,10 @@
       "bevorzugte_schwuenge": [
         "Kurz"
       ],
-      "form": 1.0,
-      "ueberraschungsindex": 0.1088,
-      "n_bewertete_gaenge": 291,
-      "anzahl_kraenze": 4,
+      "form": 0.8,
+      "ueberraschungsindex": 0.1103,
+      "n_bewertete_gaenge": 297,
+      "anzahl_kraenze": 5,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Nick Alpiger",
@@ -45289,10 +45289,10 @@
       "kanton": "Mittelland",
       "schwingklub": "Schwarzenburg",
       "bevorzugte_schwuenge": [],
-      "form": 0.8,
-      "ueberraschungsindex": 0.1247,
-      "n_bewertete_gaenge": 241,
-      "anzahl_kraenze": 5,
+      "form": 0.7,
+      "ueberraschungsindex": 0.1252,
+      "n_bewertete_gaenge": 246,
+      "anzahl_kraenze": 6,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Domenic Schneider",
@@ -45377,10 +45377,10 @@
       "kanton": "Emmental",
       "schwingklub": "Zäziwil",
       "bevorzugte_schwuenge": [],
-      "form": 0.8,
-      "ueberraschungsindex": 0.1422,
-      "n_bewertete_gaenge": 312,
-      "anzahl_kraenze": 3,
+      "form": 0.7,
+      "ueberraschungsindex": 0.1403,
+      "n_bewertete_gaenge": 317,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Michael Ledermann",
@@ -47678,10 +47678,10 @@
         "Kurz",
         "Fussstich"
       ],
-      "form": 1.0,
-      "ueberraschungsindex": 0.1036,
-      "n_bewertete_gaenge": 449,
-      "anzahl_kraenze": 5,
+      "form": 0.8,
+      "ueberraschungsindex": 0.1039,
+      "n_bewertete_gaenge": 455,
+      "anzahl_kraenze": 6,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Adrian Walther",
@@ -50294,10 +50294,10 @@
         "Kurz",
         "Knietätsch"
       ],
-      "form": 0.9,
-      "ueberraschungsindex": 0.0833,
-      "n_bewertete_gaenge": 348,
-      "anzahl_kraenze": 4,
+      "form": 0.6,
+      "ueberraschungsindex": 0.0823,
+      "n_bewertete_gaenge": 354,
+      "anzahl_kraenze": 5,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Werner Schlegel",
@@ -50747,10 +50747,10 @@
       "kanton": "Fribourgeoise",
       "schwingklub": "La Gruyère",
       "bevorzugte_schwuenge": [],
-      "form": 0.8,
-      "ueberraschungsindex": 0.0915,
-      "n_bewertete_gaenge": 294,
-      "anzahl_kraenze": 3,
+      "form": 0.4,
+      "ueberraschungsindex": 0.088,
+      "n_bewertete_gaenge": 298,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Michael Gwerder",
@@ -53332,10 +53332,10 @@
       "kanton": "Seeland",
       "schwingklub": "Lyss",
       "bevorzugte_schwuenge": [],
-      "form": 0.7,
-      "ueberraschungsindex": 0.1007,
-      "n_bewertete_gaenge": 222,
-      "anzahl_kraenze": 2,
+      "form": 0.4,
+      "ueberraschungsindex": 0.096,
+      "n_bewertete_gaenge": 226,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Curdin Orlik",
@@ -55244,10 +55244,10 @@
         "Kurz",
         "Innerer Haken"
       ],
-      "form": 0.7,
-      "ueberraschungsindex": 0.085,
-      "n_bewertete_gaenge": 335,
-      "anzahl_kraenze": 3,
+      "form": 0.3,
+      "ueberraschungsindex": 0.0815,
+      "n_bewertete_gaenge": 341,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Marco Heiniger",
@@ -55379,10 +55379,10 @@
       "bevorzugte_schwuenge": [
         "Kurz"
       ],
-      "form": 0.8,
-      "ueberraschungsindex": 0.1084,
-      "n_bewertete_gaenge": 335,
-      "anzahl_kraenze": 2,
+      "form": 0.6,
+      "ueberraschungsindex": 0.1064,
+      "n_bewertete_gaenge": 342,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Michael Moser",
@@ -55477,28 +55477,6 @@
       ]
     },
     {
-      "id": "roman bucher|2003",
-      "name": "Roman Bucher",
-      "jahrgang": 2003,
-      "groesse_cm": 173.0,
-      "gewicht_kg": 80.0,
-      "kranzstatus": "kranzer",
-      "teilverband": "Nordostschweiz",
-      "kanton": "Zürich",
-      "schwingklub": "Zürcher Oberland",
-      "bevorzugte_schwuenge": [],
-      "form": 0.5,
-      "ueberraschungsindex": null,
-      "n_bewertete_gaenge": 0,
-      "anzahl_kraenze": 0,
-      "aktiv": false,
-      "groesster_erfolg": null,
-      "quellen": [
-        "schlussgang.ch/portraet",
-        "https://www.schlussgang.ch/portraet/roman-bucher"
-      ]
-    },
-    {
       "id": "roman bucher|2002",
       "name": "Roman Bucher",
       "jahrgang": 2002,
@@ -55518,6 +55496,28 @@
       "quellen": [
         "schlussgang.ch/portraet",
         "https://www.schlussgang.ch/portraet/roman-bucher-0"
+      ]
+    },
+    {
+      "id": "roman bucher|2003",
+      "name": "Roman Bucher",
+      "jahrgang": 2003,
+      "groesse_cm": 173.0,
+      "gewicht_kg": 80.0,
+      "kranzstatus": "kranzer",
+      "teilverband": "Nordostschweiz",
+      "kanton": "Zürich",
+      "schwingklub": "Zürcher Oberland",
+      "bevorzugte_schwuenge": [],
+      "form": 0.5,
+      "ueberraschungsindex": null,
+      "n_bewertete_gaenge": 0,
+      "anzahl_kraenze": 0,
+      "aktiv": false,
+      "groesster_erfolg": null,
+      "quellen": [
+        "schlussgang.ch/portraet",
+        "https://www.schlussgang.ch/portraet/roman-bucher"
       ]
     },
     {
@@ -58021,17 +58021,17 @@
       "bevorzugte_schwuenge": [
         "Kurz"
       ],
-      "form": 0.7,
-      "ueberraschungsindex": 0.0359,
-      "n_bewertete_gaenge": 365,
-      "anzahl_kraenze": 0,
+      "form": 0.8,
+      "ueberraschungsindex": 0.0423,
+      "n_bewertete_gaenge": 371,
+      "anzahl_kraenze": 1,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Werner Schlegel",
-        "event_id": "schlussgang-37159",
-        "datum": "2026-05-03",
-        "eigenes_elo": 1938.6,
-        "gegner_elo": 2046.2
+        "gegner_name": "Michael Moser",
+        "event_id": "schlussgang-46147",
+        "datum": "2026-09-05",
+        "eigenes_elo": 1936.0,
+        "gegner_elo": 2128.2
       },
       "quellen": [
         "schlussgang.ch/portraet",
@@ -58082,10 +58082,10 @@
       "bevorzugte_schwuenge": [
         "diverse"
       ],
-      "form": 0.9,
-      "ueberraschungsindex": 0.0986,
-      "n_bewertete_gaenge": 381,
-      "anzahl_kraenze": 3,
+      "form": 0.6,
+      "ueberraschungsindex": 0.0963,
+      "n_bewertete_gaenge": 387,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Domenic Schneider",
@@ -62213,10 +62213,10 @@
       "kanton": "Mittelland",
       "schwingklub": "Schwarzenburg",
       "bevorzugte_schwuenge": [],
-      "form": 0.6,
-      "ueberraschungsindex": 0.1044,
-      "n_bewertete_gaenge": 247,
-      "anzahl_kraenze": 3,
+      "form": 0.3,
+      "ueberraschungsindex": 0.0997,
+      "n_bewertete_gaenge": 253,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Werner Schlegel",
@@ -62806,10 +62806,10 @@
       "bevorzugte_schwuenge": [
         "Wyberhaken"
       ],
-      "form": 0.9,
-      "ueberraschungsindex": 0.1146,
-      "n_bewertete_gaenge": 259,
-      "anzahl_kraenze": 3,
+      "form": 0.4,
+      "ueberraschungsindex": 0.1103,
+      "n_bewertete_gaenge": 265,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Noe Van Messel",
@@ -62895,10 +62895,10 @@
       "kanton": "Oberland",
       "schwingklub": "Niedersimmental",
       "bevorzugte_schwuenge": [],
-      "form": 0.7,
-      "ueberraschungsindex": 0.1048,
-      "n_bewertete_gaenge": 278,
-      "anzahl_kraenze": 5,
+      "form": 0.4,
+      "ueberraschungsindex": 0.1024,
+      "n_bewertete_gaenge": 282,
+      "anzahl_kraenze": 6,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Etienne Burger",
@@ -62986,10 +62986,10 @@
       "bevorzugte_schwuenge": [
         "Kurz"
       ],
-      "form": 0.6,
-      "ueberraschungsindex": 0.0975,
-      "n_bewertete_gaenge": 222,
-      "anzahl_kraenze": 2,
+      "form": 0.3,
+      "ueberraschungsindex": 0.0944,
+      "n_bewertete_gaenge": 227,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Marco Heiniger",
@@ -63609,10 +63609,10 @@
       "kanton": "Solothurn",
       "schwingklub": "Olten-Gösgen",
       "bevorzugte_schwuenge": [],
-      "form": 1.0,
-      "ueberraschungsindex": 0.1243,
-      "n_bewertete_gaenge": 302,
-      "anzahl_kraenze": 3,
+      "form": 0.6,
+      "ueberraschungsindex": 0.121,
+      "n_bewertete_gaenge": 308,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Nick Alpiger",
@@ -67766,10 +67766,10 @@
       "kanton": "Luzern",
       "schwingklub": "Rothenburg",
       "bevorzugte_schwuenge": [],
-      "form": 0.9,
-      "ueberraschungsindex": 0.0788,
-      "n_bewertete_gaenge": 313,
-      "anzahl_kraenze": 2,
+      "form": 0.4,
+      "ueberraschungsindex": 0.075,
+      "n_bewertete_gaenge": 319,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Joel Ambühl",
@@ -68282,10 +68282,10 @@
         "Kurz",
         "Stich"
       ],
-      "form": 0.6,
-      "ueberraschungsindex": 0.0964,
-      "n_bewertete_gaenge": 267,
-      "anzahl_kraenze": 3,
+      "form": 0.5,
+      "ueberraschungsindex": 0.0937,
+      "n_bewertete_gaenge": 273,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Damian Ott",
@@ -73430,9 +73430,9 @@
         "Kurz"
       ],
       "form": 0.7,
-      "ueberraschungsindex": 0.1597,
-      "n_bewertete_gaenge": 243,
-      "anzahl_kraenze": 2,
+      "ueberraschungsindex": 0.1581,
+      "n_bewertete_gaenge": 249,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Fabian Staudenmann",
