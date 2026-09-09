@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-09-08T08:38:07.380774+00:00",
-  "lauf_id": "20260908T083807Z",
+  "erstellt": "2026-09-09T08:40:03.792179+00:00",
+  "lauf_id": "20260909T084003Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 131492,
@@ -28,9 +28,9 @@
   ],
   "konfusionsmatrix": [
     [
-      22450,
+      22451,
       482,
-      5223
+      5222
     ],
     [
       7215,
@@ -38,9 +38,9 @@
       7215
     ],
     [
-      5222,
+      5223,
       482,
-      22451
+      22450
     ]
   ],
   "erfolgskriterien": {
@@ -116,7 +116,7 @@
       "von": "2023-04-01",
       "bis": "2026-09-05"
     },
-    "tage_seit_juengstem_fest": 3,
+    "tage_seit_juengstem_fest": 4,
     "kommende_feste": {
       "n": 8,
       "n_mit_paarungen": 0,
