@@ -3874,6 +3874,17 @@
       "quelle": "schlussgang.ch/event",
       "teilverband": "Innerschweiz",
       "teilverband_quelle": "vorausgabe"
+    },
+    {
+      "id": "schlussgang-58776",
+      "name": "Schluss - Schwinget",
+      "datum": "2026-10-10",
+      "typ": "regional",
+      "kategorie": null,
+      "ort": "Oetwil am See",
+      "quelle": "schlussgang.ch/event",
+      "teilverband": null,
+      "teilverband_quelle": "offen"
     }
   ]
 }
