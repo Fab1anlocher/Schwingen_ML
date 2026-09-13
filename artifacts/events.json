@@ -3784,20 +3784,17 @@
       "typ": "eidgenoessisch",
       "quelle": "schlussgang.ch/event",
       "ort": "Kilchberg ZH"
-    }
-  ],
-  "kommende": [
+    },
     {
       "id": "schlussgang-50715",
       "name": "Klubschwinget SK Tavannes 2026",
       "datum": "2026-09-12",
       "typ": "regional",
-      "kategorie": "Regionalfeste",
-      "ort": "Tavannes",
       "quelle": "schlussgang.ch/event",
-      "teilverband": null,
-      "teilverband_quelle": "offen"
-    },
+      "ort": "Tavannes"
+    }
+  ],
+  "kommende": [
     {
       "id": "schlussgang-48341",
       "name": "Allweg-Schwinget Ennetmoos 2026",

@@ -5038,9 +5038,9 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.4,
-      "ueberraschungsindex": 0.0053,
-      "n_bewertete_gaenge": 91,
+      "form": 0.5,
+      "ueberraschungsindex": 0.0013,
+      "n_bewertete_gaenge": 97,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
@@ -9706,9 +9706,9 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.4,
-      "ueberraschungsindex": -0.111,
-      "n_bewertete_gaenge": 30,
+      "form": 0.6,
+      "ueberraschungsindex": -0.0902,
+      "n_bewertete_gaenge": 36,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
@@ -11841,6 +11841,30 @@
       ]
     },
     {
+      "id": "christian zemp|2000",
+      "name": "Christian Zemp",
+      "jahrgang": 2000,
+      "groesse_cm": 182.0,
+      "gewicht_kg": 99.0,
+      "kranzstatus": "kranzer",
+      "teilverband": "Innerschweiz",
+      "kanton": "Zug",
+      "schwingklub": "Zug und Umgebung",
+      "bevorzugte_schwuenge": [
+        "Innerer Haken"
+      ],
+      "form": 0.5,
+      "ueberraschungsindex": null,
+      "n_bewertete_gaenge": 0,
+      "anzahl_kraenze": 0,
+      "aktiv": false,
+      "groesster_erfolg": null,
+      "quellen": [
+        "schlussgang.ch/portraet",
+        "https://www.schlussgang.ch/portraet/christian-zemp-1"
+      ]
+    },
+    {
       "id": "christian zemp|2004",
       "name": "Christian Zemp",
       "jahrgang": 2004,
@@ -11863,30 +11887,6 @@
       "quellen": [
         "schlussgang.ch/portraet",
         "https://www.schlussgang.ch/portraet/christian-zemp-0"
-      ]
-    },
-    {
-      "id": "christian zemp|2000",
-      "name": "Christian Zemp",
-      "jahrgang": 2000,
-      "groesse_cm": 182.0,
-      "gewicht_kg": 99.0,
-      "kranzstatus": "kranzer",
-      "teilverband": "Innerschweiz",
-      "kanton": "Zug",
-      "schwingklub": "Zug und Umgebung",
-      "bevorzugte_schwuenge": [
-        "Innerer Haken"
-      ],
-      "form": 0.5,
-      "ueberraschungsindex": null,
-      "n_bewertete_gaenge": 0,
-      "anzahl_kraenze": 0,
-      "aktiv": false,
-      "groesster_erfolg": null,
-      "quellen": [
-        "schlussgang.ch/portraet",
-        "https://www.schlussgang.ch/portraet/christian-zemp-1"
       ]
     },
     {
@@ -12884,17 +12884,17 @@
       "kanton": "Seeland",
       "schwingklub": "Biel",
       "bevorzugte_schwuenge": [],
-      "form": 0.2,
-      "ueberraschungsindex": 0.0514,
-      "n_bewertete_gaenge": 215,
-      "anzahl_kraenze": 1,
+      "form": 0.6,
+      "ueberraschungsindex": 0.0509,
+      "n_bewertete_gaenge": 221,
+      "anzahl_kraenze": 2,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Silvio Oettli",
-        "event_id": "schlussgang-35143",
-        "datum": "2025-07-13",
-        "eigenes_elo": 1609.4,
-        "gegner_elo": 1686.8
+        "gegner_name": "Hugo Schläfli",
+        "event_id": "schlussgang-50715",
+        "datum": "2026-09-12",
+        "eigenes_elo": 1614.1,
+        "gegner_elo": 1737.5
       },
       "quellen": [
         "schlussgang.ch/portraet",
@@ -20177,17 +20177,17 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.4,
-      "ueberraschungsindex": -0.2437,
-      "n_bewertete_gaenge": 18,
+      "form": 0.3,
+      "ueberraschungsindex": -0.2338,
+      "n_bewertete_gaenge": 24,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Arni Silvan",
-        "event_id": "schlussgang-50011",
-        "datum": "2026-04-11",
-        "eigenes_elo": 1500.0,
-        "gegner_elo": 1412.5
+        "gegner_name": "Wittwer Philipp",
+        "event_id": "schlussgang-50715",
+        "datum": "2026-09-12",
+        "eigenes_elo": 1448.8,
+        "gegner_elo": 1428.3
       },
       "quellen": [
         "schlussgang.ch/statistic-pdf"
@@ -23550,9 +23550,9 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.5,
-      "ueberraschungsindex": 0.0313,
-      "n_bewertete_gaenge": 151,
+      "form": 0.9,
+      "ueberraschungsindex": 0.0393,
+      "n_bewertete_gaenge": 157,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
@@ -23577,17 +23577,17 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.0,
-      "ueberraschungsindex": -0.313,
-      "n_bewertete_gaenge": 47,
+      "form": 0.4,
+      "ueberraschungsindex": -0.2787,
+      "n_bewertete_gaenge": 52,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Kolly Antoine",
-        "event_id": "schlussgang-44993",
-        "datum": "2026-06-13",
-        "eigenes_elo": 1338.8,
-        "gegner_elo": 1430.9
+        "gegner_name": "Graf Justin",
+        "event_id": "schlussgang-50715",
+        "datum": "2026-09-12",
+        "eigenes_elo": 1319.8,
+        "gegner_elo": 1490.1
       },
       "quellen": [
         "schlussgang.ch/statistic-pdf"
@@ -24544,6 +24544,33 @@
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": null,
+      "quellen": [
+        "schlussgang.ch/statistic-pdf"
+      ]
+    },
+    {
+      "id": "graf justin|?",
+      "name": "Graf Justin",
+      "jahrgang": null,
+      "groesse_cm": null,
+      "gewicht_kg": null,
+      "kranzstatus": "kein",
+      "teilverband": null,
+      "kanton": null,
+      "schwingklub": null,
+      "bevorzugte_schwuenge": [],
+      "form": 0.2,
+      "ueberraschungsindex": -0.4862,
+      "n_bewertete_gaenge": 6,
+      "anzahl_kraenze": 0,
+      "aktiv": true,
+      "groesster_erfolg": {
+        "gegner_name": "Rognon Noé",
+        "event_id": "schlussgang-50715",
+        "datum": "2026-09-12",
+        "eigenes_elo": 1493.3,
+        "gegner_elo": 1410.0
+      },
       "quellen": [
         "schlussgang.ch/statistic-pdf"
       ]
@@ -27961,11 +27988,11 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.8,
-      "ueberraschungsindex": -0.0411,
-      "n_bewertete_gaenge": 55,
+      "form": 0.6,
+      "ueberraschungsindex": -0.0189,
+      "n_bewertete_gaenge": 61,
       "anzahl_kraenze": 0,
-      "aktiv": false,
+      "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Marcel (1) Stucki",
         "event_id": "schlussgang-21069",
@@ -28468,10 +28495,10 @@
       "kanton": "Fribourgeoise",
       "schwingklub": "Fribourg & Environs",
       "bevorzugte_schwuenge": [],
-      "form": 0.5,
-      "ueberraschungsindex": 0.0733,
-      "n_bewertete_gaenge": 288,
-      "anzahl_kraenze": 2,
+      "form": 0.7,
+      "ueberraschungsindex": 0.0703,
+      "n_bewertete_gaenge": 294,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Christoph Baeriswyl",
@@ -30887,8 +30914,8 @@
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
       "form": 0.7,
-      "ueberraschungsindex": 0.0253,
-      "n_bewertete_gaenge": 107,
+      "ueberraschungsindex": 0.0315,
+      "n_bewertete_gaenge": 113,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
@@ -31772,17 +31799,17 @@
       "kanton": "Berner-Jura",
       "schwingklub": "Tavannes",
       "bevorzugte_schwuenge": [],
-      "form": 0.6,
-      "ueberraschungsindex": 0.068,
-      "n_bewertete_gaenge": 215,
-      "anzahl_kraenze": 2,
+      "form": 0.9,
+      "ueberraschungsindex": 0.0713,
+      "n_bewertete_gaenge": 221,
+      "anzahl_kraenze": 3,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Dominik Gasser",
-        "event_id": "schlussgang-22298",
-        "datum": "2024-05-12",
-        "eigenes_elo": 1523.3,
-        "gegner_elo": 1636.0
+        "gegner_name": "Matthieu Burger",
+        "event_id": "schlussgang-50715",
+        "datum": "2026-09-12",
+        "eigenes_elo": 1664.2,
+        "gegner_elo": 1952.4
       },
       "quellen": [
         "schlussgang.ch/portraet",
@@ -36131,9 +36158,9 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.5,
-      "ueberraschungsindex": 0.0067,
-      "n_bewertete_gaenge": 106,
+      "form": 0.6,
+      "ueberraschungsindex": 0.0049,
+      "n_bewertete_gaenge": 112,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
@@ -36686,9 +36713,9 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.2,
-      "ueberraschungsindex": -0.0452,
-      "n_bewertete_gaenge": 48,
+      "form": 0.6,
+      "ueberraschungsindex": -0.0344,
+      "n_bewertete_gaenge": 54,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
@@ -44147,10 +44174,10 @@
       "bevorzugte_schwuenge": [
         "Kurz"
       ],
-      "form": 0.4,
-      "ueberraschungsindex": 0.1185,
-      "n_bewertete_gaenge": 298,
-      "anzahl_kraenze": 4,
+      "form": 0.3,
+      "ueberraschungsindex": 0.1153,
+      "n_bewertete_gaenge": 299,
+      "anzahl_kraenze": 5,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Matthias Aeschbacher",
@@ -44984,8 +45011,8 @@
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
       "form": 0.5,
-      "ueberraschungsindex": -0.0635,
-      "n_bewertete_gaenge": 208,
+      "ueberraschungsindex": -0.0593,
+      "n_bewertete_gaenge": 214,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
@@ -49989,9 +50016,9 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.4,
-      "ueberraschungsindex": -0.2625,
-      "n_bewertete_gaenge": 36,
+      "form": 0.2,
+      "ueberraschungsindex": -0.244,
+      "n_bewertete_gaenge": 42,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
@@ -51284,17 +51311,17 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.3,
-      "ueberraschungsindex": -0.2217,
-      "n_bewertete_gaenge": 46,
+      "form": 0.5,
+      "ueberraschungsindex": -0.1957,
+      "n_bewertete_gaenge": 52,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Max Grégory",
-        "event_id": "schlussgang-44104",
-        "datum": "2025-08-10",
-        "eigenes_elo": 1371.8,
-        "gegner_elo": 1463.5
+        "gegner_name": "Graf Justin",
+        "event_id": "schlussgang-50715",
+        "datum": "2026-09-12",
+        "eigenes_elo": 1351.7,
+        "gegner_elo": 1500.0
       },
       "quellen": [
         "schlussgang.ch/statistic-pdf"
@@ -51732,9 +51759,9 @@
         "Bärendruck"
       ],
       "form": 0.9,
-      "ueberraschungsindex": 0.0771,
-      "n_bewertete_gaenge": 278,
-      "anzahl_kraenze": 3,
+      "ueberraschungsindex": 0.0748,
+      "n_bewertete_gaenge": 284,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Lukas Bissig",
@@ -53332,10 +53359,10 @@
       "kanton": "Seeland",
       "schwingklub": "Lyss",
       "bevorzugte_schwuenge": [],
-      "form": 0.4,
-      "ueberraschungsindex": 0.096,
-      "n_bewertete_gaenge": 226,
-      "anzahl_kraenze": 3,
+      "form": 1.0,
+      "ueberraschungsindex": 0.1012,
+      "n_bewertete_gaenge": 232,
+      "anzahl_kraenze": 4,
       "aktiv": true,
       "groesster_erfolg": {
         "gegner_name": "Curdin Orlik",
@@ -55028,8 +55055,8 @@
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
       "form": 0.0,
-      "ueberraschungsindex": -0.5321,
-      "n_bewertete_gaenge": 12,
+      "ueberraschungsindex": -0.5421,
+      "n_bewertete_gaenge": 18,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": null,
@@ -57902,17 +57929,17 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.1,
-      "ueberraschungsindex": -0.4249,
-      "n_bewertete_gaenge": 28,
+      "form": 0.3,
+      "ueberraschungsindex": -0.3769,
+      "n_bewertete_gaenge": 34,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Wyssen Kari",
-        "event_id": "schlussgang-52184",
-        "datum": "2026-07-25",
-        "eigenes_elo": 1394.2,
-        "gegner_elo": 1343.1
+        "gegner_name": "Rognon Noé",
+        "event_id": "schlussgang-50715",
+        "datum": "2026-09-12",
+        "eigenes_elo": 1360.3,
+        "gegner_elo": 1415.6
       },
       "quellen": [
         "schlussgang.ch/statistic-pdf"
@@ -61604,17 +61631,17 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.0,
-      "ueberraschungsindex": -0.3316,
-      "n_bewertete_gaenge": 30,
+      "form": 0.5,
+      "ueberraschungsindex": -0.267,
+      "n_bewertete_gaenge": 36,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Isenschmid Nico",
-        "event_id": "schlussgang-51908",
-        "datum": "2026-02-28",
-        "eigenes_elo": 1399.1,
-        "gegner_elo": 1389.6
+        "gegner_name": "Graf Justin",
+        "event_id": "schlussgang-50715",
+        "datum": "2026-09-12",
+        "eigenes_elo": 1365.9,
+        "gegner_elo": 1478.3
       },
       "quellen": [
         "schlussgang.ch/statistic-pdf"
@@ -61733,17 +61760,17 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.4,
-      "ueberraschungsindex": -0.1138,
-      "n_bewertete_gaenge": 36,
+      "form": 0.5,
+      "ueberraschungsindex": -0.1055,
+      "n_bewertete_gaenge": 42,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Marcel (1) Stucki",
-        "event_id": "schlussgang-23307",
-        "datum": "2025-06-15",
-        "eigenes_elo": 1494.4,
-        "gegner_elo": 1490.1
+        "gegner_name": "Flury Matthias",
+        "event_id": "schlussgang-50715",
+        "datum": "2026-09-12",
+        "eigenes_elo": 1445.1,
+        "gegner_elo": 1453.3
       },
       "quellen": [
         "schlussgang.ch/statistic-pdf"
@@ -64483,9 +64510,9 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.6,
-      "ueberraschungsindex": 0.0067,
-      "n_bewertete_gaenge": 318,
+      "form": 0.7,
+      "ueberraschungsindex": 0.0086,
+      "n_bewertete_gaenge": 324,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
@@ -67069,9 +67096,9 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.5,
-      "ueberraschungsindex": 0.0309,
-      "n_bewertete_gaenge": 150,
+      "form": 0.7,
+      "ueberraschungsindex": 0.0324,
+      "n_bewertete_gaenge": 156,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
@@ -70094,17 +70121,17 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.6,
-      "ueberraschungsindex": 0.0045,
-      "n_bewertete_gaenge": 167,
+      "form": 0.8,
+      "ueberraschungsindex": 0.0145,
+      "n_bewertete_gaenge": 173,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Thomas (2) Wüthrich",
-        "event_id": "schlussgang-37170",
-        "datum": "2026-05-03",
-        "eigenes_elo": 1503.3,
-        "gegner_elo": 1533.0
+        "gegner_name": "Damian Gnägi",
+        "event_id": "schlussgang-50715",
+        "datum": "2026-09-12",
+        "eigenes_elo": 1514.5,
+        "gegner_elo": 1617.5
       },
       "quellen": [
         "schlussgang.ch/statistic-pdf"
@@ -70121,12 +70148,18 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.1,
-      "ueberraschungsindex": -0.4619,
-      "n_bewertete_gaenge": 28,
+      "form": 0.4,
+      "ueberraschungsindex": -0.387,
+      "n_bewertete_gaenge": 34,
       "anzahl_kraenze": 0,
       "aktiv": true,
-      "groesster_erfolg": null,
+      "groesster_erfolg": {
+        "gegner_name": "Graf Justin",
+        "event_id": "schlussgang-50715",
+        "datum": "2026-09-12",
+        "eigenes_elo": 1340.7,
+        "gegner_elo": 1496.9
+      },
       "quellen": [
         "schlussgang.ch/statistic-pdf"
       ]
@@ -74771,9 +74804,9 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.3,
-      "ueberraschungsindex": -0.2727,
-      "n_bewertete_gaenge": 22,
+      "form": 0.4,
+      "ueberraschungsindex": -0.2507,
+      "n_bewertete_gaenge": 28,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
@@ -76304,9 +76337,9 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.6,
-      "ueberraschungsindex": -0.0782,
-      "n_bewertete_gaenge": 110,
+      "form": 0.7,
+      "ueberraschungsindex": -0.0625,
+      "n_bewertete_gaenge": 116,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
@@ -77231,17 +77264,17 @@
       "kanton": null,
       "schwingklub": null,
       "bevorzugte_schwuenge": [],
-      "form": 0.3,
-      "ueberraschungsindex": -0.2223,
-      "n_bewertete_gaenge": 28,
+      "form": 0.6,
+      "ueberraschungsindex": -0.1642,
+      "n_bewertete_gaenge": 34,
       "anzahl_kraenze": 0,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Röthlisberger Jonathan",
-        "event_id": "schlussgang-49178",
-        "datum": "2026-08-09",
-        "eigenes_elo": 1405.6,
-        "gegner_elo": 1437.3
+        "gegner_name": "Flury Matthias",
+        "event_id": "schlussgang-50715",
+        "datum": "2026-09-12",
+        "eigenes_elo": 1413.3,
+        "gegner_elo": 1448.4
       },
       "quellen": [
         "schlussgang.ch/statistic-pdf"

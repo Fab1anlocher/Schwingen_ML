@@ -53,14 +53,14 @@
     {
       "kanton": "Berner-Jura",
       "n_schwinger": 3,
-      "elo_avg": 1642.6,
+      "elo_avg": 1646.3,
       "n_top_schwinger": 2,
       "n_kranzer": 3,
       "n_eidgenosse": 0,
       "n_koenig": 0,
-      "n_siege": 170,
-      "n_gestellt": 138,
-      "n_niederlagen": 83
+      "n_siege": 174,
+      "n_gestellt": 139,
+      "n_niederlagen": 84
     },
     {
       "kanton": "Emmental",
@@ -82,9 +82,9 @@
       "n_kranzer": 60,
       "n_eidgenosse": 3,
       "n_koenig": 0,
-      "n_siege": 4218,
-      "n_gestellt": 2027,
-      "n_niederlagen": 2660
+      "n_siege": 4221,
+      "n_gestellt": 2028,
+      "n_niederlagen": 2662
     },
     {
       "kanton": "Genevoise",
@@ -233,14 +233,14 @@
     {
       "kanton": "Seeland",
       "n_schwinger": 14,
-      "elo_avg": 1634.1,
+      "elo_avg": 1634.7,
       "n_top_schwinger": 5,
       "n_kranzer": 11,
       "n_eidgenosse": 3,
       "n_koenig": 0,
-      "n_siege": 836,
-      "n_gestellt": 543,
-      "n_niederlagen": 349
+      "n_siege": 850,
+      "n_gestellt": 544,
+      "n_niederlagen": 353
     },
     {
       "kanton": "Solothurn",

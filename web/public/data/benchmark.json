@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0.0",
   "holdout_jahr": 2026,
-  "n_test": 35721,
+  "n_test": 35808,
   "kandidaten": [
     {
       "key": "kranz_heuristik",
       "label": "Kranz-Heuristik",
-      "accuracy": 0.4237,
-      "brier_score": 1.1526
+      "accuracy": 0.4234,
+      "brier_score": 1.1533
     },
     {
       "key": "elo_baseline",
@@ -18,14 +18,14 @@
     {
       "key": "ml_ohne_elo",
       "label": "ML ohne Elo/Historie",
-      "accuracy": 0.5168,
-      "brier_score": 0.5648
+      "accuracy": 0.517,
+      "brier_score": 0.5649
     },
     {
       "key": "ml_komplett",
       "label": "ML komplett (Champion)",
       "accuracy": 0.6383,
-      "brier_score": 0.4791
+      "brier_score": 0.4792
     }
   ]
 }

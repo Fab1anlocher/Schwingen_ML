@@ -65,14 +65,14 @@
     {
       "kanton": "Bern",
       "n_schwinger": 171,
-      "elo_avg": 1653.3,
+      "elo_avg": 1653.4,
       "n_top_schwinger": 75,
       "n_kranzer": 152,
       "n_eidgenosse": 19,
       "n_koenig": 0,
-      "n_siege": 13357,
-      "n_gestellt": 8205,
-      "n_niederlagen": 6885
+      "n_siege": 13375,
+      "n_gestellt": 8207,
+      "n_niederlagen": 6890
     },
     {
       "kanton": "Fribourg",
@@ -82,9 +82,9 @@
       "n_kranzer": 60,
       "n_eidgenosse": 3,
       "n_koenig": 0,
-      "n_siege": 4218,
-      "n_gestellt": 2027,
-      "n_niederlagen": 2660
+      "n_siege": 4221,
+      "n_gestellt": 2028,
+      "n_niederlagen": 2662
     },
     {
       "kanton": "Genève",
