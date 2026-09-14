@@ -3792,42 +3792,33 @@
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
       "ort": "Tavannes"
-    }
-  ],
-  "kommende": [
+    },
     {
       "id": "schlussgang-48341",
       "name": "Allweg-Schwinget Ennetmoos 2026",
       "datum": "2026-09-13",
       "typ": "regional",
-      "kategorie": "Regionalfeste",
-      "ort": "Ennetmoos",
       "quelle": "schlussgang.ch/event",
-      "teilverband": "Innerschweiz",
-      "teilverband_quelle": "vorausgabe"
-    },
-    {
-      "id": "schlussgang-51858",
-      "name": "Lueg-Schwinget Kaltacker 2026",
-      "datum": "2026-09-13",
-      "typ": "regional",
-      "kategorie": "Regionalfeste",
-      "ort": "Lueg Kaltacker",
-      "quelle": "schlussgang.ch/event",
-      "teilverband": "Bern",
-      "teilverband_quelle": "vorausgabe"
+      "ort": "Ennetmoos"
     },
     {
       "id": "schlussgang-51612",
       "name": "Toggenburger Herbstschwinget Bütschwil 2026",
       "datum": "2026-09-13",
       "typ": "regional",
-      "kategorie": "Regionalfeste",
-      "ort": "Bütschwil",
       "quelle": "schlussgang.ch/event",
-      "teilverband": "Nordostschweiz",
-      "teilverband_quelle": "namensmuster"
+      "ort": "Bütschwil"
     },
+    {
+      "id": "schlussgang-51858",
+      "name": "Lueg-Schwinget Kaltacker 2026",
+      "datum": "2026-09-13",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lueg Kaltacker"
+    }
+  ],
+  "kommende": [
     {
       "id": "schlussgang-52146",
       "name": "Chemihütte-Schwinget Aeschiried 2026",
@@ -3871,17 +3862,6 @@
       "quelle": "schlussgang.ch/event",
       "teilverband": "Innerschweiz",
       "teilverband_quelle": "vorausgabe"
-    },
-    {
-      "id": "schlussgang-58776",
-      "name": "Schluss - Schwinget",
-      "datum": "2026-10-10",
-      "typ": "regional",
-      "kategorie": null,
-      "ort": "Oetwil am See",
-      "quelle": "schlussgang.ch/event",
-      "teilverband": null,
-      "teilverband_quelle": "offen"
     }
   ]
 }
