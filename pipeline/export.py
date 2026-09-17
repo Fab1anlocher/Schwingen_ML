@@ -328,7 +328,8 @@ def exportiere_benchmark(benchmark_res: dict) -> None:
     """benchmark.json: 4-Wege-Vergleich Heuristik/Elo/ML-ohne-Elo/ML-komplett.
 
     Siehe pipeline/benchmark.py für Methodik (identischer Holdout, nur echte
-    -- nicht augmentierte -- Testgänge, Accuracy + multiklassiger Brier-Score).
+    -- nicht augmentierte -- Testgänge, Accuracy + multiklassiger Brier-Score
+    + MAE/MSE auf dem Punktwert des Gangs).
     """
     kandidaten = [
         {
@@ -336,6 +337,8 @@ def exportiere_benchmark(benchmark_res: dict) -> None:
             "label": _KANDIDAT_LABELS.get(key, key),
             "accuracy": werte["accuracy"],
             "brier_score": werte["brier_score"],
+            "mae": werte["mae"],
+            "mse": werte["mse"],
         }
         for key, werte in benchmark_res["kandidaten"].items()
     ]
@@ -369,6 +372,10 @@ def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
         "modell": {
             "log_loss": round(ll, 4),
             "accuracy": round(train_res["accuracy"], 4),
+            # MAE/MSE auf dem Punktwert des Gangs (Sieg=1/Gestellt=0.5/
+            # Niederlage=0), s. pipeline/metriken.py.
+            "mae": round(train_res["mae"], 4),
+            "mse": round(train_res["mse"], 4),
         },
         "baseline_elo": {
             "log_loss": round(base_ll, 4),
