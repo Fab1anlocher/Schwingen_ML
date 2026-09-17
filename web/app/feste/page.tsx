@@ -79,17 +79,33 @@ export default function Feste() {
           </p>
         </div>
       ) : (
-        <div className="card-list">
-          {kommende.map((fest) => (
-            <FestCard
-              key={fest.id}
-              fest={fest}
-              model={model}
-              ratings={ratings}
-              byId={byId}
-            />
-          ))}
-        </div>
+        <>
+          <div className="card-list">
+            {kommende.map((fest) => (
+              <FestCard
+                key={fest.id}
+                fest={fest}
+                model={model}
+                ratings={ratings}
+                byId={byId}
+              />
+            ))}
+          </div>
+          {/* Solange KEIN Fest eine Startliste hat, steht hier sonst nur eine
+              Liste von Terminen ohne eine einzige Zahl. Der Verweis auf die
+              Paar-Prognose ist dann das einzige, was die Seite noch anbieten
+              kann -- bisher erschien er nur, wenn gar kein Fest erfasst war. */}
+          {kommende.every((f) => !(f.paarungen && f.paarungen.length > 0)) && (
+            <p className="muted small" style={{ marginTop: "1rem" }}>
+              Noch kein Fest hat eine Startliste veröffentlicht, darum steht hier keine
+              Prognose. Jede Paarung lässt sich aber direkt über die{" "}
+              <a href="/" style={{ color: "var(--accent-2)" }}>
+                Paar-Prognose
+              </a>{" "}
+              durchspielen — dieselbe Rechnung, dieselben Quoten, frei wählbare Schwinger.
+            </p>
+          )}
+        </>
       )}
     </div>
   );
