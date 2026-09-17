@@ -27,6 +27,9 @@ Metriken:
   - Brier-Score (multiklassig): mittlere quadratische Abweichung der
     vorhergesagten 3-Klassen-Verteilung vom One-Hot-Ergebnis, gemittelt über
     alle Testgänge. 0 = perfekt, höher = schlechter kalibriert/falscher.
+  - MAE / MSE auf dem Punktwert des Gangs (Sieg=1, Gestellt=0.5, Niederlage=0,
+    s. pipeline/metriken.py). MAE ist direkt lesbar ("im Schnitt X Punktwert
+    daneben"), MSE gewichtet grosse Fehlschätzungen stärker.
 """
 from __future__ import annotations
 
@@ -35,6 +38,7 @@ from sklearn.linear_model import LogisticRegression
 
 from .config import SEED, KLASSEN
 from .features import FEATURE_NAMES
+from .metriken import punktwert_fehlermasse
 from .ratings import EloModell
 from .train import _split_zeitlich, bestimme_holdout_jahr
 
@@ -153,7 +157,10 @@ def _fit_predict(Xtr: np.ndarray, ytr: np.ndarray, Xte: np.ndarray) -> np.ndarra
 
 
 def _bewerte(p: np.ndarray, y: np.ndarray) -> dict:
+    fehler = punktwert_fehlermasse(p, y)
     return {
         "accuracy": round(_accuracy(p, y), 4),
         "brier_score": round(_brier_score(p, y), 4),
+        "mae": round(fehler["mae"], 4),
+        "mse": round(fehler["mse"], 4),
     }

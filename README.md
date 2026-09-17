@@ -210,7 +210,8 @@ pipeline/                  Python-Datenpipeline
   ratings.py                 Elo-Baseline, chronologisch/leak-frei
   features.py                A-minus-B-Merkmale, leak-frei
   train.py                   Logistic Regression + zeitliche Evaluation
-  benchmark.py               4-Wege-Modellvergleich (Accuracy + Brier)
+  benchmark.py               4-Wege-Modellvergleich (Accuracy/Brier/MAE/MSE)
+  metriken.py                MAE + MSE auf dem Punktwert des Gangs
   clustering.py              K-Means-Schwingertypen + KNN-Ähnlichkeit
   kantone.py                 Kantonal-/Gauverband → politischer Kanton
   export.py                  JSON-Artefakte schreiben
@@ -248,11 +249,60 @@ auf.
   Alle Merkmale nutzen nur Daten von **vor** dem Gang; Holdout ist die jüngste
   Saison, kein zufälliger Split.
 * **4-Wege-Benchmark** (`benchmark.py`): Kranz-Heuristik / reine Elo / ML ohne
-  Elo / ML komplett auf demselben Holdout, mit Accuracy und Brier-Score.
+  Elo / ML komplett auf demselben Holdout, mit Accuracy, Brier-Score sowie
+  MAE und MSE (s. unten).
 * **K-Means + KNN** (`clustering.py`): Cluster-Anzahl per Silhouette-Score.
 * **Clientseitige Inferenz** (`web/lib/inference.ts`) spiegelt `features.py` in
   TypeScript; `verify_inference.py` prüft bei jedem Lauf, dass beide identisch
   rechnen.
+
+### MAE und MSE — Fehlermasse in der Einheit des Ergebnisses
+
+Log-Loss und Brier-Score bewerten eine Wahrscheinlichkeitsverteilung, sind aber
+nicht als "so weit daneben" lesbar. `metriken.py` ergänzt die beiden klassischen
+Fehlermasse für numerische Vorhersagen:
+
+    MAE = 1/n * sum |y - yhat|      alle Fehler zählen gleich, Einheit = Target
+    MSE = 1/n * sum (y - yhat)^2    grosse Fehler zählen überproportional
+
+Das Modell sagt allerdings keine Zahl vorher, sondern eine Verteilung über
+`sieg_a / gestellt / sieg_b`. Als numerisches Target dient deshalb der
+**Punktwert eines Gangs aus Sicht von Schwinger A** — genau die Konvention, die
+die Elo-Stufe ohnehin schon benutzt (`ratings.py`: Sieg=1, Gestellt=0.5,
+Niederlage=0):
+
+    y    = 1.0 / 0.5 / 0.0  (tatsächlicher Ausgang)
+    yhat = P(sieg_a)*1.0 + P(gestellt)*0.5 + P(sieg_b)*0.0
+
+MAE ist damit direkt lesbar: "im Schnitt X Punktwert neben dem tatsächlichen
+Ausgang". MSE steht im Quadrat dieser Einheit und ist nur im Vergleich
+zwischen Kandidaten interessant.
+
+**Nicht dasselbe wie der Brier-Score:** der misst die quadratische Abweichung
+über den *ganzen* Wahrscheinlichkeitsvektor (inkl. Kalibrierung der
+Gestellt-Klasse). MAE/MSE verdichten die Prognose vorher auf eine Zahl. Ein
+Modell kann den erwarteten Punktwert gut treffen und trotzdem schlecht
+kalibriert sein — 50/0/50 statt 0/100/0 ergibt denselben Punktwert 0.5, aber
+einen deutlich schlechteren Brier-Score.
+
+Genau deshalb stehen beide Masse nebeneinander — sie können Kandidaten
+unterschiedlich reihen. Auf dem synthetischen Datensatz (`--source synth`,
+offline reproduzierbar) sieht man das direkt:
+
+| Kandidat        | Accuracy | Brier | MAE | MSE |
+|-----------------|---------:|------:|----:|----:|
+| kranz_heuristik |   0.6045 | 0.7911 | **0.2212** | 0.1341 |
+| elo_baseline    |   0.7265 | 0.4647 | 0.3533 | 0.1471 |
+| ml_ohne_elo     |   0.7019 | 0.4063 | 0.2685 | 0.1234 |
+| ml_komplett     |   0.7312 | **0.3819** | 0.2396 | **0.1117** |
+
+Die Kranz-Heuristik hat hier den **besten MAE** und zugleich den **schlechtesten
+Brier-Score**: bei Kranz-Gleichstand sagt sie "gestellt" (= Punktwert 0.5) und
+liegt damit selten weit daneben, ihre harten 1/0-Prognosen sind im Irrtum aber
+maximal teuer — was erst das Quadrieren sichtbar macht. Nach MAE allein wäre
+sie das beste Modell, was sie offensichtlich nicht ist. Die Zahlen auf den
+echten Daten stehen in `artifacts/benchmark.json` und werden bei jedem Lauf neu
+geschrieben.
 
 ### Warum der ältere Schwinger beim Alters-Merkmal im Vorteil ist
 

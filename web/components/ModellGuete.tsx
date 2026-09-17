@@ -81,6 +81,14 @@ export function VierWegeBenchmark({ kandidaten }: { kandidaten: BenchmarkKandida
   );
   const maxAcc = Math.max(...sortiert.map((k) => k.accuracy), 1e-9);
   const maxBrier = Math.max(...sortiert.map((k) => k.brier_score), 1e-9);
+  // MAE/MSE erst anzeigen, wenn JEDER Kandidat sie mitbringt: ein älteres
+  // benchmark.json (vor Einführung der Fehlermasse) hat die Felder nicht, und
+  // ein halb gefüllter Vergleich wäre irreführender als gar keiner.
+  const hatFehlermasse = sortiert.every(
+    (k) => typeof k.mae === "number" && typeof k.mse === "number"
+  );
+  const maxMae = Math.max(...sortiert.map((k) => k.mae ?? 0), 1e-9);
+  const maxMse = Math.max(...sortiert.map((k) => k.mse ?? 0), 1e-9);
 
   const Balken = (
     k: BenchmarkKandidat,
@@ -118,6 +126,29 @@ export function VierWegeBenchmark({ kandidaten }: { kandidaten: BenchmarkKandida
         </div>
         {sortiert.map((k) => Balken(k, k.brier_score, maxBrier, (v) => v.toFixed(3), `brier-${k.key}`))}
       </div>
+      {hatFehlermasse && (
+        <>
+          <div className="vwb-gruppe" style={{ marginTop: "1.1rem" }}>
+            <div className="vwb-titel">
+              MAE{" "}
+              <span className="muted small">
+                (tiefer = besser; Punktwert des Gangs, Sieg=1 / Gestellt=0.5 / Niederlage=0 —
+                „im Schnitt so weit daneben“)
+              </span>
+            </div>
+            {sortiert.map((k) => Balken(k, k.mae!, maxMae, (v) => v.toFixed(3), `mae-${k.key}`))}
+          </div>
+          <div className="vwb-gruppe" style={{ marginTop: "1.1rem" }}>
+            <div className="vwb-titel">
+              MSE{" "}
+              <span className="muted small">
+                (tiefer = besser; quadriert, gewichtet grosse Fehlprognosen also stärker als MAE)
+              </span>
+            </div>
+            {sortiert.map((k) => Balken(k, k.mse!, maxMse, (v) => v.toFixed(3), `mse-${k.key}`))}
+          </div>
+        </>
+      )}
       <div className="vb-legend" style={{ marginTop: "0.7rem" }}>
         <span>
           <i className="vb-swatch" style={{ background: CHAMPION_FARBE }} /> ML komplett (Champion, Produktionsmodell)

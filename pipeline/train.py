@@ -1,7 +1,8 @@
 """Training der Logistic Regression + Evaluation (ML-3, ML-6, ML-7).
 
 - Zeitlicher Train/Test-Split (jüngste Saison = Holdout), NICHT zufällig (ML-5).
-- Metriken: Log-Loss (primär), Accuracy, Vergleich gegen Elo-Baseline.
+- Metriken: Log-Loss (primär), Accuracy, MAE/MSE auf dem Punktwert des Gangs
+  (s. pipeline/metriken.py), Vergleich gegen Elo-Baseline.
 - Export der Gewichte als JSON für triviale clientseitige JS-Inferenz (§7).
 - Feature-Wichtigkeit als eigenständiges Deliverable (ML-7 / FR-4).
 """
@@ -13,6 +14,7 @@ from sklearn.metrics import log_loss, accuracy_score, confusion_matrix
 
 from .config import SEED, KLASSEN
 from .features import FEATURE_NAMES, FEATURE_LABELS
+from .metriken import punktwert_fehlermasse
 
 
 def _split_zeitlich(X, y, meta, holdout_ab_jahr: int):
@@ -87,9 +89,13 @@ def trainiere(X, y, meta) -> dict:
         acc = accuracy_score(yte, y_pred)
         # Konfusionsmatrix (ML-6): Zeile = tatsächliche, Spalte = vorhergesagte Klasse.
         cm = confusion_matrix(yte, y_pred, labels=labels_idx).tolist()
+        # MAE/MSE auf dem Punktwert des Gangs (s. pipeline/metriken.py) -- die
+        # einzige Kennzahl hier, die in der Einheit des Ergebnisses selbst steht.
+        fehler = punktwert_fehlermasse(p_test, yte)
     else:
         ll, acc = float("nan"), float("nan")
         cm = None
+        fehler = {"mae": float("nan"), "mse": float("nan")}
 
     return {
         "modell": modell,
@@ -100,6 +106,8 @@ def trainiere(X, y, meta) -> dict:
         "n_test": int(len(Xte)),
         "log_loss": float(ll),
         "accuracy": float(acc),
+        "mae": float(fehler["mae"]),
+        "mse": float(fehler["mse"]),
         "confusion_matrix": cm,
     }
 

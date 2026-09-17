@@ -117,6 +117,11 @@ export interface BenchmarkKandidat {
   label: string;
   accuracy: number;
   brier_score: number;
+  // MAE/MSE auf dem Punktwert des Gangs (s. pipeline/metriken.py). Optional,
+  // weil ein vor dieser Änderung erzeugtes benchmark.json sie nicht enthält —
+  // ausgeliefert wird das Artefakt aus dem Repo, nicht aus diesem Build.
+  mae?: number;
+  mse?: number;
 }
 
 export interface BenchmarkArtifact {
