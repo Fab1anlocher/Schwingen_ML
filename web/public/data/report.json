@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-09-17T09:14:35.711929+00:00",
-  "lauf_id": "20260917T091435Z",
+  "erstellt": "2026-09-18T08:47:19.876479+00:00",
+  "lauf_id": "20260918T084719Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 132256,
@@ -12,7 +12,9 @@
   "n_test": 72970,
   "modell": {
     "log_loss": 0.8317,
-    "accuracy": 0.6391
+    "accuracy": 0.6391,
+    "mae": 0.2681,
+    "mse": 0.1195
   },
   "baseline_elo": {
     "log_loss": 0.9514,
@@ -28,9 +30,9 @@
   ],
   "konfusionsmatrix": [
     [
-      22965,
+      22963,
       489,
-      5337
+      5339
     ],
     [
       7342,
@@ -38,9 +40,9 @@
       7342
     ],
     [
-      5339,
+      5337,
       489,
-      22963
+      22965
     ]
   ],
   "erfolgskriterien": {
@@ -116,7 +118,7 @@
       "von": "2023-04-01",
       "bis": "2026-09-13"
     },
-    "tage_seit_juengstem_fest": 4,
+    "tage_seit_juengstem_fest": 5,
     "kommende_feste": {
       "n": 4,
       "n_mit_paarungen": 0,

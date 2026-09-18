@@ -7,25 +7,33 @@
       "key": "kranz_heuristik",
       "label": "Kranz-Heuristik",
       "accuracy": 0.4227,
-      "brier_score": 1.1547
+      "brier_score": 1.1547,
+      "mae": 0.3022,
+      "mse": 0.1646
     },
     {
       "key": "elo_baseline",
       "label": "Elo-Baseline",
       "accuracy": 0.6115,
-      "brier_score": 0.5329
+      "brier_score": 0.5329,
+      "mae": 0.3391,
+      "mse": 0.1453
     },
     {
       "key": "ml_ohne_elo",
       "label": "ML ohne Elo/Historie",
       "accuracy": 0.5176,
-      "brier_score": 0.5646
+      "brier_score": 0.5646,
+      "mae": 0.3501,
+      "mse": 0.1587
     },
     {
       "key": "ml_komplett",
       "label": "ML komplett (Champion)",
       "accuracy": 0.6391,
-      "brier_score": 0.4786
+      "brier_score": 0.4786,
+      "mae": 0.2681,
+      "mse": 0.1195
     }
   ]
 }

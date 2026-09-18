@@ -11,119 +11,119 @@
       "label": "Rating-Vorsprung (Elo)",
       "wichtigkeit": 0.4973911962689779,
       "koeffizienten": {
-        "sieg_a": 0.7460867944034667,
-        "gestellt": -1.8840365158282936e-16,
-        "sieg_b": -0.7460867944034667
+        "sieg_a": 0.7460867944034669,
+        "gestellt": 9.7184780992837e-17,
+        "sieg_b": -0.7460867944034666
       }
     },
     {
       "feature": "kranz_diff",
       "label": "Kranzstatus",
-      "wichtigkeit": 0.16649524865160806,
+      "wichtigkeit": 0.16649524865160795,
       "koeffizienten": {
-        "sieg_a": 0.2497428729774121,
-        "gestellt": -1.3366855107206167e-16,
-        "sieg_b": -0.24974287297741196
+        "sieg_a": 0.24974287297741193,
+        "gestellt": 2.687647323393571e-17,
+        "sieg_b": -0.24974287297741188
       }
     },
     {
       "feature": "erfahrung_diff",
       "label": "Erfahrung (Anzahl Gänge)",
-      "wichtigkeit": 0.154236957449561,
+      "wichtigkeit": 0.15423695744956106,
       "koeffizienten": {
-        "sieg_a": 0.2313554361743416,
-        "gestellt": -2.9740013106476795e-17,
-        "sieg_b": -0.23135543617434143
+        "sieg_a": 0.23135543617434162,
+        "gestellt": 2.8608729050876e-17,
+        "sieg_b": -0.23135543617434154
       }
     },
     {
       "feature": "same_teilverband",
       "label": "gleicher Teilverband",
-      "wichtigkeit": 0.0957277872036565,
+      "wichtigkeit": 0.09572778720365649,
       "koeffizienten": {
-        "sieg_a": -0.07179584040274241,
-        "gestellt": 0.14359168080548468,
-        "sieg_b": -0.07179584040274246
+        "sieg_a": -0.07179584040274235,
+        "gestellt": 0.14359168080548476,
+        "sieg_b": -0.07179584040274234
       }
     },
     {
       "feature": "kopf_an_kopf",
       "label": "Bisherige direkte Duelle",
-      "wichtigkeit": 0.06842475152877814,
+      "wichtigkeit": 0.0684247515287781,
       "koeffizienten": {
-        "sieg_a": 0.1026371272931672,
-        "gestellt": -9.203045893568483e-17,
-        "sieg_b": -0.10263712729316714
+        "sieg_a": 0.10263712729316711,
+        "gestellt": -1.0634130485193817e-17,
+        "sieg_b": -0.10263712729316715
       }
     },
     {
       "feature": "form_diff",
       "label": "aktuelle Form (letzte Gänge)",
-      "wichtigkeit": 0.06107130127977536,
+      "wichtigkeit": 0.061071301279775225,
       "koeffizienten": {
-        "sieg_a": 0.09160695191966312,
-        "gestellt": -5.015132150541451e-17,
+        "sieg_a": 0.09160695191966274,
+        "gestellt": -4.509883000987406e-17,
         "sieg_b": -0.09160695191966288
       }
     },
     {
       "feature": "groesse_diff",
       "label": "Grössenunterschied",
-      "wichtigkeit": 0.0418400725833318,
+      "wichtigkeit": 0.04184007258333178,
       "koeffizienten": {
-        "sieg_a": 0.06276010887499768,
-        "gestellt": -1.0984202293731317e-16,
-        "sieg_b": -0.06276010887499758
+        "sieg_a": 0.06276010887499764,
+        "gestellt": 2.334377834790214e-17,
+        "sieg_b": -0.06276010887499768
       }
     },
     {
       "feature": "schwung_count_diff",
       "label": "Unterschied Anzahl bevorzugter Schwünge",
-      "wichtigkeit": 0.02070403739565128,
+      "wichtigkeit": 0.02070403739565129,
       "koeffizienten": {
-        "sieg_a": 0.031056056093476853,
-        "gestellt": -1.5252469620640873e-16,
-        "sieg_b": -0.031056056093476836
+        "sieg_a": 0.031056056093476912,
+        "gestellt": -2.1254308970546608e-17,
+        "sieg_b": -0.03105605609347694
       }
     },
     {
       "feature": "rating_abstand",
       "label": "Rating-Nähe (ausgeglichenes Paar)",
-      "wichtigkeit": 0.016470095219023366,
+      "wichtigkeit": 0.016470095219023356,
       "koeffizienten": {
-        "sieg_a": 0.012352571414267561,
-        "gestellt": -0.024705142828535035,
-        "sieg_b": 0.0123525714142675
+        "sieg_a": 0.012352571414267507,
+        "gestellt": -0.024705142828535056,
+        "sieg_b": 0.012352571414267507
       }
     },
     {
       "feature": "gewicht_diff",
       "label": "Gewichtsunterschied",
-      "wichtigkeit": 0.015544933397704625,
+      "wichtigkeit": 0.015544933397704594,
       "koeffizienten": {
-        "sieg_a": 0.023317400096556938,
-        "gestellt": -1.3540591246858703e-16,
-        "sieg_b": -0.0233174000965568
+        "sieg_a": 0.023317400096556876,
+        "gestellt": 1.8297501320041027e-17,
+        "sieg_b": -0.023317400096556883
       }
     },
     {
       "feature": "alter_diff",
       "label": "Altersunterschied",
-      "wichtigkeit": 0.014144804626721038,
+      "wichtigkeit": 0.014144804626720986,
       "koeffizienten": {
-        "sieg_a": 0.021217206940081564,
-        "gestellt": -6.908023587515959e-17,
-        "sieg_b": -0.021217206940081477
+        "sieg_a": 0.021217206940081484,
+        "gestellt": 1.8177959716888915e-17,
+        "sieg_b": -0.021217206940081463
       }
     },
     {
       "feature": "schwung_overlap",
       "label": "Übereinstimmung bevorzugter Schwünge",
-      "wichtigkeit": 0.0020380470154909443,
+      "wichtigkeit": 0.0020380470154909157,
       "koeffizienten": {
-        "sieg_a": 0.0015285352616181919,
-        "gestellt": -0.0030570705232364614,
-        "sieg_b": 0.0015285352616181795
+        "sieg_a": 0.0015285352616181474,
+        "gestellt": -0.0030570705232364414,
+        "sieg_b": 0.0015285352616181585
       }
     }
   ]
