@@ -11841,6 +11841,30 @@
       ]
     },
     {
+      "id": "christian zemp|2000",
+      "name": "Christian Zemp",
+      "jahrgang": 2000,
+      "groesse_cm": 182.0,
+      "gewicht_kg": 99.0,
+      "kranzstatus": "kranzer",
+      "teilverband": "Innerschweiz",
+      "kanton": "Zug",
+      "schwingklub": "Zug und Umgebung",
+      "bevorzugte_schwuenge": [
+        "Innerer Haken"
+      ],
+      "form": 0.5,
+      "ueberraschungsindex": null,
+      "n_bewertete_gaenge": 0,
+      "anzahl_kraenze": 0,
+      "aktiv": false,
+      "groesster_erfolg": null,
+      "quellen": [
+        "schlussgang.ch/portraet",
+        "https://www.schlussgang.ch/portraet/christian-zemp-1"
+      ]
+    },
+    {
       "id": "christian zemp|2004",
       "name": "Christian Zemp",
       "jahrgang": 2004,
@@ -11863,30 +11887,6 @@
       "quellen": [
         "schlussgang.ch/portraet",
         "https://www.schlussgang.ch/portraet/christian-zemp-0"
-      ]
-    },
-    {
-      "id": "christian zemp|2000",
-      "name": "Christian Zemp",
-      "jahrgang": 2000,
-      "groesse_cm": 182.0,
-      "gewicht_kg": 99.0,
-      "kranzstatus": "kranzer",
-      "teilverband": "Innerschweiz",
-      "kanton": "Zug",
-      "schwingklub": "Zug und Umgebung",
-      "bevorzugte_schwuenge": [
-        "Innerer Haken"
-      ],
-      "form": 0.5,
-      "ueberraschungsindex": null,
-      "n_bewertete_gaenge": 0,
-      "anzahl_kraenze": 0,
-      "aktiv": false,
-      "groesster_erfolg": null,
-      "quellen": [
-        "schlussgang.ch/portraet",
-        "https://www.schlussgang.ch/portraet/christian-zemp-1"
       ]
     },
     {
