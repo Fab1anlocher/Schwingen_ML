@@ -45,7 +45,7 @@ class RohGangEintrag:
     symbol: str                # aus Sicht von schwinger_id
     note: Optional[float]
     fest_typ: str
-    kranz: bool = False        # Kranz-Sterne in der PDF-Kopfzeile von schwinger_id
+    status_abzeichen: bool = False   # Statusabzeichen-Stern in der PDF-Kopfzeile
 
 
 def ergebnis_aus_symbolen(symbol_a: str, symbol_b: str) -> str:
@@ -110,18 +110,18 @@ def dedupliziere(eintraege: list[RohGangEintrag]) -> tuple[list["GangResultat"],
             if vorhanden is e_low:
                 symbol_a, note_a = e_low.symbol, e_low.note
                 symbol_b, note_b = gespiegelt_symbol, None
-                kranz_a, kranz_b = e_low.kranz, False
+                abzeichen_a, abzeichen_b = e_low.status_abzeichen, False
             else:
                 symbol_a, note_a = gespiegelt_symbol, None
                 symbol_b, note_b = e_high.symbol, e_high.note
-                kranz_a, kranz_b = False, e_high.kranz
+                abzeichen_a, abzeichen_b = False, e_high.status_abzeichen
             warnungen.append(
                 f"{event_id} {id_low}/{id_high}: nur eine Perspektive vorhanden"
             )
         else:
             symbol_a, note_a = e_low.symbol, e_low.note
             symbol_b, note_b = e_high.symbol, e_high.note
-            kranz_a, kranz_b = e_low.kranz, e_high.kranz
+            abzeichen_a, abzeichen_b = e_low.status_abzeichen, e_high.status_abzeichen
 
         try:
             ergebnis = ergebnis_aus_symbolen(symbol_a, symbol_b)
@@ -141,8 +141,8 @@ def dedupliziere(eintraege: list[RohGangEintrag]) -> tuple[list["GangResultat"],
                 note_b=note_b,
                 ergebnis=ergebnis,
                 fest_typ=grp[0].fest_typ,
-                kranz_a=kranz_a,
-                kranz_b=kranz_b,
+                status_abzeichen_a=abzeichen_a,
+                status_abzeichen_b=abzeichen_b,
             )
         )
 
@@ -181,5 +181,7 @@ class GangResultat:
     note_b: Optional[float]
     ergebnis: str
     fest_typ: str
-    kranz_a: bool = False       # Kranz an diesem Fest für schwinger_a
-    kranz_b: bool = False       # Kranz an diesem Fest für schwinger_b
+    # Statusabzeichen (Kranzer/Eidgenosse) des Schwingers, NICHT ein
+    # Kranzgewinn an diesem Fest -- s. scrape/schlussgang_pdf.py.
+    status_abzeichen_a: bool = False
+    status_abzeichen_b: bool = False

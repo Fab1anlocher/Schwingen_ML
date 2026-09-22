@@ -1,31 +1,37 @@
-"""Diagnose der Kranz-Zahlen — beantwortet zwei offene Fragen an der Quelle.
+"""Gegenprobe zur Bedeutung des Sterns in der Statistik-PDF.
 
-Braucht Netzzugriff auf schlussgang.ch:
+**Die Frage ist entschieden: der Stern ist das STATUSABZEICHEN des Schwingers
+(Kranzer/Eidgenosse), kein Kranzgewinn an diesem Fest.**
+
+Entschieden wurde sie nicht mit diesem Skript, sondern an den Artefakten: über
+neun Feste, die seit dem Parser-Fix frisch geladen wurden, stimmt die Zahl der
+markierten Teilnehmer fast exakt mit der Zahl der Teilnehmer überein, die laut
+Porträt einen Kranzstatus tragen (256 erwartet, 251 gefunden). Eindeutigster
+Fall ist der Kilchberger Schwinget, ein Einladungsfest fast nur für
+Eidgenossen: 59 Teilnehmer, 59 mit Kranzstatus, 59 markiert. Ein Kranzgewinn
+ginge an rund 15 % der Teilnehmer. Selbst Regional- und Klubfeste, an denen
+überhaupt kein Kranz vergeben wird, tragen Markierungen (Klubschwinget
+Tavannes: 30 Teilnehmer, 6 Kranzer, 6 markiert).
+
+Folgen im Code: die Markierung heisst jetzt ``status_abzeichen``, und die
+Schwinger-Artefakte führen ``anzahl_feste`` statt einer Kranz-Zahl. Eine
+belastbare Kranz-Zahl geben diese Quellen nicht her -- wo die Kranzgrenze
+liegt, legt jedes Fest selbst fest, und die PDF weist sie nicht aus.
+
+Das Skript bleibt als Gegenprobe an einer einzelnen PDF erhalten (braucht
+Netzzugriff auf schlussgang.ch):
 
     python -m pipeline.diagnose_kranz            # nutzt ein Fest aus events.json
     python -m pipeline.diagnose_kranz --nid 1234 # bestimmtes Fest
 
-**Frage 1: Was bedeutet der Stern in der Statistik-PDF-Kopfzeile?**
+``bewerte_sterne`` misst Sternquote, Rangverteilung und ob die Sterne ein
+lückenloses Rang-Präfix bilden. Ein Kranzgewinn ergäbe ein lückenloses Präfix
+bei 12-18 % der Teilnehmer; ein Statusabzeichen streut über das ganze Rangfeld.
+Erwartet wird nach dem Obigen "statusabzeichen".
 
-Zwei Deutungen sind mit dem Code vereinbar und führen zu völlig verschiedenen
-Zahlen:
-
-* **Kranzgewinn an diesem Fest** — dann tragen rund 12-18 % der Teilnehmer
-  einen Stern, und zwar zusammenhängend auf den vordersten Rängen.
-* **Statusabzeichen des Schwingers** (wie ``field_portrait_wreath_status``,
-  wo ``*``/``**``/``***`` Kranzer bzw. Eidgenosse heisst) — dann streuen die
-  Sterne über das ganze Rangfeld, und jeder Kranzer trägt an *jedem* Fest
-  einen.
-
-Genau das misst ``bewerte_sterne``: Sternquote, Rangverteilung und ob die
-Sterne ein lückenloses Rang-Präfix bilden.
-
-**Frage 2: Führt die Porträt-API eine Karriere-Kranzzahl?**
-
-Die App zeigt "N Kränze", gezählt werden aber nur Feste ab 2023. Was man
-erwartet, ist die Karriere-Bilanz vom Porträt. Die Feldliste im Scraper
-(``fields[node--portrait]``) blendet alles aus, was nicht explizit angefragt
-ist — dieses Skript fragt OHNE Filter und listet alle Felder auf.
+Zweitens listet es alle Porträt-Felder ohne ``fields[]``-Filter auf -- dort
+liegt mit ``field_portrait_wreath_status`` dieselbe Information, die die App
+bereits als ``kranzstatus`` führt.
 """
 from __future__ import annotations
 
@@ -42,13 +48,13 @@ KRANZ_FEST_TYPEN = {"eidgenoessisch", "berg", "teilverband", "kantonal"}
 
 _BEFUND_TEXT = {
     "kranzgewinn":
-        "Stern = KRANZGEWINN an diesem Fest. Die Zaehlung in "
-        "run_pipeline._anzahl_kraenze ist damit richtig angesetzt.",
+        "Stern = KRANZGEWINN an diesem Fest. WIDERSPRICHT dem Befund aus den "
+        "Artefakten (s. Modul-Docstring) -- vor einer Code-Aenderung bitte an "
+        "mehreren Festen gegenpruefen.",
     "statusabzeichen":
         "Stern = STATUSABZEICHEN des Schwingers, kein Kranzgewinn (streut ueber "
-        "das Rangfeld bzw. zu viele Traeger). Dann zaehlt _anzahl_kraenze "
-        "faktisch besuchte Feste und muss durch die Karriere-Kranzzahl aus dem "
-        "Portraet ersetzt werden.",
+        "das Rangfeld bzw. zu viele Traeger). Das ist der aus den Artefakten "
+        "bereits belegte Befund -- s. Modul-Docstring.",
     "uneindeutig":
         "Uneindeutig — bitte die Beispielzeilen oben von Hand ansehen.",
     "kein_stern_erkannt":
@@ -77,7 +83,7 @@ def bewerte_sterne(bloecke: list[dict]) -> dict:
     if not n:
         return {"n": 0, "befund": "keine_raenge"}
 
-    mit_stern = [(r, b) for r, b in mit_rang if b.get("kranz")]
+    mit_stern = [(r, b) for r, b in mit_rang if b.get("status_abzeichen")]
     quote = len(mit_stern) / n
     if not mit_stern:
         return {"n": n, "n_stern": 0, "quote": 0.0, "befund": "kein_stern_erkannt"}
@@ -130,7 +136,7 @@ def frage_1_stern_bedeutung(nid: int, label: str) -> dict:
     mit_rang = sorted(((r, b) for r, b in paare if r is not None), key=lambda t: t[0])
     print("    Beispiele (Rang, Stern, Name, Total):")
     for r, b in mit_rang[:25]:
-        stern = "*" if b.get("kranz") else " "
+        stern = "*" if b.get("status_abzeichen") else " "
         print(f"       {r:<4} {stern}  {b['name']:<30} {b.get('total')}")
     print(f"\n    BEFUND: {_BEFUND_TEXT.get(res['befund'], res['befund'])}")
     return res

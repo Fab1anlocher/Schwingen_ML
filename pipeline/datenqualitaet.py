@@ -71,22 +71,24 @@ def _zeilen(report: dict) -> list[str]:
               f"{_ampel(unvollstaendig <= GRENZE_UNVOLLSTAENDIG, warn=unvollstaendig > GRENZE_UNVOLLSTAENDIG)} |"]
     z += [""]
 
-    # Kranz-Erkennung. Die Quote je Kranzfest ist der einzige Selbsttest dafür,
-    # ob der PDF-Parser die Kranz-Sterne überhaupt findet.
-    kp = dq.get("kranz_plausibilitaet") or {}
-    if kp.get("n_kranzfeste"):
-        lo, hi = kp.get("erwartungsband", [0.08, 0.25])
-        ok = bool(kp.get("plausibel"))
-        z += ["**Kranz-Erkennung**", ""]
-        z += [f"- {_ampel(ok, warn=not ok)} Kranzquote je Kranzfest (Median): "
-              f"{kp.get('kranzquote_median', 0):.1%} — erwartet {lo:.0%}–{hi:.0%}"]
-        z += [f"- {kp.get('kraenze_gesamt', 0)} Kränze über {kp['n_kranzfeste']} Kranzfeste"]
-        if kp.get("kranzfeste_ohne_kranz"):
-            z += [f"- {_ampel(False, warn=True)} {kp['kranzfeste_ohne_kranz']} Kranzfeste "
-                  "ohne einen einzigen erkannten Kranz"]
-        if not ok:
-            z += ["- Liegt die Quote deutlich unter dem Band, findet der PDF-Parser die "
-                  "Kranz-Sterne nicht (`schlussgang_pdf._kranz_abtrennen`)."]
+    # Abzeichen-Erkennung. Soll-Ist-Vergleich gegen den Kranzstatus aus dem
+    # Porträt: das Abzeichen hängt am Schwinger, an jedem Fest müssen also
+    # genau die markiert sein, die laut Porträt einen Kranzstatus tragen.
+    ap = dq.get("abzeichen_plausibilitaet") or {}
+    if ap.get("n_feste_mit_kranzern"):
+        ok = bool(ap.get("plausibel"))
+        z += ["**Statusabzeichen-Erkennung**", ""]
+        z += [f"- {_ampel(ok, warn=not ok)} Trefferquote je Fest (Median): "
+              f"{ap.get('trefferquote_median', 0):.0%} der laut Porträt erwarteten "
+              "Abzeichen gefunden"]
+        z += [f"- {ap.get('abzeichen_gesamt', 0)} Abzeichen über "
+              f"{ap['n_feste_mit_kranzern']} Feste mit Kranzern im Feld"]
+        if ap.get("feste_ohne_abzeichen"):
+            z += [f"- {_ampel(False, warn=True)} {ap['feste_ohne_abzeichen']} Feste ohne "
+                  "ein einziges erkanntes Abzeichen — fast immer Altbestand in "
+                  "`artifacts/raw`, der vor dem Parser-Fix eingelesen wurde. "
+                  "Behebt sich nur durch einen vollen Refetch "
+                  "(`fetch_raw --seit-datum 2023-01-01`)."]
         z.append("")
 
     # Kommende Feste (FR-2). Mitten in der Saison ist eine leere Vorschau ein

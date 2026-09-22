@@ -183,7 +183,12 @@ def lade_echte_daten(*, mit_bericht: bool = False):
                 symbol=symbol,
                 note=r.get("note"),
                 fest_typ=str(r.get("fest_typ") or "regional"),
-                kranz=bool(r.get("kranz", False)),
+                # Alter Cache-Schluessel "kranz" wird weiter gelesen: artifacts/raw
+                # ueberlebt Laeufe, ein Rename darf die vorhandenen Eintraege nicht
+                # still auf False setzen.
+                status_abzeichen=bool(
+                    r.get("status_abzeichen", r.get("kranz", False))
+                ),
             )
         )
 

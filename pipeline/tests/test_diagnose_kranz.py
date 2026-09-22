@@ -11,7 +11,7 @@ from pipeline.diagnose_kranz import bewerte_sterne
 
 def _feld(n: int, stern_raenge: set[int]) -> list[dict]:
     return [
-        {"rang": str(r), "name": f"Schwinger {r}", "total": 57.0, "kranz": r in stern_raenge}
+        {"rang": str(r), "name": f"Schwinger {r}", "total": 57.0, "status_abzeichen": r in stern_raenge}
         for r in range(1, n + 1)
     ]
 
@@ -43,13 +43,13 @@ def test_kein_stern_wird_als_solcher_gemeldet():
 
 
 def test_ohne_raenge_kein_urteil():
-    assert bewerte_sterne([{"name": "X", "kranz": True}])["befund"] == "keine_raenge"
+    assert bewerte_sterne([{"name": "X", "status_abzeichen": True}])["befund"] == "keine_raenge"
 
 
 def test_rang_mit_buchstabensuffix_wird_gelesen():
     # Geteilte Raenge stehen als "3a"/"3b" in der Rangliste.
-    feld = [{"rang": "3a", "name": "A", "kranz": True},
-            {"rang": "3b", "name": "B", "kranz": True},
-            {"rang": "4", "name": "C", "kranz": False}]
+    feld = [{"rang": "3a", "name": "A", "status_abzeichen": True},
+            {"rang": "3b", "name": "B", "status_abzeichen": True},
+            {"rang": "4", "name": "C", "status_abzeichen": False}]
     res = bewerte_sterne(feld)
     assert res["n"] == 3 and res["n_stern"] == 2

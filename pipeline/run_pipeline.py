@@ -123,6 +123,7 @@ def _pruefe_datenqualitaet(source: str, bericht, n_gaenge_neu: int, *, streng: b
 
 
 def _datenqualitaet(bericht, gaenge, events, warnungen: list[str], *,
+                    schwinger: dict | None = None,
                     kommende: list | None = None,
                     kommende_diagnose: dict | None = None) -> dict:
     """Nachvollziehbare Kennzahlen darüber, was aus den Rohdaten geworden ist.
@@ -165,7 +166,9 @@ def _datenqualitaet(bericht, gaenge, events, warnungen: list[str], *,
         "versuche": diagnose.get("versuche", []),
         "naechstes": min((f["datum"] for f in kommende), default=None),
     }
-    qualitaet["kranz_plausibilitaet"] = _kranz_plausibilitaet(gaenge, events)
+    qualitaet["abzeichen_plausibilitaet"] = _abzeichen_plausibilitaet(
+        gaenge, schwinger or {}
+    )
     if bericht is not None:
         qualitaet.update(bericht.als_dict())
     return qualitaet
@@ -184,62 +187,79 @@ def _aktuelle_form(gaenge) -> dict:
     return {sid: (sum(h) / len(h) if h else 0.5) for sid, h in hist.items()}
 
 
-def _anzahl_kraenze(gaenge) -> dict:
-    """Anzahl Feste mit Kranz je Schwinger, aus den Kranz-Sternen der Statistik-
-    PDF-Kopfzeilen (schlussgang_pdf._STERN_RE) -- kein Schwellenwert-Raten
-    unsererseits, die Quelle markiert den Kranz direkt pro Fest."""
+def _anzahl_feste(gaenge) -> dict:
+    """Anzahl besuchter Feste je Schwinger (distinkte Fest-IDs).
+
+    Ersetzt die frühere Kranz-Zählung. Diese zählte die Stern-Markierung aus
+    der PDF-Kopfzeile als Kranzgewinn -- die Markierung ist aber das
+    Statusabzeichen des Schwingers (Kranzer/Eidgenosse) und sagt nichts
+    darüber, wie er an diesem Fest abgeschnitten hat (Beleg s.
+    scrape/schlussgang_pdf.py). Eine belastbare Kranzzahl lässt sich aus
+    diesen Quellen nicht bilden: der Kranz geht an die vordersten Ränge, wo
+    die Grenze liegt, legt aber jedes Fest selbst fest, und die PDF weist sie
+    nicht aus. Ein geschätzter Schwellenwert wäre geraten, nicht gemessen --
+    darum die Anzahl Feste, die tatsächlich in den Daten steht.
+    """
     feste: dict[str, set] = defaultdict(set)
     for g in gaenge:
-        if g.kranz_a:
-            feste[g.schwinger_a_id].add(g.event_id)
-        if g.kranz_b:
-            feste[g.schwinger_b_id].add(g.event_id)
+        feste[g.schwinger_a_id].add(g.event_id)
+        feste[g.schwinger_b_id].add(g.event_id)
     return {sid: len(evts) for sid, evts in feste.items()}
 
 
-# An einem Kranzfest erhalten rund 12-18 % der Teilnehmer einen Kranz. Liegt
-# die gemessene Quote weit darunter, findet der PDF-Parser die Kranz-Sterne
-# nicht -- genau das war der Fall (650 statt ~3'000 Kränze), ohne dass es
-# irgendwo aufgefallen wäre.
-KRANZ_FEST_TYPEN = {"eidgenoessisch", "berg", "teilverband", "kantonal"}
-KRANZQUOTE_PLAUSIBEL = (0.08, 0.25)
+def _abzeichen_plausibilitaet(gaenge, schwinger) -> dict:
+    """Prüft, ob der PDF-Parser die Statusabzeichen überhaupt findet.
 
+    Das Abzeichen hängt am Schwinger, nicht am Fest: an JEDEM Fest muss die
+    Zahl markierter Teilnehmer der Zahl entsprechen, die laut Porträt einen
+    Kranzstatus trägt. Genau das prüft diese Funktion -- Soll gegen Ist, statt
+    wie bisher gegen ein geratenes Erwartungsband.
 
-def _kranz_plausibilitaet(gaenge, events) -> dict:
-    """Kranzquote je Kranzfest -- macht eine kaputte Sternerkennung sichtbar."""
-    typ_von_event = {e.id: e.typ for e in events}
+    Die alte Prüfung mass die Quote gegen 8-25 % "Kranzquote je Kranzfest".
+    Sie stand über Wochen auf plausibel=false mit Median 0.0 und 141 von 149
+    Kranzfesten ohne einen einzigen Treffer, ohne dass daraus etwas folgte.
+    Feste ohne jeden Treffer sind praktisch immer Altbestand in
+    artifacts/raw, der vor dem Parser-Fix eingelesen und seither nie neu
+    geparst wurde (der tägliche Lauf holt nur ein kurzes Zeitfenster) -- sie
+    brauchen einen vollen Refetch, s. fetch_raw --seit-datum.
+    """
     teilnehmer: dict[str, set] = defaultdict(set)
-    mit_kranz: dict[str, set] = defaultdict(set)
+    markiert: dict[str, set] = defaultdict(set)
     for g in gaenge:
         teilnehmer[g.event_id].update((g.schwinger_a_id, g.schwinger_b_id))
-        if g.kranz_a:
-            mit_kranz[g.event_id].add(g.schwinger_a_id)
-        if g.kranz_b:
-            mit_kranz[g.event_id].add(g.schwinger_b_id)
+        if g.status_abzeichen_a:
+            markiert[g.event_id].add(g.schwinger_a_id)
+        if g.status_abzeichen_b:
+            markiert[g.event_id].add(g.schwinger_b_id)
 
-    quoten: list[float] = []
-    n_kranzfeste = n_ohne_kranz = 0
+    trefferquoten: list[float] = []
+    n_feste = n_ohne_treffer = 0
     for eid, teiln in teilnehmer.items():
-        if typ_von_event.get(eid) not in KRANZ_FEST_TYPEN or not teiln:
+        erwartet = sum(
+            1 for sid in teiln
+            if getattr(schwinger.get(sid), "kranzstatus", "kein") != "kein"
+        )
+        if not erwartet:
             continue
-        n_kranzfeste += 1
-        anteil = len(mit_kranz.get(eid, ())) / len(teiln)
-        quoten.append(anteil)
-        if not mit_kranz.get(eid):
-            n_ohne_kranz += 1
+        n_feste += 1
+        gefunden = len(markiert.get(eid, ()))
+        trefferquoten.append(gefunden / erwartet)
+        if not gefunden:
+            n_ohne_treffer += 1
 
-    if not quoten:
-        return {"n_kranzfeste": 0}
-    quoten.sort()
-    median = quoten[len(quoten) // 2]
-    lo, hi = KRANZQUOTE_PLAUSIBEL
+    if not trefferquoten:
+        return {"n_feste_mit_kranzern": 0}
+    trefferquoten.sort()
+    median = trefferquoten[len(trefferquoten) // 2]
     return {
-        "n_kranzfeste": n_kranzfeste,
-        "kranzquote_median": round(median, 4),
-        "kranzfeste_ohne_kranz": n_ohne_kranz,
-        "kraenze_gesamt": sum(len(v) for v in mit_kranz.values()),
-        "plausibel": lo <= median <= hi,
-        "erwartungsband": [lo, hi],
+        "n_feste_mit_kranzern": n_feste,
+        "trefferquote_median": round(median, 4),
+        "feste_ohne_abzeichen": n_ohne_treffer,
+        "abzeichen_gesamt": sum(len(v) for v in markiert.values()),
+        # Unter 0.5 findet der Parser weniger als die Hälfte der Abzeichen,
+        # die laut Porträt da sein müssten -- dann stimmt etwas nicht.
+        "plausibel": median >= 0.5,
+        "hinweis_refetch": n_ohne_treffer > 0,
     }
 
 
@@ -317,10 +337,10 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
     print("[8/8] Artefakte exportieren ...", flush=True)
     form_aktuell = _aktuelle_form(gaenge)
     ueberraschung = berechne_ueberraschung(gaenge, snapshots)
-    kraenze = _anzahl_kraenze(gaenge)
+    anzahl_feste = _anzahl_feste(gaenge)
     export.exportiere_modell(train_res, fi)
     export.exportiere_ratings(elo_modell, schwinger)
-    export.exportiere_schwinger(schwinger, form_aktuell, ueberraschung, kraenze, aktive)
+    export.exportiere_schwinger(schwinger, form_aktuell, ueberraschung, anzahl_feste, aktive)
     export.exportiere_kopf_an_kopf(gaenge)
     export.exportiere_kantone(schwinger, elo_modell, gaenge)
     export.exportiere_cluster(cluster_res)
@@ -361,8 +381,8 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
     report = export.exportiere_report(
         train_res, baseline, warnungen, len(gaenge), len(schwinger),
         datenqualitaet=_datenqualitaet(
-            bericht, gaenge, events, warnungen, kommende=kommende,
-            kommende_diagnose=kommende_diagnose,
+            bericht, gaenge, events, warnungen, schwinger=schwinger,
+            kommende=kommende, kommende_diagnose=kommende_diagnose,
         ),
     )
 
