@@ -128,13 +128,13 @@ Der Lauf **bricht ab, statt schlechte Daten zu committen**, wenn
 Ist der Cache je verloren, einmalig **Actions → Datenpipeline aktualisieren →
 Run workflow → „Volle Historie ab 2023 neu laden"** starten.
 
-> **Laufzeit-Warnung:** Ein voller Refetch dauert **mehrere Stunden**, nicht die
-> früher dokumentierten 15–20 Minuten. Der Grund ist die schiere Menge: pro Fest
-> wird eine Statistik-PDF angefragt (2 s Rate-Limit, NFR-4), auch für Feste, die
-> gar keine haben. Die alte Angabe stimmte nur, weil der Workflow ein hartes
-> `--event-limit 1000` mitgab, das die Historie stillschweigend abschnitt.
-> Der **tägliche inkrementelle Lauf ist davon nicht betroffen** — gemessen:
-> 13 Feste in 72 Sekunden, kompletter Job inkl. Training unter 2 Minuten.
+> **Laufzeit:** Ein voller Refetch dauert rund **20 Minuten** — gemessen am Lauf
+> vom 22.09.2026: 481 Feste, kompletter Job inkl. Training in 20 min. Die Dauer
+> ergibt sich im Wesentlichen aus dem Rate-Limit (2 s je Statistik-PDF, NFR-4),
+> also ~16 min reine Wartezeit. Die frühere Warnung „mehrere Stunden" stammte
+> aus einem Lauf mit der defekten Blätterschleife der Fest-API, die dieselben
+> Seiten endlos neu holte; seit deren Begrenzung stimmt sie nicht mehr.
+> Der **tägliche inkrementelle Lauf** braucht rund 2 Minuten.
 
 ---
 
@@ -158,7 +158,7 @@ Python-Abhängigkeiten (`requirements-pipeline.txt`): `numpy`, `scikit-learn`,
 pip install -r requirements-pipeline.txt
 python -m pipeline.run_pipeline --source synth   # erzeugt alle Artefakte
 python -m pipeline.verify_inference              # Inferenz-Konsistenz
-python -m pytest pipeline/tests -q               # 170 Tests
+python -m pytest pipeline/tests -q               # 172 Tests
 ```
 
 > `--source synth` **überschreibt die Artefakte** mit Demodaten. Danach
@@ -168,7 +168,7 @@ python -m pytest pipeline/tests -q               # 170 Tests
 ### Pipeline — echte Daten
 
 ```bash
-# 1. Rohdaten holen (volle Historie; dauert MEHRERE STUNDEN, s. oben)
+# 1. Rohdaten holen (volle Historie; rund 20 Minuten, s. oben)
 python -m pipeline.fetch_raw --seit-datum 2023-01-01
 
 #    …oder nur nachführen, was seit dem letzten Lauf dazukam:
@@ -425,7 +425,7 @@ Wettangebot**. Betriebskosten: **$0**.
   Parser-Fix und seither nie neu geparst, weil der tägliche Lauf nur ein
   kurzes Zeitfenster holt. Jedes seither frisch geladene Fest trägt die
   Abzeichen. Behebt sich nur über **Actions → Datenpipeline aktualisieren →
-  Run workflow → „Volle Historie ab 2023 neu laden"** (mehrere Stunden), weil
+  Run workflow → „Volle Historie ab 2023 neu laden"** (rund 20 Minuten), weil
   `artifacts/raw/gaenge.json` die geparsten Einträge hält und die PDFs selbst
   nicht gecacht sind. Für `anzahl_feste` ist der Refetch **nicht** nötig —
   diese Zahl hängt nicht am Abzeichen.

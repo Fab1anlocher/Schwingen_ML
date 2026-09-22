@@ -80,6 +80,40 @@ def test_abzeichen_plausibilitaet_meldet_fest_ohne_jeden_treffer():
     assert res["hinweis_refetch"] is True
 
 
+def test_abzeichen_plausibilitaet_einzelnes_fest_ohne_treffer_ist_kein_refetch_fall():
+    """Nach dem vollen Refetch blieben 6 von 480 Festen ohne Abzeichen (1.3 %).
+    Das ist normal und darf den Refetch-Hinweis nicht dauerhaft auf Rot
+    stellen -- sonst leuchtet er wie die alte Kranzquote immer und wird
+    ignoriert. Erst ein nennenswerter Anteil ist die Signatur von Altbestand."""
+    schwinger, gaenge = {}, []
+    for i in range(20):                      # 20 Feste, 19 davon mit Treffer
+        a, b = f"a{i}|1", f"b{i}|2"
+        schwinger[a] = _schwinger(a, "kranzer")
+        schwinger[b] = _schwinger(b, "kranzer")
+        treffer = i > 0
+        gaenge.append(_gang(f"ev{i}", "2025-08-01", a, b, abz_a=treffer, abz_b=treffer))
+    res = _abzeichen_plausibilitaet(gaenge, schwinger)
+    assert res["feste_ohne_abzeichen"] == 1
+    assert res["anteil_feste_ohne_abzeichen"] == 0.05
+    assert res["hinweis_refetch"] is False   # 5 % liegt unter der Schwelle
+    assert res["plausibel"] is True
+
+
+def test_abzeichen_plausibilitaet_flaechiger_ausfall_meldet_refetch():
+    """Die Signatur vor dem Refetch: fast alle Feste ohne einen Treffer."""
+    schwinger, gaenge = {}, []
+    for i in range(20):
+        a, b = f"a{i}|1", f"b{i}|2"
+        schwinger[a] = _schwinger(a, "eidgenosse")
+        schwinger[b] = _schwinger(b, "kranzer")
+        treffer = i >= 18               # nur 2 von 20 Festen frisch geparst
+        gaenge.append(_gang(f"ev{i}", "2025-08-01", a, b, abz_a=treffer, abz_b=treffer))
+    res = _abzeichen_plausibilitaet(gaenge, schwinger)
+    assert res["feste_ohne_abzeichen"] == 18
+    assert res["hinweis_refetch"] is True
+    assert res["plausibel"] is False
+
+
 def test_abzeichen_plausibilitaet_ignoriert_feste_ohne_kranzer():
     """Ohne Kranzer im Feld gibt es nichts zu finden -- kein Fehlalarm."""
     gaenge = [_gang("ev1", "2025-08-01", "a|1", "b|2")]
