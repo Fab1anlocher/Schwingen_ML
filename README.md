@@ -27,7 +27,7 @@ Verbesserung, egal wie aufwendig es ist.
 |---|---|
 | **Prognose** | Zwei Schwinger wählen → Sieg-A/Gestellt/Sieg-B-Wahrscheinlichkeit mit Merkmalsbeiträgen, Kopf-an-Kopf-Historie, teilbarer Link (`?a=…&b=…`). |
 | **Schwinger** | Alle erfassten Schwinger, durchsuchbar, nach Elo sortiert. Profil zeigt Überraschungs-Index (Elo-erwartete vs. tatsächliche Leistung) und per KNN ähnliche Schwinger. |
-| **Feste** | Vergangene Feste; kommende Feste der nächsten 60 Tage. Je veröffentlichter Paarung Prognose + informative Quote; sind noch keine publiziert, Favoritenliste plus hypothetische Spitzenpaarung. |
+| **Feste** | Vergangene Feste; kommende Feste der nächsten 60 Tage. Je veröffentlichter Paarung Prognose + informative Quote; ohne Startliste keine Prognose, sondern nur die belegten Angaben zum Fest. |
 | **Karte** | Choroplethen-Karte (Elo-Schnitt, Siegquote, Anteil Top-Schwinger, Kaderbreite) — Bern nach seinen 6 Gauverbänden statt als ein Kanton. |
 | **Typen** | K-Means-Clustering über das volle Schwinger-Profil, Cluster-Anzahl per Silhouette-Score gewählt, mit PCA-Streudiagramm. |
 | **Analyse** | Modellgüte vs. Elo-Baseline, Konfusionsmatrix, Merkmalswichtigkeit, 4-Wege-Benchmark. |
@@ -158,7 +158,7 @@ Python-Abhängigkeiten (`requirements-pipeline.txt`): `numpy`, `scikit-learn`,
 pip install -r requirements-pipeline.txt
 python -m pipeline.run_pipeline --source synth   # erzeugt alle Artefakte
 python -m pipeline.verify_inference              # Inferenz-Konsistenz
-python -m pytest pipeline/tests -q               # 140 Tests
+python -m pytest pipeline/tests -q               # 170 Tests
 ```
 
 > `--source synth` **überschreibt die Artefakte** mit Demodaten. Danach
@@ -219,7 +219,7 @@ pipeline/                  Python-Datenpipeline
   run_pipeline.py            Orchestrator (8 Stufen)
   datenqualitaet.py          Qualitätsbericht aus report.json
   diagnose_agenda.py         CLI: warum die Vorschau "kommende Feste" leer ist
-  diagnose_kranz.py          CLI: was der Kranz-Stern in der PDF bedeutet
+  diagnose_kranz.py          CLI: Gegenprobe zur Bedeutung des PDF-Sterns
   verify_inference.py        Cross-Check: TS-Inferenz == sklearn-Modell
   synth.py                   Synthetischer Datensatz (offline/CI)
   scrape/                    schlussgang.ch-Scraper + Rohdaten-Einlesen
@@ -375,57 +375,60 @@ Wettangebot**. Betriebskosten: **$0**.
   auch im Job-Summary des Actions-Laufs statt nur in einer weggedruckten
   Ausnahme.
 
-* **Die Kranz-Zahlen sind falsch, und die Ursache ist noch nicht abschliessend
-  geklärt.** Zwei Defekte stapeln sich:
+* **Die Kranz-Zahlen waren falsch — die Ursache ist geklärt, die Zahl ist
+  entfallen.** Der Stern in der Kopfzeile der Statistik-PDF ist das
+  **Statusabzeichen des Schwingers** (Kranzer/Eidgenosse), kein Kranzgewinn an
+  diesem Fest. Dieselbe Bedeutung wie `field_portrait_wreath_status` im
+  Porträt, wo `*`/`**`/`***` den Status bezeichnet.
 
-  **(a) Der Stern wurde nur an einer Position gesucht.** Die Kopfzeilen-Analyse
-  prüfte ausschliesslich das letzte Token vor dem Punktetotal. Real steht der
-  Stern an wechselnden Stellen, und pdfplumber trennt nur an Leerzeichen — ein
-  klebender Stern (`Meier**`) bleibt Teil des Namens. Von fünf realistischen
-  Varianten kam genau eine sauber durch; in dreien landete der Stern oder gar
-  das Punktetotal im Namen, womit der Schwinger nicht mehr auflösbar war.
-  `_kranz_abtrennen` sucht jetzt an jeder Position, gelöst wie klebend, inkl.
-  Unicode-Varianten.
+  Belegt an den Artefakten, nicht an einer Annahme: über neun Feste, die seit
+  dem Parser-Fix frisch geladen wurden, stimmt die Zahl der markierten
+  Teilnehmer fast exakt mit der Zahl derer überein, die laut Porträt einen
+  Kranzstatus tragen — **256 erwartet, 251 gefunden**.
 
-  **(b) Unklar ist, was der Stern überhaupt bedeutet.** Zwei Deutungen sind mit
-  der Quelle vereinbar:
+  | Fest | Typ | Teiln. | mit Kranzstatus | markiert |
+  |---|---|---:|---:|---:|
+  | Kilchberger Schwinget | eidgenössisch | 59 | 59 (100 %) | 59 |
+  | Kemmeriboden-Schwinget | regional | 148 | 47 (32 %) | ~45 |
+  | Engstlenalp-Schwinget | regional | 106 | 37 (35 %) | ~37 |
+  | Klubschwinget SK Tavannes | regional | 30 | 6 (20 %) | 6 |
 
-  | Deutung | erwartete Sternquote je Fest | Folge für `_anzahl_kraenze` |
-  |---|---|---|
-  | Kranzgewinn an diesem Fest | 12–18 %, lückenlos auf den vordersten Rängen | Zählung ist richtig angesetzt |
-  | Statusabzeichen des Schwingers | jeder Kranzer an *jedem* Fest, über das ganze Rangfeld gestreut | zählt faktisch besuchte Feste — unbrauchbar |
+  Der Kilchberger Schwinget entscheidet es: ein Einladungsfest, zu dem
+  praktisch nur Eidgenossen antreten — 59 von 59 markiert. Ein Kranzgewinn
+  ginge an rund 15 % der Teilnehmer. Und Regional- wie Klubfeste, an denen
+  **überhaupt kein Kranz vergeben wird**, tragen Markierungen im selben
+  Verhältnis.
 
-  Die zweite Deutung ist nicht aus der Luft gegriffen: im Porträt bedeutet
-  `field_portrait_wreath_status` mit `*`/`**`/`***` genau den **Status**
-  (Kranzer/Eidgenosse), nicht eine Anzahl. Solange das offen ist, kann Fix (a)
-  die Zahlen ebenso gut verschlimmern wie verbessern.
+  `_anzahl_kraenze` zählte damit faktisch „Feste, an denen ein Kranzer
+  angetreten ist" und verkaufte das als Kranzgewinne. Deshalb stand Armon
+  Orlik als Schwingerkönig bei 3 — gleich viel wie ein beliebiger Kranzer.
 
-  **Entscheiden lässt sich das in einem Lauf** (braucht Netzzugriff):
+  **Konsequenz:** die Kranz-Zahl ist ersatzlos entfallen. Eine belastbare
+  Kranzzahl geben diese Quellen nicht her — wo die Kranzgrenze liegt, legt
+  jedes Fest selbst fest, und die PDF weist sie nicht aus; ein geschätzter
+  Schwellenwert wäre geraten, nicht gemessen. Die Artefakte führen stattdessen
+  `anzahl_feste` (besuchte Feste, direkt aus den Daten), und die App zeigt die
+  höchste erreichte Kranzstufe aus dem Porträt — eine gemessene Angabe. Die
+  Markierung heisst im Code jetzt `status_abzeichen`.
 
-  ```bash
-  python -m pipeline.diagnose_kranz
-  ```
+* **Der Selbsttest mass das Falsche und blieb folgenlos.** Die alte Prüfung
+  verglich die „Kranzquote je Kranzfest" mit einem geratenen Band von 8–25 %.
+  Sie stand wochenlang auf `plausibel: false`, Median `0.0`, **141 von 149
+  Kranzfesten ohne einen einzigen Treffer** — ohne dass daraus etwas folgte.
 
-  Es lädt eine echte Statistik-PDF eines Kranzfests, misst die Sternquote und
-  prüft, ob die Sterne ein lückenloses Rang-Präfix bilden — das unterscheidet
-  die beiden Deutungen eindeutig. Zusätzlich listet es alle Felder eines
-  Porträts ohne `fields[]`-Filter auf, um ein Feld mit der **Karriere**-Kranzzahl
-  zu finden.
+  Neu prüft `_abzeichen_plausibilitaet` Soll gegen Ist: das Abzeichen hängt am
+  Schwinger, also müssen an *jedem* Fest genau die markiert sein, die laut
+  Porträt einen Kranzstatus tragen. Ein Fest ohne jeden Treffer ist damit ein
+  harter Befund statt einer Quote am Rand eines Bandes.
 
-  Der Qualitätsbericht weist die Kranzquote je Kranzfest seither gegen ein
-  Erwartungsband von 8–25 % aus und schlägt in **beide** Richtungen an: zu
-  wenige Sterne (Parser findet sie nicht) wie zu viele (Statusabzeichen).
-
-  Die Korrektur wirkt ohnehin erst nach **Actions → Datenpipeline aktualisieren
-  → Run workflow → „Volle Historie ab 2023 neu laden"**, weil
-  `artifacts/raw/gaenge.json` die bereits geparsten Einträge hält und die PDFs
-  selbst nicht gecacht sind.
-
-* **Kränze zählen nur Feste ab 2023**, nicht die Karriere. Das erklärt einen
-  Teil der Diskrepanz unabhängig von den Punkten oben: Fabian Staudenmann hat
-  über seine Laufbahn ein Vielfaches der hier gezählten Kränze. Die
-  Prognose-Seite weist den Zeitbezug jetzt aus („3 Kränze seit 2023"); vorher
-  stand dort bloss „3 Kranzgewinne".
+  Diese 141 Feste sind **Altbestand in `artifacts/raw`**: eingelesen vor dem
+  Parser-Fix und seither nie neu geparst, weil der tägliche Lauf nur ein
+  kurzes Zeitfenster holt. Jedes seither frisch geladene Fest trägt die
+  Abzeichen. Behebt sich nur über **Actions → Datenpipeline aktualisieren →
+  Run workflow → „Volle Historie ab 2023 neu laden"** (mehrere Stunden), weil
+  `artifacts/raw/gaenge.json` die geparsten Einträge hält und die PDFs selbst
+  nicht gecacht sind. Für `anzahl_feste` ist der Refetch **nicht** nötig —
+  diese Zahl hängt nicht am Abzeichen.
 
 * **`_status_counts` erfand Zahlen.** Die Funktion leitete aus dem Statustext
   („Eidgenosse"/„Kranzer") eine Tabelle `{"Kränze": 1, "ESAF": 0, …}` ab und

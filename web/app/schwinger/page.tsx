@@ -81,8 +81,9 @@ export default function SchwingerListe() {
       <p className="subtitle">
         {schwinger.length} erfasste Schwinger, nach Elo-Rating (Power-Rating) sortiert — kein
         offizielles ESV-Ranking, sondern die modellinterne Einstufung. Suchen, filtern oder
-        auf einen Namen klicken für Profildetails. Kränze zählen nur Feste seit 2023 (Beginn
-        unserer Datenbasis) — nicht die ganze Karriere.
+        auf einen Namen klicken für Profildetails. Die Spalte „Kranz" ist die höchste je
+        erreichte Kranzstufe laut Porträt; „Feste" zählt die besuchten Feste seit 2023
+        (Beginn unserer Datenbasis).
       </p>
 
       <div className="panel" style={{ marginBottom: "1.25rem" }}>
@@ -146,8 +147,8 @@ export default function SchwingerListe() {
               <th>Jg.</th>
               <th title="Höchste je erreichte Kranzstufe">Kranz</th>
               <th>Elo</th>
-              <th title="Anzahl Feste mit Kranz seit 2023 (Beginn der Datenbasis) -- nicht die ganze Karriere">
-                Kränze
+              <th title="Anzahl besuchter Feste seit 2023 (Beginn der Datenbasis)">
+                Feste
               </th>
               <th>Form</th>
             </tr>
@@ -185,7 +186,7 @@ export default function SchwingerListe() {
                     <td>
                       <strong>{Math.round(s.elo)}</strong>
                     </td>
-                    <td>{s.anzahl_kraenze}</td>
+                    <td>{s.anzahl_feste ?? "—"}</td>
                     <td className="muted">{(s.form * 100).toFixed(0)}%</td>
                   </tr>
                   {offen === s.id && (

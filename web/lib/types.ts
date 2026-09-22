@@ -43,8 +43,13 @@ export interface Schwinger {
   /** Mittel (tatsächlich - Elo-erwartete Punkte) über alle Gänge; + = übertrifft Erwartung. */
   ueberraschungsindex: number | null;
   n_bewertete_gaenge: number;
-  /** Anzahl Feste mit Kranz (aus den Kranz-Sternen der Statistik-PDFs gezählt). */
-  anzahl_kraenze: number;
+  /** Anzahl besuchter Feste seit Beginn der Datenbasis (2023).
+   *  Optional, weil ein vor dieser Änderung erzeugtes schwinger.json noch
+   *  `anzahl_kraenze` führte — das Artefakt kommt aus dem Repo, nicht aus
+   *  diesem Build. Die frühere Kranz-Zahl ist ersatzlos entfallen: die
+   *  Stern-Markierung in der PDF war das Statusabzeichen des Schwingers,
+   *  kein Kranzgewinn (s. pipeline/scrape/schlussgang_pdf.py). */
+  anzahl_feste?: number;
   /** Mindestens ein Gang im aktuellsten Jahr der Datenbasis. */
   aktiv: boolean;
   groesster_erfolg: GroessterErfolg | null;

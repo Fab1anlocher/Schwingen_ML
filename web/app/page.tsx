@@ -193,28 +193,49 @@ export default function Home() {
   );
 }
 
-/** Kurze Metazeile unter dem Auswahlfeld: Teilverband · Jahrgang · Kränze. */
+const KRANZ_LABEL: Record<string, string> = {
+  kranzer: "Kranzer",
+  eidgenosse: "Eidgenosse",
+  koenig: "Schwingerkönig",
+};
+
+/** Kurze Metazeile unter dem Auswahlfeld: Teilverband · Jahrgang · Kranzstufe. */
 function metaZeile(s: Schwinger | undefined): string {
   if (!s) return "";
   const teile: string[] = [];
   if (s.teilverband) teile.push(s.teilverband);
   if (s.jahrgang) teile.push(`Jg. ${s.jahrgang}`);
-  if (s.anzahl_kraenze > 0) teile.push(kraenzeText(s.anzahl_kraenze));
+  teile.push(...statusUndFeste(s));
   return teile.join(" · ");
 }
 
-/** "N Kränze seit 2023" — der Zusatz ist nicht Kosmetik: gezählt wird nur, was
- *  in der Datenbasis liegt (Feste ab 2023), nicht die Karriere-Bilanz. Ohne
- *  ihn liest sich "3 Kranzgewinne" bei einem Eidgenossen schlicht als falsch. */
-function kraenzeText(n: number): string {
-  return `${n} ${n === 1 ? "Kranz" : "Kränze"} seit 2023`;
+/** Kranzstufe + Anzahl Feste.
+ *
+ *  Hier stand bis vor Kurzem "N Kränze seit 2023". Diese Zahl kam aus den
+ *  Stern-Markierungen der Statistik-PDFs und war falsch: der Stern ist das
+ *  STATUSABZEICHEN des Schwingers (Kranzer/Eidgenosse), kein Kranzgewinn an
+ *  diesem Fest. Belegt am Kilchberger Schwinget — ein Einladungsfest, zu dem
+ *  praktisch nur Eidgenossen antreten: 59 Teilnehmer, 59 markiert. Selbst
+ *  Regional- und Klubfeste ohne jeden Kranz trugen Markierungen. Eine
+ *  belastbare Kranzzahl geben die Quellen nicht her (die Kranzgrenze legt
+ *  jedes Fest selbst fest und steht nicht in der PDF), darum steht hier jetzt
+ *  die höchste erreichte Kranzstufe aus dem Porträt — eine gemessene Angabe —
+ *  und die Anzahl besuchter Feste. */
+function statusUndFeste(s: Schwinger): string[] {
+  const teile: string[] = [];
+  const stufe = KRANZ_LABEL[s.kranzstatus];
+  if (stufe) teile.push(stufe);
+  if (s.anzahl_feste && s.anzahl_feste > 0) {
+    teile.push(`${s.anzahl_feste} ${s.anzahl_feste === 1 ? "Fest" : "Feste"} seit 2023`);
+  }
+  return teile;
 }
 
-/** vs-Banner-Metazeile: Teilverband + Kränze (bewusst ohne Elo — die interne
+/** vs-Banner-Metazeile: Teilverband + Kranzstufe (bewusst ohne Elo — die interne
  * Rating-Zahl gehört nicht so prominent an die Spitze der Prognose). */
 function vsMeta(s: Schwinger): string {
   const teile: string[] = [];
   if (s.teilverband) teile.push(s.teilverband);
-  if (s.anzahl_kraenze > 0) teile.push(kraenzeText(s.anzahl_kraenze));
+  teile.push(...statusUndFeste(s));
   return teile.join(" · ");
 }

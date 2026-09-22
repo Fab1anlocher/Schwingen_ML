@@ -4,7 +4,7 @@
     (<nid> = drupal_internal__nid des Event-Knotens, s. schlussgang_resultate.py)
 
 Das PDF ist eine "Statistische Tabelle": drei Spalten nebeneinander, pro
-Schwinger ein Block aus Kopfzeile (Rang, Name, Kranz-Sterne, Punktetotal)
+Schwinger ein Block aus Kopfzeile (Rang, Name, Statusabzeichen, Punktetotal)
 gefolgt von je einer Zeile pro Gang (Symbol, Gegnername, Note). Jeder reale
 Gang erscheint darum zweimal im Dokument (einmal je Schwinger-Perspektive) -
 das passt direkt auf labels.dedupliziere().
@@ -26,38 +26,54 @@ _SPALTEN = [(0.0, 200.0), (200.0, 380.0), (380.0, 600.0)]
 _RANG_RE = re.compile(r"^\d+[a-z]?$")
 _SYMBOL_RE = re.compile(r"^[+\-o]$")
 _NOTE_RE = re.compile(r"^\d{1,2}\.\d{2}$")
-# Kranz-Markierung in der Kopfzeile. Die Statistik-PDFs setzen den Stern
-# uneinheitlich: mal als eigenes Token zwischen Name und Punktetotal, mal
-# direkt am Namen klebend ("Meier**"), mal hinter dem Total. pdfplumber
-# trennt nur an Leerzeichen, ein klebender Stern bleibt also Teil des
-# Namens-Tokens. Die frühere Prüfung sah ausschliesslich EINE Position --
-# das letzte Token vor dem Total -- und übersah dadurch den Grossteil der
-# Kränze (650 statt der ~3'000 plausiblen).
+# STATUSABZEICHEN des Schwingers in der Kopfzeile -- NICHT ein Kranzgewinn
+# an diesem Fest. Dieselbe Bedeutung wie field_portrait_wreath_status im
+# Porträt: */**/*** steht für Kranzer bzw. Eidgenosse und haftet am
+# Schwinger, nicht am Ergebnis.
+#
+# Belegt an den Festen, die seit dem Parser-Fix frisch geladen wurden: die
+# Zahl der markierten Teilnehmer stimmt fast exakt mit der Zahl der
+# Teilnehmer überein, die laut Porträt einen Kranzstatus tragen (256
+# erwartet vs. 251 gefunden über neun Feste). Eindeutigster Fall ist der
+# Kilchberger Schwinget -- ein Einladungsfest, zu dem praktisch nur
+# Eidgenossen und Kranzer antreten: 59 Teilnehmer, 59 mit Kranzstatus,
+# 59 markiert. Ein Kranzgewinn ginge dagegen an rund 15 % der Teilnehmer.
+# Selbst Regional- und Klubfeste, an denen überhaupt kein Kranz vergeben
+# wird, tragen Markierungen (Klubschwinget Tavannes: 30 Teilnehmer,
+# 6 Kranzer, 6 markiert).
+#
+# Die Statistik-PDFs setzen den Stern uneinheitlich: mal als eigenes Token
+# zwischen Name und Punktetotal, mal direkt am Namen klebend ("Meier**"),
+# mal hinter dem Total. pdfplumber trennt nur an Leerzeichen, ein klebender
+# Stern bleibt also Teil des Namens-Tokens.
 _STERN_ZEICHEN = "*\u2217\u2731\u204e\uff0a"
 _STERN_RE = re.compile(rf"^[{re.escape(_STERN_ZEICHEN)}]{{1,3}}$")
 _STERN_SUFFIX_RE = re.compile(rf"^(.+?)[{re.escape(_STERN_ZEICHEN)}]{{1,3}}$")
 
 
-def _kranz_abtrennen(tokens: list[str]) -> tuple[bool, list[str]]:
+def _abzeichen_abtrennen(tokens: list[str]) -> tuple[bool, list[str]]:
     """Sterne aus einer Token-Liste entfernen; True, wenn welche da waren.
+
+    True heisst "dieser Schwinger trägt ein Kranzabzeichen", nicht "dieser
+    Schwinger hat hier einen Kranz gewonnen" -- s. Kommentar oben.
 
     Sucht an JEDER Position, nicht nur am Ende, und löst auch Sterne, die
     ohne Leerzeichen am vorangehenden Token hängen. Ein Stern kann weder
     Teil eines Namens noch einer Note sein, das Abtrennen ist also gefahrlos.
     """
-    kranz = False
+    abzeichen = False
     sauber: list[str] = []
     for tok in tokens:
         if _STERN_RE.match(tok):
-            kranz = True
+            abzeichen = True
             continue
         treffer = _STERN_SUFFIX_RE.match(tok)
         if treffer:
-            kranz = True
+            abzeichen = True
             tok = treffer.group(1)
         if tok:
             sauber.append(tok)
-    return kranz, sauber
+    return abzeichen, sauber
 
 
 def pdf_url(nid: int | str) -> str:
@@ -129,10 +145,10 @@ def tabellen_bloecke(pages_words: Iterable[list[dict]]) -> list[dict]:
             erstes = tokens[0]
             if _RANG_RE.match(erstes) and len(tokens) >= 2:
                 rest = tokens[1:]
-                # Sterne ZUERST abtrennen: steht der Stern hinter dem Total,
+                # Abzeichen ZUERST abtrennen: steht der Stern hinter dem Total,
                 # war das letzte Token vorher nicht die Note, das Total ging
                 # verloren und der Stern landete mitsamt Total im Namen.
-                kranz, rest = _kranz_abtrennen(rest)
+                abzeichen, rest = _abzeichen_abtrennen(rest)
                 total = None
                 if rest and _NOTE_RE.match(rest[-1]):
                     total = float(rest[-1])
@@ -149,15 +165,16 @@ def tabellen_bloecke(pages_words: Iterable[list[dict]]) -> list[dict]:
                 # auf den vorderen Rängen sitzen (= Kranzgewinn) oder über das
                 # ganze Feld streuen (= Statusabzeichen des Schwingers).
                 aktuell = {"rang": erstes, "name": name, "total": total,
-                           "kranz": kranz, "gaenge": []}
+                           "status_abzeichen": abzeichen, "gaenge": []}
             elif _SYMBOL_RE.match(erstes):
                 if aktuell is None:
                     continue
                 rest = tokens[1:]
-                # Sterne in der Gang-Zeile markieren keinen Kranz, müssen aber
-                # weg -- klebten sie am Gegnernamen, war der Name nicht mehr
-                # auflösbar und der Gang fiel still aus dem Training.
-                _, rest = _kranz_abtrennen(rest)
+                # Sterne am Gegnernamen tragen dieselbe Information wie in
+                # dessen eigener Kopfzeile und werden hier nur entfernt --
+                # klebten sie am Namen, war der nicht mehr auflösbar und der
+                # Gang fiel still aus dem Training.
+                _, rest = _abzeichen_abtrennen(rest)
                 note = None
                 if rest and _NOTE_RE.match(rest[-1]):
                     note = float(rest[-1])
@@ -195,7 +212,7 @@ def parse_pdf_bytes(
                     "gegner_name": gang["gegner_name"],
                     "symbol": gang["symbol"],
                     "note": gang["note"],
-                    "kranz": block["kranz"],
+                    "status_abzeichen": block["status_abzeichen"],
                 }
             )
     return eintraege
