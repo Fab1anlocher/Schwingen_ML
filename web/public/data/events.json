@@ -842,6 +842,14 @@
       "ort": "Sursee"
     },
     {
+      "id": "schlussgang-32686",
+      "name": "Abendschwinget Alterswil 2024",
+      "datum": "2024-04-13",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Alterswil"
+    },
+    {
       "id": "schlussgang-37059",
       "name": "Frühlingsschwinget Vinelz 2024",
       "datum": "2024-04-13",
@@ -1224,6 +1232,14 @@
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
       "ort": "Davos"
+    },
+    {
+      "id": "schlussgang-22265",
+      "name": "Nordwestschweizer Schwingfest Lausen 2024",
+      "datum": "2024-06-16",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Lausen"
     },
     {
       "id": "schlussgang-22267",
@@ -1616,6 +1632,14 @@
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
       "ort": "Reinach AG"
+    },
+    {
+      "id": "schlussgang-22222",
+      "name": "Herbstschwinget Siebnen 2024",
+      "datum": "2024-09-22",
+      "typ": "regional",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Siebnen"
     },
     {
       "id": "schlussgang-22223",
@@ -2400,6 +2424,14 @@
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
       "ort": "Obergösgen"
+    },
+    {
+      "id": "schlussgang-21066",
+      "name": "Berner Kantonalschwingfest Langnau im Emmental 2025",
+      "datum": "2025-07-13",
+      "typ": "teilverband",
+      "quelle": "schlussgang.ch/event",
+      "ort": "Langnau i.E"
     },
     {
       "id": "schlussgang-21067",

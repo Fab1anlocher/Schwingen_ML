@@ -1,54 +1,54 @@
 {
   "schema_version": "1.0.0",
-  "top_schwelle_elo": 1648.3,
+  "top_schwelle_elo": 1651.6,
   "kantone": [
     {
       "kanton": "Aargau",
       "n_schwinger": 48,
-      "elo_avg": 1640.7,
-      "n_top_schwinger": 16,
+      "elo_avg": 1642.2,
+      "n_top_schwinger": 15,
       "n_kranzer": 42,
       "n_eidgenosse": 6,
       "n_koenig": 0,
-      "n_siege": 3654,
-      "n_gestellt": 2126,
-      "n_niederlagen": 1852
+      "n_siege": 3725,
+      "n_gestellt": 2161,
+      "n_niederlagen": 1887
     },
     {
       "kanton": "Appenzell Ausserrhoden",
       "n_schwinger": 12,
-      "elo_avg": 1613.0,
+      "elo_avg": 1613.8,
       "n_top_schwinger": 2,
       "n_kranzer": 11,
       "n_eidgenosse": 0,
       "n_koenig": 0,
-      "n_siege": 1024,
-      "n_gestellt": 462,
-      "n_niederlagen": 710
+      "n_siege": 1032,
+      "n_gestellt": 466,
+      "n_niederlagen": 716
     },
     {
       "kanton": "Appenzell Innerrhoden",
       "n_schwinger": 12,
-      "elo_avg": 1613.0,
+      "elo_avg": 1613.8,
       "n_top_schwinger": 2,
       "n_kranzer": 11,
       "n_eidgenosse": 0,
       "n_koenig": 0,
-      "n_siege": 1024,
-      "n_gestellt": 462,
-      "n_niederlagen": 710
+      "n_siege": 1032,
+      "n_gestellt": 466,
+      "n_niederlagen": 716
     },
     {
       "kanton": "Basel-Landschaft",
       "n_schwinger": 11,
-      "elo_avg": 1675.6,
+      "elo_avg": 1676.9,
       "n_top_schwinger": 6,
       "n_kranzer": 8,
       "n_eidgenosse": 3,
       "n_koenig": 0,
-      "n_siege": 1074,
-      "n_gestellt": 739,
-      "n_niederlagen": 498
+      "n_siege": 1097,
+      "n_gestellt": 752,
+      "n_niederlagen": 509
     },
     {
       "kanton": "Basel-Stadt",
@@ -65,31 +65,31 @@
     {
       "kanton": "Bern",
       "n_schwinger": 171,
-      "elo_avg": 1653.8,
+      "elo_avg": 1654.3,
       "n_top_schwinger": 75,
       "n_kranzer": 152,
       "n_eidgenosse": 19,
       "n_koenig": 0,
-      "n_siege": 13430,
-      "n_gestellt": 8243,
-      "n_niederlagen": 6914
+      "n_siege": 13676,
+      "n_gestellt": 8422,
+      "n_niederlagen": 7102
     },
     {
       "kanton": "Fribourg",
       "n_schwinger": 63,
-      "elo_avg": 1601.2,
+      "elo_avg": 1601.8,
       "n_top_schwinger": 17,
       "n_kranzer": 60,
       "n_eidgenosse": 3,
       "n_koenig": 0,
-      "n_siege": 4224,
-      "n_gestellt": 2029,
-      "n_niederlagen": 2664
+      "n_siege": 4278,
+      "n_gestellt": 2057,
+      "n_niederlagen": 2707
     },
     {
       "kanton": "Genève",
       "n_schwinger": 5,
-      "elo_avg": 1483.4,
+      "elo_avg": 1483.3,
       "n_top_schwinger": 0,
       "n_kranzer": 5,
       "n_eidgenosse": 0,
@@ -101,19 +101,19 @@
     {
       "kanton": "Glarus",
       "n_schwinger": 6,
-      "elo_avg": 1668.6,
+      "elo_avg": 1669.3,
       "n_top_schwinger": 3,
       "n_kranzer": 5,
       "n_eidgenosse": 1,
       "n_koenig": 0,
-      "n_siege": 600,
-      "n_gestellt": 264,
-      "n_niederlagen": 354
+      "n_siege": 611,
+      "n_gestellt": 268,
+      "n_niederlagen": 363
     },
     {
       "kanton": "Graubünden",
       "n_schwinger": 13,
-      "elo_avg": 1642.6,
+      "elo_avg": 1643.2,
       "n_top_schwinger": 3,
       "n_kranzer": 11,
       "n_eidgenosse": 1,
@@ -125,7 +125,7 @@
     {
       "kanton": "Jura",
       "n_schwinger": 1,
-      "elo_avg": 1481.7,
+      "elo_avg": 1481.9,
       "n_top_schwinger": 0,
       "n_kranzer": 1,
       "n_eidgenosse": 0,
@@ -137,14 +137,14 @@
     {
       "kanton": "Luzern",
       "n_schwinger": 85,
-      "elo_avg": 1642.9,
+      "elo_avg": 1643.8,
       "n_top_schwinger": 31,
       "n_kranzer": 81,
       "n_eidgenosse": 4,
       "n_koenig": 0,
-      "n_siege": 7933,
-      "n_gestellt": 4063,
-      "n_niederlagen": 4452
+      "n_siege": 7942,
+      "n_gestellt": 4070,
+      "n_niederlagen": 4458
     },
     {
       "kanton": "Neuchâtel",
@@ -161,31 +161,31 @@
     {
       "kanton": "Nidwalden",
       "n_schwinger": 18,
-      "elo_avg": 1620.2,
+      "elo_avg": 1621.2,
       "n_top_schwinger": 6,
       "n_kranzer": 18,
       "n_eidgenosse": 0,
       "n_koenig": 0,
-      "n_siege": 1404,
-      "n_gestellt": 893,
-      "n_niederlagen": 839
+      "n_siege": 1420,
+      "n_gestellt": 902,
+      "n_niederlagen": 846
     },
     {
       "kanton": "Obwalden",
       "n_schwinger": 18,
-      "elo_avg": 1620.2,
+      "elo_avg": 1621.2,
       "n_top_schwinger": 6,
       "n_kranzer": 18,
       "n_eidgenosse": 0,
       "n_koenig": 0,
-      "n_siege": 1404,
-      "n_gestellt": 893,
-      "n_niederlagen": 839
+      "n_siege": 1420,
+      "n_gestellt": 902,
+      "n_niederlagen": 846
     },
     {
       "kanton": "Schaffhausen",
       "n_schwinger": 5,
-      "elo_avg": 1623.7,
+      "elo_avg": 1624.3,
       "n_top_schwinger": 1,
       "n_kranzer": 4,
       "n_eidgenosse": 1,
@@ -197,55 +197,55 @@
     {
       "kanton": "Schwyz",
       "n_schwinger": 48,
-      "elo_avg": 1651.7,
-      "n_top_schwinger": 22,
+      "elo_avg": 1653.0,
+      "n_top_schwinger": 23,
       "n_kranzer": 46,
       "n_eidgenosse": 2,
       "n_koenig": 0,
-      "n_siege": 4376,
-      "n_gestellt": 2466,
-      "n_niederlagen": 2333
+      "n_siege": 4448,
+      "n_gestellt": 2502,
+      "n_niederlagen": 2351
     },
     {
       "kanton": "Solothurn",
       "n_schwinger": 26,
-      "elo_avg": 1610.7,
+      "elo_avg": 1611.9,
       "n_top_schwinger": 7,
       "n_kranzer": 24,
       "n_eidgenosse": 2,
       "n_koenig": 0,
-      "n_siege": 1832,
-      "n_gestellt": 1072,
-      "n_niederlagen": 1232
+      "n_siege": 1862,
+      "n_gestellt": 1081,
+      "n_niederlagen": 1250
     },
     {
       "kanton": "St. Gallen",
       "n_schwinger": 43,
-      "elo_avg": 1663.9,
+      "elo_avg": 1664.8,
       "n_top_schwinger": 18,
       "n_kranzer": 39,
       "n_eidgenosse": 4,
       "n_koenig": 0,
-      "n_siege": 4361,
-      "n_gestellt": 2052,
-      "n_niederlagen": 2425
+      "n_siege": 4390,
+      "n_gestellt": 2065,
+      "n_niederlagen": 2438
     },
     {
       "kanton": "Thurgau",
       "n_schwinger": 27,
-      "elo_avg": 1656.5,
+      "elo_avg": 1657.2,
       "n_top_schwinger": 12,
       "n_kranzer": 25,
       "n_eidgenosse": 2,
       "n_koenig": 0,
-      "n_siege": 2523,
-      "n_gestellt": 1200,
-      "n_niederlagen": 1277
+      "n_siege": 2530,
+      "n_gestellt": 1207,
+      "n_niederlagen": 1281
     },
     {
       "kanton": "Uri",
       "n_schwinger": 17,
-      "elo_avg": 1587.2,
+      "elo_avg": 1587.7,
       "n_top_schwinger": 3,
       "n_kranzer": 16,
       "n_eidgenosse": 1,
@@ -257,19 +257,19 @@
     {
       "kanton": "Valais",
       "n_schwinger": 8,
-      "elo_avg": 1576.3,
+      "elo_avg": 1577.1,
       "n_top_schwinger": 2,
       "n_kranzer": 8,
       "n_eidgenosse": 0,
       "n_koenig": 0,
-      "n_siege": 346,
-      "n_gestellt": 251,
+      "n_siege": 348,
+      "n_gestellt": 255,
       "n_niederlagen": 222
     },
     {
       "kanton": "Vaud",
       "n_schwinger": 10,
-      "elo_avg": 1560.9,
+      "elo_avg": 1561.1,
       "n_top_schwinger": 2,
       "n_kranzer": 9,
       "n_eidgenosse": 1,
@@ -281,26 +281,26 @@
     {
       "kanton": "Zug",
       "n_schwinger": 28,
-      "elo_avg": 1648.1,
+      "elo_avg": 1649.1,
       "n_top_schwinger": 10,
       "n_kranzer": 26,
       "n_eidgenosse": 2,
       "n_koenig": 0,
-      "n_siege": 2640,
-      "n_gestellt": 1256,
-      "n_niederlagen": 1536
+      "n_siege": 2661,
+      "n_gestellt": 1264,
+      "n_niederlagen": 1544
     },
     {
       "kanton": "Zürich",
       "n_schwinger": 28,
-      "elo_avg": 1631.7,
+      "elo_avg": 1632.4,
       "n_top_schwinger": 10,
       "n_kranzer": 26,
       "n_eidgenosse": 2,
       "n_koenig": 0,
-      "n_siege": 2233,
-      "n_gestellt": 1225,
-      "n_niederlagen": 1193
+      "n_siege": 2240,
+      "n_gestellt": 1230,
+      "n_niederlagen": 1199
     }
   ]
 }

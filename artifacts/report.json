@@ -1,28 +1,28 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-09-22T09:03:04.090824+00:00",
-  "lauf_id": "20260922T090304Z",
+  "erstellt": "2026-09-22T12:26:28.144347+00:00",
+  "lauf_id": "20260922T122628Z",
   "seed": 42,
   "datenbasis": {
-    "n_gaenge": 132256,
+    "n_gaenge": 133611,
     "n_schwinger": 2904
   },
   "holdout_jahr": 2026,
-  "n_train": 191542,
+  "n_train": 194252,
   "n_test": 72970,
   "modell": {
-    "log_loss": 0.8317,
-    "accuracy": 0.6391,
+    "log_loss": 0.832,
+    "accuracy": 0.6389,
     "mae": 0.2681,
-    "mse": 0.1195
+    "mse": 0.1196
   },
   "baseline_elo": {
-    "log_loss": 0.9514,
-    "accuracy": 0.5988
+    "log_loss": 0.9507,
+    "accuracy": 0.5993
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0403,
-  "verbesserung_log_loss": 0.1197,
+  "accuracy_gg_baseline": 0.0396,
+  "verbesserung_log_loss": 0.1187,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -30,19 +30,19 @@
   ],
   "konfusionsmatrix": [
     [
-      22965,
-      489,
-      5337
+      22959,
+      493,
+      5339
     ],
     [
-      7342,
-      704,
-      7342
+      7341,
+      706,
+      7341
     ],
     [
-      5339,
-      489,
-      22963
+      5341,
+      493,
+      22957
     ]
   ],
   "erfolgskriterien": {
@@ -51,6 +51,10 @@
     "gesamt_erfuellt": true
   },
   "parsing_warnungen": [
+    "schlussgang-51915 cornel laimbacher|?/kay sussmeier|?: nur eine Perspektive vorhanden",
+    "schlussgang-51915 damian imfeld|?/kay sussmeier|?: nur eine Perspektive vorhanden",
+    "schlussgang-51915 imfeld maurus|?/kay sussmeier|?: nur eine Perspektive vorhanden",
+    "schlussgang-51915 jonas michel|?/kay sussmeier|?: nur eine Perspektive vorhanden",
     "schlussgang-54093 andre reichmuth|?/inderbitzin tobias|?: nur eine Perspektive vorhanden",
     "schlussgang-45973 marco ulrich|1997/matter roman|?: Inkonsistente Symbole: A='+' erwartet B='o', gefunden B='+' -> verworfen",
     "schlussgang-21055 joel kessler|1997/kaj hugli|1997: nur eine Perspektive vorhanden",
@@ -96,11 +100,7 @@
     "schlussgang-21055 fabien jacquaz|2006/jonas glutz|2006: nur eine Perspektive vorhanden",
     "schlussgang-21055 fabien jacquaz|2006/michael zurfluh|1999: nur eine Perspektive vorhanden",
     "schlussgang-21055 fankhauser reto|?/janik korrodi|2004: nur eine Perspektive vorhanden",
-    "schlussgang-21055 janik korrodi|2004/tobias dunner|2005: nur eine Perspektive vorhanden",
-    "schlussgang-21055 florian ulrich|?/leandro nageli|2003: Inkonsistente Symbole: A='o' erwartet B='+', gefunden B='o' -> verworfen",
-    "schlussgang-21055 florian ulrich|?/silvan trittibach|2004: nur eine Perspektive vorhanden",
-    "schlussgang-21055 erb roger|?/florian ulrich|?: nur eine Perspektive vorhanden",
-    "schlussgang-21055 florian ulrich|?/luis hasler|2002: nur eine Perspektive vorhanden"
+    "schlussgang-21055 janik korrodi|2004/tobias dunner|2005: nur eine Perspektive vorhanden"
   ],
   "n_parsing_warnungen": 21227,
   "datenqualitaet": {
@@ -108,11 +108,11 @@
       "nur_eine_perspektive": 21169,
       "inkonsistente_symbole": 58
     },
-    "anteil_unvollstaendiger_gaenge": 0.1601,
+    "anteil_unvollstaendiger_gaenge": 0.1584,
     "ergebnisverteilung": {
-      "gestellt": 0.2285,
+      "gestellt": 0.2286,
       "sieg_a": 0.3521,
-      "sieg_b": 0.4194
+      "sieg_b": 0.4193
     },
     "feste_zeitraum": {
       "von": "2023-04-01",
@@ -131,26 +131,23 @@
       ],
       "naechstes": "2026-09-27"
     },
-    "kranz_plausibilitaet": {
-      "n_kranzfeste": 149,
-      "kranzquote_median": 0.0,
-      "kranzfeste_ohne_kranz": 141,
-      "kraenze_gesamt": 1054,
-      "plausibel": false,
-      "erwartungsband": [
-        0.08,
-        0.25
-      ]
+    "abzeichen_plausibilitaet": {
+      "n_feste_mit_kranzern": 480,
+      "trefferquote_median": 0.8857,
+      "feste_ohne_abzeichen": 6,
+      "abzeichen_gesamt": 18206,
+      "plausibel": true,
+      "hinweis_refetch": true
     },
-    "roh_eintraege_gelesen": 248709,
-    "roh_eintraege_uebernommen": 246321,
+    "roh_eintraege_gelesen": 249109,
+    "roh_eintraege_uebernommen": 246749,
     "roh_eintraege_verworfen": {
-      "name_nicht_aufloesbar": 2381,
+      "name_nicht_aufloesbar": 2353,
       "schwinger_gegen_sich_selbst": 7
     },
-    "verlustquote": 0.0096,
-    "feste_gelesen": 477,
-    "feste_uebernommen": 477,
+    "verlustquote": 0.0095,
+    "feste_gelesen": 481,
+    "feste_uebernommen": 481,
     "feste_verworfen": {},
     "schwinger_im_kader": 2904,
     "unaufloesbare_namen": 10,
