@@ -38,6 +38,22 @@ jobs:
         working-directory: web
         run: npm run build
 
+  # Bekannte Schwachstellen in den Laufzeit-Abhängigkeiten der App. Eigener
+  # Job, damit "Sicherheit rot" nicht mit "Build rot" verwechselt wird. Nur
+  # --omit=dev: ausgeliefert wird, was in dependencies steht. Ab "high", weil
+  # darunter vor allem Build-Werkzeuge ohne Angriffsfläche im Betrieb landen.
+  # Anlass: next 14.2.5 lief mit einer kritischen Lücke, ohne dass es auffiel.
+  abhaengigkeiten-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: npm audit (Produktion, ab high)
+        working-directory: web
+        run: npm audit --omit=dev --audit-level=high
+
   # Die App rechnet jede Prognose selbst in TypeScript (web/lib/inference.ts,
   # web/lib/kopfAnKopf.ts) -- handgespiegelte Kopien der Python-Logik, die
   # verify_inference NICHT prüft. Dieser Job rechnet echte Fälle aus den

@@ -75,15 +75,24 @@ der Fälle. Die App zeigt prominent eine Gestellt-Wahrscheinlichkeit samt Quote
 - Per-Klassen-Metriken in `report.json`; die Gesamt-Accuracy verdeckt heute,
   dass eine von drei Klassen faktisch ausfällt.
 
-## P4 — Sicherheitslücken im Web-Stack
+## ✅ P4 — Sicherheitslücken im Web-Stack
 
-**Priorität hoch · Aufwand klein**
+**Erledigt — aber anders als ursprünglich geplant.** Der Plan war „`next` auf
+14.2.35". Nachgemessen: auch 14.2.35, die letzte 14er, hat noch **23 offene
+Advisories**, darunter Remote Code Execution in der Image-Optimierung und XSS
+im App Router. Next 14 bekommt diese Fixes nicht mehr; der Patch-Sprung wäre
+eine Scheinlösung gewesen.
 
-`npm audit`: 3 Schwachstellen, davon 2 hoch und 1 kritisch (PostCSS, über
-`next`). `next` ist exakt auf `14.2.5` gepinnt; Fix wäre `14.2.35`.
+Umgesetzt: Next 15.5.26 + React 19 (kleinster sicherer Major-Schritt; 15 wird
+parallel zu 16 gepatcht), `overrides: postcss ≥ 8.5.28` (auch Next 15 pinnt
+das verwundbare 8.4.31). `npm audit`: 0 Befunde. Build, Typecheck und alle
+Seiten im Browser (Desktop + mobil, Funktionsprüfung) fehlerfrei. Neu:
+CI-Job `abhaengigkeiten-audit` und Dependabot.
 
-- `next` aktualisieren, `npm audit --audit-level=high` in die CI.
-- Dependabot oder Renovate aktivieren.
+**Offen:** Next 16 (Turbopack-Build, `middleware` → `proxy`, entfernte
+Sync-APIs) — eigenes Vorhaben, sobald 15 aus dem Support fällt. Dependabot-
+Sicherheitsupdates müssen einmalig in den Repo-Einstellungen aktiviert werden
+(Settings → Code security → Dependabot security updates).
 
 ## ✅ P5 — Parität TypeScript ↔ Python automatisch geprüft
 

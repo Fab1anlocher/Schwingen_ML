@@ -144,7 +144,16 @@ Run workflow → „Volle Historie ab 2023 neu laden"** starten.
 ## Voraussetzungen
 
 * **Python ≥ 3.11**
-* **Node.js ≥ 20** (nur für die Web-App)
+* **Node.js ≥ 20** (nur für die Web-App; Next 15 verlangt ≥ 18.18, Vercel baut mit 24.x)
+
+**Abhängigkeiten der Web-App.** Next 15.5 statt 14: Next 14 bekommt keine
+Sicherheitsfixes mehr — selbst die letzte 14er (14.2.35) hat 23 offene
+Advisories, darunter Remote Code Execution in der Image-Optimierung und XSS im
+App Router. `package.json` erzwingt per `overrides` zudem `postcss ≥ 8.5.28`,
+weil auch Next 15.5 intern `postcss 8.4.31` pinnt (4 offene Advisories).
+`npm audit --omit=dev` meldet damit 0 Befunde; die CI prüft das in jedem PR
+(Job `abhaengigkeiten-audit`), Dependabot schlägt wöchentlich Updates vor
+(`.github/dependabot.yml`).
 * Netzzugriff auf `schlussgang.ch` / `backend-api.schlussgang.ch` (nur für
   echte Daten; der synthetische Modus läuft offline)
 
@@ -230,7 +239,7 @@ pipeline/                  Python-Datenpipeline
   scrape/                    schlussgang.ch-Scraper + Rohdaten-Einlesen
   tests/                     pytest
 artifacts/                 Generierte Artefakte (versioniert, ausser raw/)
-web/                       Next.js App Router + TypeScript
+web/                       Next.js 15 (App Router) + React 19 + TypeScript
   lib/inference.ts           Clientseitige Inferenz (spiegelt features.py)
   app/                       Seiten
   public/data/               Artefakt-Kopie, die die App lädt

@@ -1,0 +1,34 @@
+# Automatische Update-PRs. Anlass: die App lief auf next 14.2.5 mit 3 offenen
+# Schwachstellen (1 kritisch), ohne dass es jemand merkte -- und bis 14.2.35,
+# der letzten 14er, sind 23 weitere Next-Advisories aufgelaufen, darunter RCE
+# in der Image-Optimierung. Next 14 bekommt diese Fixes nicht mehr.
+#
+# Wöchentlich statt täglich: der tägliche Pipeline-Lauf committet bereits
+# jeden Tag; zusätzliche tägliche PRs würden eher ignoriert als gelesen.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /web
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      # React und seine Typen nur gemeinsam aktualisieren -- getrennt passen
+      # Laufzeit und Typdefinitionen zeitweise nicht zusammen.
+      react:
+        patterns: ["react", "react-dom", "@types/react", "@types/react-dom"]
+      # Kleinkram gebündelt, damit er nicht einzeln die PR-Liste füllt.
+      patch-und-minor:
+        update-types: ["minor", "patch"]
+        exclude-patterns: ["next", "react", "react-dom", "@types/react", "@types/react-dom"]
+
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
