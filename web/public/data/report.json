@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-09-24T09:01:55.379416+00:00",
-  "lauf_id": "20260924T090155Z",
+  "erstellt": "2026-09-24T12:15:02.546470+00:00",
+  "lauf_id": "20260924T121502Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 133611,
@@ -9,20 +9,20 @@
   },
   "holdout_jahr": 2026,
   "n_train": 194252,
-  "n_test": 72970,
+  "n_test": 36485,
   "modell": {
-    "log_loss": 0.832,
-    "accuracy": 0.6389,
-    "mae": 0.2681,
-    "mse": 0.1196
+    "log_loss": 0.8314,
+    "accuracy": 0.639,
+    "mae": 0.2676,
+    "mse": 0.1197
   },
   "baseline_elo": {
-    "log_loss": 0.9507,
-    "accuracy": 0.5993
+    "log_loss": 0.9131,
+    "accuracy": 0.6117
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0396,
-  "verbesserung_log_loss": 0.1187,
+  "accuracy_gg_baseline": 0.0272,
+  "verbesserung_log_loss": 0.0817,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -30,21 +30,36 @@
   ],
   "konfusionsmatrix": [
     [
-      22959,
-      493,
-      5339
+      10127,
+      208,
+      2742
     ],
     [
-      7341,
-      706,
-      7341
+      3536,
+      343,
+      3815
     ],
     [
-      5341,
-      493,
-      22957
+      2607,
+      264,
+      12843
     ]
   ],
+  "nur_portraet": {
+    "modell": {
+      "n": 9319,
+      "anteil_am_test": 0.2554,
+      "log_loss": 0.9254,
+      "accuracy": 0.5774,
+      "mae": 0.2601,
+      "mse": 0.1185
+    },
+    "baseline_elo": {
+      "n": 9319,
+      "log_loss": 0.9299,
+      "accuracy": 0.5801
+    }
+  },
   "erfolgskriterien": {
     "log_loss_besser_als_baseline": true,
     "accuracy_mindestens_baseline": true,
@@ -137,7 +152,8 @@
       "feste_ohne_abzeichen": 6,
       "abzeichen_gesamt": 18206,
       "plausibel": true,
-      "hinweis_refetch": true
+      "anteil_feste_ohne_abzeichen": 0.0125,
+      "hinweis_refetch": false
     },
     "roh_eintraege_gelesen": 249109,
     "roh_eintraege_uebernommen": 246749,

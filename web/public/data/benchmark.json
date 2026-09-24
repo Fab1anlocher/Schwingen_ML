@@ -30,10 +30,10 @@
     {
       "key": "ml_komplett",
       "label": "ML komplett (Champion)",
-      "accuracy": 0.6389,
+      "accuracy": 0.639,
       "brier_score": 0.4788,
-      "mae": 0.2681,
-      "mse": 0.1196
+      "mae": 0.2676,
+      "mse": 0.1197
     }
   ]
 }
