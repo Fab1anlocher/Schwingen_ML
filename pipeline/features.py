@@ -9,7 +9,7 @@ from __future__ import annotations
 from collections import deque, defaultdict
 
 from .config import FORM_FENSTER_K
-from .schema import Schwinger, KRANZSTATUS_ORDINAL
+from .schema import Schwinger, KRANZSTATUS_ORDINAL, hat_portraet
 from .labels import GangResultat
 
 
@@ -32,6 +32,16 @@ FEATURE_NAMES = [
     "schwung_overlap",   # Überschneidung bevorzugter Schwünge (0..1)
     "schwung_count_diff",  # Anzahl bevorzugter Schwünge A - B
     "kopf_an_kopf",      # Bisherige direkte Duelle A vs B, leak-frei + geglättet
+    # Porträt vorhanden A - B, in {-1, 0, 1}. Macht die DATENLAGE zu einem
+    # offenen Merkmal: 76 % des Kaders haben kein Porträt und damit weder
+    # Physis noch Verband noch Schwünge noch Kranzstatus. Porträt-Schwinger
+    # schlagen Stubs rund 68 % zu 13 %. Ohne dieses Merkmal musste das Modell
+    # die Datenlücke über Ersatzgrössen lernen -- vor allem über kranz_diff,
+    # das bei Stubs strukturell 0 ist -- und die App erklärte eine Prognose
+    # dann mit "Kranzstärke", wo in Wahrheit "hat ein Profil" stand.
+    # Bewusst ans ENDE gestellt: model.json-Koeffizienten sind positions-
+    # gebunden, die übrigen Indizes bleiben so unverändert.
+    "portraet_diff",
 ]
 
 # Schrumpfungsstärke für kopf_an_kopf: entspricht K "neutralen Phantom-Duellen"
@@ -54,6 +64,7 @@ FEATURE_LABELS = {
     "schwung_overlap": "Übereinstimmung bevorzugter Schwünge",
     "schwung_count_diff": "Unterschied Anzahl bevorzugter Schwünge",
     "kopf_an_kopf": "Bisherige direkte Duelle",
+    "portraet_diff": "Porträt/Profildaten vorhanden",
 }
 
 
@@ -163,6 +174,9 @@ def baue_features(
                 "schwinger_b_id": b_id,
                 "n_a": n_a,
                 "n_b": n_b,
+                # Für die getrennte Auswertung nur auf Porträt-gegen-Porträt-
+                # Gängen -- dort messen Physis/Verband/Schwünge wirklich etwas.
+                "beide_portraet": hat_portraet(sa.quellen) and hat_portraet(sb.quellen),
             }
         )
 
@@ -213,6 +227,7 @@ def _feature_vektor(
         _schwung_overlap(sa, sb),                        # schwung_overlap
         float(len(sa.bevorzugte_schwuenge) - len(sb.bevorzugte_schwuenge)),
         kopf_an_kopf_a,                                  # kopf_an_kopf
+        float(hat_portraet(sa.quellen)) - float(hat_portraet(sb.quellen)),  # portraet_diff
     ]
 
 

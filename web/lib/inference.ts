@@ -10,6 +10,13 @@ function diffOderNull(a: number | null, b: number | null): number {
   return a - b;
 }
 
+/** Spiegelt pipeline/schema.hat_portraet: Porträt über die Quelle, NICHT über
+ *  den Kranzstatus (schlussgang.ch porträtiert nur Kranzer und besser, ein
+ *  Kranzstatus-Test wäre zirkulär). */
+export function hatPortraet(s: Schwinger): boolean {
+  return (s.quellen ?? []).some((q) => q.includes("portraet"));
+}
+
 function schwungOverlap(a: Schwinger, b: Schwinger): number {
   const sa = new Set(a.bevorzugte_schwuenge ?? []);
   const sb = new Set(b.bevorzugte_schwuenge ?? []);
@@ -50,7 +57,38 @@ export function baueFeatures(
     schwungOverlap(a, b), // schwung_overlap
     (a.bevorzugte_schwuenge?.length ?? 0) - (b.bevorzugte_schwuenge?.length ?? 0), // schwung_count_diff
     kopfAnKopfA, // kopf_an_kopf
+    (hatPortraet(a) ? 1 : 0) - (hatPortraet(b) ? 1 : 0), // portraet_diff
   ];
+}
+
+/** Beruht dieses Merkmal für DIESE Paarung auf fehlenden Daten?
+ *
+ *  76 % des Kaders haben kein Porträt, also weder Physis noch Verband noch
+ *  Schwünge noch Kranzstatus. Für sie liefert der Merkmalsvektor 0 bzw. einen
+ *  Platzhalter -- das Modell rechnet damit korrekt, aber als GRUND für eine
+ *  Prognose taugt ein solcher Wert nicht. Vorher erklärte die App etwa ein
+ *  Porträt-gegen-Stub-Duell mit "Kranzstärke", obwohl der Stub schlicht
+ *  kein Profil hat. Diese Merkmale erscheinen darum nur noch, wenn die Daten
+ *  auf beiden Seiten vorliegen; der Datenunterschied selbst steht offen als
+ *  portraet_diff da. Die Wahrscheinlichkeit ändert sich dadurch NICHT --
+ *  nur die angezeigte Begründung. */
+function beruhtAufFehlendenDaten(feat: string, a: Schwinger, b: Schwinger): boolean {
+  switch (feat) {
+    case "gewicht_diff":
+      return a.gewicht_kg === null || b.gewicht_kg === null;
+    case "groesse_diff":
+      return a.groesse_cm === null || b.groesse_cm === null;
+    case "alter_diff":
+      return a.jahrgang === null || b.jahrgang === null;
+    case "same_teilverband":
+      return !a.teilverband || !b.teilverband;
+    case "kranz_diff":
+    case "schwung_overlap":
+    case "schwung_count_diff":
+      return !hatPortraet(a) || !hatPortraet(b);
+    default:
+      return false;
+  }
 }
 
 function softmax(logits: number[]): number[] {
@@ -86,6 +124,7 @@ const BEITRAG_TEXT: Record<string, { titel: string; unter: string }> = {
   schwung_overlap: { titel: "Ähnlicher Stil", unter: "Gemeinsame Schwünge" },
   schwung_count_diff: { titel: "Schwung-Vielfalt", unter: "Anzahl bevorzugter Schwünge" },
   kopf_an_kopf: { titel: "Direkte Duelle", unter: "Bisherige Begegnungen" },
+  portraet_diff: { titel: "Datenlage", unter: "Profil mit Physis & Kranzstatus vorhanden" },
 };
 
 /** Vollständige Prognose inkl. Erklärbarkeit (FR-1, FR-3). */
@@ -99,7 +138,17 @@ export function prognostiziere(
   nB: number,
   kopfAnKopfA: number = 0
 ): Prognose {
-  const x = baueFeatures(model, a, b, eloA, eloB, nA, nB, kopfAnKopfA);
+  // Auf die Merkmale kürzen, die DIESES model.json kennt. Das ausgelieferte
+  // Modell kommt aus dem Repo und kann dem Code einen Lauf hinterherhinken
+  // (z.B. 12 Merkmale, während baueFeatures schon 13 liefert). Das geht nur
+  // gut, weil neue Merkmale ausschliesslich HINTEN angehängt werden (s.
+  // pipeline/features.FEATURE_NAMES) -- die ersten N stimmen dann überein.
+  // Vorher klappte es nur zufällig: das überzählige z war NaN und wurde bloss
+  // deshalb nie gelesen, weil die Koeffizientenzeilen kürzer waren.
+  const x = baueFeatures(model, a, b, eloA, eloB, nA, nB, kopfAnKopfA).slice(
+    0,
+    model.features.length
+  );
   const { mu, sigma } = model.standardisierung;
   const z = x.map((xi, i) => (xi - mu[i]) / (sigma[i] || 1));
 
@@ -118,7 +167,9 @@ export function prognostiziere(
   // abstrakten, nicht weiter interpretierbaren Koeffizienten-Produkts.
   const iSiegA = model.klassen.indexOf("sieg_a");
   const beitraege = model.features
-    .map((feat, i) => {
+    .map((feat, i) => ({ feat, i }))
+    .filter(({ feat }) => !beruhtAufFehlendenDaten(feat, a, b))
+    .map(({ feat, i }) => {
       const zOhneMerkmal = z.slice();
       zOhneMerkmal[i] = 0;
       const probsOhne = wahrscheinlichkeiten(model, zOhneMerkmal);

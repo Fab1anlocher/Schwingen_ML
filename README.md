@@ -113,8 +113,9 @@ kompakten, abgeleiteten Artefakte.
    Resultate ein). Der Kader wird danach **komplett neu** aus Porträts +
    PDF-Namen gebaut, nie inkrementell fortgeschrieben.
 3. **`pipeline.run_pipeline --source scrape`** — trainiert und exportiert.
-4. **`pipeline.verify_inference`** — prüft, dass die clientseitige
-   TypeScript-Inferenz identisch rechnet wie das trainierte Modell.
+4. **`pipeline.verify_inference`** — prüft, dass die exportierten Gewichte in
+   `model.json` dieselben Wahrscheinlichkeiten liefern wie das sklearn-Modell.
+   (Den TypeScript-Merkmalsvektor prüft es **nicht**, s. unten.)
 5. **`pipeline.datenqualitaet`** — schreibt den Qualitätsbericht ins
    Job-Summary des Actions-Laufs.
 6. **Artefakte committen** — Vercel deployt automatisch.
@@ -158,7 +159,7 @@ Python-Abhängigkeiten (`requirements-pipeline.txt`): `numpy`, `scikit-learn`,
 pip install -r requirements-pipeline.txt
 python -m pipeline.run_pipeline --source synth   # erzeugt alle Artefakte
 python -m pipeline.verify_inference              # Inferenz-Konsistenz
-python -m pytest pipeline/tests -q               # 172 Tests
+python -m pytest pipeline/tests -q               # 185 Tests
 ```
 
 > `--source synth` **überschreibt die Artefakte** mit Demodaten. Danach
@@ -220,7 +221,7 @@ pipeline/                  Python-Datenpipeline
   datenqualitaet.py          Qualitätsbericht aus report.json
   diagnose_agenda.py         CLI: warum die Vorschau "kommende Feste" leer ist
   diagnose_kranz.py          CLI: Gegenprobe zur Bedeutung des PDF-Sterns
-  verify_inference.py        Cross-Check: TS-Inferenz == sklearn-Modell
+  verify_inference.py        Cross-Check: model.json == sklearn-Modell
   synth.py                   Synthetischer Datensatz (offline/CI)
   scrape/                    schlussgang.ch-Scraper + Rohdaten-Einlesen
   tests/                     pytest
@@ -245,16 +246,59 @@ auf.
   Fest-Wichtigkeit gewichtet. Jedes komplexere Modell muss sie schlagen.
 * **Logistic Regression** (`train.py`) auf **leak-freien** A-minus-B-Merkmalen
   (`features.py`): Rating-Vorsprung und -Nähe, Form, Kranzstatus, Alter,
-  Gewicht/Grösse, Erfahrung, Verband, bevorzugte Schwünge, Kopf-an-Kopf-Bilanz.
-  Alle Merkmale nutzen nur Daten von **vor** dem Gang; Holdout ist die jüngste
-  Saison, kein zufälliger Split.
+  Gewicht/Grösse, Erfahrung, Verband, bevorzugte Schwünge, Kopf-an-Kopf-Bilanz
+  und die Datenlage (`portraet_diff`, s. unten). Alle Merkmale nutzen nur Daten
+  von **vor** dem Gang; Holdout ist die jüngste Saison, kein zufälliger Split.
+  Trainiert wird mit Spiegelzeilen (jeder Gang zusätzlich als B-gegen-A), damit
+  das Modell paar-symmetrisch ist; **bewertet wird ohne sie** — sonst stünde
+  jeder Testgang doppelt drin. Die Elo-Baseline wird auf **genau denselben**
+  Gängen gemessen wie das Modell.
 * **4-Wege-Benchmark** (`benchmark.py`): Kranz-Heuristik / reine Elo / ML ohne
   Elo / ML komplett auf demselben Holdout, mit Accuracy, Brier-Score sowie
   MAE und MSE (s. unten).
 * **K-Means + KNN** (`clustering.py`): Cluster-Anzahl per Silhouette-Score.
 * **Clientseitige Inferenz** (`web/lib/inference.ts`) spiegelt `features.py` in
-  TypeScript; `verify_inference.py` prüft bei jedem Lauf, dass beide identisch
-  rechnen.
+  TypeScript. `verify_inference.py` prüft dabei nur die Gewichte in
+  `model.json` gegen sklearn, und zwar mit dem **Python**-Merkmalsvektor —
+  ein Fehler in `baueFeatures` (TypeScript) fiele ihm nicht auf und erzeugte
+  still falsche Live-Prognosen. Neue Merkmale darum von Hand auf Parität
+  prüfen (für `portraet_diff` geschehen: 100 echte Paare, Abweichung 0) und
+  **nur hinten** an `FEATURE_NAMES` anhängen — `model.json` ist
+  positionsgebunden, und die App kürzt den Vektor auf die Merkmale, die das
+  ausgelieferte Modell kennt.
+
+### Datenlage: Porträt oder Stub
+
+76 % des Kaders haben kein schlussgang.ch-Porträt und damit weder Physis noch
+Verband noch Schwünge noch Kranzstatus. schlussgang.ch porträtiert **nur
+Kranzer und besser** (706 von 706 Porträts), Stubs haben immer `kein`. Und
+Porträt-Schwinger schlagen Stubs deutlich:
+
+| Konstellation | A siegt | B siegt |
+|---|---:|---:|
+| beide Stub | 39.0 % | 40.0 % |
+| beide Porträt | 34.4 % | 35.6 % |
+| A Stub, B Porträt | 12.6 % | **68.8 %** |
+| A Porträt, B Stub | **67.0 %** | 13.5 % |
+
+Ohne ein eigenes Merkmal dafür lernte das Modell diese Datenlücke über
+Ersatzgrössen — vor allem über `kranz_diff`, das bei jedem Stub strukturell 0
+ist — und die App begründete eine Prognose dann mit „Kranzstärke", wo in
+Wahrheit „hat ein Profil" stand. Darum:
+
+* **`portraet_diff`** (Porträt A − Porträt B) macht die Datenlage zu einem
+  offenen Merkmal; die App zeigt es als „Datenlage".
+* Merkmale, die für eine Paarung auf **fehlenden Daten** beruhen (Physis,
+  Alter, Verband, Schwünge, Kranzstatus), erscheinen **nicht mehr als Grund**.
+  Die Wahrscheinlichkeit ändert sich dadurch nicht, nur die Begründung.
+* `report.json` → `nur_portraet` misst Modell **und** Elo-Baseline zusätzlich
+  nur auf Porträt-gegen-Porträt-Gängen. Nur dort liegen die wrestlerischen
+  Merkmale auf beiden Seiten vor.
+
+Eine Folge davon: die Ergebnisverteilung (`sieg_a` rund 35 %, `sieg_b` rund
+42 %) ist **kein Signal**. A und B werden alphabetisch per ID vergeben, und
+Stub-IDs sortieren systematisch häufiger nach vorne (29'690 gemischte
+Paarungen mit Stub vorne gegen 16'134 umgekehrt).
 
 ### MAE und MSE — Fehlermasse in der Einheit des Ergebnisses
 
