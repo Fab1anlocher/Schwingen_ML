@@ -147,9 +147,20 @@ def berechne_ueberraschung(gaenge: list[GangResultat], snapshots: list[dict]) ->
 
 
 def bewerte_baseline(
-    gaenge: list[GangResultat], snapshots: list[dict], klassen: list[str]
+    gaenge: list[GangResultat],
+    snapshots: list[dict],
+    klassen: list[str],
+    *,
+    nur_gaenge: set | None = None,
 ) -> dict:
-    """Log-Loss & Accuracy der Elo-only-Baseline (ML-6, Vergleichsanker)."""
+    """Log-Loss & Accuracy der Elo-only-Baseline (ML-6, Vergleichsanker).
+
+    ``nur_gaenge`` schränkt auf eine Menge von (event_id, a_id, b_id) ein --
+    gedacht für den Holdout des Modells. Ohne diese Einschränkung lief die
+    Baseline über ALLE Gänge 2023-2026, während das Modell nur den Holdout
+    sah: der Satz "schlägt die Baseline" verglich damit zwei verschiedene
+    Mengen unterschiedlicher Grösse aus verschiedenen Jahren.
+    """
     modell = EloModell()
     idx = {s["event_id"] + s["schwinger_a_id"] + s["schwinger_b_id"]: s for s in snapshots}
     eps = 1e-15
@@ -157,6 +168,10 @@ def bewerte_baseline(
     korrekt = 0
     n = 0
     for gang in gaenge:
+        if nur_gaenge is not None and (
+            gang.event_id, gang.schwinger_a_id, gang.schwinger_b_id
+        ) not in nur_gaenge:
+            continue
         key = gang.event_id + gang.schwinger_a_id + gang.schwinger_b_id
         snap = idx.get(key)
         if snap is None:

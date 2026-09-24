@@ -18,15 +18,41 @@ from .metriken import punktwert_fehlermasse
 
 
 def _split_zeitlich(X, y, meta, holdout_ab_jahr: int):
-    """Split nach Datum: Gänge >= holdout_ab_jahr sind Test (ML-5)."""
+    """Split nach Datum: Gänge >= holdout_ab_jahr sind Test (ML-5).
+
+    Augmentierte Spiegelzeilen (B-gegen-A) gehören ins TRAINING -- sie erzwingen
+    dort ein paar-symmetrisches Modell. Im TEST haben sie nichts verloren: jeder
+    Gang stünde doppelt drin, einmal aus jeder Perspektive. benchmark.py filtert
+    sie längst heraus ("sonst würde jeder Test-Gang doppelt gezählt"), train.py
+    tat es nicht -- daher n_test = 72'970 statt der echten 36'485 und eine
+    erzwungen symmetrische Konfusionsmatrix (Zeilensummen sieg_a und sieg_b
+    exakt gleich). Die Accuracy blieb davon fast unberührt, die Matrix und jede
+    daraus gelesene Per-Klassen-Aussage nicht.
+    """
     Xtr, ytr, Xte, yte = [], [], [], []
     for xi, yi, mi in zip(X, y, meta):
         jahr = int(mi["datum"][:4])
         if jahr >= holdout_ab_jahr:
+            if mi.get("augmented"):
+                continue
             Xte.append(xi); yte.append(yi)
         else:
             Xtr.append(xi); ytr.append(yi)
     return np.array(Xtr), np.array(ytr), np.array(Xte), np.array(yte)
+
+
+def holdout_gang_schluessel(meta, holdout_ab_jahr: int) -> set:
+    """Die Gänge, auf denen trainiere() das Modell bewertet -- als (event, a, b).
+
+    Damit lässt sich die Elo-Baseline auf GENAU derselben Menge messen statt
+    nur im selben Jahr; vorher lief sie über alle Gänge 2023-2026, während das
+    Modell nur den Holdout sah.
+    """
+    return {
+        (m["event_id"], m["schwinger_a_id"], m["schwinger_b_id"])
+        for m in meta
+        if int(m["datum"][:4]) >= holdout_ab_jahr and not m.get("augmented")
+    }
 
 
 def bestimme_holdout_jahr(meta) -> int:

@@ -313,8 +313,6 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
 
     print("[3/8] Elo-Baseline (chronologisch, leak-frei) ...", flush=True)
     elo_modell, snapshots = fahre_elo_durch(gaenge)
-    baseline = bewerte_baseline(gaenge, snapshots, config.KLASSEN)
-    print(f"      Baseline Log-Loss={baseline['log_loss']:.4f} Acc={baseline['accuracy']:.4f}", flush=True)
 
     print("[4/8] Merkmale bilden (leak-frei, augmentiert) ...", flush=True)
     X, y, meta = baue_features(gaenge, snapshots, schwinger, augment=True)
@@ -322,11 +320,24 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
 
     print("[5/8] Logistic Regression trainieren + zeitlich evaluieren ...", flush=True)
     print("      (lade sklearn – beim ersten Mal 10-30 s) ...", flush=True)
-    from .train import trainiere, feature_wichtigkeit
+    from .train import (
+        trainiere,
+        feature_wichtigkeit,
+        bestimme_holdout_jahr,
+        holdout_gang_schluessel,
+    )
     from .benchmark import fuehre_benchmark_durch
     from .clustering import berechne_cluster
     train_res = trainiere(X, y, meta)
     fi = feature_wichtigkeit(train_res["modell"], train_res["sigma"])
+    # Baseline auf GENAU den Gängen messen, auf denen auch das Modell bewertet
+    # wurde -- sonst vergleicht "schlägt die Baseline" zwei verschiedene Mengen.
+    baseline = bewerte_baseline(
+        gaenge, snapshots, config.KLASSEN,
+        nur_gaenge=holdout_gang_schluessel(meta, bestimme_holdout_jahr(meta)),
+    )
+    print(f"      Baseline Log-Loss={baseline['log_loss']:.4f} "
+          f"Acc={baseline['accuracy']:.4f} (n={baseline['n']}, gleicher Holdout)", flush=True)
     print(f"      Modell   Log-Loss={train_res['log_loss']:.4f} "
           f"Acc={train_res['accuracy']:.4f} (Holdout {train_res['holdout_jahr']})", flush=True)
 
