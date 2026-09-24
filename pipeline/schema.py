@@ -21,6 +21,25 @@ KRANZSTATUS_ORDINAL = {
 }
 
 
+# Marker in Schwinger.quellen für ein schlussgang.ch-Porträt. Stubs (nur aus
+# der Statistik-PDF bekannt) tragen ihn nicht.
+PORTRAET_MARKER = "portraet"
+
+
+def hat_portraet(quellen) -> bool:
+    """True, wenn der Schwinger ein Porträt hat.
+
+    Bewusst über die Quelle und NICHT über den Kranzstatus: schlussgang.ch
+    führt Porträts nur für Kranzer und besser (706 von 706 Porträts sind
+    mindestens Kranzer), Stubs haben immer kranzstatus "kein". Ein
+    Kranzstatus-Test wäre damit zirkulär. Die Quelle ist die eigentliche
+    Information -- ob überhaupt Profildaten existieren.
+
+    Gespiegelt in web/lib/inference.ts (hatPortraet).
+    """
+    return any(PORTRAET_MARKER in q for q in (quellen or []))
+
+
 def normalize_name(name: str) -> str:
     """Namensnormalisierung für Identitätsauflösung (R-5).
 

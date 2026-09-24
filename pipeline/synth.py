@@ -70,7 +70,10 @@ def erzeuge_schwinger(n: int, rng: random.Random) -> dict[str, Schwinger]:
             senne_turner=rng.choice(["senne", "turner"]),
             schwinger_seit=jahrgang + rng.randint(6, 12),
             bevorzugte_schwuenge=rng.sample(_SCHWUENGE, k=rng.randint(1, 3)),
-            quellen=["synthetisch"],
+            # Synthetische Schwinger haben durchgehend volle Profildaten, gelten
+            # also als profiliert (schema.hat_portraet). Ohne den Marker wären
+            # sie fälschlich lauter Stubs, obwohl Physis & Co. gesetzt sind.
+            quellen=["synthetisch/portraet"],
         )
         # latente Stärke fürs Ergebnis-Sampling merken (nicht im Schema).
         schwinger[key]._staerke = staerke  # type: ignore[attr-defined]

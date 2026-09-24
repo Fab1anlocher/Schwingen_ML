@@ -332,12 +332,23 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
     fi = feature_wichtigkeit(train_res["modell"], train_res["sigma"])
     # Baseline auf GENAU den Gängen messen, auf denen auch das Modell bewertet
     # wurde -- sonst vergleicht "schlägt die Baseline" zwei verschiedene Mengen.
+    holdout_jahr = bestimme_holdout_jahr(meta)
     baseline = bewerte_baseline(
         gaenge, snapshots, config.KLASSEN,
-        nur_gaenge=holdout_gang_schluessel(meta, bestimme_holdout_jahr(meta)),
+        nur_gaenge=holdout_gang_schluessel(meta, holdout_jahr),
     )
     print(f"      Baseline Log-Loss={baseline['log_loss']:.4f} "
           f"Acc={baseline['accuracy']:.4f} (n={baseline['n']}, gleicher Holdout)", flush=True)
+    # Dieselbe Baseline auf der Porträt-Teilmenge, damit der Vergleich auch
+    # dort auf identischen Gängen läuft.
+    baseline_portraet = bewerte_baseline(
+        gaenge, snapshots, config.KLASSEN,
+        nur_gaenge=holdout_gang_schluessel(meta, holdout_jahr, nur_beide_portraet=True),
+    )
+    np_ = train_res["nur_portraet"]
+    if np_.get("n"):
+        print(f"      Nur Porträt-gegen-Porträt (n={np_['n']}): Modell Acc={np_['accuracy']:.4f} "
+              f"| Baseline Acc={baseline_portraet['accuracy']:.4f}", flush=True)
     print(f"      Modell   Log-Loss={train_res['log_loss']:.4f} "
           f"Acc={train_res['accuracy']:.4f} (Holdout {train_res['holdout_jahr']})", flush=True)
 
@@ -408,6 +419,7 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
     export.exportiere_events(events, kommende)
     report = export.exportiere_report(
         train_res, baseline, warnungen, len(gaenge), len(schwinger),
+        baseline_portraet=baseline_portraet,
         datenqualitaet=_datenqualitaet(
             bericht, gaenge, events, warnungen, schwinger=schwinger,
             kommende=kommende, kommende_diagnose=kommende_diagnose,

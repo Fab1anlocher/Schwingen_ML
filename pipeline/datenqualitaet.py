@@ -123,15 +123,27 @@ def _zeilen(report: dict) -> list[str]:
               ", ".join(f"`{n}`" for n in dq["beispiele_unaufloesbare_namen"]), ""]
     if dq.get("ergebnisverteilung"):
         anteile = ", ".join(f"{k} {v:.1%}" for k, v in dq["ergebnisverteilung"].items())
-        z += [f"**Ergebnisverteilung**: {anteile}", ""]
+        z += [f"**Ergebnisverteilung**: {anteile}",
+              "  (sieg_a vs. sieg_b ist kein Signal: A/B wird alphabetisch per ID "
+              "vergeben, und Stub-IDs sortieren häufiger nach vorne)", ""]
 
     modell = report.get("modell") or {}
     baseline = report.get("baseline_elo") or {}
     if modell and baseline:
-        z += ["**Modell vs. Elo-Baseline**", "",
+        z += ["**Modell vs. Elo-Baseline** (identische Holdout-Gänge)", "",
               f"- Log-Loss {modell.get('log_loss')} vs. {baseline.get('log_loss')} "
               f"({_ampel(bool(report.get('schlaegt_baseline')))})",
               f"- Accuracy {modell.get('accuracy')} vs. {baseline.get('accuracy')}", ""]
+
+    # Nur Porträt-gegen-Porträt: die ehrliche Messung der wrestlerischen
+    # Merkmale, weil nur dort Physis/Verband/Schwünge beidseitig vorliegen.
+    np_ = report.get("nur_portraet") or {}
+    m, b = np_.get("modell") or {}, np_.get("baseline_elo") or {}
+    if m.get("n"):
+        z += [f"**Nur Porträt-gegen-Porträt** ({m['n']} Gänge, "
+              f"{m.get('anteil_am_test', 0):.0%} des Tests)", "",
+              f"- Accuracy {m.get('accuracy')} vs. Baseline {b.get('accuracy', '?')}",
+              f"- Log-Loss {m.get('log_loss')} vs. Baseline {b.get('log_loss', '?')}", ""]
     return z
 
 

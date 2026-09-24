@@ -350,9 +350,23 @@ def exportiere_benchmark(benchmark_res: dict) -> None:
     })
 
 
+def _nur_portraet_block(modell: dict | None, baseline: dict | None) -> dict:
+    if not modell or not modell.get("n"):
+        return {"n": 0}
+    block = {"modell": modell}
+    if baseline and baseline.get("n"):
+        block["baseline_elo"] = {
+            "n": baseline["n"],
+            "log_loss": round(baseline["log_loss"], 4),
+            "accuracy": round(baseline["accuracy"], 4),
+        }
+    return block
+
+
 def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
                       n_gaenge: int, n_schwinger: int,
-                      datenqualitaet: dict | None = None) -> dict:
+                      datenqualitaet: dict | None = None,
+                      baseline_portraet: dict | None = None) -> dict:
     """report.json: Trainingslauf-Bericht (ML-6, reproduzierbar, versioniert)."""
     ll = train_res["log_loss"]
     base_ll = baseline["log_loss"]
@@ -386,6 +400,10 @@ def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
         "verbesserung_log_loss": round(base_ll - ll, 4),
         "klassen": KLASSEN,
         "konfusionsmatrix": train_res.get("confusion_matrix"),
+        # Getrennte Auswertung nur auf Porträt-gegen-Porträt-Gängen (s.
+        # train._bewerte_nur_portraet) -- mit der Elo-Baseline auf denselben
+        # Gängen, damit auch dieser Vergleich auf identischer Menge läuft.
+        "nur_portraet": _nur_portraet_block(train_res.get("nur_portraet"), baseline_portraet),
         "erfolgskriterien": {
             "log_loss_besser_als_baseline": erreicht_log_loss,
             "accuracy_mindestens_baseline": erreicht_accuracy,

@@ -1,8 +1,16 @@
 """Cross-Check: JSON-Artefakt-Inferenz == sklearn-Modell (NFR-3).
 
-Stellt sicher, dass die clientseitige Inferenz (die exakt diese JSON-Logik
-in TypeScript spiegelt) dieselben Wahrscheinlichkeiten liefert wie das
-trainierte sklearn-Modell. Verhindert Drift zwischen Training und Web-App.
+Stellt sicher, dass die Gewichte in model.json -- mit der Softmax-Logik, die
+web/lib/inference.ts spiegelt -- dieselben Wahrscheinlichkeiten liefern wie
+das trainierte sklearn-Modell. Verhindert Drift beim Export der Gewichte.
+
+Was es NICHT prüft: den Merkmalsvektor der Web-App. Der Vektor wird hier mit
+Python gebaut (feature_vektor_fuer_prognose), nicht mit baueFeatures aus
+inference.ts. Ein Fehler in der TypeScript-Spiegelung fiele diesem Check
+nicht auf und erzeugte still falsche Live-Prognosen. Früher stand hier, er
+stelle sicher, "dass die clientseitige Inferenz ... dieselben
+Wahrscheinlichkeiten liefert" -- das war zu weit gegriffen. Neue Merkmale
+darum von Hand auf Parität prüfen, s. ROADMAP.md (P5).
 """
 from __future__ import annotations
 
@@ -97,7 +105,7 @@ def main():
 
     print(f"\nMax. Abweichung JSON vs Referenz: {max_abw:.2e}")
     assert max_abw < 1e-9, "Inferenz-Drift!"
-    print("✓ Inferenz konsistent (clientseitige TS-Logik = Modell).")
+    print("✓ model.json konsistent mit dem sklearn-Modell (TS-Merkmalsvektor NICHT geprüft).")
 
 
 if __name__ == "__main__":
