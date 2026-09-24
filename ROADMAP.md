@@ -44,10 +44,13 @@ nicht mehr als Grund, wenn sie für die Paarung auf fehlenden Daten beruhen;
 `report.json` → `nur_portraet` misst Modell und Baseline zusätzlich nur auf
 Porträt-gegen-Porträt-Gängen.
 
-**Nach dem ersten echten Lauf prüfen:** Wie viel Gewicht bekommt
-`portraet_diff`, und verliert `kranz_diff` dafür an Wichtigkeit? Wie gross ist
-der Vorsprung auf `nur_portraet` — das ist die ehrliche Messung der
-wrestlerischen Merkmale.
+**Ergebnis des ersten echten Laufs (24.09.2026):** `kranz_diff` verliert rund
+70 % seines Gewichts (0.166 → 0.049), `portraet_diff` übernimmt es offen
+(0.124). Der Kranzstatus hatte also tatsächlich überwiegend „hat ein Profil"
+transportiert. Und auf Porträt-gegen-Porträt-Gängen (9'319) ist das Modell
+**praktisch gleich gut wie Elo allein** (Log-Loss 0.9254 vs. 0.9299, Accuracy
+57.7 % vs. 58.0 %): Physis, Verband und Schwünge bringen über Elo hinaus nichts
+Messbares, obwohl sie dort vollständig vorliegen.
 
 ---
 
@@ -82,19 +85,14 @@ der Fälle. Die App zeigt prominent eine Gestellt-Wahrscheinlichkeit samt Quote
 - `next` aktualisieren, `npm audit --audit-level=high` in die CI.
 - Dependabot oder Renovate aktivieren.
 
-## P5 — Parität TypeScript ↔ Python automatisch prüfen
+## ✅ P5 — Parität TypeScript ↔ Python automatisch geprüft
 
-**Priorität mittel · Aufwand klein bis mittel**
-
-`verify_inference` prüft nur `model.json` gegen sklearn, und zwar mit dem
-**Python**-Merkmalsvektor. Ein Fehler in `web/lib/inference.ts → baueFeatures`
-fiele nirgends auf und erzeugte still falsche Live-Prognosen. Für
-`portraet_diff` wurde die Parität von Hand geprüft (100 echte Paare,
-Abweichung 0).
-
-- Einen Paritätstest in die CI: `inference.ts` kompilieren, auf einer festen
-  Auswahl echter Paare gegen `feature_vektor_fuer_prognose` vergleichen.
-  Braucht einen Job mit Node **und** Python.
+**Erledigt.** `pipeline/paritaet.py` erzeugt ~240 Prüffälle aus den echten
+Artefakten, `npm run paritaet` rechnet sie mit der App-Logik nach: Merkmale,
+Kopf-an-Kopf (inkl. Richtungsumkehr) und Wahrscheinlichkeiten. Läuft in jedem
+PR und im täglichen Lauf vor dem Commit neuer Artefakte. Mutationstest: sechs
+absichtlich eingebaute Fehler, alle erkannt. `verify_inference` nutzt jetzt
+dieselbe Python-Spiegelung statt einer eigenen Kopie.
 
 ## P6 — Datenabdeckung erhöhen
 

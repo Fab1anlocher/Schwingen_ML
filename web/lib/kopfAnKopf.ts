@@ -14,7 +14,19 @@ export interface H2HTreffer {
 export async function ladeKopfAnKopf(aId: string, bId: string): Promise<H2HTreffer[]> {
   const res = await fetch(`/api/kopf-an-kopf?a=${encodeURIComponent(aId)}&b=${encodeURIComponent(bId)}`);
   const daten = await res.json();
-  const treffer: H2HTreffer[] = daten.treffer ?? [];
+  return trefferAusSichtVonA(daten.treffer ?? [], aId, bId);
+}
+
+/** Treffer aus Sicht der kanonisch kleineren ID -> aus Sicht von A.
+ *
+ *  Als reine Funktion herausgelöst, damit die Paritätsprüfung gegen Python
+ *  (pipeline/paritaet.py) sie ohne fetch aufrufen kann: eine vertauschte
+ *  Richtung hier kehrte das Kopf-an-Kopf-Merkmal still um. */
+export function trefferAusSichtVonA(
+  treffer: H2HTreffer[],
+  aId: string,
+  bId: string
+): H2HTreffer[] {
   if (aId < bId) return treffer;
   return treffer.map((t) => ({
     ...t,

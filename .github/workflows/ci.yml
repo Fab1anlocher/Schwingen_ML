@@ -37,3 +37,32 @@ jobs:
       - name: Build (Typecheck + Next)
         working-directory: web
         run: npm run build
+
+  # Die App rechnet jede Prognose selbst in TypeScript (web/lib/inference.ts,
+  # web/lib/kopfAnKopf.ts) -- handgespiegelte Kopien der Python-Logik, die
+  # verify_inference NICHT prüft. Dieser Job rechnet echte Fälle aus den
+  # committeten Artefakten auf beiden Seiten und bricht bei der kleinsten
+  # Abweichung ab (s. pipeline/paritaet.py).
+  inferenz-paritaet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-pipeline.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: web/package-lock.json
+      - name: Abhängigkeiten
+        run: |
+          pip install -r requirements-pipeline.txt
+          cd web && npm ci
+      - name: Prüffälle aus den echten Artefakten (Python)
+        run: python -m pipeline.paritaet
+      - name: Nachrechnen mit der App-Logik (TypeScript)
+        working-directory: web
+        run: npm run paritaet

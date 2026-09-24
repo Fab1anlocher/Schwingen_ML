@@ -81,6 +81,20 @@ jobs:
       - name: Inferenz-Konsistenz prüfen (JSON == sklearn)
         run: python -m pipeline.verify_inference
 
+      # Letzte Prüfung, bevor neue Artefakte auf Prod gehen: rechnet die App
+      # mit DIESEM model.json und DIESEM schwinger.json dasselbe wie die
+      # Pipeline? In der PR-CI läuft die Prüfung gegen die alten Artefakte --
+      # ein neues Artefakt-Format trifft den Code zum ersten Mal hier.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: web/package-lock.json
+      - name: Parität App (TypeScript) ↔ Pipeline (Python)
+        run: |
+          python -m pipeline.paritaet
+          cd web && npm ci && npm run paritaet
+
       - name: Datenqualität ins Job-Summary
         if: ${{ !cancelled() }}
         run: python -m pipeline.datenqualitaet >> "$GITHUB_STEP_SUMMARY"

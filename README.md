@@ -115,10 +115,12 @@ kompakten, abgeleiteten Artefakte.
 3. **`pipeline.run_pipeline --source scrape`** — trainiert und exportiert.
 4. **`pipeline.verify_inference`** — prüft, dass die exportierten Gewichte in
    `model.json` dieselben Wahrscheinlichkeiten liefern wie das sklearn-Modell.
-   (Den TypeScript-Merkmalsvektor prüft es **nicht**, s. unten.)
-5. **`pipeline.datenqualitaet`** — schreibt den Qualitätsbericht ins
+5. **`pipeline.paritaet`** + **`npm run paritaet`** — rechnet echte Fälle mit
+   der App-Logik (TypeScript) nach und bricht bei jeder Abweichung ab, **bevor**
+   die neuen Artefakte auf Prod gehen (s. unten).
+6. **`pipeline.datenqualitaet`** — schreibt den Qualitätsbericht ins
    Job-Summary des Actions-Laufs.
-6. **Artefakte committen** — Vercel deployt automatisch.
+7. **Artefakte committen** — Vercel deployt automatisch.
 
 Der Lauf **bricht ab, statt schlechte Daten zu committen**, wenn
 
@@ -158,8 +160,9 @@ Python-Abhängigkeiten (`requirements-pipeline.txt`): `numpy`, `scikit-learn`,
 ```bash
 pip install -r requirements-pipeline.txt
 python -m pipeline.run_pipeline --source synth   # erzeugt alle Artefakte
-python -m pipeline.verify_inference              # Inferenz-Konsistenz
-python -m pytest pipeline/tests -q               # 185 Tests
+python -m pipeline.verify_inference              # model.json == sklearn
+python -m pipeline.paritaet && (cd web && npm run paritaet)   # App == Pipeline
+python -m pytest pipeline/tests -q               # 190 Tests
 ```
 
 > `--source synth` **überschreibt die Artefakte** mit Demodaten. Danach
@@ -222,6 +225,7 @@ pipeline/                  Python-Datenpipeline
   diagnose_agenda.py         CLI: warum die Vorschau "kommende Feste" leer ist
   diagnose_kranz.py          CLI: Gegenprobe zur Bedeutung des PDF-Sterns
   verify_inference.py        Cross-Check: model.json == sklearn-Modell
+  paritaet.py                Cross-Check: App (TypeScript) == Pipeline (Python)
   synth.py                   Synthetischer Datensatz (offline/CI)
   scrape/                    schlussgang.ch-Scraper + Rohdaten-Einlesen
   tests/                     pytest
@@ -257,13 +261,21 @@ auf.
   Elo / ML komplett auf demselben Holdout, mit Accuracy, Brier-Score sowie
   MAE und MSE (s. unten).
 * **K-Means + KNN** (`clustering.py`): Cluster-Anzahl per Silhouette-Score.
-* **Clientseitige Inferenz** (`web/lib/inference.ts`) spiegelt `features.py` in
-  TypeScript. `verify_inference.py` prüft dabei nur die Gewichte in
-  `model.json` gegen sklearn, und zwar mit dem **Python**-Merkmalsvektor —
-  ein Fehler in `baueFeatures` (TypeScript) fiele ihm nicht auf und erzeugte
-  still falsche Live-Prognosen. Neue Merkmale darum von Hand auf Parität
-  prüfen (für `portraet_diff` geschehen: 100 echte Paare, Abweichung 0) und
-  **nur hinten** an `FEATURE_NAMES` anhängen — `model.json` ist
+* **Clientseitige Inferenz** (`web/lib/inference.ts`, `web/lib/kopfAnKopf.ts`)
+  spiegelt `features.py` in TypeScript — eine Handkopie, die still
+  auseinanderlaufen kann (ist schon einmal passiert). `verify_inference.py`
+  prüft nur `model.json` gegen sklearn, mit dem **Python**-Vektor. Die
+  TypeScript-Seite prüft **`pipeline/paritaet.py`**: Python erzeugt ~240
+  Prüffälle aus den echten Artefakten (alle vier Porträt/Stub-Kombinationen,
+  Kopf-an-Kopf in beiden Richtungen, fehlendes Rating), `npm run paritaet`
+  rechnet sie mit den kompilierten TS-Modulen nach — Merkmale, Kopf-an-Kopf
+  und Wahrscheinlichkeiten getrennt. Läuft in jedem PR (CI-Job
+  `inferenz-paritaet`) und im täglichen Lauf **vor** dem Commit neuer
+  Artefakte. Per Mutationstest belegt, dass er anschlägt: vertauschte
+  Kopf-an-Kopf-Richtung, falsches Vorzeichen, falsche Skala, fehlendes
+  Merkmal, fehlender Intercept — alle erkannt.
+
+  Neue Merkmale **nur hinten** an `FEATURE_NAMES` anhängen: `model.json` ist
   positionsgebunden, und die App kürzt den Vektor auf die Merkmale, die das
   ausgelieferte Modell kennt.
 
