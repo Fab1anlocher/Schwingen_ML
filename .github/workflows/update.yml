@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       voller_refetch:
-        description: "Volle Historie ab 2023 neu laden (Cache-Aufbau/-Reparatur, MEHRERE STUNDEN)"
+        description: "Volle Historie ab 2023 neu laden (Cache-Aufbau/-Reparatur, ~20 min)"
         type: boolean
         default: false
 
@@ -24,9 +24,10 @@ jobs:
   update:
     runs-on: ubuntu-latest
     # Der volle Refetch lädt je Fest eine Statistik-PDF mit 2 s Rate-Limit
-    # (NFR-4) und läuft mehrere Stunden. GitHubs Default von 6 h ist knapp;
-    # explizit auf das Maximum gesetzt, damit ein Refetch nicht auf halber
-    # Strecke abbricht und einen halben Cache hinterlässt.
+    # (NFR-4): gemessen am 22.09.2026 rund 20 min für 481 Feste. Das Limit
+    # bleibt bewusst grosszügig, damit ein Refetch bei wachsender Historie
+    # oder langsamer Gegenseite nicht auf halber Strecke abbricht und einen
+    # halben Cache hinterlässt.
     timeout-minutes: 360
     env:
       VOLLER_REFETCH: ${{ github.event.inputs.voller_refetch || 'false' }}

@@ -81,14 +81,21 @@ def _zeilen(report: dict) -> list[str]:
         z += [f"- {_ampel(ok, warn=not ok)} Trefferquote je Fest (Median): "
               f"{ap.get('trefferquote_median', 0):.0%} der laut Porträt erwarteten "
               "Abzeichen gefunden"]
+        z += ["  (100 % sind nicht zu erwarten: der Kranzstatus im Porträt ist der "
+              "heutige Stand, das Abzeichen in der PDF der Stand am Fest)"]
         z += [f"- {ap.get('abzeichen_gesamt', 0)} Abzeichen über "
               f"{ap['n_feste_mit_kranzern']} Feste mit Kranzern im Feld"]
-        if ap.get("feste_ohne_abzeichen"):
-            z += [f"- {_ampel(False, warn=True)} {ap['feste_ohne_abzeichen']} Feste ohne "
-                  "ein einziges erkanntes Abzeichen — fast immer Altbestand in "
-                  "`artifacts/raw`, der vor dem Parser-Fix eingelesen wurde. "
-                  "Behebt sich nur durch einen vollen Refetch "
-                  "(`fetch_raw --seit-datum 2023-01-01`)."]
+        ohne = ap.get("feste_ohne_abzeichen", 0)
+        if ohne:
+            anteil = ap.get("anteil_feste_ohne_abzeichen", 0)
+            refetch = bool(ap.get("hinweis_refetch"))
+            z += [f"- {_ampel(not refetch, warn=refetch)} {ohne} Feste ohne ein einziges "
+                  f"erkanntes Abzeichen ({anteil:.1%})"]
+            if refetch:
+                z += ["- Ein solcher Anteil ist die Signatur von Altbestand in "
+                      "`artifacts/raw`, der vor dem Parser-Fix eingelesen wurde. "
+                      "Behebt sich nur durch einen vollen Refetch "
+                      "(`fetch_raw --seit-datum 2023-01-01`)."]
         z.append("")
 
     # Kommende Feste (FR-2). Mitten in der Saison ist eine leere Vorschau ein

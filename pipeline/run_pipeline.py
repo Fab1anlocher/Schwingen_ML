@@ -207,6 +207,12 @@ def _anzahl_feste(gaenge) -> dict:
     return {sid: len(evts) for sid, evts in feste.items()}
 
 
+# Ab diesem Anteil Feste ohne ein einziges Abzeichen ist von Altbestand in
+# artifacts/raw auszugehen (vor dem Refetch: 141/149 = 95 %, danach 6/480 =
+# 1.3 %). Bewusst nicht "> 0": einzelne Feste ohne Treffer sind normal.
+REFETCH_SCHWELLE = 0.10
+
+
 def _abzeichen_plausibilitaet(gaenge, schwinger) -> dict:
     """Prüft, ob der PDF-Parser die Statusabzeichen überhaupt findet.
 
@@ -218,10 +224,20 @@ def _abzeichen_plausibilitaet(gaenge, schwinger) -> dict:
     Die alte Prüfung mass die Quote gegen 8-25 % "Kranzquote je Kranzfest".
     Sie stand über Wochen auf plausibel=false mit Median 0.0 und 141 von 149
     Kranzfesten ohne einen einzigen Treffer, ohne dass daraus etwas folgte.
-    Feste ohne jeden Treffer sind praktisch immer Altbestand in
-    artifacts/raw, der vor dem Parser-Fix eingelesen und seither nie neu
-    geparst wurde (der tägliche Lauf holt nur ein kurzes Zeitfenster) -- sie
-    brauchen einen vollen Refetch, s. fetch_raw --seit-datum.
+
+    Die Trefferquote erreicht auch im Normalfall nicht 1.0, und das ist kein
+    Fehler: der Kranzstatus im Porträt ist der HEUTIGE Stand, das Abzeichen in
+    der PDF der Stand AM Fest. Wer 2025 Eidgenosse wurde, trug an einem Fest
+    von 2023 noch kein Abzeichen. Gemessen nach dem vollen Refetch: Median
+    0.89 über 480 Feste.
+
+    ``hinweis_refetch`` schlägt deshalb erst an, wenn ein nennenswerter ANTEIL
+    der Feste gar kein Abzeichen trägt -- das ist die Signatur von Altbestand
+    in artifacts/raw, der vor dem Parser-Fix eingelesen und seither nie neu
+    geparst wurde (der tägliche Lauf holt nur ein kurzes Zeitfenster). Ein
+    einzelnes Fest ohne Treffer ist dagegen normal und darf den Hinweis nicht
+    dauerhaft auf Rot stellen -- sonst wiederholt er genau den Fehler der alten
+    Prüfung: ein Signal, das immer leuchtet und das niemand mehr liest.
     """
     teilnehmer: dict[str, set] = defaultdict(set)
     markiert: dict[str, set] = defaultdict(set)
@@ -259,7 +275,8 @@ def _abzeichen_plausibilitaet(gaenge, schwinger) -> dict:
         # Unter 0.5 findet der Parser weniger als die Hälfte der Abzeichen,
         # die laut Porträt da sein müssten -- dann stimmt etwas nicht.
         "plausibel": median >= 0.5,
-        "hinweis_refetch": n_ohne_treffer > 0,
+        "anteil_feste_ohne_abzeichen": round(n_ohne_treffer / n_feste, 4),
+        "hinweis_refetch": n_ohne_treffer / n_feste > REFETCH_SCHWELLE,
     }
 
 
