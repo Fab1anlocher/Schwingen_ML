@@ -45,7 +45,7 @@ jobs:
       # sieht jeder Cron-Lauf nur das Tagesfenster statt der vollen Historie.
       # Eindeutiger Save-Key + Präfix-Restore = "immer wachsender" Cache.
       - name: Rohdaten-Cache laden
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: artifacts/raw
           key: rohdaten-${{ github.run_id }}
@@ -61,7 +61,7 @@ jobs:
 
       - name: Rohdaten-Cache speichern
         if: ${{ !cancelled() }}
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: artifacts/raw
           key: rohdaten-${{ github.run_id }}
