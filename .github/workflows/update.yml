@@ -85,7 +85,7 @@ jobs:
       # mit DIESEM model.json und DIESEM schwinger.json dasselbe wie die
       # Pipeline? In der PR-CI läuft die Prüfung gegen die alten Artefakte --
       # ein neues Artefakt-Format trifft den Code zum ersten Mal hier.
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: "20"
           cache: "npm"
