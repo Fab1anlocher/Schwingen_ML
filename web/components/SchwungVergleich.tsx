@@ -1,5 +1,7 @@
 "use client";
 
+// Ø Elo je bevorzugtem Schwung als Punkt-Linien-Diagramm gegen den Gesamtschnitt.
+
 export interface SchwungStat {
   schwung: string;
   n: number;

@@ -1,14 +1,16 @@
 # Schwingen ML
 
 Datengetriebene, **erklärbare** Prognose für Schwingen-Gänge — trainiert auf
-echten Resultaten von [schlussgang.ch](https://www.schlussgang.ch). Für ein
-Schwinger-Paar die Wahrscheinlichkeit von **Sieg A / Gestellt / Sieg B**, plus
-Rangliste, Kopf-an-Kopf-Historie, Schweiz-Karte, K-Means-Clustering der
-Schwingertypen und eine 4-Wege-Modellevaluierung.
+echten Resultaten von [schlussgang.ch](https://www.schlussgang.ch) und den
+offiziellen Schlussranglisten des ESV. Für ein Schwinger-Paar die
+Wahrscheinlichkeit von **Sieg A / Gestellt / Sieg B** mit Begründung, dazu
+Schwinger-Übersicht, Feste mit Rückblick, Schweiz-Karte, Schwingertypen und
+eine offene Modellevaluierung.
 
 Prognosen sind **informativ, kein Wettangebot**.
 
-**Live:** [schwingen-ml.vercel.app](https://schwingen-ml.vercel.app/)
+**Live:** [schwingen-ml.vercel.app](https://schwingen-ml.vercel.app/) ·
+**Für KI-Assistenten:** [`CLAUDE.md`](CLAUDE.md) (Architektur, Invarianten, Prüfschritte)
 
 ---
 
@@ -26,11 +28,11 @@ Verbesserung, egal wie aufwendig es ist.
 | Seite | Was man sieht |
 |---|---|
 | **Prognose** | Zwei Schwinger wählen → Sieg-A/Gestellt/Sieg-B-Wahrscheinlichkeit mit Merkmalsbeiträgen, Kopf-an-Kopf-Historie, teilbarer Link (`?a=…&b=…`). |
-| **Schwinger** | Alle erfassten Schwinger, durchsuchbar, nach Elo sortiert. Profil zeigt Überraschungs-Index (Elo-erwartete vs. tatsächliche Leistung) und per KNN ähnliche Schwinger. |
-| **Feste** | Vergangene Feste; kommende Feste der nächsten 60 Tage. Je veröffentlichter Paarung Prognose + informative Quote; ohne Startliste keine Prognose, sondern nur die belegten Angaben zum Fest. |
-| **Karte** | Choroplethen-Karte (Elo-Schnitt, Siegquote, Anteil Top-Schwinger, Kaderbreite) — Bern nach seinen 6 Gauverbänden statt als ein Kanton. |
-| **Typen** | K-Means-Clustering über das volle Schwinger-Profil, Cluster-Anzahl per Silhouette-Score gewählt, mit PCA-Streudiagramm. |
-| **Analyse** | Modellgüte vs. Elo-Baseline, Konfusionsmatrix, Kalibrierung der Gestellt-Chance, Merkmalswichtigkeit, 4-Wege-Benchmark. |
+| **Feste** | Kommende Feste der nächsten 60 Tage (je veröffentlichter Paarung Prognose + informative Quote; ohne Startliste keine Prognose). **Rückblick** je Saison: Festsieger, vergebene Kränze und Teilnehmer laut Schlussrangliste. |
+| **Schwinger** | Alle erfassten Schwinger, durchsuchbar, nach Elo sortiert, mit Kränzen seit 2023. Profil: Verband, Klub, Festsiege, Überraschungs-Index, ähnliche Schwinger. Getrennte Namensvettern sind gekennzeichnet. |
+| **Typen** | K-Means-Clustering über das volle Profil der Porträt-Schwinger, Anzahl per Silhouette-Score, PCA-Streudiagramm. |
+| **Karte** | Choroplethen-Karte (Elo-Schnitt, Siegquote, Anteil Top-Schwinger, Kaderbreite) je Kanton, Bern nach seinen 6 Gauverbänden. Verband aus Porträt oder Schwingklub, gezählt ab 5 Gängen. |
+| **Analyse** | Modellgüte vs. Elo-Baseline, 4-Wege-Benchmark, Konfusionsmatrix, Kalibrierung der Gestellt-Chance, Merkmalswichtigkeit, Physis und Schwünge gegen Elo. |
 
 ---
 
@@ -41,13 +43,16 @@ Datenbestände — alles ist jederzeit aus der Quelle reproduzierbar.
 
 | Was | Woher | Modul |
 |---|---|---|
-| Abgeschlossene Feste | JSON:API `backend-api.schlussgang.ch/jsonapi/node/event` (gefiltert auf `field_event_state=finished`) | `scrape/schlussgang_resultate.py` |
-| Gänge (Symbol + Note je Gang) | Statistik-PDF je Fest (`…/event-ranking-list/<nid>-statistic-final.pdf`) | `scrape/schlussgang_pdf.py` |
+| Abgeschlossene Feste | JSON:API `node/event` (`field_event_state=finished`) | `scrape/schlussgang_resultate.py` |
+| Gänge (Symbol + Note je Gang) | Statistik-PDF je Fest | `scrape/schlussgang_pdf.py` |
+| Schlussranglisten (Rang, Punkte, Klub, Wohnort, Senn/Turner, Kranz) | Ranglisten-PDF je Fest (`field_final_ranking_pdf`, „Quelle: ESV") | `scrape/schlussgang_rangliste.py` |
 | Porträts (Gewicht, Grösse, Verband, Kranzstatus, Schwünge) | JSON:API `node/portrait` | `scrape/schlussgang_portraet.py` |
-| Kommende Feste | JSON:API `node/event`, ab heute (Agenda-HTML als Fallback) | `scrape/agenda.py` |
+| Kommende Feste | JSON:API `node/event` ab heute (Agenda-HTML als Fallback) | `scrape/agenda.py` |
 
 `scrape/http.py` ist ein höflicher Client: Rate-Limit pro Host, echter
-User-Agent, `robots.txt` wird respektiert.
+User-Agent, `robots.txt` wird respektiert. esv.ch selbst sperrt
+Rechenzentrums-IPs per Firewall; dieselben Ranglisten kommen über
+schlussgang.ch auf erlaubtem Weg.
 
 ### Wie ein Gang gelesen wird
 
@@ -63,20 +68,55 @@ Block, pro Gang eine Zeile mit Symbol, Gegnername und Note:
 Jeder Gang steht **zweimal** im PDF (einmal je Perspektive). `labels.py` führt
 beide zusammen und prüft sie gegeneinander: `+` muss `o` gegenüberstehen, `-`
 muss `-` gegenüberstehen. Widersprüchliche Paare werden verworfen und gezählt,
-nicht stillschweigend übernommen.
+nicht stillschweigend übernommen. Der Stern in der Kopfzeile der Statistik-PDF
+ist das **Statusabzeichen** des Schwingers, kein Kranzgewinn — Kränze kommen
+ausschliesslich aus den Schlussranglisten.
 
-### Schwinger-Identität
+### Schwinger-Identität und Namensvettern
 
 schlussgang.ch schreibt denselben Schwinger unterschiedlich: Porträts als
 `Vorname Nachname`, Statistik-PDFs als `Nachname Vorname`. `identity.py` löst
 das über einen **reihenfolgeunabhängigen Schlüssel** aus der sortierten
-Token-Menge des Namens. Ist ein Name mehrdeutig (zwei echte Namensvettern),
-wird er als unauflösbar gemeldet statt geraten — lieber ein sichtbar fehlender
-Gang als ein falsch zugeordneter.
+Token-Menge des Namens. Gibt es zu einem Namen mehrere Porträts, wird nicht
+geraten, sondern verworfen und gezählt.
 
 Teilnehmer ohne Porträt werden als „Stub" geführt: ihre Gänge zählen voll,
-Physis/Alter/Verband fehlen. Das betrifft die Mehrheit des Kaders, weil
-schlussgang.ch nicht für jeden Schwinger ein Porträt führt.
+Physis/Alter fehlen. Das betrifft rund drei Viertel des Kaders. Angezeigt
+werden sie einheitlich als `Vorname Nachname` (`schema.anzeigename`, nur bei
+eindeutig zweiteiligen Namen umgedreht).
+
+**Namensvettern** (`namensvettern.py`): gibt es zu einem Namen nur **ein**
+Porträt, landeten früher auch die Gänge und Kränze eines gleichnamigen
+Schwingers ohne Porträt dort — Samuel Giger (Thurgau) stand an fünf Tagen an
+zwei Festen gleichzeitig im Sägemehl. Getrennt wird über die
+Schlussrangliste: ein abweichender Jahrgang-Zusatz, oder Auftritte für Klubs
+zweier Teilverbände, die sich zeitlich ständig abwechseln (echte
+Namensvettern: 20–38 Wechsel und Feste am selben Tag; Klubwechsler: 2–5
+Wechsel, nie am selben Tag — die bleiben eine Person). Getrennt wurden sechs
+Personen (Gasser, Ulrich, Giger, Odermatt, Schmid, Bucher). Samuel Giger
+stieg dadurch von Elo 1970 auf 2100, und das ganze Modell wurde besser
+(Test-Log-Loss 0.7495 → 0.7404).
+
+### Was die Schlussranglisten liefern
+
+`ranglisten.py` wertet jede Rangliste aus (480 von 481 Festen seit 2023):
+
+* **Kränze seit 2023** je Schwinger: der Kranz geht an alle ab der
+  Punkteschwelle des niedrigsten Markierten (das ESAF markiert nur
+  Neueidgenossen; die bisherigen zählen über dieselbe Schwelle mit).
+  Kranzquote an Kranzfesten im Median 15.6–16.0 %.
+* **Festsiege** (Rang 1, auch geteilt) je Schwinger und je Fest Sieger,
+  Teilnehmer und Kränze — für Profil und Rückblick.
+* **Schwingklub, Senn/Turner, Kranzstatus** auch ohne Porträt.
+* **Teilverband und Kantonal-/Gauverband über den Klub**: jeder Klub gehört
+  genau einem Verband an, gelernt aus den Porträts, geprüft per
+  Leave-one-out (99.1 % richtig).
+
+Wo auch der Klub fehlt, wird der Teilverband aus den besuchten Festen
+geschätzt (`verbandsschaetzung.py`, 99.8 % Treffer an den Porträts) und in
+der App als „geschätzt" markiert. Alles davon dient Anzeige und Suche; das
+Modell nutzt nur die gemessenen Porträt-Merkmale. Selbstprüfungen je Lauf
+stehen in `report.json` → `datenqualitaet`.
 
 ---
 
@@ -84,81 +124,66 @@ schlussgang.ch nicht für jeden Schwinger ein Porträt führt.
 
 ```
 schlussgang.ch
-   │  JSON:API + Statistik-PDFs
+   │  JSON:API + Statistik-PDFs + Ranglisten-PDFs
    ▼
-pipeline.fetch_raw ──────────►  artifacts/raw/     (nicht versioniert, gecacht)
-   │                              events.json · gaenge.json
+pipeline.fetch_raw ──────────►  artifacts/raw/     (nicht versioniert, Actions-Cache)
+   │                              events.json · gaenge.json · ranglisten.json
    │                              schlussgang_portraits.json · schwinger.json
    ▼
 pipeline.run_pipeline
-   Labels → Elo → Merkmale → Training → Benchmark → Clustering
+   Einlesen (Namen, Namensvettern) → Labels → Elo → Merkmale → Training
+   → Benchmark → Clustering → Export
    ▼
-artifacts/*.json  +  web/public/data/*.json        (versioniert)
-   │  Commit löst Vercel-Deploy aus
+artifacts/*.json  +  web/public/data/*.json  +  web/data/  (versioniert)
+   │  Commit auf main löst Vercel-Deploy aus
    ▼
 Next.js — lädt JSON, rechnet die Prognose CLIENTSEITIG
 ```
 
-`artifacts/raw/` ist bewusst nicht im Repo (`gaenge.json` allein > 50 MB und
-würde bei täglichem Lauf unbegrenzt wachsen). Versioniert werden nur die
-kompakten, abgeleiteten Artefakte.
+`artifacts/raw/` ist bewusst nicht im Repo (`gaenge.json` allein > 50 MB).
+Versioniert werden nur die kompakten, abgeleiteten Artefakte.
 
-### Automatischer täglicher Download
+### Automatischer täglicher Lauf
 
-`.github/workflows/update.yml` läuft täglich um 04:00 UTC:
+`.github/workflows/update.yml` läuft täglich um 04:00 UTC (und per
+`workflow_dispatch` auf jedem Branch):
 
 1. **Rohdaten-Cache laden** (`actions/cache`) — trägt die Historie über Läufe.
 2. **`pipeline.fetch_raw --seit-datum auto`** — holt Feste ab dem jüngsten
-   bereits bekannten Fest minus 14 Tage Überlappung (fängt nachgetragene
-   Resultate ein). Der Kader wird danach **komplett neu** aus Porträts +
-   PDF-Namen gebaut, nie inkrementell fortgeschrieben.
+   bekannten Fest minus 14 Tage Überlappung. Der Kader wird danach
+   **komplett neu** aus Porträts + PDF-Namen gebaut, nie inkrementell.
 3. **`pipeline.run_pipeline --source scrape`** — trainiert und exportiert.
-4. **`pipeline.verify_inference`** — prüft, dass die exportierten Gewichte in
-   `model.json` dieselben Wahrscheinlichkeiten liefern wie das sklearn-Modell.
-5. **`pipeline.paritaet`** + **`npm run paritaet`** — rechnet echte Fälle mit
-   der App-Logik (TypeScript) nach und bricht bei jeder Abweichung ab, **bevor**
-   die neuen Artefakte auf Prod gehen (s. unten).
-6. **`pipeline.datenqualitaet`** — schreibt den Qualitätsbericht ins
-   Job-Summary des Actions-Laufs.
-7. **Artefakte committen** — Vercel deployt automatisch.
+4. **`pipeline.verify_inference`** — `model.json` == sklearn-Modell.
+5. **`pipeline.paritaet`** + **`npm run paritaet`** — die App (TypeScript)
+   rechnet echte Fälle identisch zur Pipeline, **bevor** Artefakte auf Prod
+   gehen.
+6. **`pipeline.datenqualitaet`** — Qualitätsbericht ins Job-Summary.
+7. **Artefakte committen** und die CI per `workflow_dispatch` starten
+   (Pushes mit dem `GITHUB_TOKEN` lösen sonst keine CI aus).
 
-Der Lauf **bricht ab, statt schlechte Daten zu committen**, wenn
+Der Lauf **bricht ab, statt schlechte Daten zu committen**, wenn mehr als
+25 % der Roh-Einträge verworfen werden, die Rohabdeckung gegenüber dem Vorlauf
+einbricht (Cache verloren) oder die abgeleiteten Gänge einbrechen. Ist der
+Cache verloren: **Actions → Datenpipeline aktualisieren → Run workflow →
+„Volle Historie ab 2023 neu laden"** (rund 20 Minuten; der tägliche Lauf
+braucht rund 2 Minuten).
 
-* mehr als 25 % der Roh-Einträge verworfen werden (Verarbeitung defekt), oder
-* die Rohabdeckung gegenüber dem Vorlauf einbricht (Cache verloren), oder
-* die abgeleiteten Gänge einbrechen, obwohl die Rohabdeckung stimmt.
-
-Ist der Cache je verloren, einmalig **Actions → Datenpipeline aktualisieren →
-Run workflow → „Volle Historie ab 2023 neu laden"** starten.
-
-> **Laufzeit:** Ein voller Refetch dauert rund **20 Minuten** — gemessen am Lauf
-> vom 22.09.2026: 481 Feste, kompletter Job inkl. Training in 20 min. Die Dauer
-> ergibt sich im Wesentlichen aus dem Rate-Limit (2 s je Statistik-PDF, NFR-4),
-> also ~16 min reine Wartezeit. Die frühere Warnung „mehrere Stunden" stammte
-> aus einem Lauf mit der defekten Blätterschleife der Fest-API, die dieselben
-> Seiten endlos neu holte; seit deren Begrenzung stimmt sie nicht mehr.
-> Der **tägliche inkrementelle Lauf** braucht rund 2 Minuten.
+Weitere Workflows: `ci.yml` (Tests, synthetischer End-to-End-Lauf, Parität,
+Build, `npm audit` in jedem PR), `sicherheit.yml` (tägliches
+Sicherheits-Audit npm + pip, meldet Befunde als Issue), Dependabot
+(`.github/dependabot.yml`).
 
 ---
 
 ## Voraussetzungen
 
-* **Python ≥ 3.11**
-* **Node.js ≥ 20** (nur für die Web-App; Next 15 verlangt ≥ 18.18, Vercel baut mit 24.x)
-
-**Abhängigkeiten der Web-App.** Next 15.5 statt 14: Next 14 bekommt keine
-Sicherheitsfixes mehr — selbst die letzte 14er (14.2.35) hat 23 offene
-Advisories, darunter Remote Code Execution in der Image-Optimierung und XSS im
-App Router. `package.json` erzwingt per `overrides` zudem `postcss ≥ 8.5.28`,
-weil auch Next 15.5 intern `postcss 8.4.31` pinnt (4 offene Advisories).
-`npm audit --omit=dev` meldet damit 0 Befunde; die CI prüft das in jedem PR
-(Job `abhaengigkeiten-audit`), Dependabot schlägt wöchentlich Updates vor
-(`.github/dependabot.yml`).
-* Netzzugriff auf `schlussgang.ch` / `backend-api.schlussgang.ch` (nur für
-  echte Daten; der synthetische Modus läuft offline)
-
-Python-Abhängigkeiten (`requirements-pipeline.txt`): `numpy`, `scikit-learn`,
-`pdfplumber` (PDF-Parsing), `pytest`.
+* **Python ≥ 3.11** — `requirements-pipeline.txt`: `numpy`, `scikit-learn`,
+  `pdfplumber`, `pytest`.
+* **Node.js ≥ 20.9** (Next 16; CI und Vercel bauen mit Node 24). `package.json`
+  erzwingt per `overrides` `postcss ≥ 8.5.28`; `npm audit --omit=dev` meldet 0
+  Befunde.
+* Netzzugriff auf `schlussgang.ch` / `backend-api.schlussgang.ch` nur für
+  echte Rohdaten; der synthetische Modus läuft offline.
 
 ---
 
@@ -168,35 +193,37 @@ Python-Abhängigkeiten (`requirements-pipeline.txt`): `numpy`, `scikit-learn`,
 
 ```bash
 pip install -r requirements-pipeline.txt
-python -m pipeline.run_pipeline --source synth   # erzeugt alle Artefakte
+python -m pytest pipeline/tests -q               # rund 260 Tests
+python -m pipeline.run_pipeline --source synth   # erzeugt alle Artefakte (Demodaten!)
 python -m pipeline.verify_inference              # model.json == sklearn
+git checkout -- artifacts/ web/public/data/ web/data/   # echte Artefakte zurück
 python -m pipeline.paritaet && (cd web && npm run paritaet)   # App == Pipeline
-python -m pytest pipeline/tests -q               # 190 Tests
 ```
-
-> `--source synth` **überschreibt die Artefakte** mit Demodaten. Danach
-> `git checkout -- artifacts/ web/public/data/ web/data/`, wenn die echten
-> Artefakte erhalten bleiben sollen.
 
 ### Pipeline — echte Daten
 
 ```bash
-# 1. Rohdaten holen (volle Historie; rund 20 Minuten, s. oben)
-python -m pipeline.fetch_raw --seit-datum 2023-01-01
-
-#    …oder nur nachführen, was seit dem letzten Lauf dazukam:
-python -m pipeline.fetch_raw --seit-datum auto
-
-# 2. Trainieren + Artefakte schreiben
-python -m pipeline.run_pipeline --source scrape
-
-# 3. Prüfen
+python -m pipeline.fetch_raw --seit-datum 2023-01-01   # volle Historie, ~20 min
+python -m pipeline.fetch_raw --seit-datum auto         # …oder nur nachführen
+python -m pipeline.run_pipeline --source scrape        # trainieren + exportieren
 python -m pipeline.verify_inference
-python -m pipeline.datenqualitaet        # Datenqualitätsbericht
+python -m pipeline.datenqualitaet                      # Qualitätsbericht
 ```
 
 Beim ersten vollen Aufbau (kein Vorlauf zum Vergleich):
 `python -m pipeline.run_pipeline --source scrape --ohne-volumenpruefung`.
+Ohne Zugang zu schlussgang.ch: den Workflow `update.yml` auf dem Branch
+starten (s. `CLAUDE.md`).
+
+### Modelländerungen an echten Daten messen
+
+```bash
+python -m pipeline.harness    # Validierung 2025 + Test 2026 aus den committeten Artefakten
+```
+
+`pipeline/harness.py` baut die Pipeline-Eingabe aus den committeten
+Artefakten nach — ohne Rohdaten. Übernommen wird eine Änderung nur, wenn
+Validierung **und** Test besser werden.
 
 ### Web-App
 
@@ -206,8 +233,8 @@ npm install
 npm run dev        # http://localhost:3000
 ```
 
-Die App liest ausschliesslich die JSON-Dateien in `web/public/data/`. Ohne
-vorherigen Pipeline-Lauf zeigt sie die im Repo eingecheckten Artefakte.
+Die App liest ausschliesslich `web/public/data/*.json` (und serverseitig
+`web/data/kopf_an_kopf.json` über `/api/kopf-an-kopf`).
 
 ---
 
@@ -215,45 +242,64 @@ vorherigen Pipeline-Lauf zeigt sie die im Repo eingecheckten Artefakte.
 
 ```
 pipeline/                  Python-Datenpipeline
-  config.py                  Seeds, Pfade, Hyperparameter (reproduzierbar)
-  schema.py                  Kanonisches Schema (Schwinger, Event, Gang)
+  config.py                  Seeds, Pfade, Hyperparameter, Merkmalsversion
+  schema.py                  Kanonisches Schema (Schwinger, Event), Anzeigename
   identity.py                Namensauflösung Porträt <-> PDF  ← kritisch
   roster.py                  Kader aus Porträts + PDF-Namen (zustandslos)
+  namensvettern.py           Gleichnamige über die Rangliste trennen  ← kritisch
   labels.py                  Symbol → Ergebnis, Dedup, Konsistenzprüfung
-  ratings.py                 Elo-Baseline, chronologisch/leak-frei
-  features.py                A-minus-B-Merkmale, leak-frei
+  ratings.py                 Elo, Streuung, Überraschungs-Index, Baseline
+  features.py                Merkmale A-minus-B, leak-frei (EINZIGE Definition)
   train.py                   Logistic Regression + zeitliche Evaluation
   benchmark.py               4-Wege-Modellvergleich (Accuracy/Brier/MAE/MSE)
-  metriken.py                MAE + MSE auf dem Punktwert des Gangs
+  metriken.py                MAE/MSE, Gestellt-Kalibrierung
+  ranglisten.py              Schlussranglisten: Kränze, Klub, Verband, Festsiege
+  verbandsschaetzung.py      Teilverband aus Festbesuchen (nur Anzeige)
+  teilnehmerkreis.py         Welcher Verband an einem kommenden Fest startet
   clustering.py              K-Means-Schwingertypen + KNN-Ähnlichkeit
   kantone.py                 Kantonal-/Gauverband → politischer Kanton
   export.py                  JSON-Artefakte schreiben
   fetch_raw.py               CLI: Webquellen → artifacts/raw
   run_pipeline.py            Orchestrator (8 Stufen)
+  harness.py                 Echte-Daten-Harness für Modellexperimente
   datenqualitaet.py          Qualitätsbericht aus report.json
-  diagnose_agenda.py         CLI: warum die Vorschau "kommende Feste" leer ist
-  diagnose_kranz.py          CLI: Gegenprobe zur Bedeutung des PDF-Sterns
   verify_inference.py        Cross-Check: model.json == sklearn-Modell
   paritaet.py                Cross-Check: App (TypeScript) == Pipeline (Python)
+  diagnose_agenda.py         CLI: warum die Vorschau "kommende Feste" leer ist
+  diagnose_kranz.py          CLI: Gegenprobe zur Bedeutung des PDF-Sterns
   synth.py                   Synthetischer Datensatz (offline/CI)
   scrape/                    schlussgang.ch-Scraper + Rohdaten-Einlesen
   tests/                     pytest
 artifacts/                 Generierte Artefakte (versioniert, ausser raw/)
-web/                       Next.js 15 (App Router) + React 19 + TypeScript
+scripts/                   sicherheitsbericht.py (Workflow sicherheit.yml)
+web/                       Next.js 16 (App Router) + React 19 + TypeScript
+  app/                       Seiten (Prognose, Feste, Schwinger, Typen, Karte, Analyse)
+  components/                Diagramme, Karte, Prognose-Ansicht
   lib/inference.ts           Clientseitige Inferenz (spiegelt features.py)
-  app/                       Seiten
-  public/data/               Artefakt-Kopie, die die App lädt
-.github/workflows/         ci.yml (Tests + Build), update.yml (täglicher Lauf)
+  lib/kopfAnKopf.ts          Paar-Historie (spiegelt features.py)
+  lib/labels.ts              Alle Anzeigetexte für Datenwerte
+  lib/teilverband.ts         Verband eines Schwingers / Teilnehmerkreis eines Fests
+  lib/types.ts               Typen der Artefakte
+  scripts/paritaet.cjs       TS-Seite der Paritätsprüfung
+  public/data/               Artefakte, die die App lädt
+  data/kopf_an_kopf.json     Nur serverseitig (API-Route), zu gross für den Client
+.github/workflows/         ci.yml, update.yml, sicherheit.yml
 ```
 
-**Besonders wichtig:** `identity.py` und `roster.py` entscheiden, welche Gänge
-überhaupt im Training landen; `labels.py` entscheidet, ob sie richtig gelabelt
-sind. Fehler dort sind teuer und fallen ohne den Datenqualitätsbericht nicht
-auf.
+**Besonders wichtig:** `identity.py`, `roster.py` und `namensvettern.py`
+entscheiden, welche Gänge wem gehören; `labels.py` entscheidet, ob sie richtig
+gelabelt sind. Fehler dort sind teuer und fallen ohne den
+Datenqualitätsbericht nicht auf.
 
 ---
 
 ## Wie das Modell funktioniert
+
+**Stand 25.09.2026** (Merkmalsversion 3, Test = Saison 2026, 36'485 Gänge, die
+das Modell nie gesehen hat): Log-Loss **0.7404** (Elo-Baseline 0.913),
+Accuracy **68.6 %** (Elo 61.1 %), Gestellt 20.6 % vorhergesagt bei 21.1 %
+eingetreten. Die aktuellen Zahlen stehen immer in `artifacts/report.json` und
+auf der Analyse-Seite.
 
 * **Elo-Baseline** (`ratings.py`): chronologisch fortgeschrieben, K-Faktor nach
   Fest-Wichtigkeit gewichtet. Jedes komplexere Modell muss sie schlagen.
@@ -274,7 +320,7 @@ auf.
   spiegelt `features.py` in TypeScript — eine Handkopie, die still
   auseinanderlaufen kann (ist schon einmal passiert). `verify_inference.py`
   prüft nur `model.json` gegen sklearn, mit dem **Python**-Vektor. Die
-  TypeScript-Seite prüft **`pipeline/paritaet.py`**: Python erzeugt ~240
+  TypeScript-Seite prüft **`pipeline/paritaet.py`**: Python erzeugt ~330
   Prüffälle aus den echten Artefakten (alle vier Porträt/Stub-Kombinationen,
   Kopf-an-Kopf in beiden Richtungen, fehlendes Rating), `npm run paritaet`
   rechnet sie mit den kompilierten TS-Modulen nach — Merkmale, Kopf-an-Kopf
@@ -403,42 +449,6 @@ Wahrheit „hat ein Profil" stand. Darum:
   nur auf Porträt-gegen-Porträt-Gängen. Nur dort liegen die wrestlerischen
   Merkmale auf beiden Seiten vor.
 
-**Offizielle Schlussranglisten** (`scrape/schlussgang_rangliste.py`,
-`ranglisten.py`): schlussgang.ch veröffentlicht zu jedem Fest die
-Schlussrangliste des ESV (Fusszeile „Quelle: ESV", 480 von 481 Festen seit
-2023). esv.ch selbst sperrt Rechenzentrums-IPs per Firewall (schon
-`robots.txt` antwortet 403), über schlussgang.ch kommt dieselbe Liste auf
-erlaubtem Weg. Sie führt **jeden** Teilnehmer mit Schwingklub, Wohnort,
-Senn/Turner, Kranzabzeichen und dem Status an diesem Fest. Daraus:
-
-* **Kränze seit 2023** je Schwinger. Der Kranz geht an alle ab einer
-  Punkteschwelle — vermessen an allen Kranzfesten der Stichprobe: jeder
-  Markierte hatte mehr Punkte als jeder Unmarkierte. Das ESAF markiert nur
-  Neueidgenossen; über dieselbe Schwelle zählen die bisherigen Eidgenossen
-  mit (ESAF 2025: 17 + 23 = 40 von 269, 14.9 %). Kranzquote an Kranzfesten
-  im Median 15.6–16.0 % über alle 481 Feste, wie erwartet. Einzige Lücke:
-  die Rangliste des Freiburger Kantonalfests 2023 führt gar keine Status-
-  Einträge — dessen Kränze fehlen in der Zählung (die Selbstprüfung weist
-  das Fest als „Kranzfest ohne Kranz" aus, statt eine Schwelle zu raten).
-* **Schwingklub, Senn/Turner, Kranzstatus** auch für Schwinger ohne Porträt
-  (z.B. Fritz Ramseier: Eidgenosse, ohne Porträt bisher als „kein" geführt).
-* **Teilverband und Gauverband über den Klub**: jeder Klub gehört genau einem
-  Verband an, gelernt aus den Porträts (131 Klubs), geprüft per Leave-one-out
-  an 580 Porträt-Schwingern: 99.1 % richtig. Ergebnis: bei 98.9 % der
-  Aktiven ist der Klub bekannt, bei 92.5 % der Verband gemessen (vorher 29 %).
-
-Alles nur für Anzeige und Suche; das Modell bleibt bei seinen gemessenen
-Merkmalen. Selbstprüfungen je Lauf stehen in `report.json` →
-`datenqualitaet.ranglisten`.
-
-**Teilverband ohne Porträt und ohne bekannten Klub** (`verbandsschaetzung.py`): aus den besuchten
-Festen geschätzt — an Kantonal-, Teilverbands- und Regionalfesten startet fast
-nur, wer dem Verband angehört. Validiert an den Porträt-Schwingern
-(Leave-one-out) mit 99.8 % Treffern; die Prüfung läuft bei jedem Lauf erneut
-und steht in `report.json` → `datenqualitaet.datenabdeckung`. Nur für Anzeige
-und Suche (eigenes Feld `teilverband_geschaetzt`, in der App als „geschätzt"
-markiert) — im Modell verschlechterte sie den Log-Loss und bleibt draussen.
-
 Eine Folge davon: die Ergebnisverteilung (`sieg_a` rund 35 %, `sieg_b` rund
 42 %) ist **kein Signal**. A und B werden alphabetisch per ID vergeben, und
 Stub-IDs sortieren systematisch häufiger nach vorne (29'690 gemischte
@@ -542,121 +552,23 @@ Wettangebot**. Betriebskosten: **$0**.
 
 ---
 
-## Offene Punkte / bekannte Unsicherheiten
+## Bekannte Grenzen
 
-* **Kommende Feste kamen aus der falschen Quelle** (behoben, aber noch nicht
-  gegen die echte Quelle verifiziert). Der Scraper las ausschliesslich
-  JSON-LD-`Event`-Blöcke aus dem HTML von `schlussgang.ch/agenda` und lieferte
-  dauerhaft `kommende: []`. Primärquelle ist jetzt dieselbe JSON:API, aus der
-  auch die 466 abgeschlossenen Feste kommen — nur ohne `finished`-Filter und ab
-  heute. Das HTML bleibt als Fallback. Beide Pfade werden protokolliert und im
-  Datenqualitätsbericht ausgewiesen.
-
-  Verifizieren (braucht Netzzugriff auf schlussgang.ch):
-
-  ```bash
-  python -m pipeline.diagnose_agenda
-  ```
-
-  Das prüft robots.txt, JSON:API und Agenda-HTML einzeln und sagt, welche Stufe
-  klemmt. Bleibt der Kalender mitten in der Saison leer, steht der Grund seither
-  auch im Job-Summary des Actions-Laufs statt nur in einer weggedruckten
-  Ausnahme.
-
-* **Die Kranz-Zahlen waren falsch — die Ursache ist geklärt, die Zahl ist
-  entfallen.** Der Stern in der Kopfzeile der Statistik-PDF ist das
-  **Statusabzeichen des Schwingers** (Kranzer/Eidgenosse), kein Kranzgewinn an
-  diesem Fest. Dieselbe Bedeutung wie `field_portrait_wreath_status` im
-  Porträt, wo `*`/`**`/`***` den Status bezeichnet.
-
-  Belegt an den Artefakten, nicht an einer Annahme: über neun Feste, die seit
-  dem Parser-Fix frisch geladen wurden, stimmt die Zahl der markierten
-  Teilnehmer fast exakt mit der Zahl derer überein, die laut Porträt einen
-  Kranzstatus tragen — **256 erwartet, 251 gefunden**.
-
-  | Fest | Typ | Teiln. | mit Kranzstatus | markiert |
-  |---|---|---:|---:|---:|
-  | Kilchberger Schwinget | eidgenössisch | 59 | 59 (100 %) | 59 |
-  | Kemmeriboden-Schwinget | regional | 148 | 47 (32 %) | ~45 |
-  | Engstlenalp-Schwinget | regional | 106 | 37 (35 %) | ~37 |
-  | Klubschwinget SK Tavannes | regional | 30 | 6 (20 %) | 6 |
-
-  Der Kilchberger Schwinget entscheidet es: ein Einladungsfest, zu dem
-  praktisch nur Eidgenossen antreten — 59 von 59 markiert. Ein Kranzgewinn
-  ginge an rund 15 % der Teilnehmer. Und Regional- wie Klubfeste, an denen
-  **überhaupt kein Kranz vergeben wird**, tragen Markierungen im selben
-  Verhältnis.
-
-  `_anzahl_kraenze` zählte damit faktisch „Feste, an denen ein Kranzer
-  angetreten ist" und verkaufte das als Kranzgewinne. Deshalb stand Armon
-  Orlik als Schwingerkönig bei 3 — gleich viel wie ein beliebiger Kranzer.
-
-  **Konsequenz:** die Kranz-Zahl ist ersatzlos entfallen. Eine belastbare
-  Kranzzahl geben diese Quellen nicht her — wo die Kranzgrenze liegt, legt
-  jedes Fest selbst fest, und die PDF weist sie nicht aus; ein geschätzter
-  Schwellenwert wäre geraten, nicht gemessen. Die Artefakte führen stattdessen
-  `anzahl_feste` (besuchte Feste, direkt aus den Daten), und die App zeigt die
-  höchste erreichte Kranzstufe aus dem Porträt — eine gemessene Angabe. Die
-  Markierung heisst im Code jetzt `status_abzeichen`.
-
-* **Der Selbsttest mass das Falsche und blieb folgenlos.** Die alte Prüfung
-  verglich die „Kranzquote je Kranzfest" mit einem geratenen Band von 8–25 %.
-  Sie stand wochenlang auf `plausibel: false`, Median `0.0`, **141 von 149
-  Kranzfesten ohne einen einzigen Treffer** — ohne dass daraus etwas folgte.
-
-  Neu prüft `_abzeichen_plausibilitaet` Soll gegen Ist: das Abzeichen hängt am
-  Schwinger, also müssen an *jedem* Fest genau die markiert sein, die laut
-  Porträt einen Kranzstatus tragen. Ein Fest ohne jeden Treffer ist damit ein
-  harter Befund statt einer Quote am Rand eines Bandes.
-
-  Diese 141 Feste sind **Altbestand in `artifacts/raw`**: eingelesen vor dem
-  Parser-Fix und seither nie neu geparst, weil der tägliche Lauf nur ein
-  kurzes Zeitfenster holt. Jedes seither frisch geladene Fest trägt die
-  Abzeichen. Behebt sich nur über **Actions → Datenpipeline aktualisieren →
-  Run workflow → „Volle Historie ab 2023 neu laden"** (rund 20 Minuten), weil
-  `artifacts/raw/gaenge.json` die geparsten Einträge hält und die PDFs selbst
-  nicht gecacht sind. Für `anzahl_feste` ist der Refetch **nicht** nötig —
-  diese Zahl hängt nicht am Abzeichen.
-
-* **`_status_counts` erfand Zahlen.** Die Funktion leitete aus dem Statustext
-  („Eidgenosse"/„Kranzer") eine Tabelle `{"Kränze": 1, "ESAF": 0, …}` ab und
-  gab sie als Zählung aus. Das waren keine Daten aus der Quelle, sondern eine
-  aus einem Kategorienamen erfundene Eins. Entfernt.
-
+* **Namensvettern am selben Fest** lassen sich über den Namen allein nicht
+  trennen (13 Fest-Einträge, im Bericht `datenqualitaet.namensvettern`); dort
+  bleiben die Gänge beim Porträt-Schwinger. Gleichnamige im **selben**
+  Teilverband ohne Jahrgang-Zusatz bleiben zusammengelegt. Mehrere Porträts
+  gleichen Namens ohne Zähler: Gänge werden verworfen und gezählt.
+* **Freiburger Kantonalfest 2023:** die Rangliste führt keine Status-Einträge,
+  dessen Kränze fehlen in der Zählung (als „Kranzfest ohne Kranz" im Bericht).
+* **Physis, Stil und Kranzstatus nur mit Porträt** (rund ein Viertel des
+  Kaders, fast nur Kranzer und besser). Fehlende Werte werden in den
+  Differenz-Merkmalen als `0.0` imputiert; `portraet_diff` macht die Datenlage
+  selbst zum Merkmal (s. „Datenlage").
+* **Die Ergebnisverteilung A/B ist kein Signal** (rund 35 % zu 42 %): A ist
+  die kanonisch kleinere ID, und Stub-IDs sortieren häufiger nach vorne. Das
+  Training ist durch Spiegelzeilen paar-symmetrisch.
 * **Feste ohne Statistik-PDF** werden bei jedem vollen Refetch erneut
-  angefragt (2 s Rate-Limit je Versuch). Ein „hat keine PDF"-Vermerk in
-  `events.json` würde den vollen Refetch deutlich verkürzen. Der tägliche
-  inkrementelle Lauf ist nicht betroffen (13 Feste in 72 s gemessen).
-* **Drei echte Namensvettern** (Roman Bucher 2002/2003, Christian Zemp
-  2000/2004, Jonas Wüthrich 2001/2003) lassen sich aus den Statistik-PDFs nicht
-  auseinanderhalten — die nennen nur den Namen, keinen Jahrgang. Ihre Gänge
-  werden bewusst verworfen und im Datenqualitätsbericht ausgewiesen, statt
-  geraten.
-* **Fehlende Physis ist nicht zufällig verteilt — und das Modell nutzt das
-  nicht.** Nur Schwinger mit Porträt haben Gewicht/Grösse/Verband, und
-  schlussgang.ch porträtiert vor allem die Spitze. Gemessen an den aktuellen
-  Daten (129'990 Gänge):
-
-  | Paarung | A gewinnt | gestellt | B gewinnt | n |
-  |---|---:|---:|---:|---:|
-  | Porträt vs. Porträt | 34.4 % | 29.9 % | 35.7 % | 37'109 |
-  | Porträt vs. Stub | **67.2 %** | 19.5 % | 13.4 % | 15'967 |
-  | Stub vs. Porträt | 12.5 % | 18.6 % | **68.8 %** | 28'784 |
-  | Stub vs. Stub | 38.9 % | 21.1 % | 40.1 % | 48'130 |
-
-  Gleiche Kategorien sind sauber symmetrisch (kein Zuordnungsfehler), aber ein
-  Schwinger mit Porträt gewinnt gegen einen ohne rund 68 % seiner Gänge. „Hat
-  ein Porträt" ist damit selbst ein starker Stärke-Indikator.
-
-  `features._diff_oder_null` imputiert bei fehlendem Wert eine Differenz von
-  `0.0` — also „beide gleich schwer/gross/alt". Damit wird ein informativer
-  Unterschied als Gleichstand kodiert. Elo fängt den grössten Teil davon ohnehin
-  ein; wer die Physis-Merkmale ernst nehmen will, sollte statt der Null-Imputation
-  ein explizites „Wert fehlt"-Merkmal je Seite ergänzen und den Effekt gegen den
-  Holdout messen.
-
-* **Die aggregierte Ergebnisverteilung ist deshalb nicht 50/50** (35.2 % sieg_a
-  vs. 41.9 % sieg_b). Das ist ein Nebeneffekt obiger Selektion in Kombination
-  damit, wie die kanonische A-Seite bestimmt wird (lexikographisch kleinere ID),
-  kein Label-Fehler: das Training augmentiert jeden Gang gespiegelt und ist
-  dadurch paar-symmetrisch.
+  angefragt (2 s Rate-Limit je Versuch); der tägliche Lauf ist nicht betroffen.
+* **Kommende Paarungen** gibt es nur, wenn ein Fest seine Einteilung
+  veröffentlicht; sonst zeigt die Feste-Seite bewusst keine Prognose.

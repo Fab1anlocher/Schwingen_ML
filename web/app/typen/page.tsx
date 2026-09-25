@@ -1,10 +1,14 @@
 "use client";
 
+// Seite "Typen": K-Means-Cluster der Porträt-Schwinger (cluster.json aus
+// pipeline/clustering.py) als PCA-Streudiagramm plus Steckbrief je Typ.
+
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ladeCluster, ladeSchwinger } from "@/lib/data";
 import type { ClusterArtifact, Schwinger } from "@/lib/types";
 import { TypenStreudiagramm, CLUSTER_FARBEN } from "@/components/TypenStreudiagramm";
+import { schwungName, teilverbandName } from "@/lib/labels";
 
 export default function Typen() {
   const [cluster, setCluster] = useState<ClusterArtifact | null>(null);
@@ -48,8 +52,9 @@ export default function Typen() {
           hoverCluster={hoverCluster}
         />
         <p className="muted small" style={{ marginTop: "0.6rem", textAlign: "center" }}>
-          Jeder Punkt ist ein Schwinger (Nähe = ähnliches Profil), Farbe = Typ. Auf einen Punkt
-          klicken öffnet ihn in der Prognose.
+          Jeder Punkt ist ein Schwinger, Farbe = Typ. Die Lage ist eine 2D-Projektion (PCA) des
+          ganzen Profils: nahe Punkte = ähnliches Profil, die Achsen selbst haben keine eigene
+          Einheit. Auf einen Punkt klicken öffnet ihn in der Prognose.
         </p>
       </div>
 
@@ -72,7 +77,7 @@ export default function Typen() {
               </strong>
               {c.teilverband_schwerpunkt && (
                 <span className="badge" title="Deutlich überrepräsentiert in diesem Cluster">
-                  📍 {c.teilverband_schwerpunkt}
+                  📍 {teilverbandName(c.teilverband_schwerpunkt)}
                 </span>
               )}
             </div>
@@ -81,7 +86,7 @@ export default function Typen() {
               Ø {c.gewicht_avg.toFixed(0)} kg · {c.groesse_avg.toFixed(0)} cm · Kompaktheit{" "}
               {c.kompaktheit_avg.toFixed(1)} · Elo {c.elo_avg.toFixed(0)} · {c.alter_avg.toFixed(0)}{" "}
               Jahre · {c.erfahrung_avg.toFixed(0)} Gänge Ø
-              {c.top_schwuenge.length > 0 && <> · bevorzugt: {c.top_schwuenge.join(", ")}</>}
+              {c.top_schwuenge.length > 0 && <> · bevorzugt: {c.top_schwuenge.map(schwungName).join(", ")}</>}
             </p>
             {c.typische_vertreter.length > 0 && (
               <div className="row" style={{ marginTop: "0.4rem", gap: "0.4rem", flexWrap: "wrap" }}>

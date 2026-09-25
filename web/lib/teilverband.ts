@@ -26,6 +26,8 @@
 // Wortgrenzen sind zwingend: ohne sie steckt "urner" in "Solothurner" und
 // ein Nordwestschweizer Fest gilt als Innerschweizer.
 
+import { teilverbandName } from "./labels";
+
 export const TEILVERBAND_MUSTER: [string, RegExp][] = [
   [
     "Bern",
@@ -77,7 +79,9 @@ export function verbandVon(s: {
 /** "Bern" bzw. "Bern (geschätzt)" -- eine Schätzung wird nie als Messung gezeigt. */
 export function verbandText(s: Parameters<typeof verbandVon>[0]): string | null {
   const { verband, geschaetzt } = verbandVon(s);
-  return verband && (geschaetzt ? `${verband} (geschätzt)` : verband);
+  if (!verband) return null;
+  const name = teilverbandName(verband);
+  return geschaetzt ? `${name} (geschätzt)` : name;
 }
 
 /** Kranzstatus für die Anzeige: Porträt, sonst laut Schlussranglisten. */

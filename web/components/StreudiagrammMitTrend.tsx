@@ -1,5 +1,7 @@
 "use client";
 
+// Streudiagramm mit linearer Trendlinie und Korrelation r (lib/regression.ts).
+
 import { useMemo, useState } from "react";
 import { linearRegression, korrelationsStaerke } from "@/lib/regression";
 

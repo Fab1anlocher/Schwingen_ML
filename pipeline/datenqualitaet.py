@@ -10,7 +10,6 @@ Lokal einfach ``python -m pipeline.datenqualitaet``.
 from __future__ import annotations
 
 import json
-import sys
 
 from . import config
 

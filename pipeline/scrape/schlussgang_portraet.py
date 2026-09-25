@@ -176,12 +176,6 @@ def scrape_schlussgang_portraets(max_profiles: int | None = None, page_size: int
 
 
 
-def write_schwinger_json(path, profiles: list[dict]) -> None:
-    payload = {"schwinger": [{k: v for k, v in profile.items() if not k.startswith("portrait_")} for profile in profiles]}
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-
-
 def write_schlussgang_raw_json(path, profiles: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps({"profiles": profiles}, ensure_ascii=False, indent=2), encoding="utf-8")

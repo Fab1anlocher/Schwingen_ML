@@ -1,7 +1,11 @@
 "use client";
 
+// Diagramme der Analyse-Seite: Balkenvergleich Modell/Baseline, 4-Wege-
+// Benchmark, Konfusionsmatrix und Kalibrierungskurve der Gestellt-Chance.
+
 import { useState } from "react";
 import type { BenchmarkKandidat } from "@/lib/types";
+import { zahl } from "@/lib/labels";
 
 const LABELS: Record<string, string> = {
   sieg_a: "Sieg A",
@@ -123,7 +127,7 @@ export function VierWegeBenchmark({ kandidaten }: { kandidaten: BenchmarkKandida
       </div>
       <div className="vwb-gruppe" style={{ marginTop: "1.1rem" }}>
         <div className="vwb-titel">
-          Brier-Score <span className="muted small">(tiefer = besser, 0 = perfekt kalibriert)</span>
+          Brier-Score <span className="muted small">(tiefer = besser; 0 = jede Prognose sicher und richtig)</span>
         </div>
         {sortiert.map((k) => Balken(k, k.brier_score, maxBrier, (v) => v.toFixed(3), `brier-${k.key}`))}
       </div>
@@ -196,7 +200,7 @@ export function Konfusionsmatrix({
                 <th style={{ color: KLASSE_FARBE[klassen[i]] }}>
                   {LABELS[klassen[i]] ?? klassen[i]}
                   <div className="muted small" style={{ fontWeight: 400 }}>
-                    {summe} Gänge
+                    {zahl(summe)} Gänge
                   </div>
                 </th>
                 {zeile.map((wert, j) => {
@@ -212,7 +216,7 @@ export function Konfusionsmatrix({
                         LABELS[klassen[j]] ?? klassen[j]
                       }" vorhergesagt (${(anteilZeile * 100).toFixed(0)}%)`}
                     >
-                      <div className="km-count">{wert}</div>
+                      <div className="km-count">{zahl(wert)}</div>
                       {summe > 0 && <div className="km-pct">{(anteilZeile * 100).toFixed(0)}%</div>}
                     </td>
                   );

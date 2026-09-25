@@ -1,5 +1,8 @@
 "use client";
 
+// Choroplethen-Karte der Schweiz (SVG-Pfade aus lib/schweiz-kantone.ts, Bern
+// nach Gauverbänden aus lib/bern-gauverbaende.ts), Klassen per Quantilen.
+
 import { useMemo, useState } from "react";
 import { KANTON_PFADE, KANTON_VIEWBOX } from "@/lib/schweiz-kantone";
 import { BERN_GAUVERBAND_PFADE } from "@/lib/bern-gauverbaende";
@@ -192,9 +195,10 @@ export function SchweizKarte({
         plausible, aber nicht vom Schwingerverband selbst bestätigte Annäherung. Für andere
         zusammengeführte Verbände (z.B. Appenzell, Ob-/Nidwalden) gibt es das nicht — die
         Rohdaten unterscheiden dort gar nicht, welcher Schwinger zu welcher Hälfte gehört.
-        Graue Flächen: keine erfassten Schwinger. Der Kantonal-/Gauverband ist nur für
-        Schwinger mit eigenem Porträt bekannt — alle Zahlen hier beziehen sich nur auf
-        diesen Teil der Datenbasis, tendenziell die erfolgreicheren Schwinger.
+        Graue Flächen: keine erfassten Schwinger. Der Kantonal-/Gauverband stammt aus dem
+        Porträt, sonst aus dem Schwingklub laut offizieller Schlussrangliste (jeder Klub gehört
+        genau einem Verband an). Früher zählten nur Schwinger mit Porträt — rund ein Viertel
+        des Kaders, fast nur die Erfolgreicheren.
       </p>
     </div>
   );

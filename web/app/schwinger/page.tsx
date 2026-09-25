@@ -1,37 +1,17 @@
 "use client";
 
+// Seite "Schwinger": der ganze Kader nach Elo, mit Suche/Filter und
+// aufklappbarem Profil (Verband, Klub, Kränze, Festsiege, Überraschungs-
+// Index, ähnliche Schwinger aus cluster.json). Liest schwinger.json und
+// ratings.json; Anzeigetexte über lib/labels.ts.
+
 import { Fragment, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ladeCluster, ladeRatings, ladeSchwinger } from "@/lib/data";
 import type { ClusterArtifact, RatingsArtifact, Schwinger } from "@/lib/types";
 import { gruende, hatProfildaten } from "@/lib/aehnlichkeit";
 import { kranzstatusVon, verbandText, verbandVon } from "@/lib/teilverband";
-
-const KRANZ_LABEL: Record<string, string> = {
-  kein: "—",
-  kranzer: "Kranzer",
-  eidgenosse: "Eidgenosse",
-  koenig: "Schwingerkönig",
-};
-
-const FESTTYP_LABEL: Record<string, string> = {
-  eidgenoessisch: "Eidgenössisch",
-  berg: "Bergfest",
-  teilverband: "Teilverband",
-  kantonal: "Kantonal",
-  regional: "Regional",
-};
-
-// Echte Werte aus schwinger.json (nicht "Berner"/"innerschweizer" o.ä. --
-// das Feld war bisher fälschlich gegen erfundene Strings gefiltert, das
-// Dropdown dadurch faktisch immer leer/wirkungslos).
-const TEILVERBAND_OPTIONEN = [
-  "Bern",
-  "Innerschweiz",
-  "Nordostschweiz",
-  "Nordwestschweiz",
-  "Suedwestschweiz",
-];
+import { TEILVERBAENDE, datumKurz, festtypName, kranzName, schwungName, teilverbandName } from "@/lib/labels";
 
 // Ohne aktive Suche/Filter würde die volle Liste (auch tausende Schwinger
 // ohne erfasste Gänge) die Seite unübersichtlich machen — daher Deckel,
@@ -57,7 +37,7 @@ export default function SchwingerListe() {
 
   const verfuegbareTeilverbaende = useMemo(() => {
     const gefunden = new Set(schwinger.map((s) => verbandVon(s).verband).filter(Boolean) as string[]);
-    return TEILVERBAND_OPTIONEN.filter((t) => gefunden.has(t));
+    return TEILVERBAENDE.filter((t) => gefunden.has(t));
   }, [schwinger]);
 
   const gefiltert = useMemo(() => {
@@ -116,7 +96,7 @@ export default function SchwingerListe() {
               <option value="">Alle</option>
               {verfuegbareTeilverbaende.map((t) => (
                 <option key={t} value={t}>
-                  {t}
+                  {teilverbandName(t)}
                 </option>
               ))}
             </select>
@@ -194,9 +174,18 @@ export default function SchwingerListe() {
                           inaktiv
                         </span>
                       )}
+                      {s.namensvetter_von && (
+                        <span
+                          className="badge"
+                          style={{ marginLeft: 6 }}
+                          title="Gleichnamig mit einem anderen Schwinger; über Klub bzw. Jahrgang der Schlussrangliste getrennt"
+                        >
+                          Namensvetter
+                        </span>
+                      )}
                     </td>
                     <td className="muted">{s.jahrgang ?? "—"}</td>
-                    <td>{KRANZ_LABEL[kranzstatusVon(s)] ?? kranzstatusVon(s)}</td>
+                    <td>{kranzName(kranzstatusVon(s)) ?? "—"}</td>
                     <td>{typeof s.kraenze === "number" ? s.kraenze : "—"}</td>
                     <td>
                       <strong>{Math.round(s.elo)}</strong>
@@ -275,16 +264,34 @@ function SchwingerDetail({
               {" "}(
               {Object.entries(s.kraenze_nach_typ)
                 .sort((x, y) => y[1] - x[1])
-                .map(([typ, n]) => `${FESTTYP_LABEL[typ] ?? typ} ${n}`)
+                .map(([typ, n]) => `${festtypName(typ)} ${n}`)
                 .join(" · ")}
               )
             </span>
           )}
         </div>
       )}
+      {s.festsiege && s.festsiege.length > 0 && (
+        <div>
+          <strong>Festsiege seit 2023:</strong> {s.festsiege.length}{" "}
+          <span className="muted">
+            ({s.festsiege
+              .slice(0, 5)
+              .map((f) => `${f.name}, ${datumKurz(f.datum)}`)
+              .join(" · ")}
+            {s.festsiege.length > 5 ? " · …" : ""})
+          </span>
+        </div>
+      )}
+      {s.namensvetter_von && (
+        <div className="muted">
+          Namensvetter: gleichnamig mit einem anderen Schwinger. Getrennt über Klub bzw.
+          Jahrgang in der Schlussrangliste, damit Gänge und Kränze nicht vermischt werden.
+        </div>
+      )}
       <div>
         <strong>Bevorzugte Schwünge:</strong>{" "}
-        {s.bevorzugte_schwuenge.length ? s.bevorzugte_schwuenge.join(", ") : "—"}
+        {s.bevorzugte_schwuenge.length ? s.bevorzugte_schwuenge.map(schwungName).join(", ") : "—"}
       </div>
 
       {index !== null && s.n_bewertete_gaenge > 0 && (
@@ -295,14 +302,14 @@ function SchwingerDetail({
             {(index * 100).toFixed(1)}%
           </span>{" "}
           <span className="muted">
-            ({s.n_bewertete_gaenge} Gänge · {index >= 0 ? "übertrifft" : "verfehlt"} die
+            ({s.n_bewertete_gaenge} Gänge seit 2024 · {index >= 0 ? "übertrifft" : "verfehlt"} die
             Elo-Erwartung im Schnitt)
           </span>
-          {s.groesster_erfolg && (
+          {s.groesster_erfolg && s.groesster_erfolg.gegner_elo > s.groesster_erfolg.eigenes_elo && (
             <div className="muted">
-              Grösster Erfolg: schlug <strong>{s.groesster_erfolg.gegner_name}</strong> (
-              {Math.round(s.groesster_erfolg.gegner_elo - s.groesster_erfolg.eigenes_elo)} Elo-Punkte
-              Unterschied) am {s.groesster_erfolg.datum}
+              Grösster Überraschungssieg: gegen <strong>{s.groesster_erfolg.gegner_name}</strong>{" "}
+              ({Math.round(s.groesster_erfolg.gegner_elo - s.groesster_erfolg.eigenes_elo)} Elo-Punkte
+              stärker) am {datumKurz(s.groesster_erfolg.datum)}
             </div>
           )}
         </div>

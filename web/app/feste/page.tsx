@@ -1,34 +1,31 @@
 "use client";
 
+// Seite "Feste": kommende Feste (events.json -> kommende, mit Prognose je
+// veröffentlichter Paarung) und Rückblick auf vergangene Feste (Festsieger,
+// Kränze, Teilnehmer laut Schlussrangliste, events.json -> vergangene).
+
 import { useEffect, useMemo, useState } from "react";
 import { ladeEvents, ladeModel, ladeRatings, ladeSchwinger } from "@/lib/data";
 import { prognostiziere } from "@/lib/inference";
 import { ladeKopfAnKopf, paarHistorie, KEINE_HISTORIE } from "@/lib/kopfAnKopf";
+import Link from "next/link";
 import { teilverbandFuerFest } from "@/lib/teilverband";
+import { datumKurz, festtypName, teilverbandName, zahl } from "@/lib/labels";
 import type {
   EventsArtifact,
   ModelArtifact,
   RatingsArtifact,
   Schwinger,
   KommendesFest,
+  VergangenesFest,
 } from "@/lib/types";
 
 // Spiegelt pipeline/scrape/agenda.HORIZONT_TAGE — wie weit die Vorschau reicht.
 const HORIZONT_TAGE = 60;
 
-// "Suedwestschweiz" ist der Datenwert (ASCII-Schlüssel), nicht die Schreibweise
-// für die Anzeige.
-const TV_LABEL: Record<string, string> = {
-  Suedwestschweiz: "Südwestschweiz",
-};
-
-const TYP_LABEL: Record<string, string> = {
-  eidgenoessisch: "Eidgenössisches",
-  berg: "Bergfest",
-  kantonal: "Kantonales",
-  teilverband: "Teilverband",
-  regional: "Regional",
-};
+// Festtypen, an denen Kränze vergeben werden -- die Voreinstellung im
+// Rückblick. Regionalfeste (rund 70 % aller Feste) nur auf Wunsch.
+const KRANZFESTE = new Set(["eidgenoessisch", "berg", "teilverband", "kantonal"]);
 
 export default function Feste() {
   const [events, setEvents] = useState<EventsArtifact | null>(null);
@@ -57,7 +54,8 @@ export default function Feste() {
 
   return (
     <div>
-      <h1>Bevorstehende Feste</h1>
+      <h1>Feste</h1>
+      <h2 style={{ marginTop: "0.5rem" }}>Bevorstehend</h2>
       <p className="subtitle">
         Pro veröffentlichter Paarung Prognose und informative Quote. Quoten sind{" "}
         <strong>kein Wettangebot</strong>.
@@ -107,7 +105,122 @@ export default function Feste() {
           )}
         </>
       )}
+
+      <Rueckblick feste={events.vergangene ?? []} />
     </div>
+  );
+}
+
+/** Rückblick: vergangene Feste mit Festsieger, Kränzen und Teilnehmern aus
+ *  den offiziellen Schlussranglisten (events.json, s. pipeline/export.py
+ *  exportiere_events). Nach Saisonende ist das der eigentliche Inhalt der
+ *  Seite -- vorher stand hier dann nur "kein Fest erfasst". */
+function Rueckblick({ feste }: { feste: VergangenesFest[] }) {
+  const saisons = useMemo(
+    () => [...new Set(feste.map((f) => f.datum.slice(0, 4)))].sort().reverse(),
+    [feste]
+  );
+  const [saison, setSaison] = useState<string>("");
+  const [mitRegional, setMitRegional] = useState(false);
+  const aktiveSaison = saison || saisons[0] || "";
+
+  const liste = useMemo(
+    () =>
+      feste
+        .filter((f) => f.datum.startsWith(aktiveSaison))
+        .filter((f) => mitRegional || KRANZFESTE.has(f.typ))
+        .sort((a, b) => b.datum.localeCompare(a.datum) || a.name.localeCompare(b.name)),
+    [feste, aktiveSaison, mitRegional]
+  );
+  if (feste.length === 0) return null;
+  const mitRangliste = feste.some((f) => f.sieger !== undefined);
+
+  return (
+    <>
+      <h2>Rückblick</h2>
+      <p className="subtitle" style={{ marginTop: 0 }}>
+        Festsieger, vergebene Kränze und Teilnehmer laut offizieller Schlussrangliste. Ein
+        Klick auf einen Sieger übernimmt ihn in die Paar-Prognose.
+      </p>
+      <div className="panel" style={{ marginBottom: "1rem" }}>
+        <div className="row" style={{ gap: "1rem", flexWrap: "wrap", alignItems: "flex-end" }}>
+          <div>
+            <label className="field" htmlFor="saison">
+              Saison
+            </label>
+            <select id="saison" value={aktiveSaison} onChange={(e) => setSaison(e.target.value)}>
+              {saisons.map((j) => (
+                <option key={j} value={j}>
+                  {j}
+                </option>
+              ))}
+            </select>
+          </div>
+          <label className="row" style={{ cursor: "pointer" }}>
+            <input
+              type="checkbox"
+              checked={mitRegional}
+              onChange={(e) => setMitRegional(e.target.checked)}
+              style={{ width: "auto" }}
+            />
+            <span className="small muted">Auch Regionalfeste (ohne Kranzvergabe)</span>
+          </label>
+        </div>
+      </div>
+      <div className="panel tabelle-wrap" style={{ padding: 0 }}>
+        <table style={{ minWidth: 560 }}>
+          <thead>
+            <tr>
+              <th>Datum</th>
+              <th>Fest</th>
+              <th>Festsieger</th>
+              {mitRangliste && <th title="Vergebene Kränze / Teilnehmer">Kränze</th>}
+            </tr>
+          </thead>
+          <tbody>
+            {liste.map((f) => (
+              <tr key={f.id}>
+                <td className="muted" style={{ whiteSpace: "nowrap" }}>
+                  {datumKurz(f.datum)}
+                </td>
+                <td>
+                  {f.name}{" "}
+                  <span className="badge" style={{ marginLeft: 4 }}>
+                    {festtypName(f.typ)}
+                  </span>
+                </td>
+                <td>
+                  {f.sieger && f.sieger.length > 0 ? (
+                    f.sieger.map((s, i) => (
+                      <span key={s.id}>
+                        {i > 0 && " · "}
+                        <Link href={`/?a=${encodeURIComponent(s.id)}`} style={{ color: "var(--text)" }}>
+                          {s.name}
+                        </Link>
+                      </span>
+                    ))
+                  ) : (
+                    <span className="muted">—</span>
+                  )}
+                </td>
+                {mitRangliste && (
+                  <td className="muted" style={{ whiteSpace: "nowrap" }}>
+                    {f.n_teilnehmer
+                      ? `${f.n_kraenze ? zahl(f.n_kraenze) : "0"} / ${zahl(f.n_teilnehmer)}`
+                      : "—"}
+                  </td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {liste.length === 0 && (
+        <p className="muted" style={{ marginTop: "0.75rem" }}>
+          Keine Feste für diese Auswahl.
+        </p>
+      )}
+    </>
   );
 }
 
@@ -129,11 +242,11 @@ function FestCard({
         <div>
           <h3>{fest.name}</h3>
           <span className="muted small">
-            {fest.datum}
+            {datumKurz(fest.datum)}
             {fest.ort ? ` · ${fest.ort}` : ""}
           </span>
         </div>
-        <span className="badge">{TYP_LABEL[fest.typ] ?? fest.typ}</span>
+        <span className="badge">{festtypName(fest.typ)}</span>
       </div>
 
       {/* Ohne veröffentlichte Startliste wird NICHT prognostiziert. Vorher stand
@@ -154,9 +267,9 @@ function FestCard({
           {(() => {
             const tv = kreisFuerFest(fest);
             return tv
-              ? `Startberechtigt sind fast ausschliesslich Schwinger des Teilverbands ${
-                  TV_LABEL[tv] ?? tv
-                }. Wer antritt, gibt erst die Startliste her — bis dahin keine Prognose.`
+              ? `Startberechtigt sind fast ausschliesslich Schwinger des Teilverbands ${teilverbandName(
+                  tv
+                )}. Wer antritt, gibt erst die Startliste her — bis dahin keine Prognose.`
               : "Offenes Feld: an diesem Fest können Schwinger aus allen Teilverbänden starten. Wer antritt, gibt erst die Startliste her — bis dahin keine Prognose.";
           })()}
         </p>

@@ -78,7 +78,8 @@ export interface Schwinger {
   /** Geschrumpfte Gestellt-Quote (Merkmalsversion 2). null/fehlend: keine
    *  Gänge bzw. älteres Artefakt -- die App rechnet dann mit dem Durchschnitt. */
   gestellt_neigung?: number | null;
-  /** Mittel (tatsächlich - Elo-erwartete Punkte) über alle Gänge; + = übertrifft Erwartung. */
+  /** Mittel (tatsächlich - Elo-erwartete Punkte) über die Gänge NACH der
+   *  Einschwingphase; + = übertrifft Erwartung. */
   ueberraschungsindex: number | null;
   n_bewertete_gaenge: number;
   /** Anzahl besuchter Feste seit Beginn der Datenbasis (2023).
@@ -90,8 +91,22 @@ export interface Schwinger {
   anzahl_feste?: number;
   /** Mindestens ein Gang im aktuellsten Jahr der Datenbasis. */
   aktiv: boolean;
+  /** Grösster Überraschungssieg (tiefste Elo-Siegchance) nach der Einschwingphase. */
   groesster_erfolg: GroessterErfolg | null;
+  /** Festsiege seit Datenbeginn laut Schlussrangliste (Rang 1, auch geteilt),
+   *  jüngster zuerst. null/fehlend = keine Ranglisten geladen. */
+  festsiege?: Festsieg[] | null;
+  /** Gesetzt, wenn dieser Eintrag von einem gleichnamigen Porträt-Schwinger
+   *  getrennt wurde (pipeline/namensvettern.py): ID jenes Schwingers. */
+  namensvetter_von?: string | null;
   quellen: string[];
+}
+
+export interface Festsieg {
+  event_id: string;
+  name: string;
+  datum: string;
+  typ: string;
 }
 
 export interface RatingsArtifact {
@@ -121,9 +136,22 @@ export interface KommendesFest {
   paarungen?: { a_id: string; b_id: string }[];
 }
 
+export interface VergangenesFest {
+  id: string;
+  name: string;
+  datum: string;
+  typ: string;
+  ort?: string | null;
+  /** Aus der Schlussrangliste (fehlt ohne Rangliste): Festsieger -- bei
+   *  Punktgleichheit mehrere --, Teilnehmer und vergebene Kränze. */
+  sieger?: { id: string; name: string }[];
+  n_teilnehmer?: number;
+  n_kraenze?: number;
+}
+
 export interface EventsArtifact {
   schema_version: string;
-  vergangene: { id: string; name: string; datum: string; typ: string }[];
+  vergangene: VergangenesFest[];
   kommende: KommendesFest[];
 }
 
@@ -143,6 +171,8 @@ export interface KantonStatistik {
 export interface KantoneArtifact {
   schema_version: string;
   top_schwelle_elo: number;
+  /** Mindestzahl Gänge, ab der ein Schwinger gezählt wird (fehlt in älteren Artefakten). */
+  min_gaenge?: number;
   kantone: KantonStatistik[];
 }
 

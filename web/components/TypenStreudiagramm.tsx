@@ -1,5 +1,7 @@
 "use client";
 
+// PCA-Streudiagramm der Schwingertypen; ein Punkt je Schwinger, Farbe = Cluster.
+
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { ClusterPunkt, Schwinger } from "@/lib/types";

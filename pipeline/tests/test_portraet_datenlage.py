@@ -106,3 +106,14 @@ def test_bewerte_nur_portraet_ohne_porträt_gänge():
     meta = [_meta("e1", "2026-05-01", beide=False)]
     res = _bewerte_nur_portraet(np.array([[1.0, 0, 0]]), np.array([0]), meta, 2026, [0, 1, 2])
     assert res == {"n": 0}
+
+
+def test_anzeigename_einheitlich_vorname_nachname():
+    from pipeline.schema import anzeigename
+    stub = lambda name: Schwinger(id="x", name=name, quellen=["schlussgang.ch/statistic-pdf"])
+    assert anzeigename(stub("Giger Ramon")) == "Ramon Giger"
+    assert anzeigename(stub("Wüthrich Thomas (2)")) == "Thomas Wüthrich (2)"
+    assert anzeigename(stub("Di Pietro Loris")) == "Di Pietro Loris"  # nicht eindeutig
+    portraet = Schwinger(id="p", name="Samuel Giger", quellen=["schlussgang.ch/portraet"])
+    vetter = Schwinger(id="v", name="Samuel Giger", quellen=["schlussgang.ch/rangliste"], namensvetter_von="p")
+    assert anzeigename(portraet) == anzeigename(vetter) == "Samuel Giger"

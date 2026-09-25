@@ -14,7 +14,7 @@ import numpy as np
 from . import config
 from .config import KLASSEN, MIN_GAENGE_FUER_SICHERHEIT, FORM_FENSTER_K, MERKMAL_VERSION
 from .features import FEATURE_NAMES, FEATURE_LABELS
-from .schema import KRANZSTATUS_ORDINAL, hat_portraet
+from .schema import KRANZSTATUS_ORDINAL, anzeigename, hat_portraet
 
 
 def _write(pfad: Path, obj) -> None:
@@ -142,7 +142,7 @@ def exportiere_schwinger(
             ge = u["groesster_erfolg"]
             gegner = schwinger.get(ge["gegner_id"])
             groesster_erfolg = {
-                "gegner_name": gegner.name if gegner else ge["gegner_id"],
+                "gegner_name": anzeigename(gegner) if gegner else ge["gegner_id"],
                 "event_id": ge["event_id"],
                 "datum": ge["datum"],
                 "eigenes_elo": ge["eigenes_elo"],
@@ -150,7 +150,7 @@ def exportiere_schwinger(
             }
         liste.append({
             "id": sid,
-            "name": s.name,
+            "name": anzeigename(s),
             "jahrgang": s.jahrgang,
             "groesse_cm": s.groesse_cm,
             "gewicht_kg": s.gewicht_kg,
@@ -215,7 +215,7 @@ def exportiere_events(events: list, kommende: list | None = None, *,
         d = e.to_dict()
         u = ueberblick.get(e.id)
         if u:
-            d["sieger"] = [{"id": sid, "name": schwinger[sid].name if sid in schwinger else sid}
+            d["sieger"] = [{"id": sid, "name": anzeigename(schwinger[sid]) if sid in schwinger else sid}
                            for sid in u["sieger"]]
             d["n_teilnehmer"] = u["n_teilnehmer"]
             d["n_kraenze"] = u["n_kraenze"]

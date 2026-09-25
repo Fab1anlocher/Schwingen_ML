@@ -1,5 +1,9 @@
 "use client";
 
+// Anzeige einer Prognose: drei Wahrscheinlichkeiten mit informativer Quote
+// und die Erklärbalken (Beiträge aus lib/inference.ts prognostiziere).
+// Symmetrische Merkmale erscheinen grau als "Gestellt ± X" (bevorzugen niemanden).
+
 import type { Prognose } from "@/lib/types";
 
 const LABELS: Record<string, string> = {

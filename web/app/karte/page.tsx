@@ -1,5 +1,8 @@
 "use client";
 
+// Seite "Karte": Kennzahlen je Kanton bzw. Berner Gauverband (kantone.json,
+// gauverbaende.json aus pipeline/export.py exportiere_kantone).
+
 import { useEffect, useState } from "react";
 import { ladeKantone, ladeGauverbaende } from "@/lib/data";
 import type { KantoneArtifact, GauverbaendeArtifact } from "@/lib/types";
@@ -24,10 +27,10 @@ export default function Karte() {
 
   return (
     <div>
-      <h1>🗺️ Schweiz-Karte</h1>
+      <h1>Schweiz-Karte</h1>
       <p className="subtitle">
-        Regionale Verteilung von Rating, Erfolgen und Kadertiefe — pro Kanton, aus den echten
-        Daten (453 Feste, 2023–2026).
+        Regionale Verteilung von Rating, Erfolgen und Kadertiefe — pro Kanton bzw. Berner
+        Gauverband, aus allen erfassten Festen seit 2023.
       </p>
 
       <div className="panel">
@@ -35,8 +38,9 @@ export default function Karte() {
       </div>
 
       <p className="muted small" style={{ marginTop: "0.75rem" }}>
-        „Top-Schwinger" = oberste 10% aller erfassten Schwinger nach Elo-Rating (Schwelle{" "}
-        {Math.round(daten.top_schwelle_elo)}).
+        „Top-Schwinger" = oberste 10 % der gezählten Schwinger nach Elo-Rating (Schwelle{" "}
+        {Math.round(daten.top_schwelle_elo)}). Gezählt wird, wer mindestens{" "}
+        {daten.min_gaenge ?? 5} Gänge hat — vorher liegt das Elo noch fast beim Startwert.
       </p>
     </div>
   );

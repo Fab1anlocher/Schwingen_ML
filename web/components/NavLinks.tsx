@@ -1,5 +1,7 @@
 "use client";
 
+// Navigation in der Kopfzeile; markiert die aktive Seite.
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
