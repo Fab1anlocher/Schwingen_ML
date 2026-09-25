@@ -79,9 +79,11 @@ def test_siegart_bericht_trennt_staerke_und_abstand():
         p = 1 / (1 + np.exp(-(0.1 + 0.6 * (elo_s - elo_v) / 100)))
         zeilen.append({"sieger": f"s{i % 60}", "verlierer": "v", "elo_s": elo_s, "elo_v": elo_v,
                        "platt": bool(rng.random() < p), "offensiv": False,
-                       "fest_typ": "kantonal", "datum": f"202{3 + i % 3}-06-01"})
+                       "fest_typ": "kantonal", "datum": f"202{3 + i % 3}-06-01",
+                       "event_id": f"f{i % 30}"})
     z = "\n".join(siegart_bericht(zeilen))
-    for teil in ("Nach Stärke des Siegers", "Stärke und Abstand getrennt", "Eigenschaft"):
+    for teil in ("Nach Stärke des Siegers", "Stärke und Abstand getrennt", "Eigenschaft",
+                 "Benoten die Feste", "ohne die Benotung des Fests"):
         assert teil in z
     zeile = next(l for l in z.splitlines() if l.startswith("| Elo des Siegers"))
     koeff_staerke = float(zeile.split("|")[2])

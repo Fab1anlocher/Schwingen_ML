@@ -260,6 +260,7 @@ def siege_mit_elo(gaenge, snapshots, min_gaenge: int = MIN_GAENGE_ELO) -> list[d
             "offensiv": (g.note_b if a_gewinnt else g.note_a) >= OFFENSIV_VERLOREN,
             "fest_typ": g.fest_typ,
             "datum": g.datum,
+            "event_id": g.event_id,
         })
     return zeilen
 
@@ -352,12 +353,42 @@ def siegart_bericht(zeilen: list[dict], namen: dict[str, str] | None = None,
     # Eigenschaft der Person? Erwartung je Sieg aus der Regression (Stärke und
     # Abstand herausgerechnet), dann die Abweichung in zwei Hälften der Siege.
     erwartet = 1 / (1 + np.exp(-X @ b))
+    # Gegenprobe: Benoten die Kampfrichter je Fest (und damit je Region, in der
+    # ein Schwinger meist antritt) verschieden grosszügig, sähe das wie eine
+    # Eigenschaft der Person aus. Darum zusätzlich die Plattwurf-Quote des
+    # Fests OHNE die Siege dieses Schwingers als Merkmal.
+    fest = [r.get("event_id", "") for r in zeilen]
+    mit_fest = len(set(fest)) >= 20
+    if mit_fest:
+        f_summe, f_n = defaultdict(float), defaultdict(int)
+        fs_summe, fs_n = defaultdict(float), defaultdict(int)
+        for i, r in enumerate(zeilen):
+            f_summe[fest[i]] += platt[i]
+            f_n[fest[i]] += 1
+            fs_summe[(fest[i], r["sieger"])] += platt[i]
+            fs_n[(fest[i], r["sieger"])] += 1
+        quote = np.array([
+            (f_summe[f] - fs_summe[(f, r["sieger"])]) / (f_n[f] - fs_n[(f, r["sieger"])])
+            if f_n[f] - fs_n[(f, r["sieger"])] >= 20 else p0
+            for f, r in zip(fest, zeilen)])
+        quote = np.clip(quote, 0.02, 0.98)
+        Xf = np.column_stack([X, np.log(quote / (1 - quote))])
+        bf, sef = logit(Xf, platt)
+        erwartet_fest = 1 / (1 + np.exp(-Xf @ bf))
+        grosse = [f_summe[f] / f_n[f] for f in f_n if f_n[f] >= 100]
+        z += ["## Benoten die Feste verschieden?", "",
+              f"Plattwurf-Quote je Fest (Feste mit ≥ 100 Siegen, n = {len(grosse)}): "
+              f"Median {np.median(grosse):.1%}, 10.–90. Perzentil "
+              f"{np.quantile(grosse, 0.1):.1%}–{np.quantile(grosse, 0.9):.1%}. "
+              f"Koeffizient der Fest-Quote (logit) in der Regression: {bf[3]:+.2f} "
+              f"(SE {sef[3]:.2f}); Elo des Siegers dann {bf[1]:+.3f}, Abstand {bf[2]:+.3f}.",
+              ""]
     je_person = defaultdict(list)
     for i, r in enumerate(zeilen):
         je_person[r["sieger"]].append(i)
     personen = [sid for sid, idx in je_person.items() if len(idx) >= MIN_SIEGE_PERSON]
     if len(personen) >= 10:
-        h1, h2, roh1, roh2 = [], [], [], []
+        h1, h2, roh1, roh2, f1, f2 = [], [], [], [], [], []
         for sid in personen:
             idx = sorted(je_person[sid], key=lambda i: zeilen[i]["datum"])
             gerade, ungerade = idx[0::2], idx[1::2]
@@ -365,12 +396,18 @@ def siegart_bericht(zeilen: list[dict], namen: dict[str, str] | None = None,
             roh2.append(platt[ungerade].mean())
             h1.append((platt[gerade] - erwartet[gerade]).mean())
             h2.append((platt[ungerade] - erwartet[ungerade]).mean())
+            if mit_fest:
+                f1.append((platt[gerade] - erwartet_fest[gerade]).mean())
+                f2.append((platt[ungerade] - erwartet_fest[ungerade]).mean())
         z += ["## Ist der Plattwurf eine Eigenschaft des Schwingers?", "",
               f"{len(personen)} Schwinger mit ≥ {MIN_SIEGE_PERSON} Siegen; Siege abwechselnd "
               "auf zwei Hälften verteilt. Korrelation der Hälften:", "",
               f"- Plattwurf-Anteil roh: r = {np.corrcoef(roh1, roh2)[0, 1]:+.2f}",
-              f"- nach Herausrechnen von Stärke und Abstand: r = {np.corrcoef(h1, h2)[0, 1]:+.2f}",
-              ""]
+              f"- nach Herausrechnen von Stärke und Abstand: r = {np.corrcoef(h1, h2)[0, 1]:+.2f}"]
+        if mit_fest:
+            z.append(f"- zusätzlich ohne die Benotung des Fests: r = {np.corrcoef(f1, f2)[0, 1]:+.2f}")
+            erwartet = erwartet_fest
+        z.append("")
         rang = sorted(personen, key=lambda s: -elo_heute.get(s, 0))[:12]
         z += ["Die zwölf Elo-Stärksten davon:", "",
               "| Schwinger | Siege | mit 10.00 | erwartet | Differenz |", "|---|---:|---:|---:|---:|"]
