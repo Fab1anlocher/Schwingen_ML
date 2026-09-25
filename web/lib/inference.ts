@@ -247,6 +247,22 @@ function unterzeile(feat: string, a: Schwinger, b: Schwinger, paar: PaarHistorie
 }
 
 /** Vollständige Prognose inkl. Erklärbarkeit (FR-1, FR-3). */
+/** Nur die Wahrscheinlichkeiten [Sieg A, Gestellt, Sieg B] eines Paars, ohne
+ *  Erklärbalken -- für den Fest-Simulator, der tausende Paare braucht. */
+export function paarWahrscheinlichkeiten(
+  model: ModelArtifact,
+  a: Schwinger,
+  b: Schwinger,
+  eloA: number,
+  eloB: number,
+  nA: number,
+  nB: number,
+  paar: PaarHistorie = KEINE_HISTORIE
+): number[] {
+  const x = baueFeatures(model, a, b, eloA, eloB, nA, nB, paar).slice(0, model.features.length);
+  return wahrscheinlichkeiten(model, x);
+}
+
 export function prognostiziere(
   model: ModelArtifact,
   a: Schwinger,

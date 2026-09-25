@@ -29,7 +29,8 @@ Modell, das auch die laufende Saison gesehen hat.
 | ✅ F1 | Prognose-Check je Fest im Rückblick | 2026: 69 % Treffer (Elo 61 %) — **erledigt** | ½–1 Tag | ~~2~~ |
 | ✅ D3 | Rohdaten wöchentlich sichern | Voraussetzung für D1/D2, Ausfallschutz — **erledigt** | ½ Tag | ~~3~~ |
 | ✅ M2 | Jüngere Gänge stärker gewichten | Val 0.7400 → 0.7390, Test 0.7207 → 0.7203 — **erledigt** | ½ Tag | ~~3~~ |
-| D1 | Noten je Gang (Plattwurf 10.00 vs. 9.75) nutzen | offen — erst nach D3 messbar | 1 Tag | 4 |
+| D1 | Noten je Gang (Plattwurf 10.00 vs. 9.75) nutzen | gemessen: Val −0.0027, Test −0.0039 (Messung ohne Ranglisten-Anreicherung) | 1 Tag | **2** |
+| ✅ F4 | Fest-Simulator (Monte Carlo) mit Rückblick | Festsieger bekam Ø 27 % (Elo 18 %), Kranz-Brier 0.076 (Elo 0.081) — **erledigt** | 1–2 Tage | ~~–~~ |
 | D2 | Gangnummer aus der Rangliste (Anschwingen, Ausstich) | offen — erst nach D3 messbar | 1 Tag | 4 |
 | M3 | Heimvorteil (Fest des eigenen Verbands gegen Gäste) | +0.022 Punkte je Gästegang (2.6 SE) | ½ Tag | 5 |
 | M4 | Unsicherheit bei Neulingen (Glicko-artig) | Paarungen mit < 5 Gängen: Log-Loss 0.771 (sonst 0.70–0.75) | 1–2 Tage | 5 |
@@ -38,8 +39,12 @@ Modell, das auch die laufende Saison gesehen hat.
 | T2 | Frontend-Tests + Browser-Smoke-Test in der CI | Sicherheit | 1 Tag | 6 |
 | T3 | Altlasten: `diagnose_agenda` testen, `ml_ohne_elo` ohne `kranz_diff` | Sauberkeit | ½ Tag | 6 |
 
-Empfohlene Reihenfolge: ~~M1 mit T1~~, ~~M5 mit M2~~, ~~F1~~, ~~D3~~
-(erledigt), als Nächstes **D1** (Messung läuft über `messung.yml`).
+Empfohlene Reihenfolge: ~~M1 mit T1~~, ~~M5 mit M2~~, ~~F1~~, ~~D3~~, ~~F4~~
+(erledigt), als Nächstes **D1**: die Noten-Merkmale verbessern das Modell in
+beiden Jahren (Messung `noten`, Val 0.7514 → 0.7487, Test 0.7271 → 0.7232);
+für die Umsetzung müssen die Noten in die Artefakte oder die Merkmale im
+Pipeline-Lauf entstehen, und die Messung ist mit der Ranglisten-Anreicherung
+zu wiederholen.
 
 ## ✅ M1 — Gradient Boosting als Prognosemodell (erledigt 26.09.2026)
 
@@ -175,6 +180,33 @@ exportieren (gleiche Hyperparameter, Baumzahl neu zeitlich gewählt).
 Messen lässt sich der Nutzen rückwirkend: Test 2026 mit Training bis 2024
 gegen Training bis 2025 — das ist genau der Schritt „eine Saison mehr".
 Der Report muss sagen, dass die Kennzahlen vom Evaluationsmodell stammen.
+
+## ✅ F4 — Fest-Simulator (erledigt 26.09.2026)
+
+Monte-Carlo-Simulation eines ganzen Fests (Seite „Simulator"), Regeln an den
+echten Daten kalibriert (s. README „Fest-Simulator"). Die entscheidende
+Kalibrierung war die Einteilung: streng nach Punkten gepaart, traf fast jeder
+auf einen Gleichstarken (Elo-Abstand 55 statt real 108), das Modell sagte
+darum 30 % Gestellte statt real 22 % voraus, und die Kranzchancen waren
+schlechter als mit reinem Elo (Brier 0.121 gegen 0.116, Kränze dabei aus den
+Gangresultaten angenähert). Mit Anschwingen der Spitze und Ermessensspielraum:
+Elo-Abstand 116, Gestellte 21.6 %.
+
+Rückblick mit den echten Schlussranglisten (38 Kranzfeste 2026, 5'419
+Teilnahmen, Modell von vor der Saison):
+
+| | Modell | nur Elo | ohne Wissen |
+|---|---:|---:|---:|
+| Kranz, Brier-Score | **0.076** | 0.081 | 0.135 |
+| Wahrscheinlichkeit für den tatsächlichen Festsieger (Ø) | **27 %** | 18 % | |
+| Favorit gewann das Fest | **50 %** | 47 % | |
+| Sieger unter den drei Favoriten | 82 % | **87 %** | |
+
+Kranzchancen ab 30 % gut kalibriert (z.B. 79 % vorhergesagt / 79 %
+eingetreten); zwischen 5 und 30 % leicht zu hoch (9 % / 4 %, 22 % / 16 %).
+
+Mögliche Verfeinerung: das Einteilungsgericht meidet auch Paarungen, die es in
+derselben Saison schon oft gab — die Simulation nur Wiederholungen im Fest.
 
 ## ✅ F1 — Prognose-Check je Fest (erledigt 26.09.2026)
 

@@ -37,6 +37,7 @@ Benchmark → Clustering → Export.
 | model.json (Bäume je Stufe) | `export.modell_json`, Prüfung `pruefe_modell_export` | Typ `ModelArtifact` in `lib/types.ts` |
 | Modellgüte je Lauf | `export.ergaenze_verlauf` → `report_verlauf.json` | `components/VerlaufDiagramm.tsx` |
 | Prognose-Check je Fest | `prognose_check.py` → `events.json` | `app/feste/page.tsx` (Rückblick) |
+| Fest-Simulation (Monte Carlo) | `fest_simulation.py` (+ `backtest` → `simulation_backtest.json`) | `lib/simulation.ts`, `app/simulation`, `/api/fest-feld` |
 | Kopf-an-Kopf / Paar-Historie | `features._kopf_an_kopf_vorteil`, `paar_gestellt` | `lib/kopfAnKopf.ts` |
 | Konstanten der Merkmale | `config.py` (`MERKMAL_VERSION`, `PAAR_GESTELLT_K`, …) | `inference.ts` (gleiche Werte) |
 | Namen → Schwinger-ID | `identity.py`, `roster.py`, `namensvettern.py` | – |
@@ -59,6 +60,10 @@ Benchmark → Clustering → Export.
    Konstanten oder Normalisierungen (`clustering._normiert` ⇄
    `labels.schwungName`) auf beiden Seiten. Prüfen:
    `python -m pipeline.paritaet && (cd web && npm run paritaet)`.
+   Die Fest-Simulation (`fest_simulation.simuliere` ⇄ `simulation.ts`)
+   muss bei gleichem Startwert exakt dieselben Zählungen liefern: gleiche
+   Reihenfolge der Zufallszahlen, gleiche Sortierung, gleiche Rundung
+   (`floor(x + 0.5)` statt Pythons `round`).
    **Paar-Symmetrie:** „A gegen B" = „B gegen A" mit vertauschten Siegen.
    Das Boosting erzwingt das durch Mitteln mit der gespiegelten Paarung
    (`modell.spiegle`, `SYMMETRISCH`). Ein neues Merkmal muss dort als
@@ -146,5 +151,8 @@ Ergebnisse des Pipeline-Laufs stehen in
 - **Boosting in dünnen Ecken:** Ohne Monotonie-Vorgaben senkte eine hohe
   Gestellt-Bilanz bei 7–8 % der Paare die Gestellt-Chance. Neue Merkmale mit
   sachlich klarer Richtung gehören in `MONOTON_GESTELLT`/`MONOTON_SIEG`.
+- **Zahlen im vorgerenderten HTML:** Node formatiert `toLocaleString("de-CH")`
+  als `1'000`, der Browser als `1’000` — Hydration-Fehler. Was beim Vorrendern
+  schon sichtbar ist, nicht mit `zahl()` formatieren (s. Simulator-Auswahl).
 - **`pkill -f "next start"`** trifft auch die eigene Shell (das Muster steht
   in ihrer Kommandozeile). `pkill -f "[n]ext-server"` nehmen.

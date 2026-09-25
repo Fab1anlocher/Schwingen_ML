@@ -280,7 +280,38 @@ def erzeuge_faelle(artefakte: Path = ART, n_je_gruppe: int = 40, seed: int = 7) 
             "erwartet": {"h2h": h2h, "duelle": duelle, "duelle_gestellt": gestellt,
                          "merkmale": x, "wahrscheinlichkeiten": json_inferenz_wie_app(m, x)},
         })
-    return {"model": model, "modelle_alt": modelle_alt, "jahr": date.today().year, "faelle": faelle}
+    return {"model": model, "modelle_alt": modelle_alt, "jahr": date.today().year, "faelle": faelle,
+            "simulationen": simulations_faelle()}
+
+
+def simulations_faelle() -> list[dict]:
+    """Fest-Simulation (fest_simulation.simuliere) gegen web/lib/simulation.ts:
+    ungerades Feld (Freilos), beide Regelwerke (ein bzw. zwei Ausstiche),
+    zufällige, paar-konsistente Wahrscheinlichkeiten. Erwartet werden exakt
+    dieselben Zählungen -- gleicher Zufallsgenerator, gleiche Reihenfolge."""
+    from .fest_simulation import REGELN_JE_TYP, simuliere
+
+    rng = random.Random(5)
+    faelle = []
+    for typ, n, n_sim, seed in (("kantonal", 13, 150, 11), ("eidgenoessisch", 21, 80, 3)):
+        sieg = [[0.0] * n for _ in range(n)]
+        gestellt = [[0.0] * n for _ in range(n)]
+        for i in range(n):
+            for j in range(i + 1, n):
+                g = rng.uniform(0.05, 0.45)
+                pa = (1 - g) * rng.random()
+                sieg[i][j], sieg[j][i], gestellt[i][j], gestellt[j][i] = pa, 1 - g - pa, g, g
+        r = REGELN_JE_TYP[typ]
+        e = simuliere(sieg, gestellt, r, n_sim=n_sim, seed=seed)
+        faelle.append({
+            "typ": typ, "p_sieg": sieg, "p_gestellt": gestellt, "n_sim": n_sim, "seed": seed,
+            "regeln": {"gaenge": r.gaenge, "ausstiche": [list(a) for a in r.ausstiche],
+                       "kranzquote": r.kranzquote, "noten": r.noten,
+                       "anschwingen_anteil": r.anschwingen_anteil, "spielraum": r.spielraum},
+            "erwartet": {"festsieg": e.festsieg, "schlussgang": e.schlussgang, "kranz": e.kranz,
+                         "punkte_summe": e.punkte_summe, "kranzgrenze_summe": e.kranzgrenze_summe},
+        })
+    return faelle
 
 
 def main(argv: list[str] | None = None) -> int:

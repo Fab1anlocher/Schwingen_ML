@@ -10,6 +10,7 @@ import type {
   GauverbaendeArtifact,
   BenchmarkArtifact,
   ClusterArtifact,
+  SimulationBacktest,
 } from "./types";
 import type { VerlaufLauf } from "@/components/VerlaufDiagramm";
 
@@ -26,6 +27,9 @@ export const ladeKantone = () => ladeJson<KantoneArtifact>("/data/kantone.json")
 export const ladeGauverbaende = () => ladeJson<GauverbaendeArtifact>("/data/gauverbaende.json");
 export const ladeBenchmark = () => ladeJson<BenchmarkArtifact>("/data/benchmark.json");
 export const ladeCluster = () => ladeJson<ClusterArtifact>("/data/cluster.json");
+/** Fehlt, solange kein echter Pipeline-Lauf mit Ranglisten stattgefunden hat. */
+export const ladeSimulationBacktest = () =>
+  ladeJson<SimulationBacktest>("/data/simulation_backtest.json").catch(() => null);
 
 export async function ladeSchwinger(): Promise<Schwinger[]> {
   const obj = await ladeJson<{ schwinger: Schwinger[] }>("/data/schwinger.json");

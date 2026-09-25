@@ -17,9 +17,16 @@ const path = require("path");
 const BUILD = path.resolve(__dirname, "../.paritaet");
 const { baueFeatures, prognostiziere } = require(path.join(BUILD, "inference.js"));
 const { paarHistorie, trefferAusSichtVonA } = require(path.join(BUILD, "kopfAnKopf.js"));
+const { simuliere } = require(path.join(BUILD, "simulation.js"));
 
 const datei = process.argv[2] || path.join(BUILD, "faelle.json");
-const { model, modelle_alt: modelleAlt = {}, jahr, faelle } = JSON.parse(fs.readFileSync(datei, "utf8"));
+const {
+  model,
+  modelle_alt: modelleAlt = {},
+  jahr,
+  faelle,
+  simulationen = [],
+} = JSON.parse(fs.readFileSync(datei, "utf8"));
 
 // Relativ, weil Python und V8 bei exp/log1p im letzten Bit abweichen dürfen.
 const TOL = 1e-9;
@@ -99,12 +106,33 @@ for (const f of faelle) {
   if (fehler.length > vorher) g.fehler++;
 }
 
+// 5. Fest-Simulation: exakt dieselben Zählungen (gleicher Zufallsgenerator,
+//    gleiche Reihenfolge der Zufallszahlen, gleiche Sortierung).
+for (const s of simulationen) {
+  const r = simuliere(s.p_sieg, s.p_gestellt, s.regeln, s.n_sim, s.seed);
+  const vergleich = {
+    festsieg: r.festsieg,
+    schlussgang: r.schlussgang,
+    kranz: r.kranz,
+    punkte_summe: r.punkteSumme,
+    kranzgrenze_summe: r.kranzgrenzeSumme,
+  };
+  for (const [feld, ts] of Object.entries(vergleich)) {
+    if (JSON.stringify(ts) !== JSON.stringify(s.erwartet[feld])) {
+      fehler.push(`Simulation ${s.typ} | ${feld}: TS ${JSON.stringify(ts).slice(0, 80)} ≠ Python ` +
+        `${JSON.stringify(s.erwartet[feld]).slice(0, 80)}`);
+    }
+  }
+}
+
 console.log(`Parität TypeScript ↔ Python: ${faelle.length} Fälle, Modell mit ${model.features.length} Merkmalen ` +
   `(Merkmalsversion ${model.config.merkmal_version ?? 1})`);
 for (const [gruppe, { n, fehler: fe }] of Object.entries(proGruppe).sort()) {
   console.log(`  ${gruppe.padEnd(20)} ${String(n).padStart(3)} Fälle  ${fe ? `✗ ${fe} abweichend` : "✓"}`);
 }
 console.log(`  max. Abweichung Merkmale ${maxMerkmal.toExponential(2)}, Wahrscheinlichkeiten ${maxWahrsch.toExponential(2)}`);
+console.log(`  Fest-Simulation: ${simulationen.length} Fälle (${simulationen.map((s) => s.typ).join(", ")}) ` +
+  (fehler.some((z) => z.startsWith("Simulation")) ? "✗" : "✓"));
 
 if (fehler.length) {
   console.error(`\n✗ ${fehler.length} Abweichung(en) — die App rechnet anders als das Modell:`);

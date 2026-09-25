@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "paritaet": "tsc lib/inference.ts lib/kopfAnKopf.ts --outDir .paritaet --module commonjs --target es2020 --lib es2020,dom --strict --skipLibCheck && node scripts/paritaet.cjs"
+    "paritaet": "tsc lib/inference.ts lib/kopfAnKopf.ts lib/simulation.ts --outDir .paritaet --module commonjs --target es2020 --lib es2020,dom --strict --skipLibCheck && node scripts/paritaet.cjs"
   },
   "dependencies": {
     "next": "16.3.6",
