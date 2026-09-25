@@ -1,21 +1,16 @@
-"""Einmalige Quellen-Diagnose, Runde 2 (läuft auf einem GitHub-Runner).
+"""Einmalige Quellen-Diagnose, Runde 3 (läuft auf einem GitHub-Runner).
 
-Befund Runde 1: jedes Fest führt eine Schlussrangliste (field_final_ranking_pdf,
-<nid>-final.pdf) mit Wohnort und Schwingklub JEDES Teilnehmers.
-
-Fragen jetzt:
-  1. Abdeckung: wie viele Feste 2023-2026 haben eine Schlussrangliste?
-  2. Layout: Wortpositionen (x0) von Kopf- und Datenzeilen -- Wohnort und
-     Schwingklub lassen sich im Fliesstext nicht trennen ("Appenzell Schlatt
-     Appenzell"), nur über die Spaltenposition.
-  3. Ist das Layout über Jahre und Festtypen gleich?
+Holt eine Stichprobe echter Schlussranglisten-PDFs (verschiedene Jahre,
+Festtypen, Sonderpfade) und gibt sie base64-kodiert ins Log aus -- als
+Testmaterial für den Parser, der lokal entwickelt wird (schlussgang.ch ist
+aus der Entwicklungsumgebung nicht erreichbar).
 
 Höflich: robots.txt geprüft, 2 s Abstand je Host (http.hole).
 """
 from __future__ import annotations
 
-import collections
-import io
+import base64
+import gzip
 import json
 import sys
 from urllib.parse import urlencode
@@ -26,7 +21,6 @@ from pipeline.scrape.http import hole  # noqa: E402
 API = "https://backend-api.schlussgang.ch/jsonapi/node/event"
 BASIS = "https://www.schlussgang.ch"
 
-print("## 1. Abdeckung Schlussrangliste 2023-2026 (Aktivschwinger, abgeschlossen)")
 feste = []
 offset = 0
 while True:
@@ -41,69 +35,41 @@ while True:
         "sort": "-field_event_date",
         "page[limit]": 50,
         "page[offset]": offset,
-        "include": "field_final_ranking_pdf",
-        "fields[node--event]": "drupal_internal__nid,title,field_event_date,field_final_ranking_pdf,field_final_statistic_pdf",
-        "fields[file--file]": "filename,uri",
+        "include": "field_final_ranking_pdf,field_category",
+        "fields[node--event]": "drupal_internal__nid,title,field_event_date,field_final_ranking_pdf,field_category",
+        "fields[file--file]": "uri",
+        "fields[taxonomy_term--event_tags]": "name",
     }
     daten = json.loads(hole(f"{API}?{urlencode(params)}"))
-    dateien = {i["id"]: i["attributes"] for i in daten.get("included", [])}
+    inc = {i["id"]: i["attributes"] for i in daten.get("included", [])}
     for item in daten["data"]:
         a = item["attributes"]
         rel = (item["relationships"].get("field_final_ranking_pdf") or {}).get("data")
-        stat = (item["relationships"].get("field_final_statistic_pdf") or {}).get("data")
-        datei = dateien.get(rel["id"]) if rel else None
-        feste.append({
-            "nid": a["drupal_internal__nid"], "datum": a["field_event_date"], "titel": a["title"],
-            "rangliste": (datei or {}).get("uri", {}).get("url") if datei else None,
-            "statistik": bool(stat),
-        })
+        kat = (item["relationships"].get("field_category") or {}).get("data")
+        url = (inc.get(rel["id"]) or {}).get("uri", {}).get("url") if rel else None
+        feste.append({"nid": a["drupal_internal__nid"], "datum": a["field_event_date"],
+                      "titel": a["title"], "url": url,
+                      "kategorie": (inc.get(kat["id"]) or {}).get("name") if kat else None})
     if len(daten["data"]) < 50 or offset > 1500:
         break
     offset += 50
 
-nach_jahr = collections.defaultdict(lambda: [0, 0, 0])
+print("KATEGORIEN:", sorted({f["kategorie"] for f in feste if f["kategorie"]}))
+auswahl: dict[str, dict] = {}
 for f in feste:
-    j = nach_jahr[f["datum"][:4]]
-    j[0] += 1
-    j[1] += bool(f["rangliste"])
-    j[2] += f["statistik"]
-for jahr in sorted(nach_jahr):
-    n, r, s = nach_jahr[jahr]
-    print(f"- {jahr}: {n} Feste, Schlussrangliste {r}, Statistik {s}")
-namen = collections.Counter((f["rangliste"] or "").rsplit("-", 1)[-1] for f in feste if f["rangliste"])
-print(f"- Dateinamen-Endungen: {dict(namen)}")
+    if not f["url"]:
+        continue
+    k = f["kategorie"] or "?"
+    jahr = f["datum"][:4]
+    if f"{k}-{jahr}" not in auswahl and len(auswahl) < 14:
+        auswahl[f"{k}-{jahr}"] = f
+    if not f["url"].endswith("-final.pdf"):
+        auswahl[f"sonder-{f['nid']}"] = f
 
-
-def layout(fest: dict, n_zeilen: int = 14) -> None:
-    import pdfplumber
-    url = BASIS + fest["rangliste"]
-    print(f"\n### {fest['titel']} ({fest['datum']}) {url}")
-    with pdfplumber.open(io.BytesIO(hole(url, binaer=True))) as pdf:
-        print(f"  Seiten: {len(pdf.pages)}, Breite {pdf.pages[0].width:.0f}")
-        woerter = pdf.pages[0].extract_words(keep_blank_chars=False, use_text_flow=False)
-        zeilen = collections.defaultdict(list)
-        for w in woerter:
-            zeilen[round(w["top"] / 3)].append(w)
-        for i, key in enumerate(sorted(zeilen)):
-            if i >= n_zeilen:
-                break
-            ws = sorted(zeilen[key], key=lambda w: w["x0"])
-            print("  " + " | ".join(f"{w['text']}@{w['x0']:.0f}" for w in ws))
-        # letzte Seite, letzte Zeilen (Fusszeile / Ende der Tabelle)
-        letzte = pdf.pages[-1].extract_text() or ""
-        print("  … letzte Zeilen: " + " // ".join(letzte.splitlines()[-4:]))
-
-
-mit = [f for f in feste if f["rangliste"]]
-if mit:
-    stichprobe = {}
-    for f in mit:
-        t = f["titel"].lower()
-        if "eidgen" in t and "eidg" not in stichprobe:
-            stichprobe["eidg"] = f
-        elif "kantonal" in t and "kant" not in stichprobe:
-            stichprobe["kant"] = f
-    stichprobe["aeltestes"] = mit[-1]
-    stichprobe["neuestes"] = mit[0]
-    for f in stichprobe.values():
-        layout(f)
+for schluessel, f in auswahl.items():
+    pdf = hole(BASIS + f["url"], binaer=True)
+    kodiert = base64.b64encode(gzip.compress(pdf)).decode()
+    print(f"PDFSTART {json.dumps({**f, 'schluessel': schluessel})}")
+    for i in range(0, len(kodiert), 4000):
+        print("PDF " + kodiert[i:i + 4000])
+    print("PDFENDE")
