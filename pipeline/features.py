@@ -10,7 +10,7 @@ import math
 from collections import deque, defaultdict
 from itertools import groupby
 
-from .config import FORM_FENSTER_K, GESTELLT_NEIGUNG_K, MERKMAL_VERSION
+from .config import ELO_START, FORM_FENSTER_K, GESTELLT_NEIGUNG_K, MERKMAL_VERSION, PAAR_GESTELLT_K
 from .schema import Schwinger, KRANZSTATUS_ORDINAL, hat_portraet
 from .labels import GangResultat
 
@@ -51,7 +51,25 @@ FEATURE_NAMES = [
     # Karrierehälfte r = 0.67). Ohne sie konnte das Modell Gestellte kaum
     # unterscheiden (AUC 0.64 -> 0.72 mit diesem Merkmal).
     "gestellt_neigung",
+    # --- ab Merkmalsversion 3 (beide symmetrisch) ---
+    # Gestellt-Bilanz DIESES Paars: Anteil gestellter bisheriger Duelle,
+    # geschrumpft gegen die Erwartung aus den beiden Einzelneigungen, minus
+    # diese Erwartung. 0 = ohne Duelle oder wie erwartet. Die Einzelneigung
+    # allein sieht es nicht: Orlik und Staudenmann stellen gegen das Feld
+    # selten (21 % / 17 %), gegeneinander 5 von 6 Mal. Paare mit >= 2 Duellen,
+    # davon >= die Hälfte gestellt: 42 % gestellt, v2 sagte 32 % voraus.
+    "paar_gestellt",
+    # Spitzen-Niveau: wie stark der SCHWÄCHERE der beiden ist, in Streuungen
+    # über dem Startwert, unten bei 0 abgeschnitten -- hoch nur, wenn BEIDE
+    # stark sind. Spitzenschwinger schlagen das Feld und haben darum eine
+    # tiefe Einzelneigung; treffen zwei aufeinander, wird aber öfter gestellt
+    # (oberstes 1 %: 29.7 %). Version 2 sagte dort 18.2 % voraus -- mit
+    # steigendem Niveau sogar WENIGER Gestellte, genau falsch herum.
+    "spitzen_niveau",
 ]
+
+# Die ersten N Merkmale je Merkmalsversion (neue Merkmale nur hinten anhängen).
+MERKMALE_JE_VERSION = {1: 13, 2: 14, 3: 16}
 
 # Schrumpfungsstärke für kopf_an_kopf: entspricht K "neutralen Phantom-Duellen"
 # gegen die die echte Bilanz gemittelt wird, damit ein einzelnes Duell nicht
@@ -75,6 +93,8 @@ FEATURE_LABELS = {
     "kopf_an_kopf": "Bisherige direkte Duelle",
     "portraet_diff": "Porträt/Profildaten vorhanden",
     "gestellt_neigung": "Gestellt-Neigung beider Schwinger",
+    "paar_gestellt": "Gestellt-Bilanz dieses Paars",
+    "spitzen_niveau": "Spitzenpaarung (beide stark)",
 }
 
 
@@ -185,15 +205,17 @@ def baue_features(
             form_a = _form_wert(form_hist[a_id])
             form_b = _form_wert(form_hist[b_id])
             h2h_a = _kopf_an_kopf_vorteil(a_id, b_id, paar_hist)
-            neigung = paar_neigung(
-                _neigung(neigung_d[a_id], neigung_n[a_id], basis),
-                _neigung(neigung_d[b_id], neigung_n[b_id], basis),
-                basis,
-            )
+            neigung_a = _neigung(neigung_d[a_id], neigung_n[a_id], basis)
+            neigung_b = _neigung(neigung_d[b_id], neigung_n[b_id], basis)
+            neigung = paar_neigung(neigung_a, neigung_b, basis)
+            # paar_hist hält Punkte aus Sicht der kleineren ID; 0.5 = gestellt.
+            duelle = paar_hist.get((a_id, b_id), [])
+            bilanz = paar_gestellt(len(duelle), sum(1 for p in duelle if p == 0.5),
+                                   neigung_a, neigung_b)
 
             X.append(_feature_vektor(elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb,
                                      gang.datum, h2h_a, elo_skala=skala,
-                                     gestellt_neigung=neigung))
+                                     gestellt_neigung=neigung, paar_gestellt=bilanz))
             label = klass_idx[gang.ergebnis]
             y.append(label)
             meta.append(
@@ -218,7 +240,7 @@ def baue_features(
                 # Die Neigung ist symmetrisch und bleibt; alles Gerichtete dreht.
                 X.append(_feature_vektor(elo_b, elo_a, form_b, form_a, n_b, n_a, sb, sa,
                                          gang.datum, -h2h_a, elo_skala=skala,
-                                         gestellt_neigung=neigung))
+                                         gestellt_neigung=neigung, paar_gestellt=bilanz))
                 y.append({0: 2, 1: 1, 2: 0}[label])
                 meta.append({**meta[-1], "augmented": True, "elo_diff": elo_b - elo_a})
 
@@ -252,6 +274,7 @@ def _feature_vektor(
     version: int = MERKMAL_VERSION,
     elo_skala: float = 100.0,
     gestellt_neigung: float = 0.0,
+    paar_gestellt: float = 0.0,
 ) -> list[float]:
     """Merkmalsvektor A-vs-B -- die EINZIGE Definition. Training, Live-Prognose,
     verify_inference und die Paritätsprüfung rufen alle diese Funktion auf.
@@ -259,7 +282,9 @@ def _feature_vektor(
     version 1 (ältere ausgelieferte Modelle): Elo-Abstand / 100, Erfahrung als
     rohe Differenz, keine Gestellt-Neigung. version 2: Elo-Abstand / elo_skala
     (Streuung der aktiven Ratings), Erfahrung logarithmisch, Gestellt-Neigung
-    angehängt. Die App spiegelt beide Versionen (web/lib/inference.ts).
+    angehängt. version 3: zusätzlich Gestellt-Bilanz des Paars (wird
+    übergeben) und Spitzen-Niveau (aus Elo und Skala). Die App spiegelt alle
+    Versionen (web/lib/inference.ts).
     """
     kranz_a = KRANZSTATUS_ORDINAL.get(sa.kranzstatus, 0)
     kranz_b = KRANZSTATUS_ORDINAL.get(sb.kranzstatus, 0)
@@ -286,12 +311,31 @@ def _feature_vektor(
     ]
     if v2:
         vektor.append(gestellt_neigung)                  # gestellt_neigung
+    if version >= 3:
+        vektor.append(paar_gestellt)                     # paar_gestellt
+        vektor.append(spitzen_niveau(elo_a, elo_b, skala))  # spitzen_niveau
     return vektor
 
 
 def _neigung(gestellt: float, gaenge: float, basis: float) -> float:
     """Geschrumpfte Gestellt-Quote EINES Schwingers (Empirical Bayes)."""
     return (gestellt + GESTELLT_NEIGUNG_K * basis) / (gaenge + GESTELLT_NEIGUNG_K)
+
+
+def paar_gestellt(duelle: int, gestellt: int, neigung_a: float, neigung_b: float) -> float:
+    """Gestellt-Bilanz eines Paars über die Erwartung hinaus (Empirical Bayes).
+
+    Erwartung = Mittel der beiden Einzelneigungen. Die eigene Quote wird mit
+    PAAR_GESTELLT_K Phantom-Duellen gegen sie geschrumpft; zurück kommt der
+    Überschuss. Ohne Duelle exakt 0.
+    """
+    erwartung = (neigung_a + neigung_b) / 2.0
+    return (gestellt + PAAR_GESTELLT_K * erwartung) / (duelle + PAAR_GESTELLT_K) - erwartung
+
+
+def spitzen_niveau(elo_a: float, elo_b: float, skala: float) -> float:
+    """Stärke des schwächeren Schwingers in Streuungen über dem Startwert, >= 0."""
+    return max(0.0, (min(elo_a, elo_b) - ELO_START) / skala)
 
 
 def paar_neigung(neigung_a: float, neigung_b: float, basis: float) -> float:
@@ -306,6 +350,8 @@ def feature_vektor_fuer_prognose(
     modell_config: dict | None = None,
     neigung_a: float | None = None,
     neigung_b: float | None = None,
+    duelle: int = 0,
+    duelle_gestellt: int = 0,
 ) -> list[float]:
     """Live-Prognose: der Vektor so, wie die App ihn für DIESES Modell baut.
 
@@ -316,7 +362,8 @@ def feature_vektor_fuer_prognose(
     (schwinger.json); fehlen sie, gilt die Basis (neutral), wie in der App.
 
     kopf_an_kopf_a: geglättete bisherige A-vs-B-Bilanz, s. _kopf_an_kopf_vorteil
-    (in der App: web/lib/kopfAnKopf.ts).
+    (in der App: web/lib/kopfAnKopf.ts). duelle / duelle_gestellt: Anzahl
+    bisheriger Duelle des Paars und davon gestellte (Version 3).
     """
     cfg = modell_config or {}
     version = int(cfg.get("merkmal_version", 1))
@@ -324,15 +371,14 @@ def feature_vektor_fuer_prognose(
         return _feature_vektor(elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb, datum,
                                kopf_an_kopf_a, version=1)
     basis = float(cfg["gestellt_basis"])
+    na = basis if neigung_a is None else neigung_a
+    nb = basis if neigung_b is None else neigung_b
     return _feature_vektor(
         elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb, datum, kopf_an_kopf_a,
         version=version,
         elo_skala=float(cfg["elo_streuung"]),
-        gestellt_neigung=paar_neigung(
-            basis if neigung_a is None else neigung_a,
-            basis if neigung_b is None else neigung_b,
-            basis,
-        ),
+        gestellt_neigung=paar_neigung(na, nb, basis),
+        paar_gestellt=paar_gestellt(duelle, duelle_gestellt, na, nb) if version >= 3 else 0.0,
     )
 
 

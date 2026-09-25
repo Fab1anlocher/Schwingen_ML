@@ -37,9 +37,22 @@ ELO_DRAW_WIDTH = 0.30
 #   1: Elo-Abstand / 100, Erfahrung als rohe Differenz der Gangzahlen
 #   2: Elo-Abstand / aktuelle Streuung, Erfahrung logarithmisch,
 #      + Gestellt-Neigung
-# Gemessen an echten Daten (Validierung 2025 und Test 2026 gleichsinnig):
-# Test-Log-Loss 0.8314 -> 0.7503, Accuracy 63.9 % -> 68.2 %.
-MERKMAL_VERSION = 2
+#      Gemessen an echten Daten (Validierung 2025 und Test 2026 gleichsinnig):
+#      Test-Log-Loss 0.8314 -> 0.7503, Accuracy 63.9 % -> 68.2 %.
+#   3: + Gestellt-Bilanz des Paars, + Spitzen-Niveau (s. features.py).
+#      Version 2 unterschätzte Gestellt genau dort, wo man hinschaut: in den
+#      Spitzenpaarungen (oberstes 1 % nach Stärke, Test 2026: 18.2 %
+#      vorhergesagt, 29.7 % eingetreten) und bei Paaren, die schon oft
+#      gestellt haben (>= 2 Duelle, davon >= die Hälfte gestellt: 32.5 % zu
+#      42.1 %). Mit Version 3: 29.6 % bzw. 40.1 %; Log-Loss Validierung 2025
+#      0.7771 -> 0.7757, Test 2026 0.7503 -> 0.7491.
+MERKMAL_VERSION = 3
+
+# Gestellt-Bilanz eines Paars: Anteil gestellter Duelle, geschrumpft gegen die
+# Erwartung aus den beiden Einzelneigungen mit so vielen "Phantom-Duellen".
+# K = 2, 4, 8, 16 lagen auf Validierung und Test gleichauf (+-0.0001); 4 heisst:
+# nach vier Duellen zählt die eigene Bilanz so viel wie die Erwartung.
+PAAR_GESTELLT_K = 4.0
 
 # Gestellt-Neigung je Schwinger: Anteil gestellter Gänge, geschrumpft gegen
 # den Gesamtdurchschnitt mit so vielen "Phantom-Gängen". Die Neigung ist eine

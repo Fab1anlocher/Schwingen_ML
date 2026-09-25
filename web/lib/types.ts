@@ -27,6 +27,15 @@ export interface ModelArtifact {
   erstellt: string;
 }
 
+/** Bisherige direkte Duelle eines Paars, verdichtet (s. lib/kopfAnKopf.ts). */
+export interface PaarHistorie {
+  /** Geglättete Bilanz aus Sicht von A, ~0 ohne Duelle (Merkmal kopf_an_kopf). */
+  vorteilA: number;
+  /** Anzahl bisheriger Duelle und davon gestellte (Merkmal paar_gestellt, ab Version 3). */
+  duelle: number;
+  gestellt: number;
+}
+
 export interface GroessterErfolg {
   gegner_name: string;
   event_id: string;

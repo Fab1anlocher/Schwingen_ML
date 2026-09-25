@@ -1,7 +1,12 @@
 // Clientseitige Logistic-Regression-Inferenz (§7, NFR-2: < 500 ms).
 // Spiegelt pipeline/features._feature_vektor und pipeline/train exakt.
 
-import type { ModelArtifact, Schwinger, Prognose, Klasse, Beitrag } from "./types";
+import type { ModelArtifact, Schwinger, Prognose, Klasse, Beitrag, PaarHistorie } from "./types";
+import { KEINE_HISTORIE } from "./kopfAnKopf";
+
+// Spiegelt pipeline/config.PAAR_GESTELLT_K -- die Paritätsprüfung fällt um,
+// wenn beide auseinanderlaufen.
+const PAAR_GESTELLT_K = 4.0;
 
 const AKTUELLES_JAHR = new Date().getFullYear();
 
@@ -15,6 +20,13 @@ function diffOderNull(a: number | null, b: number | null): number {
  *  Kranzstatus-Test wäre zirkulär). */
 export function hatPortraet(s: Schwinger): boolean {
   return (s.quellen ?? []).some((q) => q.includes("portraet"));
+}
+
+/** Spiegelt features.paar_gestellt: Gestellt-Bilanz des Paars über die
+ *  Erwartung aus beiden Einzelneigungen hinaus, geschrumpft; ohne Duelle 0. */
+function paarGestellt(duelle: number, gestellt: number, neigungA: number, neigungB: number): number {
+  const erwartung = (neigungA + neigungB) / 2;
+  return (gestellt + PAAR_GESTELLT_K * erwartung) / (duelle + PAAR_GESTELLT_K) - erwartung;
 }
 
 function schwungOverlap(a: Schwinger, b: Schwinger): number {
@@ -35,7 +47,8 @@ function schwungOverlap(a: Schwinger, b: Schwinger): number {
  *  hinterherhinken. Ohne Versionsangabe gilt 1.
  *    1: Elo-Abstand / 100, Erfahrung als rohe Differenz, 13 Merkmale
  *    2: Elo-Abstand / Streuung der aktiven Ratings, Erfahrung logarithmisch,
- *       + Gestellt-Neigung (14 Merkmale) */
+ *       + Gestellt-Neigung (14 Merkmale)
+ *    3: + Gestellt-Bilanz des Paars, + Spitzen-Niveau (16 Merkmale) */
 export function baueFeatures(
   model: ModelArtifact,
   a: Schwinger,
@@ -44,14 +57,15 @@ export function baueFeatures(
   eloB: number,
   nA: number,
   nB: number,
-  kopfAnKopfA: number = 0
+  paar: PaarHistorie = KEINE_HISTORIE
 ): number[] {
   const kranz = model.config.kranzstatus_ordinal;
   const kranzA = kranz[a.kranzstatus] ?? 0;
   const kranzB = kranz[b.kranzstatus] ?? 0;
   const alterA = a.jahrgang !== null ? AKTUELLES_JAHR - a.jahrgang : null;
   const alterB = b.jahrgang !== null ? AKTUELLES_JAHR - b.jahrgang : null;
-  const v2 = (model.config.merkmal_version ?? 1) >= 2;
+  const version = model.config.merkmal_version ?? 1;
+  const v2 = version >= 2;
   const skala = v2 ? (model.config.elo_streuung as number) : 100.0;
 
   const x = [
@@ -66,7 +80,7 @@ export function baueFeatures(
     a.teilverband && a.teilverband === b.teilverband ? 1 : 0, // same_teilverband
     schwungOverlap(a, b), // schwung_overlap
     (a.bevorzugte_schwuenge?.length ?? 0) - (b.bevorzugte_schwuenge?.length ?? 0), // schwung_count_diff
-    kopfAnKopfA, // kopf_an_kopf
+    paar.vorteilA, // kopf_an_kopf
     (hatPortraet(a) ? 1 : 0) - (hatPortraet(b) ? 1 : 0), // portraet_diff
   ];
   if (v2) {
@@ -75,6 +89,11 @@ export function baueFeatures(
     const neigungA = a.gestellt_neigung ?? basis;
     const neigungB = b.gestellt_neigung ?? basis;
     x.push((neigungA + neigungB) / 2 - basis); // gestellt_neigung
+    if (version >= 3) {
+      x.push(paarGestellt(paar.duelle, paar.gestellt, neigungA, neigungB)); // paar_gestellt
+      // spitzen_niveau: Stärke des Schwächeren über dem Startwert, >= 0.
+      x.push(Math.max(0, (Math.min(eloA, eloB) - model.config.elo_start) / skala));
+    }
   }
   return x;
 }
@@ -90,8 +109,16 @@ export function baueFeatures(
  *  auf beiden Seiten vorliegen; der Datenunterschied selbst steht offen als
  *  portraet_diff da. Die Wahrscheinlichkeit ändert sich dadurch NICHT --
  *  nur die angezeigte Begründung. */
-function beruhtAufFehlendenDaten(feat: string, a: Schwinger, b: Schwinger): boolean {
+function beruhtAufFehlendenDaten(
+  feat: string,
+  a: Schwinger,
+  b: Schwinger,
+  paar: PaarHistorie
+): boolean {
   switch (feat) {
+    // Ohne ein einziges Duell gibt es keine Bilanz, nur den Durchschnitt.
+    case "paar_gestellt":
+      return paar.duelle === 0;
     case "gewicht_diff":
       return a.gewicht_kg === null || b.gewicht_kg === null;
     case "groesse_diff":
@@ -144,6 +171,8 @@ const BEITRAG_TEXT: Record<string, { titel: string; unter: string }> = {
   kopf_an_kopf: { titel: "Direkte Duelle", unter: "Bisherige Begegnungen" },
   portraet_diff: { titel: "Datenlage", unter: "Profil mit Physis & Kranzstatus vorhanden" },
   gestellt_neigung: { titel: "Gestellt-Neigung", unter: "Wie oft beide bisher gestellt haben" },
+  paar_gestellt: { titel: "Gestellt-Bilanz", unter: "Wie oft genau diese beiden gestellt haben" },
+  spitzen_niveau: { titel: "Niveau der Paarung", unter: "Wie stark der Schwächere der beiden ist" },
 };
 
 /** Merkmale, die beim Tausch von A und B GLEICH bleiben (statt das Vorzeichen
@@ -153,11 +182,21 @@ const BEITRAG_TEXT: Record<string, { titel: string; unter: string }> = {
  *  "Gestellt". Früher wurden sie wie alle anderen an p(Sieg A) gemessen und
  *  dem Gegner gutgeschrieben, sobald p(Sieg A) sank -- "Gleicher Verband:
  *  +7 %-Pkt. für B", obwohl auch B's Siegchance dadurch sank. */
-const SYMMETRISCH = new Set(["rating_abstand", "same_teilverband", "schwung_overlap", "gestellt_neigung"]);
+const SYMMETRISCH = new Set([
+  "rating_abstand",
+  "same_teilverband",
+  "schwung_overlap",
+  "gestellt_neigung",
+  "paar_gestellt",
+  "spitzen_niveau",
+]);
 
-function unterzeile(feat: string, a: Schwinger, b: Schwinger): string {
+function unterzeile(feat: string, a: Schwinger, b: Schwinger, paar: PaarHistorie): string {
   if (feat === "same_teilverband") {
     return a.teilverband === b.teilverband ? "Gleicher Verband" : "Verschiedene Verbände";
+  }
+  if (feat === "paar_gestellt") {
+    return `${paar.gestellt} von ${paar.duelle} Duellen gestellt`;
   }
   return BEITRAG_TEXT[feat]?.unter ?? "";
 }
@@ -171,7 +210,7 @@ export function prognostiziere(
   eloB: number,
   nA: number,
   nB: number,
-  kopfAnKopfA: number = 0
+  paar: PaarHistorie = KEINE_HISTORIE
 ): Prognose {
   // Auf die Merkmale kürzen, die DIESES model.json kennt. Das ausgelieferte
   // Modell kommt aus dem Repo und kann dem Code einen Lauf hinterherhinken
@@ -180,7 +219,7 @@ export function prognostiziere(
   // pipeline/features.FEATURE_NAMES) -- die ersten N stimmen dann überein.
   // Vorher klappte es nur zufällig: das überzählige z war NaN und wurde bloss
   // deshalb nie gelesen, weil die Koeffizientenzeilen kürzer waren.
-  const x = baueFeatures(model, a, b, eloA, eloB, nA, nB, kopfAnKopfA).slice(
+  const x = baueFeatures(model, a, b, eloA, eloB, nA, nB, paar).slice(
     0,
     model.features.length
   );
@@ -206,13 +245,13 @@ export function prognostiziere(
   const iGestellt = model.klassen.indexOf("gestellt");
   const beitraege: Beitrag[] = model.features
     .map((feat, i) => ({ feat, i }))
-    .filter(({ feat }) => !beruhtAufFehlendenDaten(feat, a, b))
+    .filter(({ feat }) => !beruhtAufFehlendenDaten(feat, a, b, paar))
     .map(({ feat, i }): Beitrag => {
       const zOhneMerkmal = z.slice();
       zOhneMerkmal[i] = 0;
       const ohne = wahrscheinlichkeiten(model, zOhneMerkmal);
       const titel = BEITRAG_TEXT[feat]?.titel ?? model.feature_labels[feat] ?? feat;
-      const basis = { titel, unterzeile: unterzeile(feat, a, b) };
+      const basis = { titel, unterzeile: unterzeile(feat, a, b, paar) };
       if (SYMMETRISCH.has(feat)) {
         const d = (probs[iGestellt] - ohne[iGestellt]) * 100;
         return { ...basis, richtung: "gestellt", staerke: Math.abs(d), veraenderung: d };

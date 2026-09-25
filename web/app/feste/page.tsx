@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ladeEvents, ladeModel, ladeRatings, ladeSchwinger } from "@/lib/data";
 import { prognostiziere } from "@/lib/inference";
-import { ladeKopfAnKopf, kopfAnKopfVorteilA } from "@/lib/kopfAnKopf";
+import { ladeKopfAnKopf, paarHistorie, KEINE_HISTORIE } from "@/lib/kopfAnKopf";
 import { teilverbandFuerFest } from "@/lib/teilverband";
 import type {
   EventsArtifact,
@@ -209,7 +209,7 @@ function PaarungZeile({
   ratings: RatingsArtifact;
   model: ModelArtifact;
 }) {
-  const [h2h, setH2h] = useState(0);
+  const [paar, setPaar] = useState(KEINE_HISTORIE);
   const aId = a?.id;
   const bId = b?.id;
   useEffect(() => {
@@ -217,7 +217,7 @@ function PaarungZeile({
     let abgebrochen = false;
     ladeKopfAnKopf(aId, bId)
       .then((treffer) => {
-        if (!abgebrochen) setH2h(kopfAnKopfVorteilA(treffer));
+        if (!abgebrochen) setPaar(paarHistorie(treffer));
       })
       .catch(() => {
         /* ohne Historie bleibt es bei 0 — dieselbe Annahme wie bisher */
@@ -230,7 +230,7 @@ function PaarungZeile({
   if (!a || !b) return null;
   const ra = ratings.ratings[a.id] ?? { elo: ratings.elo_start, n_gaenge: 0 };
   const rb = ratings.ratings[b.id] ?? { elo: ratings.elo_start, n_gaenge: 0 };
-  const pr = prognostiziere(model, a, b, ra.elo, rb.elo, ra.n_gaenge, rb.n_gaenge, h2h);
+  const pr = prognostiziere(model, a, b, ra.elo, rb.elo, ra.n_gaenge, rb.n_gaenge, paar);
   const zelle = (v: number) => (
     <>
       {(v * 100).toFixed(0)}%
