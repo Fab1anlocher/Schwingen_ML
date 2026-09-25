@@ -39,17 +39,39 @@ def _laufe(rl, events, sw):
     return trenne_namensvettern(rl, events, idx.finde, sw)
 
 
-def test_zwei_personen_zur_selben_zeit_werden_getrennt():
-    ev = _events("2024-05-01", "2024-06-01", "2024-07-01", "2024-08-01")
+def _abwechselnd(n):
+    """n Feste, abwechselnd für Ottoberg (Thurgau) und Wolhusen (Luzern)."""
+    ev = _events(*[f"2024-{4 + i // 4:02d}-{1 + 7 * (i % 4):02d}" for i in range(n)])
+    rl = _rl({f"e{i}": [{"name": "Giger Samuel", "schwingklub": "Ottoberg" if i % 2 == 0 else "Wolhusen"}]
+              for i in range(n)})
+    return ev, rl
+
+
+def test_durchmischte_auftritte_sind_zwei_personen():
+    ev, rl = _abwechselnd(8)  # 7 Wechsel
+    zuordnung, neue, bericht = _laufe(rl, ev, _sw())
+    t = namens_tokens("Samuel Giger")
+    assert zuordnung == {(f"e{i}", t): "giger samuel|is" for i in (1, 3, 5, 7)}
+    assert neue["giger samuel|is"]["namensvetter_von"] == "giger"
+    assert bericht["personen_getrennt"] == 1 and bericht["feste_umgehaengt"] == 4
+
+
+def test_fest_am_selben_tag_reicht_als_beleg():
+    ev = _events("2024-05-01", "2024-05-01", "2024-06-01", "2024-07-01")
     rl = _rl({"e0": [{"name": "Giger Samuel", "schwingklub": "Ottoberg"}],
               "e1": [{"name": "Giger Samuel", "schwingklub": "Wolhusen"}],
               "e2": [{"name": "Giger Samuel", "schwingklub": "Ottoberg"}],
               "e3": [{"name": "Giger Samuel", "schwingklub": "Wolhusen"}]})
-    zuordnung, neue, bericht = _laufe(rl, ev, _sw())
-    t = namens_tokens("Samuel Giger")
-    assert zuordnung == {("e1", t): "giger samuel|is", ("e3", t): "giger samuel|is"}
-    assert neue["giger samuel|is"]["namensvetter_von"] == "giger"
-    assert bericht["personen_getrennt"] == 1 and bericht["feste_umgehaengt"] == 2
+    zuordnung, _, _ = _laufe(rl, ev, _sw())
+    assert set(zuordnung.values()) == {"giger samuel|is"} and len(zuordnung) == 2
+
+
+def test_wenige_wechsel_ohne_selben_tag_bleiben_eine_person():
+    """Hin und zurück (Théo Rogivue: 2024 Berner Klub, 2025 wieder Freiburger)."""
+    ev = _events("2023-05-01", "2023-06-01", "2024-05-01", "2024-06-01", "2025-05-01", "2025-06-01")
+    rl = _rl({f"e{i}": [{"name": "Giger Samuel", "schwingklub": k}]
+              for i, k in enumerate(["Ottoberg", "Ottoberg", "Wolhusen", "Wolhusen", "Ottoberg", "Ottoberg"])})
+    assert _laufe(rl, ev, _sw())[0] == {}
 
 
 def test_klubwechsel_nacheinander_bleibt_eine_person():
@@ -87,14 +109,10 @@ def test_beide_am_selben_fest_bleibt_wie_es_ist():
 
 
 def test_teilnahmen_folgen_der_zuordnung():
-    ev = _events("2024-05-01", "2024-06-01", "2024-07-01", "2024-08-01")
-    rl = _rl({"e0": [{"name": "Giger Samuel", "schwingklub": "Ottoberg", "kranz": True}],
-              "e1": [{"name": "Giger Samuel", "schwingklub": "Wolhusen"}],
-              "e2": [{"name": "Giger Samuel", "schwingklub": "Ottoberg"}],
-              "e3": [{"name": "Giger Samuel", "schwingklub": "Wolhusen"}]})
+    ev, rl = _abwechselnd(8)
     sw = _sw()
     zuordnung, neue, _ = _laufe(rl, ev, sw)
     idx = baue_namensindex([{"id": k, "name": v.name} for k, v in sw.items()])
     teilnahmen, _ = teilnahmen_aus_ranglisten(rl, ev, idx.finde, sw, zuordnung=zuordnung)
     giger = sorted((t.event_id, t.schwinger_id) for t in teilnahmen if "giger" in t.schwinger_id)
-    assert giger == [("e0", "giger"), ("e1", "giger samuel|is"), ("e2", "giger"), ("e3", "giger samuel|is")]
+    assert giger == [(f"e{i}", "giger" if i % 2 == 0 else "giger samuel|is") for i in range(8)]

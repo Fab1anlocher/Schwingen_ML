@@ -66,8 +66,10 @@ def _hat_profildaten(s: Schwinger) -> bool:
 
 def _normiert(name: str) -> str:
     """Gross-/Kleinschreibung vereinheitlichen (Rohdaten uneinheitlich, z.B.
-    "innerer Haken" vs. "Innerer Haken" -- sonst zwei Spalten für dasselbe."""
-    return name.strip()[:1].lower() + name.strip()[1:] if name.strip() else name
+    "innerer Haken" vs. "Innerer Haken" -- sonst zwei Spalten für dasselbe).
+    Schwünge sind Nomen, darum mit Grossbuchstaben: "Innerer Haken", "Kurz".
+    Spiegelt web/lib/labels.ts:schwungName."""
+    return name.strip()[:1].upper() + name.strip()[1:] if name.strip() else name
 
 
 def _ermittle_top_schwuenge(kandidaten: list[tuple[str, Schwinger]]) -> list[str]:

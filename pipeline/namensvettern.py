@@ -17,12 +17,16 @@ ranglisten.verband_ueber_klub). Zwei Belege trennen:
 1. **Jahrgang-Zusatz**: die Rangliste schreibt Namensvettern mit Jahrgang
    ("Giger Samuel (2004)"). Weicht er vom Jahrgang des Porträts ab, ist es
    sicher eine andere Person.
-2. **Klub eines anderen Teilverbands, zur selben Zeit**: startet "derselbe"
-   Schwinger an Festen für Klubs zweier Teilverbände und überlappen sich die
-   Zeiträume, sind es zwei Personen. Ein Klubwechsel über die Verbandsgrenze
-   ist dagegen EIN Wechsel: vorher der eine, nachher der andere Verband --
-   das bleibt eine Person. Die Gruppe im Verband des Porträts bleibt beim
-   Porträt, die andere bekommt einen eigenen Eintrag.
+2. **Klub eines anderen Teilverbands, durchmischt**: startet "derselbe"
+   Schwinger an Festen für Klubs zweier Teilverbände, und wechseln sich die
+   beiden in der zeitlichen Abfolge ständig ab -- oder stehen sie am selben
+   Tag an zwei Festen --, sind es zwei Personen. Ein Klubwechsel ist dagegen
+   ein Block: vorher der eine, nachher der andere Verband, höchstens noch
+   einmal zurück. Gemessen an den echten Daten trennt das scharf: echte
+   Namensvettern 20-38 Wechsel und immer auch Feste am selben Tag, Klub-
+   wechsler (Théo Rogivue, Flurin Eymann u. a.) 2-5 Wechsel und nie am selben
+   Tag. Die Gruppe im Verband des Porträts bleibt beim Porträt, die andere
+   bekommt einen eigenen Eintrag.
 
 Zurück kommt eine Zuordnung (Fest, Namens-Tokens) -> neue ID. Sie gilt für
 die Gänge (Statistik-PDF) UND die Ranglisten-Einträge desselben Fests. Wo
@@ -48,6 +52,11 @@ MIN_KLUB_ANTEIL = 0.8
 # Ab so vielen Festen gilt eine Verbandsgruppe als eigene Person -- ein
 # einzelnes Gastspiel-Fest mit falsch erkanntem Klub reicht nicht.
 MIN_FESTE_JE_GRUPPE = 2
+# Ohne Fest am selben Tag: so viele Wechsel zwischen den beiden Gruppen in der
+# zeitlichen Abfolge braucht es mindestens -- absolut und als Anteil dessen,
+# was zufälliges Durchmischen erwarten liesse (2mn/(m+n) bei m und n Festen).
+MIN_WECHSEL = 6
+MIN_WECHSEL_ANTEIL = 0.5
 
 _VERBAND_KURZ = {
     "Bern": "be", "Innerschweiz": "is", "Nordostschweiz": "nos",
@@ -64,6 +73,24 @@ def _basisname(name: str) -> tuple[str, int | None]:
 
 def _vetter_id(tokens: tuple[str, ...], zusatz: str) -> str:
     return f"{' '.join(tokens)}|{zusatz}"
+
+
+def sind_zwei_personen(heim: list[tuple[str, str]], fremd: list[tuple[str, str]]) -> bool:
+    """Zwei Gruppen von Auftritten (Datum, Fest) -- durchmischt oder nacheinander?
+
+    Zwei Personen, wenn eine am selben Tag an einem ANDEREN Fest stand als die
+    andere, oder wenn die zeitliche Abfolge oft zwischen den Gruppen wechselt.
+    """
+    heim_je_tag: dict[str, set] = defaultdict(set)
+    for datum, eid in heim:
+        heim_je_tag[datum].add(eid)
+    if any(heim_je_tag.get(datum, set()) - {eid} for datum, eid in fremd):
+        return True
+    folge = sorted([(d, 0) for d, _ in heim] + [(d, 1) for d, _ in fremd])
+    wechsel = sum(1 for (_, a), (_, b) in zip(folge, folge[1:]) if a != b)
+    m, n = len(heim), len(fremd)
+    erwartet = 2 * m * n / (m + n)
+    return wechsel >= MIN_WECHSEL and wechsel >= MIN_WECHSEL_ANTEIL * erwartet
 
 
 def klub_verbaende(ranglisten: dict, finde, schwinger: dict) -> dict[str, str]:
@@ -150,13 +177,11 @@ def trenne_namensvettern(ranglisten: dict, events: dict, finde, schwinger: dict)
         heim = gruppen.get(eigen, [])
         if len(heim) < MIN_FESTE_JE_GRUPPE:
             continue  # Porträt-Verband nicht belegt (veraltet?) -- nichts raten
-        heim_von, heim_bis = min(d for _, d, _ in heim), max(d for _, d, _ in heim)
         for verband, fremd in gruppen.items():
             if verband == eigen or len(fremd) < MIN_FESTE_JE_GRUPPE:
                 continue
-            von, bis = min(d for _, d, _ in fremd), max(d for _, d, _ in fremd)
-            if bis < heim_von or von > heim_bis:
-                continue  # nacheinander: Klubwechsel derselben Person
+            if not sind_zwei_personen([(d, e) for e, d, _ in heim], [(d, e) for e, d, _ in fremd]):
+                continue  # Klubwechsel derselben Person
             tokens = fremd[0][2]
             neue_id = _vetter_id(tokens, _VERBAND_KURZ.get(verband, verband.lower()))
             umgehaengt = sum(haenge_um(eid, t, neue_id) for eid, _, t in fremd)
