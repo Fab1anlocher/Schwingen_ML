@@ -7,6 +7,7 @@ from pipeline.ranglisten import (
     konsistenz,
     kraenze_je_schwinger,
     kranzfeste_ohne_kranz,
+    kranzquote_ausreisser,
     kranzstatus_je_schwinger,
     teilnahmen_aus_ranglisten,
     verband_ueber_klub,
@@ -80,6 +81,14 @@ def test_kranzfest_ohne_einen_einzigen_kranz_faellt_auf():
     ohne = kranzfeste_ohne_kranz([_t("a", "kant", typ="kantonal"), _t("b", "reg", typ="regional"),
                                   _t("c", "berg", typ="berg", kranz=True)])
     assert ohne == ["kant"]
+
+
+def test_kranzquote_ausserhalb_der_ueblichen_15_bis_18_prozent_faellt_auf():
+    # 100 Teilnehmer: 16 Kränze normal, 30 zu viele; Regionalfest zählt nicht.
+    normal = [_t(f"n{i}", "normal", kranz=i < 16) for i in range(100)]
+    zu_viel = [_t(f"z{i}", "zuviel", typ="berg", kranz=i < 30) for i in range(100)]
+    regional = [_t(f"r{i}", "reg", typ="regional", kranz=i < 50) for i in range(100)]
+    assert kranzquote_ausreisser(normal + zu_viel + regional) == [("zuviel", 0.3)]
 
 
 def test_namensaufloesung_mit_jahrgang_trennt_namensvettern():

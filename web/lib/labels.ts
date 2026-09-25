@@ -59,6 +59,11 @@ export function zahl(n: number): string {
   return Math.round(n).toLocaleString("de-CH");
 }
 
+/** Anteil 0..1 als ganze Prozent: 0.6897 -> "69%". */
+export function prozent(anteil: number): string {
+  return `${Math.round(anteil * 100)}%`;
+}
+
 /** ISO-Datum "2026-09-05" -> "5.9.2026". */
 export function datumKurz(iso: string): string {
   const [j, m, t] = iso.slice(0, 10).split("-").map(Number);

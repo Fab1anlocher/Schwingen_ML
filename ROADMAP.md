@@ -26,7 +26,7 @@ Modell, das auch die laufende Saison gesehen hat.
 | ✅ M1 | Gradient Boosting statt Logistic Regression | Log-Loss −0.023 (Val) / −0.019 (Test) — **erledigt** | 1–2 Tage | ~~1~~ |
 | ✅ T1 | Modellgüte je Lauf historisieren + Warnung | **erledigt**, Verlauf ab 21.07.2026 | ½ Tag | ~~2~~ |
 | ✅ M5 | Ausgeliefertes Modell auch auf der laufenden Saison trainieren | eine Saison mehr: Test 0.7294 → 0.7207 — **erledigt** | ½ Tag | ~~2~~ |
-| F1 | Prognose-Check je Fest im Rückblick | Vertrauen; Daten liegen vor | ½–1 Tag | **2** |
+| ✅ F1 | Prognose-Check je Fest im Rückblick | 2026: 69 % Treffer (Elo 61 %) — **erledigt** | ½–1 Tag | ~~2~~ |
 | D3 | Rohdaten wöchentlich sichern | Voraussetzung für D1/D2, Ausfallschutz | ½ Tag | **3** |
 | ✅ M2 | Jüngere Gänge stärker gewichten | Val 0.7400 → 0.7390, Test 0.7207 → 0.7203 — **erledigt** | ½ Tag | ~~3~~ |
 | D1 | Noten je Gang (Plattwurf 10.00 vs. 9.75) nutzen | offen — erst nach D3 messbar | 1 Tag | 4 |
@@ -38,8 +38,8 @@ Modell, das auch die laufende Saison gesehen hat.
 | T2 | Frontend-Tests + Browser-Smoke-Test in der CI | Sicherheit | 1 Tag | 6 |
 | T3 | Altlasten: `diagnose_agenda` testen, `ml_ohne_elo` ohne `kranz_diff` | Sauberkeit | ½ Tag | 6 |
 
-Empfohlene Reihenfolge: ~~M1 mit T1~~, ~~M5 mit M2~~ (erledigt), dann **F1**
-(macht die Güte für Nutzer sichtbar), dann **D3** als Grundlage für D1/D2.
+Empfohlene Reihenfolge: ~~M1 mit T1~~, ~~M5 mit M2~~, ~~F1~~ (erledigt), als
+Nächstes **D3** als Grundlage für D1/D2.
 
 ## ✅ M1 — Gradient Boosting als Prognosemodell (erledigt 26.09.2026)
 
@@ -176,7 +176,19 @@ Messen lässt sich der Nutzen rückwirkend: Test 2026 mit Training bis 2024
 gegen Training bis 2025 — das ist genau der Schritt „eine Saison mehr".
 Der Report muss sagen, dass die Kennzahlen vom Evaluationsmodell stammen.
 
-## F1 — Prognose-Check je Fest
+## ✅ F1 — Prognose-Check je Fest (erledigt 26.09.2026)
+
+Umgesetzt in `pipeline/prognose_check.py`, angezeigt im Rückblick der
+Feste-Seite (Spalte „Prognose" und Saison-Zusammenfassung mit Aufschlüsselung
+nach Festtyp). Ausgewertet werden 2025 (Modell bis 2024) und 2026 (Modell bis
+2025): Treffer 67.9 % / 69.1 % gegen Elo 61.1 % / 61.3 %; dem tatsächlichen
+Ausgang gab das Modell im Schnitt 56.9 % / 58.1 %. Bergfeste und das
+Eidgenössische sind am schwersten (58–62 %). Das Modell trifft an 263 von 270
+Festen mindestens so oft wie Elo; darunter liegt es an vier Bergfesten
+(Schwägalp 2025/2026, Rigi und Schwarzsee 2025, je 1–2 Punkte) und drei
+kleinen Regionalfesten.
+
+Ursprünglicher Plan:
 
 Im Rückblick je Fest: wie oft lag das Modell richtig, wie gut war die
 Gestellt-Chance — gerechnet mit dem Modell, das **vor** dem Fest galt. Für die
@@ -193,9 +205,26 @@ komprimiert als Workflow-Artefakt sichern; der Harness kann sie optional laden.
 
 ## D1 / D2 — Noten und Gangnummer
 
-* **D1 Noten:** Die Statistik-PDF führt je Gang die Note (10.00 = Sieg mit
-  Plattwurf, 9.75 …). Ein klarer Sieg sagt mehr über die Stärke als ein
-  knapper. Nutzen: Elo mit Siegqualität, Merkmal „Anteil Plattwürfe".
+* **D1 Noten:** Die Statistik-PDF führt je Gang die Note. Notengebung
+  (normal 10.00 bis 8.50):
+
+  | Ausgang | Note | Signal |
+  |---|---|---|
+  | Sieg mit Plattwurf | 10.00 | klare Überlegenheit |
+  | Sieg (normal) | 9.75 | |
+  | Gestellt (normal) | 8.75 | |
+  | Gestellt, technisch hochstehend | bis 9.00 | aktiver, offensiver Gang |
+  | Niederlage (normal) | 8.50 | |
+  | Niederlage, offensiv/technisch versiert | 8.75 | Verlierer hat mitgeschwungen |
+  | **Schlussgang** | Sieger 10.00, Verlierer 8.75 **vorgeschrieben**; Gestellt nach Platzkampfgericht | kein Signal |
+
+  Mögliche Merkmale je Schwinger (Stand vor dem Fest, geschrumpft wie die
+  Gestellt-Neigung): Anteil Plattwürfe an den Siegen (Dominanz), Anteil
+  8.75 an den Niederlagen (Offensive), Anteil 9.00 an den Gestellten
+  (aktive Gestellte); dazu Elo mit Siegqualität (Plattwurf zählt mehr).
+  **Schlussgänge ausnehmen**: dort sind die Noten vorgeschrieben — ein
+  Spitzenschwinger, der oft den Schlussgang verliert, bekäme sonst lauter
+  „offensive" 8.75.
 * **D2 Gangnummer:** die Rangliste führt je Schwinger die Resultatfolge
   („-+++++"), also die Reihenfolge der Gänge. Anschwingen (Spitzenpaarungen,
   mehr Gestellte) und Ausstich unterscheiden sich; live ist die Gangnummer aus

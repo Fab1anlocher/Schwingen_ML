@@ -36,6 +36,7 @@ Benchmark → Clustering → Export.
 | Modell (Training, Symmetrie, Monotonie) | `modell.py`, Hyperparameter in `config.py` | `lib/inference.ts` (`wahrscheinlichkeiten`) |
 | model.json (Bäume je Stufe) | `export.modell_json`, Prüfung `pruefe_modell_export` | Typ `ModelArtifact` in `lib/types.ts` |
 | Modellgüte je Lauf | `export.ergaenze_verlauf` → `report_verlauf.json` | `components/VerlaufDiagramm.tsx` |
+| Prognose-Check je Fest | `prognose_check.py` → `events.json` | `app/feste/page.tsx` (Rückblick) |
 | Kopf-an-Kopf / Paar-Historie | `features._kopf_an_kopf_vorteil`, `paar_gestellt` | `lib/kopfAnKopf.ts` |
 | Konstanten der Merkmale | `config.py` (`MERKMAL_VERSION`, `PAAR_GESTELLT_K`, …) | `inference.ts` (gleiche Werte) |
 | Namen → Schwinger-ID | `identity.py`, `roster.py`, `namensvettern.py` | – |
@@ -108,6 +109,20 @@ committet die Artefakte auf den Branch und startet danach die CI selbst.
 Bot-Pushes lösen sonst keine CI aus. Die Ergebnisse stehen in
 `artifacts/report.json` → `datenqualitaet`, der Verlauf in
 `artifacts/report_verlauf.json`.
+
+## Fachwissen Schwingen (für Plausibilitätsprüfungen)
+
+- **Kranzquote:** An einem Kranzfest (Kantonal, Teilverband, Berg,
+  Eidgenössisch) gewinnen 15–18 % der Teilnehmer einen Kranz, in der Regel ab
+  56.50 Punkten; wenige Teilnehmer, wenige Kränze. Kilchberg, Unspunnen und
+  Jubiläumsfeste vergeben keine Kränze. Geprüft in
+  `ranglisten.kranzquote_ausreisser` (12–21 % mit Spielraum).
+- **Noten je Gang:** Plattwurf-Sieg 10.00, Sieg 9.75, Gestellt 8.75 (technisch
+  hochstehend bis 9.00), Niederlage 8.50 (offensiv 8.75). Im **Schlussgang**
+  sind 10.00/8.75 vorgeschrieben — dort sagen Noten nichts über den Gang.
+  Details und Merkmalsideen: `ROADMAP.md` → D1.
+- **Symbole der Statistik-PDF:** `+` Sieg, `-` Gestellt, `o` Niederlage; der
+  Stern ist ein Statusabzeichen, kein Kranz (s. unten).
 
 ## Fallstricke (real passiert)
 

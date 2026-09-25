@@ -167,6 +167,10 @@ def _zeilen(report: dict) -> list[str]:
               f"{rl.get('anteil_namen_aufgeloest', 0):.1%} der Namen zugeordnet", "",
               f"- Kranzquote (Median je Festtyp): {rl.get('kranzquote_median')}",
               f"- Kranzfeste ohne einen einzigen Kranz: {ohne} ({_ampel(ohne == 0, warn=0 < ohne <= 3)})",
+              f"- Kranzquote ausserhalb 12-21 % (üblich 15-18 %): {rl.get('kranzquote_ausserhalb', 0)} "
+              f"({_ampel(rl.get('kranzquote_ausserhalb', 0) == 0, warn=0 < rl.get('kranzquote_ausserhalb', 0) <= 3)})"
+              + (f" -- {'; '.join(rl['beispiele_kranzquote_ausserhalb'])}"
+                 if rl.get("beispiele_kranzquote_ausserhalb") else ""),
               f"- Klub bekannt bei {rl.get('klub_abdeckung_aktive', 0):.0%} der Aktiven; "
               f"Verband über Klub für {vk.get('n_zugeordnet', 0)} ohne Porträt "
               f"(Prüfung {vk.get('trefferquote')})",
