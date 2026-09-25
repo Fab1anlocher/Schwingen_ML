@@ -1,28 +1,28 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-09-25T09:24:50.794759+00:00",
-  "lauf_id": "20260925T092450Z",
+  "erstellt": "2026-09-25T10:00:06.344204+00:00",
+  "lauf_id": "20260925T100006Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 133611,
     "n_schwinger": 2904
   },
   "holdout_jahr": 2026,
-  "n_train": 194252,
+  "n_train": 135722,
   "n_test": 36485,
   "modell": {
-    "log_loss": 0.8314,
-    "accuracy": 0.639,
-    "mae": 0.2676,
-    "mse": 0.1197
+    "log_loss": 0.7507,
+    "accuracy": 0.6816,
+    "mae": 0.2578,
+    "mse": 0.1058
   },
   "baseline_elo": {
-    "log_loss": 0.9131,
-    "accuracy": 0.6117
+    "log_loss": 0.9132,
+    "accuracy": 0.6106
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0272,
-  "verbesserung_log_loss": 0.0817,
+  "accuracy_gg_baseline": 0.0709,
+  "verbesserung_log_loss": 0.1625,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -30,36 +30,97 @@
   ],
   "konfusionsmatrix": [
     [
-      10127,
-      208,
-      2742
+      10324,
+      723,
+      2030
     ],
     [
-      3536,
-      343,
-      3815
+      2893,
+      1582,
+      3219
     ],
     [
-      2607,
-      264,
-      12843
+      1990,
+      763,
+      12961
     ]
   ],
   "nur_portraet": {
     "modell": {
       "n": 9319,
       "anteil_am_test": 0.2554,
-      "log_loss": 0.9254,
-      "accuracy": 0.5774,
-      "mae": 0.2601,
-      "mse": 0.1185
+      "log_loss": 0.8409,
+      "accuracy": 0.6162,
+      "mae": 0.2598,
+      "mse": 0.1098
     },
     "baseline_elo": {
       "n": 9319,
-      "log_loss": 0.9299,
-      "accuracy": 0.5801
+      "log_loss": 0.9301,
+      "accuracy": 0.5794
     }
   },
+  "gestellt_kalibrierung": {
+    "n": 36485,
+    "vorhergesagt": 0.2053,
+    "eingetreten": 0.2109,
+    "ece": 0.014,
+    "auc": 0.7354,
+    "stufen": [
+      {
+        "n": 3649,
+        "vorhergesagt": 0.0376,
+        "eingetreten": 0.0307
+      },
+      {
+        "n": 3649,
+        "vorhergesagt": 0.0799,
+        "eingetreten": 0.0606
+      },
+      {
+        "n": 3649,
+        "vorhergesagt": 0.111,
+        "eingetreten": 0.1006
+      },
+      {
+        "n": 3649,
+        "vorhergesagt": 0.1385,
+        "eingetreten": 0.1329
+      },
+      {
+        "n": 3649,
+        "vorhergesagt": 0.1657,
+        "eingetreten": 0.1724
+      },
+      {
+        "n": 3648,
+        "vorhergesagt": 0.1961,
+        "eingetreten": 0.2004
+      },
+      {
+        "n": 3648,
+        "vorhergesagt": 0.2312,
+        "eingetreten": 0.2464
+      },
+      {
+        "n": 3648,
+        "vorhergesagt": 0.2761,
+        "eingetreten": 0.3092
+      },
+      {
+        "n": 3648,
+        "vorhergesagt": 0.3393,
+        "eingetreten": 0.3487
+      },
+      {
+        "n": 3648,
+        "vorhergesagt": 0.4775,
+        "eingetreten": 0.5071
+      }
+    ]
+  },
+  "merkmal_version": 2,
+  "training_ab": "2024-04-01",
   "erfolgskriterien": {
     "log_loss_besser_als_baseline": true,
     "accuracy_mindestens_baseline": true,
@@ -154,6 +215,18 @@
       "plausibel": true,
       "anteil_feste_ohne_abzeichen": 0.0125,
       "hinweis_refetch": false
+    },
+    "datenabdeckung": {
+      "n_schwinger": 2904,
+      "n_portraet": 706,
+      "anteil_portraet": 0.2431,
+      "teilverband_schaetzung": {
+        "pruef_faelle": 583,
+        "trefferquote": 0.9983,
+        "n_ohne_verband": 2198,
+        "angewandt": true,
+        "n_geschaetzt": 1649
+      }
     },
     "roh_eintraege_gelesen": 249109,
     "roh_eintraege_uebernommen": 246749,
