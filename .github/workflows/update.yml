@@ -34,8 +34,8 @@ jobs:
     env:
       VOLLER_REFETCH: ${{ github.event.inputs.voller_refetch || 'false' }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.11"
           cache: pip
@@ -47,7 +47,7 @@ jobs:
       # sieht jeder Cron-Lauf nur das Tagesfenster statt der vollen Historie.
       # Eindeutiger Save-Key + Präfix-Restore = "immer wachsender" Cache.
       - name: Rohdaten-Cache laden
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: artifacts/raw
           key: rohdaten-${{ github.run_id }}
@@ -63,7 +63,7 @@ jobs:
 
       - name: Rohdaten-Cache speichern
         if: ${{ !cancelled() }}
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: artifacts/raw
           key: rohdaten-${{ github.run_id }}
@@ -87,9 +87,9 @@ jobs:
       # mit DIESEM model.json und DIESEM schwinger.json dasselbe wie die
       # Pipeline? In der PR-CI läuft die Prüfung gegen die alten Artefakte --
       # ein neues Artefakt-Format trifft den Code zum ersten Mal hier.
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: "20"
+          node-version: "24"
           cache: "npm"
           cache-dependency-path: web/package-lock.json
       - name: Parität App (TypeScript) ↔ Pipeline (Python)
