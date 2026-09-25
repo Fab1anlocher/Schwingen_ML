@@ -1,28 +1,33 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-09-25T19:53:05.820610+00:00",
-  "lauf_id": "20260925T195305Z",
+  "erstellt": "2026-09-25T20:48:46.952790+00:00",
+  "lauf_id": "20260925T204846Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 134035,
     "n_schwinger": 2910
   },
   "holdout_jahr": 2026,
+  "modell_typ": "gbm",
+  "n_baeume": {
+    "gestellt": 332,
+    "sieg": 223
+  },
   "n_train": 136118,
   "n_test": 36610,
   "modell": {
-    "log_loss": 0.7402,
-    "accuracy": 0.6861,
-    "mae": 0.2534,
-    "mse": 0.1039
+    "log_loss": 0.7209,
+    "accuracy": 0.6897,
+    "mae": 0.2433,
+    "mse": 0.0999
   },
   "baseline_elo": {
     "log_loss": 0.91,
     "accuracy": 0.6125
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0736,
-  "verbesserung_log_loss": 0.1698,
+  "accuracy_gg_baseline": 0.0772,
+  "verbesserung_log_loss": 0.1892,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -30,29 +35,29 @@
   ],
   "konfusionsmatrix": [
     [
-      10252,
-      856,
-      2015
+      10286,
+      944,
+      1893
     ],
     [
-      2768,
-      1813,
-      3126
+      2665,
+      1986,
+      3056
     ],
     [
-      1877,
-      851,
-      13052
+      1802,
+      999,
+      12979
     ]
   ],
   "nur_portraet": {
     "modell": {
       "n": 9366,
       "anteil_am_test": 0.2558,
-      "log_loss": 0.8293,
-      "accuracy": 0.6253,
-      "mae": 0.2551,
-      "mse": 0.1075
+      "log_loss": 0.8118,
+      "accuracy": 0.626,
+      "mae": 0.2529,
+      "mse": 0.1033
     },
     "baseline_elo": {
       "n": 9366,
@@ -62,59 +67,59 @@
   },
   "gestellt_kalibrierung": {
     "n": 36610,
-    "vorhergesagt": 0.2059,
+    "vorhergesagt": 0.2049,
     "eingetreten": 0.2105,
-    "ece": 0.0125,
-    "auc": 0.741,
+    "ece": 0.0078,
+    "auc": 0.7507,
     "stufen": [
       {
         "n": 3661,
-        "vorhergesagt": 0.0348,
-        "eingetreten": 0.0273
+        "vorhergesagt": 0.0215,
+        "eingetreten": 0.021
       },
       {
         "n": 3661,
-        "vorhergesagt": 0.0757,
-        "eingetreten": 0.0568
+        "vorhergesagt": 0.0558,
+        "eingetreten": 0.0557
       },
       {
         "n": 3661,
-        "vorhergesagt": 0.1069,
-        "eingetreten": 0.0983
+        "vorhergesagt": 0.0897,
+        "eingetreten": 0.0836
       },
       {
         "n": 3661,
-        "vorhergesagt": 0.1343,
+        "vorhergesagt": 0.1224,
         "eingetreten": 0.1295
       },
       {
         "n": 3661,
-        "vorhergesagt": 0.1613,
-        "eingetreten": 0.171
+        "vorhergesagt": 0.1563,
+        "eingetreten": 0.1601
       },
       {
         "n": 3661,
-        "vorhergesagt": 0.1911,
-        "eingetreten": 0.1956
+        "vorhergesagt": 0.1917,
+        "eingetreten": 0.2049
       },
       {
         "n": 3661,
-        "vorhergesagt": 0.2269,
-        "eingetreten": 0.2529
+        "vorhergesagt": 0.235,
+        "eingetreten": 0.251
       },
       {
         "n": 3661,
-        "vorhergesagt": 0.2743,
-        "eingetreten": 0.2966
+        "vorhergesagt": 0.2894,
+        "eingetreten": 0.3007
       },
       {
         "n": 3661,
-        "vorhergesagt": 0.3464,
-        "eingetreten": 0.3616
+        "vorhergesagt": 0.3676,
+        "eingetreten": 0.3832
       },
       {
         "n": 3661,
-        "vorhergesagt": 0.5078,
+        "vorhergesagt": 0.5194,
         "eingetreten": 0.5154
       }
     ]
@@ -311,5 +316,9 @@
         "Roland Bucher: 10 Feste (Nordostschweiz) getrennt von Innerschweiz"
       ]
     }
+  },
+  "modell_verlauf": {
+    "n_laeufe": 47,
+    "warnung": null
   }
 }
