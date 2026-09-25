@@ -1,5 +1,8 @@
 "use client";
 
+// Suchfeld mit Vorschlagsliste für die Schwinger-Auswahl der Prognose
+// (Name, Klub, Kantonal-/Gauverband; ohne Akzente; per Tastatur bedienbar).
+
 import { useMemo, useRef, useState } from "react";
 import type { Schwinger } from "@/lib/types";
 

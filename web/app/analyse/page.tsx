@@ -1,5 +1,11 @@
 "use client";
 
+// Seite "Analyse": Modellgüte gegen die Elo-Baseline, 4-Wege-Benchmark,
+// Konfusionsmatrix, Gestellt-Kalibrierung (report.json, benchmark.json),
+// Merkmalswichtigkeit (feature_importance.json) sowie Physis/Schwünge gegen
+// Elo (schwinger.json + ratings.json). Alle Zahlen stammen aus dem letzten
+// Pipeline-Lauf; hier wird nichts neu geschätzt.
+
 import { useEffect, useMemo, useState } from "react";
 import { ladeFeatureImportance, ladeBenchmark, ladeSchwinger, ladeRatings } from "@/lib/data";
 import type { FeatureImportanceEntry, BenchmarkArtifact, Schwinger, RatingsArtifact } from "@/lib/types";
@@ -12,15 +18,13 @@ import {
 } from "@/components/ModellGuete";
 import { StreudiagrammMitTrend } from "@/components/StreudiagrammMitTrend";
 import { SchwungVergleich, type SchwungStat } from "@/components/SchwungVergleich";
+import { schwungName, zahl } from "@/lib/labels";
 
-// Rohdaten schreiben denselben Schwung uneinheitlich gross/klein
-// ("innerer Haken" vs. "Innerer Haken") -- sonst zwei Zeilen fürs Gleiche.
-// Gleiche Normalisierung wie pipeline/clustering.py:_normiert.
-function normiertesSchwung(name: string): string {
-  const t = name.trim();
-  return t ? t[0].toLowerCase() + t.slice(1) : t;
-}
 const MIN_SCHWINGER_PRO_SCHWUNG = 15;
+// Ab so vielen Gängen gilt ein Elo als Messung (wie model.json
+// config.min_gaenge_fuer_sicherheit): nach ein, zwei Gängen liegt es noch
+// fast beim Startwert und zöge jede Trendlinie Richtung 1500.
+const MIN_GAENGE_FUER_ELO = 5;
 
 interface Report {
   lauf_id?: string;
@@ -38,7 +42,6 @@ interface Report {
     gesamt_erfuellt: boolean;
   };
   datenbasis: { n_gaenge: number; n_schwinger: number };
-  n_parsing_warnungen: number;
   klassen?: string[];
   konfusionsmatrix?: number[][] | null;
   /** Ab Merkmalsversion 2 (P3); ältere Reports haben den Block nicht. */
@@ -79,7 +82,7 @@ export default function Analyse() {
     if (!ratings) return [];
     return schwinger
       .map((s) => ({ s, r: ratings.ratings[s.id] }))
-      .filter((e) => e.r && e.r.n_gaenge > 0 && e.s.groesse_cm)
+      .filter((e) => e.r && e.r.n_gaenge >= MIN_GAENGE_FUER_ELO && e.s.groesse_cm)
       .map((e) => ({ x: e.s.groesse_cm as number, y: e.r!.elo, label: e.s.name }));
   }, [schwinger, ratings]);
 
@@ -87,7 +90,7 @@ export default function Analyse() {
     if (!ratings) return [];
     return schwinger
       .map((s) => ({ s, r: ratings.ratings[s.id] }))
-      .filter((e) => e.r && e.r.n_gaenge > 0 && e.s.gewicht_kg)
+      .filter((e) => e.r && e.r.n_gaenge >= MIN_GAENGE_FUER_ELO && e.s.gewicht_kg)
       .map((e) => ({ x: e.s.gewicht_kg as number, y: e.r!.elo, label: e.s.name }));
   }, [schwinger, ratings]);
 
@@ -96,7 +99,7 @@ export default function Analyse() {
     const jahr = new Date().getFullYear();
     return schwinger
       .map((s) => ({ s, r: ratings.ratings[s.id] }))
-      .filter((e) => e.r && e.r.n_gaenge > 0 && e.s.jahrgang)
+      .filter((e) => e.r && e.r.n_gaenge >= MIN_GAENGE_FUER_ELO && e.s.jahrgang)
       .map((e) => ({ x: jahr - (e.s.jahrgang as number), y: e.r!.elo, label: e.s.name }));
   }, [schwinger, ratings]);
 
@@ -111,7 +114,7 @@ export default function Analyse() {
     // Auswahlverzerrung wie bei der Kranzquote auf der Karte).
     const mitSchwung = schwinger
       .map((s) => ({ s, r: ratings.ratings[s.id] }))
-      .filter((e) => e.r && e.r.n_gaenge > 0 && (e.s.bevorzugte_schwuenge?.length ?? 0) > 0);
+      .filter((e) => e.r && e.r.n_gaenge >= MIN_GAENGE_FUER_ELO && (e.s.bevorzugte_schwuenge?.length ?? 0) > 0);
     if (mitSchwung.length === 0) return { schwungStats: [], gesamtschnittElo: 0 };
 
     const summeGesamt = mitSchwung.reduce((acc, e) => acc + e.r!.elo, 0);
@@ -120,7 +123,7 @@ export default function Analyse() {
     const gruppen = new Map<string, { summe: number; n: number }>();
     for (const { s, r } of mitSchwung) {
       for (const roh of s.bevorzugte_schwuenge ?? []) {
-        const name = normiertesSchwung(roh);
+        const name = schwungName(roh);
         const g = gruppen.get(name) ?? { summe: 0, n: 0 };
         g.summe += r!.elo;
         g.n += 1;
@@ -202,9 +205,10 @@ export default function Analyse() {
             )}
           </p>
           <p className="muted small">
-            Datenbasis: {report.datenbasis.n_gaenge} Gänge, {report.datenbasis.n_schwinger}{" "}
-            Schwinger · Train {report.n_train} / Test {report.n_test} · Parsing-Warnungen:{" "}
-            {report.n_parsing_warnungen}
+            Datenbasis: {zahl(report.datenbasis.n_gaenge)} Gänge, {zahl(report.datenbasis.n_schwinger)}{" "}
+            Schwinger · Training {zahl(report.n_train / 2)} Gänge (je aus beiden Sichten, A/B
+            gespiegelt) · Test {zahl(report.n_test)} Gänge der Saison {report.holdout_jahr}, die
+            das Modell nie gesehen hat
           </p>
           {report.erfolgskriterien && (
             <p className="muted small">
@@ -224,7 +228,7 @@ export default function Analyse() {
           <h2>4-Wege-Benchmark (Holdout {benchmark.holdout_jahr})</h2>
           <div className="panel">
             <p className="muted small" style={{ marginTop: 0, marginBottom: "1rem" }}>
-              Vier unabhängige Ansätze, ausgewertet auf denselben {benchmark.n_test} echten
+              Vier unabhängige Ansätze, ausgewertet auf denselben {zahl(benchmark.n_test)} echten
               Gängen der jüngsten Saison (keine gespiegelten Trainings-Duplikate): eine reine
               Kranz-Heuristik ohne Statistik, das klassische Elo-Rating, ein ML-Modell{" "}
               <em>ohne</em> Elo/Historie (nur Physis, Stil, Verband) und das komplette
@@ -297,9 +301,9 @@ export default function Analyse() {
       <p className="muted small" style={{ marginTop: "0.75rem" }}>
         Wichtigkeit = mittlerer Betrag der standardisierten Koeffizienten über die drei
         Klassen. „Fokus" markiert Merkmale, deren Beitrag die Spezifikation explizit prüfen
-        will (Gewicht, Grösse, bevorzugte Schwünge — vgl. AK-4.2). Bei synthetischen
-        Demodaten sind diese Werte illustrativ; mit echten Gang-Daten wird ihr
-        tatsächlicher Beitrag sichtbar.
+        will (Gewicht, Grösse, bevorzugte Schwünge — vgl. AK-4.2). Klein heisst hier nicht
+        bedeutungslos: Physis und Stil sind nur für Schwinger mit Porträt erfasst, und ein Teil
+        ihrer Wirkung steckt schon im Elo-Rating.
       </p>
 
       {(streuGroesse.length > 0 || streuGewicht.length > 0 || streuAlter.length > 0) && (
@@ -307,9 +311,9 @@ export default function Analyse() {
           <h2>Macht Grösse, Gewicht oder Alter einen Unterschied?</h2>
           <div className="panel">
             <p className="muted small" style={{ marginTop: 0, marginBottom: "1rem" }}>
-              Jeder Punkt ein Schwinger mit mindestens einem erfassten Gang (Elo also eine
-              echte Messung, kein Startwert). Die gestrichelte Linie ist die lineare
-              Trendlinie; r zeigt, wie stark der Zusammenhang tatsächlich ist (0 = keiner,
+              Jeder Punkt ein Schwinger mit mindestens {MIN_GAENGE_FUER_ELO} erfassten Gängen (Elo
+              also eine echte Messung, nicht mehr der Startwert). Die gestrichelte Linie ist die
+              lineare Trendlinie; r zeigt, wie stark der Zusammenhang tatsächlich ist (0 = keiner,
               ±1 = perfekt).
             </p>
             <div className="grid-3">
@@ -341,7 +345,8 @@ export default function Analyse() {
           <h2>Macht der bevorzugte Schwung einen Unterschied?</h2>
           <div className="panel">
             <p className="muted small" style={{ marginTop: 0, marginBottom: "0.5rem" }}>
-              Ø Elo der Schwinger, die diesen Schwung bevorzugen (nur Schwünge mit mindestens{" "}
+              Ø Elo der Schwinger mit mindestens {MIN_GAENGE_FUER_ELO} Gängen, die diesen Schwung
+              bevorzugen (nur Schwünge mit mindestens{" "}
               {MIN_SCHWINGER_PRO_SCHWUNG} Schwingern, sonst zu verrauscht — ein Schwinger kann
               mehrere bevorzugte Schwünge haben und zählt dann bei mehreren mit).
             </p>

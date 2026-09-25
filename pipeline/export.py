@@ -14,7 +14,7 @@ import numpy as np
 from . import config
 from .config import KLASSEN, MIN_GAENGE_FUER_SICHERHEIT, FORM_FENSTER_K, MERKMAL_VERSION
 from .features import FEATURE_NAMES, FEATURE_LABELS
-from .schema import KRANZSTATUS_ORDINAL, hat_portraet
+from .schema import KRANZSTATUS_ORDINAL, anzeigename, hat_portraet
 
 
 def _write(pfad: Path, obj) -> None:
@@ -133,6 +133,7 @@ def exportiere_schwinger(
     senne_turner = rl.get("senne_turner") or {}
     verband_klub = rl.get("verband_klub") or {}
     kranzstatus_rl = rl.get("kranzstatus") or {}
+    festsiege = rl.get("festsiege")
     liste = []
     for sid, s in schwinger.items():
         u = ueberraschung.get(sid)
@@ -141,7 +142,7 @@ def exportiere_schwinger(
             ge = u["groesster_erfolg"]
             gegner = schwinger.get(ge["gegner_id"])
             groesster_erfolg = {
-                "gegner_name": gegner.name if gegner else ge["gegner_id"],
+                "gegner_name": anzeigename(gegner) if gegner else ge["gegner_id"],
                 "event_id": ge["event_id"],
                 "datum": ge["datum"],
                 "eigenes_elo": ge["eigenes_elo"],
@@ -149,7 +150,7 @@ def exportiere_schwinger(
             }
         liste.append({
             "id": sid,
-            "name": s.name,
+            "name": anzeigename(s),
             "jahrgang": s.jahrgang,
             "groesse_cm": s.groesse_cm,
             "gewicht_kg": s.gewicht_kg,
@@ -185,6 +186,11 @@ def exportiere_schwinger(
             "anzahl_feste": anzahl_feste.get(sid, 0),
             "aktiv": sid in aktive,
             "groesster_erfolg": groesster_erfolg,
+            # Festsiege seit Datenbeginn (Rang 1 der Schlussrangliste, jüngster
+            # zuerst); null = keine Ranglisten geladen.
+            "festsiege": (festsiege.get(sid, []) if festsiege is not None else None),
+            # Von einem gleichnamigen Porträt-Schwinger getrennt (namensvettern.py).
+            "namensvetter_von": s.namensvetter_von,
             "quellen": s.quellen,
         })
     liste.sort(key=lambda x: x["name"])
@@ -194,11 +200,29 @@ def exportiere_schwinger(
     })
 
 
-def exportiere_events(events: list, kommende: list | None = None) -> None:
-    """events.json: vergangene Feste + kommende Feste/Paarungen (FR-2)."""
+def exportiere_events(events: list, kommende: list | None = None, *,
+                      ueberblick: dict | None = None, schwinger: dict | None = None) -> None:
+    """events.json: vergangene Feste + kommende Feste/Paarungen (FR-2).
+
+    ``ueberblick`` (aus den Schlussranglisten, s. ranglisten.fest_ueberblick)
+    ergänzt jedes vergangene Fest um Sieger, Teilnehmer und Kränze -- für den
+    Rückblick auf der Feste-Seite. Ohne Ranglisten fehlen die Felder.
+    """
+    ueberblick = ueberblick or {}
+    schwinger = schwinger or {}
+    vergangene = []
+    for e in events:
+        d = e.to_dict()
+        u = ueberblick.get(e.id)
+        if u:
+            d["sieger"] = [{"id": sid, "name": anzeigename(schwinger[sid]) if sid in schwinger else sid}
+                           for sid in u["sieger"]]
+            d["n_teilnehmer"] = u["n_teilnehmer"]
+            d["n_kraenze"] = u["n_kraenze"]
+        vergangene.append(d)
     _dump_beide("events.json", {
         "schema_version": config.SCHEMA_VERSION,
-        "vergangene": [e.to_dict() for e in events],
+        "vergangene": vergangene,
         "kommende": kommende or [],
     })
 
@@ -232,34 +256,55 @@ def _eintrag_zu_dict(name: str, e: dict) -> dict:
     }
 
 
-def _gauverband_stats(schwinger: dict, elo_modell, gaenge: list) -> tuple[dict[str, dict], float]:
-    """Rohe Statistik je Kantonal-/Gauverband (Schwinger.kanton, 29 Verbände).
+def _gauverband_stats(schwinger: dict, elo_modell, gaenge: list,
+                      ranglisten: dict | None = None) -> tuple[dict[str, dict], float]:
+    """Rohe Statistik je Kantonal-/Gauverband (29 Verbände).
 
     Ein Wurf pro Schwinger in GENAU einen Verband — anders als die daraus
     abgeleiteten politischen Kantone (mehrere Verbände wie Bern: Oberland/
     Emmental/... fallen dort zusammen, s. exportiere_kantone).
+
+    Verband: aus dem Porträt, sonst über den Schwingklub der Schlussrangliste
+    (``ranglisten["verband_klub"]``). Früher nur Porträts -- das waren 24 %
+    des Kaders, fast nur die Erfolgreicheren. Kranzstatus ohne Porträt aus der
+    Rangliste. Gezählt wird nur, wer mindestens MIN_GAENGE_FUER_SICHERHEIT
+    Gänge hat: ein Elo nach ein, zwei Gängen ist kaum vom Startwert weg und
+    zöge den Kantonsschnitt Richtung 1500, je mehr Nachwuchs ein Kanton hat.
     """
-    elos = [elo_modell.get(sid) for sid in schwinger]
+    rl = ranglisten or {}
+    verband_klub = rl.get("verband_klub") or {}
+    kranzstatus_rl = rl.get("kranzstatus") or {}
+    n_gaenge: dict[str, int] = {}
+    for g in gaenge:
+        for sid in (g.schwinger_a_id, g.schwinger_b_id):
+            n_gaenge[sid] = n_gaenge.get(sid, 0) + 1
+
+    def verband_von(sid: str, s) -> str | None:
+        return s.kanton or (verband_klub.get(sid) or (None, None))[1]
+
+    gezaehlt = {sid: s for sid, s in schwinger.items()
+                if n_gaenge.get(sid, 0) >= MIN_GAENGE_FUER_SICHERHEIT and verband_von(sid, s)}
+    elos = [elo_modell.get(sid) for sid in gezaehlt]
     schwelle_top = float(np.percentile(elos, 90)) if len(elos) >= 10 else max(elos, default=0.0)
 
     verbaende: dict[str, dict] = {}
     sid_zu_verband: dict[str, str] = {}
 
-    for sid, s in schwinger.items():
-        if not s.kanton:
-            continue
-        sid_zu_verband[sid] = s.kanton
-        e = verbaende.setdefault(s.kanton, _leerer_eintrag())
+    for sid, s in gezaehlt.items():
+        verband = verband_von(sid, s)
+        sid_zu_verband[sid] = verband
+        e = verbaende.setdefault(verband, _leerer_eintrag())
         elo = elo_modell.get(sid)
         e["n_schwinger"] += 1
         e["elo_summe"] += elo
         if elo >= schwelle_top:
             e["n_top"] += 1
-        if s.kranzstatus == "kranzer":
+        status = s.kranzstatus if hat_portraet(s.quellen) else kranzstatus_rl.get(sid, "kein")
+        if status == "kranzer":
             e["n_kranzer"] += 1
-        elif s.kranzstatus == "eidgenosse":
+        elif status == "eidgenosse":
             e["n_eidgenosse"] += 1
-        elif s.kranzstatus == "koenig":
+        elif status == "koenig":
             e["n_koenig"] += 1
 
     for g in gaenge:
@@ -278,7 +323,8 @@ def _gauverband_stats(schwinger: dict, elo_modell, gaenge: list) -> tuple[dict[s
     return verbaende, schwelle_top
 
 
-def exportiere_kantone(schwinger: dict, elo_modell, gaenge: list) -> None:
+def exportiere_kantone(schwinger: dict, elo_modell, gaenge: list, *,
+                       ranglisten: dict | None = None) -> None:
     """kantone.json + gauverbaende.json: Statistik für Schweiz-Karte & Detailansicht.
 
     Beide werden aus derselben Kantonal-/Gauverband-Aggregation abgeleitet
@@ -290,7 +336,7 @@ def exportiere_kantone(schwinger: dict, elo_modell, gaenge: list) -> None:
     """
     from .kantone import kantone_fuer
 
-    verbaende, schwelle_top = _gauverband_stats(schwinger, elo_modell, gaenge)
+    verbaende, schwelle_top = _gauverband_stats(schwinger, elo_modell, gaenge, ranglisten)
 
     kantone: dict[str, dict] = {}
     for verband_name, e in verbaende.items():
@@ -312,6 +358,7 @@ def exportiere_kantone(schwinger: dict, elo_modell, gaenge: list) -> None:
     _dump_beide("kantone.json", {
         "schema_version": config.SCHEMA_VERSION,
         "top_schwelle_elo": round(schwelle_top, 1),
+        "min_gaenge": MIN_GAENGE_FUER_SICHERHEIT,
         "kantone": kantone_liste,
     })
 

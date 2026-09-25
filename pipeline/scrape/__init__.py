@@ -13,7 +13,7 @@ from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from ..identity import baue_namensindex
+from ..identity import baue_namensindex, namens_tokens
 from ..labels import RohGangEintrag
 from ..schema import Event, Schwinger
 
@@ -38,6 +38,7 @@ class IngestBericht:
     n_schwinger: int = 0
     n_namen_unaufloesbar: int = 0
     beispiele_unaufloesbar: list[str] = field(default_factory=list)
+    namensvettern: dict = field(default_factory=dict)
 
     @property
     def verlustquote(self) -> float:
@@ -57,6 +58,7 @@ class IngestBericht:
             "schwinger_im_kader": self.n_schwinger,
             "unaufloesbare_namen": self.n_namen_unaufloesbar,
             "beispiele_unaufloesbare_namen": self.beispiele_unaufloesbar[:10],
+            "namensvettern": self.namensvettern,
         }
 
 
@@ -88,6 +90,7 @@ def _lade_schwinger(raw_s: list[dict]) -> dict[str, Schwinger]:
             senne_turner=r.get("senne_turner"),
             bevorzugte_schwuenge=list(sw) if isinstance(sw, list) else [],
             quellen=list(r.get("quellen") or ["schlussgang.ch"]),
+            namensvetter_von=r.get("namensvetter_von"),
         )
     return schwinger
 
@@ -118,6 +121,31 @@ def _lade_events(raw_e: list[dict], bericht: IngestBericht) -> list[Event]:
     return events
 
 
+def _namensvettern(raw_s: list[dict], events: list[Event]):
+    """Namensvettern aus den Ranglisten trennen (s. namensvettern.py).
+
+    Rückgabe: (Zuordnung (Fest, Namens-Tokens) -> ID, neue Roh-Einträge, Bericht).
+    Ohne Ranglisten im Cache: nichts zu trennen.
+    """
+    from ..namensvettern import trenne_namensvettern
+
+    roh = _lade_raw_json("ranglisten.json", {"ranglisten": {}}).get("ranglisten", {})
+    if not roh:
+        return {}, [], {}
+    index = baue_namensindex(raw_s)
+    zuordnung, neue, bericht = trenne_namensvettern(
+        roh, {e.id: e for e in events}, index.finde, _lade_schwinger(raw_s))
+    return zuordnung, list(neue.values()), bericht
+
+
+def _finde_mit_vettern(index, zuordnung: dict):
+    """Name an einem Fest -> ID: zuerst die Namensvettern-Zuordnung, dann der Index."""
+    def finde(event_id: str, name: str) -> str | None:
+        vetter = zuordnung.get((event_id, namens_tokens(name))) if zuordnung else None
+        return vetter or index.finde(name)
+    return finde
+
+
 def lade_echte_daten(*, mit_bericht: bool = False):
     """Lädt die gescrapten Rohdaten aus ``artifacts/raw``.
 
@@ -131,12 +159,13 @@ def lade_echte_daten(*, mit_bericht: bool = False):
     raw_g = _lade_raw_json("gaenge.json", {"gaenge": []}).get("gaenge", [])
 
     bericht = IngestBericht()
-    schwinger = _lade_schwinger(raw_s)
-    bericht.n_schwinger = len(schwinger)
     events = _lade_events(raw_e, bericht)
     gueltige_events = {e.id for e in events}
+    zuordnung, vettern, bericht.namensvettern = _namensvettern(raw_s, events)
+    schwinger = _lade_schwinger(raw_s + vettern)
+    bericht.n_schwinger = len(schwinger)
 
-    index = baue_namensindex(raw_s)
+    finde = _finde_mit_vettern(baue_namensindex(raw_s), zuordnung)
     unaufloesbar: Counter = Counter()
 
     roh: list[RohGangEintrag] = []
@@ -154,11 +183,11 @@ def lade_echte_daten(*, mit_bericht: bool = False):
         sid = str(r.get("schwinger_id") or "") or None
         gid = str(r.get("gegner_id") or "") or None
         if not sid and r.get("schwinger_name"):
-            sid = index.finde(str(r["schwinger_name"]))
+            sid = finde(event_id, str(r["schwinger_name"]))
             if sid is None:
                 unaufloesbar[str(r["schwinger_name"])] += 1
         if not gid and r.get("gegner_name"):
-            gid = index.finde(str(r["gegner_name"]))
+            gid = finde(event_id, str(r["gegner_name"]))
             if gid is None:
                 unaufloesbar[str(r["gegner_name"])] += 1
         if not sid or not gid:
@@ -218,8 +247,9 @@ def lade_teilnahmen(events: list[Event]):
     roh = _lade_raw_json("ranglisten.json", {"ranglisten": {}}).get("ranglisten", {})
     raw_s = _lade_raw_json("schwinger.json", {"schwinger": []}).get("schwinger", [])
     index = baue_namensindex(raw_s)
+    zuordnung, vettern, _ = _namensvettern(raw_s, events)
     return teilnahmen_aus_ranglisten(roh, {e.id: e for e in events}, index.finde,
-                                     _lade_schwinger(raw_s))
+                                     _lade_schwinger(raw_s + vettern), zuordnung=zuordnung)
 
 
 def lade_kommende_feste(*, heute=None):

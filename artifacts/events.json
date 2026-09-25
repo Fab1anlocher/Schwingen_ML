@@ -7,7 +7,15 @@
       "datum": "2023-04-01",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Tafers"
+      "ort": "Tafers",
+      "sieger": [
+        {
+          "id": "fritz ramseier|?",
+          "name": "Fritz Ramseier"
+        }
+      ],
+      "n_teilnehmer": 37,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22566",
@@ -15,7 +23,15 @@
       "datum": "2023-04-16",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ried bei Kerzers"
+      "ort": "Ried bei Kerzers",
+      "sieger": [
+        {
+          "id": "lario kramer|1998",
+          "name": "Lario Kramer"
+        }
+      ],
+      "n_teilnehmer": 60,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22535",
@@ -23,7 +39,15 @@
       "datum": "2023-04-30",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Küssnacht"
+      "ort": "Küssnacht",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 223,
+      "n_kraenze": 33
     },
     {
       "id": "schlussgang-22541",
@@ -31,7 +55,15 @@
       "datum": "2023-04-30",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hitzkirch"
+      "ort": "Hitzkirch",
+      "sieger": [
+        {
+          "id": "joel ambuhl|1998",
+          "name": "Joel Ambühl"
+        }
+      ],
+      "n_teilnehmer": 91,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22533",
@@ -39,7 +71,15 @@
       "datum": "2023-05-01",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Oberdorf"
+      "ort": "Oberdorf",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 44,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22530",
@@ -47,7 +87,15 @@
       "datum": "2023-05-06",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ettingen"
+      "ort": "Ettingen",
+      "sieger": [
+        {
+          "id": "domenic schneider|1994",
+          "name": "Domenic Schneider"
+        }
+      ],
+      "n_teilnehmer": 122,
+      "n_kraenze": 19
     },
     {
       "id": "schlussgang-22526",
@@ -55,7 +103,15 @@
       "datum": "2023-05-07",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Oron-la-ville"
+      "ort": "Oron-la-ville",
+      "sieger": [
+        {
+          "id": "sempach thomas|?",
+          "name": "Thomas Sempach"
+        }
+      ],
+      "n_teilnehmer": 62,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22528",
@@ -63,7 +119,15 @@
       "datum": "2023-05-07",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Rothenburg LU"
+      "ort": "Rothenburg LU",
+      "sieger": [
+        {
+          "id": "sven schurtenberger|1991",
+          "name": "Sven Schurtenberger"
+        }
+      ],
+      "n_teilnehmer": 88,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22529",
@@ -71,7 +135,15 @@
       "datum": "2023-05-07",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Zug"
+      "ort": "Zug",
+      "sieger": [
+        {
+          "id": "noe van messel|2002",
+          "name": "Noe Van Messel"
+        }
+      ],
+      "n_teilnehmer": 211,
+      "n_kraenze": 33
     },
     {
       "id": "schlussgang-22512",
@@ -79,7 +151,15 @@
       "datum": "2023-05-14",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Nottwil"
+      "ort": "Nottwil",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 250,
+      "n_kraenze": 45
     },
     {
       "id": "schlussgang-22513",
@@ -87,7 +167,15 @@
       "datum": "2023-05-14",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Zürich - Allmend"
+      "ort": "Zürich - Allmend",
+      "sieger": [
+        {
+          "id": "domenic schneider|1994",
+          "name": "Domenic Schneider"
+        }
+      ],
+      "n_teilnehmer": 179,
+      "n_kraenze": 27
     },
     {
       "id": "schlussgang-22514",
@@ -95,7 +183,15 @@
       "datum": "2023-05-14",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Bowil"
+      "ort": "Bowil",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 189,
+      "n_kraenze": 30
     },
     {
       "id": "schlussgang-22515",
@@ -103,7 +199,15 @@
       "datum": "2023-05-14",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Genolier"
+      "ort": "Genolier",
+      "sieger": [
+        {
+          "id": "lario kramer|1998",
+          "name": "Lario Kramer"
+        }
+      ],
+      "n_teilnehmer": 80,
+      "n_kraenze": 12
     },
     {
       "id": "schlussgang-22516",
@@ -111,7 +215,15 @@
       "datum": "2023-05-14",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Leibstadt"
+      "ort": "Leibstadt",
+      "sieger": [
+        {
+          "id": "samuel schmid|1995",
+          "name": "Samuel Schmid"
+        }
+      ],
+      "n_teilnehmer": 57,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22504",
@@ -119,7 +231,15 @@
       "datum": "2023-05-18",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sandgrube Basel"
+      "ort": "Sandgrube Basel",
+      "sieger": [
+        {
+          "id": "joel strebel|1997",
+          "name": "Joel Strebel"
+        }
+      ],
+      "n_teilnehmer": 125,
+      "n_kraenze": 20
     },
     {
       "id": "schlussgang-22506",
@@ -127,7 +247,19 @@
       "datum": "2023-05-18",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Le Mouret"
+      "ort": "Le Mouret",
+      "sieger": [
+        {
+          "id": "steven moser|1996",
+          "name": "Steven Moser"
+        },
+        {
+          "id": "benjamin gapany|1995",
+          "name": "Benjamin Gapany"
+        }
+      ],
+      "n_teilnehmer": 31,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22510",
@@ -135,7 +267,15 @@
       "datum": "2023-05-18",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Meilen"
+      "ort": "Meilen",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 66,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22511",
@@ -143,7 +283,15 @@
       "datum": "2023-05-18",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Escholzmatt"
+      "ort": "Escholzmatt",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 87,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22502",
@@ -151,7 +299,15 @@
       "datum": "2023-05-20",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Frauenkappelen"
+      "ort": "Frauenkappelen",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 170,
+      "n_kraenze": 30
     },
     {
       "id": "schlussgang-22497",
@@ -159,7 +315,15 @@
       "datum": "2023-05-21",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Altdorf"
+      "ort": "Altdorf",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 194,
+      "n_kraenze": 33
     },
     {
       "id": "schlussgang-22489",
@@ -167,7 +331,15 @@
       "datum": "2023-05-27",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Morgarten"
+      "ort": "Morgarten",
+      "sieger": [
+        {
+          "id": "noe van messel|2002",
+          "name": "Noe Van Messel"
+        }
+      ],
+      "n_teilnehmer": 81,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22490",
@@ -175,7 +347,15 @@
       "datum": "2023-05-27",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Orsonnens"
+      "ort": "Orsonnens",
+      "sieger": [
+        {
+          "id": "romain collaud|2002",
+          "name": "Romain Collaud"
+        }
+      ],
+      "n_teilnehmer": 103,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22492",
@@ -183,7 +363,15 @@
       "datum": "2023-05-27",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Herisau"
+      "ort": "Herisau",
+      "sieger": [
+        {
+          "id": "koch reto|?",
+          "name": "Reto Koch"
+        }
+      ],
+      "n_teilnehmer": 88,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22494",
@@ -191,7 +379,15 @@
       "datum": "2023-05-27",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Kirchberg"
+      "ort": "Kirchberg",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 164,
+      "n_kraenze": 25
     },
     {
       "id": "schlussgang-22481",
@@ -199,7 +395,15 @@
       "datum": "2023-05-29",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Bachenbülach"
+      "ort": "Bachenbülach",
+      "sieger": [
+        {
+          "id": "matthieu burger|2001",
+          "name": "Matthieu Burger"
+        }
+      ],
+      "n_teilnehmer": 39,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22484",
@@ -207,7 +411,15 @@
       "datum": "2023-05-29",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Elm"
+      "ort": "Elm",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 135,
+      "n_kraenze": 21
     },
     {
       "id": "schlussgang-22487",
@@ -215,7 +427,15 @@
       "datum": "2023-05-29",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ruswil"
+      "ort": "Ruswil",
+      "sieger": [
+        {
+          "id": "samuel schwyzer|2001",
+          "name": "Samuel Schwyzer"
+        }
+      ],
+      "n_teilnehmer": 76,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22472",
@@ -223,7 +443,15 @@
       "datum": "2023-06-04",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Wittenbach"
+      "ort": "Wittenbach",
+      "sieger": [
+        {
+          "id": "damian ott|2000",
+          "name": "Damian Ott"
+        }
+      ],
+      "n_teilnehmer": 177,
+      "n_kraenze": 31
     },
     {
       "id": "schlussgang-22473",
@@ -231,7 +459,15 @@
       "datum": "2023-06-04",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Möhlin"
+      "ort": "Möhlin",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 130,
+      "n_kraenze": 20
     },
     {
       "id": "schlussgang-22474",
@@ -239,7 +475,15 @@
       "datum": "2023-06-04",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Alpnach"
+      "ort": "Alpnach",
+      "sieger": [
+        {
+          "id": "pirmin reichmuth|?",
+          "name": "Pirmin Reichmuth"
+        }
+      ],
+      "n_teilnehmer": 193,
+      "n_kraenze": 32
     },
     {
       "id": "schlussgang-22475",
@@ -247,7 +491,15 @@
       "datum": "2023-06-04",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Môtiers"
+      "ort": "Môtiers",
+      "sieger": [
+        {
+          "id": "benjamin gapany|1995",
+          "name": "Benjamin Gapany"
+        }
+      ],
+      "n_teilnehmer": 94,
+      "n_kraenze": 14
     },
     {
       "id": "schlussgang-22471",
@@ -255,7 +507,15 @@
       "datum": "2023-06-08",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schwarzenberg"
+      "ort": "Schwarzenberg",
+      "sieger": [
+        {
+          "id": "marco heiniger|1996",
+          "name": "Marco Heiniger"
+        }
+      ],
+      "n_teilnehmer": 100,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22469",
@@ -263,7 +523,15 @@
       "datum": "2023-06-09",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sumiswald"
+      "ort": "Sumiswald",
+      "sieger": [
+        {
+          "id": "matthias aeschbacher|1992",
+          "name": "Matthias Aeschbacher"
+        }
+      ],
+      "n_teilnehmer": 25,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22463",
@@ -271,7 +539,15 @@
       "datum": "2023-06-10",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Muttenz"
+      "ort": "Muttenz",
+      "sieger": [
+        {
+          "id": "sascha streich|2001",
+          "name": "Sascha Streich"
+        }
+      ],
+      "n_teilnehmer": 29,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22457",
@@ -279,7 +555,15 @@
       "datum": "2023-06-11",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hinwil"
+      "ort": "Hinwil",
+      "sieger": [
+        {
+          "id": "benjamin nock|2001",
+          "name": "Benjamin Nock"
+        }
+      ],
+      "n_teilnehmer": 50,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22460",
@@ -287,7 +571,15 @@
       "datum": "2023-06-11",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "St. Antönien"
+      "ort": "St. Antönien",
+      "sieger": [
+        {
+          "id": "christian biasch|1996",
+          "name": "Christian Biäsch"
+        }
+      ],
+      "n_teilnehmer": 32,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22461",
@@ -295,7 +587,15 @@
       "datum": "2023-06-11",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lyss"
+      "ort": "Lyss",
+      "sieger": [
+        {
+          "id": "christian stucki|?",
+          "name": "Christian Stucki"
+        }
+      ],
+      "n_teilnehmer": 152,
+      "n_kraenze": 27
     },
     {
       "id": "schlussgang-22462",
@@ -303,7 +603,15 @@
       "datum": "2023-06-11",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Stoos SZ"
+      "ort": "Stoos SZ",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 89,
+      "n_kraenze": 13
     },
     {
       "id": "schlussgang-22451",
@@ -311,7 +619,15 @@
       "datum": "2023-06-17",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lungern"
+      "ort": "Lungern",
+      "sieger": [
+        {
+          "id": "stefan ettlin|1997",
+          "name": "Stefan Ettlin"
+        }
+      ],
+      "n_teilnehmer": 94,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22448",
@@ -319,7 +635,15 @@
       "datum": "2023-06-18",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Flims"
+      "ort": "Flims",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        }
+      ],
+      "n_teilnehmer": 142,
+      "n_kraenze": 24
     },
     {
       "id": "schlussgang-22449",
@@ -327,7 +651,15 @@
       "datum": "2023-06-18",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lac Noir / Schwarzsee"
+      "ort": "Lac Noir / Schwarzsee",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 90,
+      "n_kraenze": 13
     },
     {
       "id": "schlussgang-22447",
@@ -335,7 +667,15 @@
       "datum": "2023-06-23",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Baar"
+      "ort": "Baar",
+      "sieger": [
+        {
+          "id": "noe van messel|2002",
+          "name": "Noe Van Messel"
+        }
+      ],
+      "n_teilnehmer": 92,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22437",
@@ -343,7 +683,15 @@
       "datum": "2023-06-25",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Mollis"
+      "ort": "Mollis",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        }
+      ],
+      "n_teilnehmer": 158,
+      "n_kraenze": 26
     },
     {
       "id": "schlussgang-22440",
@@ -351,7 +699,19 @@
       "datum": "2023-06-25",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Tramelan"
+      "ort": "Tramelan",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        },
+        {
+          "id": "matthias aeschbacher|1992",
+          "name": "Matthias Aeschbacher"
+        }
+      ],
+      "n_teilnehmer": 150,
+      "n_kraenze": 22
     },
     {
       "id": "schlussgang-22443",
@@ -359,7 +719,15 @@
       "datum": "2023-06-25",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Obergösgen"
+      "ort": "Obergösgen",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 115,
+      "n_kraenze": 18
     },
     {
       "id": "schlussgang-22427",
@@ -367,7 +735,15 @@
       "datum": "2023-07-02",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Dagmersellen"
+      "ort": "Dagmersellen",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 199,
+      "n_kraenze": 30
     },
     {
       "id": "schlussgang-22421",
@@ -375,7 +751,15 @@
       "datum": "2023-07-09",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Oberegg"
+      "ort": "Oberegg",
+      "sieger": [
+        {
+          "id": "domenic schneider|1994",
+          "name": "Domenic Schneider"
+        }
+      ],
+      "n_teilnehmer": 143,
+      "n_kraenze": 20
     },
     {
       "id": "schlussgang-22422",
@@ -383,7 +767,15 @@
       "datum": "2023-07-09",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Frutigen"
+      "ort": "Frutigen",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 195,
+      "n_kraenze": 33
     },
     {
       "id": "schlussgang-22424",
@@ -391,7 +783,15 @@
       "datum": "2023-07-09",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Rigi Staffel"
+      "ort": "Rigi Staffel",
+      "sieger": [
+        {
+          "id": "pirmin reichmuth|?",
+          "name": "Pirmin Reichmuth"
+        }
+      ],
+      "n_teilnehmer": 90,
+      "n_kraenze": 13
     },
     {
       "id": "schlussgang-22417",
@@ -399,7 +799,15 @@
       "datum": "2023-07-15",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schönenberg"
+      "ort": "Schönenberg",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 64,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22418",
@@ -407,7 +815,15 @@
       "datum": "2023-07-15",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Fankhaus"
+      "ort": "Fankhaus",
+      "sieger": [
+        {
+          "id": "ruedi roschi|1991",
+          "name": "Ruedi Roschi"
+        }
+      ],
+      "n_teilnehmer": 86,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22416",
@@ -415,7 +831,15 @@
       "datum": "2023-07-16",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Romanel-sur-Lausanne"
+      "ort": "Romanel-sur-Lausanne",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        }
+      ],
+      "n_teilnehmer": 116,
+      "n_kraenze": 19
     },
     {
       "id": "schlussgang-22415",
@@ -423,7 +847,15 @@
       "datum": "2023-07-22",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Weissenstein ob Solothurn"
+      "ort": "Weissenstein ob Solothurn",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 90,
+      "n_kraenze": 15
     },
     {
       "id": "schlussgang-22410",
@@ -431,7 +863,15 @@
       "datum": "2023-07-23",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Vordergeissboden, Zugerberg"
+      "ort": "Vordergeissboden, Zugerberg",
+      "sieger": [
+        {
+          "id": "marcel bieri|1994",
+          "name": "Marcel Bieri"
+        }
+      ],
+      "n_teilnehmer": 89,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22413",
@@ -439,7 +879,15 @@
       "datum": "2023-07-23",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Kiental"
+      "ort": "Kiental",
+      "sieger": [
+        {
+          "id": "florian gnagi|?",
+          "name": "Florian Gnägi"
+        }
+      ],
+      "n_teilnehmer": 57,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22403",
@@ -447,7 +895,15 @@
       "datum": "2023-07-30",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Brünig Passhöhe"
+      "ort": "Brünig Passhöhe",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 119,
+      "n_kraenze": 20
     },
     {
       "id": "schlussgang-22406",
@@ -455,7 +911,15 @@
       "datum": "2023-07-30",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Davos Sertig"
+      "ort": "Davos Sertig",
+      "sieger": [
+        {
+          "id": "urban raschle|2003",
+          "name": "Urban Raschle"
+        }
+      ],
+      "n_teilnehmer": 75,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22395",
@@ -463,7 +927,15 @@
       "datum": "2023-08-05",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Chilchmethof ob Wittnau"
+      "ort": "Chilchmethof ob Wittnau",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 73,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22399",
@@ -471,7 +943,15 @@
       "datum": "2023-08-05",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Klewenalp"
+      "ort": "Klewenalp",
+      "sieger": [
+        {
+          "id": "christian schuler|?",
+          "name": "Christian Schuler"
+        }
+      ],
+      "n_teilnehmer": 50,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22401",
@@ -479,7 +959,15 @@
       "datum": "2023-08-05",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Engstlenalp"
+      "ort": "Engstlenalp",
+      "sieger": [
+        {
+          "id": "matthias aeschbacher|1992",
+          "name": "Matthias Aeschbacher"
+        }
+      ],
+      "n_teilnehmer": 93,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22390",
@@ -487,7 +975,15 @@
       "datum": "2023-08-06",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Urnerboden"
+      "ort": "Urnerboden",
+      "sieger": [
+        {
+          "id": "patrick betschart|1999",
+          "name": "Patrick Betschart"
+        }
+      ],
+      "n_teilnehmer": 76,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22391",
@@ -495,7 +991,15 @@
       "datum": "2023-08-06",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sörenberg"
+      "ort": "Sörenberg",
+      "sieger": [
+        {
+          "id": "erich fankhauser|?",
+          "name": "Erich Fankhauser"
+        }
+      ],
+      "n_teilnehmer": 92,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22394",
@@ -503,7 +1007,15 @@
       "datum": "2023-08-06",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ricken"
+      "ort": "Ricken",
+      "sieger": [
+        {
+          "id": "hersche martin|?",
+          "name": "Martin Hersche"
+        }
+      ],
+      "n_teilnehmer": 113,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22382",
@@ -511,7 +1023,19 @@
       "datum": "2023-08-13",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Deitingen"
+      "ort": "Deitingen",
+      "sieger": [
+        {
+          "id": "patrick rabmatter|?",
+          "name": "Patrick Räbmatter"
+        },
+        {
+          "id": "matthias aeschbacher|1992",
+          "name": "Matthias Aeschbacher"
+        }
+      ],
+      "n_teilnehmer": 119,
+      "n_kraenze": 20
     },
     {
       "id": "schlussgang-22380",
@@ -519,7 +1043,15 @@
       "datum": "2023-08-15",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Melchsee-Frutt"
+      "ort": "Melchsee-Frutt",
+      "sieger": [
+        {
+          "id": "fritz ramseier|?",
+          "name": "Fritz Ramseier"
+        }
+      ],
+      "n_teilnehmer": 95,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22373",
@@ -527,7 +1059,15 @@
       "datum": "2023-08-20",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schwägalp AR"
+      "ort": "Schwägalp AR",
+      "sieger": [
+        {
+          "id": "mario schneider|1992",
+          "name": "Mario Schneider"
+        }
+      ],
+      "n_teilnehmer": 90,
+      "n_kraenze": 14
     },
     {
       "id": "schlussgang-22371",
@@ -535,7 +1075,15 @@
       "datum": "2023-08-27",
       "typ": "eidgenoessisch",
       "quelle": "schlussgang.ch/event",
-      "ort": "Interlaken"
+      "ort": "Interlaken",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 120,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22365",
@@ -543,7 +1091,15 @@
       "datum": "2023-09-03",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Kemmeribodenbad"
+      "ort": "Kemmeribodenbad",
+      "sieger": [
+        {
+          "id": "matthias aeschbacher|1992",
+          "name": "Matthias Aeschbacher"
+        }
+      ],
+      "n_teilnehmer": 104,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22366",
@@ -551,7 +1107,15 @@
       "datum": "2023-09-03",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Wolzenalp ob Krummenau"
+      "ort": "Wolzenalp ob Krummenau",
+      "sieger": [
+        {
+          "id": "damian ott|2000",
+          "name": "Damian Ott"
+        }
+      ],
+      "n_teilnehmer": 63,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22357",
@@ -559,7 +1123,15 @@
       "datum": "2023-09-09",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Gelterkinden"
+      "ort": "Gelterkinden",
+      "sieger": [
+        {
+          "id": "damian ott|2000",
+          "name": "Damian Ott"
+        }
+      ],
+      "n_teilnehmer": 36,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22360",
@@ -567,7 +1139,19 @@
       "datum": "2023-09-09",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Péry"
+      "ort": "Péry",
+      "sieger": [
+        {
+          "id": "matthieu burger|2001",
+          "name": "Matthieu Burger"
+        },
+        {
+          "id": "etienne burger|2004",
+          "name": "Etienne Burger"
+        }
+      ],
+      "n_teilnehmer": 32,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22351",
@@ -575,7 +1159,15 @@
       "datum": "2023-09-10",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lueg Kaltacker"
+      "ort": "Lueg Kaltacker",
+      "sieger": [
+        {
+          "id": "matthias aeschbacher|1992",
+          "name": "Matthias Aeschbacher"
+        }
+      ],
+      "n_teilnehmer": 65,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22352",
@@ -583,7 +1175,15 @@
       "datum": "2023-09-10",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ennetmoos"
+      "ort": "Ennetmoos",
+      "sieger": [
+        {
+          "id": "pirmin reichmuth|?",
+          "name": "Pirmin Reichmuth"
+        }
+      ],
+      "n_teilnehmer": 120,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22354",
@@ -591,7 +1191,15 @@
       "datum": "2023-09-10",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Reinach AG"
+      "ort": "Reinach AG",
+      "sieger": [
+        {
+          "id": "joel strebel|1997",
+          "name": "Joel Strebel"
+        }
+      ],
+      "n_teilnehmer": 75,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22346",
@@ -599,7 +1207,15 @@
       "datum": "2023-09-17",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Saanenmöser"
+      "ort": "Saanenmöser",
+      "sieger": [
+        {
+          "id": "ivan thoni|2003",
+          "name": "Ivan Thöni"
+        }
+      ],
+      "n_teilnehmer": 57,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22345",
@@ -607,7 +1223,15 @@
       "datum": "2023-09-23",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Aeschiried"
+      "ort": "Aeschiried",
+      "sieger": [
+        {
+          "id": "adrian klossner|1993",
+          "name": "Adrian Klossner"
+        }
+      ],
+      "n_teilnehmer": 111,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22341",
@@ -615,7 +1239,15 @@
       "datum": "2023-09-24",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Siebnen"
+      "ort": "Siebnen",
+      "sieger": [
+        {
+          "id": "mike mullestein|?",
+          "name": "Mike Müllestein"
+        }
+      ],
+      "n_teilnehmer": 131,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22342",
@@ -623,7 +1255,15 @@
       "datum": "2023-09-24",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schachen"
+      "ort": "Schachen",
+      "sieger": [
+        {
+          "id": "joel ambuhl|1998",
+          "name": "Joel Ambühl"
+        }
+      ],
+      "n_teilnehmer": 89,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22338",
@@ -631,7 +1271,15 @@
       "datum": "2023-10-01",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Unteriberg"
+      "ort": "Unteriberg",
+      "sieger": [
+        {
+          "id": "christian schuler|?",
+          "name": "Christian Schuler"
+        }
+      ],
+      "n_teilnehmer": 66,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22333",
@@ -639,7 +1287,15 @@
       "datum": "2023-12-02",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Pratteln"
+      "ort": "Pratteln",
+      "sieger": [
+        {
+          "id": "lars voggensperger|2001",
+          "name": "Lars Voggensperger"
+        }
+      ],
+      "n_teilnehmer": 15,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22335",
@@ -647,7 +1303,15 @@
       "datum": "2023-12-02",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Stadthalle Dietikon"
+      "ort": "Stadthalle Dietikon",
+      "sieger": [
+        {
+          "id": "roger rychen|1991",
+          "name": "Roger Rychen"
+        }
+      ],
+      "n_teilnehmer": 81,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36762",
@@ -655,7 +1319,15 @@
       "datum": "2024-01-02",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Zürich Saalsporthalle"
+      "ort": "Zürich Saalsporthalle",
+      "sieger": [
+        {
+          "id": "werner schlegel|2002",
+          "name": "Werner Schlegel"
+        }
+      ],
+      "n_teilnehmer": 112,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36966",
@@ -663,7 +1335,15 @@
       "datum": "2024-02-03",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Gais"
+      "ort": "Gais",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 84,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36984",
@@ -671,7 +1351,15 @@
       "datum": "2024-02-10",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Kirchberg"
+      "ort": "Kirchberg",
+      "sieger": [
+        {
+          "id": "lars voggensperger|2001",
+          "name": "Lars Voggensperger"
+        }
+      ],
+      "n_teilnehmer": 64,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36075",
@@ -679,7 +1367,15 @@
       "datum": "2024-02-24",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Untervaz"
+      "ort": "Untervaz",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        }
+      ],
+      "n_teilnehmer": 40,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37045",
@@ -687,7 +1383,15 @@
       "datum": "2024-02-24",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Büren a.A."
+      "ort": "Büren a.A.",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 53,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36991",
@@ -695,7 +1399,15 @@
       "datum": "2024-02-25",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Niederurnen"
+      "ort": "Niederurnen",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 56,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36065",
@@ -703,7 +1415,19 @@
       "datum": "2024-03-09",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Dreifach-Turnhalle Sarnen"
+      "ort": "Dreifach-Turnhalle Sarnen",
+      "sieger": [
+        {
+          "id": "pirmin reichmuth|?",
+          "name": "Pirmin Reichmuth"
+        },
+        {
+          "id": "mike mullestein|?",
+          "name": "Mike Müllestein"
+        }
+      ],
+      "n_teilnehmer": 201,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-34203",
@@ -711,7 +1435,15 @@
       "datum": "2024-03-10",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Corcelles"
+      "ort": "Corcelles",
+      "sieger": [
+        {
+          "id": "matthieu burger|2001",
+          "name": "Matthieu Burger"
+        }
+      ],
+      "n_teilnehmer": 34,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37094",
@@ -719,7 +1451,15 @@
       "datum": "2024-03-10",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Reithalle Heimenschwand"
+      "ort": "Reithalle Heimenschwand",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 103,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-33019",
@@ -727,7 +1467,15 @@
       "datum": "2024-03-23",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Markthalle Langenthal"
+      "ort": "Markthalle Langenthal",
+      "sieger": [
+        {
+          "id": "fabio hiltbrunner|2005",
+          "name": "Fabio Hiltbrunner"
+        }
+      ],
+      "n_teilnehmer": 85,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-34664",
@@ -735,7 +1483,15 @@
       "datum": "2024-03-23",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Bolligen"
+      "ort": "Bolligen",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 51,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37090",
@@ -743,7 +1499,10 @@
       "datum": "2024-03-23",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Engelberg"
+      "ort": "Engelberg",
+      "sieger": [],
+      "n_teilnehmer": 131,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22326",
@@ -751,7 +1510,15 @@
       "datum": "2024-03-24",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "MZH Lenzburg"
+      "ort": "MZH Lenzburg",
+      "sieger": [
+        {
+          "id": "joel strebel|1997",
+          "name": "Joel Strebel"
+        }
+      ],
+      "n_teilnehmer": 81,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22327",
@@ -759,7 +1526,15 @@
       "datum": "2024-03-24",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sporthalle Lachen, Thun"
+      "ort": "Sporthalle Lachen, Thun",
+      "sieger": [
+        {
+          "id": "severin schwander|1995",
+          "name": "Severin Schwander"
+        }
+      ],
+      "n_teilnehmer": 84,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22329",
@@ -767,7 +1542,15 @@
       "datum": "2024-03-24",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Trübbach"
+      "ort": "Trübbach",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        }
+      ],
+      "n_teilnehmer": 101,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-33017",
@@ -775,7 +1558,15 @@
       "datum": "2024-03-24",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Chavornay"
+      "ort": "Chavornay",
+      "sieger": [
+        {
+          "id": "lario kramer|1998",
+          "name": "Lario Kramer"
+        }
+      ],
+      "n_teilnehmer": 59,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22325",
@@ -783,7 +1574,15 @@
       "datum": "2024-04-01",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Pfäffikon"
+      "ort": "Pfäffikon",
+      "sieger": [
+        {
+          "id": "urs doppmann|1994",
+          "name": "Urs Doppmann"
+        }
+      ],
+      "n_teilnehmer": 99,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36805",
@@ -791,7 +1590,15 @@
       "datum": "2024-04-01",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ibach"
+      "ort": "Ibach",
+      "sieger": [
+        {
+          "id": "benjamin gapany|1995",
+          "name": "Benjamin Gapany"
+        }
+      ],
+      "n_teilnehmer": 158,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36810",
@@ -799,7 +1606,15 @@
       "datum": "2024-04-01",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hallau - Wunderklingen"
+      "ort": "Hallau - Wunderklingen",
+      "sieger": [
+        {
+          "id": "roger burli|1997",
+          "name": "Roger Bürli"
+        }
+      ],
+      "n_teilnehmer": 81,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37105",
@@ -807,7 +1622,19 @@
       "datum": "2024-04-01",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Zäziwil"
+      "ort": "Zäziwil",
+      "sieger": [
+        {
+          "id": "jan wittwer|1997",
+          "name": "Jan Wittwer"
+        },
+        {
+          "id": "christian gerber|1991",
+          "name": "Christian Gerber"
+        }
+      ],
+      "n_teilnehmer": 113,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22324",
@@ -815,7 +1642,15 @@
       "datum": "2024-04-07",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Bonstetten"
+      "ort": "Bonstetten",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        }
+      ],
+      "n_teilnehmer": 84,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-32798",
@@ -823,7 +1658,15 @@
       "datum": "2024-04-07",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Thörigen, Reithalle"
+      "ort": "Thörigen, Reithalle",
+      "sieger": [
+        {
+          "id": "matthias aeschbacher|1992",
+          "name": "Matthias Aeschbacher"
+        }
+      ],
+      "n_teilnehmer": 73,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-38255",
@@ -831,7 +1674,15 @@
       "datum": "2024-04-07",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Oberarth"
+      "ort": "Oberarth",
+      "sieger": [
+        {
+          "id": "pirmin reichmuth|?",
+          "name": "Pirmin Reichmuth"
+        }
+      ],
+      "n_teilnehmer": 90,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22323",
@@ -839,7 +1690,15 @@
       "datum": "2024-04-13",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sursee"
+      "ort": "Sursee",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 113,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-32686",
@@ -847,7 +1706,19 @@
       "datum": "2024-04-13",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Alterswil"
+      "ort": "Alterswil",
+      "sieger": [
+        {
+          "id": "severin schwander|1995",
+          "name": "Severin Schwander"
+        },
+        {
+          "id": "fritz ramseier|?",
+          "name": "Fritz Ramseier"
+        }
+      ],
+      "n_teilnehmer": 69,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37059",
@@ -855,7 +1726,15 @@
       "datum": "2024-04-13",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Vinelz"
+      "ort": "Vinelz",
+      "sieger": [
+        {
+          "id": "florian gnagi|?",
+          "name": "Florian Gnägi"
+        }
+      ],
+      "n_teilnehmer": 60,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37099",
@@ -863,7 +1742,15 @@
       "datum": "2024-04-13",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Altdorf"
+      "ort": "Altdorf",
+      "sieger": [
+        {
+          "id": "lukas bissig|2003",
+          "name": "Lukas Bissig"
+        }
+      ],
+      "n_teilnehmer": 34,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22322",
@@ -871,7 +1758,15 @@
       "datum": "2024-04-14",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Buttwil"
+      "ort": "Buttwil",
+      "sieger": [
+        {
+          "id": "joel strebel|1997",
+          "name": "Joel Strebel"
+        }
+      ],
+      "n_teilnehmer": 74,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36151",
@@ -879,7 +1774,15 @@
       "datum": "2024-04-14",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Berg TG"
+      "ort": "Berg TG",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 83,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36960",
@@ -887,7 +1790,15 @@
       "datum": "2024-04-14",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Muotathal"
+      "ort": "Muotathal",
+      "sieger": [
+        {
+          "id": "pirmin reichmuth|?",
+          "name": "Pirmin Reichmuth"
+        }
+      ],
+      "n_teilnehmer": 112,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37050",
@@ -895,7 +1806,15 @@
       "datum": "2024-04-14",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Amden"
+      "ort": "Amden",
+      "sieger": [
+        {
+          "id": "martin roth|1990",
+          "name": "Martin Roth"
+        }
+      ],
+      "n_teilnehmer": 71,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22318",
@@ -903,7 +1822,15 @@
       "datum": "2024-04-21",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Trimmis"
+      "ort": "Trimmis",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        }
+      ],
+      "n_teilnehmer": 66,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22319",
@@ -911,7 +1838,15 @@
       "datum": "2024-04-21",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Necker"
+      "ort": "Necker",
+      "sieger": [
+        {
+          "id": "werner schlegel|2002",
+          "name": "Werner Schlegel"
+        }
+      ],
+      "n_teilnehmer": 94,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-32684",
@@ -919,7 +1854,15 @@
       "datum": "2024-04-21",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ried bei Kerzers"
+      "ort": "Ried bei Kerzers",
+      "sieger": [
+        {
+          "id": "lario kramer|1998",
+          "name": "Lario Kramer"
+        }
+      ],
+      "n_teilnehmer": 75,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36998",
@@ -927,7 +1870,15 @@
       "datum": "2024-04-21",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Grenchen"
+      "ort": "Grenchen",
+      "sieger": [
+        {
+          "id": "jonas odermatt|2004",
+          "name": "Jonas Odermatt"
+        }
+      ],
+      "n_teilnehmer": 57,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37108",
@@ -935,7 +1886,15 @@
       "datum": "2024-04-26",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Küssnacht"
+      "ort": "Küssnacht",
+      "sieger": [
+        {
+          "id": "mike mullestein|?",
+          "name": "Mike Müllestein"
+        }
+      ],
+      "n_teilnehmer": 97,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-32850",
@@ -943,7 +1902,15 @@
       "datum": "2024-04-27",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sissach"
+      "ort": "Sissach",
+      "sieger": [
+        {
+          "id": "lars voggensperger|2001",
+          "name": "Lars Voggensperger"
+        }
+      ],
+      "n_teilnehmer": 37,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36884",
@@ -951,7 +1918,15 @@
       "datum": "2024-04-27",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Frutigen"
+      "ort": "Frutigen",
+      "sieger": [
+        {
+          "id": "curdin orlik|1993",
+          "name": "Curdin Orlik"
+        }
+      ],
+      "n_teilnehmer": 104,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22312",
@@ -959,7 +1934,15 @@
       "datum": "2024-04-28",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hochdorf"
+      "ort": "Hochdorf",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 124,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22313",
@@ -967,7 +1950,15 @@
       "datum": "2024-04-28",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Winterthur"
+      "ort": "Winterthur",
+      "sieger": [
+        {
+          "id": "samir leuppi|1993",
+          "name": "Samir Leuppi"
+        }
+      ],
+      "n_teilnehmer": 68,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22314",
@@ -975,7 +1966,15 @@
       "datum": "2024-04-28",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Courtepin"
+      "ort": "Courtepin",
+      "sieger": [
+        {
+          "id": "benjamin gapany|1995",
+          "name": "Benjamin Gapany"
+        }
+      ],
+      "n_teilnehmer": 44,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-33929",
@@ -983,7 +1982,15 @@
       "datum": "2024-04-28",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Rüschegg-Gambach"
+      "ort": "Rüschegg-Gambach",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 64,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-34933",
@@ -991,7 +1998,15 @@
       "datum": "2024-04-28",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schulareal Dorf Suhr"
+      "ort": "Schulareal Dorf Suhr",
+      "sieger": [
+        {
+          "id": "sinisha luscher|2006",
+          "name": "Sinisha Lüscher"
+        }
+      ],
+      "n_teilnehmer": 57,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22308",
@@ -999,7 +2014,15 @@
       "datum": "2024-05-04",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Rothenburg"
+      "ort": "Rothenburg",
+      "sieger": [
+        {
+          "id": "sven schurtenberger|1991",
+          "name": "Sven Schurtenberger"
+        }
+      ],
+      "n_teilnehmer": 74,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22303",
@@ -1007,7 +2030,15 @@
       "datum": "2024-05-05",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ermatingen"
+      "ort": "Ermatingen",
+      "sieger": [
+        {
+          "id": "werner schlegel|2002",
+          "name": "Werner Schlegel"
+        }
+      ],
+      "n_teilnehmer": 153,
+      "n_kraenze": 27
     },
     {
       "id": "schlussgang-22304",
@@ -1015,7 +2046,15 @@
       "datum": "2024-05-05",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Frasses"
+      "ort": "Frasses",
+      "sieger": [
+        {
+          "id": "benjamin gapany|1995",
+          "name": "Benjamin Gapany"
+        }
+      ],
+      "n_teilnehmer": 121,
+      "n_kraenze": 19
     },
     {
       "id": "schlussgang-22306",
@@ -1023,7 +2062,15 @@
       "datum": "2024-05-05",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Kestenholz"
+      "ort": "Kestenholz",
+      "sieger": [
+        {
+          "id": "joel strebel|1997",
+          "name": "Joel Strebel"
+        }
+      ],
+      "n_teilnehmer": 116,
+      "n_kraenze": 15
     },
     {
       "id": "schlussgang-22307",
@@ -1031,7 +2078,15 @@
       "datum": "2024-05-05",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Cham"
+      "ort": "Cham",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 189,
+      "n_kraenze": 32
     },
     {
       "id": "schlussgang-36814",
@@ -1039,7 +2094,15 @@
       "datum": "2024-05-09",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Basel"
+      "ort": "Basel",
+      "sieger": [
+        {
+          "id": "joel strebel|1997",
+          "name": "Joel Strebel"
+        }
+      ],
+      "n_teilnehmer": 115,
+      "n_kraenze": 19
     },
     {
       "id": "schlussgang-32487",
@@ -1047,7 +2110,15 @@
       "datum": "2024-05-11",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Mörschwil"
+      "ort": "Mörschwil",
+      "sieger": [
+        {
+          "id": "marcel rabsamen|2000",
+          "name": "Marcel Räbsamen"
+        }
+      ],
+      "n_teilnehmer": 88,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22297",
@@ -1055,7 +2126,15 @@
       "datum": "2024-05-12",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Galgenen"
+      "ort": "Galgenen",
+      "sieger": [
+        {
+          "id": "christian schuler|?",
+          "name": "Christian Schuler"
+        }
+      ],
+      "n_teilnehmer": 230,
+      "n_kraenze": 40
     },
     {
       "id": "schlussgang-22298",
@@ -1063,7 +2142,19 @@
       "datum": "2024-05-12",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Riggisberg"
+      "ort": "Riggisberg",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        },
+        {
+          "id": "adrian walther|2001",
+          "name": "Adrian Walther"
+        }
+      ],
+      "n_teilnehmer": 188,
+      "n_kraenze": 32
     },
     {
       "id": "schlussgang-22292",
@@ -1071,7 +2162,19 @@
       "datum": "2024-05-18",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ruswil"
+      "ort": "Ruswil",
+      "sieger": [
+        {
+          "id": "samuel schwyzer|2001",
+          "name": "Samuel Schwyzer"
+        },
+        {
+          "id": "roman wandeler|2002",
+          "name": "Roman Wandeler"
+        }
+      ],
+      "n_teilnehmer": 82,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22293",
@@ -1079,7 +2182,15 @@
       "datum": "2024-05-18",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Dombresson"
+      "ort": "Dombresson",
+      "sieger": [
+        {
+          "id": "matthieu burger|2001",
+          "name": "Matthieu Burger"
+        }
+      ],
+      "n_teilnehmer": 107,
+      "n_kraenze": 18
     },
     {
       "id": "schlussgang-22294",
@@ -1087,7 +2198,15 @@
       "datum": "2024-05-18",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lungern"
+      "ort": "Lungern",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 196,
+      "n_kraenze": 32
     },
     {
       "id": "schlussgang-32837",
@@ -1095,7 +2214,15 @@
       "datum": "2024-05-18",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Morgarten"
+      "ort": "Morgarten",
+      "sieger": [
+        {
+          "id": "marcel bieri|1994",
+          "name": "Marcel Bieri"
+        }
+      ],
+      "n_teilnehmer": 32,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22288",
@@ -1103,7 +2230,15 @@
       "datum": "2024-05-20",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hochfelden"
+      "ort": "Hochfelden",
+      "sieger": [
+        {
+          "id": "jeremy vollenweider|1998",
+          "name": "Jeremy Vollenweider"
+        }
+      ],
+      "n_teilnehmer": 47,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22291",
@@ -1111,7 +2246,15 @@
       "datum": "2024-05-20",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Glarus"
+      "ort": "Glarus",
+      "sieger": [
+        {
+          "id": "domenic schneider|1994",
+          "name": "Domenic Schneider"
+        }
+      ],
+      "n_teilnehmer": 133,
+      "n_kraenze": 21
     },
     {
       "id": "schlussgang-36540",
@@ -1119,7 +2262,15 @@
       "datum": "2024-05-20",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Laupen"
+      "ort": "Laupen",
+      "sieger": [
+        {
+          "id": "adrian walther|2001",
+          "name": "Adrian Walther"
+        }
+      ],
+      "n_teilnehmer": 36,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37005",
@@ -1127,7 +2278,15 @@
       "datum": "2024-05-20",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Brugg"
+      "ort": "Brugg",
+      "sieger": [
+        {
+          "id": "joel strebel|1997",
+          "name": "Joel Strebel"
+        }
+      ],
+      "n_teilnehmer": 58,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37130",
@@ -1135,7 +2294,19 @@
       "datum": "2024-05-20",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Matten"
+      "ort": "Matten",
+      "sieger": [
+        {
+          "id": "kilian wenger|?",
+          "name": "Kilian Wenger"
+        },
+        {
+          "id": "kilian von weissenfluh|?",
+          "name": "von Weissenfluh Kilian"
+        }
+      ],
+      "n_teilnehmer": 60,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22287",
@@ -1143,7 +2314,15 @@
       "datum": "2024-05-25",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Brienz"
+      "ort": "Brienz",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 200,
+      "n_kraenze": 35
     },
     {
       "id": "schlussgang-22284",
@@ -1151,7 +2330,15 @@
       "datum": "2024-05-26",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schwarzenberg"
+      "ort": "Schwarzenberg",
+      "sieger": [
+        {
+          "id": "roman wandeler|2002",
+          "name": "Roman Wandeler"
+        }
+      ],
+      "n_teilnehmer": 66,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-23094",
@@ -1159,7 +2346,15 @@
       "datum": "2024-05-26",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Werdenberg-Grabs"
+      "ort": "Werdenberg-Grabs",
+      "sieger": [
+        {
+          "id": "marco good|1996",
+          "name": "Marco Good"
+        }
+      ],
+      "n_teilnehmer": 195,
+      "n_kraenze": 32
     },
     {
       "id": "schlussgang-33910",
@@ -1167,7 +2362,15 @@
       "datum": "2024-05-26",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Attinghausen"
+      "ort": "Attinghausen",
+      "sieger": [
+        {
+          "id": "lukas bissig|2003",
+          "name": "Lukas Bissig"
+        }
+      ],
+      "n_teilnehmer": 177,
+      "n_kraenze": 27
     },
     {
       "id": "schlussgang-22279",
@@ -1175,7 +2378,15 @@
       "datum": "2024-06-01",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Alle"
+      "ort": "Alle",
+      "sieger": [
+        {
+          "id": "romain collaud|2002",
+          "name": "Romain Collaud"
+        }
+      ],
+      "n_teilnehmer": 96,
+      "n_kraenze": 16
     },
     {
       "id": "schlussgang-22281",
@@ -1183,7 +2394,15 @@
       "datum": "2024-06-01",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Herisau"
+      "ort": "Herisau",
+      "sieger": [
+        {
+          "id": "roman wittenwiler|1998",
+          "name": "Roman Wittenwiler"
+        }
+      ],
+      "n_teilnehmer": 58,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22274",
@@ -1191,7 +2410,15 @@
       "datum": "2024-06-02",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hasle"
+      "ort": "Hasle",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 252,
+      "n_kraenze": 43
     },
     {
       "id": "schlussgang-22275",
@@ -1199,7 +2426,15 @@
       "datum": "2024-06-02",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Horgen"
+      "ort": "Horgen",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        }
+      ],
+      "n_teilnehmer": 157,
+      "n_kraenze": 25
     },
     {
       "id": "schlussgang-22276",
@@ -1207,7 +2442,15 @@
       "datum": "2024-06-02",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Bad Zurzach"
+      "ort": "Bad Zurzach",
+      "sieger": [
+        {
+          "id": "joel strebel|1997",
+          "name": "Joel Strebel"
+        }
+      ],
+      "n_teilnehmer": 128,
+      "n_kraenze": 20
     },
     {
       "id": "schlussgang-22272",
@@ -1215,7 +2458,15 @@
       "datum": "2024-06-09",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Stoos SZ"
+      "ort": "Stoos SZ",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 90,
+      "n_kraenze": 14
     },
     {
       "id": "schlussgang-36537",
@@ -1223,7 +2474,15 @@
       "datum": "2024-06-09",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Cottens"
+      "ort": "Cottens",
+      "sieger": [
+        {
+          "id": "matthey mickael|?",
+          "name": "Mickaël Matthey"
+        }
+      ],
+      "n_teilnehmer": 42,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-33302",
@@ -1231,7 +2490,15 @@
       "datum": "2024-06-15",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Davos"
+      "ort": "Davos",
+      "sieger": [
+        {
+          "id": "jeremy vollenweider|1998",
+          "name": "Jeremy Vollenweider"
+        }
+      ],
+      "n_teilnehmer": 139,
+      "n_kraenze": 22
     },
     {
       "id": "schlussgang-22265",
@@ -1239,7 +2506,15 @@
       "datum": "2024-06-16",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lausen"
+      "ort": "Lausen",
+      "sieger": [
+        {
+          "id": "marcel bieri|1994",
+          "name": "Marcel Bieri"
+        }
+      ],
+      "n_teilnehmer": 125,
+      "n_kraenze": 19
     },
     {
       "id": "schlussgang-22267",
@@ -1247,7 +2522,19 @@
       "datum": "2024-06-16",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Michaelskreuz ob Root"
+      "ort": "Michaelskreuz ob Root",
+      "sieger": [
+        {
+          "id": "simon schmid|2000",
+          "name": "Simon Schmid"
+        },
+        {
+          "id": "roger burli|1997",
+          "name": "Roger Bürli"
+        }
+      ],
+      "n_teilnehmer": 121,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22268",
@@ -1255,7 +2542,15 @@
       "datum": "2024-06-16",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Täuffelen"
+      "ort": "Täuffelen",
+      "sieger": [
+        {
+          "id": "adrian walther|2001",
+          "name": "Adrian Walther"
+        }
+      ],
+      "n_teilnehmer": 160,
+      "n_kraenze": 24
     },
     {
       "id": "schlussgang-22263",
@@ -1263,7 +2558,15 @@
       "datum": "2024-06-23",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lac Noir / Schwarzsee"
+      "ort": "Lac Noir / Schwarzsee",
+      "sieger": [
+        {
+          "id": "werner schlegel|2002",
+          "name": "Werner Schlegel"
+        }
+      ],
+      "n_teilnehmer": 90,
+      "n_kraenze": 14
     },
     {
       "id": "schlussgang-35887",
@@ -1271,7 +2574,15 @@
       "datum": "2024-06-23",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Obergösgen"
+      "ort": "Obergösgen",
+      "sieger": [
+        {
+          "id": "sinisha luscher|2006",
+          "name": "Sinisha Lüscher"
+        }
+      ],
+      "n_teilnehmer": 40,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36536",
@@ -1279,7 +2590,15 @@
       "datum": "2024-06-28",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Baar"
+      "ort": "Baar",
+      "sieger": [
+        {
+          "id": "pirmin reichmuth|?",
+          "name": "Pirmin Reichmuth"
+        }
+      ],
+      "n_teilnehmer": 100,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22258",
@@ -1287,7 +2606,15 @@
       "datum": "2024-06-29",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schupfart"
+      "ort": "Schupfart",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 45,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22259",
@@ -1295,7 +2622,15 @@
       "datum": "2024-06-29",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Palézieux"
+      "ort": "Palézieux",
+      "sieger": [
+        {
+          "id": "loic pasquier|2001",
+          "name": "Loïc Pasquier"
+        }
+      ],
+      "n_teilnehmer": 114,
+      "n_kraenze": 17
     },
     {
       "id": "schlussgang-22254",
@@ -1303,7 +2638,15 @@
       "datum": "2024-06-30",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Meilen"
+      "ort": "Meilen",
+      "sieger": [
+        {
+          "id": "werner schlegel|2002",
+          "name": "Werner Schlegel"
+        }
+      ],
+      "n_teilnehmer": 158,
+      "n_kraenze": 25
     },
     {
       "id": "schlussgang-22257",
@@ -1311,7 +2654,15 @@
       "datum": "2024-06-30",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Raimeux"
+      "ort": "Raimeux",
+      "sieger": [
+        {
+          "id": "curdin orlik|1993",
+          "name": "Curdin Orlik"
+        }
+      ],
+      "n_teilnehmer": 141,
+      "n_kraenze": 22
     },
     {
       "id": "schlussgang-22248",
@@ -1319,7 +2670,15 @@
       "datum": "2024-07-07",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Menzingen ZG"
+      "ort": "Menzingen ZG",
+      "sieger": [
+        {
+          "id": "marcel bieri|1994",
+          "name": "Marcel Bieri"
+        }
+      ],
+      "n_teilnehmer": 198,
+      "n_kraenze": 33
     },
     {
       "id": "schlussgang-22250",
@@ -1327,7 +2686,15 @@
       "datum": "2024-07-07",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hundwil"
+      "ort": "Hundwil",
+      "sieger": [
+        {
+          "id": "mario schneider|1992",
+          "name": "Mario Schneider"
+        }
+      ],
+      "n_teilnehmer": 158,
+      "n_kraenze": 27
     },
     {
       "id": "schlussgang-33723",
@@ -1335,7 +2702,15 @@
       "datum": "2024-07-13",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hochwacht ob Sirnach"
+      "ort": "Hochwacht ob Sirnach",
+      "sieger": [
+        {
+          "id": "domenic schneider|1994",
+          "name": "Domenic Schneider"
+        }
+      ],
+      "n_teilnehmer": 54,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22245",
@@ -1343,7 +2718,15 @@
       "datum": "2024-07-14",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Riaz"
+      "ort": "Riaz",
+      "sieger": [
+        {
+          "id": "werner schlegel|2002",
+          "name": "Werner Schlegel"
+        }
+      ],
+      "n_teilnehmer": 129,
+      "n_kraenze": 20
     },
     {
       "id": "schlussgang-22246",
@@ -1351,7 +2734,15 @@
       "datum": "2024-07-14",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Rigi Staffel"
+      "ort": "Rigi Staffel",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 89,
+      "n_kraenze": 14
     },
     {
       "id": "schlussgang-37040",
@@ -1359,7 +2750,15 @@
       "datum": "2024-07-14",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Adelboden"
+      "ort": "Adelboden",
+      "sieger": [
+        {
+          "id": "josias wittwer|?",
+          "name": "Josias Wittwer"
+        }
+      ],
+      "n_teilnehmer": 49,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22242",
@@ -1367,7 +2766,15 @@
       "datum": "2024-07-20",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Weissenstein ob Solothurn"
+      "ort": "Weissenstein ob Solothurn",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        }
+      ],
+      "n_teilnehmer": 90,
+      "n_kraenze": 16
     },
     {
       "id": "schlussgang-35684",
@@ -1375,7 +2782,15 @@
       "datum": "2024-07-20",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Engstlenalp"
+      "ort": "Engstlenalp",
+      "sieger": [
+        {
+          "id": "reto thoni|2001",
+          "name": "Reto Thöni"
+        }
+      ],
+      "n_teilnehmer": 81,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-35695",
@@ -1383,7 +2798,15 @@
       "datum": "2024-07-20",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Fankhaus"
+      "ort": "Fankhaus",
+      "sieger": [
+        {
+          "id": "lars zaugg|2002",
+          "name": "Lars Zaugg"
+        }
+      ],
+      "n_teilnehmer": 75,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22240",
@@ -1391,7 +2814,15 @@
       "datum": "2024-07-21",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Haudères"
+      "ort": "Haudères",
+      "sieger": [
+        {
+          "id": "benjamin gapany|1995",
+          "name": "Benjamin Gapany"
+        }
+      ],
+      "n_teilnehmer": 88,
+      "n_kraenze": 14
     },
     {
       "id": "schlussgang-22241",
@@ -1399,7 +2830,15 @@
       "datum": "2024-07-21",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Menzberg"
+      "ort": "Menzberg",
+      "sieger": [
+        {
+          "id": "kilian buhler|2000",
+          "name": "Kilian Bühler"
+        }
+      ],
+      "n_teilnehmer": 75,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-35870",
@@ -1407,7 +2846,15 @@
       "datum": "2024-07-21",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Vordergeissboden - Zugerberg"
+      "ort": "Vordergeissboden - Zugerberg",
+      "sieger": [
+        {
+          "id": "florian ulrich|?",
+          "name": "Florian Ulrich"
+        }
+      ],
+      "n_teilnehmer": 51,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37052",
@@ -1415,7 +2862,19 @@
       "datum": "2024-07-27",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Grindelwald"
+      "ort": "Grindelwald",
+      "sieger": [
+        {
+          "id": "fabian scharz|2004",
+          "name": "Fabian Schärz"
+        },
+        {
+          "id": "markus jost|2007",
+          "name": "Markus Jost"
+        }
+      ],
+      "n_teilnehmer": 47,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22237",
@@ -1423,7 +2882,15 @@
       "datum": "2024-07-28",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Brünig Passhöhe"
+      "ort": "Brünig Passhöhe",
+      "sieger": [
+        {
+          "id": "pirmin reichmuth|?",
+          "name": "Pirmin Reichmuth"
+        }
+      ],
+      "n_teilnehmer": 118,
+      "n_kraenze": 16
     },
     {
       "id": "schlussgang-36534",
@@ -1431,7 +2898,23 @@
       "datum": "2024-07-28",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Les Paccots"
+      "ort": "Les Paccots",
+      "sieger": [
+        {
+          "id": "gottofrey marc|?",
+          "name": "Marc Gottofrey"
+        },
+        {
+          "id": "david purro|2001",
+          "name": "David Pürro"
+        },
+        {
+          "id": "fabio portmann|1998",
+          "name": "Fabio Portmann"
+        }
+      ],
+      "n_teilnehmer": 38,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22236",
@@ -1439,7 +2922,15 @@
       "datum": "2024-08-01",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Burgdorf"
+      "ort": "Burgdorf",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 177,
+      "n_kraenze": 31
     },
     {
       "id": "schlussgang-34412",
@@ -1447,7 +2938,15 @@
       "datum": "2024-08-03",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Burgdorf"
+      "ort": "Burgdorf",
+      "sieger": [
+        {
+          "id": "michael moser|2005",
+          "name": "Michael Moser"
+        }
+      ],
+      "n_teilnehmer": 191,
+      "n_kraenze": 31
     },
     {
       "id": "schlussgang-37121",
@@ -1455,7 +2954,15 @@
       "datum": "2024-08-03",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hergiswil NW"
+      "ort": "Hergiswil NW",
+      "sieger": [
+        {
+          "id": "stefan ettlin|1997",
+          "name": "Stefan Ettlin"
+        }
+      ],
+      "n_teilnehmer": 59,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22234",
@@ -1463,7 +2970,15 @@
       "datum": "2024-08-04",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sörenberg"
+      "ort": "Sörenberg",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 80,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22261",
@@ -1471,7 +2986,15 @@
       "datum": "2024-08-04",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Zofingen"
+      "ort": "Zofingen",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 59,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36888",
@@ -1479,7 +3002,15 @@
       "datum": "2024-08-04",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Boveresse"
+      "ort": "Boveresse",
+      "sieger": [
+        {
+          "id": "marco waeber|1996",
+          "name": "Marco Waeber"
+        }
+      ],
+      "n_teilnehmer": 26,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37034",
@@ -1487,7 +3018,15 @@
       "datum": "2024-08-04",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Urnerboden"
+      "ort": "Urnerboden",
+      "sieger": [
+        {
+          "id": "patrick betschart|1999",
+          "name": "Patrick Betschart"
+        }
+      ],
+      "n_teilnehmer": 73,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37049",
@@ -1495,7 +3034,15 @@
       "datum": "2024-08-04",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ricken"
+      "ort": "Ricken",
+      "sieger": [
+        {
+          "id": "werner schlegel|2002",
+          "name": "Werner Schlegel"
+        }
+      ],
+      "n_teilnehmer": 111,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22232",
@@ -1503,7 +3050,15 @@
       "datum": "2024-08-11",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Himmelried"
+      "ort": "Himmelried",
+      "sieger": [
+        {
+          "id": "adrian odermatt|2001",
+          "name": "Adrian Odermatt"
+        }
+      ],
+      "n_teilnehmer": 47,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22233",
@@ -1511,7 +3066,15 @@
       "datum": "2024-08-11",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Burgdorf"
+      "ort": "Burgdorf",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 149,
+      "n_kraenze": 23
     },
     {
       "id": "schlussgang-36808",
@@ -1519,7 +3082,15 @@
       "datum": "2024-08-11",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Stetten"
+      "ort": "Stetten",
+      "sieger": [
+        {
+          "id": "damian ott|2000",
+          "name": "Damian Ott"
+        }
+      ],
+      "n_teilnehmer": 118,
+      "n_kraenze": 17
     },
     {
       "id": "schlussgang-36916",
@@ -1527,7 +3098,15 @@
       "datum": "2024-08-11",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lüderen"
+      "ort": "Lüderen",
+      "sieger": [
+        {
+          "id": "andreas locher|?",
+          "name": "Andreas Locher"
+        }
+      ],
+      "n_teilnehmer": 34,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37133",
@@ -1535,7 +3114,15 @@
       "datum": "2024-08-15",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Melchsee-Frutt"
+      "ort": "Melchsee-Frutt",
+      "sieger": [
+        {
+          "id": "lars zaugg|2002",
+          "name": "Lars Zaugg"
+        }
+      ],
+      "n_teilnehmer": 71,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37055",
@@ -1543,7 +3130,15 @@
       "datum": "2024-08-16",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schulanlage Hagendorn"
+      "ort": "Schulanlage Hagendorn",
+      "sieger": [
+        {
+          "id": "noe van messel|2002",
+          "name": "Noe Van Messel"
+        }
+      ],
+      "n_teilnehmer": 73,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36345",
@@ -1551,7 +3146,15 @@
       "datum": "2024-08-17",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Pratteln"
+      "ort": "Pratteln",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 118,
+      "n_kraenze": 20
     },
     {
       "id": "schlussgang-37147",
@@ -1559,7 +3162,15 @@
       "datum": "2024-08-17",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Stalden"
+      "ort": "Stalden",
+      "sieger": [
+        {
+          "id": "noah schaller|2000",
+          "name": "Noah Schaller"
+        }
+      ],
+      "n_teilnehmer": 27,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22229",
@@ -1567,7 +3178,19 @@
       "datum": "2024-08-18",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schwägalp AR"
+      "ort": "Schwägalp AR",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        },
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 90,
+      "n_kraenze": 13
     },
     {
       "id": "schlussgang-36532",
@@ -1575,7 +3198,15 @@
       "datum": "2024-09-01",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Yens"
+      "ort": "Yens",
+      "sieger": [
+        {
+          "id": "benjamin gapany|1995",
+          "name": "Benjamin Gapany"
+        }
+      ],
+      "n_teilnehmer": 31,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36905",
@@ -1583,7 +3214,15 @@
       "datum": "2024-09-01",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ennetmoos"
+      "ort": "Ennetmoos",
+      "sieger": [
+        {
+          "id": "marcel bieri|1994",
+          "name": "Marcel Bieri"
+        }
+      ],
+      "n_teilnehmer": 113,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37113",
@@ -1591,7 +3230,19 @@
       "datum": "2024-09-01",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Kemmeriboden"
+      "ort": "Kemmeriboden",
+      "sieger": [
+        {
+          "id": "dominik gasser|2000",
+          "name": "Dominik Gasser"
+        },
+        {
+          "id": "michael moser|2005",
+          "name": "Michael Moser"
+        }
+      ],
+      "n_teilnehmer": 106,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22224",
@@ -1599,7 +3250,19 @@
       "datum": "2024-09-08",
       "typ": "eidgenoessisch",
       "quelle": "schlussgang.ch/event",
-      "ort": "Appenzell"
+      "ort": "Appenzell",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        },
+        {
+          "id": "fabio hiltbrunner|2005",
+          "name": "Fabio Hiltbrunner"
+        }
+      ],
+      "n_teilnehmer": 122,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36963",
@@ -1607,7 +3270,15 @@
       "datum": "2024-09-14",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Mümliswil"
+      "ort": "Mümliswil",
+      "sieger": [
+        {
+          "id": "jan wittwer|1997",
+          "name": "Jan Wittwer"
+        }
+      ],
+      "n_teilnehmer": 43,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37111",
@@ -1615,7 +3286,15 @@
       "datum": "2024-09-14",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Niederwil"
+      "ort": "Niederwil",
+      "sieger": [
+        {
+          "id": "werner schlegel|2002",
+          "name": "Werner Schlegel"
+        }
+      ],
+      "n_teilnehmer": 55,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37004",
@@ -1623,7 +3302,15 @@
       "datum": "2024-09-15",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Saanenmöser"
+      "ort": "Saanenmöser",
+      "sieger": [
+        {
+          "id": "roger rychen|1991",
+          "name": "Roger Rychen"
+        }
+      ],
+      "n_teilnehmer": 42,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37102",
@@ -1631,7 +3318,15 @@
       "datum": "2024-09-15",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Reinach AG"
+      "ort": "Reinach AG",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 61,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22222",
@@ -1639,7 +3334,15 @@
       "datum": "2024-09-22",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Siebnen"
+      "ort": "Siebnen",
+      "sieger": [
+        {
+          "id": "adrian steinauer|?",
+          "name": "Adrian Steinauer"
+        }
+      ],
+      "n_teilnehmer": 138,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22223",
@@ -1647,7 +3350,15 @@
       "datum": "2024-09-22",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schachen"
+      "ort": "Schachen",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 88,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37126",
@@ -1655,7 +3366,15 @@
       "datum": "2024-09-22",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Aeschiried"
+      "ort": "Aeschiried",
+      "sieger": [
+        {
+          "id": "patrick gobeli|1998",
+          "name": "Patrick Gobeli"
+        }
+      ],
+      "n_teilnehmer": 107,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37020",
@@ -1663,7 +3382,15 @@
       "datum": "2024-09-29",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Unteriberg"
+      "ort": "Unteriberg",
+      "sieger": [
+        {
+          "id": "benno heinzer|2006",
+          "name": "Benno Heinzer"
+        }
+      ],
+      "n_teilnehmer": 64,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-33258",
@@ -1671,7 +3398,15 @@
       "datum": "2024-10-20",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "St. Gallen"
+      "ort": "St. Gallen",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 88,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-32792",
@@ -1679,7 +3414,15 @@
       "datum": "2024-11-30",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Dietikon"
+      "ort": "Dietikon",
+      "sieger": [
+        {
+          "id": "damian ott|2000",
+          "name": "Damian Ott"
+        }
+      ],
+      "n_teilnehmer": 64,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37145",
@@ -1687,7 +3430,15 @@
       "datum": "2024-12-07",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Pratteln"
+      "ort": "Pratteln",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 20,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-43884",
@@ -1695,7 +3446,15 @@
       "datum": "2025-01-02",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Zürich Saalsporthalle"
+      "ort": "Zürich Saalsporthalle",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 99,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45616",
@@ -1703,7 +3462,15 @@
       "datum": "2025-02-01",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Gais"
+      "ort": "Gais",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 97,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45965",
@@ -1711,7 +3478,15 @@
       "datum": "2025-02-08",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Kirchberg"
+      "ort": "Kirchberg",
+      "sieger": [
+        {
+          "id": "matthias aeschbacher|1992",
+          "name": "Matthias Aeschbacher"
+        }
+      ],
+      "n_teilnehmer": 67,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45906",
@@ -1719,7 +3494,15 @@
       "datum": "2025-02-16",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Niederurnen"
+      "ort": "Niederurnen",
+      "sieger": [
+        {
+          "id": "adrian walther|2001",
+          "name": "Adrian Walther"
+        }
+      ],
+      "n_teilnehmer": 60,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-42039",
@@ -1727,7 +3510,15 @@
       "datum": "2025-02-22",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Untervaz"
+      "ort": "Untervaz",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        }
+      ],
+      "n_teilnehmer": 46,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45904",
@@ -1735,7 +3526,15 @@
       "datum": "2025-02-22",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Büren a.A."
+      "ort": "Büren a.A.",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 49,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46044",
@@ -1743,7 +3542,15 @@
       "datum": "2025-03-08",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Dreifach-Turnhalle Sarnen"
+      "ort": "Dreifach-Turnhalle Sarnen",
+      "sieger": [
+        {
+          "id": "marcel bieri|1994",
+          "name": "Marcel Bieri"
+        }
+      ],
+      "n_teilnehmer": 168,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-40007",
@@ -1751,7 +3558,15 @@
       "datum": "2025-03-09",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Reithalle Heimenschwand"
+      "ort": "Reithalle Heimenschwand",
+      "sieger": [
+        {
+          "id": "matthias aeschbacher|1992",
+          "name": "Matthias Aeschbacher"
+        }
+      ],
+      "n_teilnehmer": 95,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-41244",
@@ -1759,7 +3574,15 @@
       "datum": "2025-03-22",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Markthalle Langenthal"
+      "ort": "Markthalle Langenthal",
+      "sieger": [
+        {
+          "id": "adrian walther|2001",
+          "name": "Adrian Walther"
+        }
+      ],
+      "n_teilnehmer": 105,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22218",
@@ -1767,7 +3590,15 @@
       "datum": "2025-03-23",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sporthalle Lachen, Thun"
+      "ort": "Sporthalle Lachen, Thun",
+      "sieger": [
+        {
+          "id": "curdin orlik|1993",
+          "name": "Curdin Orlik"
+        }
+      ],
+      "n_teilnehmer": 93,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-44995",
@@ -1775,7 +3606,15 @@
       "datum": "2025-03-23",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Oberarth"
+      "ort": "Oberarth",
+      "sieger": [
+        {
+          "id": "christian bucher|1998",
+          "name": "Christian Bucher"
+        }
+      ],
+      "n_teilnehmer": 108,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36990",
@@ -1783,7 +3622,15 @@
       "datum": "2025-03-29",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Kriessern"
+      "ort": "Kriessern",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 142,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46030",
@@ -1791,7 +3638,15 @@
       "datum": "2025-03-29",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Engelberg"
+      "ort": "Engelberg",
+      "sieger": [
+        {
+          "id": "stefan ettlin|1997",
+          "name": "Stefan Ettlin"
+        }
+      ],
+      "n_teilnehmer": 143,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46485",
@@ -1799,7 +3654,15 @@
       "datum": "2025-03-29",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Bellach"
+      "ort": "Bellach",
+      "sieger": [
+        {
+          "id": "marius frank|2004",
+          "name": "Marius Frank"
+        }
+      ],
+      "n_teilnehmer": 33,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-40246",
@@ -1807,7 +3670,15 @@
       "datum": "2025-03-30",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Chavornay"
+      "ort": "Chavornay",
+      "sieger": [
+        {
+          "id": "etienne burger|2004",
+          "name": "Etienne Burger"
+        }
+      ],
+      "n_teilnehmer": 51,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22217",
@@ -1815,7 +3686,15 @@
       "datum": "2025-04-05",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sursee"
+      "ort": "Sursee",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 145,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-42565",
@@ -1823,7 +3702,15 @@
       "datum": "2025-04-06",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Goldingen"
+      "ort": "Goldingen",
+      "sieger": [
+        {
+          "id": "marcel rabsamen|2000",
+          "name": "Marcel Räbsamen"
+        }
+      ],
+      "n_teilnehmer": 79,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45169",
@@ -1831,7 +3718,15 @@
       "datum": "2025-04-06",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Bonstetten"
+      "ort": "Bonstetten",
+      "sieger": [
+        {
+          "id": "domenic schneider|1994",
+          "name": "Domenic Schneider"
+        }
+      ],
+      "n_teilnehmer": 84,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45245",
@@ -1839,7 +3734,15 @@
       "datum": "2025-04-06",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Muotathal"
+      "ort": "Muotathal",
+      "sieger": [
+        {
+          "id": "christian schuler|?",
+          "name": "Christian Schuler"
+        }
+      ],
+      "n_teilnehmer": 124,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37546",
@@ -1847,7 +3750,15 @@
       "datum": "2025-04-12",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Bolligen"
+      "ort": "Bolligen",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 77,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22213",
@@ -1855,7 +3766,15 @@
       "datum": "2025-04-13",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Wolhusen"
+      "ort": "Wolhusen",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 128,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22214",
@@ -1863,7 +3782,15 @@
       "datum": "2025-04-13",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Cazis"
+      "ort": "Cazis",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        }
+      ],
+      "n_teilnehmer": 75,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37511",
@@ -1871,7 +3798,15 @@
       "datum": "2025-04-13",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Guggibad, Buttwil"
+      "ort": "Guggibad, Buttwil",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 108,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-40244",
@@ -1879,7 +3814,15 @@
       "datum": "2025-04-13",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ried bei Kerzers"
+      "ort": "Ried bei Kerzers",
+      "sieger": [
+        {
+          "id": "benjamin gapany|1995",
+          "name": "Benjamin Gapany"
+        }
+      ],
+      "n_teilnehmer": 89,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46046",
@@ -1887,7 +3830,15 @@
       "datum": "2025-04-13",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Arbon"
+      "ort": "Arbon",
+      "sieger": [
+        {
+          "id": "domenic schneider|1994",
+          "name": "Domenic Schneider"
+        }
+      ],
+      "n_teilnehmer": 72,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-43675",
@@ -1895,7 +3846,15 @@
       "datum": "2025-04-19",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Freilichtmuseum Ballenberg, Hofstetten b. Brienz"
+      "ort": "Freilichtmuseum Ballenberg, Hofstetten b. Brienz",
+      "sieger": [
+        {
+          "id": "kilian von weissenfluh|?",
+          "name": "von Weissenfluh Kilian"
+        }
+      ],
+      "n_teilnehmer": 89,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-42371",
@@ -1903,7 +3862,15 @@
       "datum": "2025-04-21",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ibach"
+      "ort": "Ibach",
+      "sieger": [
+        {
+          "id": "lukas heinzer|2004",
+          "name": "Lukas Heinzer"
+        }
+      ],
+      "n_teilnehmer": 129,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45231",
@@ -1911,7 +3878,15 @@
       "datum": "2025-04-21",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Wunderklingen - Hallau"
+      "ort": "Wunderklingen - Hallau",
+      "sieger": [
+        {
+          "id": "roger burli|1997",
+          "name": "Roger Bürli"
+        }
+      ],
+      "n_teilnehmer": 62,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45790",
@@ -1919,7 +3894,15 @@
       "datum": "2025-04-21",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Pfäffikon"
+      "ort": "Pfäffikon",
+      "sieger": [
+        {
+          "id": "ueli rohrer|1999",
+          "name": "Ueli Rohrer"
+        }
+      ],
+      "n_teilnehmer": 91,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46058",
@@ -1927,7 +3910,15 @@
       "datum": "2025-04-21",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Zäziwil"
+      "ort": "Zäziwil",
+      "sieger": [
+        {
+          "id": "fabian stucki|2005",
+          "name": "Fabian Stucki"
+        }
+      ],
+      "n_teilnehmer": 110,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45962",
@@ -1935,7 +3926,15 @@
       "datum": "2025-04-26",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Küssnacht"
+      "ort": "Küssnacht",
+      "sieger": [
+        {
+          "id": "patrick betschart|1999",
+          "name": "Patrick Betschart"
+        }
+      ],
+      "n_teilnehmer": 83,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-22210",
@@ -1943,7 +3942,15 @@
       "datum": "2025-04-27",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hochdorf"
+      "ort": "Hochdorf",
+      "sieger": [
+        {
+          "id": "roger burli|1997",
+          "name": "Roger Bürli"
+        }
+      ],
+      "n_teilnehmer": 113,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37110",
@@ -1951,7 +3958,15 @@
       "datum": "2025-04-27",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Bazenheid"
+      "ort": "Bazenheid",
+      "sieger": [
+        {
+          "id": "damian ott|2000",
+          "name": "Damian Ott"
+        }
+      ],
+      "n_teilnehmer": 120,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-40238",
@@ -1959,7 +3974,15 @@
       "datum": "2025-04-27",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Eschenberg ob Winterthur"
+      "ort": "Eschenberg ob Winterthur",
+      "sieger": [
+        {
+          "id": "samir leuppi|1993",
+          "name": "Samir Leuppi"
+        }
+      ],
+      "n_teilnehmer": 65,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-40239",
@@ -1967,7 +3990,15 @@
       "datum": "2025-04-27",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Givisiez"
+      "ort": "Givisiez",
+      "sieger": [
+        {
+          "id": "benjamin gapany|1995",
+          "name": "Benjamin Gapany"
+        }
+      ],
+      "n_teilnehmer": 72,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-44099",
@@ -1975,7 +4006,15 @@
       "datum": "2025-04-27",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hergiswil"
+      "ort": "Hergiswil",
+      "sieger": [
+        {
+          "id": "ivan felder|2004",
+          "name": "Ivan Felder"
+        }
+      ],
+      "n_teilnehmer": 69,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45980",
@@ -1983,7 +4022,15 @@
       "datum": "2025-04-27",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Rüschegg-Gambach"
+      "ort": "Rüschegg-Gambach",
+      "sieger": [
+        {
+          "id": "adrian walther|2001",
+          "name": "Adrian Walther"
+        }
+      ],
+      "n_teilnehmer": 82,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21100",
@@ -1991,7 +4038,15 @@
       "datum": "2025-05-01",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Oberdorf"
+      "ort": "Oberdorf",
+      "sieger": [
+        {
+          "id": "adrian odermatt|2001",
+          "name": "Adrian Odermatt"
+        }
+      ],
+      "n_teilnehmer": 36,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-44800",
@@ -1999,7 +4054,15 @@
       "datum": "2025-05-03",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Vinelz"
+      "ort": "Vinelz",
+      "sieger": [
+        {
+          "id": "dominik roth|1996",
+          "name": "Dominik Roth"
+        }
+      ],
+      "n_teilnehmer": 86,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37117",
@@ -2007,7 +4070,15 @@
       "datum": "2025-05-04",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Neuheim"
+      "ort": "Neuheim",
+      "sieger": [
+        {
+          "id": "marco reichmuth|1997",
+          "name": "Marco Reichmuth"
+        }
+      ],
+      "n_teilnehmer": 211,
+      "n_kraenze": 36
     },
     {
       "id": "schlussgang-37164",
@@ -2015,7 +4086,15 @@
       "datum": "2025-05-04",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Thundorf"
+      "ort": "Thundorf",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 148,
+      "n_kraenze": 22
     },
     {
       "id": "schlussgang-37810",
@@ -2023,7 +4102,15 @@
       "datum": "2025-05-04",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Montmagny VD"
+      "ort": "Montmagny VD",
+      "sieger": [
+        {
+          "id": "lario kramer|1998",
+          "name": "Lario Kramer"
+        }
+      ],
+      "n_teilnehmer": 58,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-38038",
@@ -2031,7 +4118,15 @@
       "datum": "2025-05-04",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Grenchen"
+      "ort": "Grenchen",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 131,
+      "n_kraenze": 21
     },
     {
       "id": "schlussgang-38070",
@@ -2039,7 +4134,15 @@
       "datum": "2025-05-10",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lengnau AG"
+      "ort": "Lengnau AG",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 61,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-42293",
@@ -2047,7 +4150,15 @@
       "datum": "2025-05-10",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Collex-Bossy"
+      "ort": "Collex-Bossy",
+      "sieger": [
+        {
+          "id": "lario kramer|1998",
+          "name": "Lario Kramer"
+        }
+      ],
+      "n_teilnehmer": 87,
+      "n_kraenze": 15
     },
     {
       "id": "schlussgang-37582",
@@ -2055,7 +4166,15 @@
       "datum": "2025-05-11",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Einsiedeln"
+      "ort": "Einsiedeln",
+      "sieger": [
+        {
+          "id": "marcel bieri|1994",
+          "name": "Marcel Bieri"
+        }
+      ],
+      "n_teilnehmer": 230,
+      "n_kraenze": 38
     },
     {
       "id": "schlussgang-32480",
@@ -2063,7 +4182,15 @@
       "datum": "2025-05-17",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Urdorf"
+      "ort": "Urdorf",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        }
+      ],
+      "n_teilnehmer": 149,
+      "n_kraenze": 25
     },
     {
       "id": "schlussgang-21098",
@@ -2071,7 +4198,15 @@
       "datum": "2025-05-18",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Rothenburg"
+      "ort": "Rothenburg",
+      "sieger": [
+        {
+          "id": "jonas troxler|2000",
+          "name": "Jonas Troxler"
+        }
+      ],
+      "n_teilnehmer": 105,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45947",
@@ -2079,7 +4214,15 @@
       "datum": "2025-05-18",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Cottens"
+      "ort": "Cottens",
+      "sieger": [
+        {
+          "id": "romain collaud|2002",
+          "name": "Romain Collaud"
+        }
+      ],
+      "n_teilnehmer": 50,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45153",
@@ -2087,7 +4230,19 @@
       "datum": "2025-05-24",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Brig"
+      "ort": "Brig",
+      "sieger": [
+        {
+          "id": "luc varone|1997",
+          "name": "Luc Varone"
+        },
+        {
+          "id": "hugo schlafli|2002",
+          "name": "Hugo Schläfli"
+        }
+      ],
+      "n_teilnehmer": 32,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21095",
@@ -2095,7 +4250,15 @@
       "datum": "2025-05-25",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Root"
+      "ort": "Root",
+      "sieger": [
+        {
+          "id": "pirmin reichmuth|?",
+          "name": "Pirmin Reichmuth"
+        }
+      ],
+      "n_teilnehmer": 253,
+      "n_kraenze": 38
     },
     {
       "id": "schlussgang-37157",
@@ -2103,7 +4266,15 @@
       "datum": "2025-05-25",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Unterwasser"
+      "ort": "Unterwasser",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 196,
+      "n_kraenze": 33
     },
     {
       "id": "schlussgang-38067",
@@ -2111,7 +4282,15 @@
       "datum": "2025-05-25",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Suhr"
+      "ort": "Suhr",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 54,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21094",
@@ -2119,7 +4298,15 @@
       "datum": "2025-05-29",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Escholzmatt"
+      "ort": "Escholzmatt",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 55,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-40626",
@@ -2127,7 +4314,15 @@
       "datum": "2025-05-29",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Meilen"
+      "ort": "Meilen",
+      "sieger": [
+        {
+          "id": "shane dandliker|1995",
+          "name": "Shane Dändliker"
+        }
+      ],
+      "n_teilnehmer": 68,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45249",
@@ -2135,7 +4330,15 @@
       "datum": "2025-05-29",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sandgrube Basel"
+      "ort": "Sandgrube Basel",
+      "sieger": [
+        {
+          "id": "domenic schneider|1994",
+          "name": "Domenic Schneider"
+        }
+      ],
+      "n_teilnehmer": 129,
+      "n_kraenze": 19
     },
     {
       "id": "schlussgang-45944",
@@ -2143,7 +4346,15 @@
       "datum": "2025-05-29",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Le Mouret"
+      "ort": "Le Mouret",
+      "sieger": [
+        {
+          "id": "paul tornare|2001",
+          "name": "Paul Tornare"
+        }
+      ],
+      "n_teilnehmer": 34,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21091",
@@ -2151,7 +4362,15 @@
       "datum": "2025-05-31",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Uetendorf"
+      "ort": "Uetendorf",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 172,
+      "n_kraenze": 26
     },
     {
       "id": "schlussgang-21088",
@@ -2159,7 +4378,15 @@
       "datum": "2025-06-01",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Zeglingen"
+      "ort": "Zeglingen",
+      "sieger": [
+        {
+          "id": "damian ott|2000",
+          "name": "Damian Ott"
+        }
+      ],
+      "n_teilnehmer": 125,
+      "n_kraenze": 22
     },
     {
       "id": "schlussgang-37143",
@@ -2167,7 +4394,15 @@
       "datum": "2025-06-01",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "La Vue-des-Alpes"
+      "ort": "La Vue-des-Alpes",
+      "sieger": [
+        {
+          "id": "lario kramer|1998",
+          "name": "Lario Kramer"
+        }
+      ],
+      "n_teilnehmer": 99,
+      "n_kraenze": 17
     },
     {
       "id": "schlussgang-45946",
@@ -2175,7 +4410,15 @@
       "datum": "2025-06-01",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sachseln"
+      "ort": "Sachseln",
+      "sieger": [
+        {
+          "id": "marc lustenberger|2003",
+          "name": "Marc Lustenberger"
+        }
+      ],
+      "n_teilnehmer": 205,
+      "n_kraenze": 35
     },
     {
       "id": "schlussgang-21084",
@@ -2183,7 +4426,15 @@
       "datum": "2025-06-07",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ruswil"
+      "ort": "Ruswil",
+      "sieger": [
+        {
+          "id": "roman wandeler|2002",
+          "name": "Roman Wandeler"
+        }
+      ],
+      "n_teilnehmer": 70,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21086",
@@ -2191,7 +4442,15 @@
       "datum": "2025-06-07",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Inkwil"
+      "ort": "Inkwil",
+      "sieger": [
+        {
+          "id": "michael moser|2005",
+          "name": "Michael Moser"
+        }
+      ],
+      "n_teilnehmer": 175,
+      "n_kraenze": 27
     },
     {
       "id": "schlussgang-38144",
@@ -2199,7 +4458,15 @@
       "datum": "2025-06-07",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Herisau"
+      "ort": "Herisau",
+      "sieger": [
+        {
+          "id": "andrin poltera|1999",
+          "name": "Andrin Poltera"
+        }
+      ],
+      "n_teilnehmer": 85,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45606",
@@ -2207,7 +4474,15 @@
       "datum": "2025-06-07",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Denkmal Morgarten"
+      "ort": "Denkmal Morgarten",
+      "sieger": [
+        {
+          "id": "christian bucher|1998",
+          "name": "Christian Bucher"
+        }
+      ],
+      "n_teilnehmer": 46,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21080",
@@ -2215,7 +4490,15 @@
       "datum": "2025-06-09",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hochfelden"
+      "ort": "Hochfelden",
+      "sieger": [
+        {
+          "id": "fabian kindlimann|1990",
+          "name": "Fabian Kindlimann"
+        }
+      ],
+      "n_teilnehmer": 42,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21082",
@@ -2223,7 +4506,19 @@
       "datum": "2025-06-09",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ziegelbrücke GL"
+      "ort": "Ziegelbrücke GL",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        },
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 123,
+      "n_kraenze": 21
     },
     {
       "id": "schlussgang-21085",
@@ -2231,7 +4526,15 @@
       "datum": "2025-06-09",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Stoos SZ"
+      "ort": "Stoos SZ",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 90,
+      "n_kraenze": 14
     },
     {
       "id": "schlussgang-43371",
@@ -2239,7 +4542,15 @@
       "datum": "2025-06-09",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Baldegg ob Baden"
+      "ort": "Baldegg ob Baden",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 40,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45929",
@@ -2247,7 +4558,23 @@
       "datum": "2025-06-09",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Frenkendorf"
+      "ort": "Frenkendorf",
+      "sieger": [
+        {
+          "id": "lars voggensperger|2001",
+          "name": "Lars Voggensperger"
+        },
+        {
+          "id": "adrian odermatt|2001",
+          "name": "Adrian Odermatt"
+        },
+        {
+          "id": "jonas glutz|2006",
+          "name": "Jonas Glutz"
+        }
+      ],
+      "n_teilnehmer": 29,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46056",
@@ -2255,7 +4582,15 @@
       "datum": "2025-06-09",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Laupen"
+      "ort": "Laupen",
+      "sieger": [
+        {
+          "id": "dorian kramer|1999",
+          "name": "Dorian Kramer"
+        }
+      ],
+      "n_teilnehmer": 20,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46093",
@@ -2263,7 +4598,15 @@
       "datum": "2025-06-09",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Matten"
+      "ort": "Matten",
+      "sieger": [
+        {
+          "id": "reto thoni|2001",
+          "name": "Reto Thöni"
+        }
+      ],
+      "n_teilnehmer": 30,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45898",
@@ -2271,7 +4614,15 @@
       "datum": "2025-06-13",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sumiswald"
+      "ort": "Sumiswald",
+      "sieger": [
+        {
+          "id": "matthias aeschbacher|1992",
+          "name": "Matthias Aeschbacher"
+        }
+      ],
+      "n_teilnehmer": 60,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21078",
@@ -2279,7 +4630,15 @@
       "datum": "2025-06-15",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Domat/Ems"
+      "ort": "Domat/Ems",
+      "sieger": [
+        {
+          "id": "curdin orlik|1993",
+          "name": "Curdin Orlik"
+        }
+      ],
+      "n_teilnehmer": 123,
+      "n_kraenze": 20
     },
     {
       "id": "schlussgang-23307",
@@ -2287,7 +4646,15 @@
       "datum": "2025-06-15",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Nods"
+      "ort": "Nods",
+      "sieger": [
+        {
+          "id": "reto thoni|2001",
+          "name": "Reto Thöni"
+        }
+      ],
+      "n_teilnehmer": 135,
+      "n_kraenze": 22
     },
     {
       "id": "schlussgang-46029",
@@ -2295,7 +4662,15 @@
       "datum": "2025-06-15",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Andermatt"
+      "ort": "Andermatt",
+      "sieger": [
+        {
+          "id": "lukas bissig|2003",
+          "name": "Lukas Bissig"
+        }
+      ],
+      "n_teilnehmer": 201,
+      "n_kraenze": 33
     },
     {
       "id": "schlussgang-21077",
@@ -2303,7 +4678,15 @@
       "datum": "2025-06-19",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schwarzenberg"
+      "ort": "Schwarzenberg",
+      "sieger": [
+        {
+          "id": "joel ambuhl|1998",
+          "name": "Joel Ambühl"
+        }
+      ],
+      "n_teilnehmer": 109,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45971",
@@ -2311,7 +4694,15 @@
       "datum": "2025-06-21",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lungern"
+      "ort": "Lungern",
+      "sieger": [
+        {
+          "id": "ueli rohrer|1999",
+          "name": "Ueli Rohrer"
+        }
+      ],
+      "n_teilnehmer": 77,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46026",
@@ -2319,7 +4710,15 @@
       "datum": "2025-06-21",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "St. Antönien"
+      "ort": "St. Antönien",
+      "sieger": [
+        {
+          "id": "christian biasch|1996",
+          "name": "Christian Biäsch"
+        }
+      ],
+      "n_teilnehmer": 38,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21072",
@@ -2327,7 +4726,19 @@
       "datum": "2025-06-22",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Menziken"
+      "ort": "Menziken",
+      "sieger": [
+        {
+          "id": "marius frank|2004",
+          "name": "Marius Frank"
+        },
+        {
+          "id": "sinisha luscher|2006",
+          "name": "Sinisha Lüscher"
+        }
+      ],
+      "n_teilnehmer": 143,
+      "n_kraenze": 22
     },
     {
       "id": "schlussgang-21074",
@@ -2335,7 +4746,15 @@
       "datum": "2025-06-22",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lac Noir / Schwarzsee"
+      "ort": "Lac Noir / Schwarzsee",
+      "sieger": [
+        {
+          "id": "matthias aeschbacher|1992",
+          "name": "Matthias Aeschbacher"
+        }
+      ],
+      "n_teilnehmer": 90,
+      "n_kraenze": 15
     },
     {
       "id": "schlussgang-45892",
@@ -2343,7 +4762,15 @@
       "datum": "2025-06-27",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Baar"
+      "ort": "Baar",
+      "sieger": [
+        {
+          "id": "luca muller|2004",
+          "name": "Luca Müller"
+        }
+      ],
+      "n_teilnehmer": 89,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-34201",
@@ -2351,7 +4778,15 @@
       "datum": "2025-06-28",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Leukerbad"
+      "ort": "Leukerbad",
+      "sieger": [
+        {
+          "id": "lario kramer|1998",
+          "name": "Lario Kramer"
+        }
+      ],
+      "n_teilnehmer": 99,
+      "n_kraenze": 13
     },
     {
       "id": "schlussgang-37783",
@@ -2359,7 +4794,15 @@
       "datum": "2025-06-28",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Möhlin"
+      "ort": "Möhlin",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 72,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21071",
@@ -2367,7 +4810,23 @@
       "datum": "2025-06-29",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "St.Gallen"
+      "ort": "St.Gallen",
+      "sieger": [
+        {
+          "id": "werner schlegel|2002",
+          "name": "Werner Schlegel"
+        },
+        {
+          "id": "damian ott|2000",
+          "name": "Damian Ott"
+        },
+        {
+          "id": "michael moser|2005",
+          "name": "Michael Moser"
+        }
+      ],
+      "n_teilnehmer": 158,
+      "n_kraenze": 27
     },
     {
       "id": "schlussgang-34433",
@@ -2375,7 +4834,15 @@
       "datum": "2025-06-29",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Adelboden"
+      "ort": "Adelboden",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 200,
+      "n_kraenze": 35
     },
     {
       "id": "schlussgang-37163",
@@ -2383,7 +4850,15 @@
       "datum": "2025-07-05",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Gilly"
+      "ort": "Gilly",
+      "sieger": [
+        {
+          "id": "romain collaud|2002",
+          "name": "Romain Collaud"
+        }
+      ],
+      "n_teilnehmer": 107,
+      "n_kraenze": 18
     },
     {
       "id": "schlussgang-46060",
@@ -2391,7 +4866,15 @@
       "datum": "2025-07-05",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Trübbach"
+      "ort": "Trübbach",
+      "sieger": [
+        {
+          "id": "kjetil fausch|1995",
+          "name": "Kjetil Fausch"
+        }
+      ],
+      "n_teilnehmer": 38,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21069",
@@ -2399,7 +4882,15 @@
       "datum": "2025-07-06",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Langnau i.E"
+      "ort": "Langnau i.E",
+      "sieger": [
+        {
+          "id": "adrian walther|2001",
+          "name": "Adrian Walther"
+        }
+      ],
+      "n_teilnehmer": 181,
+      "n_kraenze": 29
     },
     {
       "id": "schlussgang-32657",
@@ -2407,7 +4898,15 @@
       "datum": "2025-07-06",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Seedorf"
+      "ort": "Seedorf",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 199,
+      "n_kraenze": 32
     },
     {
       "id": "schlussgang-45160",
@@ -2415,7 +4914,19 @@
       "datum": "2025-07-06",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Stelzenhof ob Weinfelden"
+      "ort": "Stelzenhof ob Weinfelden",
+      "sieger": [
+        {
+          "id": "domenic schneider|1994",
+          "name": "Domenic Schneider"
+        },
+        {
+          "id": "mario schneider|1992",
+          "name": "Mario Schneider"
+        }
+      ],
+      "n_teilnehmer": 56,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45241",
@@ -2423,7 +4934,15 @@
       "datum": "2025-07-06",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Obergösgen"
+      "ort": "Obergösgen",
+      "sieger": [
+        {
+          "id": "robin studinger|2006",
+          "name": "Robin Studinger"
+        }
+      ],
+      "n_teilnehmer": 25,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21066",
@@ -2431,7 +4950,15 @@
       "datum": "2025-07-13",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Langnau i.E"
+      "ort": "Langnau i.E",
+      "sieger": [
+        {
+          "id": "michael moser|2005",
+          "name": "Michael Moser"
+        }
+      ],
+      "n_teilnehmer": 150,
+      "n_kraenze": 20
     },
     {
       "id": "schlussgang-21067",
@@ -2439,7 +4966,15 @@
       "datum": "2025-07-13",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Neuchâtel"
+      "ort": "Neuchâtel",
+      "sieger": [
+        {
+          "id": "joel strebel|1997",
+          "name": "Joel Strebel"
+        }
+      ],
+      "n_teilnehmer": 113,
+      "n_kraenze": 19
     },
     {
       "id": "schlussgang-21068",
@@ -2447,7 +4982,15 @@
       "datum": "2025-07-13",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Rigi Staffel"
+      "ort": "Rigi Staffel",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 90,
+      "n_kraenze": 16
     },
     {
       "id": "schlussgang-35143",
@@ -2455,7 +4998,19 @@
       "datum": "2025-07-13",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Gais"
+      "ort": "Gais",
+      "sieger": [
+        {
+          "id": "domenic schneider|1994",
+          "name": "Domenic Schneider"
+        },
+        {
+          "id": "andy signer|2003",
+          "name": "Andy Signer"
+        }
+      ],
+      "n_teilnehmer": 145,
+      "n_kraenze": 25
     },
     {
       "id": "schlussgang-21065",
@@ -2463,7 +5018,15 @@
       "datum": "2025-07-19",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Weissenstein ob Solothurn"
+      "ort": "Weissenstein ob Solothurn",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 90,
+      "n_kraenze": 13
     },
     {
       "id": "schlussgang-43664",
@@ -2471,7 +5034,15 @@
       "datum": "2025-07-19",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schönenberg"
+      "ort": "Schönenberg",
+      "sieger": [
+        {
+          "id": "janik korrodi|2004",
+          "name": "Janik Korrodi"
+        }
+      ],
+      "n_teilnehmer": 47,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21064",
@@ -2479,7 +5050,15 @@
       "datum": "2025-07-20",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Menzberg"
+      "ort": "Menzberg",
+      "sieger": [
+        {
+          "id": "sven schurtenberger|1991",
+          "name": "Sven Schurtenberger"
+        }
+      ],
+      "n_teilnehmer": 86,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-36355",
@@ -2487,7 +5066,19 @@
       "datum": "2025-07-20",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Kiental"
+      "ort": "Kiental",
+      "sieger": [
+        {
+          "id": "josias wittwer|?",
+          "name": "Josias Wittwer"
+        },
+        {
+          "id": "simon stucki|2005",
+          "name": "Simon Stucki"
+        }
+      ],
+      "n_teilnehmer": 58,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-44367",
@@ -2495,7 +5086,15 @@
       "datum": "2025-07-20",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Vordergeissboden - Zugerberg"
+      "ort": "Vordergeissboden - Zugerberg",
+      "sieger": [
+        {
+          "id": "michael gwerder|2000",
+          "name": "Michael Gwerder"
+        }
+      ],
+      "n_teilnehmer": 70,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21061",
@@ -2503,7 +5102,15 @@
       "datum": "2025-07-27",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Brünig Passhöhe"
+      "ort": "Brünig Passhöhe",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 120,
+      "n_kraenze": 19
     },
     {
       "id": "schlussgang-21062",
@@ -2511,7 +5118,19 @@
       "datum": "2025-07-27",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Davos Sertig"
+      "ort": "Davos Sertig",
+      "sieger": [
+        {
+          "id": "christian biasch|1996",
+          "name": "Christian Biäsch"
+        },
+        {
+          "id": "damian ott|2000",
+          "name": "Damian Ott"
+        }
+      ],
+      "n_teilnehmer": 74,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37047",
@@ -2519,7 +5138,15 @@
       "datum": "2025-07-27",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Riaz"
+      "ort": "Riaz",
+      "sieger": [
+        {
+          "id": "fabian ulmann|1999",
+          "name": "Fabian Ulmann"
+        }
+      ],
+      "n_teilnehmer": 58,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37709",
@@ -2527,7 +5154,15 @@
       "datum": "2025-08-01",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hinwil"
+      "ort": "Hinwil",
+      "sieger": [
+        {
+          "id": "fabian kindlimann|1990",
+          "name": "Fabian Kindlimann"
+        }
+      ],
+      "n_teilnehmer": 36,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46055",
@@ -2535,7 +5170,15 @@
       "datum": "2025-08-02",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Klewenalp"
+      "ort": "Klewenalp",
+      "sieger": [
+        {
+          "id": "fabian scherrer|2002",
+          "name": "Fabian Scherrer"
+        }
+      ],
+      "n_teilnehmer": 99,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21059",
@@ -2543,7 +5186,15 @@
       "datum": "2025-08-03",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sörenberg"
+      "ort": "Sörenberg",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 82,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37046",
@@ -2551,7 +5202,15 @@
       "datum": "2025-08-03",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Le Crêt-près-Semsales"
+      "ort": "Le Crêt-près-Semsales",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 112,
+      "n_kraenze": 16
     },
     {
       "id": "schlussgang-42564",
@@ -2559,7 +5218,15 @@
       "datum": "2025-08-03",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ricken"
+      "ort": "Ricken",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 119,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46133",
@@ -2567,7 +5234,15 @@
       "datum": "2025-08-03",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Zofingen"
+      "ort": "Zofingen",
+      "sieger": [
+        {
+          "id": "sinisha luscher|2006",
+          "name": "Sinisha Lüscher"
+        }
+      ],
+      "n_teilnehmer": 48,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21058",
@@ -2575,7 +5250,15 @@
       "datum": "2025-08-10",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lenzburg"
+      "ort": "Lenzburg",
+      "sieger": [
+        {
+          "id": "damian ott|2000",
+          "name": "Damian Ott"
+        }
+      ],
+      "n_teilnehmer": 126,
+      "n_kraenze": 19
     },
     {
       "id": "schlussgang-42289",
@@ -2583,7 +5266,15 @@
       "datum": "2025-08-10",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Unterbach"
+      "ort": "Unterbach",
+      "sieger": [
+        {
+          "id": "reto thoni|2001",
+          "name": "Reto Thöni"
+        }
+      ],
+      "n_teilnehmer": 70,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-44104",
@@ -2591,7 +5282,15 @@
       "datum": "2025-08-10",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Boveresse"
+      "ort": "Boveresse",
+      "sieger": [
+        {
+          "id": "burger david|?",
+          "name": "David Burger"
+        }
+      ],
+      "n_teilnehmer": 20,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45229",
@@ -2599,7 +5298,15 @@
       "datum": "2025-08-10",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schleitheim"
+      "ort": "Schleitheim",
+      "sieger": [
+        {
+          "id": "hersche martin|?",
+          "name": "Martin Hersche"
+        }
+      ],
+      "n_teilnehmer": 118,
+      "n_kraenze": 21
     },
     {
       "id": "schlussgang-46083",
@@ -2607,7 +5314,15 @@
       "datum": "2025-08-10",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lüderen"
+      "ort": "Lüderen",
+      "sieger": [
+        {
+          "id": "michael moser|2005",
+          "name": "Michael Moser"
+        }
+      ],
+      "n_teilnehmer": 49,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46034",
@@ -2615,7 +5330,15 @@
       "datum": "2025-08-15",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Melchsee-Frutt"
+      "ort": "Melchsee-Frutt",
+      "sieger": [
+        {
+          "id": "lars zaugg|2002",
+          "name": "Lars Zaugg"
+        }
+      ],
+      "n_teilnehmer": 105,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46023",
@@ -2623,7 +5346,15 @@
       "datum": "2025-08-16",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hagendorn"
+      "ort": "Hagendorn",
+      "sieger": [
+        {
+          "id": "roland bucher|1994",
+          "name": "Roland Bucher"
+        }
+      ],
+      "n_teilnehmer": 64,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21056",
@@ -2631,7 +5362,19 @@
       "datum": "2025-08-17",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schwägalp AR"
+      "ort": "Schwägalp AR",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        },
+        {
+          "id": "marcel rabsamen|2000",
+          "name": "Marcel Räbsamen"
+        }
+      ],
+      "n_teilnehmer": 90,
+      "n_kraenze": 13
     },
     {
       "id": "schlussgang-37015",
@@ -2639,7 +5382,15 @@
       "datum": "2025-08-17",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "ob Himmelried"
+      "ort": "ob Himmelried",
+      "sieger": [
+        {
+          "id": "dario christ|2003",
+          "name": "Dario Christ"
+        }
+      ],
+      "n_teilnehmer": 32,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46150",
@@ -2647,7 +5398,15 @@
       "datum": "2025-08-23",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Huttwil"
+      "ort": "Huttwil",
+      "sieger": [
+        {
+          "id": "remo zurcher|1996",
+          "name": "Remo Zürcher"
+        }
+      ],
+      "n_teilnehmer": 38,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45889",
@@ -2655,7 +5414,15 @@
       "datum": "2025-08-24",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Einsiedeln"
+      "ort": "Einsiedeln",
+      "sieger": [
+        {
+          "id": "fredi bruhin|1997",
+          "name": "Fredi Bruhin"
+        }
+      ],
+      "n_teilnehmer": 48,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21055",
@@ -2663,7 +5430,15 @@
       "datum": "2025-08-30",
       "typ": "eidgenoessisch",
       "quelle": "schlussgang.ch/event",
-      "ort": "Glarnerland+, Mollis"
+      "ort": "Glarnerland+, Mollis",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        }
+      ],
+      "n_teilnehmer": 267,
+      "n_kraenze": 40
     },
     {
       "id": "schlussgang-43339",
@@ -2671,7 +5446,15 @@
       "datum": "2025-09-06",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Gelterkinden"
+      "ort": "Gelterkinden",
+      "sieger": [
+        {
+          "id": "damian dubach|2005",
+          "name": "Damian Dubach"
+        }
+      ],
+      "n_teilnehmer": 37,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-39097",
@@ -2679,7 +5462,15 @@
       "datum": "2025-09-07",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Wolzenalp ob Krummenau"
+      "ort": "Wolzenalp ob Krummenau",
+      "sieger": [
+        {
+          "id": "damian ott|2000",
+          "name": "Damian Ott"
+        }
+      ],
+      "n_teilnehmer": 66,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45973",
@@ -2687,7 +5478,15 @@
       "datum": "2025-09-07",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Kemmeriboden"
+      "ort": "Kemmeriboden",
+      "sieger": [
+        {
+          "id": "fritz ramseier|?",
+          "name": "Fritz Ramseier"
+        }
+      ],
+      "n_teilnehmer": 138,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45988",
@@ -2695,7 +5494,19 @@
       "datum": "2025-09-13",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Péry-La Heutte"
+      "ort": "Péry-La Heutte",
+      "sieger": [
+        {
+          "id": "alex schar|2000",
+          "name": "Alex Schär"
+        },
+        {
+          "id": "jan klopfenstein|1998",
+          "name": "Jan Klopfenstein"
+        }
+      ],
+      "n_teilnehmer": 26,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46033",
@@ -2703,7 +5514,15 @@
       "datum": "2025-09-14",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lueg Kaltacker"
+      "ort": "Lueg Kaltacker",
+      "sieger": [
+        {
+          "id": "remo zurcher|1996",
+          "name": "Remo Zürcher"
+        }
+      ],
+      "n_teilnehmer": 38,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46042",
@@ -2711,7 +5530,15 @@
       "datum": "2025-09-14",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ennetmoos"
+      "ort": "Ennetmoos",
+      "sieger": [
+        {
+          "id": "marcel bieri|1994",
+          "name": "Marcel Bieri"
+        }
+      ],
+      "n_teilnehmer": 103,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45284",
@@ -2719,7 +5546,15 @@
       "datum": "2025-09-20",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Biasca"
+      "ort": "Biasca",
+      "sieger": [
+        {
+          "id": "joel wicki|?",
+          "name": "Joel Wicki"
+        }
+      ],
+      "n_teilnehmer": 200,
+      "n_kraenze": 29
     },
     {
       "id": "schlussgang-45478",
@@ -2727,7 +5562,15 @@
       "datum": "2025-09-20",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Mümliswil"
+      "ort": "Mümliswil",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 55,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46014",
@@ -2735,7 +5578,15 @@
       "datum": "2025-09-20",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Saanenmöser"
+      "ort": "Saanenmöser",
+      "sieger": [
+        {
+          "id": "patrick gobeli|1998",
+          "name": "Patrick Gobeli"
+        }
+      ],
+      "n_teilnehmer": 40,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21052",
@@ -2743,7 +5594,15 @@
       "datum": "2025-09-28",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schachen"
+      "ort": "Schachen",
+      "sieger": [
+        {
+          "id": "samuel schwyzer|2001",
+          "name": "Samuel Schwyzer"
+        }
+      ],
+      "n_teilnehmer": 83,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45788",
@@ -2751,7 +5610,15 @@
       "datum": "2025-09-28",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Siebnen"
+      "ort": "Siebnen",
+      "sieger": [
+        {
+          "id": "damian ott|2000",
+          "name": "Damian Ott"
+        }
+      ],
+      "n_teilnehmer": 144,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45927",
@@ -2759,7 +5626,15 @@
       "datum": "2025-09-28",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Aeschiried"
+      "ort": "Aeschiried",
+      "sieger": [
+        {
+          "id": "florian aellen|1995",
+          "name": "Florian Aellen"
+        }
+      ],
+      "n_teilnehmer": 111,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-45888",
@@ -2767,7 +5642,15 @@
       "datum": "2025-10-05",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Unteriberg"
+      "ort": "Unteriberg",
+      "sieger": [
+        {
+          "id": "benno heinzer|2006",
+          "name": "Benno Heinzer"
+        }
+      ],
+      "n_teilnehmer": 39,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46169",
@@ -2775,7 +5658,15 @@
       "datum": "2025-12-06",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Dietikon"
+      "ort": "Dietikon",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        }
+      ],
+      "n_teilnehmer": 73,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46218",
@@ -2783,7 +5674,19 @@
       "datum": "2025-12-06",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Pratteln"
+      "ort": "Pratteln",
+      "sieger": [
+        {
+          "id": "sascha streich|2001",
+          "name": "Sascha Streich"
+        },
+        {
+          "id": "justin schmid|?",
+          "name": "Justin Schmid"
+        }
+      ],
+      "n_teilnehmer": 16,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-50974",
@@ -2791,7 +5694,15 @@
       "datum": "2026-01-02",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Zürich, Saalsporthalle"
+      "ort": "Zürich, Saalsporthalle",
+      "sieger": [
+        {
+          "id": "marcel rabsamen|2000",
+          "name": "Marcel Räbsamen"
+        }
+      ],
+      "n_teilnehmer": 127,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46920",
@@ -2799,7 +5710,15 @@
       "datum": "2026-02-07",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Gais"
+      "ort": "Gais",
+      "sieger": [
+        {
+          "id": "josias muller|2006",
+          "name": "Josias Müller"
+        }
+      ],
+      "n_teilnehmer": 111,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51107",
@@ -2807,7 +5726,15 @@
       "datum": "2026-02-14",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Kirchberg"
+      "ort": "Kirchberg",
+      "sieger": [
+        {
+          "id": "daniel tschumi|2005",
+          "name": "Daniel Tschumi"
+        }
+      ],
+      "n_teilnehmer": 55,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-50964",
@@ -2815,7 +5742,19 @@
       "datum": "2026-02-28",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Untervaz"
+      "ort": "Untervaz",
+      "sieger": [
+        {
+          "id": "josias muller|2006",
+          "name": "Josias Müller"
+        },
+        {
+          "id": "michael bernold|1999",
+          "name": "Michael Bernold"
+        }
+      ],
+      "n_teilnehmer": 47,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51908",
@@ -2823,7 +5762,15 @@
       "datum": "2026-02-28",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Büren a.A."
+      "ort": "Büren a.A.",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 51,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51673",
@@ -2831,7 +5778,15 @@
       "datum": "2026-03-01",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Niederurnen"
+      "ort": "Niederurnen",
+      "sieger": [
+        {
+          "id": "adrian walther|2001",
+          "name": "Adrian Walther"
+        }
+      ],
+      "n_teilnehmer": 79,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51672",
@@ -2839,7 +5794,19 @@
       "datum": "2026-03-14",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Dreifach-Turnhalle Sarnen"
+      "ort": "Dreifach-Turnhalle Sarnen",
+      "sieger": [
+        {
+          "id": "lukas heinzer|2004",
+          "name": "Lukas Heinzer"
+        },
+        {
+          "id": "michael zurfluh|1999",
+          "name": "Michael Zurfluh"
+        }
+      ],
+      "n_teilnehmer": 171,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-47198",
@@ -2847,7 +5814,15 @@
       "datum": "2026-03-21",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Aigle"
+      "ort": "Aigle",
+      "sieger": [
+        {
+          "id": "lario kramer|1998",
+          "name": "Lario Kramer"
+        }
+      ],
+      "n_teilnehmer": 44,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-47292",
@@ -2855,7 +5830,15 @@
       "datum": "2026-03-21",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Langenthal"
+      "ort": "Langenthal",
+      "sieger": [
+        {
+          "id": "michael moser|2005",
+          "name": "Michael Moser"
+        }
+      ],
+      "n_teilnehmer": 114,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21051",
@@ -2863,7 +5846,15 @@
       "datum": "2026-03-22",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Thun"
+      "ort": "Thun",
+      "sieger": [
+        {
+          "id": "ivan thoni|2003",
+          "name": "Ivan Thöni"
+        }
+      ],
+      "n_teilnehmer": 111,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-54093",
@@ -2871,7 +5862,15 @@
       "datum": "2026-03-22",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Oberarth"
+      "ort": "Oberarth",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 123,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37545",
@@ -2879,7 +5878,15 @@
       "datum": "2026-03-28",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Bolligen"
+      "ort": "Bolligen",
+      "sieger": [
+        {
+          "id": "michael gwerder|2000",
+          "name": "Michael Gwerder"
+        }
+      ],
+      "n_teilnehmer": 83,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51983",
@@ -2887,7 +5894,15 @@
       "datum": "2026-03-28",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Engelberg"
+      "ort": "Engelberg",
+      "sieger": [
+        {
+          "id": "lukas bissig|2003",
+          "name": "Lukas Bissig"
+        }
+      ],
+      "n_teilnehmer": 155,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-43338",
@@ -2895,7 +5910,15 @@
       "datum": "2026-03-29",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Gams"
+      "ort": "Gams",
+      "sieger": [
+        {
+          "id": "werner schlegel|2002",
+          "name": "Werner Schlegel"
+        }
+      ],
+      "n_teilnehmer": 126,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46528",
@@ -2903,7 +5926,15 @@
       "datum": "2026-03-29",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lenzburg"
+      "ort": "Lenzburg",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 99,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51587",
@@ -2911,7 +5942,15 @@
       "datum": "2026-03-29",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Chavornay"
+      "ort": "Chavornay",
+      "sieger": [
+        {
+          "id": "jonas amrhyn|2003",
+          "name": "Jonas Amrhyn"
+        }
+      ],
+      "n_teilnehmer": 53,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-50837",
@@ -2919,7 +5958,15 @@
       "datum": "2026-04-06",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ibach"
+      "ort": "Ibach",
+      "sieger": [
+        {
+          "id": "lukas bissig|2003",
+          "name": "Lukas Bissig"
+        }
+      ],
+      "n_teilnehmer": 147,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51905",
@@ -2927,7 +5974,15 @@
       "datum": "2026-04-06",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hemishofen"
+      "ort": "Hemishofen",
+      "sieger": [
+        {
+          "id": "etienne burger|2004",
+          "name": "Etienne Burger"
+        }
+      ],
+      "n_teilnehmer": 61,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-52020",
@@ -2935,7 +5990,15 @@
       "datum": "2026-04-06",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Zäziwil"
+      "ort": "Zäziwil",
+      "sieger": [
+        {
+          "id": "michael moser|2005",
+          "name": "Michael Moser"
+        }
+      ],
+      "n_teilnehmer": 139,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-52026",
@@ -2943,7 +6006,27 @@
       "datum": "2026-04-06",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Pfäffikon"
+      "ort": "Pfäffikon",
+      "sieger": [
+        {
+          "id": "jonas durrer|2003",
+          "name": "Jonas Durrer"
+        },
+        {
+          "id": "joel kessler|1997",
+          "name": "Joel Kessler"
+        },
+        {
+          "id": "patrick betschart|1999",
+          "name": "Patrick Betschart"
+        },
+        {
+          "id": "fredi bruhin|1997",
+          "name": "Fredi Bruhin"
+        }
+      ],
+      "n_teilnehmer": 87,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-33470",
@@ -2951,7 +6034,15 @@
       "datum": "2026-04-11",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sursee"
+      "ort": "Sursee",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 128,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-50011",
@@ -2959,7 +6050,15 @@
       "datum": "2026-04-11",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Vinelz"
+      "ort": "Vinelz",
+      "sieger": [
+        {
+          "id": "silvan trittibach|2004",
+          "name": "Silvan Trittibach"
+        }
+      ],
+      "n_teilnehmer": 88,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51691",
@@ -2967,7 +6066,15 @@
       "datum": "2026-04-11",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Plaffeien"
+      "ort": "Plaffeien",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 59,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-52062",
@@ -2975,7 +6082,15 @@
       "datum": "2026-04-11",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Grundmatte Schattdorf"
+      "ort": "Grundmatte Schattdorf",
+      "sieger": [
+        {
+          "id": "lukas bissig|2003",
+          "name": "Lukas Bissig"
+        }
+      ],
+      "n_teilnehmer": 50,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46600",
@@ -2983,7 +6098,15 @@
       "datum": "2026-04-12",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Untervaz"
+      "ort": "Untervaz",
+      "sieger": [
+        {
+          "id": "curdin orlik|1993",
+          "name": "Curdin Orlik"
+        }
+      ],
+      "n_teilnehmer": 57,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-47000",
@@ -2991,7 +6114,15 @@
       "datum": "2026-04-12",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Buttwil AG"
+      "ort": "Buttwil AG",
+      "sieger": [
+        {
+          "id": "sinisha luscher|2006",
+          "name": "Sinisha Lüscher"
+        }
+      ],
+      "n_teilnehmer": 93,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-48371",
@@ -2999,7 +6130,15 @@
       "datum": "2026-04-12",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Weesen"
+      "ort": "Weesen",
+      "sieger": [
+        {
+          "id": "werner schlegel|2002",
+          "name": "Werner Schlegel"
+        }
+      ],
+      "n_teilnehmer": 73,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-50812",
@@ -3007,7 +6146,19 @@
       "datum": "2026-04-12",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Muotathal"
+      "ort": "Muotathal",
+      "sieger": [
+        {
+          "id": "michael gwerder|2000",
+          "name": "Michael Gwerder"
+        },
+        {
+          "id": "lukas heinzer|2004",
+          "name": "Lukas Heinzer"
+        }
+      ],
+      "n_teilnehmer": 112,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-50250",
@@ -3015,7 +6166,19 @@
       "datum": "2026-04-18",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Thörigen, Reithalle"
+      "ort": "Thörigen, Reithalle",
+      "sieger": [
+        {
+          "id": "daniel tschumi|2005",
+          "name": "Daniel Tschumi"
+        },
+        {
+          "id": "matthias aeschbacher|1992",
+          "name": "Matthias Aeschbacher"
+        }
+      ],
+      "n_teilnehmer": 55,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-33468",
@@ -3023,7 +6186,15 @@
       "datum": "2026-04-19",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Wolhusen"
+      "ort": "Wolhusen",
+      "sieger": [
+        {
+          "id": "marco fankhauser|1996",
+          "name": "Marco Fankhauser"
+        }
+      ],
+      "n_teilnehmer": 158,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-50619",
@@ -3031,7 +6202,15 @@
       "datum": "2026-04-19",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sachseln"
+      "ort": "Sachseln",
+      "sieger": [
+        {
+          "id": "furrer jens|?",
+          "name": "Jens Furrer"
+        }
+      ],
+      "n_teilnehmer": 92,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51758",
@@ -3039,7 +6218,15 @@
       "datum": "2026-04-19",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Rüschegg-Graben"
+      "ort": "Rüschegg-Graben",
+      "sieger": [
+        {
+          "id": "adrian walther|2001",
+          "name": "Adrian Walther"
+        }
+      ],
+      "n_teilnehmer": 54,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51981",
@@ -3047,7 +6234,15 @@
       "datum": "2026-04-19",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Grenchen"
+      "ort": "Grenchen",
+      "sieger": [
+        {
+          "id": "marius frank|2004",
+          "name": "Marius Frank"
+        }
+      ],
+      "n_teilnehmer": 67,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-52036",
@@ -3055,7 +6250,15 @@
       "datum": "2026-04-19",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Raperswilen"
+      "ort": "Raperswilen",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 99,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-52067",
@@ -3063,7 +6266,15 @@
       "datum": "2026-04-19",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Freilichtmuseum Ballenberg, Hofstetten b. Brienz"
+      "ort": "Freilichtmuseum Ballenberg, Hofstetten b. Brienz",
+      "sieger": [
+        {
+          "id": "ivan thoni|2003",
+          "name": "Ivan Thöni"
+        }
+      ],
+      "n_teilnehmer": 74,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-49604",
@@ -3071,7 +6282,15 @@
       "datum": "2026-04-25",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schulanlage Widi Frutigen"
+      "ort": "Schulanlage Widi Frutigen",
+      "sieger": [
+        {
+          "id": "curdin orlik|1993",
+          "name": "Curdin Orlik"
+        }
+      ],
+      "n_teilnehmer": 72,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-50231",
@@ -3079,7 +6298,15 @@
       "datum": "2026-04-25",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Küssnacht"
+      "ort": "Küssnacht",
+      "sieger": [
+        {
+          "id": "patrick betschart|1999",
+          "name": "Patrick Betschart"
+        }
+      ],
+      "n_teilnehmer": 79,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51903",
@@ -3087,7 +6314,15 @@
       "datum": "2026-04-25",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sissach"
+      "ort": "Sissach",
+      "sieger": [
+        {
+          "id": "marius frank|2004",
+          "name": "Marius Frank"
+        }
+      ],
+      "n_teilnehmer": 32,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51917",
@@ -3095,7 +6330,15 @@
       "datum": "2026-04-25",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Huttwil"
+      "ort": "Huttwil",
+      "sieger": [
+        {
+          "id": "daniel tschumi|2005",
+          "name": "Daniel Tschumi"
+        }
+      ],
+      "n_teilnehmer": 49,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-33466",
@@ -3103,7 +6346,15 @@
       "datum": "2026-04-26",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hochdorf"
+      "ort": "Hochdorf",
+      "sieger": [
+        {
+          "id": "michael moser|2005",
+          "name": "Michael Moser"
+        }
+      ],
+      "n_teilnehmer": 80,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-44098",
@@ -3111,7 +6362,15 @@
       "datum": "2026-04-26",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hergiswil NW"
+      "ort": "Hergiswil NW",
+      "sieger": [
+        {
+          "id": "michael gwerder|2000",
+          "name": "Michael Gwerder"
+        }
+      ],
+      "n_teilnehmer": 207,
+      "n_kraenze": 31
     },
     {
       "id": "schlussgang-45494",
@@ -3119,7 +6378,15 @@
       "datum": "2026-04-26",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Degersheim"
+      "ort": "Degersheim",
+      "sieger": [
+        {
+          "id": "werner schlegel|2002",
+          "name": "Werner Schlegel"
+        }
+      ],
+      "n_teilnehmer": 129,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-49392",
@@ -3127,7 +6394,15 @@
       "datum": "2026-04-26",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Leuggern"
+      "ort": "Leuggern",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 61,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51105",
@@ -3135,7 +6410,15 @@
       "datum": "2026-04-26",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Winterthur"
+      "ort": "Winterthur",
+      "sieger": [
+        {
+          "id": "janos bachmann|2004",
+          "name": "Janos Bachmann"
+        }
+      ],
+      "n_teilnehmer": 65,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-52147",
@@ -3143,7 +6426,15 @@
       "datum": "2026-04-26",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Cottens"
+      "ort": "Cottens",
+      "sieger": [
+        {
+          "id": "romain collaud|2002",
+          "name": "Romain Collaud"
+        }
+      ],
+      "n_teilnehmer": 60,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37087",
@@ -3151,7 +6442,15 @@
       "datum": "2026-05-03",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Rothenburg"
+      "ort": "Rothenburg",
+      "sieger": [
+        {
+          "id": "sven lang|1998",
+          "name": "Sven Lang"
+        }
+      ],
+      "n_teilnehmer": 119,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37159",
@@ -3159,7 +6458,15 @@
       "datum": "2026-05-03",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sirnach"
+      "ort": "Sirnach",
+      "sieger": [
+        {
+          "id": "damian ott|2000",
+          "name": "Damian Ott"
+        }
+      ],
+      "n_teilnehmer": 147,
+      "n_kraenze": 24
     },
     {
       "id": "schlussgang-37170",
@@ -3167,7 +6474,15 @@
       "datum": "2026-05-03",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Oberdiessbach"
+      "ort": "Oberdiessbach",
+      "sieger": [
+        {
+          "id": "adrian walther|2001",
+          "name": "Adrian Walther"
+        }
+      ],
+      "n_teilnehmer": 192,
+      "n_kraenze": 31
     },
     {
       "id": "schlussgang-46747",
@@ -3175,7 +6490,15 @@
       "datum": "2026-05-03",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Stüsslingen"
+      "ort": "Stüsslingen",
+      "sieger": [
+        {
+          "id": "sinisha luscher|2006",
+          "name": "Sinisha Lüscher"
+        }
+      ],
+      "n_teilnehmer": 124,
+      "n_kraenze": 20
     },
     {
       "id": "schlussgang-49578",
@@ -3183,7 +6506,15 @@
       "datum": "2026-05-09",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Muolen"
+      "ort": "Muolen",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 120,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-34663",
@@ -3191,7 +6522,15 @@
       "datum": "2026-05-10",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Stettlen"
+      "ort": "Stettlen",
+      "sieger": [
+        {
+          "id": "matthias aeschbacher|1992",
+          "name": "Matthias Aeschbacher"
+        }
+      ],
+      "n_teilnehmer": 179,
+      "n_kraenze": 30
     },
     {
       "id": "schlussgang-45152",
@@ -3199,7 +6538,15 @@
       "datum": "2026-05-10",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Oberägeri"
+      "ort": "Oberägeri",
+      "sieger": [
+        {
+          "id": "marcel bieri|1994",
+          "name": "Marcel Bieri"
+        }
+      ],
+      "n_teilnehmer": 203,
+      "n_kraenze": 33
     },
     {
       "id": "schlussgang-51740",
@@ -3207,7 +6554,15 @@
       "datum": "2026-05-10",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Oron-la-ville"
+      "ort": "Oron-la-ville",
+      "sieger": [
+        {
+          "id": "romain collaud|2002",
+          "name": "Romain Collaud"
+        }
+      ],
+      "n_teilnehmer": 47,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37086",
@@ -3215,7 +6570,15 @@
       "datum": "2026-05-14",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Escholzmatt"
+      "ort": "Escholzmatt",
+      "sieger": [
+        {
+          "id": "marc lustenberger|2003",
+          "name": "Marc Lustenberger"
+        }
+      ],
+      "n_teilnehmer": 83,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51120",
@@ -3223,7 +6586,15 @@
       "datum": "2026-05-14",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sportplatz Sandgrube Basel"
+      "ort": "Sportplatz Sandgrube Basel",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 121,
+      "n_kraenze": 18
     },
     {
       "id": "schlussgang-51738",
@@ -3231,7 +6602,15 @@
       "datum": "2026-05-14",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Le Mouret"
+      "ort": "Le Mouret",
+      "sieger": [
+        {
+          "id": "silvan zbinden|2004",
+          "name": "Silvan Zbinden"
+        }
+      ],
+      "n_teilnehmer": 40,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-52035",
@@ -3239,7 +6618,15 @@
       "datum": "2026-05-14",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Meilen"
+      "ort": "Meilen",
+      "sieger": [
+        {
+          "id": "janos bachmann|2004",
+          "name": "Janos Bachmann"
+        }
+      ],
+      "n_teilnehmer": 65,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37092",
@@ -3247,7 +6634,15 @@
       "datum": "2026-05-16",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ipsach"
+      "ort": "Ipsach",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 154,
+      "n_kraenze": 25
     },
     {
       "id": "schlussgang-37129",
@@ -3255,7 +6650,15 @@
       "datum": "2026-05-17",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Brunnen"
+      "ort": "Brunnen",
+      "sieger": [
+        {
+          "id": "lukas bissig|2003",
+          "name": "Lukas Bissig"
+        }
+      ],
+      "n_teilnehmer": 242,
+      "n_kraenze": 36
     },
     {
       "id": "schlussgang-46074",
@@ -3263,7 +6666,19 @@
       "datum": "2026-05-17",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Oberdorf"
+      "ort": "Oberdorf",
+      "sieger": [
+        {
+          "id": "sinisha luscher|2006",
+          "name": "Sinisha Lüscher"
+        },
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 118,
+      "n_kraenze": 18
     },
     {
       "id": "schlussgang-46078",
@@ -3271,7 +6686,15 @@
       "datum": "2026-05-17",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Mettmenstetten"
+      "ort": "Mettmenstetten",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 156,
+      "n_kraenze": 27
     },
     {
       "id": "schlussgang-51844",
@@ -3279,7 +6702,15 @@
       "datum": "2026-05-17",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Cousset"
+      "ort": "Cousset",
+      "sieger": [
+        {
+          "id": "david aebersold|2001",
+          "name": "David Aebersold"
+        }
+      ],
+      "n_teilnehmer": 37,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21049",
@@ -3287,7 +6718,15 @@
       "datum": "2026-05-23",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Niederbipp"
+      "ort": "Niederbipp",
+      "sieger": [
+        {
+          "id": "michael moser|2005",
+          "name": "Michael Moser"
+        }
+      ],
+      "n_teilnehmer": 167,
+      "n_kraenze": 26
     },
     {
       "id": "schlussgang-32835",
@@ -3295,7 +6734,15 @@
       "datum": "2026-05-23",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Morgarten"
+      "ort": "Morgarten",
+      "sieger": [
+        {
+          "id": "marcel bieri|1994",
+          "name": "Marcel Bieri"
+        }
+      ],
+      "n_teilnehmer": 48,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51665",
@@ -3303,7 +6750,15 @@
       "datum": "2026-05-23",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Brugg"
+      "ort": "Brugg",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 51,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46202",
@@ -3311,7 +6766,15 @@
       "datum": "2026-05-24",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Murten-Morat"
+      "ort": "Murten-Morat",
+      "sieger": [
+        {
+          "id": "lario kramer|1998",
+          "name": "Lario Kramer"
+        }
+      ],
+      "n_teilnehmer": 108,
+      "n_kraenze": 18
     },
     {
       "id": "schlussgang-21045",
@@ -3319,7 +6782,15 @@
       "datum": "2026-05-25",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hochfelden"
+      "ort": "Hochfelden",
+      "sieger": [
+        {
+          "id": "janos bachmann|2004",
+          "name": "Janos Bachmann"
+        }
+      ],
+      "n_teilnehmer": 48,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21047",
@@ -3327,7 +6798,15 @@
       "datum": "2026-05-25",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Näfels"
+      "ort": "Näfels",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        }
+      ],
+      "n_teilnehmer": 125,
+      "n_kraenze": 22
     },
     {
       "id": "schlussgang-37083",
@@ -3335,7 +6814,23 @@
       "datum": "2026-05-25",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ruswil"
+      "ort": "Ruswil",
+      "sieger": [
+        {
+          "id": "roman wandeler|2002",
+          "name": "Roman Wandeler"
+        },
+        {
+          "id": "benno heinzer|2006",
+          "name": "Benno Heinzer"
+        },
+        {
+          "id": "jonas amrhyn|2003",
+          "name": "Jonas Amrhyn"
+        }
+      ],
+      "n_teilnehmer": 268,
+      "n_kraenze": 47
     },
     {
       "id": "schlussgang-52201",
@@ -3343,7 +6838,15 @@
       "datum": "2026-05-25",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Matten"
+      "ort": "Matten",
+      "sieger": [
+        {
+          "id": "bernhard kampf|1988",
+          "name": "Bernhard Kämpf"
+        }
+      ],
+      "n_teilnehmer": 48,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-55972",
@@ -3351,7 +6854,15 @@
       "datum": "2026-05-25",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Laupen"
+      "ort": "Laupen",
+      "sieger": [
+        {
+          "id": "david luthi|2002",
+          "name": "David Lüthi"
+        }
+      ],
+      "n_teilnehmer": 26,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-39096",
@@ -3359,7 +6870,15 @@
       "datum": "2026-05-31",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schmerikon"
+      "ort": "Schmerikon",
+      "sieger": [
+        {
+          "id": "werner schlegel|2002",
+          "name": "Werner Schlegel"
+        }
+      ],
+      "n_teilnehmer": 189,
+      "n_kraenze": 31
     },
     {
       "id": "schlussgang-46200",
@@ -3367,7 +6886,15 @@
       "datum": "2026-05-31",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "La Brévine"
+      "ort": "La Brévine",
+      "sieger": [
+        {
+          "id": "romain collaud|2002",
+          "name": "Romain Collaud"
+        }
+      ],
+      "n_teilnehmer": 96,
+      "n_kraenze": 13
     },
     {
       "id": "schlussgang-37082",
@@ -3375,7 +6902,15 @@
       "datum": "2026-06-04",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schwarzenberg"
+      "ort": "Schwarzenberg",
+      "sieger": [
+        {
+          "id": "marc lustenberger|2003",
+          "name": "Marc Lustenberger"
+        }
+      ],
+      "n_teilnehmer": 83,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-38142",
@@ -3383,7 +6918,15 @@
       "datum": "2026-06-06",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Herisau"
+      "ort": "Herisau",
+      "sieger": [
+        {
+          "id": "christian biasch|1996",
+          "name": "Christian Biäsch"
+        }
+      ],
+      "n_teilnehmer": 78,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-47099",
@@ -3391,7 +6934,15 @@
       "datum": "2026-06-06",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Flüelen"
+      "ort": "Flüelen",
+      "sieger": [
+        {
+          "id": "lukas bissig|2003",
+          "name": "Lukas Bissig"
+        }
+      ],
+      "n_teilnehmer": 140,
+      "n_kraenze": 34
     },
     {
       "id": "schlussgang-37230",
@@ -3399,7 +6950,15 @@
       "datum": "2026-06-07",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Aarau Rohr"
+      "ort": "Aarau Rohr",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 140,
+      "n_kraenze": 22
     },
     {
       "id": "schlussgang-44789",
@@ -3407,7 +6966,15 @@
       "datum": "2026-06-07",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Naters"
+      "ort": "Naters",
+      "sieger": [
+        {
+          "id": "lario kramer|1998",
+          "name": "Lario Kramer"
+        }
+      ],
+      "n_teilnehmer": 89,
+      "n_kraenze": 14
     },
     {
       "id": "schlussgang-52017",
@@ -3415,7 +6982,15 @@
       "datum": "2026-06-12",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sumiswald"
+      "ort": "Sumiswald",
+      "sieger": [
+        {
+          "id": "matthias aeschbacher|1992",
+          "name": "Matthias Aeschbacher"
+        }
+      ],
+      "n_teilnehmer": 50,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-44993",
@@ -3423,7 +6998,15 @@
       "datum": "2026-06-13",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Saignelégier"
+      "ort": "Saignelégier",
+      "sieger": [
+        {
+          "id": "romain collaud|2002",
+          "name": "Romain Collaud"
+        }
+      ],
+      "n_teilnehmer": 85,
+      "n_kraenze": 15
     },
     {
       "id": "schlussgang-47764",
@@ -3431,7 +7014,15 @@
       "datum": "2026-06-13",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Scuol"
+      "ort": "Scuol",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        }
+      ],
+      "n_teilnehmer": 123,
+      "n_kraenze": 19
     },
     {
       "id": "schlussgang-33257",
@@ -3439,7 +7030,15 @@
       "datum": "2026-06-14",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Gstaad"
+      "ort": "Gstaad",
+      "sieger": [
+        {
+          "id": "michael moser|2005",
+          "name": "Michael Moser"
+        }
+      ],
+      "n_teilnehmer": 210,
+      "n_kraenze": 32
     },
     {
       "id": "schlussgang-46510",
@@ -3447,7 +7046,15 @@
       "datum": "2026-06-14",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Stoos SZ"
+      "ort": "Stoos SZ",
+      "sieger": [
+        {
+          "id": "werner schlegel|2002",
+          "name": "Werner Schlegel"
+        }
+      ],
+      "n_teilnehmer": 89,
+      "n_kraenze": 13
     },
     {
       "id": "schlussgang-45926",
@@ -3455,7 +7062,19 @@
       "datum": "2026-06-20",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Zetzwil AG"
+      "ort": "Zetzwil AG",
+      "sieger": [
+        {
+          "id": "enea grob|2003",
+          "name": "Enea Grob"
+        },
+        {
+          "id": "moritz buchmann|2005",
+          "name": "Moritz Buchmann"
+        }
+      ],
+      "n_teilnehmer": 35,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-52034",
@@ -3463,7 +7082,19 @@
       "datum": "2026-06-20",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Salmsach"
+      "ort": "Salmsach",
+      "sieger": [
+        {
+          "id": "andrin habegger|2005",
+          "name": "Andrin Habegger"
+        },
+        {
+          "id": "domenic schneider|1994",
+          "name": "Domenic Schneider"
+        }
+      ],
+      "n_teilnehmer": 51,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-52163",
@@ -3471,7 +7102,15 @@
       "datum": "2026-06-20",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lungern"
+      "ort": "Lungern",
+      "sieger": [
+        {
+          "id": "leandro nageli|2003",
+          "name": "Leandro Nägeli"
+        }
+      ],
+      "n_teilnehmer": 86,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37079",
@@ -3479,7 +7118,15 @@
       "datum": "2026-06-21",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Michaelskreuz ob Root"
+      "ort": "Michaelskreuz ob Root",
+      "sieger": [
+        {
+          "id": "roman wandeler|2002",
+          "name": "Roman Wandeler"
+        }
+      ],
+      "n_teilnehmer": 83,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46174",
@@ -3487,7 +7134,15 @@
       "datum": "2026-06-21",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lac Noir / Schwarzsee"
+      "ort": "Lac Noir / Schwarzsee",
+      "sieger": [
+        {
+          "id": "adrian walther|2001",
+          "name": "Adrian Walther"
+        }
+      ],
+      "n_teilnehmer": 90,
+      "n_kraenze": 11
     },
     {
       "id": "schlussgang-48495",
@@ -3495,7 +7150,15 @@
       "datum": "2026-06-26",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Baar"
+      "ort": "Baar",
+      "sieger": [
+        {
+          "id": "joel ambuhl|1998",
+          "name": "Joel Ambühl"
+        }
+      ],
+      "n_teilnehmer": 80,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-47788",
@@ -3503,7 +7166,19 @@
       "datum": "2026-06-27",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Gipf-Oberfrick AG"
+      "ort": "Gipf-Oberfrick AG",
+      "sieger": [
+        {
+          "id": "tim roth|2004",
+          "name": "Tim Roth"
+        },
+        {
+          "id": "andreas dobeli|1998",
+          "name": "Andreas Döbeli"
+        }
+      ],
+      "n_teilnehmer": 67,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51586",
@@ -3511,7 +7186,15 @@
       "datum": "2026-06-27",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Adelboden"
+      "ort": "Adelboden",
+      "sieger": [
+        {
+          "id": "michael ledermann|2000",
+          "name": "Michael Ledermann"
+        }
+      ],
+      "n_teilnehmer": 60,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21044",
@@ -3519,7 +7202,15 @@
       "datum": "2026-06-28",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Güttingen"
+      "ort": "Güttingen",
+      "sieger": [
+        {
+          "id": "werner schlegel|2002",
+          "name": "Werner Schlegel"
+        }
+      ],
+      "n_teilnehmer": 158,
+      "n_kraenze": 24
     },
     {
       "id": "schlussgang-44787",
@@ -3527,7 +7218,15 @@
       "datum": "2026-06-28",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Poliez-Pittet"
+      "ort": "Poliez-Pittet",
+      "sieger": [
+        {
+          "id": "romain collaud|2002",
+          "name": "Romain Collaud"
+        }
+      ],
+      "n_teilnehmer": 99,
+      "n_kraenze": 15
     },
     {
       "id": "schlussgang-49575",
@@ -3535,7 +7234,19 @@
       "datum": "2026-07-04",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Gingins"
+      "ort": "Gingins",
+      "sieger": [
+        {
+          "id": "moritz buchmann|2005",
+          "name": "Moritz Buchmann"
+        },
+        {
+          "id": "janik korrodi|2004",
+          "name": "Janik Korrodi"
+        }
+      ],
+      "n_teilnehmer": 22,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21040",
@@ -3543,7 +7254,15 @@
       "datum": "2026-07-05",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Bern, Wankdorf"
+      "ort": "Bern, Wankdorf",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 149,
+      "n_kraenze": 24
     },
     {
       "id": "schlussgang-40006",
@@ -3551,7 +7270,19 @@
       "datum": "2026-07-05",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Arth"
+      "ort": "Arth",
+      "sieger": [
+        {
+          "id": "marc lustenberger|2003",
+          "name": "Marc Lustenberger"
+        },
+        {
+          "id": "samuel schwyzer|2001",
+          "name": "Samuel Schwyzer"
+        }
+      ],
+      "n_teilnehmer": 199,
+      "n_kraenze": 30
     },
     {
       "id": "schlussgang-46598",
@@ -3559,7 +7290,19 @@
       "datum": "2026-07-05",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Gonten"
+      "ort": "Gonten",
+      "sieger": [
+        {
+          "id": "silvio oettli|2000",
+          "name": "Silvio Oettli"
+        },
+        {
+          "id": "martin roth|1990",
+          "name": "Martin Roth"
+        }
+      ],
+      "n_teilnehmer": 148,
+      "n_kraenze": 23
     },
     {
       "id": "schlussgang-40625",
@@ -3567,7 +7310,15 @@
       "datum": "2026-07-11",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Weissenstein ob Solothurn"
+      "ort": "Weissenstein ob Solothurn",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 90,
+      "n_kraenze": 16
     },
     {
       "id": "schlussgang-52155",
@@ -3575,7 +7326,15 @@
       "datum": "2026-07-11",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Fankhaus"
+      "ort": "Fankhaus",
+      "sieger": [
+        {
+          "id": "lars zaugg|2002",
+          "name": "Lars Zaugg"
+        }
+      ],
+      "n_teilnehmer": 67,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37078",
@@ -3583,7 +7342,15 @@
       "datum": "2026-07-12",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Menzberg"
+      "ort": "Menzberg",
+      "sieger": [
+        {
+          "id": "joel ambuhl|1998",
+          "name": "Joel Ambühl"
+        }
+      ],
+      "n_teilnehmer": 89,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-50457",
@@ -3591,7 +7358,19 @@
       "datum": "2026-07-12",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Le Crêt-près-Semsales"
+      "ort": "Le Crêt-près-Semsales",
+      "sieger": [
+        {
+          "id": "romain collaud|2002",
+          "name": "Romain Collaud"
+        },
+        {
+          "id": "laurent tornare|2007",
+          "name": "Laurent Tornare"
+        }
+      ],
+      "n_teilnehmer": 42,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51309",
@@ -3599,7 +7378,15 @@
       "datum": "2026-07-12",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Chur Brambrüesch"
+      "ort": "Chur Brambrüesch",
+      "sieger": [
+        {
+          "id": "patrik feldmann|2005",
+          "name": "Patrik Feldmann"
+        }
+      ],
+      "n_teilnehmer": 46,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51597",
@@ -3607,7 +7394,19 @@
       "datum": "2026-07-12",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Vordergeissboden, Zugerberg"
+      "ort": "Vordergeissboden, Zugerberg",
+      "sieger": [
+        {
+          "id": "christian bucher|1998",
+          "name": "Christian Bucher"
+        },
+        {
+          "id": "thomas bucher|1996",
+          "name": "Thomas Bucher"
+        }
+      ],
+      "n_teilnehmer": 79,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51846",
@@ -3615,7 +7414,15 @@
       "datum": "2026-07-18",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Klöntal"
+      "ort": "Klöntal",
+      "sieger": [
+        {
+          "id": "sales tschudi|2009",
+          "name": "Sales Tschudi"
+        }
+      ],
+      "n_teilnehmer": 70,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-52044",
@@ -3623,7 +7430,15 @@
       "datum": "2026-07-18",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schönenberg"
+      "ort": "Schönenberg",
+      "sieger": [
+        {
+          "id": "marco nageli|1994",
+          "name": "Marco Nägeli"
+        }
+      ],
+      "n_teilnehmer": 51,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-44785",
@@ -3631,7 +7446,15 @@
       "datum": "2026-07-19",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Riaz"
+      "ort": "Riaz",
+      "sieger": [
+        {
+          "id": "laurent tornare|2007",
+          "name": "Laurent Tornare"
+        }
+      ],
+      "n_teilnehmer": 65,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-48478",
@@ -3639,7 +7462,15 @@
       "datum": "2026-07-19",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Kiental"
+      "ort": "Kiental",
+      "sieger": [
+        {
+          "id": "martin sommer|2001",
+          "name": "Martin Sommer"
+        }
+      ],
+      "n_teilnehmer": 63,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51344",
@@ -3647,7 +7478,15 @@
       "datum": "2026-07-19",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Rigi Staffel"
+      "ort": "Rigi Staffel",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 89,
+      "n_kraenze": 14
     },
     {
       "id": "schlussgang-52184",
@@ -3655,7 +7494,15 @@
       "datum": "2026-07-25",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Grindelwald"
+      "ort": "Grindelwald",
+      "sieger": [
+        {
+          "id": "sami gerber|2000",
+          "name": "Sämi Gerber"
+        }
+      ],
+      "n_teilnehmer": 34,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21041",
@@ -3663,7 +7510,15 @@
       "datum": "2026-07-26",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Davos Sertig"
+      "ort": "Davos Sertig",
+      "sieger": [
+        {
+          "id": "kjetil fausch|1995",
+          "name": "Kjetil Fausch"
+        }
+      ],
+      "n_teilnehmer": 88,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21043",
@@ -3671,7 +7526,15 @@
       "datum": "2026-07-26",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Fribourg"
+      "ort": "Fribourg",
+      "sieger": [
+        {
+          "id": "michael moser|2005",
+          "name": "Michael Moser"
+        }
+      ],
+      "n_teilnehmer": 109,
+      "n_kraenze": 17
     },
     {
       "id": "schlussgang-46196",
@@ -3679,7 +7542,27 @@
       "datum": "2026-07-26",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Brünig Passhöhe"
+      "ort": "Brünig Passhöhe",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        },
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        },
+        {
+          "id": "matthieu burger|2001",
+          "name": "Matthieu Burger"
+        },
+        {
+          "id": "werner schlegel|2002",
+          "name": "Werner Schlegel"
+        }
+      ],
+      "n_teilnehmer": 119,
+      "n_kraenze": 17
     },
     {
       "id": "schlussgang-50954",
@@ -3687,7 +7570,15 @@
       "datum": "2026-08-01",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Hinwil"
+      "ort": "Hinwil",
+      "sieger": [
+        {
+          "id": "armon orlik|1995",
+          "name": "Armon Orlik"
+        }
+      ],
+      "n_teilnehmer": 60,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-37076",
@@ -3695,7 +7586,15 @@
       "datum": "2026-08-02",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Sörenberg"
+      "ort": "Sörenberg",
+      "sieger": [
+        {
+          "id": "michael gwerder|2000",
+          "name": "Michael Gwerder"
+        }
+      ],
+      "n_teilnehmer": 101,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-43559",
@@ -3703,7 +7602,15 @@
       "datum": "2026-08-02",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Zofingen"
+      "ort": "Zofingen",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 78,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46138",
@@ -3711,7 +7618,15 @@
       "datum": "2026-08-02",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ricken"
+      "ort": "Ricken",
+      "sieger": [
+        {
+          "id": "damian ott|2000",
+          "name": "Damian Ott"
+        }
+      ],
+      "n_teilnehmer": 119,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-38132",
@@ -3719,7 +7634,15 @@
       "datum": "2026-08-09",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "ob Himmelried"
+      "ort": "ob Himmelried",
+      "sieger": [
+        {
+          "id": "adrian odermatt|2001",
+          "name": "Adrian Odermatt"
+        }
+      ],
+      "n_teilnehmer": 47,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46136",
@@ -3727,7 +7650,15 @@
       "datum": "2026-08-09",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Urnerboden"
+      "ort": "Urnerboden",
+      "sieger": [
+        {
+          "id": "michael gwerder|2000",
+          "name": "Michael Gwerder"
+        }
+      ],
+      "n_teilnehmer": 65,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-49178",
@@ -3735,7 +7666,15 @@
       "datum": "2026-08-09",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Werdtberg"
+      "ort": "Werdtberg",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 162,
+      "n_kraenze": 28
     },
     {
       "id": "schlussgang-51251",
@@ -3743,7 +7682,15 @@
       "datum": "2026-08-09",
       "typ": "kantonal",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schaffhausen"
+      "ort": "Schaffhausen",
+      "sieger": [
+        {
+          "id": "andy signer|2003",
+          "name": "Andy Signer"
+        }
+      ],
+      "n_teilnehmer": 127,
+      "n_kraenze": 20
     },
     {
       "id": "schlussgang-51915",
@@ -3751,7 +7698,15 @@
       "datum": "2026-08-09",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Melchsee- Frutt"
+      "ort": "Melchsee- Frutt",
+      "sieger": [
+        {
+          "id": "joel ambuhl|1998",
+          "name": "Joel Ambühl"
+        }
+      ],
+      "n_teilnehmer": 89,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-52181",
@@ -3759,7 +7714,15 @@
       "datum": "2026-08-09",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lüderen"
+      "ort": "Lüderen",
+      "sieger": [
+        {
+          "id": "jonas (1) wuthrich|2001",
+          "name": "Jonas (1) Wüthrich"
+        }
+      ],
+      "n_teilnehmer": 25,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-21038",
@@ -3767,7 +7730,15 @@
       "datum": "2026-08-16",
       "typ": "teilverband",
       "quelle": "schlussgang.ch/event",
-      "ort": "Mümliswil"
+      "ort": "Mümliswil",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 135,
+      "n_kraenze": 21
     },
     {
       "id": "schlussgang-21039",
@@ -3775,7 +7746,15 @@
       "datum": "2026-08-16",
       "typ": "berg",
       "quelle": "schlussgang.ch/event",
-      "ort": "Schwägalp AR"
+      "ort": "Schwägalp AR",
+      "sieger": [
+        {
+          "id": "fabian staudenmann|2000",
+          "name": "Fabian Staudenmann"
+        }
+      ],
+      "n_teilnehmer": 90,
+      "n_kraenze": 16
     },
     {
       "id": "schlussgang-50010",
@@ -3783,7 +7762,15 @@
       "datum": "2026-08-22",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Engstlenalp"
+      "ort": "Engstlenalp",
+      "sieger": [
+        {
+          "id": "marcel bieri|1994",
+          "name": "Marcel Bieri"
+        }
+      ],
+      "n_teilnehmer": 107,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-50988",
@@ -3791,7 +7778,15 @@
       "datum": "2026-08-22",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Muttenz"
+      "ort": "Muttenz",
+      "sieger": [
+        {
+          "id": "nick alpiger|1996",
+          "name": "Nick Alpiger"
+        }
+      ],
+      "n_teilnehmer": 30,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-52071",
@@ -3799,7 +7794,15 @@
       "datum": "2026-08-23",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Einsiedeln"
+      "ort": "Einsiedeln",
+      "sieger": [
+        {
+          "id": "lukas von euw|2002",
+          "name": "Lukas von Euw"
+        }
+      ],
+      "n_teilnehmer": 66,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-52038",
@@ -3807,7 +7810,15 @@
       "datum": "2026-08-30",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Kemmeribodenbad"
+      "ort": "Kemmeribodenbad",
+      "sieger": [
+        {
+          "id": "lars zaugg|2002",
+          "name": "Lars Zaugg"
+        }
+      ],
+      "n_teilnehmer": 149,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-46147",
@@ -3815,7 +7826,15 @@
       "datum": "2026-09-05",
       "typ": "eidgenoessisch",
       "quelle": "schlussgang.ch/event",
-      "ort": "Kilchberg ZH"
+      "ort": "Kilchberg ZH",
+      "sieger": [
+        {
+          "id": "samuel giger|1998",
+          "name": "Samuel Giger"
+        }
+      ],
+      "n_teilnehmer": 59,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-50715",
@@ -3823,7 +7842,15 @@
       "datum": "2026-09-12",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Tavannes"
+      "ort": "Tavannes",
+      "sieger": [
+        {
+          "id": "remo rutsch|2004",
+          "name": "Remo Rutsch"
+        }
+      ],
+      "n_teilnehmer": 30,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-48341",
@@ -3831,7 +7858,15 @@
       "datum": "2026-09-13",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Ennetmoos"
+      "ort": "Ennetmoos",
+      "sieger": [
+        {
+          "id": "michael gwerder|2000",
+          "name": "Michael Gwerder"
+        }
+      ],
+      "n_teilnehmer": 115,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51612",
@@ -3839,7 +7874,15 @@
       "datum": "2026-09-13",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Bütschwil"
+      "ort": "Bütschwil",
+      "sieger": [
+        {
+          "id": "damian ott|2000",
+          "name": "Damian Ott"
+        }
+      ],
+      "n_teilnehmer": 69,
+      "n_kraenze": 0
     },
     {
       "id": "schlussgang-51858",
@@ -3847,7 +7890,15 @@
       "datum": "2026-09-13",
       "typ": "regional",
       "quelle": "schlussgang.ch/event",
-      "ort": "Lueg Kaltacker"
+      "ort": "Lueg Kaltacker",
+      "sieger": [
+        {
+          "id": "patrick schenk|1994",
+          "name": "Patrick Schenk"
+        }
+      ],
+      "n_teilnehmer": 54,
+      "n_kraenze": 0
     }
   ],
   "kommende": [

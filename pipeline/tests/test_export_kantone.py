@@ -27,6 +27,11 @@ def _sw(sid, kanton, kranzstatus="kranzer") -> Schwinger:
     )
 
 
+def _fuenfmal(*gaenge):
+    """Gezählt wird erst ab MIN_GAENGE_FUER_SICHERHEIT (5) Gängen je Schwinger."""
+    return [g for g in gaenge for _ in range(5)]
+
+
 def test_gauverband_stats_haelt_bernische_regionen_getrennt():
     schwinger = {
         "a": _sw("a", "Emmental"),
@@ -35,19 +40,19 @@ def test_gauverband_stats_haelt_bernische_regionen_getrennt():
         "d": _sw("d", None),  # kein Verband -> nirgends gezaehlt
     }
     elo = _FakeElo({"a": 1600, "b": 1500, "c": 1400, "d": 1500})
-    gaenge = [
+    gaenge = _fuenfmal(
         GangResultat("ev1", "2024-05-01", "a", "b", "+", 10.0, "-", 8.75, "sieg_a", "kantonal"),
         GangResultat("ev1", "2024-05-01", "c", "d", "-", 9.0, "-", 9.0, "gestellt", "kantonal"),
-    ]
+    )
 
     verbaende, _ = _gauverband_stats(schwinger, elo, gaenge)
 
     assert set(verbaende.keys()) == {"Emmental", "Oberland"}
     assert verbaende["Emmental"]["n_schwinger"] == 2
     assert verbaende["Oberland"]["n_schwinger"] == 1
-    assert verbaende["Emmental"]["n_siege"] == 1  # a schlaegt b
-    assert verbaende["Oberland"]["n_niederlagen"] == 1
-    assert verbaende["Emmental"]["n_gestellt"] == 1  # c vs d (d ohne Verband zaehlt nicht)
+    assert verbaende["Emmental"]["n_siege"] == 5  # a schlaegt b
+    assert verbaende["Oberland"]["n_niederlagen"] == 5
+    assert verbaende["Emmental"]["n_gestellt"] == 5  # c vs d (d ohne Verband zaehlt nicht)
 
 
 def test_politischer_kanton_ist_summe_seiner_gauverbaende(tmp_path, monkeypatch):
@@ -62,9 +67,10 @@ def test_politischer_kanton_ist_summe_seiner_gauverbaende(tmp_path, monkeypatch)
         "c": _sw("c", "Berner-Jura"),
     }
     elo = _FakeElo({"a": 1600, "b": 1500, "c": 1400})
-    gaenge = [
+    gaenge = _fuenfmal(
         GangResultat("ev1", "2024-05-01", "a", "b", "+", 10.0, "-", 8.75, "sieg_a", "kantonal"),
-    ]
+        GangResultat("ev1", "2024-05-01", "c", "x", "-", 9.0, "-", 9.0, "gestellt", "kantonal"),
+    )
 
     exportiere_kantone(schwinger, elo, gaenge)
 
@@ -76,5 +82,19 @@ def test_politischer_kanton_ist_summe_seiner_gauverbaende(tmp_path, monkeypatch)
     bernische_verbaende = [g for g in gauverbaende["gauverbaende"] if g["kanton"] in {"Emmental", "Oberland", "Berner-Jura"}]
 
     assert bern["n_schwinger"] == sum(g["n_schwinger"] for g in bernische_verbaende) == 3
-    assert bern["n_siege"] == sum(g["n_siege"] for g in bernische_verbaende) == 1
+    assert bern["n_siege"] == sum(g["n_siege"] for g in bernische_verbaende) == 5
     assert {g["kanton"] for g in bernische_verbaende} == {"Emmental", "Oberland", "Berner-Jura"}
+
+
+def test_ohne_portraet_zaehlt_der_verband_ueber_den_klub_und_erst_ab_fuenf_gaengen():
+    stub = Schwinger(id="s", name="s", quellen=["schlussgang.ch/statistic-pdf"])
+    schwinger = {"a": _sw("a", "Emmental"), "s": stub, "neu": Schwinger(id="neu", name="neu")}
+    rl = {"verband_klub": {"s": ("Bern", "Oberland"), "neu": ("Bern", "Oberland")},
+          "kranzstatus": {"s": "eidgenosse"}}
+    gaenge = _fuenfmal(GangResultat("ev1", "2024-05-01", "a", "s", "+", 10.0, "-", 8.75, "sieg_a", "kantonal"))
+    gaenge.append(GangResultat("ev2", "2024-06-01", "a", "neu", "+", 10.0, "-", 8.75, "sieg_a", "kantonal"))
+
+    verbaende, _ = _gauverband_stats(schwinger, _FakeElo({}), gaenge, rl)
+
+    assert verbaende["Oberland"]["n_schwinger"] == 1  # "neu" hat nur einen Gang
+    assert verbaende["Oberland"]["n_eidgenosse"] == 1  # Kranzstatus laut Rangliste

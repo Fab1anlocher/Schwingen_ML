@@ -1,5 +1,8 @@
 "use client";
 
+// Liste der bisherigen direkten Duelle eines Paars (Anzeige). Dieselben
+// Treffer fliessen als Merkmale in die Prognose (lib/kopfAnKopf.ts).
+
 import type { H2HTreffer } from "@/lib/kopfAnKopf";
 
 const ERGEBNIS_TEXT: Record<string, (a: string, b: string) => string> = {

@@ -28,7 +28,6 @@ from __future__ import annotations
 
 import io
 import re
-from collections import defaultdict
 
 _RANG_RE = re.compile(r"^\d{1,3}[a-z]?$")
 _PUNKTE_RE = re.compile(r"^(\d{1,2}\.\d{2})(.*)$")   # manche PDFs kleben das Resultat an
@@ -190,25 +189,3 @@ def mit_kranz(eintraege: list[dict]) -> list[dict]:
     markiert = [e["punkte"] for e in eintraege if e.get("status")]
     schwelle = min(markiert) if markiert else None
     return [{**e, "kranz": schwelle is not None and e["punkte"] >= schwelle} for e in eintraege]
-
-
-def kranzquote(eintraege: list[dict]) -> float:
-    return sum(1 for e in eintraege if e.get("kranz")) / len(eintraege) if eintraege else 0.0
-
-
-def nach_name(eintraege: list[dict]) -> dict[str, dict]:
-    """Name -> Eintrag (für Tests/Diagnose; Duplikate: der besser platzierte)."""
-    out: dict[str, dict] = {}
-    for e in eintraege:
-        out.setdefault(e["name"], e)
-    return out
-
-
-def zaehle(eintraege: list[dict]) -> dict:
-    """Kurze Kennzahlen einer Rangliste (Diagnose)."""
-    z = defaultdict(int)
-    for e in eintraege:
-        z["n"] += 1
-        z["mit_klub"] += bool(e.get("schwingklub"))
-        z["kranz"] += bool(e.get("kranz"))
-    return dict(z)

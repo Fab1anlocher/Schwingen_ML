@@ -173,6 +173,26 @@ Verband 706/706; Schwünge nur 418/706 — die Quelle führt sie nicht immer).
   schliesst es bei Entwarnung. Die Einstellung zusätzlich einzuschalten
   schadet nicht (Settings → Code security → Dependabot security updates).
 
+## ✅ Seiten-Audit und Datenqualität (25.09.2026)
+
+- **Namensvettern** wurden zu einer Person zusammengelegt, sobald nur einer
+  ein Porträt hatte (Samuel Giger stand an fünf Tagen an zwei Festen
+  gleichzeitig). `namensvettern.py` trennt über Klub/Jahrgang der Rangliste,
+  nur bei durchmischten Auftritten. Sechs Personen getrennt; Giger Elo
+  1970 → 2100; Test-Log-Loss 0.7495 → 0.7404.
+- **Feste-Seite mit Rückblick** (Festsieger, Kränze, Teilnehmer je Saison);
+  **Festsiege** im Schwinger-Profil statt eines „grössten Erfolgs" aus der
+  Anlaufphase 2023. Überraschungs-Index erst nach der Einschwingphase.
+- **Karte** über den Klub statt nur Porträts (2517 statt ~700 Schwinger),
+  gezählt ab 5 Gängen.
+- Anzeige: „Südwestschweiz" statt Datenschlüssel, Schwungnamen gross,
+  einheitlich „Vorname Nachname", Zahlen mit Tausendertrennzeichen, veraltete
+  Texte (Demodaten, Parsing-Warnungen) ersetzt.
+- Aufgeräumt: ungenutzter Code entfernt (u. a. `schema.Gang` als Doppelung
+  von `labels.GangResultat`), Anzeigetexte zentral in `web/lib/labels.ts`,
+  Echte-Daten-Harness ins Repo (`pipeline/harness.py`), `CLAUDE.md` für
+  KI-Assistenten.
+
 ## P7 — Kleinkram
 
 - `diagnose_agenda` ungetestet.

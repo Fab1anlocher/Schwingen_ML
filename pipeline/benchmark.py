@@ -36,7 +36,7 @@ from __future__ import annotations
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 
-from .config import SEED, KLASSEN
+from .config import SEED
 from .features import FEATURE_NAMES
 from .metriken import punktwert_fehlermasse
 from .ratings import EloModell

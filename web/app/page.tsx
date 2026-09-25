@@ -1,11 +1,18 @@
 "use client";
 
+// Startseite "Prognose": zwei Schwinger wählen -> Sieg A / Gestellt / Sieg B.
+// Lädt model.json, ratings.json, schwinger.json (public/data) und die
+// Kopf-an-Kopf-Historie des Paars über /api/kopf-an-kopf. Gerechnet wird im
+// Browser (lib/inference.ts). Auswahl steht in der URL (?a=…&b=…), damit
+// Links teilbar sind.
+
 import { useEffect, useMemo, useState } from "react";
 import { ladeEvents, ladeModel, ladeRatings, ladeSchwinger } from "@/lib/data";
 import { prognostiziere } from "@/lib/inference";
 import type { ModelArtifact, RatingsArtifact, Schwinger, Prognose } from "@/lib/types";
 import { PrognoseView } from "@/components/PrognoseView";
 import { kranzstatusVon, verbandText } from "@/lib/teilverband";
+import { kranzName } from "@/lib/labels";
 import { SchwingerSuche } from "@/components/SchwingerSuche";
 import { KopfAnKopf } from "@/components/KopfAnKopf";
 import { ladeKopfAnKopf, paarHistorie, KEINE_HISTORIE, type H2HTreffer } from "@/lib/kopfAnKopf";
@@ -194,12 +201,6 @@ export default function Home() {
   );
 }
 
-const KRANZ_LABEL: Record<string, string> = {
-  kranzer: "Kranzer",
-  eidgenosse: "Eidgenosse",
-  koenig: "Schwingerkönig",
-};
-
 /** Kurze Metazeile unter dem Auswahlfeld: Teilverband · Jahrgang · Kranzstufe. */
 function metaZeile(s: Schwinger | undefined): string {
   if (!s) return "";
@@ -222,7 +223,7 @@ function metaZeile(s: Schwinger | undefined): string {
  *  Kranzstufe kommt aus dem Porträt, ohne Porträt aus den Ranglisten. */
 function statusUndFeste(s: Schwinger): string[] {
   const teile: string[] = [];
-  const stufe = KRANZ_LABEL[kranzstatusVon(s)];
+  const stufe = kranzName(kranzstatusVon(s));
   if (stufe) teile.push(stufe);
   if (typeof s.kraenze === "number" && s.kraenze > 0) {
     teile.push(`${s.kraenze} ${s.kraenze === 1 ? "Kranz" : "Kränze"} seit 2023`);

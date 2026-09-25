@@ -216,9 +216,3 @@ def parse_pdf_bytes(
                 }
             )
     return eintraege
-
-
-def schwinger_namen(pdf_bytes: bytes) -> list[str]:
-    """Alle im PDF vorkommenden Schwinger-Namen (für Schwinger-Stub-Ergänzung)."""
-    bloecke = tabellen_bloecke(extrahiere_woerter(pdf_bytes))
-    return [b["name"] for b in bloecke if b["name"]]

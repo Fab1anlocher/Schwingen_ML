@@ -75,9 +75,37 @@ class Schwinger:
     schwinger_seit: Optional[int] = None
     bevorzugte_schwuenge: list[str] = field(default_factory=list)
     quellen: list[str] = field(default_factory=list)
+    # Gleichnamiger Porträt-Schwinger, von dem dieser Eintrag getrennt wurde
+    # (s. namensvettern.py); sonst None.
+    namensvetter_von: Optional[str] = None
 
     def to_dict(self) -> dict:
         return asdict(self)
+
+
+_ZAEHLER = re.compile(r"^\(?\d{1,2}\)?$")
+
+
+def anzeigename(s: "Schwinger") -> str:
+    """Name für die App, einheitlich "Vorname Nachname".
+
+    Porträts liefern "Vorname Nachname", die Statistik-PDF (alle Schwinger
+    ohne Porträt) "Nachname Vorname" -- in einer Liste stand dann "Samuel
+    Giger" neben "Giger Ramon". Umgedreht wird nur, was eindeutig ist: genau
+    zwei Namensteile (2160 von 2204 Namen ohne Porträt). Bei drei und mehr
+    ist offen, was Vor- und was Nachname ist ("Di Pietro Loris" gegen "Botta
+    Gian Joel") -- die bleiben, wie die Quelle sie schreibt. Ein
+    Unterscheidungs-Zähler ("(2)") wandert ans Ende. Nur Anzeige: IDs und
+    Namensauflösung arbeiten mit dem Originalnamen.
+    """
+    if hat_portraet(s.quellen) or s.namensvetter_von:
+        return s.name  # schon "Vorname Nachname"
+    teile = s.name.split()
+    zaehler = [t for t in teile if _ZAEHLER.match(t)]
+    namen = [t for t in teile if not _ZAEHLER.match(t)]
+    if len(namen) != 2:
+        return s.name
+    return " ".join([namen[1], namen[0], *zaehler])
 
 
 @dataclass
@@ -88,24 +116,6 @@ class Event:
     typ: str                                 # key aus config.FEST_TYPEN
     quelle: str
     ort: Optional[str] = None
-
-    def to_dict(self) -> dict:
-        return asdict(self)
-
-
-@dataclass
-class Gang:
-    """Ein Gang (Bout), dedupliziert auf genau einen Eintrag (§4.3 Regel 2)."""
-    event_id: str
-    datum: str                               # ISO-8601, aus Event (für zeitl. Sortierung)
-    schwinger_a_id: str
-    schwinger_b_id: str
-    symbol_a: str                            # "+" | "-" | "o"
-    note_a: Optional[float]
-    symbol_b: str
-    note_b: Optional[float]
-    ergebnis: str                            # key aus config.KLASSEN
-    fest_typ: str
 
     def to_dict(self) -> dict:
         return asdict(self)

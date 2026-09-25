@@ -189,10 +189,12 @@ def _ranglisten(source: str, events, schwinger: dict, aktive: set) -> tuple[dict
         return None, None
     from .scrape import lade_teilnahmen
     from .ranglisten import (
-        klub_je_schwinger, konsistenz, kraenze_je_schwinger, kranzfeste_ohne_kranz,
-        kranzquoten, kranzstatus_je_schwinger, senne_turner_je_schwinger, verband_ueber_klub,
+        fest_ueberblick, festsiege_je_schwinger, klub_je_schwinger, konsistenz,
+        kraenze_je_schwinger, kranzfeste_ohne_kranz, kranzquoten, kranzstatus_je_schwinger,
+        senne_turner_je_schwinger, verband_ueber_klub,
     )
     teilnahmen, bericht = lade_teilnahmen(events)
+    fest_name = {e.id: e.name for e in events}
     if not teilnahmen:
         print("      Schlussranglisten: keine im Cache", flush=True)
         return None, None
@@ -215,7 +217,10 @@ def _ranglisten(source: str, events, schwinger: dict, aktive: set) -> tuple[dict
           flush=True)
     daten = {"kraenze": kraenze, "klubs": klubs,
              "senne_turner": senne_turner_je_schwinger(teilnahmen), "verband_klub": verband_klub,
-             "kranzstatus": kranzstatus_je_schwinger(teilnahmen)}
+             "kranzstatus": kranzstatus_je_schwinger(teilnahmen),
+             "festsiege": {sid: [{**f, "name": fest_name.get(f["event_id"], f["event_id"])} for f in liste]
+                           for sid, liste in festsiege_je_schwinger(teilnahmen).items()},
+             "feste": fest_ueberblick(teilnahmen)}
     return daten, bericht
 
 
@@ -380,6 +385,7 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
     print("[5/8] Logistic Regression trainieren + zeitlich evaluieren ...", flush=True)
     print("      (lade sklearn – beim ersten Mal 10-30 s) ...", flush=True)
     from .train import (
+        einschwing_ende,
         trainiere,
         feature_wichtigkeit,
         bestimme_holdout_jahr,
@@ -439,7 +445,8 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
 
     print("[8/8] Artefakte exportieren ...", flush=True)
     form_aktuell = _aktuelle_form(gaenge)
-    ueberraschung = berechne_ueberraschung(gaenge, snapshots)
+    ueberraschung = berechne_ueberraschung(
+        gaenge, snapshots, ab_datum=einschwing_ende([{"datum": g.datum} for g in gaenge]))
     anzahl_feste = _anzahl_feste(gaenge)
     # Stand der Merkmalsversion 2 für die Live-Prognose: Streuung der aktiven
     # Ratings am jüngsten Festtag (deterministisch, nicht vom Laufdatum
@@ -462,7 +469,7 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
                                 gestellt_neigung=neigung, teilverband_geschaetzt=verband_geschaetzt,
                                 ranglisten=ranglisten)
     export.exportiere_kopf_an_kopf(gaenge)
-    export.exportiere_kantone(schwinger, elo_modell, gaenge)
+    export.exportiere_kantone(schwinger, elo_modell, gaenge, ranglisten=ranglisten)
     export.exportiere_cluster(cluster_res)
     if benchmark_res is not None:
         export.exportiere_benchmark(benchmark_res)
@@ -497,7 +504,8 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
         eingeschraenkt = sum(1 for f in kommende if f.get("teilverband"))
         print(f"      Teilnehmerkreis bestimmt: {eingeschraenkt}/{len(kommende)} Feste "
               "auf einen Teilverband eingeschränkt", flush=True)
-    export.exportiere_events(events, kommende)
+    export.exportiere_events(events, kommende, ueberblick=(ranglisten or {}).get("feste"),
+                             schwinger=schwinger)
     report = export.exportiere_report(
         train_res, baseline, warnungen, len(gaenge), len(schwinger),
         baseline_portraet=baseline_portraet,

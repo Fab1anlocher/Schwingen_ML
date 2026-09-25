@@ -1,3 +1,6 @@
+// Rahmen jeder Seite: Schriften, Kopfzeile mit Navigation, Fusszeile mit
+// Hinweis "kein Wettangebot". Favicon: app/favicon.ico, icon.svg, apple-icon.png.
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Fraunces, Inter } from "next/font/google";

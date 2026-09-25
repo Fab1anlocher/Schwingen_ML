@@ -12,7 +12,8 @@ robuster als die HTML-Agenda:
   Weg über JSON-LD-``Event``-Blöcke auf ``schlussgang.ch/agenda`` lieferte
   dauerhaft 0 Treffer -- die Seite weist keine JSON-LD-Events (mehr) aus.
 
-Der HTML/JSON-LD-Pfad bleibt als Fallback erhalten (``scrape_agenda``).
+Der HTML/JSON-LD-Pfad bleibt als Fallback erhalten (``parse_agenda_html``,
+aufgerufen aus ``lade_kommende``).
 """
 from __future__ import annotations
 
@@ -63,10 +64,6 @@ _PAIR_RE = re.compile(
     r"([A-ZÄÖÜ][A-Za-zÀ-ÖØ-öø-ÿ'`’\-. ]{1,60}?)\s*(?:vs\.?|gegen)\s+"
     r"([A-ZÄÖÜ][A-Za-zÀ-ÖØ-öø-ÿ'`’\-. ]{1,60})"
 )
-
-
-class AgendaLeer(RuntimeError):
-    """Quelle war erreichbar, wies aber keine kommenden Feste aus."""
 
 
 def _norm_space(s: str) -> str:
@@ -249,11 +246,6 @@ def parse_agenda_html(html: str, *, heute: date | None = None) -> list[dict]:
             }
         )
     return events
-
-
-def scrape_agenda() -> list[dict]:
-    """Kommende Feste aus der HTML-Agenda (Fallback)."""
-    return parse_agenda_html(hole(AGENDA_URL))
 
 
 # --- Orchestrierung ------------------------------------------------------

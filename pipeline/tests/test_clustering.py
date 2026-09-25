@@ -135,8 +135,8 @@ def test_schwungnamen_werden_gross_kleinschreibung_normalisiert():
     ergebnis = berechne_cluster(schwinger, _FakeEloModell(), REFERENZ_JAHR)
 
     assert ergebnis is not None
-    assert "innerer Haken" in ergebnis["merkmale"]
-    assert "Innerer Haken" not in ergebnis["merkmale"]
+    assert "Innerer Haken" in ergebnis["merkmale"]
+    assert "innerer Haken" not in ergebnis["merkmale"]
 
 
 def test_kompaktheit_ist_gewicht_pro_groesse_quadrat():
