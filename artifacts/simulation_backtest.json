@@ -1,0 +1,138 @@
+{
+  "schema_version": "1.0.0",
+  "saison": 2026,
+  "n_feste": 38,
+  "n_teilnahmen": 5419,
+  "n_simulationen": 200,
+  "kranz": {
+    "brier_modell": 0.0755,
+    "brier_elo": 0.0812,
+    "brier_konstant": 0.1354,
+    "kalibrierung": [
+      {
+        "von": 0.0,
+        "bis": 0.05,
+        "n": 2684,
+        "vorhergesagt": 0.008,
+        "eingetreten": 0.0041
+      },
+      {
+        "von": 0.05,
+        "bis": 0.15,
+        "n": 748,
+        "vorhergesagt": 0.0911,
+        "eingetreten": 0.0428
+      },
+      {
+        "von": 0.15,
+        "bis": 0.3,
+        "n": 638,
+        "vorhergesagt": 0.2172,
+        "eingetreten": 0.163
+      },
+      {
+        "von": 0.3,
+        "bis": 0.5,
+        "n": 654,
+        "vorhergesagt": 0.3889,
+        "eingetreten": 0.3654
+      },
+      {
+        "von": 0.5,
+        "bis": 0.7,
+        "n": 345,
+        "vorhergesagt": 0.5979,
+        "eingetreten": 0.5681
+      },
+      {
+        "von": 0.7,
+        "bis": 0.9,
+        "n": 225,
+        "vorhergesagt": 0.7886,
+        "eingetreten": 0.7867
+      },
+      {
+        "von": 0.9,
+        "bis": 1.0,
+        "n": 125,
+        "vorhergesagt": 0.947,
+        "eingetreten": 0.928
+      }
+    ]
+  },
+  "festsieg": {
+    "p_sieger_modell": 0.2711,
+    "p_sieger_elo": 0.1799,
+    "favorit_modell": 0.5,
+    "favorit_elo": 0.4737,
+    "top3_modell": 0.8158,
+    "top3_elo": 0.8684,
+    "mittlere_feldgroesse": 144.1
+  },
+  "noten": {
+    "plattwurf": 0.52,
+    "aktiv_gestellt": 0.31,
+    "offensiv_verloren": 0.11
+  },
+  "regeln": {
+    "kantonal": {
+      "gaenge": 6,
+      "ausstiche": [
+        [
+          4,
+          0.8
+        ]
+      ],
+      "kranzquote": 0.16,
+      "anschwingen_anteil": 0.2,
+      "spielraum": 1.0
+    },
+    "teilverband": {
+      "gaenge": 6,
+      "ausstiche": [
+        [
+          4,
+          0.8
+        ]
+      ],
+      "kranzquote": 0.16,
+      "anschwingen_anteil": 0.2,
+      "spielraum": 1.0
+    },
+    "berg": {
+      "gaenge": 6,
+      "ausstiche": [
+        [
+          4,
+          0.8
+        ]
+      ],
+      "kranzquote": 0.16,
+      "anschwingen_anteil": 0.2,
+      "spielraum": 1.0
+    },
+    "eidgenoessisch": {
+      "gaenge": 8,
+      "ausstiche": [
+        [
+          4,
+          0.82
+        ],
+        [
+          6,
+          0.55
+        ]
+      ],
+      "kranzquote": 0.15,
+      "anschwingen_anteil": 0.2,
+      "spielraum": 1.0
+    },
+    "regional": {
+      "gaenge": 6,
+      "ausstiche": [],
+      "kranzquote": 0.0,
+      "anschwingen_anteil": 0.2,
+      "spielraum": 1.0
+    }
+  }
+}
