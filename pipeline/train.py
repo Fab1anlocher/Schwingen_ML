@@ -181,9 +181,11 @@ def trainiere(X, y, meta, typ: str = MODELL_TYP) -> dict:
         "n_train_ausgeliefert": n_ausgeliefert,
         "modell_typ": modell.typ,
         "n_baeume": ausgeliefert.n_baeume,
-        # Für Merkmalswichtigkeit (Permutation) und die Export-Prüfung.
+        # Für Merkmalswichtigkeit (Permutation), Export-Prüfung und den
+        # Prognose-Check je Fest (prognose_check.py).
         "X_test": np.asarray(Xte),
         "y_test": np.asarray(yte),
+        "p_test": np.asarray(p_test),
         "holdout_jahr": holdout,
         "n_train": int(len(Xtr)),
         "n_test": int(len(Xte)),

@@ -190,7 +190,8 @@ def _ranglisten(source: str, events, schwinger: dict, aktive: set) -> tuple[dict
     from .scrape import lade_teilnahmen
     from .ranglisten import (
         fest_ueberblick, festsiege_je_schwinger, klub_je_schwinger, konsistenz,
-        kraenze_je_schwinger, kranzfeste_ohne_kranz, kranzquoten, kranzstatus_je_schwinger,
+        kraenze_je_schwinger, kranzfeste_ohne_kranz, kranzquote_ausreisser, kranzquoten,
+        kranzstatus_je_schwinger,
         senne_turner_je_schwinger, verband_ueber_klub,
     )
     teilnahmen, bericht = lade_teilnahmen(events)
@@ -202,11 +203,16 @@ def _ranglisten(source: str, events, schwinger: dict, aktive: set) -> tuple[dict
     klubs = klub_je_schwinger(teilnahmen)
     verband_klub, verband_bericht = verband_ueber_klub(klubs, schwinger)
     ohne_kranz = kranzfeste_ohne_kranz(teilnahmen)
+    ausreisser = kranzquote_ausreisser(teilnahmen)
     bericht = {
         **bericht,
         "kranzquote_median": kranzquoten(teilnahmen),
         "kranzfeste_ohne_kranz": len(ohne_kranz),
         "beispiele_kranzfeste_ohne_kranz": ohne_kranz[:5],
+        # Kranzquote ausserhalb 12-21 % (üblich 15-18 %), s. ranglisten.
+        "kranzquote_ausserhalb": len(ausreisser),
+        "beispiele_kranzquote_ausserhalb": [
+            f"{fest_name.get(eid, eid)}: {quote:.1%}" for eid, quote in ausreisser[:5]],
         "klub_abdeckung_aktive": round(sum(1 for sid in aktive if sid in klubs) / len(aktive), 4) if aktive else None,
         "verband_ueber_klub": verband_bericht,
         "konsistenz": konsistenz(kraenze, klubs, schwinger),
@@ -423,6 +429,13 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
     if kal.get("n"):
         print(f"      Gestellt vorhergesagt {kal['vorhergesagt']:.1%} / eingetreten "
               f"{kal['eingetreten']:.1%}, ECE {kal['ece']:.2%}, AUC {kal['auc']}", flush=True)
+    # Prognose-Check je Fest (Roadmap F1): mit dem Modell von vor der Saison.
+    from .prognose_check import prognose_check
+    check = prognose_check(X, y, meta, snapshots, holdout_jahr, train_res["p_test"])
+    for saison, k in check["saisons"].items():
+        elo = f"{k['treffer_elo']:.1%}" if k["treffer_elo"] is not None else "-"
+        print(f"      Prognose-Check {saison}: {k['n_feste']} Feste, {k['n']} Gänge, "
+              f"Treffer {k['treffer']:.1%} (Elo {elo})", flush=True)
 
     print("[6/8] Benchmark (Heuristik/Elo/ML ohne Elo/LR/Produktionsmodell) ...", flush=True)
     benchmark_res = fuehre_benchmark_durch(X, y, meta)
@@ -507,7 +520,7 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
         print(f"      Teilnehmerkreis bestimmt: {eingeschraenkt}/{len(kommende)} Feste "
               "auf einen Teilverband eingeschränkt", flush=True)
     export.exportiere_events(events, kommende, ueberblick=(ranglisten or {}).get("feste"),
-                             schwinger=schwinger)
+                             schwinger=schwinger, prognose_check=check)
     report = export.exportiere_report(
         train_res, baseline, warnungen, len(gaenge), len(schwinger),
         baseline_portraet=baseline_portraet,

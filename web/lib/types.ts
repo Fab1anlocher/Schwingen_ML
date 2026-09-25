@@ -168,12 +168,32 @@ export interface VergangenesFest {
   sieger?: { id: string; name: string }[];
   n_teilnehmer?: number;
   n_kraenze?: number;
+  /** Wie gut die Prognose lag, mit dem Modell von vor der Saison (nur
+   *  ausgewertete Saisons, s. pipeline/prognose_check.py). */
+  prognose_check?: PrognoseCheck;
+}
+
+/** Prognose-Check eines Fests oder einer Saison (Anteile 0..1). */
+export interface PrognoseCheck {
+  n: number;
+  /** Anteil Gänge, bei denen der wahrscheinlichste Ausgang eintrat. */
+  treffer: number;
+  /** Dasselbe für die reine Elo-Prognose. */
+  treffer_elo: number | null;
+  /** Mittlere Wahrscheinlichkeit, die das Modell dem tatsächlichen Ausgang gab. */
+  p_eingetreten: number;
+  gestellt_vorhergesagt: number;
+  gestellt_eingetreten: number;
+  /** Nur je Saison. */
+  n_feste?: number;
 }
 
 export interface EventsArtifact {
   schema_version: string;
   vergangene: VergangenesFest[];
   kommende: KommendesFest[];
+  /** Prognose-Check je ausgewerteter Saison ("2025", "2026"). */
+  prognose_check_saisons?: Record<string, PrognoseCheck>;
 }
 
 export interface KantonStatistik {

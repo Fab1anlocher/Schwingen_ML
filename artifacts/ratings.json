@@ -358,13 +358,13 @@
       "elo": 1746.4,
       "n_gaenge": 349
     },
-    "roman bucher|2002": {
-      "elo": 1665.5,
-      "n_gaenge": 200
-    },
     "roman bucher|2003": {
       "elo": 1517.8,
       "n_gaenge": 22
+    },
+    "roman bucher|2002": {
+      "elo": 1665.5,
+      "n_gaenge": 200
     },
     "thomas bucher|1996": {
       "elo": 1745.1,

@@ -323,3 +323,29 @@ def kranzfeste_ohne_kranz(teilnahmen: list[Teilnahme]) -> list[str]:
         if t.fest_typ in KRANZFEST_TYPEN:
             kranz[t.event_id] |= t.kranz
     return sorted(eid for eid, hat in kranz.items() if not hat)
+
+
+# An einem Kranzfest gewinnen üblicherweise 15-18 % der Teilnehmer einen
+# Kranz (Richtwert ~56.50 Punkte; wenige Teilnehmer, wenige Kränze). Mit
+# etwas Spielraum für kleine Felder und Punktgleichheit an der Kranzgrenze.
+KRANZQUOTE_PLAUSIBEL = (0.12, 0.21)
+
+
+def kranzquote_ausreisser(teilnahmen: list[Teilnahme]) -> list[tuple[str, float]]:
+    """Kranzfeste mit Kränzen, deren Quote ausserhalb KRANZQUOTE_PLAUSIBEL liegt.
+
+    Feste ganz ohne Kranz meldet kranzfeste_ohne_kranz. Eine Quote weit
+    darüber deutet auf eine falsch gelesene Status-Spalte (z.B. Auszeichnung
+    oder Zweig als Kranz), weit darunter auf fehlende Markierungen.
+    """
+    je_fest: dict[str, list[bool]] = defaultdict(list)
+    for t in teilnahmen:
+        if t.fest_typ in KRANZFEST_TYPEN:
+            je_fest[t.event_id].append(t.kranz)
+    unten, oben = KRANZQUOTE_PLAUSIBEL
+    out = []
+    for eid, werte in sorted(je_fest.items()):
+        quote = sum(werte) / len(werte)
+        if quote > 0 and not unten <= quote <= oben:
+            out.append((eid, round(quote, 4)))
+    return out

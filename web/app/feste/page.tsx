@@ -10,10 +10,11 @@ import { prognostiziere } from "@/lib/inference";
 import { ladeKopfAnKopf, paarHistorie, KEINE_HISTORIE } from "@/lib/kopfAnKopf";
 import Link from "next/link";
 import { teilverbandFuerFest } from "@/lib/teilverband";
-import { datumKurz, festtypName, teilverbandName, zahl } from "@/lib/labels";
+import { datumKurz, festtypName, prozent, teilverbandName, zahl } from "@/lib/labels";
 import type {
   EventsArtifact,
   ModelArtifact,
+  PrognoseCheck,
   RatingsArtifact,
   Schwinger,
   KommendesFest,
@@ -106,7 +107,7 @@ export default function Feste() {
         </>
       )}
 
-      <Rueckblick feste={events.vergangene ?? []} />
+      <Rueckblick feste={events.vergangene ?? []} checkSaisons={events.prognose_check_saisons ?? {}} />
     </div>
   );
 }
@@ -114,8 +115,16 @@ export default function Feste() {
 /** Rückblick: vergangene Feste mit Festsieger, Kränzen und Teilnehmern aus
  *  den offiziellen Schlussranglisten (events.json, s. pipeline/export.py
  *  exportiere_events). Nach Saisonende ist das der eigentliche Inhalt der
- *  Seite -- vorher stand hier dann nur "kein Fest erfasst". */
-function Rueckblick({ feste }: { feste: VergangenesFest[] }) {
+ *  Seite -- vorher stand hier dann nur "kein Fest erfasst".
+ *  Dazu der Prognose-Check (Roadmap F1): wie oft die Prognose je Fest lag,
+ *  gerechnet mit dem Modell von vor der Saison (pipeline/prognose_check.py). */
+function Rueckblick({
+  feste,
+  checkSaisons,
+}: {
+  feste: VergangenesFest[];
+  checkSaisons: Record<string, PrognoseCheck>;
+}) {
   const saisons = useMemo(
     () => [...new Set(feste.map((f) => f.datum.slice(0, 4)))].sort().reverse(),
     [feste]
@@ -132,6 +141,24 @@ function Rueckblick({ feste }: { feste: VergangenesFest[] }) {
         .sort((a, b) => b.datum.localeCompare(a.datum) || a.name.localeCompare(b.name)),
     [feste, aktiveSaison, mitRegional]
   );
+  const saisonCheck = checkSaisons[aktiveSaison];
+  const mitCheck = liste.some((f) => f.prognose_check);
+  // Trefferquote je Festtyp (nach Gängen gewichtet): Bergfeste und das
+  // Eidgenössische sind deutlich schwerer -- dort treffen mehr Spitzen-
+  // schwinger aufeinander, und es wird öfter gestellt.
+  const jeTyp = useMemo(() => {
+    const summe = new Map<string, { n: number; treffer: number }>();
+    for (const f of feste) {
+      if (!f.prognose_check || !f.datum.startsWith(aktiveSaison)) continue;
+      const z = summe.get(f.typ) ?? { n: 0, treffer: 0 };
+      z.n += f.prognose_check.n;
+      z.treffer += f.prognose_check.treffer * f.prognose_check.n;
+      summe.set(f.typ, z);
+    }
+    return [...summe.entries()]
+      .map(([typ, z]) => ({ typ, n: z.n, treffer: z.treffer / z.n }))
+      .sort((a, b) => b.treffer - a.treffer);
+  }, [feste, aktiveSaison]);
   if (feste.length === 0) return null;
   const mitRangliste = feste.some((f) => f.sieger !== undefined);
 
@@ -167,6 +194,43 @@ function Rueckblick({ feste }: { feste: VergangenesFest[] }) {
           </label>
         </div>
       </div>
+      {saisonCheck && (
+        <div className="panel" style={{ marginBottom: "1rem" }}>
+          <strong>Wie gut lag die Prognose {aktiveSaison}?</strong>
+          <p style={{ margin: "0.4rem 0 0" }}>
+            In <strong>{prozent(saisonCheck.treffer)}</strong> der {zahl(saisonCheck.n)} Gänge an{" "}
+            {zahl(saisonCheck.n_feste ?? 0)} Festen trat der wahrscheinlichste Ausgang ein
+            {saisonCheck.treffer_elo !== null && <> (reine Elo-Prognose: {prozent(saisonCheck.treffer_elo)})</>}.
+            Dem tatsächlichen Ausgang gab das Modell im Schnitt{" "}
+            <strong>{prozent(saisonCheck.p_eingetreten)}</strong>. Die Gestellt-Chance lag im Schnitt
+            bei {prozent(saisonCheck.gestellt_vorhergesagt)}, gestellt wurde in{" "}
+            {prozent(saisonCheck.gestellt_eingetreten)} der Gänge.
+          </p>
+          {jeTyp.length > 1 && (
+            <p className="small" style={{ margin: "0.4rem 0 0" }}>
+              Nach Festtyp:{" "}
+              {jeTyp.map((t, i) => (
+                <span key={t.typ} title={`${zahl(t.n)} Gänge`}>
+                  {i > 0 && " · "}
+                  {festtypName(t.typ)} {prozent(t.treffer)}
+                </span>
+              ))}
+            </p>
+          )}
+          <p className="muted small" style={{ margin: "0.4rem 0 0" }}>
+            Gerechnet mit dem Modell, das vor Saisonbeginn galt, und dem Stand jedes Schwingers vor
+            dem jeweiligen Fest — also ohne Kenntnis der Ergebnisse. Ein Gestellter ist fast nie
+            der wahrscheinlichste Ausgang, darum sagt die zweite Zahl mehr als die Trefferquote.
+          </p>
+        </div>
+      )}
+      {!saisonCheck && Object.keys(checkSaisons).length > 0 && (
+        <p className="muted small" style={{ margin: "0 0 1rem" }}>
+          Für {aktiveSaison} gibt es keinen Prognose-Check: davor lag noch keine eingeschwungene
+          Saison, aus der ein Modell hätte lernen können (ausgewertet:{" "}
+          {Object.keys(checkSaisons).join(", ")}).
+        </p>
+      )}
       <div className="panel tabelle-wrap" style={{ padding: 0 }}>
         <table style={{ minWidth: 560 }}>
           <thead>
@@ -175,6 +239,11 @@ function Rueckblick({ feste }: { feste: VergangenesFest[] }) {
               <th>Fest</th>
               <th>Festsieger</th>
               {mitRangliste && <th title="Vergebene Kränze / Teilnehmer">Kränze</th>}
+              {mitCheck && (
+                <th title="Anteil Gänge, bei denen der wahrscheinlichste Ausgang eintrat (Modell von vor der Saison), darunter die reine Elo-Prognose">
+                  Prognose
+                </th>
+              )}
             </tr>
           </thead>
           <tbody>
@@ -208,6 +277,29 @@ function Rueckblick({ feste }: { feste: VergangenesFest[] }) {
                     {f.n_teilnehmer
                       ? `${f.n_kraenze ? zahl(f.n_kraenze) : "0"} / ${zahl(f.n_teilnehmer)}`
                       : "—"}
+                  </td>
+                )}
+                {mitCheck && (
+                  <td style={{ whiteSpace: "nowrap" }}>
+                    {f.prognose_check ? (
+                      <span
+                        title={`${zahl(f.prognose_check.n)} Gänge · dem tatsächlichen Ausgang im Schnitt ${prozent(
+                          f.prognose_check.p_eingetreten
+                        )} gegeben · Gestellt-Chance im Schnitt ${prozent(
+                          f.prognose_check.gestellt_vorhergesagt
+                        )}, gestellt in ${prozent(f.prognose_check.gestellt_eingetreten)}`}
+                      >
+                        {prozent(f.prognose_check.treffer)}
+                        <span className="muted small" style={{ display: "block" }}>
+                          {f.prognose_check.treffer_elo !== null
+                            ? `Elo ${prozent(f.prognose_check.treffer_elo)} · `
+                            : ""}
+                          {zahl(f.prognose_check.n)} Gänge
+                        </span>
+                      </span>
+                    ) : (
+                      <span className="muted">—</span>
+                    )}
                   </td>
                 )}
               </tr>

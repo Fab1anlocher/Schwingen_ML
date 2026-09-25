@@ -285,15 +285,20 @@ def exportiere_schwinger(
 
 
 def exportiere_events(events: list, kommende: list | None = None, *,
-                      ueberblick: dict | None = None, schwinger: dict | None = None) -> None:
+                      ueberblick: dict | None = None, schwinger: dict | None = None,
+                      prognose_check: dict | None = None) -> None:
     """events.json: vergangene Feste + kommende Feste/Paarungen (FR-2).
 
     ``ueberblick`` (aus den Schlussranglisten, s. ranglisten.fest_ueberblick)
     ergänzt jedes vergangene Fest um Sieger, Teilnehmer und Kränze -- für den
     Rückblick auf der Feste-Seite. Ohne Ranglisten fehlen die Felder.
+    ``prognose_check`` (prognose_check.py, Roadmap F1): wie gut die Prognose
+    je Fest lag, mit dem Modell von vor der Saison; dazu je Saison gesamt.
     """
     ueberblick = ueberblick or {}
     schwinger = schwinger or {}
+    check = prognose_check or {}
+    check_feste = check.get("feste", {})
     vergangene = []
     for e in events:
         d = e.to_dict()
@@ -303,11 +308,14 @@ def exportiere_events(events: list, kommende: list | None = None, *,
                            for sid in u["sieger"]]
             d["n_teilnehmer"] = u["n_teilnehmer"]
             d["n_kraenze"] = u["n_kraenze"]
+        if e.id in check_feste:
+            d["prognose_check"] = check_feste[e.id]
         vergangene.append(d)
     _dump_beide("events.json", {
         "schema_version": config.SCHEMA_VERSION,
         "vergangene": vergangene,
         "kommende": kommende or [],
+        "prognose_check_saisons": check.get("saisons", {}),
     })
 
 

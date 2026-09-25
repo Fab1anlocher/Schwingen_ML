@@ -3454,7 +3454,15 @@
         }
       ],
       "n_teilnehmer": 99,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 290,
+        "treffer": 0.6724,
+        "treffer_elo": 0.5966,
+        "p_eingetreten": 0.5665,
+        "gestellt_vorhergesagt": 0.1867,
+        "gestellt_eingetreten": 0.2241
+      }
     },
     {
       "id": "schlussgang-45616",
@@ -3470,7 +3478,15 @@
         }
       ],
       "n_teilnehmer": 97,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 284,
+        "treffer": 0.6373,
+        "treffer_elo": 0.5423,
+        "p_eingetreten": 0.5562,
+        "gestellt_vorhergesagt": 0.1717,
+        "gestellt_eingetreten": 0.1866
+      }
     },
     {
       "id": "schlussgang-45965",
@@ -3486,7 +3502,15 @@
         }
       ],
       "n_teilnehmer": 67,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 197,
+        "treffer": 0.6701,
+        "treffer_elo": 0.5635,
+        "p_eingetreten": 0.5499,
+        "gestellt_vorhergesagt": 0.2456,
+        "gestellt_eingetreten": 0.2335
+      }
     },
     {
       "id": "schlussgang-45906",
@@ -3502,7 +3526,15 @@
         }
       ],
       "n_teilnehmer": 60,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 178,
+        "treffer": 0.6742,
+        "treffer_elo": 0.5562,
+        "p_eingetreten": 0.5567,
+        "gestellt_vorhergesagt": 0.1894,
+        "gestellt_eingetreten": 0.2135
+      }
     },
     {
       "id": "schlussgang-42039",
@@ -3518,7 +3550,15 @@
         }
       ],
       "n_teilnehmer": 46,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 138,
+        "treffer": 0.7246,
+        "treffer_elo": 0.6957,
+        "p_eingetreten": 0.6004,
+        "gestellt_vorhergesagt": 0.1816,
+        "gestellt_eingetreten": 0.1232
+      }
     },
     {
       "id": "schlussgang-45904",
@@ -3534,7 +3574,15 @@
         }
       ],
       "n_teilnehmer": 49,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 145,
+        "treffer": 0.6138,
+        "treffer_elo": 0.6414,
+        "p_eingetreten": 0.5701,
+        "gestellt_vorhergesagt": 0.2193,
+        "gestellt_eingetreten": 0.2828
+      }
     },
     {
       "id": "schlussgang-46044",
@@ -3550,7 +3598,15 @@
         }
       ],
       "n_teilnehmer": 168,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 475,
+        "treffer": 0.7074,
+        "treffer_elo": 0.5916,
+        "p_eingetreten": 0.5758,
+        "gestellt_vorhergesagt": 0.2172,
+        "gestellt_eingetreten": 0.1958
+      }
     },
     {
       "id": "schlussgang-40007",
@@ -3566,7 +3622,15 @@
         }
       ],
       "n_teilnehmer": 95,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 278,
+        "treffer": 0.6691,
+        "treffer_elo": 0.5827,
+        "p_eingetreten": 0.5676,
+        "gestellt_vorhergesagt": 0.2214,
+        "gestellt_eingetreten": 0.223
+      }
     },
     {
       "id": "schlussgang-41244",
@@ -3582,7 +3646,15 @@
         }
       ],
       "n_teilnehmer": 105,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 307,
+        "treffer": 0.5635,
+        "treffer_elo": 0.5309,
+        "p_eingetreten": 0.4982,
+        "gestellt_vorhergesagt": 0.2668,
+        "gestellt_eingetreten": 0.3257
+      }
     },
     {
       "id": "schlussgang-22218",
@@ -3598,7 +3670,15 @@
         }
       ],
       "n_teilnehmer": 93,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 276,
+        "treffer": 0.6957,
+        "treffer_elo": 0.5797,
+        "p_eingetreten": 0.5666,
+        "gestellt_vorhergesagt": 0.2209,
+        "gestellt_eingetreten": 0.2536
+      }
     },
     {
       "id": "schlussgang-44995",
@@ -3614,7 +3694,15 @@
         }
       ],
       "n_teilnehmer": 108,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 311,
+        "treffer": 0.6399,
+        "treffer_elo": 0.5916,
+        "p_eingetreten": 0.5606,
+        "gestellt_vorhergesagt": 0.2017,
+        "gestellt_eingetreten": 0.2251
+      }
     },
     {
       "id": "schlussgang-36990",
@@ -3630,7 +3718,15 @@
         }
       ],
       "n_teilnehmer": 142,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 416,
+        "treffer": 0.7115,
+        "treffer_elo": 0.6058,
+        "p_eingetreten": 0.5769,
+        "gestellt_vorhergesagt": 0.1739,
+        "gestellt_eingetreten": 0.1851
+      }
     },
     {
       "id": "schlussgang-46030",
@@ -3646,7 +3742,15 @@
         }
       ],
       "n_teilnehmer": 143,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 379,
+        "treffer": 0.686,
+        "treffer_elo": 0.5541,
+        "p_eingetreten": 0.5656,
+        "gestellt_vorhergesagt": 0.2086,
+        "gestellt_eingetreten": 0.2216
+      }
     },
     {
       "id": "schlussgang-46485",
@@ -3662,7 +3766,15 @@
         }
       ],
       "n_teilnehmer": 33,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 99,
+        "treffer": 0.5758,
+        "treffer_elo": 0.5253,
+        "p_eingetreten": 0.5155,
+        "gestellt_vorhergesagt": 0.2404,
+        "gestellt_eingetreten": 0.2525
+      }
     },
     {
       "id": "schlussgang-40246",
@@ -3678,7 +3790,15 @@
         }
       ],
       "n_teilnehmer": 51,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 151,
+        "treffer": 0.6291,
+        "treffer_elo": 0.543,
+        "p_eingetreten": 0.5576,
+        "gestellt_vorhergesagt": 0.181,
+        "gestellt_eingetreten": 0.2318
+      }
     },
     {
       "id": "schlussgang-22217",
@@ -3694,7 +3814,15 @@
         }
       ],
       "n_teilnehmer": 145,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 397,
+        "treffer": 0.6423,
+        "treffer_elo": 0.5819,
+        "p_eingetreten": 0.5586,
+        "gestellt_vorhergesagt": 0.2063,
+        "gestellt_eingetreten": 0.2519
+      }
     },
     {
       "id": "schlussgang-42565",
@@ -3710,7 +3838,15 @@
         }
       ],
       "n_teilnehmer": 79,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 232,
+        "treffer": 0.6336,
+        "treffer_elo": 0.5603,
+        "p_eingetreten": 0.5352,
+        "gestellt_vorhergesagt": 0.2207,
+        "gestellt_eingetreten": 0.2414
+      }
     },
     {
       "id": "schlussgang-45169",
@@ -3726,7 +3862,15 @@
         }
       ],
       "n_teilnehmer": 84,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 250,
+        "treffer": 0.672,
+        "treffer_elo": 0.612,
+        "p_eingetreten": 0.5803,
+        "gestellt_vorhergesagt": 0.1747,
+        "gestellt_eingetreten": 0.228
+      }
     },
     {
       "id": "schlussgang-45245",
@@ -3742,7 +3886,15 @@
         }
       ],
       "n_teilnehmer": 124,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 351,
+        "treffer": 0.6752,
+        "treffer_elo": 0.6296,
+        "p_eingetreten": 0.5762,
+        "gestellt_vorhergesagt": 0.2103,
+        "gestellt_eingetreten": 0.2365
+      }
     },
     {
       "id": "schlussgang-37546",
@@ -3758,7 +3910,15 @@
         }
       ],
       "n_teilnehmer": 77,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 229,
+        "treffer": 0.6419,
+        "treffer_elo": 0.5721,
+        "p_eingetreten": 0.5507,
+        "gestellt_vorhergesagt": 0.1993,
+        "gestellt_eingetreten": 0.262
+      }
     },
     {
       "id": "schlussgang-22213",
@@ -3774,7 +3934,15 @@
         }
       ],
       "n_teilnehmer": 128,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 367,
+        "treffer": 0.6948,
+        "treffer_elo": 0.5722,
+        "p_eingetreten": 0.5726,
+        "gestellt_vorhergesagt": 0.2189,
+        "gestellt_eingetreten": 0.2207
+      }
     },
     {
       "id": "schlussgang-22214",
@@ -3790,7 +3958,15 @@
         }
       ],
       "n_teilnehmer": 75,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 215,
+        "treffer": 0.707,
+        "treffer_elo": 0.6465,
+        "p_eingetreten": 0.5898,
+        "gestellt_vorhergesagt": 0.1663,
+        "gestellt_eingetreten": 0.1767
+      }
     },
     {
       "id": "schlussgang-37511",
@@ -3806,7 +3982,15 @@
         }
       ],
       "n_teilnehmer": 108,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 289,
+        "treffer": 0.7093,
+        "treffer_elo": 0.5744,
+        "p_eingetreten": 0.5769,
+        "gestellt_vorhergesagt": 0.2313,
+        "gestellt_eingetreten": 0.2734
+      }
     },
     {
       "id": "schlussgang-40244",
@@ -3822,7 +4006,15 @@
         }
       ],
       "n_teilnehmer": 89,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 260,
+        "treffer": 0.6462,
+        "treffer_elo": 0.5423,
+        "p_eingetreten": 0.54,
+        "gestellt_vorhergesagt": 0.1956,
+        "gestellt_eingetreten": 0.25
+      }
     },
     {
       "id": "schlussgang-46046",
@@ -3838,7 +4030,15 @@
         }
       ],
       "n_teilnehmer": 72,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 211,
+        "treffer": 0.7062,
+        "treffer_elo": 0.6114,
+        "p_eingetreten": 0.5968,
+        "gestellt_vorhergesagt": 0.1601,
+        "gestellt_eingetreten": 0.1848
+      }
     },
     {
       "id": "schlussgang-43675",
@@ -3854,7 +4054,15 @@
         }
       ],
       "n_teilnehmer": 89,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 262,
+        "treffer": 0.6221,
+        "treffer_elo": 0.5802,
+        "p_eingetreten": 0.536,
+        "gestellt_vorhergesagt": 0.246,
+        "gestellt_eingetreten": 0.2824
+      }
     },
     {
       "id": "schlussgang-42371",
@@ -3870,7 +4078,15 @@
         }
       ],
       "n_teilnehmer": 129,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 357,
+        "treffer": 0.6331,
+        "treffer_elo": 0.5826,
+        "p_eingetreten": 0.5421,
+        "gestellt_vorhergesagt": 0.232,
+        "gestellt_eingetreten": 0.2381
+      }
     },
     {
       "id": "schlussgang-45231",
@@ -3886,7 +4102,15 @@
         }
       ],
       "n_teilnehmer": 62,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 178,
+        "treffer": 0.6348,
+        "treffer_elo": 0.5449,
+        "p_eingetreten": 0.5731,
+        "gestellt_vorhergesagt": 0.1618,
+        "gestellt_eingetreten": 0.1966
+      }
     },
     {
       "id": "schlussgang-45790",
@@ -3902,7 +4126,15 @@
         }
       ],
       "n_teilnehmer": 91,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 266,
+        "treffer": 0.6617,
+        "treffer_elo": 0.5752,
+        "p_eingetreten": 0.5759,
+        "gestellt_vorhergesagt": 0.1796,
+        "gestellt_eingetreten": 0.2293
+      }
     },
     {
       "id": "schlussgang-46058",
@@ -3918,7 +4150,15 @@
         }
       ],
       "n_teilnehmer": 110,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 317,
+        "treffer": 0.6341,
+        "treffer_elo": 0.5394,
+        "p_eingetreten": 0.5368,
+        "gestellt_vorhergesagt": 0.2215,
+        "gestellt_eingetreten": 0.2776
+      }
     },
     {
       "id": "schlussgang-45962",
@@ -3934,7 +4174,15 @@
         }
       ],
       "n_teilnehmer": 83,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 235,
+        "treffer": 0.6936,
+        "treffer_elo": 0.6,
+        "p_eingetreten": 0.5798,
+        "gestellt_vorhergesagt": 0.1952,
+        "gestellt_eingetreten": 0.2043
+      }
     },
     {
       "id": "schlussgang-22210",
@@ -3950,7 +4198,15 @@
         }
       ],
       "n_teilnehmer": 113,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 323,
+        "treffer": 0.7059,
+        "treffer_elo": 0.6068,
+        "p_eingetreten": 0.5725,
+        "gestellt_vorhergesagt": 0.2128,
+        "gestellt_eingetreten": 0.1796
+      }
     },
     {
       "id": "schlussgang-37110",
@@ -3966,7 +4222,15 @@
         }
       ],
       "n_teilnehmer": 120,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 347,
+        "treffer": 0.7003,
+        "treffer_elo": 0.6138,
+        "p_eingetreten": 0.5838,
+        "gestellt_vorhergesagt": 0.1809,
+        "gestellt_eingetreten": 0.2104
+      }
     },
     {
       "id": "schlussgang-40238",
@@ -3982,7 +4246,15 @@
         }
       ],
       "n_teilnehmer": 65,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 190,
+        "treffer": 0.6737,
+        "treffer_elo": 0.5947,
+        "p_eingetreten": 0.5638,
+        "gestellt_vorhergesagt": 0.1998,
+        "gestellt_eingetreten": 0.1842
+      }
     },
     {
       "id": "schlussgang-40239",
@@ -3998,7 +4270,15 @@
         }
       ],
       "n_teilnehmer": 72,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 202,
+        "treffer": 0.6188,
+        "treffer_elo": 0.5644,
+        "p_eingetreten": 0.5371,
+        "gestellt_vorhergesagt": 0.1981,
+        "gestellt_eingetreten": 0.2079
+      }
     },
     {
       "id": "schlussgang-44099",
@@ -4014,7 +4294,15 @@
         }
       ],
       "n_teilnehmer": 69,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 202,
+        "treffer": 0.6188,
+        "treffer_elo": 0.4455,
+        "p_eingetreten": 0.5065,
+        "gestellt_vorhergesagt": 0.2117,
+        "gestellt_eingetreten": 0.302
+      }
     },
     {
       "id": "schlussgang-45980",
@@ -4030,7 +4318,15 @@
         }
       ],
       "n_teilnehmer": 82,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 243,
+        "treffer": 0.7037,
+        "treffer_elo": 0.6296,
+        "p_eingetreten": 0.5856,
+        "gestellt_vorhergesagt": 0.2039,
+        "gestellt_eingetreten": 0.1811
+      }
     },
     {
       "id": "schlussgang-21100",
@@ -4046,7 +4342,15 @@
         }
       ],
       "n_teilnehmer": 36,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 105,
+        "treffer": 0.6857,
+        "treffer_elo": 0.581,
+        "p_eingetreten": 0.5786,
+        "gestellt_vorhergesagt": 0.1994,
+        "gestellt_eingetreten": 0.2095
+      }
     },
     {
       "id": "schlussgang-44800",
@@ -4062,7 +4366,15 @@
         }
       ],
       "n_teilnehmer": 86,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 245,
+        "treffer": 0.6367,
+        "treffer_elo": 0.5306,
+        "p_eingetreten": 0.5347,
+        "gestellt_vorhergesagt": 0.224,
+        "gestellt_eingetreten": 0.2653
+      }
     },
     {
       "id": "schlussgang-37117",
@@ -4078,7 +4390,15 @@
         }
       ],
       "n_teilnehmer": 211,
-      "n_kraenze": 36
+      "n_kraenze": 36,
+      "prognose_check": {
+        "n": 592,
+        "treffer": 0.728,
+        "treffer_elo": 0.6081,
+        "p_eingetreten": 0.5922,
+        "gestellt_vorhergesagt": 0.2206,
+        "gestellt_eingetreten": 0.2145
+      }
     },
     {
       "id": "schlussgang-37164",
@@ -4094,7 +4414,15 @@
         }
       ],
       "n_teilnehmer": 148,
-      "n_kraenze": 22
+      "n_kraenze": 22,
+      "prognose_check": {
+        "n": 419,
+        "treffer": 0.716,
+        "treffer_elo": 0.6396,
+        "p_eingetreten": 0.6108,
+        "gestellt_vorhergesagt": 0.1743,
+        "gestellt_eingetreten": 0.1623
+      }
     },
     {
       "id": "schlussgang-37810",
@@ -4110,7 +4438,15 @@
         }
       ],
       "n_teilnehmer": 58,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 168,
+        "treffer": 0.6964,
+        "treffer_elo": 0.619,
+        "p_eingetreten": 0.5759,
+        "gestellt_vorhergesagt": 0.2016,
+        "gestellt_eingetreten": 0.2262
+      }
     },
     {
       "id": "schlussgang-38038",
@@ -4126,7 +4462,15 @@
         }
       ],
       "n_teilnehmer": 131,
-      "n_kraenze": 21
+      "n_kraenze": 21,
+      "prognose_check": {
+        "n": 351,
+        "treffer": 0.698,
+        "treffer_elo": 0.6011,
+        "p_eingetreten": 0.5709,
+        "gestellt_vorhergesagt": 0.2299,
+        "gestellt_eingetreten": 0.2336
+      }
     },
     {
       "id": "schlussgang-38070",
@@ -4142,7 +4486,15 @@
         }
       ],
       "n_teilnehmer": 61,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 183,
+        "treffer": 0.7104,
+        "treffer_elo": 0.623,
+        "p_eingetreten": 0.6033,
+        "gestellt_vorhergesagt": 0.2051,
+        "gestellt_eingetreten": 0.224
+      }
     },
     {
       "id": "schlussgang-42293",
@@ -4158,7 +4510,15 @@
         }
       ],
       "n_teilnehmer": 87,
-      "n_kraenze": 15
+      "n_kraenze": 15,
+      "prognose_check": {
+        "n": 257,
+        "treffer": 0.7198,
+        "treffer_elo": 0.6732,
+        "p_eingetreten": 0.6039,
+        "gestellt_vorhergesagt": 0.1878,
+        "gestellt_eingetreten": 0.1673
+      }
     },
     {
       "id": "schlussgang-37582",
@@ -4174,7 +4534,15 @@
         }
       ],
       "n_teilnehmer": 230,
-      "n_kraenze": 38
+      "n_kraenze": 38,
+      "prognose_check": {
+        "n": 652,
+        "treffer": 0.6641,
+        "treffer_elo": 0.6258,
+        "p_eingetreten": 0.5598,
+        "gestellt_vorhergesagt": 0.2159,
+        "gestellt_eingetreten": 0.1963
+      }
     },
     {
       "id": "schlussgang-32480",
@@ -4190,7 +4558,15 @@
         }
       ],
       "n_teilnehmer": 149,
-      "n_kraenze": 25
+      "n_kraenze": 25,
+      "prognose_check": {
+        "n": 409,
+        "treffer": 0.7702,
+        "treffer_elo": 0.6699,
+        "p_eingetreten": 0.6281,
+        "gestellt_vorhergesagt": 0.1798,
+        "gestellt_eingetreten": 0.1516
+      }
     },
     {
       "id": "schlussgang-21098",
@@ -4206,7 +4582,15 @@
         }
       ],
       "n_teilnehmer": 105,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 303,
+        "treffer": 0.703,
+        "treffer_elo": 0.5908,
+        "p_eingetreten": 0.5844,
+        "gestellt_vorhergesagt": 0.1997,
+        "gestellt_eingetreten": 0.1584
+      }
     },
     {
       "id": "schlussgang-45947",
@@ -4222,7 +4606,15 @@
         }
       ],
       "n_teilnehmer": 50,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 142,
+        "treffer": 0.7042,
+        "treffer_elo": 0.5845,
+        "p_eingetreten": 0.5748,
+        "gestellt_vorhergesagt": 0.2035,
+        "gestellt_eingetreten": 0.1268
+      }
     },
     {
       "id": "schlussgang-45153",
@@ -4242,7 +4634,15 @@
         }
       ],
       "n_teilnehmer": 32,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 91,
+        "treffer": 0.7363,
+        "treffer_elo": 0.5165,
+        "p_eingetreten": 0.5752,
+        "gestellt_vorhergesagt": 0.1839,
+        "gestellt_eingetreten": 0.1868
+      }
     },
     {
       "id": "schlussgang-21095",
@@ -4258,7 +4658,15 @@
         }
       ],
       "n_teilnehmer": 253,
-      "n_kraenze": 38
+      "n_kraenze": 38,
+      "prognose_check": {
+        "n": 720,
+        "treffer": 0.7139,
+        "treffer_elo": 0.6625,
+        "p_eingetreten": 0.6035,
+        "gestellt_vorhergesagt": 0.2011,
+        "gestellt_eingetreten": 0.1875
+      }
     },
     {
       "id": "schlussgang-37157",
@@ -4274,7 +4682,15 @@
         }
       ],
       "n_teilnehmer": 196,
-      "n_kraenze": 33
+      "n_kraenze": 33,
+      "prognose_check": {
+        "n": 566,
+        "treffer": 0.7226,
+        "treffer_elo": 0.6678,
+        "p_eingetreten": 0.6043,
+        "gestellt_vorhergesagt": 0.1878,
+        "gestellt_eingetreten": 0.1484
+      }
     },
     {
       "id": "schlussgang-38067",
@@ -4290,7 +4706,15 @@
         }
       ],
       "n_teilnehmer": 54,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 157,
+        "treffer": 0.6943,
+        "treffer_elo": 0.6115,
+        "p_eingetreten": 0.5906,
+        "gestellt_vorhergesagt": 0.2373,
+        "gestellt_eingetreten": 0.2484
+      }
     },
     {
       "id": "schlussgang-21094",
@@ -4306,7 +4730,15 @@
         }
       ],
       "n_teilnehmer": 55,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 159,
+        "treffer": 0.7484,
+        "treffer_elo": 0.6792,
+        "p_eingetreten": 0.6267,
+        "gestellt_vorhergesagt": 0.1453,
+        "gestellt_eingetreten": 0.1006
+      }
     },
     {
       "id": "schlussgang-40626",
@@ -4322,7 +4754,15 @@
         }
       ],
       "n_teilnehmer": 68,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 204,
+        "treffer": 0.652,
+        "treffer_elo": 0.6029,
+        "p_eingetreten": 0.5804,
+        "gestellt_vorhergesagt": 0.1705,
+        "gestellt_eingetreten": 0.1814
+      }
     },
     {
       "id": "schlussgang-45249",
@@ -4338,7 +4778,15 @@
         }
       ],
       "n_teilnehmer": 129,
-      "n_kraenze": 19
+      "n_kraenze": 19,
+      "prognose_check": {
+        "n": 351,
+        "treffer": 0.7009,
+        "treffer_elo": 0.6325,
+        "p_eingetreten": 0.5847,
+        "gestellt_vorhergesagt": 0.2357,
+        "gestellt_eingetreten": 0.2678
+      }
     },
     {
       "id": "schlussgang-45944",
@@ -4354,7 +4802,15 @@
         }
       ],
       "n_teilnehmer": 34,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 99,
+        "treffer": 0.7172,
+        "treffer_elo": 0.5253,
+        "p_eingetreten": 0.5783,
+        "gestellt_vorhergesagt": 0.1545,
+        "gestellt_eingetreten": 0.2222
+      }
     },
     {
       "id": "schlussgang-21091",
@@ -4370,7 +4826,15 @@
         }
       ],
       "n_teilnehmer": 172,
-      "n_kraenze": 26
+      "n_kraenze": 26,
+      "prognose_check": {
+        "n": 484,
+        "treffer": 0.6839,
+        "treffer_elo": 0.6426,
+        "p_eingetreten": 0.5637,
+        "gestellt_vorhergesagt": 0.235,
+        "gestellt_eingetreten": 0.2128
+      }
     },
     {
       "id": "schlussgang-21088",
@@ -4386,7 +4850,15 @@
         }
       ],
       "n_teilnehmer": 125,
-      "n_kraenze": 22
+      "n_kraenze": 22,
+      "prognose_check": {
+        "n": 342,
+        "treffer": 0.6871,
+        "treffer_elo": 0.6053,
+        "p_eingetreten": 0.5731,
+        "gestellt_vorhergesagt": 0.2277,
+        "gestellt_eingetreten": 0.2281
+      }
     },
     {
       "id": "schlussgang-37143",
@@ -4402,7 +4874,15 @@
         }
       ],
       "n_teilnehmer": 99,
-      "n_kraenze": 17
+      "n_kraenze": 17,
+      "prognose_check": {
+        "n": 289,
+        "treffer": 0.699,
+        "treffer_elo": 0.6401,
+        "p_eingetreten": 0.5938,
+        "gestellt_vorhergesagt": 0.1983,
+        "gestellt_eingetreten": 0.1972
+      }
     },
     {
       "id": "schlussgang-45946",
@@ -4418,7 +4898,15 @@
         }
       ],
       "n_teilnehmer": 205,
-      "n_kraenze": 35
+      "n_kraenze": 35,
+      "prognose_check": {
+        "n": 570,
+        "treffer": 0.6754,
+        "treffer_elo": 0.6509,
+        "p_eingetreten": 0.5756,
+        "gestellt_vorhergesagt": 0.2382,
+        "gestellt_eingetreten": 0.1947
+      }
     },
     {
       "id": "schlussgang-21084",
@@ -4434,7 +4922,15 @@
         }
       ],
       "n_teilnehmer": 70,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 199,
+        "treffer": 0.7236,
+        "treffer_elo": 0.6583,
+        "p_eingetreten": 0.5892,
+        "gestellt_vorhergesagt": 0.213,
+        "gestellt_eingetreten": 0.2111
+      }
     },
     {
       "id": "schlussgang-21086",
@@ -4450,7 +4946,15 @@
         }
       ],
       "n_teilnehmer": 175,
-      "n_kraenze": 27
+      "n_kraenze": 27,
+      "prognose_check": {
+        "n": 493,
+        "treffer": 0.6329,
+        "treffer_elo": 0.6105,
+        "p_eingetreten": 0.5414,
+        "gestellt_vorhergesagt": 0.2778,
+        "gestellt_eingetreten": 0.2211
+      }
     },
     {
       "id": "schlussgang-38144",
@@ -4466,7 +4970,15 @@
         }
       ],
       "n_teilnehmer": 85,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 231,
+        "treffer": 0.7403,
+        "treffer_elo": 0.645,
+        "p_eingetreten": 0.6018,
+        "gestellt_vorhergesagt": 0.157,
+        "gestellt_eingetreten": 0.1385
+      }
     },
     {
       "id": "schlussgang-45606",
@@ -4482,7 +4994,15 @@
         }
       ],
       "n_teilnehmer": 46,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 135,
+        "treffer": 0.6741,
+        "treffer_elo": 0.6,
+        "p_eingetreten": 0.5624,
+        "gestellt_vorhergesagt": 0.2042,
+        "gestellt_eingetreten": 0.2444
+      }
     },
     {
       "id": "schlussgang-21080",
@@ -4498,7 +5018,15 @@
         }
       ],
       "n_teilnehmer": 42,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 126,
+        "treffer": 0.6825,
+        "treffer_elo": 0.6349,
+        "p_eingetreten": 0.5825,
+        "gestellt_vorhergesagt": 0.1924,
+        "gestellt_eingetreten": 0.1905
+      }
     },
     {
       "id": "schlussgang-21082",
@@ -4518,7 +5046,15 @@
         }
       ],
       "n_teilnehmer": 123,
-      "n_kraenze": 21
+      "n_kraenze": 21,
+      "prognose_check": {
+        "n": 358,
+        "treffer": 0.7179,
+        "treffer_elo": 0.662,
+        "p_eingetreten": 0.6061,
+        "gestellt_vorhergesagt": 0.1917,
+        "gestellt_eingetreten": 0.1564
+      }
     },
     {
       "id": "schlussgang-21085",
@@ -4534,7 +5070,15 @@
         }
       ],
       "n_teilnehmer": 90,
-      "n_kraenze": 14
+      "n_kraenze": 14,
+      "prognose_check": {
+        "n": 246,
+        "treffer": 0.5528,
+        "treffer_elo": 0.565,
+        "p_eingetreten": 0.4801,
+        "gestellt_vorhergesagt": 0.3013,
+        "gestellt_eingetreten": 0.2561
+      }
     },
     {
       "id": "schlussgang-43371",
@@ -4550,7 +5094,15 @@
         }
       ],
       "n_teilnehmer": 40,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 116,
+        "treffer": 0.7672,
+        "treffer_elo": 0.6724,
+        "p_eingetreten": 0.6388,
+        "gestellt_vorhergesagt": 0.2025,
+        "gestellt_eingetreten": 0.1724
+      }
     },
     {
       "id": "schlussgang-45929",
@@ -4574,7 +5126,15 @@
         }
       ],
       "n_teilnehmer": 29,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 85,
+        "treffer": 0.7176,
+        "treffer_elo": 0.5059,
+        "p_eingetreten": 0.5686,
+        "gestellt_vorhergesagt": 0.1972,
+        "gestellt_eingetreten": 0.3059
+      }
     },
     {
       "id": "schlussgang-46056",
@@ -4590,7 +5150,15 @@
         }
       ],
       "n_teilnehmer": 20,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 58,
+        "treffer": 0.6897,
+        "treffer_elo": 0.4828,
+        "p_eingetreten": 0.5325,
+        "gestellt_vorhergesagt": 0.2398,
+        "gestellt_eingetreten": 0.2759
+      }
     },
     {
       "id": "schlussgang-46093",
@@ -4606,7 +5174,15 @@
         }
       ],
       "n_teilnehmer": 30,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 90,
+        "treffer": 0.6222,
+        "treffer_elo": 0.6,
+        "p_eingetreten": 0.5246,
+        "gestellt_vorhergesagt": 0.2163,
+        "gestellt_eingetreten": 0.1222
+      }
     },
     {
       "id": "schlussgang-45898",
@@ -4622,7 +5198,15 @@
         }
       ],
       "n_teilnehmer": 60,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 178,
+        "treffer": 0.6573,
+        "treffer_elo": 0.573,
+        "p_eingetreten": 0.5398,
+        "gestellt_vorhergesagt": 0.2062,
+        "gestellt_eingetreten": 0.1685
+      }
     },
     {
       "id": "schlussgang-21078",
@@ -4638,7 +5222,15 @@
         }
       ],
       "n_teilnehmer": 123,
-      "n_kraenze": 20
+      "n_kraenze": 20,
+      "prognose_check": {
+        "n": 365,
+        "treffer": 0.7342,
+        "treffer_elo": 0.6685,
+        "p_eingetreten": 0.5962,
+        "gestellt_vorhergesagt": 0.1989,
+        "gestellt_eingetreten": 0.1699
+      }
     },
     {
       "id": "schlussgang-23307",
@@ -4654,7 +5246,15 @@
         }
       ],
       "n_teilnehmer": 135,
-      "n_kraenze": 22
+      "n_kraenze": 22,
+      "prognose_check": {
+        "n": 390,
+        "treffer": 0.6897,
+        "treffer_elo": 0.6154,
+        "p_eingetreten": 0.571,
+        "gestellt_vorhergesagt": 0.2565,
+        "gestellt_eingetreten": 0.2154
+      }
     },
     {
       "id": "schlussgang-46029",
@@ -4670,7 +5270,15 @@
         }
       ],
       "n_teilnehmer": 201,
-      "n_kraenze": 33
+      "n_kraenze": 33,
+      "prognose_check": {
+        "n": 567,
+        "treffer": 0.6596,
+        "treffer_elo": 0.6138,
+        "p_eingetreten": 0.5602,
+        "gestellt_vorhergesagt": 0.2303,
+        "gestellt_eingetreten": 0.2716
+      }
     },
     {
       "id": "schlussgang-21077",
@@ -4686,7 +5294,15 @@
         }
       ],
       "n_teilnehmer": 109,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 311,
+        "treffer": 0.7203,
+        "treffer_elo": 0.6881,
+        "p_eingetreten": 0.5984,
+        "gestellt_vorhergesagt": 0.1885,
+        "gestellt_eingetreten": 0.1286
+      }
     },
     {
       "id": "schlussgang-45971",
@@ -4702,7 +5318,15 @@
         }
       ],
       "n_teilnehmer": 77,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 222,
+        "treffer": 0.6667,
+        "treffer_elo": 0.6126,
+        "p_eingetreten": 0.5517,
+        "gestellt_vorhergesagt": 0.1989,
+        "gestellt_eingetreten": 0.2207
+      }
     },
     {
       "id": "schlussgang-46026",
@@ -4718,7 +5342,15 @@
         }
       ],
       "n_teilnehmer": 38,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 111,
+        "treffer": 0.6757,
+        "treffer_elo": 0.6486,
+        "p_eingetreten": 0.5841,
+        "gestellt_vorhergesagt": 0.1727,
+        "gestellt_eingetreten": 0.1081
+      }
     },
     {
       "id": "schlussgang-21072",
@@ -4738,7 +5370,15 @@
         }
       ],
       "n_teilnehmer": 143,
-      "n_kraenze": 22
+      "n_kraenze": 22,
+      "prognose_check": {
+        "n": 385,
+        "treffer": 0.7039,
+        "treffer_elo": 0.6364,
+        "p_eingetreten": 0.5877,
+        "gestellt_vorhergesagt": 0.2298,
+        "gestellt_eingetreten": 0.2208
+      }
     },
     {
       "id": "schlussgang-21074",
@@ -4754,7 +5394,15 @@
         }
       ],
       "n_teilnehmer": 90,
-      "n_kraenze": 15
+      "n_kraenze": 15,
+      "prognose_check": {
+        "n": 244,
+        "treffer": 0.5861,
+        "treffer_elo": 0.5902,
+        "p_eingetreten": 0.4989,
+        "gestellt_vorhergesagt": 0.3034,
+        "gestellt_eingetreten": 0.25
+      }
     },
     {
       "id": "schlussgang-45892",
@@ -4770,7 +5418,15 @@
         }
       ],
       "n_teilnehmer": 89,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 247,
+        "treffer": 0.7085,
+        "treffer_elo": 0.6721,
+        "p_eingetreten": 0.6067,
+        "gestellt_vorhergesagt": 0.1868,
+        "gestellt_eingetreten": 0.1862
+      }
     },
     {
       "id": "schlussgang-34201",
@@ -4786,7 +5442,15 @@
         }
       ],
       "n_teilnehmer": 99,
-      "n_kraenze": 13
+      "n_kraenze": 13,
+      "prognose_check": {
+        "n": 278,
+        "treffer": 0.7014,
+        "treffer_elo": 0.6655,
+        "p_eingetreten": 0.5767,
+        "gestellt_vorhergesagt": 0.2013,
+        "gestellt_eingetreten": 0.205
+      }
     },
     {
       "id": "schlussgang-37783",
@@ -4802,7 +5466,15 @@
         }
       ],
       "n_teilnehmer": 72,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 214,
+        "treffer": 0.6495,
+        "treffer_elo": 0.6028,
+        "p_eingetreten": 0.5658,
+        "gestellt_vorhergesagt": 0.1995,
+        "gestellt_eingetreten": 0.2243
+      }
     },
     {
       "id": "schlussgang-21071",
@@ -4826,7 +5498,15 @@
         }
       ],
       "n_teilnehmer": 158,
-      "n_kraenze": 27
+      "n_kraenze": 27,
+      "prognose_check": {
+        "n": 447,
+        "treffer": 0.6823,
+        "treffer_elo": 0.6689,
+        "p_eingetreten": 0.5692,
+        "gestellt_vorhergesagt": 0.2178,
+        "gestellt_eingetreten": 0.1991
+      }
     },
     {
       "id": "schlussgang-34433",
@@ -4842,7 +5522,15 @@
         }
       ],
       "n_teilnehmer": 200,
-      "n_kraenze": 35
+      "n_kraenze": 35,
+      "prognose_check": {
+        "n": 559,
+        "treffer": 0.6905,
+        "treffer_elo": 0.644,
+        "p_eingetreten": 0.5778,
+        "gestellt_vorhergesagt": 0.2614,
+        "gestellt_eingetreten": 0.2147
+      }
     },
     {
       "id": "schlussgang-37163",
@@ -4858,7 +5546,15 @@
         }
       ],
       "n_teilnehmer": 107,
-      "n_kraenze": 18
+      "n_kraenze": 18,
+      "prognose_check": {
+        "n": 315,
+        "treffer": 0.7079,
+        "treffer_elo": 0.6381,
+        "p_eingetreten": 0.5993,
+        "gestellt_vorhergesagt": 0.1931,
+        "gestellt_eingetreten": 0.1841
+      }
     },
     {
       "id": "schlussgang-46060",
@@ -4874,7 +5570,15 @@
         }
       ],
       "n_teilnehmer": 38,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 112,
+        "treffer": 0.75,
+        "treffer_elo": 0.6875,
+        "p_eingetreten": 0.608,
+        "gestellt_vorhergesagt": 0.1676,
+        "gestellt_eingetreten": 0.0982
+      }
     },
     {
       "id": "schlussgang-21069",
@@ -4890,7 +5594,15 @@
         }
       ],
       "n_teilnehmer": 181,
-      "n_kraenze": 29
+      "n_kraenze": 29,
+      "prognose_check": {
+        "n": 535,
+        "treffer": 0.6617,
+        "treffer_elo": 0.6299,
+        "p_eingetreten": 0.5698,
+        "gestellt_vorhergesagt": 0.2412,
+        "gestellt_eingetreten": 0.2262
+      }
     },
     {
       "id": "schlussgang-32657",
@@ -4906,7 +5618,15 @@
         }
       ],
       "n_teilnehmer": 199,
-      "n_kraenze": 32
+      "n_kraenze": 32,
+      "prognose_check": {
+        "n": 548,
+        "treffer": 0.6533,
+        "treffer_elo": 0.6022,
+        "p_eingetreten": 0.5285,
+        "gestellt_vorhergesagt": 0.2949,
+        "gestellt_eingetreten": 0.2427
+      }
     },
     {
       "id": "schlussgang-45160",
@@ -4926,7 +5646,15 @@
         }
       ],
       "n_teilnehmer": 56,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 165,
+        "treffer": 0.7455,
+        "treffer_elo": 0.6424,
+        "p_eingetreten": 0.6329,
+        "gestellt_vorhergesagt": 0.1392,
+        "gestellt_eingetreten": 0.1212
+      }
     },
     {
       "id": "schlussgang-45241",
@@ -4942,7 +5670,15 @@
         }
       ],
       "n_teilnehmer": 25,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 73,
+        "treffer": 0.4658,
+        "treffer_elo": 0.5616,
+        "p_eingetreten": 0.4604,
+        "gestellt_vorhergesagt": 0.262,
+        "gestellt_eingetreten": 0.3562
+      }
     },
     {
       "id": "schlussgang-21066",
@@ -4958,7 +5694,15 @@
         }
       ],
       "n_teilnehmer": 150,
-      "n_kraenze": 20
+      "n_kraenze": 20,
+      "prognose_check": {
+        "n": 420,
+        "treffer": 0.6381,
+        "treffer_elo": 0.5881,
+        "p_eingetreten": 0.5296,
+        "gestellt_vorhergesagt": 0.3154,
+        "gestellt_eingetreten": 0.3024
+      }
     },
     {
       "id": "schlussgang-21067",
@@ -4974,7 +5718,15 @@
         }
       ],
       "n_teilnehmer": 113,
-      "n_kraenze": 19
+      "n_kraenze": 19,
+      "prognose_check": {
+        "n": 334,
+        "treffer": 0.7275,
+        "treffer_elo": 0.6647,
+        "p_eingetreten": 0.6091,
+        "gestellt_vorhergesagt": 0.1921,
+        "gestellt_eingetreten": 0.2096
+      }
     },
     {
       "id": "schlussgang-21068",
@@ -4990,7 +5742,15 @@
         }
       ],
       "n_teilnehmer": 90,
-      "n_kraenze": 16
+      "n_kraenze": 16,
+      "prognose_check": {
+        "n": 251,
+        "treffer": 0.5896,
+        "treffer_elo": 0.5936,
+        "p_eingetreten": 0.4879,
+        "gestellt_vorhergesagt": 0.3284,
+        "gestellt_eingetreten": 0.247
+      }
     },
     {
       "id": "schlussgang-35143",
@@ -5010,7 +5770,15 @@
         }
       ],
       "n_teilnehmer": 145,
-      "n_kraenze": 25
+      "n_kraenze": 25,
+      "prognose_check": {
+        "n": 422,
+        "treffer": 0.6777,
+        "treffer_elo": 0.6422,
+        "p_eingetreten": 0.5797,
+        "gestellt_vorhergesagt": 0.1774,
+        "gestellt_eingetreten": 0.1493
+      }
     },
     {
       "id": "schlussgang-21065",
@@ -5026,7 +5794,15 @@
         }
       ],
       "n_teilnehmer": 90,
-      "n_kraenze": 13
+      "n_kraenze": 13,
+      "prognose_check": {
+        "n": 250,
+        "treffer": 0.612,
+        "treffer_elo": 0.568,
+        "p_eingetreten": 0.4931,
+        "gestellt_vorhergesagt": 0.3546,
+        "gestellt_eingetreten": 0.304
+      }
     },
     {
       "id": "schlussgang-43664",
@@ -5042,7 +5818,15 @@
         }
       ],
       "n_teilnehmer": 47,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 139,
+        "treffer": 0.6835,
+        "treffer_elo": 0.5612,
+        "p_eingetreten": 0.5694,
+        "gestellt_vorhergesagt": 0.1876,
+        "gestellt_eingetreten": 0.2086
+      }
     },
     {
       "id": "schlussgang-21064",
@@ -5058,7 +5842,15 @@
         }
       ],
       "n_teilnehmer": 86,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 248,
+        "treffer": 0.6774,
+        "treffer_elo": 0.629,
+        "p_eingetreten": 0.5608,
+        "gestellt_vorhergesagt": 0.221,
+        "gestellt_eingetreten": 0.2016
+      }
     },
     {
       "id": "schlussgang-36355",
@@ -5078,7 +5870,15 @@
         }
       ],
       "n_teilnehmer": 58,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 174,
+        "treffer": 0.6264,
+        "treffer_elo": 0.569,
+        "p_eingetreten": 0.5532,
+        "gestellt_vorhergesagt": 0.1921,
+        "gestellt_eingetreten": 0.2586
+      }
     },
     {
       "id": "schlussgang-44367",
@@ -5094,7 +5894,15 @@
         }
       ],
       "n_teilnehmer": 70,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 209,
+        "treffer": 0.6986,
+        "treffer_elo": 0.6746,
+        "p_eingetreten": 0.5852,
+        "gestellt_vorhergesagt": 0.2321,
+        "gestellt_eingetreten": 0.2057
+      }
     },
     {
       "id": "schlussgang-21061",
@@ -5110,7 +5918,15 @@
         }
       ],
       "n_teilnehmer": 120,
-      "n_kraenze": 19
+      "n_kraenze": 19,
+      "prognose_check": {
+        "n": 343,
+        "treffer": 0.6122,
+        "treffer_elo": 0.5714,
+        "p_eingetreten": 0.497,
+        "gestellt_vorhergesagt": 0.3378,
+        "gestellt_eingetreten": 0.2799
+      }
     },
     {
       "id": "schlussgang-21062",
@@ -5130,7 +5946,15 @@
         }
       ],
       "n_teilnehmer": 74,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 220,
+        "treffer": 0.6636,
+        "treffer_elo": 0.6182,
+        "p_eingetreten": 0.5641,
+        "gestellt_vorhergesagt": 0.1752,
+        "gestellt_eingetreten": 0.2318
+      }
     },
     {
       "id": "schlussgang-37047",
@@ -5146,7 +5970,15 @@
         }
       ],
       "n_teilnehmer": 58,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 169,
+        "treffer": 0.6272,
+        "treffer_elo": 0.5503,
+        "p_eingetreten": 0.5546,
+        "gestellt_vorhergesagt": 0.2019,
+        "gestellt_eingetreten": 0.2663
+      }
     },
     {
       "id": "schlussgang-37709",
@@ -5162,7 +5994,15 @@
         }
       ],
       "n_teilnehmer": 36,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 108,
+        "treffer": 0.7963,
+        "treffer_elo": 0.7037,
+        "p_eingetreten": 0.6339,
+        "gestellt_vorhergesagt": 0.196,
+        "gestellt_eingetreten": 0.1481
+      }
     },
     {
       "id": "schlussgang-46055",
@@ -5178,7 +6018,15 @@
         }
       ],
       "n_teilnehmer": 99,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 274,
+        "treffer": 0.6679,
+        "treffer_elo": 0.5657,
+        "p_eingetreten": 0.557,
+        "gestellt_vorhergesagt": 0.2431,
+        "gestellt_eingetreten": 0.2774
+      }
     },
     {
       "id": "schlussgang-21059",
@@ -5194,7 +6042,15 @@
         }
       ],
       "n_teilnehmer": 82,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 234,
+        "treffer": 0.7308,
+        "treffer_elo": 0.6838,
+        "p_eingetreten": 0.6036,
+        "gestellt_vorhergesagt": 0.2117,
+        "gestellt_eingetreten": 0.1795
+      }
     },
     {
       "id": "schlussgang-37046",
@@ -5210,7 +6066,15 @@
         }
       ],
       "n_teilnehmer": 112,
-      "n_kraenze": 16
+      "n_kraenze": 16,
+      "prognose_check": {
+        "n": 323,
+        "treffer": 0.6842,
+        "treffer_elo": 0.6656,
+        "p_eingetreten": 0.5737,
+        "gestellt_vorhergesagt": 0.219,
+        "gestellt_eingetreten": 0.1858
+      }
     },
     {
       "id": "schlussgang-42564",
@@ -5226,7 +6090,15 @@
         }
       ],
       "n_teilnehmer": 119,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 353,
+        "treffer": 0.6657,
+        "treffer_elo": 0.6062,
+        "p_eingetreten": 0.5735,
+        "gestellt_vorhergesagt": 0.1895,
+        "gestellt_eingetreten": 0.2408
+      }
     },
     {
       "id": "schlussgang-46133",
@@ -5242,7 +6114,15 @@
         }
       ],
       "n_teilnehmer": 48,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 143,
+        "treffer": 0.6434,
+        "treffer_elo": 0.5874,
+        "p_eingetreten": 0.5588,
+        "gestellt_vorhergesagt": 0.2381,
+        "gestellt_eingetreten": 0.2797
+      }
     },
     {
       "id": "schlussgang-21058",
@@ -5258,7 +6138,15 @@
         }
       ],
       "n_teilnehmer": 126,
-      "n_kraenze": 19
+      "n_kraenze": 19,
+      "prognose_check": {
+        "n": 344,
+        "treffer": 0.6977,
+        "treffer_elo": 0.6366,
+        "p_eingetreten": 0.5917,
+        "gestellt_vorhergesagt": 0.2382,
+        "gestellt_eingetreten": 0.2384
+      }
     },
     {
       "id": "schlussgang-42289",
@@ -5274,7 +6162,15 @@
         }
       ],
       "n_teilnehmer": 70,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 206,
+        "treffer": 0.733,
+        "treffer_elo": 0.6893,
+        "p_eingetreten": 0.5906,
+        "gestellt_vorhergesagt": 0.2439,
+        "gestellt_eingetreten": 0.1699
+      }
     },
     {
       "id": "schlussgang-44104",
@@ -5290,7 +6186,15 @@
         }
       ],
       "n_teilnehmer": 20,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 59,
+        "treffer": 0.5932,
+        "treffer_elo": 0.4746,
+        "p_eingetreten": 0.4877,
+        "gestellt_vorhergesagt": 0.2202,
+        "gestellt_eingetreten": 0.2373
+      }
     },
     {
       "id": "schlussgang-45229",
@@ -5306,7 +6210,15 @@
         }
       ],
       "n_teilnehmer": 118,
-      "n_kraenze": 21
+      "n_kraenze": 21,
+      "prognose_check": {
+        "n": 340,
+        "treffer": 0.6706,
+        "treffer_elo": 0.6676,
+        "p_eingetreten": 0.5671,
+        "gestellt_vorhergesagt": 0.2048,
+        "gestellt_eingetreten": 0.2206
+      }
     },
     {
       "id": "schlussgang-46083",
@@ -5322,7 +6234,15 @@
         }
       ],
       "n_teilnehmer": 49,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 147,
+        "treffer": 0.6599,
+        "treffer_elo": 0.6259,
+        "p_eingetreten": 0.5726,
+        "gestellt_vorhergesagt": 0.1689,
+        "gestellt_eingetreten": 0.1973
+      }
     },
     {
       "id": "schlussgang-46034",
@@ -5338,7 +6258,15 @@
         }
       ],
       "n_teilnehmer": 105,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 287,
+        "treffer": 0.7038,
+        "treffer_elo": 0.6098,
+        "p_eingetreten": 0.5919,
+        "gestellt_vorhergesagt": 0.2147,
+        "gestellt_eingetreten": 0.2265
+      }
     },
     {
       "id": "schlussgang-46023",
@@ -5354,7 +6282,15 @@
         }
       ],
       "n_teilnehmer": 64,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 190,
+        "treffer": 0.6947,
+        "treffer_elo": 0.6421,
+        "p_eingetreten": 0.5809,
+        "gestellt_vorhergesagt": 0.2138,
+        "gestellt_eingetreten": 0.2053
+      }
     },
     {
       "id": "schlussgang-21056",
@@ -5374,7 +6310,15 @@
         }
       ],
       "n_teilnehmer": 90,
-      "n_kraenze": 13
+      "n_kraenze": 13,
+      "prognose_check": {
+        "n": 250,
+        "treffer": 0.608,
+        "treffer_elo": 0.616,
+        "p_eingetreten": 0.5101,
+        "gestellt_vorhergesagt": 0.2891,
+        "gestellt_eingetreten": 0.256
+      }
     },
     {
       "id": "schlussgang-37015",
@@ -5390,7 +6334,15 @@
         }
       ],
       "n_teilnehmer": 32,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 90,
+        "treffer": 0.5667,
+        "treffer_elo": 0.5222,
+        "p_eingetreten": 0.5335,
+        "gestellt_vorhergesagt": 0.193,
+        "gestellt_eingetreten": 0.2667
+      }
     },
     {
       "id": "schlussgang-46150",
@@ -5406,7 +6358,15 @@
         }
       ],
       "n_teilnehmer": 38,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 114,
+        "treffer": 0.6579,
+        "treffer_elo": 0.5877,
+        "p_eingetreten": 0.5248,
+        "gestellt_vorhergesagt": 0.2725,
+        "gestellt_eingetreten": 0.1754
+      }
     },
     {
       "id": "schlussgang-45889",
@@ -5422,7 +6382,15 @@
         }
       ],
       "n_teilnehmer": 48,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 129,
+        "treffer": 0.6744,
+        "treffer_elo": 0.5969,
+        "p_eingetreten": 0.5547,
+        "gestellt_vorhergesagt": 0.2647,
+        "gestellt_eingetreten": 0.3023
+      }
     },
     {
       "id": "schlussgang-21055",
@@ -5438,7 +6406,15 @@
         }
       ],
       "n_teilnehmer": 267,
-      "n_kraenze": 40
+      "n_kraenze": 40,
+      "prognose_check": {
+        "n": 922,
+        "treffer": 0.5976,
+        "treffer_elo": 0.5531,
+        "p_eingetreten": 0.4797,
+        "gestellt_vorhergesagt": 0.3241,
+        "gestellt_eingetreten": 0.2755
+      }
     },
     {
       "id": "schlussgang-43339",
@@ -5454,7 +6430,15 @@
         }
       ],
       "n_teilnehmer": 37,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 108,
+        "treffer": 0.6481,
+        "treffer_elo": 0.537,
+        "p_eingetreten": 0.5272,
+        "gestellt_vorhergesagt": 0.2065,
+        "gestellt_eingetreten": 0.3426
+      }
     },
     {
       "id": "schlussgang-39097",
@@ -5470,7 +6454,15 @@
         }
       ],
       "n_teilnehmer": 66,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 198,
+        "treffer": 0.7323,
+        "treffer_elo": 0.6667,
+        "p_eingetreten": 0.6181,
+        "gestellt_vorhergesagt": 0.1591,
+        "gestellt_eingetreten": 0.1364
+      }
     },
     {
       "id": "schlussgang-45973",
@@ -5486,7 +6478,15 @@
         }
       ],
       "n_teilnehmer": 138,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 401,
+        "treffer": 0.6933,
+        "treffer_elo": 0.5935,
+        "p_eingetreten": 0.5695,
+        "gestellt_vorhergesagt": 0.225,
+        "gestellt_eingetreten": 0.2519
+      }
     },
     {
       "id": "schlussgang-45988",
@@ -5506,7 +6506,15 @@
         }
       ],
       "n_teilnehmer": 26,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 70,
+        "treffer": 0.6,
+        "treffer_elo": 0.6,
+        "p_eingetreten": 0.526,
+        "gestellt_vorhergesagt": 0.2275,
+        "gestellt_eingetreten": 0.1571
+      }
     },
     {
       "id": "schlussgang-46033",
@@ -5522,7 +6530,15 @@
         }
       ],
       "n_teilnehmer": 38,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 111,
+        "treffer": 0.7207,
+        "treffer_elo": 0.6306,
+        "p_eingetreten": 0.5775,
+        "gestellt_vorhergesagt": 0.2273,
+        "gestellt_eingetreten": 0.1622
+      }
     },
     {
       "id": "schlussgang-46042",
@@ -5538,7 +6554,15 @@
         }
       ],
       "n_teilnehmer": 103,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 290,
+        "treffer": 0.7034,
+        "treffer_elo": 0.6276,
+        "p_eingetreten": 0.5809,
+        "gestellt_vorhergesagt": 0.234,
+        "gestellt_eingetreten": 0.2276
+      }
     },
     {
       "id": "schlussgang-45284",
@@ -5554,7 +6578,15 @@
         }
       ],
       "n_teilnehmer": 200,
-      "n_kraenze": 29
+      "n_kraenze": 29,
+      "prognose_check": {
+        "n": 562,
+        "treffer": 0.6851,
+        "treffer_elo": 0.621,
+        "p_eingetreten": 0.5716,
+        "gestellt_vorhergesagt": 0.2422,
+        "gestellt_eingetreten": 0.226
+      }
     },
     {
       "id": "schlussgang-45478",
@@ -5570,7 +6602,15 @@
         }
       ],
       "n_teilnehmer": 55,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 159,
+        "treffer": 0.6918,
+        "treffer_elo": 0.6352,
+        "p_eingetreten": 0.5807,
+        "gestellt_vorhergesagt": 0.2276,
+        "gestellt_eingetreten": 0.2767
+      }
     },
     {
       "id": "schlussgang-46014",
@@ -5586,7 +6626,15 @@
         }
       ],
       "n_teilnehmer": 40,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 118,
+        "treffer": 0.7119,
+        "treffer_elo": 0.5678,
+        "p_eingetreten": 0.5885,
+        "gestellt_vorhergesagt": 0.1717,
+        "gestellt_eingetreten": 0.1864
+      }
     },
     {
       "id": "schlussgang-21052",
@@ -5602,7 +6650,15 @@
         }
       ],
       "n_teilnehmer": 83,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 239,
+        "treffer": 0.6318,
+        "treffer_elo": 0.6234,
+        "p_eingetreten": 0.5536,
+        "gestellt_vorhergesagt": 0.1989,
+        "gestellt_eingetreten": 0.2678
+      }
     },
     {
       "id": "schlussgang-45788",
@@ -5618,7 +6674,15 @@
         }
       ],
       "n_teilnehmer": 144,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 406,
+        "treffer": 0.6897,
+        "treffer_elo": 0.6478,
+        "p_eingetreten": 0.5898,
+        "gestellt_vorhergesagt": 0.1927,
+        "gestellt_eingetreten": 0.1995
+      }
     },
     {
       "id": "schlussgang-45927",
@@ -5634,7 +6698,15 @@
         }
       ],
       "n_teilnehmer": 111,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 326,
+        "treffer": 0.635,
+        "treffer_elo": 0.592,
+        "p_eingetreten": 0.5504,
+        "gestellt_vorhergesagt": 0.2044,
+        "gestellt_eingetreten": 0.2209
+      }
     },
     {
       "id": "schlussgang-45888",
@@ -5650,7 +6722,15 @@
         }
       ],
       "n_teilnehmer": 39,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 114,
+        "treffer": 0.6754,
+        "treffer_elo": 0.5877,
+        "p_eingetreten": 0.5611,
+        "gestellt_vorhergesagt": 0.2252,
+        "gestellt_eingetreten": 0.2719
+      }
     },
     {
       "id": "schlussgang-46169",
@@ -5666,7 +6746,15 @@
         }
       ],
       "n_teilnehmer": 73,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 212,
+        "treffer": 0.684,
+        "treffer_elo": 0.566,
+        "p_eingetreten": 0.5771,
+        "gestellt_vorhergesagt": 0.1727,
+        "gestellt_eingetreten": 0.217
+      }
     },
     {
       "id": "schlussgang-46218",
@@ -5686,7 +6774,15 @@
         }
       ],
       "n_teilnehmer": 16,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 45,
+        "treffer": 0.7333,
+        "treffer_elo": 0.5778,
+        "p_eingetreten": 0.5969,
+        "gestellt_vorhergesagt": 0.201,
+        "gestellt_eingetreten": 0.1556
+      }
     },
     {
       "id": "schlussgang-50974",
@@ -5702,7 +6798,15 @@
         }
       ],
       "n_teilnehmer": 127,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 354,
+        "treffer": 0.6582,
+        "treffer_elo": 0.5537,
+        "p_eingetreten": 0.567,
+        "gestellt_vorhergesagt": 0.1684,
+        "gestellt_eingetreten": 0.1949
+      }
     },
     {
       "id": "schlussgang-46920",
@@ -5718,7 +6822,15 @@
         }
       ],
       "n_teilnehmer": 111,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 318,
+        "treffer": 0.6635,
+        "treffer_elo": 0.566,
+        "p_eingetreten": 0.5606,
+        "gestellt_vorhergesagt": 0.1701,
+        "gestellt_eingetreten": 0.1855
+      }
     },
     {
       "id": "schlussgang-51107",
@@ -5734,7 +6846,15 @@
         }
       ],
       "n_teilnehmer": 55,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 164,
+        "treffer": 0.6524,
+        "treffer_elo": 0.5549,
+        "p_eingetreten": 0.5418,
+        "gestellt_vorhergesagt": 0.2295,
+        "gestellt_eingetreten": 0.2256
+      }
     },
     {
       "id": "schlussgang-50964",
@@ -5754,7 +6874,15 @@
         }
       ],
       "n_teilnehmer": 47,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 141,
+        "treffer": 0.6809,
+        "treffer_elo": 0.5816,
+        "p_eingetreten": 0.5543,
+        "gestellt_vorhergesagt": 0.179,
+        "gestellt_eingetreten": 0.2057
+      }
     },
     {
       "id": "schlussgang-51908",
@@ -5770,7 +6898,15 @@
         }
       ],
       "n_teilnehmer": 51,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 152,
+        "treffer": 0.75,
+        "treffer_elo": 0.7039,
+        "p_eingetreten": 0.6149,
+        "gestellt_vorhergesagt": 0.234,
+        "gestellt_eingetreten": 0.1513
+      }
     },
     {
       "id": "schlussgang-51673",
@@ -5786,7 +6922,15 @@
         }
       ],
       "n_teilnehmer": 79,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 225,
+        "treffer": 0.6622,
+        "treffer_elo": 0.5244,
+        "p_eingetreten": 0.5788,
+        "gestellt_vorhergesagt": 0.1726,
+        "gestellt_eingetreten": 0.1911
+      }
     },
     {
       "id": "schlussgang-51672",
@@ -5806,7 +6950,15 @@
         }
       ],
       "n_teilnehmer": 171,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 503,
+        "treffer": 0.6561,
+        "treffer_elo": 0.5328,
+        "p_eingetreten": 0.5605,
+        "gestellt_vorhergesagt": 0.2054,
+        "gestellt_eingetreten": 0.2247
+      }
     },
     {
       "id": "schlussgang-47198",
@@ -5822,7 +6974,15 @@
         }
       ],
       "n_teilnehmer": 44,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 130,
+        "treffer": 0.7385,
+        "treffer_elo": 0.6154,
+        "p_eingetreten": 0.5925,
+        "gestellt_vorhergesagt": 0.1919,
+        "gestellt_eingetreten": 0.1231
+      }
     },
     {
       "id": "schlussgang-47292",
@@ -5838,7 +6998,15 @@
         }
       ],
       "n_teilnehmer": 114,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 334,
+        "treffer": 0.6856,
+        "treffer_elo": 0.6168,
+        "p_eingetreten": 0.5829,
+        "gestellt_vorhergesagt": 0.2208,
+        "gestellt_eingetreten": 0.1737
+      }
     },
     {
       "id": "schlussgang-21051",
@@ -5854,7 +7022,15 @@
         }
       ],
       "n_teilnehmer": 111,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 332,
+        "treffer": 0.6265,
+        "treffer_elo": 0.5301,
+        "p_eingetreten": 0.5484,
+        "gestellt_vorhergesagt": 0.206,
+        "gestellt_eingetreten": 0.244
+      }
     },
     {
       "id": "schlussgang-54093",
@@ -5870,7 +7046,15 @@
         }
       ],
       "n_teilnehmer": 123,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 350,
+        "treffer": 0.6543,
+        "treffer_elo": 0.5371,
+        "p_eingetreten": 0.5636,
+        "gestellt_vorhergesagt": 0.2123,
+        "gestellt_eingetreten": 0.2629
+      }
     },
     {
       "id": "schlussgang-37545",
@@ -5886,7 +7070,15 @@
         }
       ],
       "n_teilnehmer": 83,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 241,
+        "treffer": 0.668,
+        "treffer_elo": 0.5602,
+        "p_eingetreten": 0.5796,
+        "gestellt_vorhergesagt": 0.178,
+        "gestellt_eingetreten": 0.2199
+      }
     },
     {
       "id": "schlussgang-51983",
@@ -5902,7 +7094,15 @@
         }
       ],
       "n_teilnehmer": 155,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 429,
+        "treffer": 0.6457,
+        "treffer_elo": 0.5897,
+        "p_eingetreten": 0.547,
+        "gestellt_vorhergesagt": 0.19,
+        "gestellt_eingetreten": 0.2051
+      }
     },
     {
       "id": "schlussgang-43338",
@@ -5918,7 +7118,15 @@
         }
       ],
       "n_teilnehmer": 126,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 365,
+        "treffer": 0.6658,
+        "treffer_elo": 0.5562,
+        "p_eingetreten": 0.5917,
+        "gestellt_vorhergesagt": 0.1545,
+        "gestellt_eingetreten": 0.2301
+      }
     },
     {
       "id": "schlussgang-46528",
@@ -5934,7 +7142,15 @@
         }
       ],
       "n_teilnehmer": 99,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 287,
+        "treffer": 0.6376,
+        "treffer_elo": 0.5993,
+        "p_eingetreten": 0.5635,
+        "gestellt_vorhergesagt": 0.2152,
+        "gestellt_eingetreten": 0.216
+      }
     },
     {
       "id": "schlussgang-51587",
@@ -5950,7 +7166,15 @@
         }
       ],
       "n_teilnehmer": 53,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 145,
+        "treffer": 0.7172,
+        "treffer_elo": 0.5655,
+        "p_eingetreten": 0.5788,
+        "gestellt_vorhergesagt": 0.1887,
+        "gestellt_eingetreten": 0.1448
+      }
     },
     {
       "id": "schlussgang-50837",
@@ -5966,7 +7190,15 @@
         }
       ],
       "n_teilnehmer": 147,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 401,
+        "treffer": 0.7032,
+        "treffer_elo": 0.601,
+        "p_eingetreten": 0.5864,
+        "gestellt_vorhergesagt": 0.1941,
+        "gestellt_eingetreten": 0.2344
+      }
     },
     {
       "id": "schlussgang-51905",
@@ -5982,7 +7214,15 @@
         }
       ],
       "n_teilnehmer": 61,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 178,
+        "treffer": 0.6854,
+        "treffer_elo": 0.5899,
+        "p_eingetreten": 0.5975,
+        "gestellt_vorhergesagt": 0.1645,
+        "gestellt_eingetreten": 0.2079
+      }
     },
     {
       "id": "schlussgang-52020",
@@ -5998,7 +7238,15 @@
         }
       ],
       "n_teilnehmer": 139,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 411,
+        "treffer": 0.6642,
+        "treffer_elo": 0.562,
+        "p_eingetreten": 0.5563,
+        "gestellt_vorhergesagt": 0.192,
+        "gestellt_eingetreten": 0.2457
+      }
     },
     {
       "id": "schlussgang-52026",
@@ -6026,7 +7274,15 @@
         }
       ],
       "n_teilnehmer": 87,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 256,
+        "treffer": 0.7773,
+        "treffer_elo": 0.6211,
+        "p_eingetreten": 0.6319,
+        "gestellt_vorhergesagt": 0.1806,
+        "gestellt_eingetreten": 0.168
+      }
     },
     {
       "id": "schlussgang-33470",
@@ -6042,7 +7298,15 @@
         }
       ],
       "n_teilnehmer": 128,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 355,
+        "treffer": 0.6873,
+        "treffer_elo": 0.6169,
+        "p_eingetreten": 0.6029,
+        "gestellt_vorhergesagt": 0.1683,
+        "gestellt_eingetreten": 0.2056
+      }
     },
     {
       "id": "schlussgang-50011",
@@ -6058,7 +7322,15 @@
         }
       ],
       "n_teilnehmer": 88,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 262,
+        "treffer": 0.6756,
+        "treffer_elo": 0.5878,
+        "p_eingetreten": 0.5796,
+        "gestellt_vorhergesagt": 0.2032,
+        "gestellt_eingetreten": 0.2557
+      }
     },
     {
       "id": "schlussgang-51691",
@@ -6074,7 +7346,15 @@
         }
       ],
       "n_teilnehmer": 59,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 166,
+        "treffer": 0.6566,
+        "treffer_elo": 0.6024,
+        "p_eingetreten": 0.594,
+        "gestellt_vorhergesagt": 0.1756,
+        "gestellt_eingetreten": 0.2169
+      }
     },
     {
       "id": "schlussgang-52062",
@@ -6090,7 +7370,15 @@
         }
       ],
       "n_teilnehmer": 50,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 146,
+        "treffer": 0.6712,
+        "treffer_elo": 0.5411,
+        "p_eingetreten": 0.5468,
+        "gestellt_vorhergesagt": 0.1809,
+        "gestellt_eingetreten": 0.1712
+      }
     },
     {
       "id": "schlussgang-46600",
@@ -6106,7 +7394,15 @@
         }
       ],
       "n_teilnehmer": 57,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 170,
+        "treffer": 0.6765,
+        "treffer_elo": 0.6059,
+        "p_eingetreten": 0.5743,
+        "gestellt_vorhergesagt": 0.1615,
+        "gestellt_eingetreten": 0.1765
+      }
     },
     {
       "id": "schlussgang-47000",
@@ -6122,7 +7418,15 @@
         }
       ],
       "n_teilnehmer": 93,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 267,
+        "treffer": 0.6667,
+        "treffer_elo": 0.5918,
+        "p_eingetreten": 0.5739,
+        "gestellt_vorhergesagt": 0.2194,
+        "gestellt_eingetreten": 0.2472
+      }
     },
     {
       "id": "schlussgang-48371",
@@ -6138,7 +7442,15 @@
         }
       ],
       "n_teilnehmer": 73,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 215,
+        "treffer": 0.6837,
+        "treffer_elo": 0.6186,
+        "p_eingetreten": 0.6046,
+        "gestellt_vorhergesagt": 0.1624,
+        "gestellt_eingetreten": 0.1767
+      }
     },
     {
       "id": "schlussgang-50812",
@@ -6158,7 +7470,15 @@
         }
       ],
       "n_teilnehmer": 112,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 322,
+        "treffer": 0.6957,
+        "treffer_elo": 0.5466,
+        "p_eingetreten": 0.5872,
+        "gestellt_vorhergesagt": 0.2075,
+        "gestellt_eingetreten": 0.264
+      }
     },
     {
       "id": "schlussgang-50250",
@@ -6178,7 +7498,15 @@
         }
       ],
       "n_teilnehmer": 55,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 153,
+        "treffer": 0.6928,
+        "treffer_elo": 0.5556,
+        "p_eingetreten": 0.571,
+        "gestellt_vorhergesagt": 0.2149,
+        "gestellt_eingetreten": 0.1895
+      }
     },
     {
       "id": "schlussgang-33468",
@@ -6194,7 +7522,15 @@
         }
       ],
       "n_teilnehmer": 158,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 446,
+        "treffer": 0.6973,
+        "treffer_elo": 0.5897,
+        "p_eingetreten": 0.5713,
+        "gestellt_vorhergesagt": 0.1866,
+        "gestellt_eingetreten": 0.1996
+      }
     },
     {
       "id": "schlussgang-50619",
@@ -6210,7 +7546,15 @@
         }
       ],
       "n_teilnehmer": 92,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 260,
+        "treffer": 0.5885,
+        "treffer_elo": 0.45,
+        "p_eingetreten": 0.4959,
+        "gestellt_vorhergesagt": 0.2331,
+        "gestellt_eingetreten": 0.2731
+      }
     },
     {
       "id": "schlussgang-51758",
@@ -6226,7 +7570,15 @@
         }
       ],
       "n_teilnehmer": 54,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 158,
+        "treffer": 0.7215,
+        "treffer_elo": 0.538,
+        "p_eingetreten": 0.6022,
+        "gestellt_vorhergesagt": 0.2133,
+        "gestellt_eingetreten": 0.2911
+      }
     },
     {
       "id": "schlussgang-51981",
@@ -6242,7 +7594,15 @@
         }
       ],
       "n_teilnehmer": 67,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 199,
+        "treffer": 0.6935,
+        "treffer_elo": 0.5729,
+        "p_eingetreten": 0.5869,
+        "gestellt_vorhergesagt": 0.2173,
+        "gestellt_eingetreten": 0.2714
+      }
     },
     {
       "id": "schlussgang-52036",
@@ -6258,7 +7618,15 @@
         }
       ],
       "n_teilnehmer": 99,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 292,
+        "treffer": 0.7329,
+        "treffer_elo": 0.5925,
+        "p_eingetreten": 0.6067,
+        "gestellt_vorhergesagt": 0.1577,
+        "gestellt_eingetreten": 0.1849
+      }
     },
     {
       "id": "schlussgang-52067",
@@ -6274,7 +7642,15 @@
         }
       ],
       "n_teilnehmer": 74,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 218,
+        "treffer": 0.6743,
+        "treffer_elo": 0.5046,
+        "p_eingetreten": 0.5562,
+        "gestellt_vorhergesagt": 0.2433,
+        "gestellt_eingetreten": 0.3073
+      }
     },
     {
       "id": "schlussgang-49604",
@@ -6290,7 +7666,15 @@
         }
       ],
       "n_teilnehmer": 72,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 213,
+        "treffer": 0.723,
+        "treffer_elo": 0.615,
+        "p_eingetreten": 0.5823,
+        "gestellt_vorhergesagt": 0.186,
+        "gestellt_eingetreten": 0.1925
+      }
     },
     {
       "id": "schlussgang-50231",
@@ -6306,7 +7690,15 @@
         }
       ],
       "n_teilnehmer": 79,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 232,
+        "treffer": 0.7414,
+        "treffer_elo": 0.6379,
+        "p_eingetreten": 0.6067,
+        "gestellt_vorhergesagt": 0.1943,
+        "gestellt_eingetreten": 0.194
+      }
     },
     {
       "id": "schlussgang-51903",
@@ -6322,7 +7714,15 @@
         }
       ],
       "n_teilnehmer": 32,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 95,
+        "treffer": 0.6316,
+        "treffer_elo": 0.5158,
+        "p_eingetreten": 0.5629,
+        "gestellt_vorhergesagt": 0.1937,
+        "gestellt_eingetreten": 0.2842
+      }
     },
     {
       "id": "schlussgang-51917",
@@ -6338,7 +7738,15 @@
         }
       ],
       "n_teilnehmer": 49,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 146,
+        "treffer": 0.726,
+        "treffer_elo": 0.6164,
+        "p_eingetreten": 0.5936,
+        "gestellt_vorhergesagt": 0.1852,
+        "gestellt_eingetreten": 0.1712
+      }
     },
     {
       "id": "schlussgang-33466",
@@ -6354,7 +7762,15 @@
         }
       ],
       "n_teilnehmer": 80,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 226,
+        "treffer": 0.7257,
+        "treffer_elo": 0.5796,
+        "p_eingetreten": 0.6043,
+        "gestellt_vorhergesagt": 0.1786,
+        "gestellt_eingetreten": 0.1681
+      }
     },
     {
       "id": "schlussgang-44098",
@@ -6370,7 +7786,15 @@
         }
       ],
       "n_teilnehmer": 207,
-      "n_kraenze": 31
+      "n_kraenze": 31,
+      "prognose_check": {
+        "n": 585,
+        "treffer": 0.7094,
+        "treffer_elo": 0.5795,
+        "p_eingetreten": 0.5938,
+        "gestellt_vorhergesagt": 0.2145,
+        "gestellt_eingetreten": 0.2444
+      }
     },
     {
       "id": "schlussgang-45494",
@@ -6386,7 +7810,15 @@
         }
       ],
       "n_teilnehmer": 129,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 372,
+        "treffer": 0.707,
+        "treffer_elo": 0.5699,
+        "p_eingetreten": 0.5957,
+        "gestellt_vorhergesagt": 0.1578,
+        "gestellt_eingetreten": 0.2177
+      }
     },
     {
       "id": "schlussgang-49392",
@@ -6402,7 +7834,15 @@
         }
       ],
       "n_teilnehmer": 61,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 180,
+        "treffer": 0.6556,
+        "treffer_elo": 0.5667,
+        "p_eingetreten": 0.5365,
+        "gestellt_vorhergesagt": 0.2244,
+        "gestellt_eingetreten": 0.2667
+      }
     },
     {
       "id": "schlussgang-51105",
@@ -6418,7 +7858,15 @@
         }
       ],
       "n_teilnehmer": 65,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 194,
+        "treffer": 0.701,
+        "treffer_elo": 0.5258,
+        "p_eingetreten": 0.5828,
+        "gestellt_vorhergesagt": 0.1577,
+        "gestellt_eingetreten": 0.1598
+      }
     },
     {
       "id": "schlussgang-52147",
@@ -6434,7 +7882,15 @@
         }
       ],
       "n_teilnehmer": 60,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 180,
+        "treffer": 0.6389,
+        "treffer_elo": 0.5222,
+        "p_eingetreten": 0.5735,
+        "gestellt_vorhergesagt": 0.1829,
+        "gestellt_eingetreten": 0.2222
+      }
     },
     {
       "id": "schlussgang-37087",
@@ -6450,7 +7906,15 @@
         }
       ],
       "n_teilnehmer": 119,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 338,
+        "treffer": 0.6538,
+        "treffer_elo": 0.6036,
+        "p_eingetreten": 0.5709,
+        "gestellt_vorhergesagt": 0.1968,
+        "gestellt_eingetreten": 0.1864
+      }
     },
     {
       "id": "schlussgang-37159",
@@ -6466,7 +7930,15 @@
         }
       ],
       "n_teilnehmer": 147,
-      "n_kraenze": 24
+      "n_kraenze": 24,
+      "prognose_check": {
+        "n": 409,
+        "treffer": 0.7262,
+        "treffer_elo": 0.6626,
+        "p_eingetreten": 0.6314,
+        "gestellt_vorhergesagt": 0.1474,
+        "gestellt_eingetreten": 0.1198
+      }
     },
     {
       "id": "schlussgang-37170",
@@ -6482,7 +7954,15 @@
         }
       ],
       "n_teilnehmer": 192,
-      "n_kraenze": 31
+      "n_kraenze": 31,
+      "prognose_check": {
+        "n": 529,
+        "treffer": 0.6503,
+        "treffer_elo": 0.5747,
+        "p_eingetreten": 0.5683,
+        "gestellt_vorhergesagt": 0.226,
+        "gestellt_eingetreten": 0.31
+      }
     },
     {
       "id": "schlussgang-46747",
@@ -6498,7 +7978,15 @@
         }
       ],
       "n_teilnehmer": 124,
-      "n_kraenze": 20
+      "n_kraenze": 20,
+      "prognose_check": {
+        "n": 362,
+        "treffer": 0.6685,
+        "treffer_elo": 0.6188,
+        "p_eingetreten": 0.581,
+        "gestellt_vorhergesagt": 0.2476,
+        "gestellt_eingetreten": 0.2403
+      }
     },
     {
       "id": "schlussgang-49578",
@@ -6514,7 +8002,15 @@
         }
       ],
       "n_teilnehmer": 120,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 352,
+        "treffer": 0.6903,
+        "treffer_elo": 0.5966,
+        "p_eingetreten": 0.5872,
+        "gestellt_vorhergesagt": 0.152,
+        "gestellt_eingetreten": 0.196
+      }
     },
     {
       "id": "schlussgang-34663",
@@ -6530,7 +8026,15 @@
         }
       ],
       "n_teilnehmer": 179,
-      "n_kraenze": 30
+      "n_kraenze": 30,
+      "prognose_check": {
+        "n": 500,
+        "treffer": 0.688,
+        "treffer_elo": 0.618,
+        "p_eingetreten": 0.5762,
+        "gestellt_vorhergesagt": 0.2168,
+        "gestellt_eingetreten": 0.204
+      }
     },
     {
       "id": "schlussgang-45152",
@@ -6546,7 +8050,15 @@
         }
       ],
       "n_teilnehmer": 203,
-      "n_kraenze": 33
+      "n_kraenze": 33,
+      "prognose_check": {
+        "n": 578,
+        "treffer": 0.6851,
+        "treffer_elo": 0.6401,
+        "p_eingetreten": 0.5795,
+        "gestellt_vorhergesagt": 0.228,
+        "gestellt_eingetreten": 0.2163
+      }
     },
     {
       "id": "schlussgang-51740",
@@ -6562,7 +8074,15 @@
         }
       ],
       "n_teilnehmer": 47,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 136,
+        "treffer": 0.7426,
+        "treffer_elo": 0.5809,
+        "p_eingetreten": 0.603,
+        "gestellt_vorhergesagt": 0.1438,
+        "gestellt_eingetreten": 0.0956
+      }
     },
     {
       "id": "schlussgang-37086",
@@ -6578,7 +8098,15 @@
         }
       ],
       "n_teilnehmer": 83,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 240,
+        "treffer": 0.675,
+        "treffer_elo": 0.6417,
+        "p_eingetreten": 0.576,
+        "gestellt_vorhergesagt": 0.183,
+        "gestellt_eingetreten": 0.1667
+      }
     },
     {
       "id": "schlussgang-51120",
@@ -6594,7 +8122,15 @@
         }
       ],
       "n_teilnehmer": 121,
-      "n_kraenze": 18
+      "n_kraenze": 18,
+      "prognose_check": {
+        "n": 361,
+        "treffer": 0.723,
+        "treffer_elo": 0.651,
+        "p_eingetreten": 0.5963,
+        "gestellt_vorhergesagt": 0.2435,
+        "gestellt_eingetreten": 0.1967
+      }
     },
     {
       "id": "schlussgang-51738",
@@ -6610,7 +8146,15 @@
         }
       ],
       "n_teilnehmer": 40,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 114,
+        "treffer": 0.7281,
+        "treffer_elo": 0.5,
+        "p_eingetreten": 0.6043,
+        "gestellt_vorhergesagt": 0.1906,
+        "gestellt_eingetreten": 0.2193
+      }
     },
     {
       "id": "schlussgang-52035",
@@ -6626,7 +8170,15 @@
         }
       ],
       "n_teilnehmer": 65,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 195,
+        "treffer": 0.6718,
+        "treffer_elo": 0.6462,
+        "p_eingetreten": 0.5845,
+        "gestellt_vorhergesagt": 0.1692,
+        "gestellt_eingetreten": 0.1897
+      }
     },
     {
       "id": "schlussgang-37092",
@@ -6642,7 +8194,15 @@
         }
       ],
       "n_teilnehmer": 154,
-      "n_kraenze": 25
+      "n_kraenze": 25,
+      "prognose_check": {
+        "n": 454,
+        "treffer": 0.6674,
+        "treffer_elo": 0.5793,
+        "p_eingetreten": 0.5653,
+        "gestellt_vorhergesagt": 0.2512,
+        "gestellt_eingetreten": 0.2731
+      }
     },
     {
       "id": "schlussgang-37129",
@@ -6658,7 +8218,15 @@
         }
       ],
       "n_teilnehmer": 242,
-      "n_kraenze": 36
+      "n_kraenze": 36,
+      "prognose_check": {
+        "n": 679,
+        "treffer": 0.6907,
+        "treffer_elo": 0.6009,
+        "p_eingetreten": 0.5868,
+        "gestellt_vorhergesagt": 0.2144,
+        "gestellt_eingetreten": 0.243
+      }
     },
     {
       "id": "schlussgang-46074",
@@ -6678,7 +8246,15 @@
         }
       ],
       "n_teilnehmer": 118,
-      "n_kraenze": 18
+      "n_kraenze": 18,
+      "prognose_check": {
+        "n": 349,
+        "treffer": 0.6905,
+        "treffer_elo": 0.6189,
+        "p_eingetreten": 0.5767,
+        "gestellt_vorhergesagt": 0.2502,
+        "gestellt_eingetreten": 0.2464
+      }
     },
     {
       "id": "schlussgang-46078",
@@ -6694,7 +8270,15 @@
         }
       ],
       "n_teilnehmer": 156,
-      "n_kraenze": 27
+      "n_kraenze": 27,
+      "prognose_check": {
+        "n": 434,
+        "treffer": 0.7488,
+        "treffer_elo": 0.6636,
+        "p_eingetreten": 0.6315,
+        "gestellt_vorhergesagt": 0.1633,
+        "gestellt_eingetreten": 0.1406
+      }
     },
     {
       "id": "schlussgang-51844",
@@ -6710,7 +8294,15 @@
         }
       ],
       "n_teilnehmer": 37,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 108,
+        "treffer": 0.713,
+        "treffer_elo": 0.537,
+        "p_eingetreten": 0.5885,
+        "gestellt_vorhergesagt": 0.2013,
+        "gestellt_eingetreten": 0.2315
+      }
     },
     {
       "id": "schlussgang-21049",
@@ -6726,7 +8318,15 @@
         }
       ],
       "n_teilnehmer": 167,
-      "n_kraenze": 26
+      "n_kraenze": 26,
+      "prognose_check": {
+        "n": 495,
+        "treffer": 0.6869,
+        "treffer_elo": 0.6667,
+        "p_eingetreten": 0.5785,
+        "gestellt_vorhergesagt": 0.244,
+        "gestellt_eingetreten": 0.2222
+      }
     },
     {
       "id": "schlussgang-32835",
@@ -6742,7 +8342,15 @@
         }
       ],
       "n_teilnehmer": 48,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 142,
+        "treffer": 0.7394,
+        "treffer_elo": 0.5423,
+        "p_eingetreten": 0.6199,
+        "gestellt_vorhergesagt": 0.1562,
+        "gestellt_eingetreten": 0.2254
+      }
     },
     {
       "id": "schlussgang-51665",
@@ -6758,7 +8366,15 @@
         }
       ],
       "n_teilnehmer": 51,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 152,
+        "treffer": 0.6776,
+        "treffer_elo": 0.6513,
+        "p_eingetreten": 0.5883,
+        "gestellt_vorhergesagt": 0.2175,
+        "gestellt_eingetreten": 0.2171
+      }
     },
     {
       "id": "schlussgang-46202",
@@ -6774,7 +8390,15 @@
         }
       ],
       "n_teilnehmer": 108,
-      "n_kraenze": 18
+      "n_kraenze": 18,
+      "prognose_check": {
+        "n": 318,
+        "treffer": 0.7233,
+        "treffer_elo": 0.6541,
+        "p_eingetreten": 0.5949,
+        "gestellt_vorhergesagt": 0.1925,
+        "gestellt_eingetreten": 0.1415
+      }
     },
     {
       "id": "schlussgang-21045",
@@ -6790,7 +8414,15 @@
         }
       ],
       "n_teilnehmer": 48,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 144,
+        "treffer": 0.7083,
+        "treffer_elo": 0.6389,
+        "p_eingetreten": 0.6205,
+        "gestellt_vorhergesagt": 0.1551,
+        "gestellt_eingetreten": 0.1319
+      }
     },
     {
       "id": "schlussgang-21047",
@@ -6806,7 +8438,15 @@
         }
       ],
       "n_teilnehmer": 125,
-      "n_kraenze": 22
+      "n_kraenze": 22,
+      "prognose_check": {
+        "n": 367,
+        "treffer": 0.7357,
+        "treffer_elo": 0.6866,
+        "p_eingetreten": 0.612,
+        "gestellt_vorhergesagt": 0.1635,
+        "gestellt_eingetreten": 0.139
+      }
     },
     {
       "id": "schlussgang-37083",
@@ -6830,7 +8470,15 @@
         }
       ],
       "n_teilnehmer": 268,
-      "n_kraenze": 47
+      "n_kraenze": 47,
+      "prognose_check": {
+        "n": 743,
+        "treffer": 0.716,
+        "treffer_elo": 0.6797,
+        "p_eingetreten": 0.6025,
+        "gestellt_vorhergesagt": 0.1915,
+        "gestellt_eingetreten": 0.1736
+      }
     },
     {
       "id": "schlussgang-52201",
@@ -6846,7 +8494,15 @@
         }
       ],
       "n_teilnehmer": 48,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 142,
+        "treffer": 0.6972,
+        "treffer_elo": 0.5845,
+        "p_eingetreten": 0.5873,
+        "gestellt_vorhergesagt": 0.2119,
+        "gestellt_eingetreten": 0.1972
+      }
     },
     {
       "id": "schlussgang-55972",
@@ -6862,7 +8518,15 @@
         }
       ],
       "n_teilnehmer": 26,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 75,
+        "treffer": 0.64,
+        "treffer_elo": 0.52,
+        "p_eingetreten": 0.5405,
+        "gestellt_vorhergesagt": 0.2229,
+        "gestellt_eingetreten": 0.2533
+      }
     },
     {
       "id": "schlussgang-39096",
@@ -6878,7 +8542,15 @@
         }
       ],
       "n_teilnehmer": 189,
-      "n_kraenze": 31
+      "n_kraenze": 31,
+      "prognose_check": {
+        "n": 538,
+        "treffer": 0.7472,
+        "treffer_elo": 0.6691,
+        "p_eingetreten": 0.6329,
+        "gestellt_vorhergesagt": 0.1703,
+        "gestellt_eingetreten": 0.158
+      }
     },
     {
       "id": "schlussgang-46200",
@@ -6894,7 +8566,15 @@
         }
       ],
       "n_teilnehmer": 96,
-      "n_kraenze": 13
+      "n_kraenze": 13,
+      "prognose_check": {
+        "n": 274,
+        "treffer": 0.6934,
+        "treffer_elo": 0.6606,
+        "p_eingetreten": 0.5979,
+        "gestellt_vorhergesagt": 0.1994,
+        "gestellt_eingetreten": 0.1606
+      }
     },
     {
       "id": "schlussgang-37082",
@@ -6910,7 +8590,15 @@
         }
       ],
       "n_teilnehmer": 83,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 247,
+        "treffer": 0.7773,
+        "treffer_elo": 0.7045,
+        "p_eingetreten": 0.6146,
+        "gestellt_vorhergesagt": 0.2102,
+        "gestellt_eingetreten": 0.1498
+      }
     },
     {
       "id": "schlussgang-38142",
@@ -6926,7 +8614,15 @@
         }
       ],
       "n_teilnehmer": 78,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 232,
+        "treffer": 0.6983,
+        "treffer_elo": 0.5948,
+        "p_eingetreten": 0.5838,
+        "gestellt_vorhergesagt": 0.166,
+        "gestellt_eingetreten": 0.194
+      }
     },
     {
       "id": "schlussgang-47099",
@@ -6942,7 +8638,15 @@
         }
       ],
       "n_teilnehmer": 140,
-      "n_kraenze": 34
+      "n_kraenze": 34,
+      "prognose_check": {
+        "n": 525,
+        "treffer": 0.6724,
+        "treffer_elo": 0.6229,
+        "p_eingetreten": 0.5676,
+        "gestellt_vorhergesagt": 0.2176,
+        "gestellt_eingetreten": 0.2152
+      }
     },
     {
       "id": "schlussgang-37230",
@@ -6958,7 +8662,15 @@
         }
       ],
       "n_teilnehmer": 140,
-      "n_kraenze": 22
+      "n_kraenze": 22,
+      "prognose_check": {
+        "n": 386,
+        "treffer": 0.7565,
+        "treffer_elo": 0.6684,
+        "p_eingetreten": 0.6043,
+        "gestellt_vorhergesagt": 0.2461,
+        "gestellt_eingetreten": 0.2176
+      }
     },
     {
       "id": "schlussgang-44789",
@@ -6974,7 +8686,15 @@
         }
       ],
       "n_teilnehmer": 89,
-      "n_kraenze": 14
+      "n_kraenze": 14,
+      "prognose_check": {
+        "n": 259,
+        "treffer": 0.749,
+        "treffer_elo": 0.6757,
+        "p_eingetreten": 0.622,
+        "gestellt_vorhergesagt": 0.1914,
+        "gestellt_eingetreten": 0.1429
+      }
     },
     {
       "id": "schlussgang-52017",
@@ -6990,7 +8710,15 @@
         }
       ],
       "n_teilnehmer": 50,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 144,
+        "treffer": 0.7361,
+        "treffer_elo": 0.6597,
+        "p_eingetreten": 0.599,
+        "gestellt_vorhergesagt": 0.1903,
+        "gestellt_eingetreten": 0.1944
+      }
     },
     {
       "id": "schlussgang-44993",
@@ -7006,7 +8734,15 @@
         }
       ],
       "n_teilnehmer": 85,
-      "n_kraenze": 15
+      "n_kraenze": 15,
+      "prognose_check": {
+        "n": 244,
+        "treffer": 0.7336,
+        "treffer_elo": 0.7008,
+        "p_eingetreten": 0.6141,
+        "gestellt_vorhergesagt": 0.188,
+        "gestellt_eingetreten": 0.1475
+      }
     },
     {
       "id": "schlussgang-47764",
@@ -7022,7 +8758,15 @@
         }
       ],
       "n_teilnehmer": 123,
-      "n_kraenze": 19
+      "n_kraenze": 19,
+      "prognose_check": {
+        "n": 363,
+        "treffer": 0.7163,
+        "treffer_elo": 0.6777,
+        "p_eingetreten": 0.6102,
+        "gestellt_vorhergesagt": 0.1624,
+        "gestellt_eingetreten": 0.1488
+      }
     },
     {
       "id": "schlussgang-33257",
@@ -7038,7 +8782,15 @@
         }
       ],
       "n_teilnehmer": 210,
-      "n_kraenze": 32
+      "n_kraenze": 32,
+      "prognose_check": {
+        "n": 581,
+        "treffer": 0.6885,
+        "treffer_elo": 0.6282,
+        "p_eingetreten": 0.5863,
+        "gestellt_vorhergesagt": 0.2208,
+        "gestellt_eingetreten": 0.2272
+      }
     },
     {
       "id": "schlussgang-46510",
@@ -7054,7 +8806,15 @@
         }
       ],
       "n_teilnehmer": 89,
-      "n_kraenze": 13
+      "n_kraenze": 13,
+      "prognose_check": {
+        "n": 244,
+        "treffer": 0.5984,
+        "treffer_elo": 0.541,
+        "p_eingetreten": 0.5072,
+        "gestellt_vorhergesagt": 0.3021,
+        "gestellt_eingetreten": 0.3115
+      }
     },
     {
       "id": "schlussgang-45926",
@@ -7074,7 +8834,15 @@
         }
       ],
       "n_teilnehmer": 35,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 103,
+        "treffer": 0.6505,
+        "treffer_elo": 0.5631,
+        "p_eingetreten": 0.5364,
+        "gestellt_vorhergesagt": 0.2626,
+        "gestellt_eingetreten": 0.2816
+      }
     },
     {
       "id": "schlussgang-52034",
@@ -7094,7 +8862,15 @@
         }
       ],
       "n_teilnehmer": 51,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 153,
+        "treffer": 0.7908,
+        "treffer_elo": 0.6144,
+        "p_eingetreten": 0.6478,
+        "gestellt_vorhergesagt": 0.1534,
+        "gestellt_eingetreten": 0.1765
+      }
     },
     {
       "id": "schlussgang-52163",
@@ -7110,7 +8886,15 @@
         }
       ],
       "n_teilnehmer": 86,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 248,
+        "treffer": 0.7056,
+        "treffer_elo": 0.5766,
+        "p_eingetreten": 0.5839,
+        "gestellt_vorhergesagt": 0.2227,
+        "gestellt_eingetreten": 0.2379
+      }
     },
     {
       "id": "schlussgang-37079",
@@ -7126,7 +8910,15 @@
         }
       ],
       "n_teilnehmer": 83,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 246,
+        "treffer": 0.7439,
+        "treffer_elo": 0.6789,
+        "p_eingetreten": 0.6129,
+        "gestellt_vorhergesagt": 0.1681,
+        "gestellt_eingetreten": 0.1341
+      }
     },
     {
       "id": "schlussgang-46174",
@@ -7142,7 +8934,15 @@
         }
       ],
       "n_teilnehmer": 90,
-      "n_kraenze": 11
+      "n_kraenze": 11,
+      "prognose_check": {
+        "n": 255,
+        "treffer": 0.6118,
+        "treffer_elo": 0.5882,
+        "p_eingetreten": 0.5215,
+        "gestellt_vorhergesagt": 0.257,
+        "gestellt_eingetreten": 0.2275
+      }
     },
     {
       "id": "schlussgang-48495",
@@ -7158,7 +8958,15 @@
         }
       ],
       "n_teilnehmer": 80,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 227,
+        "treffer": 0.7048,
+        "treffer_elo": 0.6388,
+        "p_eingetreten": 0.6015,
+        "gestellt_vorhergesagt": 0.1857,
+        "gestellt_eingetreten": 0.1982
+      }
     },
     {
       "id": "schlussgang-47788",
@@ -7178,7 +8986,15 @@
         }
       ],
       "n_teilnehmer": 67,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 192,
+        "treffer": 0.6615,
+        "treffer_elo": 0.5729,
+        "p_eingetreten": 0.5874,
+        "gestellt_vorhergesagt": 0.2093,
+        "gestellt_eingetreten": 0.2865
+      }
     },
     {
       "id": "schlussgang-51586",
@@ -7194,7 +9010,15 @@
         }
       ],
       "n_teilnehmer": 60,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 178,
+        "treffer": 0.7416,
+        "treffer_elo": 0.6404,
+        "p_eingetreten": 0.6148,
+        "gestellt_vorhergesagt": 0.2099,
+        "gestellt_eingetreten": 0.2079
+      }
     },
     {
       "id": "schlussgang-21044",
@@ -7210,7 +9034,15 @@
         }
       ],
       "n_teilnehmer": 158,
-      "n_kraenze": 24
+      "n_kraenze": 24,
+      "prognose_check": {
+        "n": 449,
+        "treffer": 0.706,
+        "treffer_elo": 0.6726,
+        "p_eingetreten": 0.5955,
+        "gestellt_vorhergesagt": 0.1901,
+        "gestellt_eingetreten": 0.1759
+      }
     },
     {
       "id": "schlussgang-44787",
@@ -7226,7 +9058,15 @@
         }
       ],
       "n_teilnehmer": 99,
-      "n_kraenze": 15
+      "n_kraenze": 15,
+      "prognose_check": {
+        "n": 289,
+        "treffer": 0.7405,
+        "treffer_elo": 0.6332,
+        "p_eingetreten": 0.6124,
+        "gestellt_vorhergesagt": 0.1843,
+        "gestellt_eingetreten": 0.1972
+      }
     },
     {
       "id": "schlussgang-49575",
@@ -7246,7 +9086,15 @@
         }
       ],
       "n_teilnehmer": 22,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 65,
+        "treffer": 0.6923,
+        "treffer_elo": 0.4923,
+        "p_eingetreten": 0.5559,
+        "gestellt_vorhergesagt": 0.1672,
+        "gestellt_eingetreten": 0.2
+      }
     },
     {
       "id": "schlussgang-21040",
@@ -7262,7 +9110,15 @@
         }
       ],
       "n_teilnehmer": 149,
-      "n_kraenze": 24
+      "n_kraenze": 24,
+      "prognose_check": {
+        "n": 411,
+        "treffer": 0.635,
+        "treffer_elo": 0.5961,
+        "p_eingetreten": 0.5362,
+        "gestellt_vorhergesagt": 0.2931,
+        "gestellt_eingetreten": 0.2774
+      }
     },
     {
       "id": "schlussgang-40006",
@@ -7282,7 +9138,15 @@
         }
       ],
       "n_teilnehmer": 199,
-      "n_kraenze": 30
+      "n_kraenze": 30,
+      "prognose_check": {
+        "n": 535,
+        "treffer": 0.6075,
+        "treffer_elo": 0.5963,
+        "p_eingetreten": 0.5189,
+        "gestellt_vorhergesagt": 0.2806,
+        "gestellt_eingetreten": 0.2804
+      }
     },
     {
       "id": "schlussgang-46598",
@@ -7302,7 +9166,15 @@
         }
       ],
       "n_teilnehmer": 148,
-      "n_kraenze": 23
+      "n_kraenze": 23,
+      "prognose_check": {
+        "n": 436,
+        "treffer": 0.7248,
+        "treffer_elo": 0.672,
+        "p_eingetreten": 0.6075,
+        "gestellt_vorhergesagt": 0.1594,
+        "gestellt_eingetreten": 0.1651
+      }
     },
     {
       "id": "schlussgang-40625",
@@ -7318,7 +9190,15 @@
         }
       ],
       "n_teilnehmer": 90,
-      "n_kraenze": 16
+      "n_kraenze": 16,
+      "prognose_check": {
+        "n": 247,
+        "treffer": 0.6073,
+        "treffer_elo": 0.6154,
+        "p_eingetreten": 0.5131,
+        "gestellt_vorhergesagt": 0.2713,
+        "gestellt_eingetreten": 0.2672
+      }
     },
     {
       "id": "schlussgang-52155",
@@ -7334,7 +9214,15 @@
         }
       ],
       "n_teilnehmer": 67,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 199,
+        "treffer": 0.6281,
+        "treffer_elo": 0.6734,
+        "p_eingetreten": 0.5546,
+        "gestellt_vorhergesagt": 0.2177,
+        "gestellt_eingetreten": 0.1558
+      }
     },
     {
       "id": "schlussgang-37078",
@@ -7350,7 +9238,15 @@
         }
       ],
       "n_teilnehmer": 89,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 260,
+        "treffer": 0.6808,
+        "treffer_elo": 0.6808,
+        "p_eingetreten": 0.5809,
+        "gestellt_vorhergesagt": 0.1935,
+        "gestellt_eingetreten": 0.1538
+      }
     },
     {
       "id": "schlussgang-50457",
@@ -7370,7 +9266,15 @@
         }
       ],
       "n_teilnehmer": 42,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 125,
+        "treffer": 0.632,
+        "treffer_elo": 0.528,
+        "p_eingetreten": 0.5639,
+        "gestellt_vorhergesagt": 0.1306,
+        "gestellt_eingetreten": 0.208
+      }
     },
     {
       "id": "schlussgang-51309",
@@ -7386,7 +9290,15 @@
         }
       ],
       "n_teilnehmer": 46,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 134,
+        "treffer": 0.7388,
+        "treffer_elo": 0.6418,
+        "p_eingetreten": 0.6083,
+        "gestellt_vorhergesagt": 0.1802,
+        "gestellt_eingetreten": 0.1716
+      }
     },
     {
       "id": "schlussgang-51597",
@@ -7406,7 +9318,15 @@
         }
       ],
       "n_teilnehmer": 79,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 234,
+        "treffer": 0.7308,
+        "treffer_elo": 0.6368,
+        "p_eingetreten": 0.5977,
+        "gestellt_vorhergesagt": 0.1979,
+        "gestellt_eingetreten": 0.2222
+      }
     },
     {
       "id": "schlussgang-51846",
@@ -7422,7 +9342,15 @@
         }
       ],
       "n_teilnehmer": 70,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 210,
+        "treffer": 0.6286,
+        "treffer_elo": 0.5714,
+        "p_eingetreten": 0.5537,
+        "gestellt_vorhergesagt": 0.159,
+        "gestellt_eingetreten": 0.2238
+      }
     },
     {
       "id": "schlussgang-52044",
@@ -7438,7 +9366,15 @@
         }
       ],
       "n_teilnehmer": 51,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 153,
+        "treffer": 0.6601,
+        "treffer_elo": 0.6405,
+        "p_eingetreten": 0.5756,
+        "gestellt_vorhergesagt": 0.1699,
+        "gestellt_eingetreten": 0.1634
+      }
     },
     {
       "id": "schlussgang-44785",
@@ -7454,7 +9390,15 @@
         }
       ],
       "n_teilnehmer": 65,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 187,
+        "treffer": 0.6738,
+        "treffer_elo": 0.6043,
+        "p_eingetreten": 0.5833,
+        "gestellt_vorhergesagt": 0.1667,
+        "gestellt_eingetreten": 0.1818
+      }
     },
     {
       "id": "schlussgang-48478",
@@ -7470,7 +9414,15 @@
         }
       ],
       "n_teilnehmer": 63,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 189,
+        "treffer": 0.6931,
+        "treffer_elo": 0.6349,
+        "p_eingetreten": 0.5828,
+        "gestellt_vorhergesagt": 0.1866,
+        "gestellt_eingetreten": 0.2222
+      }
     },
     {
       "id": "schlussgang-51344",
@@ -7486,7 +9438,15 @@
         }
       ],
       "n_teilnehmer": 89,
-      "n_kraenze": 14
+      "n_kraenze": 14,
+      "prognose_check": {
+        "n": 242,
+        "treffer": 0.624,
+        "treffer_elo": 0.5579,
+        "p_eingetreten": 0.4957,
+        "gestellt_vorhergesagt": 0.3425,
+        "gestellt_eingetreten": 0.2727
+      }
     },
     {
       "id": "schlussgang-52184",
@@ -7502,7 +9462,15 @@
         }
       ],
       "n_teilnehmer": 34,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 102,
+        "treffer": 0.7157,
+        "treffer_elo": 0.5294,
+        "p_eingetreten": 0.5652,
+        "gestellt_vorhergesagt": 0.2284,
+        "gestellt_eingetreten": 0.3431
+      }
     },
     {
       "id": "schlussgang-21041",
@@ -7518,7 +9486,15 @@
         }
       ],
       "n_teilnehmer": 88,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 260,
+        "treffer": 0.7038,
+        "treffer_elo": 0.6269,
+        "p_eingetreten": 0.5772,
+        "gestellt_vorhergesagt": 0.158,
+        "gestellt_eingetreten": 0.1692
+      }
     },
     {
       "id": "schlussgang-21043",
@@ -7534,7 +9510,15 @@
         }
       ],
       "n_teilnehmer": 109,
-      "n_kraenze": 17
+      "n_kraenze": 17,
+      "prognose_check": {
+        "n": 322,
+        "treffer": 0.7764,
+        "treffer_elo": 0.7329,
+        "p_eingetreten": 0.6507,
+        "gestellt_vorhergesagt": 0.1661,
+        "gestellt_eingetreten": 0.1304
+      }
     },
     {
       "id": "schlussgang-46196",
@@ -7562,7 +9546,15 @@
         }
       ],
       "n_teilnehmer": 119,
-      "n_kraenze": 17
+      "n_kraenze": 17,
+      "prognose_check": {
+        "n": 317,
+        "treffer": 0.5868,
+        "treffer_elo": 0.5615,
+        "p_eingetreten": 0.4848,
+        "gestellt_vorhergesagt": 0.3347,
+        "gestellt_eingetreten": 0.2965
+      }
     },
     {
       "id": "schlussgang-50954",
@@ -7578,7 +9570,15 @@
         }
       ],
       "n_teilnehmer": 60,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 178,
+        "treffer": 0.6629,
+        "treffer_elo": 0.6404,
+        "p_eingetreten": 0.5715,
+        "gestellt_vorhergesagt": 0.176,
+        "gestellt_eingetreten": 0.2079
+      }
     },
     {
       "id": "schlussgang-37076",
@@ -7594,7 +9594,15 @@
         }
       ],
       "n_teilnehmer": 101,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 293,
+        "treffer": 0.7645,
+        "treffer_elo": 0.7031,
+        "p_eingetreten": 0.6299,
+        "gestellt_vorhergesagt": 0.1741,
+        "gestellt_eingetreten": 0.1536
+      }
     },
     {
       "id": "schlussgang-43559",
@@ -7610,7 +9618,15 @@
         }
       ],
       "n_teilnehmer": 78,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 230,
+        "treffer": 0.6783,
+        "treffer_elo": 0.6087,
+        "p_eingetreten": 0.5667,
+        "gestellt_vorhergesagt": 0.2248,
+        "gestellt_eingetreten": 0.2696
+      }
     },
     {
       "id": "schlussgang-46138",
@@ -7626,7 +9642,15 @@
         }
       ],
       "n_teilnehmer": 119,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 350,
+        "treffer": 0.6743,
+        "treffer_elo": 0.6486,
+        "p_eingetreten": 0.5918,
+        "gestellt_vorhergesagt": 0.1774,
+        "gestellt_eingetreten": 0.22
+      }
     },
     {
       "id": "schlussgang-38132",
@@ -7642,7 +9666,15 @@
         }
       ],
       "n_teilnehmer": 47,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 132,
+        "treffer": 0.7197,
+        "treffer_elo": 0.6288,
+        "p_eingetreten": 0.6154,
+        "gestellt_vorhergesagt": 0.1856,
+        "gestellt_eingetreten": 0.2197
+      }
     },
     {
       "id": "schlussgang-46136",
@@ -7658,7 +9690,15 @@
         }
       ],
       "n_teilnehmer": 65,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 192,
+        "treffer": 0.6927,
+        "treffer_elo": 0.6458,
+        "p_eingetreten": 0.5808,
+        "gestellt_vorhergesagt": 0.1952,
+        "gestellt_eingetreten": 0.1979
+      }
     },
     {
       "id": "schlussgang-49178",
@@ -7674,7 +9714,15 @@
         }
       ],
       "n_teilnehmer": 162,
-      "n_kraenze": 28
+      "n_kraenze": 28,
+      "prognose_check": {
+        "n": 455,
+        "treffer": 0.6879,
+        "treffer_elo": 0.6198,
+        "p_eingetreten": 0.5811,
+        "gestellt_vorhergesagt": 0.247,
+        "gestellt_eingetreten": 0.2505
+      }
     },
     {
       "id": "schlussgang-51251",
@@ -7690,7 +9738,15 @@
         }
       ],
       "n_teilnehmer": 127,
-      "n_kraenze": 20
+      "n_kraenze": 20,
+      "prognose_check": {
+        "n": 366,
+        "treffer": 0.7322,
+        "treffer_elo": 0.6421,
+        "p_eingetreten": 0.6054,
+        "gestellt_vorhergesagt": 0.1823,
+        "gestellt_eingetreten": 0.1585
+      }
     },
     {
       "id": "schlussgang-51915",
@@ -7706,7 +9762,15 @@
         }
       ],
       "n_teilnehmer": 89,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 253,
+        "treffer": 0.6917,
+        "treffer_elo": 0.6482,
+        "p_eingetreten": 0.5964,
+        "gestellt_vorhergesagt": 0.1933,
+        "gestellt_eingetreten": 0.2016
+      }
     },
     {
       "id": "schlussgang-52181",
@@ -7722,7 +9786,15 @@
         }
       ],
       "n_teilnehmer": 25,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 74,
+        "treffer": 0.7027,
+        "treffer_elo": 0.6757,
+        "p_eingetreten": 0.5806,
+        "gestellt_vorhergesagt": 0.1809,
+        "gestellt_eingetreten": 0.1351
+      }
     },
     {
       "id": "schlussgang-21038",
@@ -7738,7 +9810,15 @@
         }
       ],
       "n_teilnehmer": 135,
-      "n_kraenze": 21
+      "n_kraenze": 21,
+      "prognose_check": {
+        "n": 373,
+        "treffer": 0.6997,
+        "treffer_elo": 0.6515,
+        "p_eingetreten": 0.5949,
+        "gestellt_vorhergesagt": 0.2538,
+        "gestellt_eingetreten": 0.2466
+      }
     },
     {
       "id": "schlussgang-21039",
@@ -7754,7 +9834,15 @@
         }
       ],
       "n_teilnehmer": 90,
-      "n_kraenze": 16
+      "n_kraenze": 16,
+      "prognose_check": {
+        "n": 254,
+        "treffer": 0.626,
+        "treffer_elo": 0.6181,
+        "p_eingetreten": 0.5314,
+        "gestellt_vorhergesagt": 0.2778,
+        "gestellt_eingetreten": 0.2795
+      }
     },
     {
       "id": "schlussgang-50010",
@@ -7770,7 +9858,15 @@
         }
       ],
       "n_teilnehmer": 107,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 316,
+        "treffer": 0.6424,
+        "treffer_elo": 0.5665,
+        "p_eingetreten": 0.5532,
+        "gestellt_vorhergesagt": 0.2329,
+        "gestellt_eingetreten": 0.3196
+      }
     },
     {
       "id": "schlussgang-50988",
@@ -7786,7 +9882,15 @@
         }
       ],
       "n_teilnehmer": 30,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 90,
+        "treffer": 0.8444,
+        "treffer_elo": 0.6222,
+        "p_eingetreten": 0.6706,
+        "gestellt_vorhergesagt": 0.2377,
+        "gestellt_eingetreten": 0.2111
+      }
     },
     {
       "id": "schlussgang-52071",
@@ -7802,7 +9906,15 @@
         }
       ],
       "n_teilnehmer": 66,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 191,
+        "treffer": 0.7277,
+        "treffer_elo": 0.6911,
+        "p_eingetreten": 0.607,
+        "gestellt_vorhergesagt": 0.1912,
+        "gestellt_eingetreten": 0.2094
+      }
     },
     {
       "id": "schlussgang-52038",
@@ -7818,7 +9930,15 @@
         }
       ],
       "n_teilnehmer": 149,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 439,
+        "treffer": 0.7153,
+        "treffer_elo": 0.6196,
+        "p_eingetreten": 0.5901,
+        "gestellt_vorhergesagt": 0.2191,
+        "gestellt_eingetreten": 0.2323
+      }
     },
     {
       "id": "schlussgang-46147",
@@ -7834,7 +9954,15 @@
         }
       ],
       "n_teilnehmer": 59,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 165,
+        "treffer": 0.5818,
+        "treffer_elo": 0.5636,
+        "p_eingetreten": 0.4737,
+        "gestellt_vorhergesagt": 0.3706,
+        "gestellt_eingetreten": 0.2606
+      }
     },
     {
       "id": "schlussgang-50715",
@@ -7850,7 +9978,15 @@
         }
       ],
       "n_teilnehmer": 30,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 87,
+        "treffer": 0.7011,
+        "treffer_elo": 0.6322,
+        "p_eingetreten": 0.5934,
+        "gestellt_vorhergesagt": 0.2115,
+        "gestellt_eingetreten": 0.1264
+      }
     },
     {
       "id": "schlussgang-48341",
@@ -7866,7 +10002,15 @@
         }
       ],
       "n_teilnehmer": 115,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 322,
+        "treffer": 0.7267,
+        "treffer_elo": 0.6708,
+        "p_eingetreten": 0.6149,
+        "gestellt_vorhergesagt": 0.1881,
+        "gestellt_eingetreten": 0.1491
+      }
     },
     {
       "id": "schlussgang-51612",
@@ -7882,7 +10026,15 @@
         }
       ],
       "n_teilnehmer": 69,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 207,
+        "treffer": 0.715,
+        "treffer_elo": 0.6667,
+        "p_eingetreten": 0.6109,
+        "gestellt_vorhergesagt": 0.155,
+        "gestellt_eingetreten": 0.1449
+      }
     },
     {
       "id": "schlussgang-51858",
@@ -7898,7 +10050,15 @@
         }
       ],
       "n_teilnehmer": 54,
-      "n_kraenze": 0
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 154,
+        "treffer": 0.6558,
+        "treffer_elo": 0.6364,
+        "p_eingetreten": 0.5568,
+        "gestellt_vorhergesagt": 0.2195,
+        "gestellt_eingetreten": 0.2532
+      }
     }
   ],
   "kommende": [
@@ -7946,5 +10106,25 @@
       "teilverband": "Innerschweiz",
       "teilverband_quelle": "vorausgabe"
     }
-  ]
+  ],
+  "prognose_check_saisons": {
+    "2025": {
+      "n": 37159,
+      "treffer": 0.6766,
+      "treffer_elo": 0.6113,
+      "p_eingetreten": 0.5674,
+      "gestellt_vorhergesagt": 0.2198,
+      "gestellt_eingetreten": 0.2175,
+      "n_feste": 137
+    },
+    "2026": {
+      "n": 36610,
+      "treffer": 0.6901,
+      "treffer_elo": 0.6125,
+      "p_eingetreten": 0.5824,
+      "gestellt_vorhergesagt": 0.2043,
+      "gestellt_eingetreten": 0.2105,
+      "n_feste": 133
+    }
+  }
 }

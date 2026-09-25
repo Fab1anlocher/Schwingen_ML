@@ -28,7 +28,7 @@ Verbesserung, egal wie aufwendig es ist.
 | Seite | Was man sieht |
 |---|---|
 | **Prognose** | Zwei Schwinger wählen → Sieg-A/Gestellt/Sieg-B-Wahrscheinlichkeit mit Merkmalsbeiträgen, Kopf-an-Kopf-Historie, teilbarer Link (`?a=…&b=…`). |
-| **Feste** | Kommende Feste der nächsten 60 Tage (je veröffentlichter Paarung Prognose + informative Quote; ohne Startliste keine Prognose). **Rückblick** je Saison: Festsieger, vergebene Kränze und Teilnehmer laut Schlussrangliste. |
+| **Feste** | Kommende Feste der nächsten 60 Tage (je veröffentlichter Paarung Prognose + informative Quote; ohne Startliste keine Prognose). **Rückblick** je Saison: Festsieger, vergebene Kränze und Teilnehmer laut Schlussrangliste, dazu der **Prognose-Check**: wie oft die Prognose je Fest lag, mit dem Modell von vor der Saison, gegen die reine Elo-Prognose. |
 | **Schwinger** | Alle erfassten Schwinger, durchsuchbar, nach Elo sortiert, mit Kränzen seit 2023. Profil: Verband, Klub, Festsiege, Überraschungs-Index, ähnliche Schwinger. Getrennte Namensvettern sind gekennzeichnet. |
 | **Typen** | K-Means-Clustering über das volle Profil der Porträt-Schwinger, Anzahl per Silhouette-Score, PCA-Streudiagramm. |
 | **Karte** | Choroplethen-Karte (Elo-Schnitt, Siegquote, Anteil Top-Schwinger, Kaderbreite) je Kanton, Bern nach seinen 6 Gauverbänden. Verband aus Porträt oder Schwingklub, gezählt ab 5 Gängen. |
@@ -257,6 +257,7 @@ pipeline/                  Python-Datenpipeline
   modell.py                  Prognosemodell: zweistufiges Boosting (oder LR), Symmetrie
   train.py                   Training + zeitliche Evaluation, Merkmalswichtigkeit
   benchmark.py               5-Wege-Modellvergleich (Accuracy/Brier/MAE/MSE)
+  prognose_check.py          Rückblick je Fest: Treffer mit dem Modell von vor der Saison
   metriken.py                MAE/MSE, Gestellt-Kalibrierung
   ranglisten.py              Schlussranglisten: Kränze, Klub, Verband, Festsiege
   verbandsschaetzung.py      Teilverband aus Festbesuchen (nur Anzeige)
@@ -485,6 +486,28 @@ obersten Zehntel (51.7 % vorhergesagt, 51.7 % eingetreten).
   vertauscht wird.
 
 Orlik gegen Staudenmann steht jetzt bei 13 / 58 / 29 %.
+
+### Prognose-Check je Fest
+
+Wie gut lag die Prognose an einem bestimmten Fest? `prognose_check.py`
+rechnet jede auswertbare Saison mit dem Modell, das **vor** ihr galt (trainiert
+auf allem davor), und dem Stand jedes Schwingers vor seinem Fest — also genau
+die Prognose, die man damals hätte sehen können. Je Fest stehen in
+`events.json`: Trefferquote (wahrscheinlichster Ausgang trat ein), dieselbe
+für die reine Elo-Prognose, die mittlere Wahrscheinlichkeit für den
+tatsächlichen Ausgang und Gestellt vorhergesagt/eingetreten; je Saison
+`prognose_check_saisons`. Ausgewertet werden die Holdout-Saison und jede
+frühere, vor der mindestens eine halbe eingeschwungene Saison liegt (heute
+2025 und 2026).
+
+| Saison | Gänge | Treffer | Elo | P(tatsächlicher Ausgang) |
+|---|---:|---:|---:|---:|
+| 2025 | 37'159 | 67.9 % | 61.1 % | 56.9 % |
+| 2026 | 36'610 | 69.1 % | 61.3 % | 58.1 % |
+
+Kantonal- und Teilverbandsfeste liegen meist bei 68–75 %, Bergfeste und das
+Eidgenössische deutlich tiefer (58–62 %): dort treffen mehr Spitzenschwinger
+aufeinander, und es wird öfter gestellt.
 
 ### Modellgüte im Verlauf
 
