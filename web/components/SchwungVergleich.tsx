@@ -2,15 +2,16 @@
 
 // Ø Elo je bevorzugtem Schwung als Punkt-Linien-Diagramm gegen den Gesamtschnitt.
 
+import { useBreite } from "@/lib/useBreite";
+
 export interface SchwungStat {
   schwung: string;
   n: number;
   eloAvg: number;
 }
 
-const W = 640;
 const ZEILE_H = 34;
-const PAD = { links: 130, rechts: 56, oben: 8, unten: 8 };
+const PAD = { rechts: 40, oben: 22, unten: 8 };
 
 /** Cleveland-Dot-Plot statt Balken: Elo-Durchschnitte liegen alle in einer
  * engen Bandbreite (~1500-1900) -- ein Balken ab 0 würde die echten
@@ -25,8 +26,10 @@ export function SchwungVergleich({
   daten: SchwungStat[];
   gesamtschnitt: number;
 }) {
+  const [ref, W] = useBreite(640);
   if (daten.length === 0) return null;
   const H = daten.length * ZEILE_H + PAD.oben + PAD.unten;
+  const links = Math.min(130, Math.round(W * 0.32));
 
   const werte = daten.map((d) => d.eloAvg).concat(gesamtschnitt);
   const xMin = Math.min(...werte);
@@ -34,11 +37,16 @@ export function SchwungVergleich({
   const puffer = (xMax - xMin) * 0.15 || 20;
   const x0 = xMin - puffer;
   const x1 = xMax + puffer;
-  const xScale = (v: number) => PAD.links + ((v - x0) / (x1 - x0)) * (W - PAD.links - PAD.rechts);
+  const xScale = (v: number) => links + ((v - x0) / (x1 - x0)) * (W - links - PAD.rechts);
 
   return (
-    <div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="schwung-svg" role="img" aria-label="Ø Elo je bevorzugtem Schwung">
+    <div ref={ref}>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        className="schwung-svg"
+        role="img"
+        aria-label="Ø Elo je bevorzugtem Schwung"
+      >
         <line
           x1={xScale(gesamtschnitt)}
           x2={xScale(gesamtschnitt)}
@@ -48,7 +56,7 @@ export function SchwungVergleich({
           strokeWidth={1.5}
           strokeDasharray="4 4"
         />
-        <text x={xScale(gesamtschnitt)} y={11} textAnchor="middle" className="schwung-referenz">
+        <text x={xScale(gesamtschnitt)} y={13} textAnchor="middle" className="schwung-referenz">
           Ø {gesamtschnitt.toFixed(0)}
         </text>
         {daten.map((d, i) => {

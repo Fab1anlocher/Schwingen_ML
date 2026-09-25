@@ -8,8 +8,9 @@
 // Der Verlauf hat einen Eintrag je Tag UND Modellstand: wechselt das Modell
 // an einem Tag, stehen dort mehrere Punkte übereinander (senkrechter Sprung).
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { datumKurz } from "@/lib/labels";
+import { useBreite } from "@/lib/useBreite";
 
 export interface VerlaufLauf {
   datum: string;
@@ -19,6 +20,8 @@ export interface VerlaufLauf {
   log_loss: number;
   accuracy: number;
   n_gaenge: number | null;
+  /** Log-Loss der reinen Elo-Prognose auf denselben Testgängen. */
+  baseline_log_loss?: number | null;
 }
 
 // Breite = gemessene Breite des Containers (1 SVG-Einheit = 1 px), damit die
@@ -39,32 +42,31 @@ export function VerlaufDiagramm({
   titel,
   wert,
   format,
+  schwelle,
 }: {
   laeufe: VerlaufLauf[];
   titel: string;
   wert: (l: VerlaufLauf) => number;
   format: (v: number) => string;
+  /** Optionale waagrechte Alarmgrenze (gestrichelt, beschriftet). */
+  schwelle?: number;
 }) {
   const [hover, setHover] = useState<number | null>(null);
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const [W, setW] = useState(W_START);
-
-  useEffect(() => {
-    const el = wrapRef.current;
-    if (!el) return;
-    const beob = new ResizeObserver(([e]) => setW(Math.max(280, Math.round(e.contentRect.width))));
-    beob.observe(el);
-    return () => beob.disconnect();
-  }, [laeufe.length < 2]); // der Container existiert erst ab zwei Läufen
+  const [wrapRef, W] = useBreite(W_START, 280);
 
   const skala = useMemo(() => {
     const xs = laeufe.map((l) => tag(l.datum));
-    const ys = laeufe.map(wert);
+    const ys = [...laeufe.map(wert), ...(schwelle !== undefined ? [schwelle] : [])];
     const [x0, x1] = [Math.min(...xs), Math.max(...xs)];
     const [y0, y1] = [Math.min(...ys), Math.max(...ys)];
     const puffer = (y1 - y0) * 0.12 || Math.abs(y0) * 0.01 || 0.01;
-    return { x0, x1: x1 === x0 ? x0 + 1 : x1, y0: y0 - puffer, y1: y1 + puffer };
-  }, [laeufe, wert]);
+    return {
+      x0,
+      x1: x1 === x0 ? x0 + 1 : x1,
+      y0: y0 - puffer,
+      y1: y1 + puffer,
+    };
+  }, [laeufe, wert, schwelle]);
 
   if (laeufe.length < 2) return null;
 
@@ -81,7 +83,9 @@ export function VerlaufDiagramm({
   });
   const wechsel = [...wechselJeTag.values()];
 
-  const pfad = laeufe.map((l, i) => `${i ? "L" : "M"}${px(l).toFixed(1)},${py(wert(l)).toFixed(1)}`).join(" ");
+  const pfad = laeufe
+    .map((l, i) => `${i ? "L" : "M"}${px(l).toFixed(1)},${py(wert(l)).toFixed(1)}`)
+    .join(" ");
   const aktiv = hover !== null ? laeufe[hover] : null;
   const ticks = [0, 0.5, 1].map((f) => skala.y0 + f * (skala.y1 - skala.y0));
 
@@ -110,7 +114,12 @@ export function VerlaufDiagramm({
             : `zuletzt ${format(wert(laeufe[laeufe.length - 1]))}`}
         </span>
       </div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="verlauf-svg" role="img" aria-label={`${titel} im Verlauf`}>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        className="verlauf-svg"
+        role="img"
+        aria-label={`${titel} im Verlauf`}
+      >
         {ticks.map((v) => (
           <g key={v}>
             <line x1={PAD.links} x2={W - PAD.rechts} y1={py(v)} y2={py(v)} stroke="var(--border)" />
@@ -134,7 +143,34 @@ export function VerlaufDiagramm({
             </text>
           </g>
         ))}
-        <path d={pfad} fill="none" stroke="var(--accent-2)" strokeWidth={2} strokeLinejoin="round" />
+        {schwelle !== undefined && (
+          <g>
+            <line
+              x1={PAD.links}
+              x2={W - PAD.rechts}
+              y1={py(schwelle)}
+              y2={py(schwelle)}
+              stroke="var(--accent)"
+              strokeDasharray="5 4"
+              strokeWidth={1.5}
+            />
+            <text
+              x={W - PAD.rechts}
+              y={py(schwelle) - 5}
+              textAnchor="end"
+              className="streu-achsentext"
+            >
+              Alarmgrenze {format(schwelle)}
+            </text>
+          </g>
+        )}
+        <path
+          d={pfad}
+          fill="none"
+          stroke="var(--accent-2)"
+          strokeWidth={2}
+          strokeLinejoin="round"
+        />
         {laeufe.map((l, i) => (
           <circle
             key={`${l.datum}-${i}`}

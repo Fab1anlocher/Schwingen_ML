@@ -15,7 +15,9 @@ export const TEILVERBAENDE = [
   "Suedwestschweiz",
 ] as const;
 
-const TEILVERBAND_TEXT: Record<string, string> = { Suedwestschweiz: "Südwestschweiz" };
+const TEILVERBAND_TEXT: Record<string, string> = {
+  Suedwestschweiz: "Südwestschweiz",
+};
 
 export function teilverbandName(verband: string): string {
   return TEILVERBAND_TEXT[verband] ?? verband;
@@ -57,6 +59,35 @@ export function schwungName(name: string): string {
 /** Ganze Zahl im Schweizer Format: 133'611. */
 export function zahl(n: number): string {
   return Math.round(n).toLocaleString("de-CH");
+}
+
+/** Name und Inhalt eines Modellstands (report_verlauf.json: Modelltyp +
+ *  Merkmalsversion) für die Meilensteine der Analyse-Seite. */
+export function modellStandText(typ: string, version: number): { name: string; was: string } {
+  const bekannt: Record<string, { name: string; was: string }> = {
+    "lr|1": {
+      name: "Lineares Modell",
+      was: "Logistische Regression auf Elo, Form, Kranzstatus, Physis, Stil und direkten Duellen",
+    },
+    "lr|2": {
+      name: "+ Stand vor dem Fest, Gestellt-Neigung",
+      was: "alle Gänge eines Fests mit dem Stand davor; wie oft ein Schwinger stellt; Erfahrung logarithmisch",
+    },
+    "lr|3": {
+      name: "+ Spitzenpaarungen, Gestellt-Bilanz",
+      was: "wie stark der Schwächere eines Paars ist; wie oft genau dieses Paar gestellt hat",
+    },
+    "gbm|3": {
+      name: "Gradient Boosting",
+      was: "zweistufig (erst Gestellt, dann Sieger) mit Monotonie-Vorgaben; jüngere Gänge zählen mehr",
+    },
+  };
+  return (
+    bekannt[`${typ}|${version}`] ?? {
+      name: `${typ === "gbm" ? "Gradient Boosting" : "Lineares Modell"} · Merkmale v${version}`,
+      was: "",
+    }
+  );
 }
 
 /** Anteil 0..1 als ganze Prozent: 0.6897 -> "69%". */

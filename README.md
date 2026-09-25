@@ -32,7 +32,7 @@ Verbesserung, egal wie aufwendig es ist.
 | **Schwinger** | Alle erfassten Schwinger, durchsuchbar, nach Elo sortiert, mit Kränzen seit 2023. Profil: Verband, Klub, Festsiege, Überraschungs-Index, ähnliche Schwinger. Getrennte Namensvettern sind gekennzeichnet. |
 | **Typen** | K-Means-Clustering über das volle Profil der Porträt-Schwinger, Anzahl per Silhouette-Score, PCA-Streudiagramm. |
 | **Karte** | Choroplethen-Karte (Elo-Schnitt, Siegquote, Anteil Top-Schwinger, Kaderbreite) je Kanton, Bern nach seinen 6 Gauverbänden. Verband aus Porträt oder Schwingklub, gezählt ab 5 Gängen. |
-| **Analyse** | Modellgüte vs. Elo-Baseline und im Verlauf, 5-Wege-Benchmark, Konfusionsmatrix, Kalibrierung der Gestellt-Chance, Merkmalswichtigkeit, Physis und Schwünge gegen Elo. |
+| **Analyse** | Die Antwort zuerst (Treffer, Ø Wahrscheinlichkeit für den tatsächlichen Ausgang, Gestellt-Kalibrierung, Testumfang), Rangliste der fünf Ansätze, Treffer je Festtyp (Elo → Modell), Kalibrierung der Gestellt-Chance, Entwicklung des Modells als Meilensteine, tägliche Überwachung mit Alarmgrenze, Merkmalswichtigkeit, Exkurse zu Physis und Schwüngen; Methodik, Konfusionsmatrix und alle Fehlermasse für Fachleute. |
 
 ---
 

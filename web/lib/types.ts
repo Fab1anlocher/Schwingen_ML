@@ -227,7 +227,7 @@ export interface GauverbaendeArtifact {
 }
 
 export interface BenchmarkKandidat {
-  key: "kranz_heuristik" | "elo_baseline" | "ml_ohne_elo" | "ml_komplett";
+  key: "kranz_heuristik" | "elo_baseline" | "ml_ohne_elo" | "lr_komplett" | "ml_komplett";
   label: string;
   accuracy: number;
   brier_score: number;
