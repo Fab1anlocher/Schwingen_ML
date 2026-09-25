@@ -149,8 +149,11 @@ Verband 706/706; Schwünge nur 418/706 — die Quelle führt sie nicht immer).
   „Quelle: ESV"), für 480 von 481 Festen seit 2023 — mit Schwingklub, Wohnort,
   Senn/Turner, Kranzabzeichen und Kranz JEDES Teilnehmers. Umgesetzt
   (`scrape/schlussgang_rangliste.py`, `ranglisten.py`): echte **Kranzzahlen
-  seit 2023**, Klub/Kranzstatus/Senn-Turner auch ohne Porträt, Teilverband
-  und Gauverband über den Klub (Leave-one-out 99.75 %). Was die Ranglisten
+  seit 2023** (481 Feste, 0 unlesbar, 99.4 % der Namen zugeordnet; Moser
+  z.B. 33), Klub/Kranzstatus/Senn-Turner auch ohne Porträt, Teilverband und
+  Gauverband über den Klub (Leave-one-out 99.1 %; gemessener Verband bei
+  92.5 % der Aktiven statt 29 %). Lücke: Freiburger Kantonalfest 2023 ohne
+  Status-Einträge in der Quelle. Was die Ranglisten
   nicht enthalten: Gewicht, Grösse, Jahrgang (nur bei Namensvettern) — Physis
   bleibt für Schwinger ohne Porträt unbekannt.
 

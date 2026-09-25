@@ -385,12 +385,16 @@ Senn/Turner, Kranzabzeichen und dem Status an diesem Fest. Daraus:
   Markierte hatte mehr Punkte als jeder Unmarkierte. Das ESAF markiert nur
   Neueidgenossen; über dieselbe Schwelle zählen die bisherigen Eidgenossen
   mit (ESAF 2025: 17 + 23 = 40 von 269, 14.9 %). Kranzquote an Kranzfesten
-  14–18 %, wie erwartet.
+  im Median 15.6–16.0 % über alle 481 Feste, wie erwartet. Einzige Lücke:
+  die Rangliste des Freiburger Kantonalfests 2023 führt gar keine Status-
+  Einträge — dessen Kränze fehlen in der Zählung (die Selbstprüfung weist
+  das Fest als „Kranzfest ohne Kranz" aus, statt eine Schwelle zu raten).
 * **Schwingklub, Senn/Turner, Kranzstatus** auch für Schwinger ohne Porträt
   (z.B. Fritz Ramseier: Eidgenosse, ohne Porträt bisher als „kein" geführt).
 * **Teilverband und Gauverband über den Klub**: jeder Klub gehört genau einem
-  Verband an, gelernt aus den Porträts (136 Klubs, kein Widerspruch), geprüft
-  per Leave-one-out an den Porträt-Schwingern (99.75 % in der Stichprobe).
+  Verband an, gelernt aus den Porträts (131 Klubs), geprüft per Leave-one-out
+  an 580 Porträt-Schwingern: 99.1 % richtig. Ergebnis: bei 98.9 % der
+  Aktiven ist der Klub bekannt, bei 92.5 % der Verband gemessen (vorher 29 %).
 
 Alles nur für Anzeige und Suche; das Modell bleibt bei seinen gemessenen
 Merkmalen. Selbstprüfungen je Lauf stehen in `report.json` →
