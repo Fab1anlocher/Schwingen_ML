@@ -11,6 +11,7 @@ import type {
   BenchmarkArtifact,
   ClusterArtifact,
 } from "./types";
+import type { VerlaufLauf } from "@/components/VerlaufDiagramm";
 
 async function ladeJson<T>(pfad: string): Promise<T> {
   const res = await fetch(pfad, { cache: "no-store" });
@@ -31,9 +32,26 @@ export async function ladeSchwinger(): Promise<Schwinger[]> {
   return obj.schwinger;
 }
 
-export async function ladeFeatureImportance(): Promise<FeatureImportanceEntry[]> {
-  const obj = await ladeJson<{ features: FeatureImportanceEntry[] }>(
+/** Merkmalswichtigkeit samt Messart: "koeffizient" (LR) oder "permutation"
+ *  (Boosting: Anstieg des Log-Loss ohne das Merkmal). Ältere Artefakte ohne
+ *  Angabe stammen von der LR. */
+export async function ladeFeatureImportance(): Promise<{
+  art: "koeffizient" | "permutation";
+  features: FeatureImportanceEntry[];
+}> {
+  const obj = await ladeJson<{ art?: "koeffizient" | "permutation"; features: FeatureImportanceEntry[] }>(
     "/data/feature_importance.json"
   );
-  return obj.features;
+  return { art: obj.art ?? "koeffizient", features: obj.features };
+}
+
+/** Verlauf der Modellgüte je Tag (report_verlauf.json, Roadmap T1); leer, wenn
+ *  die Datei (noch) fehlt. */
+export async function ladeVerlauf(): Promise<VerlaufLauf[]> {
+  try {
+    const obj = await ladeJson<{ laeufe: VerlaufLauf[] }>("/data/report_verlauf.json");
+    return obj.laeufe ?? [];
+  } catch {
+    return [];
+  }
 }

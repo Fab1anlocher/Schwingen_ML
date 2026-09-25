@@ -5,7 +5,7 @@ Ablauf:
   2. Labels ableiten + deduplizieren + validieren (§4.3).
   3. Elo-Baseline chronologisch berechnen (leak-freie Pre-Gang-Ratings).
   4. Merkmale bilden (leak-frei, augmentiert).
-  5. Logistic Regression trainieren + zeitlich evaluieren.
+  5. Prognosemodell trainieren (zweistufiges Boosting, s. modell.py) + zeitlich evaluieren.
   6. 4-Wege-Benchmark (Heuristik/Elo/ML ohne Elo/ML komplett) auf demselben Holdout.
   7. Schwingertypen per K-Means-Clustering (Physis + Stil).
   8. Artefakte als JSON exportieren.
@@ -382,7 +382,7 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
     X, y, meta = baue_features(gaenge, snapshots, schwinger, augment=True)
     print(f"      {len(X)} Trainingsbeispiele x {len(X[0]) if X else 0} Merkmale", flush=True)
 
-    print("[5/8] Logistic Regression trainieren + zeitlich evaluieren ...", flush=True)
+    print("[5/8] Prognosemodell trainieren + zeitlich evaluieren ...", flush=True)
     print("      (lade sklearn – beim ersten Mal 10-30 s) ...", flush=True)
     from .train import (
         einschwing_ende,
@@ -394,7 +394,7 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
     from .benchmark import fuehre_benchmark_durch
     from .clustering import berechne_cluster
     train_res = trainiere(X, y, meta)
-    fi = feature_wichtigkeit(train_res["modell"], train_res["sigma"])
+    fi = feature_wichtigkeit(train_res)
     # Baseline auf GENAU den Gängen messen, auf denen auch das Modell bewertet
     # wurde -- sonst vergleicht "schlägt die Baseline" zwei verschiedene Mengen.
     holdout_jahr = bestimme_holdout_jahr(meta)
@@ -414,7 +414,9 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
     if np_.get("n"):
         print(f"      Nur Porträt-gegen-Porträt (n={np_['n']}): Modell Acc={np_['accuracy']:.4f} "
               f"| Baseline Acc={baseline_portraet['accuracy']:.4f}", flush=True)
-    print(f"      Modell   Log-Loss={train_res['log_loss']:.4f} "
+    baeume = ", ".join(f"{k} {v}" for k, v in (train_res["n_baeume"] or {}).items()) or "-"
+    print(f"      Modell ({train_res['modell_typ']}, Bäume: {baeume}) "
+          f"Log-Loss={train_res['log_loss']:.4f} "
           f"Acc={train_res['accuracy']:.4f} (Holdout {train_res['holdout_jahr']}, "
           f"Training ab {train_res.get('training_ab')})", flush=True)
     kal = train_res.get("kalibrierung") or {}
@@ -422,7 +424,7 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
         print(f"      Gestellt vorhergesagt {kal['vorhergesagt']:.1%} / eingetreten "
               f"{kal['eingetreten']:.1%}, ECE {kal['ece']:.2%}, AUC {kal['auc']}", flush=True)
 
-    print("[6/8] 4-Wege-Benchmark (Heuristik/Elo/ML ohne Elo/ML komplett) ...", flush=True)
+    print("[6/8] Benchmark (Heuristik/Elo/ML ohne Elo/LR/Produktionsmodell) ...", flush=True)
     benchmark_res = fuehre_benchmark_durch(X, y, meta)
     if benchmark_res is None:
         print("      übersprungen (Datenbasis deckt nur eine Saison ab, kein sinnvoller Split)", flush=True)

@@ -109,7 +109,7 @@ def test_fuehre_benchmark_durch_ignoriert_augmentierte_testzeilen():
     # Nur die 4 ECHTEN Testgänge zählen, nicht die 4 gespiegelten.
     assert ergebnis["n_test"] == 4
     assert set(ergebnis["kandidaten"].keys()) == {
-        "kranz_heuristik", "elo_baseline", "ml_ohne_elo", "ml_komplett",
+        "kranz_heuristik", "elo_baseline", "ml_ohne_elo", "lr_komplett", "ml_komplett",
     }
     for werte in ergebnis["kandidaten"].values():
         assert 0.0 <= werte["accuracy"] <= 1.0

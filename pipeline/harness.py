@@ -13,9 +13,11 @@ aus den Rohdaten baut -- mit einer Einschränkung: die Reihenfolge der Gänge
 INNERHALB eines Fests ist nicht rekonstruierbar. Seit alle Merkmale den Stand
 vor dem Fest nutzen (Merkmalsversion 2), spielt das für die Merkmale keine
 Rolle mehr; die Elo-Fortschreibung innerhalb eines Fests weicht minimal ab
-(Stand Merkmalsversion 3: Test-Log-Loss hier 0.7400, im echten Lauf 0.7404).
+(Stand Merkmalsversion 3 mit Logistic Regression: Test-Log-Loss hier 0.7400,
+im echten Lauf 0.7402; mit dem zweistufigen Boosting beide 0.7207).
 
-Vorgehen für eine Modelländerung (so entstanden Merkmalsversion 2 und 3):
+Vorgehen für eine Modelländerung (so entstanden Merkmalsversion 2 und 3 und
+das Boosting, Roadmap M1):
 
     from pipeline.harness import lade, bewerte
     X, y, meta = lade()                      # Merkmale wie im echten Lauf
@@ -85,13 +87,14 @@ def lade(artefakte: Path = ARTEFAKTE):
     return np.asarray(X), np.asarray(y), meta
 
 
-def bewerte(X, y, meta, jahre: tuple[int, ...] = (2025, 2026)) -> dict[int, dict]:
+def bewerte(X, y, meta, jahre: tuple[int, ...] = (2025, 2026), typ: str | None = None) -> dict[int, dict]:
     """Je Testjahr: trainieren auf allem davor (echte Trainingsmaske inkl.
-    Einschwingphase), bewerten auf diesem Jahr ohne Spiegelzeilen."""
-    from sklearn.linear_model import LogisticRegression
+    Einschwingphase), bewerten auf diesem Jahr ohne Spiegelzeilen.
+    ``typ``: "gbm" oder "lr"; Standard wie die Pipeline (config.MODELL_TYP)."""
     from sklearn.metrics import accuracy_score, log_loss, roc_auc_score
 
-    from .config import SEED
+    from .config import MODELL_TYP
+    from .modell import trainiere_modell
     from .train import trainings_maske
 
     X, y = np.asarray(X), np.asarray(y)
@@ -101,11 +104,8 @@ def bewerte(X, y, meta, jahre: tuple[int, ...] = (2025, 2026)) -> dict[int, dict
     for j in jahre:
         train = trainings_maske(meta, y, j) & (jahr < j)
         test = (jahr == j) & ~gespiegelt
-        mu, sd = X[train].mean(0), X[train].std(0)
-        sd[sd == 0] = 1.0
-        modell = LogisticRegression(max_iter=3000, C=1.0, random_state=SEED)
-        modell.fit((X[train] - mu) / sd, y[train])
-        p = modell.predict_proba((X[test] - mu) / sd)
+        datum_tr = [m["datum"] for m, drin in zip(meta, train) if drin]
+        p = trainiere_modell(X[train], y[train], datum_tr, typ or MODELL_TYP).predict_proba(X[test])
         out[j] = {
             "log_loss": round(float(log_loss(y[test], p, labels=[0, 1, 2])), 4),
             "accuracy": round(float(accuracy_score(y[test], p.argmax(1))), 4),

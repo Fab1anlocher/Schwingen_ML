@@ -48,7 +48,11 @@ def test_kopf_an_kopf_ist_antisymmetrisch():
     """Die API liefert aus Sicht der kleineren ID -- A>B muss das Vorzeichen drehen."""
     treffer = [{"event_id": "e1", "ergebnis": "sieg_a"}, {"event_id": "e2", "ergebnis": "sieg_a"}]
     assert _h2h_python("a|1", "b|2", treffer) > 0
-    assert math.isclose(_h2h_python("a|1", "b|2", treffer), -_h2h_python("b|2", "a|1", treffer))
+    # Exakt, nicht nur ungefähr: ein Baum kann seine Schwelle zwischen zwei
+    # im letzten Bit verschiedene Darstellungen desselben Werts legen.
+    for ergebnisse in (["sieg_b"], ["sieg_a", "gestellt", "sieg_b", "sieg_a"], ["gestellt"] * 3):
+        tr = [{"event_id": f"e{i}", "ergebnis": e} for i, e in enumerate(ergebnisse)]
+        assert _h2h_python("a|1", "b|2", tr) == -_h2h_python("b|2", "a|1", tr)
     assert _h2h_python("a|1", "b|2", []) == 0.0
 
 

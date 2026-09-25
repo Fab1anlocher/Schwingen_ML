@@ -1,7 +1,19 @@
-// Clientseitige Logistic-Regression-Inferenz (§7, NFR-2: < 500 ms).
-// Spiegelt pipeline/features._feature_vektor und pipeline/train exakt.
+// Clientseitige Inferenz (§7, NFR-2: < 500 ms): Merkmalsvektor bauen und das
+// Modell aus model.json auswerten -- zweistufiges Gradient Boosting (Bäume)
+// oder, bei älteren Artefakten, Logistic Regression. Spiegelt pipeline/features.py
+// (_feature_vektor) und pipeline/paritaet.py (json_inferenz_wie_app) exakt;
+// die CI prüft das (npm run paritaet).
 
-import type { ModelArtifact, Schwinger, Prognose, Klasse, Beitrag, PaarHistorie } from "./types";
+import type {
+  BaumKnoten,
+  BoostingStufe,
+  ModelArtifact,
+  Schwinger,
+  Prognose,
+  Klasse,
+  Beitrag,
+  PaarHistorie,
+} from "./types";
 import { KEINE_HISTORIE } from "./kopfAnKopf";
 
 // Spiegelt pipeline/config.PAAR_GESTELLT_K -- die Paritätsprüfung fällt um,
@@ -143,9 +155,42 @@ function softmax(logits: number[]): number[] {
   return exp.map((e) => e / sum);
 }
 
-function wahrscheinlichkeiten(model: ModelArtifact, z: number[]): number[] {
-  const logits = model.coef.map(
-    (row, k) => row.reduce((s, w, i) => s + w * z[i], 0) + model.intercept[k]
+/** Ein Baum: links, wenn x[Merkmal] <= Schwelle; Blatt = Zahl. */
+function baumWert(baum: BaumKnoten[], x: number[]): number {
+  let i = 0;
+  for (;;) {
+    const k = baum[i];
+    if (typeof k === "number") return k;
+    i = x[k[0]] <= k[1] ? k[2] : k[3];
+  }
+}
+
+/** Eine Boosting-Stufe: Sigmoid(Startwert + Summe der Bäume). Reihenfolge der
+ *  Summe wie in pipeline/paritaet.py, damit beide bitgleich rechnen. */
+function stufe(s: BoostingStufe, x: number[]): number {
+  let r = s.basis;
+  for (const baum of s.baeume) r += baumWert(baum, x);
+  return 1 / (1 + Math.exp(-r));
+}
+
+/** P(Sieg A, Gestellt, Sieg B) für einen Merkmalsvektor x (Rohwerte).
+ *
+ *  Boosting (zweistufig, s. pipeline/modell.py): g = P(Gestellt),
+ *  s = P(Sieg A | entschieden), beide gemittelt mit der gespiegelten Paarung
+ *  x' ("B gegen A") -- so ist die Prognose exakt paar-symmetrisch.
+ *  LR: standardisieren, linear, Softmax. */
+function wahrscheinlichkeiten(model: ModelArtifact, x: number[]): number[] {
+  if (model.typ === "gradient_boosting_zweistufig") {
+    const { gestellt, sieg } = model.stufen!;
+    const xs = x.map((v, i) => v * model.spiegel![i]);
+    const g = (stufe(gestellt, x) + stufe(gestellt, xs)) / 2;
+    const s = (stufe(sieg, x) + (1 - stufe(sieg, xs))) / 2;
+    return [(1 - g) * s, g, (1 - g) * (1 - s)];
+  }
+  const { mu, sigma } = model.standardisierung;
+  const z = x.map((xi, i) => (xi - mu[i]) / (sigma[i] || 1));
+  const logits = model.coef!.map(
+    (row, k) => row.reduce((s, w, i) => s + w * z[i], 0) + model.intercept![k]
   );
   return softmax(logits);
 }
@@ -223,10 +268,8 @@ export function prognostiziere(
     0,
     model.features.length
   );
-  const { mu, sigma } = model.standardisierung;
-  const z = x.map((xi, i) => (xi - mu[i]) / (sigma[i] || 1));
-
-  const probs = wahrscheinlichkeiten(model, z);
+  const { mu } = model.standardisierung;
+  const probs = wahrscheinlichkeiten(model, x);
   const p: Record<Klasse, number> = {} as any;
   model.klassen.forEach((kl, i) => (p[kl] = probs[i]));
 
@@ -235,8 +278,9 @@ export function prognostiziere(
   (Object.keys(p) as Klasse[]).forEach((kl) => (quote[kl] = 1 / Math.max(p[kl], 1e-6)));
 
   // Erklärbarkeit (FR-3): Gegenprobe je Merkmal -- was käme heraus, wenn
-  // genau dieses Merkmal auf seinem Trainingsmittel stünde (z=0), alle
-  // anderen unverändert? Bei Unterschiedsmerkmalen ist das Mittel 0 (die
+  // genau dieses Merkmal auf seinem Trainingsmittel stünde, alle anderen
+  // unverändert? Funktioniert für jedes Modell; beim Boosting wirken Merkmale
+  // aber zusammen, die Beiträge addieren sich darum nicht exakt zur Prognose. Bei Unterschiedsmerkmalen ist das Mittel 0 (die
   // Spiegelzeilen gleichen es aus), also "kein Unterschied zwischen den
   // beiden"; bei symmetrischen Merkmalen die durchschnittliche Paarung.
   // In Prozentpunkten, derselben Einheit wie die Zahlen oben auf der Seite.
@@ -247,9 +291,9 @@ export function prognostiziere(
     .map((feat, i) => ({ feat, i }))
     .filter(({ feat }) => !beruhtAufFehlendenDaten(feat, a, b, paar))
     .map(({ feat, i }): Beitrag => {
-      const zOhneMerkmal = z.slice();
-      zOhneMerkmal[i] = 0;
-      const ohne = wahrscheinlichkeiten(model, zOhneMerkmal);
+      const xOhneMerkmal = x.slice();
+      xOhneMerkmal[i] = mu[i];
+      const ohne = wahrscheinlichkeiten(model, xOhneMerkmal);
       const titel = BEITRAG_TEXT[feat]?.titel ?? model.feature_labels[feat] ?? feat;
       const basis = { titel, unterzeile: unterzeile(feat, a, b, paar) };
       if (SYMMETRISCH.has(feat)) {

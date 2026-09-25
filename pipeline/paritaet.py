@@ -34,6 +34,7 @@ from datetime import date
 from pathlib import Path
 
 from .features import MERKMALE_JE_VERSION, feature_vektor_fuer_prognose, _kopf_an_kopf_vorteil
+from .modell import TYP_GBM, TYP_LR
 from .schema import Schwinger, hat_portraet
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -52,14 +53,45 @@ def _rating(ratings: dict, elo_start: float, sid: str) -> dict:
     return ratings.get(sid) or {"elo": elo_start, "n_gaenge": 0}
 
 
+def _baum_wert(baum: list, x: list[float]) -> float:
+    """Ein exportierter Baum (export._baum_json): links, wenn x <= Schwelle."""
+    i = 0
+    while True:
+        k = baum[i]
+        if not isinstance(k, list):
+            return k
+        i = k[2] if x[k[0]] <= k[1] else k[3]
+
+
+def _stufe(stufe: dict, x: list[float]) -> float:
+    """Eine Boosting-Stufe: Sigmoid(basis + Summe der Bäume), Reihenfolge wie
+    in inference.ts, damit beide bitgleich rechnen."""
+    r = stufe["basis"]
+    for baum in stufe["baeume"]:
+        r += _baum_wert(baum, x)
+    return 1.0 / (1.0 + math.exp(-r))
+
+
+def _gbm_wahrscheinlichkeiten(model: dict, x: list[float]) -> list[float]:
+    xs = [xi * si for xi, si in zip(x, model["spiegel"])]
+    st = model["stufen"]
+    g = (_stufe(st["gestellt"], x) + _stufe(st["gestellt"], xs)) / 2
+    s = (_stufe(st["sieg"], x) + (1 - _stufe(st["sieg"], xs))) / 2
+    return [(1 - g) * s, g, (1 - g) * (1 - s)]
+
+
 def json_inferenz_wie_app(model: dict, x: list[float]) -> list[float]:
-    """Zeilengetreue Spiegelung von prognostiziere() in inference.ts.
+    """Zeilengetreue Spiegelung von wahrscheinlichkeiten() in inference.ts.
 
     Inklusive des Kürzens auf die Merkmale, die DIESES model.json kennt --
     ein Modell, das dem Code hinterherhinkt, sieht nur die ersten N.
+    Boosting: zwei Stufen, je gemittelt mit der gespiegelten Paarung,
+    s. modell.py.
     """
     n = len(model["features"])
     x = x[:n]
+    if model.get("typ") == TYP_GBM:
+        return _gbm_wahrscheinlichkeiten(model, x)
     mu, sigma = model["standardisierung"]["mu"], model["standardisierung"]["sigma"]
     z = [(x[i] - mu[i]) / (sigma[i] or 1) for i in range(n)]
     logits = [
@@ -95,6 +127,29 @@ def python_live_merkmale(
 
 # Was Version 1 NICHT kannte -- für das Ableiten eines v1-Modells (s. unten).
 _NUR_AB_V2 = ("merkmal_version", "elo_streuung", "gestellt_basis")
+
+
+def lr_gestalt(model: dict) -> dict:
+    """Ein LR-model.json derselben Merkmale -- für die Übergangsfälle.
+
+    Ist das ausgelieferte Modell selbst eine LR, ist es das. Ist es ein
+    Boosting-Modell, entsteht eine LR-Gestalt mit festen, beliebigen
+    Koeffizienten: geprüft wird ja nicht ihr Inhalt, sondern dass die App ein
+    LR-model.json (das vorige Prod-Modell, oder ein älterer Lauf) weiter
+    richtig rechnet.
+    """
+    if model.get("typ") != TYP_GBM:
+        return model
+    n = len(model["features"])
+    rng = random.Random(11)
+    zeile = [round(rng.uniform(-0.8, 0.8), 6) for _ in range(n)]
+    gestellt = [round(rng.uniform(-0.3, 0.3), 6) for _ in range(n)]
+    return {
+        **{k: v for k, v in model.items() if k not in ("stufen", "spiegel")},
+        "typ": TYP_LR,
+        "coef": [zeile, gestellt, [-v for v in zeile]],
+        "intercept": [0.1, -0.2, 0.1],
+    }
 
 
 def modell_version(model: dict) -> int:
@@ -188,7 +243,13 @@ def erzeuge_faelle(artefakte: Path = ART, n_je_gruppe: int = 40, seed: int = 7) 
     # Ältere Gestalten des ausgelieferten Modells (Übergang: neuer Code,
     # älteres model.json). Paare mit Historie, damit auch Kopf-an-Kopf und
     # Paar-Bilanz dort geprüft werden, wo eine Version sie (noch) nicht kennt.
-    modelle_alt = {f"v{v}": als_modell_version(model, v) for v in range(1, modell_version(model))}
+    # Ältere Versionen immer als LR (so wurden sie ausgeliefert); bei einem
+    # Boosting-Modell zusätzlich die LR der aktuellen Version ("lr") -- das
+    # ist der Übergang vom vorigen Prod-Modell.
+    lr = lr_gestalt(model)
+    modelle_alt = {f"v{v}": als_modell_version(lr, v) for v in range(1, modell_version(model))}
+    if lr is not model:
+        modelle_alt["lr"] = lr
     for name in modelle_alt:
         for i in range(n_je_gruppe):
             if i % 2 == 0 and mit_historie:

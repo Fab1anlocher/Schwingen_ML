@@ -1011,6 +1011,17 @@ tbody tr:hover {
   font-size: 0.88rem;
 }
 
+/* ---------- Verlauf der Modellgüte (Analyse) ---------- */
+.verlauf-wrap {
+  min-width: 0;
+}
+.verlauf-svg {
+  width: 100%;
+  height: auto;
+  margin-top: 0.4rem;
+  touch-action: pan-y;
+}
+
 /* ---------- Streudiagramm / Dotplot (Analyse) ---------- */
 .streu-wrap {
   min-width: 0;

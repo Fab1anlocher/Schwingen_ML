@@ -28,7 +28,13 @@ interface Metrik {
 }
 
 /** Modell-vs-Baseline-Vergleich als horizontale Balken (ergänzt die Zahlentabelle). */
-export function VergleichBalken({ metriken }: { metriken: Metrik[] }) {
+export function VergleichBalken({
+  metriken,
+  modellName = "Logistic Regression",
+}: {
+  metriken: Metrik[];
+  modellName?: string;
+}) {
   return (
     <div className="vergleich-balken">
       {metriken.map((m) => {
@@ -61,7 +67,7 @@ export function VergleichBalken({ metriken }: { metriken: Metrik[] }) {
       })}
       <div className="vb-legend">
         <span>
-          <i className="vb-swatch vb-swatch-modell" /> Modell (Logistic Regression)
+          <i className="vb-swatch vb-swatch-modell" /> Modell ({modellName})
         </span>
         <span>
           <i className="vb-swatch vb-swatch-baseline" /> Baseline (Elo)

@@ -14,18 +14,102 @@ import numpy as np
 from . import config
 from .config import KLASSEN, MIN_GAENGE_FUER_SICHERHEIT, FORM_FENSTER_K, MERKMAL_VERSION
 from .features import FEATURE_NAMES, FEATURE_LABELS
+from .modell import TYP_GBM, TYP_LR
 from .schema import KRANZSTATUS_ORDINAL, anzeigename, hat_portraet
 
 
-def _write(pfad: Path, obj) -> None:
+def _write(pfad: Path, obj, kompakt: bool = False) -> None:
     pfad.parent.mkdir(parents=True, exist_ok=True)
-    pfad.write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8")
+    text = (json.dumps(obj, ensure_ascii=False, separators=(",", ":")) if kompakt
+            else json.dumps(obj, ensure_ascii=False, indent=2))
+    pfad.write_text(text, encoding="utf-8")
 
 
-def _dump_beide(name: str, obj) -> None:
+def _dump_beide(name: str, obj, kompakt: bool = False) -> None:
     """Schreibt ein Artefakt nach /artifacts und web/public/data."""
-    _write(config.ARTIFACTS_DIR / name, obj)
-    _write(config.WEB_PUBLIC_DIR / name, obj)
+    _write(config.ARTIFACTS_DIR / name, obj, kompakt)
+    _write(config.WEB_PUBLIC_DIR / name, obj, kompakt)
+
+
+# Blattwerte gerundet: spart rund ein Drittel der Dateigrösse; die Abweichung
+# zum sklearn-Modell bleibt unter 1e-5 (geprüft in pruefe_modell_export).
+# Schwellen bleiben exakt -- eine gerundete Schwelle könnte einen Gang in den
+# anderen Ast schicken.
+BLATT_STELLEN = 8
+MAX_EXPORT_ABWEICHUNG = 1e-5
+
+
+def _baum_json(knoten) -> list:
+    """Ein Baum als Liste, Index = Knotennummer von sklearn.
+
+    Innerer Knoten: [Merkmal, Schwelle, links, rechts] -- links, wenn
+    x[Merkmal] <= Schwelle. Blatt: der Wert selbst (Zahl). Fehlende Werte
+    gibt es nicht (Merkmale sind nie NaN, s. features._diff_oder_null).
+    """
+    return [
+        round(float(k["value"]), BLATT_STELLEN) if k["is_leaf"]
+        else [int(k["feature_idx"]), float(k["num_threshold"]), int(k["left"]), int(k["right"])]
+        for k in knoten
+    ]
+
+
+def _stufe_json(sk) -> dict:
+    """Eine binäre Boosting-Stufe: Rohwert = basis + Summe der Bäume, dann Sigmoid."""
+    return {
+        "basis": float(np.ravel(sk._baseline_prediction)[0]),
+        "baeume": [_baum_json(iteration[0].nodes) for iteration in sk._predictors],
+    }
+
+
+def modell_json(modell) -> dict:
+    """Der modellspezifische Teil von model.json (s. modell.Prognosemodell)."""
+    from .modell import spiegel_vektor
+
+    teil = {
+        # Mittel/Streuung der Trainingsmerkmale: die LR rechnet damit
+        # standardisiert, beide Typen nehmen das Mittel als neutralen Wert
+        # der Erklärbalken.
+        "standardisierung": {
+            "mu": [float(x) for x in modell.mu],
+            "sigma": [float(x) for x in modell.sigma],
+        },
+    }
+    if modell.typ == "lr":
+        # coef_: (n_klassen, n_features); intercept_: (n_klassen,)
+        teil |= {
+            "typ": TYP_LR,
+            "coef": [[float(v) for v in row] for row in modell.sk.coef_],
+            "intercept": [float(v) for v in modell.sk.intercept_],
+        }
+    else:
+        teil |= {
+            "typ": TYP_GBM,
+            # g = P(Gestellt), s = P(Sieg A | entschieden), je gemittelt mit
+            # der gespiegelten Paarung; P = [(1-g)s, g, (1-g)(1-s)], s. modell.py.
+            "stufen": {name: _stufe_json(sk) for name, sk in modell.sk.items()},
+            # +1 symmetrisches Merkmal, -1 Differenz (Vorzeichen beim Spiegeln).
+            "spiegel": [float(v) for v in spiegel_vektor()],
+        }
+    return teil
+
+
+def pruefe_modell_export(modell, artefakt: dict, X_probe) -> float:
+    """Rechnet das exportierte JSON genau wie die App und vergleicht mit dem
+    trainierten Modell. Bricht ab, statt ein abweichendes Modell auszuliefern."""
+    from .paritaet import json_inferenz_wie_app
+
+    X_probe = np.asarray(X_probe, dtype=float)[:300]
+    if len(X_probe) == 0:
+        return 0.0
+    p_sk = modell.predict_proba(X_probe)
+    abw = max(
+        abs(a - b)
+        for x, p in zip(X_probe, p_sk)
+        for a, b in zip(json_inferenz_wie_app(artefakt, list(x)), p)
+    )
+    if abw > MAX_EXPORT_ABWEICHUNG:
+        raise RuntimeError(f"model.json weicht vom trainierten Modell ab: {abw:.2e}")
+    return abw
 
 
 def exportiere_modell(
@@ -35,7 +119,7 @@ def exportiere_modell(
     elo_streuung: float,
     gestellt_basis: float,
 ) -> None:
-    """Logistic-Regression-Gewichte für JS-Inferenz (§7).
+    """model.json für die Inferenz in der App (§7) + feature_importance.json.
 
     elo_streuung / gestellt_basis: der aktuelle Stand der beiden Grössen, mit
     denen Merkmalsversion 2 rechnet -- die App braucht sie, um den Vektor
@@ -44,18 +128,10 @@ def exportiere_modell(
     modell = train_res["modell"]
     artefakt = {
         "schema_version": config.SCHEMA_VERSION,
-        "typ": "logistic_regression_multinomial",
         "klassen": KLASSEN,
         "features": FEATURE_NAMES,
         "feature_labels": FEATURE_LABELS,
-        # Standardisierung (muss in JS exakt so angewandt werden).
-        "standardisierung": {
-            "mu": [float(x) for x in train_res["mu"]],
-            "sigma": [float(x) for x in train_res["sigma"]],
-        },
-        # coef_: (n_klassen, n_features); intercept_: (n_klassen,)
-        "coef": [[float(v) for v in row] for row in modell.coef_],
-        "intercept": [float(v) for v in modell.intercept_],
+        **modell_json(modell),
         "config": {
             "min_gaenge_fuer_sicherheit": MIN_GAENGE_FUER_SICHERHEIT,
             "form_fenster_k": FORM_FENSTER_K,
@@ -70,10 +146,16 @@ def exportiere_modell(
         },
         "erstellt": datetime.now(timezone.utc).isoformat(),
     }
-    _dump_beide("model.json", artefakt)
+    abw = pruefe_modell_export(modell, artefakt, train_res.get("X_test", []))
+    print(f"      model.json ({artefakt['typ']}) == trainiertes Modell (max. Abweichung {abw:.1e})", flush=True)
+    # Kompakt: die Bäume eingerückt wären ~1 MB statt ~0.3 MB (gzip 120 statt 92 kB).
+    _dump_beide("model.json", artefakt, kompakt=True)
     _dump_beide("feature_importance.json", {
         "schema_version": config.SCHEMA_VERSION,
         "klassen": KLASSEN,
+        # "koeffizient" (LR: mittlerer Betrag der standardisierten Koeffizienten)
+        # oder "permutation" (Boosting: Anstieg des Log-Loss ohne das Merkmal).
+        "art": "koeffizient" if modell.typ == "lr" else "permutation",
         "features": feature_importance,
     })
 
@@ -429,7 +511,8 @@ _KANDIDAT_LABELS = {
     "kranz_heuristik": "Kranz-Heuristik",
     "elo_baseline": "Elo-Baseline",
     "ml_ohne_elo": "ML ohne Elo/Historie",
-    "ml_komplett": "ML komplett (Champion)",
+    "lr_komplett": "Logistic Regression (bis 25.09.2026)",
+    "ml_komplett": "Gradient Boosting (Produktionsmodell)",
 }
 
 
@@ -472,6 +555,80 @@ def _nur_portraet_block(modell: dict | None, baseline: dict | None) -> dict:
     return block
 
 
+# --- Verlauf der Modellgüte (Roadmap T1) ---------------------------------
+# Jeder Lauf überschrieb bisher report.json; ob das Modell über Wochen
+# schlechter wurde, sah niemand. Jetzt hängt jeder Lauf eine Zeile an:
+# eine je Tag und Modellstand (Typ + Merkmalsversion). Ein Modellwechsel am
+# selben Tag behält so den Punkt davor -- der Sprung bleibt sichtbar.
+VERLAUF_MAX_EINTRAEGE = 730
+# Warnen, wenn der Log-Loss so viel über dem Median der letzten Läufe liegt
+# (nur Läufe mit gleichem Holdout-Jahr, Modelltyp und Merkmalsversion --
+# ein Modellwechsel oder eine neue Saison ist kein Rückschritt).
+VERLAUF_WARN_ANSTIEG = 0.01
+VERLAUF_VERGLEICH_LAEUFE = 14
+
+
+def verlauf_eintrag(report: dict) -> dict:
+    """Die Kennzahlen eines report.json, die im Verlauf stehen."""
+    kal = report.get("gestellt_kalibrierung") or {}
+    base = report.get("baseline_elo") or {}
+    return {
+        "datum": str(report.get("erstellt", ""))[:10],
+        "modell_typ": report.get("modell_typ", "lr"),
+        "merkmal_version": report.get("merkmal_version", 1),
+        "holdout_jahr": report.get("holdout_jahr"),
+        "log_loss": report["modell"]["log_loss"],
+        "accuracy": report["modell"]["accuracy"],
+        "baseline_log_loss": base.get("log_loss"),
+        "gestellt_vorhergesagt": kal.get("vorhergesagt"),
+        "gestellt_eingetreten": kal.get("eingetreten"),
+        "auc_gestellt": kal.get("auc"),
+        "n_gaenge": (report.get("datenbasis") or {}).get("n_gaenge"),
+        "n_test": report.get("n_test"),
+    }
+
+
+def verlauf_warnung(laeufe: list[dict]) -> str | None:
+    """Warntext, wenn der jüngste Lauf deutlich schlechter ist als die davor."""
+    if len(laeufe) < 2:
+        return None
+    jetzt = laeufe[-1]
+    vergleich = [
+        l["log_loss"] for l in laeufe[:-1]
+        if (l["holdout_jahr"], l["modell_typ"], l["merkmal_version"])
+        == (jetzt["holdout_jahr"], jetzt["modell_typ"], jetzt["merkmal_version"])
+    ][-VERLAUF_VERGLEICH_LAEUFE:]
+    if len(vergleich) < 3:
+        return None
+    median = float(np.median(vergleich))
+    if jetzt["log_loss"] > median + VERLAUF_WARN_ANSTIEG:
+        return (f"Log-Loss {jetzt['log_loss']:.4f} liegt {jetzt['log_loss'] - median:+.4f} über dem "
+                f"Median der letzten {len(vergleich)} vergleichbaren Läufe ({median:.4f})")
+    return None
+
+
+def verlauf_schluessel(eintrag: dict) -> tuple:
+    """Ein Eintrag je Tag und Modellstand; bei gleichem Schlüssel zählt der jüngste Lauf."""
+    return eintrag.get("datum"), eintrag.get("modell_typ"), eintrag.get("merkmal_version")
+
+
+def ergaenze_verlauf(report: dict) -> dict:
+    """report_verlauf.json fortschreiben (s. verlauf_schluessel)."""
+    pfad = config.ARTIFACTS_DIR / "report_verlauf.json"
+    laeufe = []
+    if pfad.exists():
+        try:
+            laeufe = json.loads(pfad.read_text(encoding="utf-8")).get("laeufe", [])
+        except (OSError, ValueError):
+            laeufe = []
+    eintrag = verlauf_eintrag(report)
+    laeufe = [l for l in laeufe if verlauf_schluessel(l) != verlauf_schluessel(eintrag)] + [eintrag]
+    # sorted ist stabil: am selben Tag bleibt die Reihenfolge der Läufe erhalten.
+    laeufe = sorted(laeufe, key=lambda l: l["datum"])[-VERLAUF_MAX_EINTRAEGE:]
+    _dump_beide("report_verlauf.json", {"schema_version": config.SCHEMA_VERSION, "laeufe": laeufe})
+    return {"n_laeufe": len(laeufe), "warnung": verlauf_warnung(laeufe)}
+
+
 def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
                       n_gaenge: int, n_schwinger: int,
                       datenqualitaet: dict | None = None,
@@ -490,6 +647,10 @@ def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
         "seed": config.SEED,
         "datenbasis": {"n_gaenge": n_gaenge, "n_schwinger": n_schwinger},
         "holdout_jahr": train_res["holdout_jahr"],
+        # "gbm" (zweistufiges Gradient Boosting) oder "lr" (Logistic
+        # Regression), s. modell.py; n_baeume je Stufe, bei der LR null.
+        "modell_typ": train_res.get("modell_typ", "lr"),
+        "n_baeume": train_res.get("n_baeume"),
         "n_train": train_res["n_train"],
         "n_test": train_res["n_test"],
         "modell": {
@@ -528,5 +689,7 @@ def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
         "n_parsing_warnungen": len(warnungen),
         "datenqualitaet": datenqualitaet or {},
     }
+    # Verlauf zuerst fortschreiben: seine Warnung gehört in denselben Bericht.
+    obj["modell_verlauf"] = ergaenze_verlauf(obj)
     _dump_beide("report.json", obj)
     return obj

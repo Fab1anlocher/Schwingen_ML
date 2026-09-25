@@ -37,6 +37,7 @@ import numpy as np
 from sklearn.linear_model import LogisticRegression
 
 from .config import SEED
+from .modell import trainiere_modell
 from .features import FEATURE_NAMES
 from .metriken import punktwert_fehlermasse
 from .ratings import EloModell
@@ -119,6 +120,7 @@ def fuehre_benchmark_durch(X: list[list[float]], y: list[int], meta: list[dict])
 
     Xte, yte = X_arr[test_maske], y_arr[test_maske]
     Xtr, ytr = X_arr[train_maske], y_arr[train_maske]
+    datum_tr = [m["datum"] for m, drin in zip(meta, train_maske) if drin]
 
     if len(Xtr) == 0 or len(Xte) == 0 or len(np.unique(ytr)) < 2:
         return None
@@ -138,11 +140,19 @@ def fuehre_benchmark_durch(X: list[list[float]], y: list[int], meta: list[dict])
 
     # 3) ML ohne Historie (nur Physis/Stil/Verband), gleicher Train/Test-Split.
     spalten_a = [FEATURE_NAMES.index(n) for n in PHYSIS_STIL_VERBAND]
+    # Bewusst LR: die Spiegel-Symmetrie des Boosting-Modells kennt nur den
+    # vollen Merkmalsvektor, und für die Frage "was bringen Elo/Historie?"
+    # reicht das lineare Modell.
     p_a = _fit_predict(Xtr[:, spalten_a], ytr, Xte[:, spalten_a])
     ergebnis["ml_ohne_elo"] = _bewerte(p_a, yte)
 
-    # 4) ML komplett (Champion, alle Merkmale).
-    p_b = _fit_predict(Xtr, ytr, Xte)
+    # 4) Logistic Regression mit allen Merkmalen -- das Produktionsmodell bis
+    #    25.09.2026, als Vergleich zum Boosting (Roadmap M1).
+    p_lr = _fit_predict(Xtr, ytr, Xte)
+    ergebnis["lr_komplett"] = _bewerte(p_lr, yte)
+
+    # 5) ML komplett: GENAU die Modellklasse des Produktionsmodells.
+    p_b = trainiere_modell(Xtr, ytr, datum_tr).predict_proba(Xte)
     ergebnis["ml_komplett"] = _bewerte(p_b, yte)
 
     return {

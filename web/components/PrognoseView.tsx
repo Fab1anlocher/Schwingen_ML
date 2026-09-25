@@ -82,7 +82,10 @@ export function PrognoseView({
         <strong style={{ color: "var(--accent)" }}>{nameA}</strong> (rot, rechts) oder{" "}
         <strong style={{ color: "var(--ink)" }}>{nameB}</strong> (dunkel, links) wirkt — in
         Prozentpunkten der Siegchance. Graue Balken bevorzugen keinen der beiden: sie
-        verändern nur, wie wahrscheinlich ein Gestellter ist.
+        verändern nur, wie wahrscheinlich ein Gestellter ist. Jeder Balken ist eine
+        Gegenprobe: dasselbe Paar, nur dieses eine Merkmal auf den Durchschnitt gesetzt. Weil
+        das Modell Merkmale zusammen betrachtet, addieren sich die Balken nicht exakt zur
+        Prognose.
       </p>
       <div className="panel">
         {beitraege.length === 0 && (

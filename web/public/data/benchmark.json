@@ -28,12 +28,20 @@
       "mse": 0.1566
     },
     {
-      "key": "ml_komplett",
-      "label": "ML komplett (Champion)",
+      "key": "lr_komplett",
+      "label": "Logistic Regression (bis 25.09.2026)",
       "accuracy": 0.6861,
       "brier_score": 0.4259,
       "mae": 0.2534,
       "mse": 0.1039
+    },
+    {
+      "key": "ml_komplett",
+      "label": "Gradient Boosting (Produktionsmodell)",
+      "accuracy": 0.6897,
+      "brier_score": 0.4156,
+      "mae": 0.2433,
+      "mse": 0.0999
     }
   ]
 }

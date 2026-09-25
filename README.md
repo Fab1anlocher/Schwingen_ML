@@ -32,7 +32,7 @@ Verbesserung, egal wie aufwendig es ist.
 | **Schwinger** | Alle erfassten Schwinger, durchsuchbar, nach Elo sortiert, mit Kränzen seit 2023. Profil: Verband, Klub, Festsiege, Überraschungs-Index, ähnliche Schwinger. Getrennte Namensvettern sind gekennzeichnet. |
 | **Typen** | K-Means-Clustering über das volle Profil der Porträt-Schwinger, Anzahl per Silhouette-Score, PCA-Streudiagramm. |
 | **Karte** | Choroplethen-Karte (Elo-Schnitt, Siegquote, Anteil Top-Schwinger, Kaderbreite) je Kanton, Bern nach seinen 6 Gauverbänden. Verband aus Porträt oder Schwingklub, gezählt ab 5 Gängen. |
-| **Analyse** | Modellgüte vs. Elo-Baseline, 4-Wege-Benchmark, Konfusionsmatrix, Kalibrierung der Gestellt-Chance, Merkmalswichtigkeit, Physis und Schwünge gegen Elo. |
+| **Analyse** | Modellgüte vs. Elo-Baseline und im Verlauf, 5-Wege-Benchmark, Konfusionsmatrix, Kalibrierung der Gestellt-Chance, Merkmalswichtigkeit, Physis und Schwünge gegen Elo. |
 
 ---
 
@@ -225,7 +225,9 @@ python -m pipeline.harness    # Validierung 2025 + Test 2026 aus den committeten
 
 `pipeline/harness.py` baut die Pipeline-Eingabe aus den committeten
 Artefakten nach — ohne Rohdaten. Übernommen wird eine Änderung nur, wenn
-Validierung **und** Test besser werden.
+Validierung **und** Test besser werden. Einzige Ausnahme: Vorgaben, die
+Unsinn verhindern (Monotonie, s. „Gradient Boosting"), dürfen die Güte im
+Rauschen verändern (±0.0005).
 
 ### Web-App
 
@@ -252,8 +254,9 @@ pipeline/                  Python-Datenpipeline
   labels.py                  Symbol → Ergebnis, Dedup, Konsistenzprüfung
   ratings.py                 Elo, Streuung, Überraschungs-Index, Baseline
   features.py                Merkmale A-minus-B, leak-frei (EINZIGE Definition)
-  train.py                   Logistic Regression + zeitliche Evaluation
-  benchmark.py               4-Wege-Modellvergleich (Accuracy/Brier/MAE/MSE)
+  modell.py                  Prognosemodell: zweistufiges Boosting (oder LR), Symmetrie
+  train.py                   Training + zeitliche Evaluation, Merkmalswichtigkeit
+  benchmark.py               5-Wege-Modellvergleich (Accuracy/Brier/MAE/MSE)
   metriken.py                MAE/MSE, Gestellt-Kalibrierung
   ranglisten.py              Schlussranglisten: Kränze, Klub, Verband, Festsiege
   verbandsschaetzung.py      Teilverband aus Festbesuchen (nur Anzeige)
@@ -273,11 +276,12 @@ pipeline/                  Python-Datenpipeline
   scrape/                    schlussgang.ch-Scraper + Rohdaten-Einlesen
   tests/                     pytest
 artifacts/                 Generierte Artefakte (versioniert, ausser raw/)
-scripts/                   sicherheitsbericht.py (Workflow sicherheit.yml)
+scripts/                   sicherheitsbericht.py (Workflow sicherheit.yml),
+                           verlauf_aus_git.py (Modellgüte-Verlauf aus der Git-Historie)
 web/                       Next.js 16 (App Router) + React 19 + TypeScript
   app/                       Seiten (Prognose, Feste, Schwinger, Typen, Karte, Analyse)
   components/                Diagramme, Karte, Prognose-Ansicht
-  lib/inference.ts           Clientseitige Inferenz (spiegelt features.py)
+  lib/inference.ts           Clientseitige Inferenz (Merkmale wie features.py, Bäume wie modell.py)
   lib/kopfAnKopf.ts          Paar-Historie (spiegelt features.py)
   lib/labels.ts              Alle Anzeigetexte für Datenwerte
   lib/teilverband.ts         Verband eines Schwingers / Teilnehmerkreis eines Fests
@@ -297,31 +301,39 @@ Datenqualitätsbericht nicht auf.
 
 ## Wie das Modell funktioniert
 
-**Stand 25.09.2026** (Merkmalsversion 3, Test = Saison 2026, 36'485 Gänge, die
-das Modell nie gesehen hat): Log-Loss **0.7404** (Elo-Baseline 0.913),
-Accuracy **68.6 %** (Elo 61.1 %), Gestellt 20.6 % vorhergesagt bei 21.1 %
-eingetreten. Die aktuellen Zahlen stehen immer in `artifacts/report.json` und
-auf der Analyse-Seite.
+**Stand 26.09.2026** (Merkmalsversion 3, zweistufiges Gradient Boosting,
+Test = Saison 2026, 36'610 Gänge, die das Modell nie gesehen hat): Log-Loss
+**0.7207** (Logistic Regression bis 25.09.: 0.7402, Elo-Baseline 0.910),
+Accuracy **69.0 %** (Elo 61.3 %), Gestellt 20.5 % vorhergesagt bei 21.1 %
+eingetreten, Kalibrierungsfehler 0.7 Prozentpunkte. Die aktuellen Zahlen
+stehen immer in `artifacts/report.json` und auf der Analyse-Seite, ihr
+Verlauf in `artifacts/report_verlauf.json`.
 
 * **Elo-Baseline** (`ratings.py`): chronologisch fortgeschrieben, K-Faktor nach
   Fest-Wichtigkeit gewichtet. Jedes komplexere Modell muss sie schlagen.
-* **Logistic Regression** (`train.py`) auf **leak-freien** A-minus-B-Merkmalen
-  (`features.py`): Rating-Vorsprung und -Nähe, Form, Kranzstatus, Alter,
-  Gewicht/Grösse, Erfahrung, Verband, bevorzugte Schwünge, Kopf-an-Kopf-Bilanz
-  und die Datenlage (`portraet_diff`, s. unten). Alle Merkmale nutzen nur Daten
-  von **vor** dem Gang; Holdout ist die jüngste Saison, kein zufälliger Split.
-  Trainiert wird mit Spiegelzeilen (jeder Gang zusätzlich als B-gegen-A), damit
-  das Modell paar-symmetrisch ist; **bewertet wird ohne sie** — sonst stünde
-  jeder Testgang doppelt drin. Die Elo-Baseline wird auf **genau denselben**
-  Gängen gemessen wie das Modell.
-* **4-Wege-Benchmark** (`benchmark.py`): Kranz-Heuristik / reine Elo / ML ohne
-  Elo / ML komplett auf demselben Holdout, mit Accuracy, Brier-Score sowie
-  MAE und MSE (s. unten).
+* **Merkmale** (`features.py`): **leak-freie** A-minus-B-Merkmale —
+  Rating-Vorsprung und -Nähe, Form, Kranzstatus, Alter, Gewicht/Grösse,
+  Erfahrung, Verband, bevorzugte Schwünge, Kopf-an-Kopf-Bilanz, Gestellt-
+  Neigung und -Bilanz, Niveau der Paarung und die Datenlage (`portraet_diff`,
+  s. unten). Alle Merkmale nutzen nur Daten von **vor** dem Gang; Holdout ist
+  die jüngste Saison, kein zufälliger Split. Trainiert wird mit Spiegelzeilen
+  (jeder Gang zusätzlich als B-gegen-A); **bewertet wird ohne sie** — sonst
+  stünde jeder Testgang doppelt drin. Die Elo-Baseline wird auf **genau
+  denselben** Gängen gemessen wie das Modell.
+* **Prognosemodell** (`modell.py`, s. unten „Gradient Boosting"): zwei
+  Stufen — erst P(Gestellt), dann P(Sieg A | entschieden) —, beide als
+  Gradient Boosting mit Monotonie-Vorgaben, gemittelt mit der gespiegelten
+  Paarung. Die Logistic Regression bleibt als Rückfall
+  (`config.MODELL_TYP = "lr"`) und als Benchmark-Kandidat.
+* **5-Wege-Benchmark** (`benchmark.py`): Kranz-Heuristik / reine Elo / ML ohne
+  Elo / Logistic Regression / Produktionsmodell auf demselben Holdout, mit
+  Accuracy, Brier-Score sowie MAE und MSE (s. unten).
 * **K-Means + KNN** (`clustering.py`): Cluster-Anzahl per Silhouette-Score.
 * **Clientseitige Inferenz** (`web/lib/inference.ts`, `web/lib/kopfAnKopf.ts`)
   spiegelt `features.py` in TypeScript — eine Handkopie, die still
   auseinanderlaufen kann (ist schon einmal passiert). `verify_inference.py`
-  prüft nur `model.json` gegen sklearn, mit dem **Python**-Vektor. Die
+  prüft nur `model.json` gegen sklearn, mit dem **Python**-Vektor (beim
+  Boosting prüft das schon der Export, `export.pruefe_modell_export`). Die
   TypeScript-Seite prüft **`pipeline/paritaet.py`**: Python erzeugt ~330
   Prüffälle aus den echten Artefakten (alle vier Porträt/Stub-Kombinationen,
   Kopf-an-Kopf in beiden Richtungen, fehlendes Rating), `npm run paritaet`
@@ -330,7 +342,9 @@ auf der Analyse-Seite.
   `inferenz-paritaet`) und im täglichen Lauf **vor** dem Commit neuer
   Artefakte. Per Mutationstest belegt, dass er anschlägt: vertauschte
   Kopf-an-Kopf-Richtung, falsches Vorzeichen, falsche Skala, fehlendes
-  Merkmal, fehlender Intercept — alle erkannt.
+  Merkmal, fehlender Intercept — alle erkannt. Die Gruppe `modell-lr` prüft,
+  dass die App ein LR-`model.json` (das vorige Prod-Modell) weiter richtig
+  rechnet.
 
   Neue Merkmale **nur hinten** an `FEATURE_NAMES` anhängen: `model.json` ist
   positionsgebunden, und die App kürzt den Vektor auf die Merkmale, die das
@@ -407,6 +421,70 @@ Accuracy 68.2 % → **68.5 %**, AUC Gestellt 0.736 → **0.738**.
   Gestellte als halben Sieg, also fast als „kein Signal".
 
 Orlik gegen Staudenmann steht damit bei 11 / 54 / 36 %.
+
+### Gradient Boosting statt Logistic Regression (26.09.2026)
+
+Mit **denselben 16 Merkmalen**, gemessen mit `pipeline/harness.py`:
+
+| Test 2026 (Validierung 2025) | Log-Loss | Accuracy | AUC Gestellt |
+|---|---:|---:|---:|
+| Logistic Regression | 0.7400 (0.7627) | 68.6 % | 0.741 |
+| Gradient Boosting, drei Klassen | 0.7206 (0.7388) | 68.9 % | 0.751 |
+| **Gradient Boosting, zweistufig mit Monotonie** | **0.7207 (0.7400)** | **69.0 %** | **0.751** |
+
+Der Gewinn ist grösser als die Merkmalsversionen 2 → 3 zusammen. Er steckt
+in Wechselwirkungen: die LR überschätzte Aussenseiter (19.4 % vorhergesagt,
+15.7 % eingetreten) und unterschätzte Favoriten; nichtlineare Zusatzmerkmale
+für die LR (d·|d|, d³, Elo-Trend) holten davon nur 0.001 zurück.
+
+**Warum zweistufig.** Das Drei-Klassen-Boosting lernte in dünn besetzten
+Ecken Unsinn: bei 7–8 % der Paare mit Vorgeschichte **senkte** eine hohe
+Gestellt-Bilanz die Gestellt-Chance — ausgerechnet Orlik gegen Staudenmann
+(5 von 6 Duellen gestellt) zeigte „Gestellt-Bilanz: −8.7 %-Pkt.". Monotonie-
+Vorgaben kann sklearn nur für zwei Klassen. Darum zwei Stufen:
+
+```
+g = P(Gestellt)                 monoton: Gestellt-Bilanz ↑, Gestellt-Neigung ↑, Rating-Abstand ↓
+s = P(Sieg A | entschieden)     monoton: Rating-Vorsprung ↑, Kopf-an-Kopf ↑
+P = [(1 − g)·s,  g,  (1 − g)·(1 − s)]
+```
+
+Fehlrichtungen danach 0 %, Log-Loss praktisch gleich. Mehr Vorgaben (Form,
+Kranz, Erfahrung) kosteten 0.005–0.007 — Erfahrung wirkt tatsächlich nicht
+monoton. Die Gestellt-Kalibrierung stimmt über alle zehn Stufen, auch im
+obersten Zehntel (51.7 % vorhergesagt, 51.7 % eingetreten).
+
+* **Symmetrie erzwungen.** Bäume sind nicht von selbst paar-symmetrisch. Beide
+  Stufen werden mit der gespiegelten Paarung x′ gemittelt:
+  g = (g(x) + g(x′)) / 2, s = (s(x) + 1 − s(x′)) / 2. „Orlik gegen
+  Staudenmann" ist so exakt „Staudenmann gegen Orlik" mit vertauschten Siegen.
+* **Baumzahl zeitlich gewählt**, je Stufe auf den jüngsten 15 % der
+  Trainingsdaten (sklearns eingebautes Early Stopping zieht zufällig — mit
+  Spiegelzeilen und Gängen desselben Fests auf beiden Seiten zu optimistisch).
+* **Export.** `model.json` enthält je Stufe Startwert und Bäume (innerer
+  Knoten `[Merkmal, Schwelle, links, rechts]`, Blatt = Wert), kompakt rund
+  0.26 MB (gzip ~90 kB). Der Export rechnet das JSON wie die App nach und
+  bricht ab, wenn es mehr als 1e-5 vom trainierten Modell abweicht.
+* **Kopf-an-Kopf bitgleich.** Bäume trennen an exakten Schwellen; darum ist
+  `kopf_an_kopf` so formuliert, dass Python und TypeScript bitgleich rechnen
+  und A/B-Tausch exakt das Vorzeichen dreht: (2·Punkte_A − n) / (n + K).
+* **Erklärbalken** bleiben die Gegenprobe (Merkmal auf den Durchschnitt,
+  neu rechnen). Bei Bäumen addieren sie sich nicht exakt zur Prognose; der
+  Hilfetext sagt das.
+* **Merkmalswichtigkeit** ist beim Boosting die Permutations-Wichtigkeit: um
+  so viel steigt der Log-Loss auf den Testgängen, wenn das Merkmal zufällig
+  vertauscht wird.
+
+Orlik gegen Staudenmann steht jetzt bei 13 / 58 / 29 %.
+
+### Modellgüte im Verlauf
+
+Jeder Lauf hängt eine Zeile an `artifacts/report_verlauf.json` (je Tag und
+Modellstand, höchstens 730 Einträge; vor dem 26.09.2026 aus der Git-Historie
+nachgetragen, `scripts/verlauf_aus_git.py`). Liegt der Log-Loss mehr als 0.01
+über dem Median der letzten 14 vergleichbaren Läufe (gleiches Holdout-Jahr,
+Modelltyp und Merkmalsversion), warnt der Datenqualitätsbericht. Die
+Analyse-Seite zeigt Log-Loss und Accuracy als Verlauf.
 
 ### Erklärbalken: wem ein Merkmal nützt
 

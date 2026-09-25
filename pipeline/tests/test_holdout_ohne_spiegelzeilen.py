@@ -23,7 +23,7 @@ def test_spiegelzeilen_bleiben_im_training_aber_nicht_im_test():
     meta = _paar("ev_alt", "a|1", "b|2", "2024-05-01") + _paar("ev_neu", "c|3", "d|4", "2026-05-01")
     X = [[float(i)] for i in range(len(meta))]
     y = [0, 2, 0, 2]
-    Xtr, ytr, Xte, yte = _split_zeitlich(X, y, meta, holdout_ab_jahr=2026)
+    Xtr, ytr, Xte, yte, _ = _split_zeitlich(X, y, meta, holdout_ab_jahr=2026)
 
     assert len(Xtr) == 2, "Training behaelt die Spiegelzeile (Paar-Symmetrie)"
     assert len(Xte) == 1, "Test enthaelt jeden Gang genau einmal"
@@ -33,7 +33,7 @@ def test_ohne_den_filter_waere_der_test_doppelt_so_gross():
     """Gegenprobe: genau das war der Fehler -- n_test 72'970 statt 36'485."""
     meta = _paar("ev", "a|1", "b|2", "2026-05-01")
     X, y = [[0.0], [1.0]], [0, 2]
-    _, _, Xte, _ = _split_zeitlich(X, y, meta, holdout_ab_jahr=2026)
+    _, _, Xte, _, _ = _split_zeitlich(X, y, meta, holdout_ab_jahr=2026)
     assert len(Xte) == 1
     assert len(Xte) * 2 == len(meta)
 
