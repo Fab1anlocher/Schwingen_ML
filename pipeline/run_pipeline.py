@@ -126,7 +126,8 @@ def _datenqualitaet(bericht, gaenge, events, warnungen: list[str], *,
                     schwinger: dict | None = None,
                     kommende: list | None = None,
                     kommende_diagnose: dict | None = None,
-                    verbandsschaetzung: dict | None = None) -> dict:
+                    verbandsschaetzung: dict | None = None,
+                    ranglisten: dict | None = None) -> dict:
     """Nachvollziehbare Kennzahlen darüber, was aus den Rohdaten geworden ist.
 
     Landet in report.json und ist damit von Lauf zu Lauf vergleichbar --
@@ -171,9 +172,51 @@ def _datenqualitaet(bericht, gaenge, events, warnungen: list[str], *,
         gaenge, schwinger or {}
     )
     qualitaet["datenabdeckung"] = _datenabdeckung(schwinger or {}, verbandsschaetzung)
+    if ranglisten:
+        qualitaet["ranglisten"] = ranglisten
     if bericht is not None:
         qualitaet.update(bericht.als_dict())
     return qualitaet
+
+
+def _ranglisten(source: str, events, schwinger: dict, aktive: set) -> tuple[dict | None, dict | None]:
+    """Offizielle Schlussranglisten auswerten (s. ranglisten.py).
+
+    (Daten für den Export, Bericht für report.json) -- beides None ohne
+    Ranglisten (synthetische Daten oder Cache ohne ranglisten.json).
+    """
+    if source != "scrape":
+        return None, None
+    from .scrape import lade_teilnahmen
+    from .ranglisten import (
+        klub_je_schwinger, konsistenz, kraenze_je_schwinger, kranzfeste_ohne_kranz,
+        kranzquoten, kranzstatus_je_schwinger, senne_turner_je_schwinger, verband_ueber_klub,
+    )
+    teilnahmen, bericht = lade_teilnahmen(events)
+    if not teilnahmen:
+        print("      Schlussranglisten: keine im Cache", flush=True)
+        return None, None
+    kraenze = kraenze_je_schwinger(teilnahmen)
+    klubs = klub_je_schwinger(teilnahmen)
+    verband_klub, verband_bericht = verband_ueber_klub(klubs, schwinger)
+    ohne_kranz = kranzfeste_ohne_kranz(teilnahmen)
+    bericht = {
+        **bericht,
+        "kranzquote_median": kranzquoten(teilnahmen),
+        "kranzfeste_ohne_kranz": len(ohne_kranz),
+        "beispiele_kranzfeste_ohne_kranz": ohne_kranz[:5],
+        "klub_abdeckung_aktive": round(sum(1 for sid in aktive if sid in klubs) / len(aktive), 4) if aktive else None,
+        "verband_ueber_klub": verband_bericht,
+        "konsistenz": konsistenz(kraenze, klubs, schwinger),
+    }
+    print(f"      Schlussranglisten: {bericht['n_feste']} Feste, {bericht['n_teilnahmen']} Teilnahmen, "
+          f"Kranzquote {bericht['kranzquote_median']}, Klub bei {bericht['klub_abdeckung_aktive']} der Aktiven, "
+          f"Verband über Klub {verband_bericht['n_zugeordnet']} (Prüfung {verband_bericht['trefferquote']})",
+          flush=True)
+    daten = {"kraenze": kraenze, "klubs": klubs,
+             "senne_turner": senne_turner_je_schwinger(teilnahmen), "verband_klub": verband_klub,
+             "kranzstatus": kranzstatus_je_schwinger(teilnahmen)}
+    return daten, bericht
 
 
 def _datenabdeckung(schwinger: dict, verbandsschaetzung: dict | None) -> dict:
@@ -406,6 +449,7 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
     # Anzeige und Suche, nicht fürs Modell (s. verbandsschaetzung.py).
     from .verbandsschaetzung import schaetze_teilverbaende
     verband_geschaetzt, verband_pruefung = schaetze_teilverbaende(gaenge, schwinger)
+    ranglisten, ranglisten_bericht = _ranglisten(source, events, schwinger, aktive)
     print(f"      Teilverband geschätzt: {verband_pruefung['n_geschaetzt']}/"
           f"{verband_pruefung['n_ohne_verband']} ohne Porträt (Selbstprüfung "
           f"{verband_pruefung['trefferquote']} auf {verband_pruefung['pruef_faelle']} Porträts, "
@@ -415,7 +459,8 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
     export.exportiere_modell(train_res, fi, elo_streuung=streuung_jetzt, gestellt_basis=gestellt_basis)
     export.exportiere_ratings(elo_modell, schwinger)
     export.exportiere_schwinger(schwinger, form_aktuell, ueberraschung, anzahl_feste, aktive,
-                                gestellt_neigung=neigung, teilverband_geschaetzt=verband_geschaetzt)
+                                gestellt_neigung=neigung, teilverband_geschaetzt=verband_geschaetzt,
+                                ranglisten=ranglisten)
     export.exportiere_kopf_an_kopf(gaenge)
     export.exportiere_kantone(schwinger, elo_modell, gaenge)
     export.exportiere_cluster(cluster_res)
@@ -460,6 +505,7 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
             bericht, gaenge, events, warnungen, schwinger=schwinger,
             kommende=kommende, kommende_diagnose=kommende_diagnose,
             verbandsschaetzung=verband_pruefung,
+            ranglisten=ranglisten_bericht,
         ),
     )
 

@@ -207,6 +207,21 @@ def lade_echte_daten(*, mit_bericht: bool = False):
     return schwinger, events, roh
 
 
+def lade_teilnahmen(events: list[Event]):
+    """Teilnahmen aus den Schlussranglisten (artifacts/raw/ranglisten.json).
+
+    Namen werden über denselben Namensindex aufgelöst wie die Gänge. Fehlt
+    die Datei (älterer Cache), gibt es einfach keine Teilnahmen.
+    """
+    from ..ranglisten import teilnahmen_aus_ranglisten
+
+    roh = _lade_raw_json("ranglisten.json", {"ranglisten": {}}).get("ranglisten", {})
+    raw_s = _lade_raw_json("schwinger.json", {"schwinger": []}).get("schwinger", [])
+    index = baue_namensindex(raw_s)
+    return teilnahmen_aus_ranglisten(roh, {e.id: e for e in events}, index.finde,
+                                     _lade_schwinger(raw_s))
+
+
 def lade_kommende_feste(*, heute=None):
     """Kommende Feste + auf Schwinger-IDs gemappte Paarungen (FR-2).
 

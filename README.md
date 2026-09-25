@@ -372,7 +372,35 @@ Wahrheit „hat ein Profil" stand. Darum:
   nur auf Porträt-gegen-Porträt-Gängen. Nur dort liegen die wrestlerischen
   Merkmale auf beiden Seiten vor.
 
-**Teilverband ohne Porträt** (`verbandsschaetzung.py`): aus den besuchten
+**Offizielle Schlussranglisten** (`scrape/schlussgang_rangliste.py`,
+`ranglisten.py`): schlussgang.ch veröffentlicht zu jedem Fest die
+Schlussrangliste des ESV (Fusszeile „Quelle: ESV", 480 von 481 Festen seit
+2023). esv.ch selbst sperrt Rechenzentrums-IPs per Firewall (schon
+`robots.txt` antwortet 403), über schlussgang.ch kommt dieselbe Liste auf
+erlaubtem Weg. Sie führt **jeden** Teilnehmer mit Schwingklub, Wohnort,
+Senn/Turner, Kranzabzeichen und dem Status an diesem Fest. Daraus:
+
+* **Kränze seit 2023** je Schwinger. Der Kranz geht an alle ab einer
+  Punkteschwelle — vermessen an allen Kranzfesten der Stichprobe: jeder
+  Markierte hatte mehr Punkte als jeder Unmarkierte. Das ESAF markiert nur
+  Neueidgenossen; über dieselbe Schwelle zählen die bisherigen Eidgenossen
+  mit (ESAF 2025: 17 + 23 = 40 von 269, 14.9 %). Kranzquote an Kranzfesten
+  im Median 15.6–16.0 % über alle 481 Feste, wie erwartet. Einzige Lücke:
+  die Rangliste des Freiburger Kantonalfests 2023 führt gar keine Status-
+  Einträge — dessen Kränze fehlen in der Zählung (die Selbstprüfung weist
+  das Fest als „Kranzfest ohne Kranz" aus, statt eine Schwelle zu raten).
+* **Schwingklub, Senn/Turner, Kranzstatus** auch für Schwinger ohne Porträt
+  (z.B. Fritz Ramseier: Eidgenosse, ohne Porträt bisher als „kein" geführt).
+* **Teilverband und Gauverband über den Klub**: jeder Klub gehört genau einem
+  Verband an, gelernt aus den Porträts (131 Klubs), geprüft per Leave-one-out
+  an 580 Porträt-Schwingern: 99.1 % richtig. Ergebnis: bei 98.9 % der
+  Aktiven ist der Klub bekannt, bei 92.5 % der Verband gemessen (vorher 29 %).
+
+Alles nur für Anzeige und Suche; das Modell bleibt bei seinen gemessenen
+Merkmalen. Selbstprüfungen je Lauf stehen in `report.json` →
+`datenqualitaet.ranglisten`.
+
+**Teilverband ohne Porträt und ohne bekannten Klub** (`verbandsschaetzung.py`): aus den besuchten
 Festen geschätzt — an Kantonal-, Teilverbands- und Regionalfesten startet fast
 nur, wer dem Verband angehört. Validiert an den Porträt-Schwingern
 (Leave-one-out) mit 99.8 % Treffern; die Prüfung läuft bei jedem Lauf erneut

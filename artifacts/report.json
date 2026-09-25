@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-09-25T10:00:06.344204+00:00",
-  "lauf_id": "20260925T100006Z",
+  "erstellt": "2026-09-25T10:55:27.666722+00:00",
+  "lauf_id": "20260925T105527Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 133611,
@@ -226,6 +226,50 @@
         "n_ohne_verband": 2198,
         "angewandt": true,
         "n_geschaetzt": 1649
+      }
+    },
+    "ranglisten": {
+      "n_feste": 481,
+      "n_nicht_lesbar": 0,
+      "n_teilnahmen": 46050,
+      "anteil_namen_aufgeloest": 0.9938,
+      "beispiele_unaufloesbar": [
+        "Wüthrich Jonas",
+        "Bucher Roman",
+        "Zemp Christian",
+        "Gerber Adrian",
+        "Zemp Silvan"
+      ],
+      "kranzquote_median": {
+        "berg": 0.1556,
+        "eidgenoessisch": 0.0,
+        "kantonal": 0.1602,
+        "regional": 0.0,
+        "teilverband": 0.156
+      },
+      "kranzfeste_ohne_kranz": 1,
+      "beispiele_kranzfeste_ohne_kranz": [
+        "schlussgang-22490"
+      ],
+      "klub_abdeckung_aktive": 0.9892,
+      "verband_ueber_klub": {
+        "klubs_bekannt": 131,
+        "pruef_faelle": 580,
+        "trefferquote": 0.9914,
+        "n_ohne_porträt_mit_klub": 2154,
+        "n_zugeordnet": 1943
+      },
+      "konsistenz": {
+        "klub_wie_porträt": 0.9874,
+        "klub_vergleiche": 635,
+        "kranzgewinner_ohne_porträt": 86,
+        "beispiele_kranzgewinner_ohne_porträt": [
+          "adrian elsener|?",
+          "adrian schwyn|?",
+          "adrian steinauer|?",
+          "aellen philipp|?",
+          "andreas odermatt|?"
+        ]
       }
     },
     "roh_eintraege_gelesen": 249109,

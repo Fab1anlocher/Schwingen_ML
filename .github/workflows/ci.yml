@@ -4,13 +4,19 @@ on:
   push:
     branches: ["**"]
   pull_request:
+  # Der Pipeline-Lauf (update.yml) startet die CI nach seinem Artefakt-Commit
+  # selbst. Nötig, weil Pushes mit dem GITHUB_TOKEN keine push-Läufe auslösen
+  # und PR-Läufe daraus seit Juni 2026 auf eine manuelle Freigabe warten;
+  # workflow_dispatch ist von beidem ausgenommen. So läuft die volle CI auch
+  # auf jedem täglichen Artefakt-Commit auf main -- vorher lief dort keine.
+  workflow_dispatch:
 
 jobs:
   pipeline-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.11"
       - name: Abhängigkeiten
@@ -25,10 +31,10 @@ jobs:
   web-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          node-version: "20"
+          node-version: "24"
           cache: "npm"
           cache-dependency-path: web/package-lock.json
       - name: Install
@@ -46,10 +52,10 @@ jobs:
   abhaengigkeiten-audit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          node-version: "20"
+          node-version: "24"
       - name: npm audit (Produktion, ab high)
         working-directory: web
         run: npm audit --omit=dev --audit-level=high
@@ -62,15 +68,15 @@ jobs:
   inferenz-paritaet:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.11"
           cache: pip
           cache-dependency-path: requirements-pipeline.txt
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: "20"
+          node-version: "24"
           cache: "npm"
           cache-dependency-path: web/package-lock.json
       - name: Abhängigkeiten

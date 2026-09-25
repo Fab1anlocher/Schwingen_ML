@@ -14,7 +14,7 @@ import numpy as np
 from . import config
 from .config import KLASSEN, MIN_GAENGE_FUER_SICHERHEIT, FORM_FENSTER_K, MERKMAL_VERSION
 from .features import FEATURE_NAMES, FEATURE_LABELS
-from .schema import KRANZSTATUS_ORDINAL
+from .schema import KRANZSTATUS_ORDINAL, hat_portraet
 
 
 def _write(pfad: Path, obj) -> None:
@@ -102,6 +102,7 @@ def exportiere_schwinger(
     aktive: set | None = None,
     gestellt_neigung: dict | None = None,
     teilverband_geschaetzt: dict | None = None,
+    ranglisten: dict | None = None,
 ) -> None:
     """schwinger.json: Profil + aktuelle Form (für Live-Prognose & Suche FR-5).
 
@@ -113,6 +114,11 @@ def exportiere_schwinger(
     Festen geschätzt (s. verbandsschaetzung.py). Eigenes Feld, damit gemessen
     und geschätzt nie verwechselt werden; das Modell nutzt nur ``teilverband``.
 
+    ranglisten: aus den offiziellen Schlussranglisten (s. ranglisten.py) --
+    ``kraenze`` je Schwinger, ``klubs``, ``senne_turner`` und ``verband_klub``
+    (Teilverband + Gauverband über den Klub, nur ohne Porträt-Verband).
+    Ohne Ranglisten (synthetische Daten) bleiben die Felder null.
+
     Sensible Felder werden NICHT exportiert (NFR-5): kein Geburtsdatum, nur
     Jahrgang bleibt intern; Anzeige nutzt Alter.
     """
@@ -121,6 +127,12 @@ def exportiere_schwinger(
     aktive = aktive if aktive is not None else set()
     gestellt_neigung = gestellt_neigung or {}
     teilverband_geschaetzt = teilverband_geschaetzt or {}
+    rl = ranglisten or {}
+    kraenze = rl.get("kraenze")
+    klubs = rl.get("klubs") or {}
+    senne_turner = rl.get("senne_turner") or {}
+    verband_klub = rl.get("verband_klub") or {}
+    kranzstatus_rl = rl.get("kranzstatus") or {}
     liste = []
     for sid, s in schwinger.items():
         u = ueberraschung.get(sid)
@@ -142,12 +154,27 @@ def exportiere_schwinger(
             "groesse_cm": s.groesse_cm,
             "gewicht_kg": s.gewicht_kg,
             "kranzstatus": s.kranzstatus,
+            # Nur ohne Porträt: Kranzstatus laut Sternen der Rangliste (Anzeige).
+            # Das Modell nutzt weiter nur ``kranzstatus`` aus dem Porträt.
+            "kranzstatus_rangliste": (
+                kranzstatus_rl.get(sid) if not hat_portraet(s.quellen) else None
+            ),
             "teilverband": s.teilverband,
+            # Über den Schwingklub (Mitgliedschaft, gemessen) -- vor der
+            # Schätzung aus Festbesuchen, die nur noch einspringt, wo der Klub
+            # unbekannt ist.
+            "teilverband_klub": None if s.teilverband else (verband_klub.get(sid) or (None, None))[0],
+            "kanton_klub": None if s.kanton else (verband_klub.get(sid) or (None, None))[1],
             "teilverband_geschaetzt": (
-                None if s.teilverband else teilverband_geschaetzt.get(sid)
+                None if s.teilverband or sid in verband_klub else teilverband_geschaetzt.get(sid)
             ),
             "kanton": s.kanton,
-            "schwingklub": s.schwingklub,
+            "schwingklub": s.schwingklub or klubs.get(sid),
+            "senne_turner": s.senne_turner or senne_turner.get(sid),
+            # Gewonnene Kränze seit Datenbeginn laut offizieller Schlussrangliste;
+            # null = keine Ranglisten geladen (nicht: null Kränze).
+            "kraenze": (kraenze.get(sid, {}).get("gesamt", 0) if kraenze is not None else None),
+            "kraenze_nach_typ": (kraenze.get(sid, {}).get("nach_typ", {}) if kraenze is not None else None),
             "bevorzugte_schwuenge": s.bevorzugte_schwuenge,
             "form": round(form_aktuell.get(sid, 0.5), 3),
             "gestellt_neigung": (
