@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-09-25T20:48:46.952790+00:00",
-  "lauf_id": "20260925T204846Z",
+  "erstellt": "2026-09-25T21:17:12.010311+00:00",
+  "lauf_id": "20260925T211712Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 134035,
@@ -10,24 +10,25 @@
   "holdout_jahr": 2026,
   "modell_typ": "gbm",
   "n_baeume": {
-    "gestellt": 332,
-    "sieg": 223
+    "gestellt": 294,
+    "sieg": 372
   },
   "n_train": 136118,
+  "n_train_ausgeliefert": 209338,
   "n_test": 36610,
   "modell": {
-    "log_loss": 0.7209,
-    "accuracy": 0.6897,
-    "mae": 0.2433,
-    "mse": 0.0999
+    "log_loss": 0.7204,
+    "accuracy": 0.6901,
+    "mae": 0.2432,
+    "mse": 0.0998
   },
   "baseline_elo": {
     "log_loss": 0.91,
     "accuracy": 0.6125
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0772,
-  "verbesserung_log_loss": 0.1892,
+  "accuracy_gg_baseline": 0.0776,
+  "verbesserung_log_loss": 0.1896,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -35,19 +36,19 @@
   ],
   "konfusionsmatrix": [
     [
-      10286,
-      944,
-      1893
+      10290,
+      959,
+      1874
     ],
     [
       2665,
-      1986,
-      3056
+      2013,
+      3029
     ],
     [
-      1802,
-      999,
-      12979
+      1795,
+      1024,
+      12961
     ]
   ],
   "nur_portraet": {
@@ -55,8 +56,8 @@
       "n": 9366,
       "anteil_am_test": 0.2558,
       "log_loss": 0.8118,
-      "accuracy": 0.626,
-      "mae": 0.2529,
+      "accuracy": 0.6278,
+      "mae": 0.2522,
       "mse": 0.1033
     },
     "baseline_elo": {
@@ -67,59 +68,59 @@
   },
   "gestellt_kalibrierung": {
     "n": 36610,
-    "vorhergesagt": 0.2049,
+    "vorhergesagt": 0.2043,
     "eingetreten": 0.2105,
-    "ece": 0.0078,
-    "auc": 0.7507,
+    "ece": 0.008,
+    "auc": 0.7508,
     "stufen": [
       {
         "n": 3661,
-        "vorhergesagt": 0.0215,
-        "eingetreten": 0.021
+        "vorhergesagt": 0.021,
+        "eingetreten": 0.0229
       },
       {
         "n": 3661,
-        "vorhergesagt": 0.0558,
-        "eingetreten": 0.0557
+        "vorhergesagt": 0.054,
+        "eingetreten": 0.0549
       },
       {
         "n": 3661,
-        "vorhergesagt": 0.0897,
-        "eingetreten": 0.0836
+        "vorhergesagt": 0.0879,
+        "eingetreten": 0.0855
       },
       {
         "n": 3661,
-        "vorhergesagt": 0.1224,
-        "eingetreten": 0.1295
+        "vorhergesagt": 0.1206,
+        "eingetreten": 0.1235
       },
       {
         "n": 3661,
-        "vorhergesagt": 0.1563,
-        "eingetreten": 0.1601
+        "vorhergesagt": 0.1547,
+        "eingetreten": 0.1647
       },
       {
         "n": 3661,
-        "vorhergesagt": 0.1917,
-        "eingetreten": 0.2049
+        "vorhergesagt": 0.1908,
+        "eingetreten": 0.204
       },
       {
         "n": 3661,
-        "vorhergesagt": 0.235,
-        "eingetreten": 0.251
+        "vorhergesagt": 0.2347,
+        "eingetreten": 0.2538
       },
       {
         "n": 3661,
-        "vorhergesagt": 0.2894,
-        "eingetreten": 0.3007
+        "vorhergesagt": 0.2903,
+        "eingetreten": 0.301
       },
       {
         "n": 3661,
-        "vorhergesagt": 0.3676,
-        "eingetreten": 0.3832
+        "vorhergesagt": 0.3672,
+        "eingetreten": 0.3794
       },
       {
         "n": 3661,
-        "vorhergesagt": 0.5194,
+        "vorhergesagt": 0.5218,
         "eingetreten": 0.5154
       }
     ]

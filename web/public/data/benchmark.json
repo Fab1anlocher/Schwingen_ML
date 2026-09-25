@@ -38,10 +38,10 @@
     {
       "key": "ml_komplett",
       "label": "Gradient Boosting (Produktionsmodell)",
-      "accuracy": 0.6897,
-      "brier_score": 0.4156,
-      "mae": 0.2433,
-      "mse": 0.0999
+      "accuracy": 0.6901,
+      "brier_score": 0.4154,
+      "mae": 0.2432,
+      "mse": 0.0998
     }
   ]
 }
