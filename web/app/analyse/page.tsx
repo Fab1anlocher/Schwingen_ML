@@ -1,25 +1,48 @@
 "use client";
 
-// Seite "Analyse": Modellgüte gegen die Elo-Baseline und im Verlauf, Benchmark,
-// Konfusionsmatrix, Gestellt-Kalibrierung (report.json, benchmark.json),
-// Merkmalswichtigkeit (feature_importance.json) sowie Physis/Schwünge gegen
-// Elo (schwinger.json + ratings.json). Alle Zahlen stammen aus dem letzten
+// Seite "Analyse": die Antwort zuerst (Kennzahlen), dann Vergleich der
+// Ansätze, Schwierigkeit je Festtyp (Prognose-Check, events.json),
+// Gestellt-Kalibrierung, Entwicklung des Modells und tägliche Überwachung
+// (report_verlauf.json), Merkmalswichtigkeit, Exkurse zu Physis/Schwüngen
+// und zuletzt Details für Fachleute (Methodik, Konfusionsmatrix, alle
+// Fehlermasse, alle Läufe). Alle Zahlen stammen aus dem letzten
 // Pipeline-Lauf; hier wird nichts neu geschätzt.
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { ladeFeatureImportance, ladeBenchmark, ladeSchwinger, ladeRatings, ladeVerlauf } from "@/lib/data";
-import { VerlaufDiagramm, modellStand, type VerlaufLauf } from "@/components/VerlaufDiagramm";
-import type { FeatureImportanceEntry, BenchmarkArtifact, Schwinger, RatingsArtifact } from "@/lib/types";
+import {
+  ladeBenchmark,
+  ladeEvents,
+  ladeFeatureImportance,
+  ladeRatings,
+  ladeSchwinger,
+  ladeVerlauf,
+} from "@/lib/data";
+import { modellStand, type VerlaufLauf } from "@/components/VerlaufDiagramm";
+import type {
+  BenchmarkArtifact,
+  EventsArtifact,
+  FeatureImportanceEntry,
+  RatingsArtifact,
+  Schwinger,
+} from "@/lib/types";
 import {
   GestelltKalibrierung,
   Konfusionsmatrix,
-  VergleichBalken,
   VierWegeBenchmark,
   type GestelltKalibrierungDaten,
 } from "@/components/ModellGuete";
+import {
+  AnsatzRangliste,
+  Kennzahlen,
+  ModellEntwicklung,
+  SchwierigkeitJeFesttyp,
+  Ueberwachung,
+  type Kennzahl,
+} from "@/components/AnalyseTeile";
 import { StreudiagrammMitTrend } from "@/components/StreudiagrammMitTrend";
 import { SchwungVergleich, type SchwungStat } from "@/components/SchwungVergleich";
-import { datumKurz, schwungName, zahl } from "@/lib/labels";
+import { datumKurz, prozent, schwungName, zahl } from "@/lib/labels";
 
 const MIN_SCHWINGER_PRO_SCHWUNG = 15;
 // Ab so vielen Gängen gilt ein Elo als Messung (wie model.json
@@ -54,15 +77,12 @@ interface Report {
   konfusionsmatrix?: number[][] | null;
   /** Ab Merkmalsversion 2 (P3); ältere Reports haben den Block nicht. */
   gestellt_kalibrierung?: GestelltKalibrierungDaten | null;
+  /** T1: Stand des Verlaufs und Warnung des jüngsten Laufs (export.ergaenze_verlauf). */
+  modell_verlauf?: { n_laeufe: number; warnung: string | null } | null;
 }
 
 // Merkmale, die die Spec explizit beleuchten will (AK-4.2).
-const FOKUS = new Set([
-  "gewicht_diff",
-  "groesse_diff",
-  "schwung_overlap",
-  "schwung_count_diff",
-]);
+const FOKUS = new Set(["gewicht_diff", "groesse_diff", "schwung_overlap", "schwung_count_diff"]);
 
 export default function Analyse() {
   const [fi, setFi] = useState<FeatureImportanceEntry[]>([]);
@@ -72,6 +92,7 @@ export default function Analyse() {
   const [benchmark, setBenchmark] = useState<BenchmarkArtifact | null>(null);
   const [schwinger, setSchwinger] = useState<Schwinger[]>([]);
   const [ratings, setRatings] = useState<RatingsArtifact | null>(null);
+  const [events, setEvents] = useState<EventsArtifact | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -86,9 +107,18 @@ export default function Analyse() {
       .then((r) => r.json())
       .then(setReport)
       .catch(() => {});
-    ladeBenchmark().then(setBenchmark).catch(() => {});
-    ladeSchwinger().then(setSchwinger).catch(() => {});
-    ladeRatings().then(setRatings).catch(() => {});
+    ladeBenchmark()
+      .then(setBenchmark)
+      .catch(() => {});
+    ladeSchwinger()
+      .then(setSchwinger)
+      .catch(() => {});
+    ladeRatings()
+      .then(setRatings)
+      .catch(() => {});
+    ladeEvents()
+      .then(setEvents)
+      .catch(() => {});
   }, []);
 
   // Nur Schwinger mit tatsächlich erfassten Gängen (nicht der Elo-Startwert
@@ -99,7 +129,11 @@ export default function Analyse() {
     return schwinger
       .map((s) => ({ s, r: ratings.ratings[s.id] }))
       .filter((e) => e.r && e.r.n_gaenge >= MIN_GAENGE_FUER_ELO && e.s.groesse_cm)
-      .map((e) => ({ x: e.s.groesse_cm as number, y: e.r!.elo, label: e.s.name }));
+      .map((e) => ({
+        x: e.s.groesse_cm as number,
+        y: e.r!.elo,
+        label: e.s.name,
+      }));
   }, [schwinger, ratings]);
 
   const streuGewicht = useMemo(() => {
@@ -107,7 +141,11 @@ export default function Analyse() {
     return schwinger
       .map((s) => ({ s, r: ratings.ratings[s.id] }))
       .filter((e) => e.r && e.r.n_gaenge >= MIN_GAENGE_FUER_ELO && e.s.gewicht_kg)
-      .map((e) => ({ x: e.s.gewicht_kg as number, y: e.r!.elo, label: e.s.name }));
+      .map((e) => ({
+        x: e.s.gewicht_kg as number,
+        y: e.r!.elo,
+        label: e.s.name,
+      }));
   }, [schwinger, ratings]);
 
   const streuAlter = useMemo(() => {
@@ -116,7 +154,11 @@ export default function Analyse() {
     return schwinger
       .map((s) => ({ s, r: ratings.ratings[s.id] }))
       .filter((e) => e.r && e.r.n_gaenge >= MIN_GAENGE_FUER_ELO && e.s.jahrgang)
-      .map((e) => ({ x: jahr - (e.s.jahrgang as number), y: e.r!.elo, label: e.s.name }));
+      .map((e) => ({
+        x: jahr - (e.s.jahrgang as number),
+        y: e.r!.elo,
+        label: e.s.name,
+      }));
   }, [schwinger, ratings]);
 
   // Kategorial statt kontinuierlich: Ø Elo je bevorzugtem Schwung (nur wo
@@ -130,7 +172,10 @@ export default function Analyse() {
     // Auswahlverzerrung wie bei der Kranzquote auf der Karte).
     const mitSchwung = schwinger
       .map((s) => ({ s, r: ratings.ratings[s.id] }))
-      .filter((e) => e.r && e.r.n_gaenge >= MIN_GAENGE_FUER_ELO && (e.s.bevorzugte_schwuenge?.length ?? 0) > 0);
+      .filter(
+        (e) =>
+          e.r && e.r.n_gaenge >= MIN_GAENGE_FUER_ELO && (e.s.bevorzugte_schwuenge?.length ?? 0) > 0
+      );
     if (mitSchwung.length === 0) return { schwungStats: [], gesamtschnittElo: 0 };
 
     const summeGesamt = mitSchwung.reduce((acc, e) => acc + e.r!.elo, 0);
@@ -155,246 +200,165 @@ export default function Analyse() {
 
   if (error) return <p className="warn">Fehler: {error}</p>;
   const max = Math.max(...fi.map((f) => f.wichtigkeit), 1e-6);
-  const modellName = report?.modell_typ === "gbm" ? "Gradient Boosting" : "Logistic Regression";
+  const haupt = fi.slice(0, 8);
+  const rest = fi.slice(8);
+  const saison = report ? String(report.holdout_jahr) : "";
+  const check = events?.prognose_check_saisons?.[saison];
+  const kal = report?.gestellt_kalibrierung;
+  const lr = benchmark?.kandidaten.find((k) => k.key === "lr_komplett");
+
+  const kennzahlen: Kennzahl[] = report
+    ? [
+        {
+          zahl: prozent(report.modell.accuracy),
+          label: "der Gänge richtig vorhergesagt",
+          sub: `reine Elo-Prognose: ${prozent(report.baseline_elo.accuracy)}`,
+        },
+        check
+          ? {
+              zahl: prozent(check.p_eingetreten),
+              label: "gab das Modell im Schnitt dem tatsächlichen Ausgang",
+              sub: `Log-Loss ${report.modell.log_loss.toFixed(3)} · Elo ${report.baseline_elo.log_loss.toFixed(3)}`,
+            }
+          : {
+              zahl: report.modell.log_loss.toFixed(3),
+              label: "Log-Loss (tiefer = besser)",
+              sub: `reine Elo-Prognose: ${report.baseline_elo.log_loss.toFixed(3)}`,
+            },
+        kal
+          ? {
+              zahl: `${prozent(kal.vorhergesagt)} / ${prozent(kal.eingetreten)}`,
+              label: "Gestellt vorhergesagt / eingetreten",
+              sub: `im Schnitt ${(kal.ece * 100).toFixed(1)} Prozentpunkte daneben`,
+            }
+          : { zahl: "–", label: "Gestellt-Kalibrierung", sub: "noch nicht gemessen" },
+        {
+          zahl: zahl(report.n_test),
+          label: `Testgänge der Saison ${report.holdout_jahr}`,
+          sub: "beim Training unbekannt",
+        },
+      ]
+    : [];
 
   return (
     <div>
-      <h1>Analyse &amp; Modellgüte</h1>
+      <h1>Wie gut sind die Prognosen?</h1>
       <p className="subtitle">
-        Welche Merkmale treiben die Prognose — und schlägt das Modell die Elo-Baseline?
+        Gemessen an der ganzen Saison {saison || "…"}: jeder Gang so vorhergesagt, als hätte er noch
+        nicht stattgefunden — und verglichen mit dem, was dann geschah.
       </p>
 
-      {report && (
-        <div className="panel">
-          <h2 style={{ marginTop: 0 }}>Modellgüte (Holdout {report.holdout_jahr})</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Metrik</th>
-                <th>Modell ({modellName})</th>
-                <th>Baseline (Elo)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Log-Loss (tiefer = besser)</td>
-                <td>
-                  <strong>{report.modell.log_loss.toFixed(4)}</strong>
-                </td>
-                <td>{report.baseline_elo.log_loss.toFixed(4)}</td>
-              </tr>
-              <tr>
-                <td>Accuracy</td>
-                <td>
-                  <strong>{(report.modell.accuracy * 100).toFixed(1)}%</strong>
-                </td>
-                <td>{(report.baseline_elo.accuracy * 100).toFixed(1)}%</td>
-              </tr>
-            </tbody>
-          </table>
-          <VergleichBalken
-            modellName={modellName}
-            metriken={[
-              {
-                key: "log_loss",
-                label: "Log-Loss (tiefer = besser)",
-                modell: report.modell.log_loss,
-                baseline: report.baseline_elo.log_loss,
-                format: (v) => v.toFixed(4),
-              },
-              {
-                key: "accuracy",
-                label: "Accuracy (höher = besser)",
-                modell: report.modell.accuracy,
-                baseline: report.baseline_elo.accuracy,
-                format: (v) => `${(v * 100).toFixed(1)}%`,
-              },
-            ]}
-          />
-          <p style={{ marginTop: "0.9rem" }}>
-            {report.schlaegt_baseline ? (
-              <span className="badge" style={{ color: "var(--accent-2)", borderColor: "rgba(18,135,106,0.4)" }}>
-                ✓ schlägt Baseline um {report.verbesserung_log_loss.toFixed(4)} Log-Loss
-              </span>
-            ) : (
-              <span className="badge" style={{ color: "#b26a00" }}>
-                ✗ schlägt Baseline (noch) nicht
-              </span>
-            )}
-          </p>
-          <p className="muted small">
-            Datenbasis: {zahl(report.datenbasis.n_gaenge)} Gänge, {zahl(report.datenbasis.n_schwinger)}{" "}
-            Schwinger · Training {zahl(report.n_train / 2)} Gänge (je aus beiden Sichten, A/B
-            gespiegelt) · Test {zahl(report.n_test)} Gänge der Saison {report.holdout_jahr}, die
-            das Modell nie gesehen hat
-            {(report.n_train_ausgeliefert ?? 0) > report.n_train && (
-              <>
-                {" "}
-                · Die Prognosen der App rechnet danach ein Modell mit denselben Einstellungen, das
-                zusätzlich auf dieser Saison trainiert ist ({zahl(report.n_train_ausgeliefert! / 2)}{" "}
-                Gänge) — die Kennzahlen hier stammen bewusst vom Modell ohne sie.
-              </>
-            )}
-          </p>
-          {report.erfolgskriterien && (
-            <p className="muted small">
-              Kriterium Log-Loss:{" "}
-              {report.erfolgskriterien.log_loss_besser_als_baseline ? "erfüllt" : "offen"} ·
-              Kriterium Accuracy:{" "}
-              {report.erfolgskriterien.accuracy_mindestens_baseline ? "erfüllt" : "offen"}
-              {typeof report.accuracy_gg_baseline === "number" &&
-                ` (Δ ${(report.accuracy_gg_baseline * 100).toFixed(1)}%-Pkt)`}
-            </p>
-          )}
-        </div>
-      )}
+      {report && <Kennzahlen werte={kennzahlen} />}
 
       {benchmark && (
         <>
-          <h2>Benchmark (Holdout {benchmark.holdout_jahr})</h2>
-          <div className="panel">
-            <p className="muted small" style={{ marginTop: 0, marginBottom: "1rem" }}>
-              Unabhängige Ansätze, ausgewertet auf denselben {zahl(benchmark.n_test)} echten
-              Gängen der jüngsten Saison (keine gespiegelten Trainings-Duplikate): eine reine
-              Kranz-Heuristik ohne Statistik, das klassische Elo-Rating, ein ML-Modell{" "}
-              <em>ohne</em> Elo/Historie (nur Physis, Stil, Verband), die lineare Logistic
-              Regression mit allen Merkmalen (das Modell bis 25.09.2026) und das
-              Produktionsmodell. Beantwortet, ob Elo einen Mehrwert bringt, ob das Modell
-              besser ist als reines Elo-Ranking — und was der Wechsel auf Gradient Boosting
-              gebracht hat.
-            </p>
-            <VierWegeBenchmark kandidaten={benchmark.kandidaten} />
-          </div>
-        </>
-      )}
-
-      {verlauf.length >= 2 && (
-        <>
-          <h2>Modellgüte im Verlauf</h2>
+          <h2>Im Vergleich</h2>
           <div className="panel">
             <p className="muted small" style={{ marginTop: 0 }}>
-              Ein Punkt je Tag mit Pipeline-Lauf, gemessen auf der jeweils jüngsten Saison, die
-              das Modell nicht gesehen hat. Gestrichelt: Wechsel des Modells oder der Merkmale
-              (wechselt es an einem Tag, stehen dort beide Punkte übereinander).
-              Steigt der Log-Loss ohne solchen Wechsel deutlich, schlägt der tägliche Lauf Alarm
-              (Datenqualitätsbericht).
+              Fünf Ansätze auf denselben {zahl(benchmark.n_test)} Gängen, bester zuerst. Der Balken
+              zeigt, wie oft der wahrscheinlichste Ausgang eintrat; der Brier-Score misst
+              zusätzlich, ob die Wahrscheinlichkeiten stimmen (tiefer = besser).
+              {lr &&
+                ` Der Wechsel vom linearen Modell auf Gradient Boosting brachte ${(
+                  (benchmark.kandidaten.find((k) => k.key === "ml_komplett")!.accuracy -
+                    lr.accuracy) *
+                  100
+                ).toFixed(
+                  1
+                )} Prozentpunkte mehr Treffer und deutlich bessere Wahrscheinlichkeiten.`}
             </p>
-            <div className="grid-2">
-              <VerlaufDiagramm
-                laeufe={verlauf}
-                titel="Log-Loss (tiefer = besser)"
-                wert={(l) => l.log_loss}
-                format={(v) => v.toFixed(3)}
-              />
-              <VerlaufDiagramm
-                laeufe={verlauf}
-                titel="Accuracy (höher = besser)"
-                wert={(l) => l.accuracy}
-                format={(v) => `${(v * 100).toFixed(1)}%`}
-              />
-            </div>
-            <details style={{ marginTop: "0.6rem" }}>
-              <summary className="muted small">Als Tabelle</summary>
-              <div className="tabelle-wrap">
-                <table style={{ minWidth: 420 }}>
-                  <thead>
-                    <tr>
-                      <th>Datum</th>
-                      <th>Modell</th>
-                      <th>Log-Loss</th>
-                      <th>Accuracy</th>
-                      <th>Gänge</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[...verlauf].reverse().map((l, i) => (
-                      <tr key={`${l.datum}-${i}`}>
-                        <td>{datumKurz(l.datum)}</td>
-                        <td className="muted small">{modellStand(l)}</td>
-                        <td>{l.log_loss.toFixed(4)}</td>
-                        <td>{(l.accuracy * 100).toFixed(1)}%</td>
-                        <td className="muted">{l.n_gaenge ? zahl(l.n_gaenge) : "—"}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </details>
+            <AnsatzRangliste kandidaten={benchmark.kandidaten} />
           </div>
         </>
       )}
 
-      {report?.konfusionsmatrix && report.klassen && (
+      {events && check && (
         <>
-          <h2>Konfusionsmatrix (Holdout {report.holdout_jahr})</h2>
-          <div className="panel">
-            <Konfusionsmatrix klassen={report.klassen} matrix={report.konfusionsmatrix} />
-          </div>
-        </>
-      )}
-
-      {report?.gestellt_kalibrierung?.stufen?.length ? (
-        <>
-          <h2>Stimmt die Gestellt-Chance? (Holdout {report.holdout_jahr})</h2>
+          <h2>Wo Schwingen schwer vorherzusagen ist</h2>
           <div className="panel">
             <p className="muted small" style={{ marginTop: 0 }}>
-              „Gestellt“ ist nur selten der wahrscheinlichste Ausgang — Accuracy und
-              Konfusionsmatrix sehen darum kaum, ob die angezeigte Gestellt-Chance stimmt. Hier
-              sind die {report.gestellt_kalibrierung.n} Testgänge nach vorhergesagter
-              Gestellt-Chance in zehn gleich grosse Stufen geteilt. Liegen die Punkte auf der
-              Diagonalen, endet ein Gang so oft gestellt, wie das Modell sagt.
+              Treffer je Festtyp in der Saison {saison}, gerechnet mit dem Modell, das vor der
+              Saison galt. An Bergfesten und am Eidgenössischen treffen mehr Spitzenschwinger
+              aufeinander, und es wird öfter gestellt — dort liegt jede Prognose seltener richtig.
+              Je Fest steht die Trefferquote im <Link href="/feste">Rückblick der Feste</Link>.
             </p>
-            <GestelltKalibrierung daten={report.gestellt_kalibrierung} />
+            <SchwierigkeitJeFesttyp feste={events.vergangene} saison={saison} />
+          </div>
+        </>
+      )}
+
+      {kal?.stufen?.length ? (
+        <>
+          <h2>Stimmt die Gestellt-Chance?</h2>
+          <div className="panel">
+            <GestelltKalibrierung
+              daten={kal}
+              erklaerung={
+                <p className="muted small">
+                  „Gestellt“ ist selten der wahrscheinlichste Ausgang — die Trefferquote sieht darum
+                  kaum, ob die angezeigte Gestellt-Chance stimmt. Hier sind die {zahl(kal.n)}{" "}
+                  Testgänge nach vorhergesagter Gestellt-Chance in zehn gleich grosse Gruppen
+                  geteilt. Liegen die Punkte auf der Diagonalen, endet ein Gang genau so oft
+                  gestellt, wie das Modell sagt.
+                </p>
+              }
+            />
           </div>
         </>
       ) : null}
 
-      <h2>Merkmalswichtigkeit</h2>
+      {verlauf.length > 0 && (
+        <>
+          <h2>Wie das Modell besser wurde</h2>
+          <div className="panel">
+            <p className="muted small" style={{ marginTop: 0 }}>
+              Jeder Schritt wurde an der Saison {saison} gemessen und nur übernommen, wenn er auch
+              auf der Saison davor besser war. Der Balken zeigt den Vorsprung vor der reinen
+              Elo-Prognose (länger = besser); daneben der Log-Loss und seine Änderung zum vorherigen
+              Schritt.
+            </p>
+            <ModellEntwicklung laeufe={verlauf} />
+          </div>
+
+          <h3 style={{ marginTop: "1.6rem" }}>Tägliche Überwachung</h3>
+          <div className="panel">
+            <p className="muted small" style={{ marginTop: 0 }}>
+              Jeder tägliche Lauf misst neu. Steigt der Log-Loss mehr als 0.01 über den Median der
+              letzten 14 vergleichbaren Läufe, meldet der Datenqualitätsbericht Alarm — etwa wenn
+              neue Daten fehlerhaft eingelesen wurden.
+            </p>
+            <Ueberwachung laeufe={verlauf} warnung={report?.modell_verlauf?.warnung} />
+          </div>
+        </>
+      )}
+
+      <h2>Was die Prognose treibt</h2>
       <div className="panel">
-        <table>
-          <thead>
-            <tr>
-              <th style={{ width: "35%" }}>Merkmal</th>
-              <th style={{ width: "45%" }}>Wichtigkeit</th>
-              <th>Wert</th>
-            </tr>
-          </thead>
-          <tbody>
-            {fi.map((f) => (
-              <tr key={f.feature}>
-                <td>
-                  {f.label}
-                  {FOKUS.has(f.feature) && (
-                    <span className="badge" style={{ marginLeft: 6 }}>
-                      Fokus
-                    </span>
-                  )}
-                </td>
-                <td>
-                  <div
-                    className="fi-bar"
-                    style={{ width: `${(f.wichtigkeit / max) * 100}%` }}
-                  />
-                </td>
-                <td className="muted small">{f.wichtigkeit.toFixed(3)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <p className="muted small" style={{ marginTop: 0 }}>
+          {fiArt === "permutation"
+            ? "Um so viel verschlechtert sich die Prognose (Log-Loss), wenn man ein Merkmal zufällig unter den Testgängen vertauscht — also wie viel das Modell ohne dieses Merkmal verlöre."
+            : "Mittlerer Betrag der standardisierten Koeffizienten über die drei Ausgänge."}
+        </p>
+        <FiTabelle eintraege={haupt} max={max} />
+        {rest.length > 0 && (
+          <details style={{ marginTop: "0.4rem" }}>
+            <summary className="muted small">
+              Weitere {rest.length} Merkmale mit kleinem Beitrag
+            </summary>
+            <FiTabelle eintraege={rest} max={max} />
+          </details>
+        )}
+        <p className="muted small" style={{ marginBottom: 0 }}>
+          „Fokus“ markiert die Merkmale, deren Beitrag die Spezifikation eigens prüfen will
+          (Gewicht, Grösse, bevorzugte Schwünge, AK-4.2). Klein heisst nicht bedeutungslos: Physis
+          und Stil sind nur für Schwinger mit Porträt erfasst, und ein Teil ihrer Wirkung steckt
+          schon im Elo-Rating — der Exkurs unten zeigt die Zusammenhänge direkt.
+        </p>
       </div>
-      <p className="muted small" style={{ marginTop: "0.75rem" }}>
-        {fiArt === "permutation"
-          ? "Wichtigkeit = um so viel steigt der Log-Loss auf den Testgängen, wenn dieses Merkmal zufällig vertauscht wird (Permutation) — also wie viel schlechter das Modell ohne das Merkmal wäre."
-          : "Wichtigkeit = mittlerer Betrag der standardisierten Koeffizienten über die drei Klassen."}{" "}
-        „Fokus" markiert Merkmale, deren Beitrag die Spezifikation explizit prüfen
-        will (Gewicht, Grösse, bevorzugte Schwünge — vgl. AK-4.2). Klein heisst hier nicht
-        bedeutungslos: Physis und Stil sind nur für Schwinger mit Porträt erfasst, und ein Teil
-        ihrer Wirkung steckt schon im Elo-Rating.
-      </p>
 
       {(streuGroesse.length > 0 || streuGewicht.length > 0 || streuAlter.length > 0) && (
         <>
-          <h2>Macht Grösse, Gewicht oder Alter einen Unterschied?</h2>
+          <h2>Exkurs: Macht Grösse, Gewicht oder Alter einen Unterschied?</h2>
           <div className="panel">
             <p className="muted small" style={{ marginTop: 0, marginBottom: "1rem" }}>
               Jeder Punkt ein Schwinger mit mindestens {MIN_GAENGE_FUER_ELO} erfassten Gängen (Elo
@@ -428,18 +392,131 @@ export default function Analyse() {
 
       {schwungStats.length > 0 && (
         <>
-          <h2>Macht der bevorzugte Schwung einen Unterschied?</h2>
+          <h2>Exkurs: Macht der bevorzugte Schwung einen Unterschied?</h2>
           <div className="panel">
             <p className="muted small" style={{ marginTop: 0, marginBottom: "0.5rem" }}>
               Ø Elo der Schwinger mit mindestens {MIN_GAENGE_FUER_ELO} Gängen, die diesen Schwung
-              bevorzugen (nur Schwünge mit mindestens{" "}
-              {MIN_SCHWINGER_PRO_SCHWUNG} Schwingern, sonst zu verrauscht — ein Schwinger kann
-              mehrere bevorzugte Schwünge haben und zählt dann bei mehreren mit).
+              bevorzugen (nur Schwünge mit mindestens {MIN_SCHWINGER_PRO_SCHWUNG} Schwingern, sonst
+              zu verrauscht — ein Schwinger kann mehrere bevorzugte Schwünge haben und zählt dann
+              bei mehreren mit).
             </p>
             <SchwungVergleich daten={schwungStats} gesamtschnitt={gesamtschnittElo} />
           </div>
         </>
       )}
+
+      {report && (
+        <>
+          <h2>Für Fachleute</h2>
+          <div className="panel fachleute">
+            <details>
+              <summary>Methodik und Datenbasis</summary>
+              <ul className="small" style={{ lineHeight: 1.6 }}>
+                <li>
+                  Datenbasis: {zahl(report.datenbasis.n_gaenge)} Gänge,{" "}
+                  {zahl(report.datenbasis.n_schwinger)} Schwinger. Training{" "}
+                  {zahl(report.n_train / 2)} Gänge vor der Saison {report.holdout_jahr} (je aus
+                  beiden Sichten, A/B gespiegelt), Test {zahl(report.n_test)} Gänge der Saison{" "}
+                  {report.holdout_jahr} — zeitlich getrennt, kein Zufallssplit.
+                </li>
+                <li>
+                  Modell:{" "}
+                  {report.modell_typ === "gbm"
+                    ? "zweistufiges Gradient Boosting"
+                    : "Logistic Regression"}
+                  {report.n_baeume &&
+                    ` (${report.n_baeume.gestellt} Bäume für Gestellt, ${report.n_baeume.sieg} für den Sieger)`}
+                  , Merkmale Stand vor dem jeweiligen Fest.
+                </li>
+                {(report.n_train_ausgeliefert ?? 0) > report.n_train && (
+                  <li>
+                    Die App rechnet mit einem Modell derselben Einstellungen, das zusätzlich auf der
+                    Saison {report.holdout_jahr} trainiert ist (
+                    {zahl(report.n_train_ausgeliefert! / 2)} Gänge). Alle Kennzahlen hier stammen
+                    bewusst vom Modell ohne sie.
+                  </li>
+                )}
+                <li>
+                  Log-Loss {report.modell.log_loss.toFixed(4)} gegen Elo{" "}
+                  {report.baseline_elo.log_loss.toFixed(4)} (Differenz{" "}
+                  {report.verbesserung_log_loss.toFixed(4)}); Treffer{" "}
+                  {(report.modell.accuracy * 100).toFixed(1)}% gegen{" "}
+                  {(report.baseline_elo.accuracy * 100).toFixed(1)}%.
+                </li>
+              </ul>
+            </details>
+            {report.konfusionsmatrix && report.klassen && (
+              <details>
+                <summary>Konfusionsmatrix</summary>
+                <Konfusionsmatrix klassen={report.klassen} matrix={report.konfusionsmatrix} />
+              </details>
+            )}
+            {benchmark && (
+              <details>
+                <summary>Alle Fehlermasse der Ansätze (Accuracy, Brier, MAE, MSE)</summary>
+                <VierWegeBenchmark kandidaten={benchmark.kandidaten} />
+              </details>
+            )}
+            {verlauf.length > 0 && (
+              <details>
+                <summary>Alle Läufe seit {datumKurz(verlauf[0].datum)}</summary>
+                <div className="tabelle-wrap">
+                  <table style={{ minWidth: 420 }}>
+                    <thead>
+                      <tr>
+                        <th>Datum</th>
+                        <th>Modell</th>
+                        <th>Log-Loss</th>
+                        <th>Treffer</th>
+                        <th>Gänge</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[...verlauf].reverse().map((l, i) => (
+                        <tr key={`${l.datum}-${i}`}>
+                          <td>{datumKurz(l.datum)}</td>
+                          <td className="muted small">{modellStand(l)}</td>
+                          <td>{l.log_loss.toFixed(4)}</td>
+                          <td>{(l.accuracy * 100).toFixed(1)}%</td>
+                          <td className="muted">{l.n_gaenge ? zahl(l.n_gaenge) : "—"}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </details>
+            )}
+          </div>
+        </>
+      )}
     </div>
+  );
+}
+
+/** Merkmalswichtigkeit als Balkentabelle (s. oben: Haupt- und Restteil). */
+function FiTabelle({ eintraege, max }: { eintraege: FeatureImportanceEntry[]; max: number }) {
+  return (
+    <table>
+      <tbody>
+        {eintraege.map((f) => (
+          <tr key={f.feature}>
+            <td style={{ width: "40%" }}>
+              {f.label}
+              {FOKUS.has(f.feature) && (
+                <span className="badge" style={{ marginLeft: 6, fontSize: "0.7rem" }}>
+                  Fokus
+                </span>
+              )}
+            </td>
+            <td style={{ width: "48%" }}>
+              <div className="fi-bar" style={{ width: `${(f.wichtigkeit / max) * 100}%` }} />
+            </td>
+            <td className="muted small" style={{ textAlign: "right" }}>
+              {f.wichtigkeit.toFixed(3)}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }

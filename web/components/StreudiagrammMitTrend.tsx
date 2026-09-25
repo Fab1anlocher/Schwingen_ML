@@ -4,6 +4,7 @@
 
 import { useMemo, useState } from "react";
 import { linearRegression, korrelationsStaerke } from "@/lib/regression";
+import { useBreite } from "@/lib/useBreite";
 
 interface Punkt {
   x: number;
@@ -11,8 +12,6 @@ interface Punkt {
   label: string;
 }
 
-const W = 640;
-const H = 320;
 const PAD = { links: 48, rechts: 16, oben: 12, unten: 34 };
 
 function nizeRange(min: number, max: number): [number, number] {
@@ -34,6 +33,8 @@ export function StreudiagrammMitTrend({
   formatX: (v: number) => string;
 }) {
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+  const [ref, W] = useBreite(320);
+  const H = Math.round(Math.min(320, Math.max(200, W * 0.62)));
 
   const regression = useMemo(() => linearRegression(punkte), [punkte]);
 
@@ -53,9 +54,7 @@ export function StreudiagrammMitTrend({
   const yScale = (v: number) => py1 - ((v - yMin) / (yMax - yMin)) * (py1 - py0);
 
   if (punkte.length < 5 || !regression) {
-    return (
-      <p className="muted small">Zu wenig Daten für {titel}.</p>
-    );
+    return <p className="muted small">Zu wenig Daten für {titel}.</p>;
   }
 
   const trendX0 = xMin;
@@ -66,7 +65,7 @@ export function StreudiagrammMitTrend({
   const rQuadrat = regression.r * regression.r;
 
   return (
-    <div className="streu-wrap">
+    <div className="streu-wrap" ref={ref}>
       <div className="row" style={{ justifyContent: "space-between", alignItems: "baseline" }}>
         <strong>{titel}</strong>
         <span className="muted small">
