@@ -1,28 +1,28 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-09-25T19:09:51.036520+00:00",
-  "lauf_id": "20260925T190951Z",
+  "erstellt": "2026-09-25T19:34:55.229279+00:00",
+  "lauf_id": "20260925T193455Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 133611,
-    "n_schwinger": 2904
+    "n_schwinger": 2916
   },
   "holdout_jahr": 2026,
   "n_train": 135722,
   "n_test": 36485,
   "modell": {
-    "log_loss": 0.7495,
-    "accuracy": 0.6839,
-    "mae": 0.2575,
-    "mse": 0.1056
+    "log_loss": 0.7385,
+    "accuracy": 0.6868,
+    "mae": 0.2532,
+    "mse": 0.1033
   },
   "baseline_elo": {
-    "log_loss": 0.9132,
-    "accuracy": 0.6106
+    "log_loss": 0.9101,
+    "accuracy": 0.6126
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0733,
-  "verbesserung_log_loss": 0.1637,
+  "accuracy_gg_baseline": 0.0741,
+  "verbesserung_log_loss": 0.1717,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -30,92 +30,92 @@
   ],
   "konfusionsmatrix": [
     [
-      10194,
-      823,
-      2060
+      10310,
+      846,
+      1921
     ],
     [
-      2785,
-      1774,
-      3135
+      2789,
+      1815,
+      3090
     ],
     [
-      1893,
-      837,
-      12984
+      1933,
+      849,
+      12932
     ]
   ],
   "nur_portraet": {
     "modell": {
-      "n": 9319,
-      "anteil_am_test": 0.2554,
-      "log_loss": 0.8368,
-      "accuracy": 0.6207,
-      "mae": 0.2591,
-      "mse": 0.1093
+      "n": 9281,
+      "anteil_am_test": 0.2544,
+      "log_loss": 0.8276,
+      "accuracy": 0.6262,
+      "mae": 0.2545,
+      "mse": 0.1067
     },
     "baseline_elo": {
-      "n": 9319,
-      "log_loss": 0.9301,
-      "accuracy": 0.5794
+      "n": 9281,
+      "log_loss": 0.9256,
+      "accuracy": 0.5832
     }
   },
   "gestellt_kalibrierung": {
     "n": 36485,
-    "vorhergesagt": 0.2061,
+    "vorhergesagt": 0.2064,
     "eingetreten": 0.2109,
-    "ece": 0.0136,
-    "auc": 0.738,
+    "ece": 0.0125,
+    "auc": 0.741,
     "stufen": [
       {
         "n": 3649,
-        "vorhergesagt": 0.0372,
-        "eingetreten": 0.0312
+        "vorhergesagt": 0.0351,
+        "eingetreten": 0.0269
       },
       {
         "n": 3649,
-        "vorhergesagt": 0.0786,
-        "eingetreten": 0.0584
+        "vorhergesagt": 0.0762,
+        "eingetreten": 0.0578
       },
       {
         "n": 3649,
-        "vorhergesagt": 0.1092,
-        "eingetreten": 0.1
+        "vorhergesagt": 0.1074,
+        "eingetreten": 0.0998
       },
       {
         "n": 3649,
-        "vorhergesagt": 0.1359,
-        "eingetreten": 0.1269
+        "vorhergesagt": 0.1347,
+        "eingetreten": 0.1288
       },
       {
         "n": 3649,
-        "vorhergesagt": 0.1623,
-        "eingetreten": 0.1743
+        "vorhergesagt": 0.1617,
+        "eingetreten": 0.1683
       },
       {
         "n": 3648,
-        "vorhergesagt": 0.1918,
+        "vorhergesagt": 0.1916,
         "eingetreten": 0.1987
       },
       {
         "n": 3648,
-        "vorhergesagt": 0.2272,
-        "eingetreten": 0.2492
+        "vorhergesagt": 0.2273,
+        "eingetreten": 0.2522
       },
       {
         "n": 3648,
-        "vorhergesagt": 0.2738,
-        "eingetreten": 0.2977
+        "vorhergesagt": 0.2748,
+        "eingetreten": 0.3013
       },
       {
         "n": 3648,
-        "vorhergesagt": 0.3439,
-        "eingetreten": 0.3616
+        "vorhergesagt": 0.3469,
+        "eingetreten": 0.3596
       },
       {
         "n": 3648,
-        "vorhergesagt": 0.5014,
-        "eingetreten": 0.511
+        "vorhergesagt": 0.5082,
+        "eingetreten": 0.5156
       }
     ]
   },
@@ -132,7 +132,7 @@
     "schlussgang-51915 imfeld maurus|?/kay sussmeier|?: nur eine Perspektive vorhanden",
     "schlussgang-51915 jonas michel|?/kay sussmeier|?: nur eine Perspektive vorhanden",
     "schlussgang-54093 andre reichmuth|?/inderbitzin tobias|?: nur eine Perspektive vorhanden",
-    "schlussgang-45973 marco ulrich|1997/matter roman|?: Inkonsistente Symbole: A='+' erwartet B='o', gefunden B='+' -> verworfen",
+    "schlussgang-45973 marco ulrich|be/matter roman|?: Inkonsistente Symbole: A='+' erwartet B='o', gefunden B='+' -> verworfen",
     "schlussgang-21055 joel kessler|1997/kaj hugli|1997: nur eine Perspektive vorhanden",
     "schlussgang-21055 fabian birchler|2000/nicolas zimmermann|2001: nur eine Perspektive vorhanden",
     "schlussgang-21055 fabian aebersold|2003/janik korrodi|2004: nur eine Perspektive vorhanden",
@@ -187,8 +187,8 @@
     "anteil_unvollstaendiger_gaenge": 0.1584,
     "ergebnisverteilung": {
       "gestellt": 0.2286,
-      "sieg_a": 0.3521,
-      "sieg_b": 0.4193
+      "sieg_a": 0.352,
+      "sieg_b": 0.4194
     },
     "feste_zeitraum": {
       "von": "2023-04-01",
@@ -209,7 +209,7 @@
     },
     "abzeichen_plausibilitaet": {
       "n_feste_mit_kranzern": 480,
-      "trefferquote_median": 0.8857,
+      "trefferquote_median": 0.8966,
       "feste_ohne_abzeichen": 6,
       "abzeichen_gesamt": 18206,
       "plausibel": true,
@@ -217,15 +217,15 @@
       "hinweis_refetch": false
     },
     "datenabdeckung": {
-      "n_schwinger": 2904,
+      "n_schwinger": 2916,
       "n_portraet": 706,
-      "anteil_portraet": 0.2431,
+      "anteil_portraet": 0.2421,
       "teilverband_schaetzung": {
-        "pruef_faelle": 583,
+        "pruef_faelle": 592,
         "trefferquote": 0.9983,
-        "n_ohne_verband": 2198,
+        "n_ohne_verband": 2210,
         "angewandt": true,
-        "n_geschaetzt": 1649
+        "n_geschaetzt": 1661
       }
     },
     "ranglisten": {
@@ -253,16 +253,16 @@
       ],
       "klub_abdeckung_aktive": 0.9892,
       "verband_ueber_klub": {
-        "klubs_bekannt": 131,
-        "pruef_faelle": 580,
-        "trefferquote": 0.9914,
-        "n_ohne_porträt_mit_klub": 2154,
-        "n_zugeordnet": 1943
+        "klubs_bekannt": 133,
+        "pruef_faelle": 595,
+        "trefferquote": 0.995,
+        "n_ohne_porträt_mit_klub": 2166,
+        "n_zugeordnet": 1998
       },
       "konsistenz": {
-        "klub_wie_porträt": 0.9874,
+        "klub_wie_porträt": 0.9906,
         "klub_vergleiche": 635,
-        "kranzgewinner_ohne_porträt": 86,
+        "kranzgewinner_ohne_porträt": 88,
         "beispiele_kranzgewinner_ohne_porträt": [
           "adrian elsener|?",
           "adrian schwyn|?",
@@ -282,7 +282,7 @@
     "feste_gelesen": 481,
     "feste_uebernommen": 481,
     "feste_verworfen": {},
-    "schwinger_im_kader": 2904,
+    "schwinger_im_kader": 2916,
     "unaufloesbare_namen": 10,
     "beispiele_unaufloesbare_namen": [
       "Wüthrich Jonas",
@@ -295,6 +295,24 @@
       "Aegerter Manuel",
       "Portmann Jonas",
       "Betschart Fabian"
-    ]
+    ],
+    "namensvettern": {
+      "klubs_mit_verband": 128,
+      "personen_getrennt": 12,
+      "feste_umgehaengt": 179,
+      "nicht_trennbar_selbes_fest": 13,
+      "beispiele": [
+        "Dominik Gasser: 24 Feste (Innerschweiz) getrennt von Bern",
+        "Remo Schärz: 15 Feste (Suedwestschweiz) getrennt von Bern",
+        "Théo Rogivue: 14 Feste (Bern) getrennt von Suedwestschweiz",
+        "Gaël Martin: 6 Feste (Suedwestschweiz) getrennt von Nordwestschweiz",
+        "Michael Müller: 10 Feste (Bern) getrennt von Innerschweiz",
+        "Marco Ulrich: 23 Feste (Bern) getrennt von Innerschweiz",
+        "Samuel Giger: 20 Feste (Innerschweiz) getrennt von Nordostschweiz",
+        "Jonas Odermatt: 26 Feste (Innerschweiz) getrennt von Nordwestschweiz",
+        "Simon Schmid: 16 Feste (Nordostschweiz) getrennt von Innerschweiz",
+        "Til Voggensperger: 4 Feste (Nordostschweiz) getrennt von Nordwestschweiz"
+      ]
+    }
   }
 }
