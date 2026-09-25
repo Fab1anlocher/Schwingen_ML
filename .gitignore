@@ -28,3 +28,8 @@ web/.paritaet/
 # Versioniert werden nur die daraus abgeleiteten, kompakten Artefakte
 # (artifacts/*.json, web/public/data/*.json).
 artifacts/raw/
+
+# Von `next dev` (Next 16) bei jedem Start erzeugte Hinweise für KI-Assistenten --
+# kein Projektinhalt.
+web/AGENTS.md
+web/CLAUDE.md
