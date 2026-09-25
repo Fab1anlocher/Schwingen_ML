@@ -158,6 +158,22 @@ def _zeilen(report: dict) -> list[str]:
                   f"- Selbstprüfung an {vs.get('pruef_faelle')} Porträts: "
                   f"{quote:.1%} richtig" if quote is not None else "- Selbstprüfung: keine Prüffälle", ""]
 
+    # Offizielle Schlussranglisten (Kränze, Klub, Verband über den Klub).
+    rl = (report.get("datenqualitaet") or {}).get("ranglisten") or {}
+    if rl.get("n_feste"):
+        vk = rl.get("verband_ueber_klub") or {}
+        ko = rl.get("konsistenz") or {}
+        ohne = rl.get("kranzfeste_ohne_kranz", 0)
+        z += [f"**Schlussranglisten**: {rl['n_feste']} Feste, {rl.get('n_nicht_lesbar', 0)} nicht lesbar, "
+              f"{rl.get('anteil_namen_aufgeloest', 0):.1%} der Namen zugeordnet", "",
+              f"- Kranzquote (Median je Festtyp): {rl.get('kranzquote_median')}",
+              f"- Kranzfeste ohne einen einzigen Kranz: {ohne} ({_ampel(ohne == 0, warn=0 < ohne <= 3)})",
+              f"- Klub bekannt bei {rl.get('klub_abdeckung_aktive', 0):.0%} der Aktiven; "
+              f"Verband über Klub für {vk.get('n_zugeordnet', 0)} ohne Porträt "
+              f"(Prüfung {vk.get('trefferquote')})",
+              f"- Klub wie im Porträt: {ko.get('klub_wie_porträt')}; "
+              f"Kranzgewinner ohne Porträt: {ko.get('kranzgewinner_ohne_porträt')}", ""]
+
     # Stimmt P(Gestellt)? Die einzige Klasse, die fast nie die wahrscheinlichste
     # ist -- Accuracy und Log-Loss allein zeigen es nicht.
     kal = report.get("gestellt_kalibrierung") or {}

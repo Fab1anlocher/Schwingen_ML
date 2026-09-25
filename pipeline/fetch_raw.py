@@ -5,7 +5,9 @@ Ablauf:
      Verband, Kranzstatus, bevorzugte Schwünge.
   2. **Feste + Gänge** (JSON:API ``node/event`` + Statistik-PDF je Fest)
      -> die eigentlichen Resultate.
-  3. **Kader** aus 1 + 2 zustandslos neu bauen (``pipeline.roster``).
+  3. **Schlussranglisten** (offizielle ESV-Liste je Fest, über schlussgang.ch)
+     -> Klub, Wohnort, Senn/Turner und Kranz JEDES Teilnehmers.
+  4. **Kader** aus 1 + 2 zustandslos neu bauen (``pipeline.roster``).
 
 Schritt 3 ist bewusst kein inkrementelles Nachpflegen: der Kader ist eine
 reine Funktion von Porträts + PDF-Namen. Vorher hing er am Stand des
@@ -26,7 +28,9 @@ from .scrape.schlussgang_portraet import (
     write_schlussgang_raw_json,
 )
 from .scrape.schlussgang_resultate import (
+    ergaenze_ranglisten,
     merge_events_raw_json,
+    vervollstaendige_rangliste_urls,
     merge_gaenge_raw_json,
     scrape_events_und_gaenge,
 )
@@ -43,6 +47,13 @@ def _lade(name: str, schluessel: str) -> list[dict]:
     if not p.exists():
         return []
     return json.loads(p.read_text(encoding="utf-8")).get(schluessel, [])
+
+
+def _lade_dict(name: str, schluessel: str) -> dict:
+    p = _pfad(name)
+    if not p.exists():
+        return {}
+    return json.loads(p.read_text(encoding="utf-8")).get(schluessel, {})
 
 
 def bestimme_seit_datum(events: list[dict], *, rueckblick_tage: int = 14,
@@ -152,6 +163,18 @@ def main(argv: list[str] | None = None) -> int:
         )
         print(f"[events] {len(events)} Feste neu, {len(alle_events)} total")
         print(f"[events] {len(gaenge)} Roh-Gang-Einträge neu, {len(alle_gaenge)} total")
+        # Frisch geladene Feste immer neu (nachgetragene Resultate), fehlende
+        # aus der Historie einmalig nachladen.
+        schon = set(_lade_dict("ranglisten.json", "ranglisten"))
+        n_url = vervollstaendige_rangliste_urls(alle_events, schon, typ=args.fest_typ)
+        if n_url:
+            merge_events_raw_json(_pfad("events.json"), alle_events)
+            print(f"[ranglisten] {n_url} Ranglisten-URLs aus der API nachgetragen")
+        ranglisten = ergaenze_ranglisten(
+            _pfad("ranglisten.json"), alle_events, neu_laden={str(e["id"]) for e in events}
+        )
+        n_fehler = sum(1 for r in ranglisten.values() if "fehler" in r)
+        print(f"[ranglisten] {len(ranglisten)} Feste, davon {n_fehler} nicht lesbar")
 
     # Kader IMMER neu bauen: er hängt an beiden Quellen und muss zum aktuellen
     # Stand von portraits + gaenge passen, egal welche davon gerade lief.

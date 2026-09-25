@@ -5,13 +5,21 @@ import Link from "next/link";
 import { ladeCluster, ladeRatings, ladeSchwinger } from "@/lib/data";
 import type { ClusterArtifact, RatingsArtifact, Schwinger } from "@/lib/types";
 import { gruende, hatProfildaten } from "@/lib/aehnlichkeit";
-import { verbandText, verbandVon } from "@/lib/teilverband";
+import { kranzstatusVon, verbandText, verbandVon } from "@/lib/teilverband";
 
 const KRANZ_LABEL: Record<string, string> = {
   kein: "—",
   kranzer: "Kranzer",
   eidgenosse: "Eidgenosse",
   koenig: "Schwingerkönig",
+};
+
+const FESTTYP_LABEL: Record<string, string> = {
+  eidgenoessisch: "Eidgenössisch",
+  berg: "Bergfest",
+  teilverband: "Teilverband",
+  kantonal: "Kantonal",
+  regional: "Regional",
 };
 
 // Echte Werte aus schwinger.json (nicht "Berner"/"innerschweizer" o.ä. --
@@ -85,9 +93,10 @@ export default function SchwingerListe() {
         {schwinger.length} erfasste Schwinger, nach Elo-Rating (Power-Rating) sortiert — kein
         offizielles ESV-Ranking, sondern die modellinterne Einstufung. Suchen, filtern oder
         auf einen Namen klicken für Profildetails. Die Spalte „Kranz" ist die höchste je
-        erreichte Kranzstufe laut Porträt; „Feste" zählt die besuchten Feste seit 2023
-        (Beginn unserer Datenbasis). Wer kein Porträt hat, dessen Teilverband ist aus den
-        besuchten Festen geschätzt und als „geschätzt" gekennzeichnet.
+        erreichte Kranzstufe; „Kränze" die seit 2023 gewonnenen Kränze laut offizieller
+        Schlussrangliste; „Feste" die besuchten Feste seit 2023 (Beginn unserer Datenbasis).
+        Ohne Porträt stammen Klub und Verband aus den Ranglisten; nur wo auch der Klub
+        fehlt, ist der Teilverband aus den besuchten Festen geschätzt und so gekennzeichnet.
       </p>
 
       <div className="panel" style={{ marginBottom: "1.25rem" }}>
@@ -150,6 +159,7 @@ export default function SchwingerListe() {
               <th>Name</th>
               <th>Jg.</th>
               <th title="Höchste je erreichte Kranzstufe">Kranz</th>
+              <th title="Gewonnene Kränze seit 2023 laut offizieller Schlussrangliste">Kränze</th>
               <th>Elo</th>
               <th title="Anzahl besuchter Feste seit 2023 (Beginn der Datenbasis)">
                 Feste
@@ -186,7 +196,8 @@ export default function SchwingerListe() {
                       )}
                     </td>
                     <td className="muted">{s.jahrgang ?? "—"}</td>
-                    <td>{KRANZ_LABEL[s.kranzstatus] ?? s.kranzstatus}</td>
+                    <td>{KRANZ_LABEL[kranzstatusVon(s)] ?? kranzstatusVon(s)}</td>
+                    <td>{typeof s.kraenze === "number" ? s.kraenze : "—"}</td>
                     <td>
                       <strong>{Math.round(s.elo)}</strong>
                     </td>
@@ -195,7 +206,7 @@ export default function SchwingerListe() {
                   </tr>
                   {offen === s.id && (
                     <tr>
-                      <td colSpan={7} style={{ background: "var(--surface-2)" }}>
+                      <td colSpan={8} style={{ background: "var(--surface-2)" }}>
                         <SchwingerDetail schwinger={s} alle={schwinger} cluster={cluster} />
                       </td>
                     </tr>
@@ -248,13 +259,29 @@ function SchwingerDetail({
           </span>
         )}{" "}
         ·{" "}
-        <strong>Kantonal-/Gauverband:</strong> {s.kanton ?? "?"} · <strong>Klub:</strong>{" "}
-        {s.schwingklub ?? "?"}
+        <strong>Kantonal-/Gauverband:</strong> {s.kanton ?? s.kanton_klub ?? "?"} ·{" "}
+        <strong>Klub:</strong> {s.schwingklub ?? "?"}
+        {s.senne_turner && <> · {s.senne_turner === "senne" ? "Senn" : "Turner"}</>}
       </div>
       <div>
         <strong>Grösse:</strong> {s.groesse_cm ? `${s.groesse_cm} cm` : "?"} ·{" "}
         <strong>Gewicht:</strong> {s.gewicht_kg ? `${s.gewicht_kg} kg` : "?"}
       </div>
+      {typeof s.kraenze === "number" && (
+        <div>
+          <strong>Kränze seit 2023:</strong> {s.kraenze}
+          {s.kraenze > 0 && s.kraenze_nach_typ && (
+            <span className="muted">
+              {" "}(
+              {Object.entries(s.kraenze_nach_typ)
+                .sort((x, y) => y[1] - x[1])
+                .map(([typ, n]) => `${FESTTYP_LABEL[typ] ?? typ} ${n}`)
+                .join(" · ")}
+              )
+            </span>
+          )}
+        </div>
+      )}
       <div>
         <strong>Bevorzugte Schwünge:</strong>{" "}
         {s.bevorzugte_schwuenge.length ? s.bevorzugte_schwuenge.join(", ") : "—"}

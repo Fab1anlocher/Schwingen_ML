@@ -21,14 +21,39 @@ updates:
       patch-und-minor:
         update-types: ["minor", "patch"]
         exclude-patterns: ["next", "react", "react-dom", "@types/react", "@types/react-dom"]
+    ignore:
+      # TypeScript 7 ist der neue native Compiler; der Sprung bricht Build
+      # und Paritätsprüfung (Dependabot-PR #20). Eigenes Vorhaben, kein
+      # Routine-Update.
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major"]
+      # Typen gehören zur Laufzeit-Version von Node (Vercel/CI: 24), nicht zur
+      # neuesten -- sonst erlauben die Typen APIs, die es zur Laufzeit nicht
+      # gibt (PR #21 wollte @types/node 26).
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: pip
     directory: /
     schedule:
       interval: weekly
     open-pull-requests-limit: 3
+    groups:
+      pipeline:
+        patterns: ["*"]
+    ignore:
+      # numpy >= 2.5 verlangt Python 3.12; die Pipeline läuft auf 3.11
+      # (PR #22 scheiterte daran). Aufheben, sobald die Workflows auf 3.12+
+      # umgestellt sind.
+      - dependency-name: numpy
+        versions: [">=2.5"]
 
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: monthly
+    # Alle Actions in einem PR: einzeln ändern sie oft benachbarte Zeilen
+    # derselben Workflows und blockieren sich gegenseitig mit Konflikten.
+    groups:
+      actions:
+        patterns: ["*"]
