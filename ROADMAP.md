@@ -275,6 +275,39 @@ komprimiert als Workflow-Artefakt sichern; der Harness kann sie optional laden.
 Beides erst nach D3 messbar, weil die Artefakte weder Noten noch Gangnummer
 enthalten.
 
+**Messung „siegart“ (25.09.2026):** Gewinnen starke Schwinger eher mit der
+10.00? 74 506 entschiedene Gänge 2023–2026 (beide mit ≥ 10 erfassten
+Gängen, Schlussgänge über den Punktbesten des Fests ausgenommen).
+
+| Sieger (Elo vor dem Fest) | schwächer als Gegner | 0–150 stärker | > 150 stärker |
+|---|---:|---:|---:|
+| unteres Drittel | 45.8 % | 48.8 % | 66.3 % |
+| mittleres Drittel | 47.2 % | 51.5 % | 64.0 % |
+| oberes Drittel | 48.0 % | 50.1 % | 60.9 % |
+
+* **Roh ja, aber wegen der Gegner:** Das stärkste Fünftel gewinnt 56.5 % mit
+  10.00, das schwächste 47.3 %. Entscheidend ist aber der **Abstand** zum
+  Gegner (+6.6 Prozentpunkte je 100 Elo, z = 26), nicht die Stärke selbst
+  (−0.7 je 100 Elo). Gegen Gleichstarke werfen Spitzenschwinger nicht öfter
+  platt als andere; sie treffen nur öfter auf Schwächere.
+* **Verlierer:** Starke verlieren offensiver, 8.75 statt 8.50 im stärksten
+  Fünftel 16.0 %, im schwächsten 6.4 %.
+* **Persönlicher Stil:** Über zwei Hälften der Siege ist die Plattwurf-Quote
+  eines Schwingers stabil (r = 0.59, 716 Schwinger mit ≥ 40 Siegen). Daran
+  ändert sich nichts, wenn man Stärke, Abstand und die Benotung des Fests
+  herausrechnet: Die Feste benoten nur mässig verschieden (10.–90.
+  Perzentil 46.7–58.2 %). Beispiele gegenüber der Erwartung aus Gegnern und
+  Fest: Adrian Walther 73 % (+12), Michael Moser 67 % (+9), Lukas Bissig
+  43 % (−14), Sinisha Lüscher 46 % (−11).
+* **Für die Prognose wenig:** `plattwurf_diff` allein verbessert den
+  Log-Loss nur knapp (Val 0.7411 → 0.7401, Test 0.7204 → 0.7200). Die drei
+  Noten-Merkmale zusammen bringen mehr (s. Messung `noten` oben).
+* **Folgen:** (1) Der Fest-Simulator nimmt 52 % Plattwürfe für jeden Sieg an;
+  abhängig vom Elo-Abstand (49 % bis 66 %) und von der Stärke des Verlierers
+  wäre die Punkteverteilung realistischer. (2) Die Siegart je Schwinger
+  („wirft öfter platt als erwartet“) ist ein Profil-Merkmal mit echter
+  Aussage. Beides braucht die Noten in den Artefakten, wie D1.
+
 ## M3 / M4 — kleinere Modellthemen
 
 * **M3 Heimvorteil:** an Festen des eigenen Teilverbands gewinnen Einheimische
