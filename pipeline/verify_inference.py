@@ -27,8 +27,7 @@ import numpy as np
 if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
     sys.stdout.reconfigure(encoding="utf-8")
 
-from .features import feature_vektor_fuer_prognose
-from .paritaet import json_inferenz_wie_app
+from .paritaet import json_inferenz_wie_app, python_live_merkmale
 from .schema import Schwinger
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -66,9 +65,11 @@ def main():
         # kein separat gepflegter Merkmalsvektor mehr, der aus dem Ruder
         # laufen kann (genau das ist hier zuvor passiert: rating_abstand
         # wurde in features.py ergänzt, aber nie in diesem Skript nachgezogen).
-        x = feature_vektor_fuer_prognose(
-            ra["elo"], rb["elo"], a_dict["form"], b_dict["form"],
-            ra["n_gaenge"], rb["n_gaenge"], a, b, heute,
+        # Mit Merkmalsversion, Skala und Neigung aus den Artefakten.
+        x = python_live_merkmale(model, a_dict, b_dict, ra, rb, 0.0, heute)
+        assert len(x) == len(model["features"]), (
+            f"Merkmalsvektor {len(x)} lang, Modell kennt {len(model['features'])} -- "
+            "Merkmalsversion im model.json passt nicht zum Code"
         )
 
         p_json = json_inferenz(model, x)

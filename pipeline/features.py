@@ -6,9 +6,11 @@ Form-Zustände erst NACH Feature-Berechnung aktualisiert.
 """
 from __future__ import annotations
 
+import math
 from collections import deque, defaultdict
+from itertools import groupby
 
-from .config import FORM_FENSTER_K
+from .config import FORM_FENSTER_K, GESTELLT_NEIGUNG_K, MERKMAL_VERSION
 from .schema import Schwinger, KRANZSTATUS_ORDINAL, hat_portraet
 from .labels import GangResultat
 
@@ -20,14 +22,14 @@ from .labels import GangResultat
 # treten öfter an Grossanlässen an). Deshalb entfernt; Event.typ bleibt als
 # Datenfeld (Anzeige/Filter) erhalten, nur nicht mehr als Modell-Merkmal.
 FEATURE_NAMES = [
-    "rating_diff",       # Elo A - Elo B (leak-frei, pre-gang)
-    "rating_abstand",    # |Elo A - Elo B|: Nähe der Ratings (symmetrisch, für "gestellt")
+    "rating_diff",       # (Elo A - Elo B) / Streuung aktiver Ratings, Stand vor dem Fest
+    "rating_abstand",    # |Elo A - Elo B| / Streuung: Nähe der Ratings (symmetrisch)
     "form_diff",         # Siegquote letzte K A - B (leak-frei)
     "kranz_diff",        # Kranzstatus-Ordinal A - B
     "alter_diff",        # Alter A - B (Jahre)
     "gewicht_diff",      # kg A - B (aktuelle Portraitwerte, R-3)
     "groesse_diff",      # cm A - B
-    "erfahrung_diff",    # Anzahl bisheriger Gänge A - B (leak-frei)
+    "erfahrung_diff",    # log(1+Gänge A) - log(1+Gänge B), Stand vor dem Fest
     "same_teilverband",  # 1 wenn gleicher Teilverband (symmetrisch)
     "schwung_overlap",   # Überschneidung bevorzugter Schwünge (0..1)
     "schwung_count_diff",  # Anzahl bevorzugter Schwünge A - B
@@ -42,6 +44,13 @@ FEATURE_NAMES = [
     # Bewusst ans ENDE gestellt: model.json-Koeffizienten sind positions-
     # gebunden, die übrigen Indizes bleiben so unverändert.
     "portraet_diff",
+    # Gestellt-Neigung des Paars: mittlere (geschrumpfte) Gestellt-Quote beider
+    # Schwinger minus Gesamtdurchschnitt -- symmetrisch, 0 = durchschnittlich.
+    # Manche Schwinger stellen fast jeden zweiten Gang, andere nie (Spanne
+    # 0-63 %), und das ist eine stabile Eigenschaft (erste gegen zweite
+    # Karrierehälfte r = 0.67). Ohne sie konnte das Modell Gestellte kaum
+    # unterscheiden (AUC 0.64 -> 0.72 mit diesem Merkmal).
+    "gestellt_neigung",
 ]
 
 # Schrumpfungsstärke für kopf_an_kopf: entspricht K "neutralen Phantom-Duellen"
@@ -65,6 +74,7 @@ FEATURE_LABELS = {
     "schwung_count_diff": "Unterschied Anzahl bevorzugter Schwünge",
     "kopf_an_kopf": "Bisherige direkte Duelle",
     "portraet_diff": "Porträt/Profildaten vorhanden",
+    "gestellt_neigung": "Gestellt-Neigung beider Schwinger",
 }
 
 
@@ -126,6 +136,11 @@ def baue_features(
 ) -> tuple[list[list[float]], list[int], list[dict]]:
     """Baut Feature-Matrix, Labels und Metadaten je Gang (chronologisch).
 
+    Alle Gänge eines Fests sehen denselben Stand, den VOR dem Fest: Form,
+    Kopf-an-Kopf und Gestellt-Neigung werden erst nach dem ganzen Fest
+    fortgeschrieben, Elo kommt aus den ebenso eingefrorenen Snapshots
+    (Begründung und Messung s. ratings.fahre_elo_durch).
+
     augment=True fügt jeden Gang zusätzlich in vertauschter Reihenfolge (B vs A)
     mit gespiegeltem Label hinzu -> erzwingt paar-symmetrisches Modell.
 
@@ -139,71 +154,93 @@ def baue_features(
     }
     form_hist: dict[str, deque] = defaultdict(lambda: deque(maxlen=FORM_FENSTER_K))
     paar_hist: dict[tuple[str, str], list[float]] = defaultdict(list)
+    # Zähler für die Gestellt-Neigung: Gänge und davon gestellte, je Schwinger.
+    neigung_n: dict[str, int] = defaultdict(int)
+    neigung_d: dict[str, int] = defaultdict(int)
+    gesamt_n = gesamt_d = 0
 
     X: list[list[float]] = []
     y: list[int] = []
     meta: list[dict] = []
 
-    for gang in sorted(gaenge, key=lambda g: (g.datum, g.event_id)):
-        a_id, b_id = gang.schwinger_a_id, gang.schwinger_b_id
-        sa = schwinger.get(a_id)
-        sb = schwinger.get(b_id)
-        if sa is None or sb is None:
-            continue
+    geordnet = sorted(gaenge, key=lambda g: (g.datum, g.event_id))
+    for _, fest_iter in groupby(geordnet, key=lambda g: (g.datum, g.event_id)):
+        fest = [g for g in fest_iter
+                if g.schwinger_a_id in schwinger and g.schwinger_b_id in schwinger]
+        # Gesamtdurchschnitt VOR dem Fest. Beim allerersten Fest gibt es keinen --
+        # dort ist aber auch jede Neigung gleich der Basis, das Paar-Merkmal also
+        # exakt 0; der Startwert kürzt sich heraus.
+        basis = gesamt_d / gesamt_n if gesamt_n else 0.0
 
-        snap = snap_idx.get(gang.event_id + a_id + b_id, {})
-        elo_a = snap.get("elo_a_pre", 1500.0)
-        elo_b = snap.get("elo_b_pre", 1500.0)
-        n_a = snap.get("n_a_pre", 0)
-        n_b = snap.get("n_b_pre", 0)
+        for gang in fest:
+            a_id, b_id = gang.schwinger_a_id, gang.schwinger_b_id
+            sa, sb = schwinger[a_id], schwinger[b_id]
+            snap = snap_idx.get(gang.event_id + a_id + b_id, {})
+            elo_a = snap.get("elo_a_pre", 1500.0)
+            elo_b = snap.get("elo_b_pre", 1500.0)
+            n_a = snap.get("n_a_pre", 0)
+            n_b = snap.get("n_b_pre", 0)
+            skala = snap.get("elo_streuung", 100.0)
 
-        # Merkmale VOR dem Gang berechnen (leak-frei).
-        form_a = _form_wert(form_hist[a_id])
-        form_b = _form_wert(form_hist[b_id])
-        h2h_a = _kopf_an_kopf_vorteil(a_id, b_id, paar_hist)
-
-        feats = _feature_vektor(elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb, gang.datum, h2h_a)
-        label = klass_idx[gang.ergebnis]
-        X.append(feats)
-        y.append(label)
-        meta.append(
-            {
-                "event_id": gang.event_id,
-                "datum": gang.datum,
-                "schwinger_a_id": a_id,
-                "schwinger_b_id": b_id,
-                "n_a": n_a,
-                "n_b": n_b,
-                # Für die getrennte Auswertung nur auf Porträt-gegen-Porträt-
-                # Gängen -- dort messen Physis/Verband/Schwünge wirklich etwas.
-                "beide_portraet": hat_portraet(sa.quellen) and hat_portraet(sb.quellen),
-            }
-        )
-
-        if augment:
-            feats_swap = _feature_vektor(
-                elo_b, elo_a, form_b, form_a, n_b, n_a, sb, sa, gang.datum, -h2h_a
+            form_a = _form_wert(form_hist[a_id])
+            form_b = _form_wert(form_hist[b_id])
+            h2h_a = _kopf_an_kopf_vorteil(a_id, b_id, paar_hist)
+            neigung = paar_neigung(
+                _neigung(neigung_d[a_id], neigung_n[a_id], basis),
+                _neigung(neigung_d[b_id], neigung_n[b_id], basis),
+                basis,
             )
-            label_swap = {0: 2, 1: 1, 2: 0}[label]
-            X.append(feats_swap)
-            y.append(label_swap)
-            meta.append({**meta[-1], "augmented": True})
 
-        # NACH Feature-Berechnung Form + Kopf-an-Kopf-Historie aktualisieren.
-        if gang.ergebnis == "sieg_a":
-            form_hist[a_id].append(1.0)
-            form_hist[b_id].append(0.0)
-            score_a = 1.0
-        elif gang.ergebnis == "sieg_b":
-            form_hist[a_id].append(0.0)
-            form_hist[b_id].append(1.0)
-            score_a = 0.0
-        else:
-            form_hist[a_id].append(0.5)
-            form_hist[b_id].append(0.5)
-            score_a = 0.5
-        # a_id ist bereits die kanonisch kleinere ID (GangResultat-Invariante).
-        paar_hist[(a_id, b_id)].append(score_a)
+            X.append(_feature_vektor(elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb,
+                                     gang.datum, h2h_a, elo_skala=skala,
+                                     gestellt_neigung=neigung))
+            label = klass_idx[gang.ergebnis]
+            y.append(label)
+            meta.append(
+                {
+                    "event_id": gang.event_id,
+                    "datum": gang.datum,
+                    "schwinger_a_id": a_id,
+                    "schwinger_b_id": b_id,
+                    "n_a": n_a,
+                    "n_b": n_b,
+                    # Roher Elo-Abstand: die Elo-Baseline im Benchmark braucht ihn,
+                    # und aus rating_diff lässt er sich seit der Skalierung mit der
+                    # Streuung nicht mehr zurückrechnen.
+                    "elo_diff": elo_a - elo_b,
+                    # Für die getrennte Auswertung nur auf Porträt-gegen-Porträt-
+                    # Gängen -- dort messen Physis/Verband/Schwünge wirklich etwas.
+                    "beide_portraet": hat_portraet(sa.quellen) and hat_portraet(sb.quellen),
+                }
+            )
+
+            if augment:
+                # Die Neigung ist symmetrisch und bleibt; alles Gerichtete dreht.
+                X.append(_feature_vektor(elo_b, elo_a, form_b, form_a, n_b, n_a, sb, sa,
+                                         gang.datum, -h2h_a, elo_skala=skala,
+                                         gestellt_neigung=neigung))
+                y.append({0: 2, 1: 1, 2: 0}[label])
+                meta.append({**meta[-1], "augmented": True, "elo_diff": elo_b - elo_a})
+
+        # Erst NACH dem ganzen Fest fortschreiben.
+        for gang in fest:
+            a_id, b_id = gang.schwinger_a_id, gang.schwinger_b_id
+            if gang.ergebnis == "sieg_a":
+                punkte_a = 1.0
+            elif gang.ergebnis == "sieg_b":
+                punkte_a = 0.0
+            else:
+                punkte_a = 0.5
+            form_hist[a_id].append(punkte_a)
+            form_hist[b_id].append(1.0 - punkte_a)
+            # a_id ist bereits die kanonisch kleinere ID (GangResultat-Invariante).
+            paar_hist[(a_id, b_id)].append(punkte_a)
+            v = 1 if gang.ergebnis == "gestellt" else 0
+            for sid in (a_id, b_id):
+                neigung_n[sid] += 1
+                neigung_d[sid] += v
+            gesamt_n += 1
+            gesamt_d += v
 
     return X, y, meta
 
@@ -211,33 +248,113 @@ def baue_features(
 def _feature_vektor(
     elo_a, elo_b, form_a, form_b, n_a, n_b, sa: Schwinger, sb: Schwinger, datum: str,
     kopf_an_kopf_a: float = 0.0,
+    *,
+    version: int = MERKMAL_VERSION,
+    elo_skala: float = 100.0,
+    gestellt_neigung: float = 0.0,
 ) -> list[float]:
+    """Merkmalsvektor A-vs-B -- die EINZIGE Definition. Training, Live-Prognose,
+    verify_inference und die Paritätsprüfung rufen alle diese Funktion auf.
+
+    version 1 (ältere ausgelieferte Modelle): Elo-Abstand / 100, Erfahrung als
+    rohe Differenz, keine Gestellt-Neigung. version 2: Elo-Abstand / elo_skala
+    (Streuung der aktiven Ratings), Erfahrung logarithmisch, Gestellt-Neigung
+    angehängt. Die App spiegelt beide Versionen (web/lib/inference.ts).
+    """
     kranz_a = KRANZSTATUS_ORDINAL.get(sa.kranzstatus, 0)
     kranz_b = KRANZSTATUS_ORDINAL.get(sb.kranzstatus, 0)
-    return [
-        (elo_a - elo_b) / 100.0,                       # rating_diff (skaliert)
-        abs(elo_a - elo_b) / 100.0,                     # rating_abstand (symmetrisch)
+    v2 = version >= 2
+    skala = elo_skala if v2 else 100.0
+    vektor = [
+        (elo_a - elo_b) / skala,                        # rating_diff
+        abs(elo_a - elo_b) / skala,                     # rating_abstand (symmetrisch)
         form_a - form_b,                                # form_diff
         float(kranz_a - kranz_b),                       # kranz_diff
         _diff_oder_null(_alter(sa, datum), _alter(sb, datum)),  # alter_diff
         _diff_oder_null(sa.gewicht_kg, sb.gewicht_kg),  # gewicht_diff
         _diff_oder_null(sa.groesse_cm, sb.groesse_cm),  # groesse_diff
-        float(n_a - n_b),                               # erfahrung_diff
+        # Erfahrung = Gänge seit Datenbeginn; der Median wächst von 15 (2023)
+        # auf 126 (2026). Als rohe Differenz verzerrt das jedes Jahr mehr, und
+        # der 200. Gang lehrt weniger als der 20. Logarithmisch war der grösste
+        # Einzelgewinn (Test-Log-Loss -0.03).
+        (math.log1p(n_a) - math.log1p(n_b)) if v2 else float(n_a - n_b),  # erfahrung_diff
         1.0 if sa.teilverband and sa.teilverband == sb.teilverband else 0.0,
         _schwung_overlap(sa, sb),                        # schwung_overlap
         float(len(sa.bevorzugte_schwuenge) - len(sb.bevorzugte_schwuenge)),
         kopf_an_kopf_a,                                  # kopf_an_kopf
         float(hat_portraet(sa.quellen)) - float(hat_portraet(sb.quellen)),  # portraet_diff
     ]
+    if v2:
+        vektor.append(gestellt_neigung)                  # gestellt_neigung
+    return vektor
+
+
+def _neigung(gestellt: float, gaenge: float, basis: float) -> float:
+    """Geschrumpfte Gestellt-Quote EINES Schwingers (Empirical Bayes)."""
+    return (gestellt + GESTELLT_NEIGUNG_K * basis) / (gaenge + GESTELLT_NEIGUNG_K)
+
+
+def paar_neigung(neigung_a: float, neigung_b: float, basis: float) -> float:
+    """Gestellt-Neigung des Paars: Mittel beider Schwinger minus Durchschnitt."""
+    return (neigung_a + neigung_b) / 2.0 - basis
 
 
 def feature_vektor_fuer_prognose(
     elo_a, elo_b, form_a, form_b, n_a, n_b, sa: Schwinger, sb: Schwinger, datum: str,
     kopf_an_kopf_a: float = 0.0,
+    *,
+    modell_config: dict | None = None,
+    neigung_a: float | None = None,
+    neigung_b: float | None = None,
 ) -> list[float]:
-    """Öffentliche Variante für Live-Prognose (identische Berechnung).
+    """Live-Prognose: der Vektor so, wie die App ihn für DIESES Modell baut.
+
+    modell_config ist model.json["config"]: daraus kommen Merkmalsversion,
+    Elo-Skala und Gestellt-Basis. Ohne Versionseintrag gilt Version 1 -- so
+    rechnet ein Modell, das dem Code hinterherhinkt, mit seiner eigenen
+    Definition weiter. neigung_a/_b sind die exportierten Werte je Schwinger
+    (schwinger.json); fehlen sie, gilt die Basis (neutral), wie in der App.
 
     kopf_an_kopf_a: geglättete bisherige A-vs-B-Bilanz, s. _kopf_an_kopf_vorteil
-    (Aufrufer berechnet dies aus der Kopf-an-Kopf-Historie, z.B. web/lib/kopfAnKopf.ts).
+    (in der App: web/lib/kopfAnKopf.ts).
     """
-    return _feature_vektor(elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb, datum, kopf_an_kopf_a)
+    cfg = modell_config or {}
+    version = int(cfg.get("merkmal_version", 1))
+    if version < 2:
+        return _feature_vektor(elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb, datum,
+                               kopf_an_kopf_a, version=1)
+    basis = float(cfg["gestellt_basis"])
+    return _feature_vektor(
+        elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb, datum, kopf_an_kopf_a,
+        version=version,
+        elo_skala=float(cfg["elo_streuung"]),
+        gestellt_neigung=paar_neigung(
+            basis if neigung_a is None else neigung_a,
+            basis if neigung_b is None else neigung_b,
+            basis,
+        ),
+    )
+
+
+def gestellt_neigung_aktuell(
+    gaenge: list[GangResultat], schwinger: dict[str, Schwinger]
+) -> tuple[dict[str, float], float]:
+    """Neigung je Schwinger NACH allen Gängen + Gesamtdurchschnitt (für den Export).
+
+    Zählt genau die Gänge, die auch baue_features zählt (beide Schwinger
+    bekannt), damit Live-Wert und Trainingsmerkmal dieselbe Grösse sind.
+    """
+    gestellt: dict[str, int] = defaultdict(int)
+    anzahl: dict[str, int] = defaultdict(int)
+    n_ges = d_ges = 0
+    for g in gaenge:
+        if g.schwinger_a_id not in schwinger or g.schwinger_b_id not in schwinger:
+            continue
+        v = 1 if g.ergebnis == "gestellt" else 0
+        for sid in (g.schwinger_a_id, g.schwinger_b_id):
+            anzahl[sid] += 1
+            gestellt[sid] += v
+        n_ges += 1
+        d_ges += v
+    basis = d_ges / n_ges if n_ges else 0.0
+    return {sid: _neigung(gestellt[sid], anzahl[sid], basis) for sid in anzahl}, basis

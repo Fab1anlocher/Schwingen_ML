@@ -15,14 +15,17 @@ from pipeline.features import FEATURE_NAMES
 from pipeline.paritaet import _h2h_python, erzeuge_faelle, json_inferenz_wie_app
 
 
-def _modell(n: int) -> dict:
+def _modell(n: int, *, version: int = 1) -> dict:
+    config = {"kranzstatus_ordinal": {"kein": 0, "kranzer": 1, "eidgenosse": 2, "koenig": 3}}
+    if version >= 2:
+        config |= {"merkmal_version": version, "elo_streuung": 120.0, "gestellt_basis": 0.22}
     return {
         "features": [f"m{i}" for i in range(n)],
         "klassen": ["sieg_a", "gestellt", "sieg_b"],
         "standardisierung": {"mu": [0.0] * n, "sigma": [1.0] * n},
         "coef": [[0.1 * (i + 1) for i in range(n)], [0.0] * n, [-0.1 * (i + 1) for i in range(n)]],
         "intercept": [0.0, -0.5, 0.0],
-        "config": {"kranzstatus_ordinal": {"kein": 0, "kranzer": 1, "eidgenosse": 2, "koenig": 3}},
+        "config": config,
     }
 
 
@@ -52,7 +55,7 @@ def test_kopf_an_kopf_ist_antisymmetrisch():
 def _artefakte(tmp_path):
     por = lambda i, **kw: {"id": f"p{i}|1990", "name": f"P{i}", "jahrgang": 1990 + i, "gewicht_kg": 100.0 + i,
                            "groesse_cm": 180.0, "kranzstatus": "kranzer", "teilverband": "Bern",
-                           "bevorzugte_schwuenge": ["Kurz"], "form": 0.6,
+                           "bevorzugte_schwuenge": ["Kurz"], "form": 0.6, "gestellt_neigung": 0.2 + 0.02 * i,
                            "quellen": ["schlussgang.ch/portraet", "https://www.schlussgang.ch/portraet/x"], **kw}
     stub = lambda i: {"id": f"s{i}|?", "name": f"S{i}", "jahrgang": None, "gewicht_kg": None, "groesse_cm": None,
                       "kranzstatus": "kein", "teilverband": None, "bevorzugte_schwuenge": [], "form": 0.4,
@@ -66,7 +69,7 @@ def _artefakte(tmp_path):
         "index": {sid: i for i, sid in enumerate(ids)}, "event_index": {"e1": 0, "e2": 1},
         "paare": {"0_4": [[0, "A"], [1, "D"]], "1_5": [[0, "B"], [1, "B"]]},
     }))
-    (tmp_path / "model.json").write_text(json.dumps(_modell(len(FEATURE_NAMES))))
+    (tmp_path / "model.json").write_text(json.dumps(_modell(len(FEATURE_NAMES), version=2)))
     return tmp_path
 
 
@@ -74,10 +77,31 @@ def test_faelle_decken_alle_datenlagen_und_beide_richtungen_ab(tmp_path):
     daten = erzeuge_faelle(_artefakte(tmp_path), n_je_gruppe=5)
     gruppen = {f["gruppe"] for f in daten["faelle"]}
     assert {"portraet-portraet", "portraet-stub", "stub-portraet", "stub-stub",
-            "historie-a<b", "historie-a>b", "ohne-rating"} <= gruppen
+            "historie-a<b", "historie-a>b", "ohne-rating", "ohne-neigung", "modell-v1"} <= gruppen
     for f in daten["faelle"]:
-        assert len(f["erwartet"]["merkmale"]) == len(FEATURE_NAMES)
+        n = 13 if f.get("modell") == "v1" else len(FEATURE_NAMES)
+        assert len(f["erwartet"]["merkmale"]) == n
         assert math.isclose(sum(f["erwartet"]["wahrscheinlichkeiten"]), 1.0)
+
+
+def test_v1_gestalt_hat_13_merkmale_und_keine_versionsangabe(tmp_path):
+    daten = erzeuge_faelle(_artefakte(tmp_path), n_je_gruppe=2)
+    v1 = daten["model_v1"]
+    assert len(v1["features"]) == 13 and all(len(z) == 13 for z in v1["coef"])
+    assert "merkmal_version" not in v1["config"] and "elo_streuung" not in v1["config"]
+
+
+def test_fehlende_neigung_zaehlt_als_durchschnitt(tmp_path):
+    """Fehlender Eintrag bzw. null -> Basis 0.22; es zählt nur noch der Partner."""
+    daten = erzeuge_faelle(_artefakte(tmp_path), n_je_gruppe=8)
+    faelle = [f for f in daten["faelle"] if f["gruppe"] == "ohne-neigung"]
+    assert any("gestellt_neigung" not in f["a"] for f in faelle)
+    assert any(f["b"].get("gestellt_neigung", 0) is None for f in faelle)
+    for f in faelle:
+        na = f["a"].get("gestellt_neigung")
+        nb = f["b"].get("gestellt_neigung")
+        erwartet = ((0.22 if na is None else na) + (0.22 if nb is None else nb)) / 2 - 0.22
+        assert math.isclose(f["erwartet"]["merkmale"][-1], erwartet, abs_tol=1e-12)
 
 
 def test_fall_ohne_rating_nutzt_den_fallback_der_app(tmp_path):

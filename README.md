@@ -30,7 +30,7 @@ Verbesserung, egal wie aufwendig es ist.
 | **Feste** | Vergangene Feste; kommende Feste der nächsten 60 Tage. Je veröffentlichter Paarung Prognose + informative Quote; ohne Startliste keine Prognose, sondern nur die belegten Angaben zum Fest. |
 | **Karte** | Choroplethen-Karte (Elo-Schnitt, Siegquote, Anteil Top-Schwinger, Kaderbreite) — Bern nach seinen 6 Gauverbänden statt als ein Kanton. |
 | **Typen** | K-Means-Clustering über das volle Schwinger-Profil, Cluster-Anzahl per Silhouette-Score gewählt, mit PCA-Streudiagramm. |
-| **Analyse** | Modellgüte vs. Elo-Baseline, Konfusionsmatrix, Merkmalswichtigkeit, 4-Wege-Benchmark. |
+| **Analyse** | Modellgüte vs. Elo-Baseline, Konfusionsmatrix, Kalibrierung der Gestellt-Chance, Merkmalswichtigkeit, 4-Wege-Benchmark. |
 
 ---
 
@@ -286,7 +286,63 @@ auf.
 
   Neue Merkmale **nur hinten** an `FEATURE_NAMES` anhängen: `model.json` ist
   positionsgebunden, und die App kürzt den Vektor auf die Merkmale, die das
-  ausgelieferte Modell kennt.
+  ausgelieferte Modell kennt. Ändert sich die **Definition** eines Merkmals,
+  steigt `MERKMAL_VERSION` (`config.py`): sie steht in `model.json`, und App
+  wie Python rechnen ein älteres ausgeliefertes Modell mit **dessen**
+  Definition weiter. Die Paritätsprüfung testet beide Fälle (Gruppe
+  `modell-v1`).
+
+### Merkmalsversion 2: Stand vor dem Fest, Gestellt-Neigung
+
+Gemessen an echten Daten, Test 2026 (36'485 Gänge) und Validierung 2025
+jeweils gleichsinnig:
+
+| Schritt | Log-Loss Test | (Validierung) | Accuracy | AUC Gestellt |
+|---|---:|---:|---:|---:|
+| Version 1 | 0.8314 | (0.8537) | 63.9 % | 0.640 |
+| + alle Gänge eines Fests sehen den Stand **vor** dem Fest | 0.8204 | (0.8415) | 64.5 % | 0.645 |
+| + **Gestellt-Neigung** je Schwinger | 0.7923 | (0.8131) | 65.8 % | 0.722 |
+| + Erfahrung **logarithmisch** | 0.7582 | (0.7876) | 67.8 % | 0.732 |
+| + Elo-Abstand **pro Streuung** + **Einschwingphase** | **0.7503** | (**0.7771**) | **68.2 %** | **0.736** |
+
+* **Stand vor dem Fest.** Vorher bekam jeder Gang den Stand nach den im selben
+  Fest zuvor *verarbeiteten* Gängen, und die Verarbeitungsreihenfolge folgt der
+  Statistik-PDF, also dem Schlussrang. Die App prognostiziert dagegen immer aus
+  dem Stand vor einem Fest — Training und Betrieb passten nicht zusammen.
+* **Gestellt-Neigung.** Wie oft ein Schwinger stellt, ist eine stabile
+  Eigenschaft (erste gegen zweite Karrierehälfte r = 0.67, Spanne 0–63 %).
+  Anteil gestellter Gänge, geschrumpft gegen den Durchschnitt (20 „Phantom-
+  Gänge"); Merkmal = Mittel beider Schwinger minus Durchschnitt. Symmetrisch —
+  bevorzugt niemanden, sagt nur, wie wahrscheinlich ein Gestellter ist.
+* **Erfahrung logarithmisch.** Der Median an Gängen wächst von 15 (2023) auf
+  126 (2026); als rohe Differenz verzerrt das jedes Jahr mehr.
+* **Elo-Abstand pro Streuung.** Die Streuung der aktiven Ratings wächst,
+  solange das System einschwingt (2023: 41, 2026: 126). Ohne Skalierung sagte
+  das Modell 2026 18.3 % Gestellt voraus bei 21.1 % eingetreten; mit ihr 20.5 %.
+* **Einschwingphase.** Das erste Datenjahr liefert Historie, geht aber nicht
+  ins Training (Ratings noch nicht eingeschwungen, Gestellt-Quote 28.4 % statt
+  ~21.5 % in jedem späteren Jahr und jedem Festtyp).
+
+Verworfen, weil gemessen schlechter: `class_weight="balanced"` (Recall
+Gestellt 21 % → 46 %, aber P(Gestellt) 30 % statt 21 %, Log-Loss 0.7503 →
+0.7741 — die App zeigt Wahrscheinlichkeiten, keine Klassen) und andere
+Regularisierung (C = 0.1 … 10 ohne Unterschied). `report.json` →
+`gestellt_kalibrierung` misst jetzt eigens, ob P(Gestellt) stimmt; die
+Analyse-Seite zeigt die Kalibrierungskurve.
+
+### Erklärbalken: wem ein Merkmal nützt
+
+Ein Balken zeigt, um wie viele Prozentpunkte die Siegchance des genannten
+Schwingers durch dieses Merkmal höher ist. **Symmetrische** Merkmale —
+Ausgeglichenheit, gleicher Verband, ähnlicher Stil, Gestellt-Neigung — bleiben
+beim Tausch von A und B gleich; das Modell hat für sie bei „Sieg A" und
+„Sieg B" dasselbe Gewicht. Sie verschieben nur zwischen „einer gewinnt" und
+„Gestellt" und erscheinen darum neutral als **„Gestellt ± X %-Pkt."**.
+Früher wurden sie an P(Sieg A) gemessen und dem Gegner gutgeschrieben, sobald
+diese sank: „Gleicher Verband: Moser +7 %-Pkt." bei Staudenmann gegen Moser,
+obwohl auch Mosers Chance dadurch sank (Staudenmann −7.1, Gestellt +8.5,
+Moser −1.5). Der Effekt selbst ist echt, aber klein: Duelle im gleichen
+Verband enden in den Daten 30.5 % gestellt statt 28.8 %, in jedem Festtyp.
 
 ### Datenlage: Porträt oder Stub
 

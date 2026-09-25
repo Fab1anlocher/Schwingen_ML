@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import numpy as np
 
+from pipeline.features import FEATURE_NAMES
 from pipeline.benchmark import (
     _accuracy,
     _brier_score,
@@ -52,14 +53,17 @@ def test_elo_baseline_gleichstand_ist_symmetrisch():
 
 
 def _zeile(rating_diff: float = 0.0, kranz_diff: float = 0.0) -> list[float]:
-    # Reihenfolge = FEATURE_NAMES: rating_diff, rating_abstand, form_diff,
-    # kranz_diff, alter_diff, gewicht_diff, groesse_diff, erfahrung_diff,
-    # same_teilverband, schwung_overlap, schwung_count_diff, kopf_an_kopf.
-    return [rating_diff, abs(rating_diff), 0.0, kranz_diff, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    # Reihenfolge = FEATURE_NAMES; nur Rating und Kranz sind besetzt.
+    x = [0.0] * len(FEATURE_NAMES)
+    x[FEATURE_NAMES.index("rating_diff")] = rating_diff
+    x[FEATURE_NAMES.index("rating_abstand")] = abs(rating_diff)
+    x[FEATURE_NAMES.index("kranz_diff")] = kranz_diff
+    return x
 
 
-def _meta(datum: str, augmented: bool = False) -> dict:
-    m = {"event_id": "e", "datum": datum, "schwinger_a_id": "a", "schwinger_b_id": "b", "n_a": 0, "n_b": 0}
+def _meta(datum: str, augmented: bool = False, elo_diff: float = 0.0) -> dict:
+    m = {"event_id": "e", "datum": datum, "schwinger_a_id": "a", "schwinger_b_id": "b", "n_a": 0, "n_b": 0,
+         "elo_diff": elo_diff}
     if augmented:
         m["augmented"] = True
     return m
@@ -125,3 +129,19 @@ def test_fuehre_benchmark_durch_gibt_none_bei_einzelner_saison():
     meta = [_meta("2026-01-01"), _meta("2026-01-02")]
 
     assert fuehre_benchmark_durch(X, y, meta) is None
+
+
+def test_elo_baseline_nimmt_den_rohen_elo_abstand_aus_meta():
+    """Seit Merkmalsversion 2 ist rating_diff durch die Streuung skaliert --
+    die Baseline darf es nicht mehr mal 100 zurückrechnen. Hier steht im
+    Merkmal absichtlich ein anderer Wert als in meta: massgebend ist meta."""
+    X = [_zeile(rating_diff=d) for d in (1.0, -1.0, 0.0, 1.0, -1.0, 0.0)]
+    y = [0, 2, 1, 0, 2, 1]
+    meta = [_meta("2023-01-01", elo_diff=d) for d in (100, -100, 0, 100, -100, 0)]
+    # Merkmal: B minimal vorne (x100 zurückgerechnet -> Favorit B) ...
+    X.append(_zeile(rating_diff=-0.01))
+    y.append(0)
+    meta.append(_meta("2024-01-01", elo_diff=400.0))   # ... echter Abstand: A +400
+    res = fuehre_benchmark_durch(X, y, meta)
+    assert res["kandidaten"]["elo_baseline"]["accuracy"] == 1.0
+    assert res["kandidaten"]["elo_baseline"]["brier_score"] < 0.1

@@ -12,7 +12,7 @@ from pathlib import Path
 import numpy as np
 
 from . import config
-from .config import KLASSEN, MIN_GAENGE_FUER_SICHERHEIT, FORM_FENSTER_K
+from .config import KLASSEN, MIN_GAENGE_FUER_SICHERHEIT, FORM_FENSTER_K, MERKMAL_VERSION
 from .features import FEATURE_NAMES, FEATURE_LABELS
 from .schema import KRANZSTATUS_ORDINAL
 
@@ -28,8 +28,19 @@ def _dump_beide(name: str, obj) -> None:
     _write(config.WEB_PUBLIC_DIR / name, obj)
 
 
-def exportiere_modell(train_res: dict, feature_importance: list[dict]) -> None:
-    """Logistic-Regression-Gewichte für JS-Inferenz (§7)."""
+def exportiere_modell(
+    train_res: dict,
+    feature_importance: list[dict],
+    *,
+    elo_streuung: float,
+    gestellt_basis: float,
+) -> None:
+    """Logistic-Regression-Gewichte für JS-Inferenz (§7).
+
+    elo_streuung / gestellt_basis: der aktuelle Stand der beiden Grössen, mit
+    denen Merkmalsversion 2 rechnet -- die App braucht sie, um den Vektor
+    genauso zu bauen wie das Training (s. features.feature_vektor_fuer_prognose).
+    """
     modell = train_res["modell"]
     artefakt = {
         "schema_version": config.SCHEMA_VERSION,
@@ -50,6 +61,12 @@ def exportiere_modell(train_res: dict, feature_importance: list[dict]) -> None:
             "form_fenster_k": FORM_FENSTER_K,
             "elo_start": config.ELO_START,
             "kranzstatus_ordinal": KRANZSTATUS_ORDINAL,
+            # Merkmalsdefinition, mit der DIESES Modell trainiert wurde. Die
+            # App rechnet danach -- auch dann richtig, wenn dieses model.json
+            # dem Code einen Lauf hinterherhinkt (fehlt der Eintrag: Version 1).
+            "merkmal_version": MERKMAL_VERSION,
+            "elo_streuung": round(float(elo_streuung), 4),
+            "gestellt_basis": round(float(gestellt_basis), 6),
         },
         "erstellt": datetime.now(timezone.utc).isoformat(),
     }
@@ -83,8 +100,13 @@ def exportiere_schwinger(
     ueberraschung: dict | None = None,
     anzahl_feste: dict | None = None,
     aktive: set | None = None,
+    gestellt_neigung: dict | None = None,
 ) -> None:
     """schwinger.json: Profil + aktuelle Form (für Live-Prognose & Suche FR-5).
+
+    gestellt_neigung: geschrumpfte Gestellt-Quote je Schwinger (Merkmals-
+    version 2, s. features.gestellt_neigung_aktuell). Fehlt sie (null), rechnet
+    die App mit dem Durchschnitt -- neutral, wie für einen Neuling.
 
     Sensible Felder werden NICHT exportiert (NFR-5): kein Geburtsdatum, nur
     Jahrgang bleibt intern; Anzeige nutzt Alter.
@@ -92,6 +114,7 @@ def exportiere_schwinger(
     ueberraschung = ueberraschung or {}
     anzahl_feste = anzahl_feste or {}
     aktive = aktive if aktive is not None else set()
+    gestellt_neigung = gestellt_neigung or {}
     liste = []
     for sid, s in schwinger.items():
         u = ueberraschung.get(sid)
@@ -118,6 +141,9 @@ def exportiere_schwinger(
             "schwingklub": s.schwingklub,
             "bevorzugte_schwuenge": s.bevorzugte_schwuenge,
             "form": round(form_aktuell.get(sid, 0.5), 3),
+            "gestellt_neigung": (
+                round(gestellt_neigung[sid], 5) if sid in gestellt_neigung else None
+            ),
             "ueberraschungsindex": u["index"] if u else None,
             "n_bewertete_gaenge": u["n"] if u else 0,
             "anzahl_feste": anzahl_feste.get(sid, 0),
@@ -404,6 +430,12 @@ def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
         # train._bewerte_nur_portraet) -- mit der Elo-Baseline auf denselben
         # Gängen, damit auch dieser Vergleich auf identischer Menge läuft.
         "nur_portraet": _nur_portraet_block(train_res.get("nur_portraet"), baseline_portraet),
+        # Kalibrierung der Gestellt-Klasse (s. metriken.gestellt_kalibrierung):
+        # die einzige Klasse, die fast nie die wahrscheinlichste ist -- Accuracy
+        # und Log-Loss allein zeigen nicht, ob P(gestellt) stimmt.
+        "gestellt_kalibrierung": train_res.get("kalibrierung"),
+        "merkmal_version": MERKMAL_VERSION,
+        "training_ab": train_res.get("training_ab"),
         "erfolgskriterien": {
             "log_loss_besser_als_baseline": erreicht_log_loss,
             "accuracy_mindestens_baseline": erreicht_accuracy,

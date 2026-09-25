@@ -40,7 +40,7 @@ from .config import SEED, KLASSEN
 from .features import FEATURE_NAMES
 from .metriken import punktwert_fehlermasse
 from .ratings import EloModell
-from .train import _split_zeitlich, bestimme_holdout_jahr
+from .train import bestimme_holdout_jahr, trainings_maske
 
 # "Physis, Stil, Verband" — bewusst ohne alles, was aus vergangenen
 # Gangergebnissen abgeleitet ist (Elo, Form, Erfahrung, Kopf-an-Kopf).
@@ -55,7 +55,6 @@ PHYSIS_STIL_VERBAND = [
 ]
 
 _KRANZ_DIFF_IDX = FEATURE_NAMES.index("kranz_diff")
-_RATING_DIFF_IDX = FEATURE_NAMES.index("rating_diff")
 
 
 def _brier_score(p: np.ndarray, y: np.ndarray) -> float:
@@ -113,7 +112,10 @@ def fuehre_benchmark_durch(X: list[list[float]], y: list[int], meta: list[dict])
     ist_test = np.array([int(m["datum"][:4]) >= holdout for m in meta])
     ist_original = np.array([not m.get("augmented", False) for m in meta])
     test_maske = ist_test & ist_original
-    train_maske = ~ist_test  # Training nutzt Augmentation bewusst (Paar-Symmetrie).
+    # Dieselben Trainingszeilen wie das Produktionsmodell (inkl. Augmentation
+    # für Paar-Symmetrie, ohne Einschwingphase) -- sonst misst "ML komplett"
+    # hier ein anderes Modell als das ausgelieferte.
+    train_maske = trainings_maske(meta, y_arr, holdout)
 
     Xte, yte = X_arr[test_maske], y_arr[test_maske]
     Xtr, ytr = X_arr[train_maske], y_arr[train_maske]
@@ -127,8 +129,11 @@ def fuehre_benchmark_durch(X: list[list[float]], y: list[int], meta: list[dict])
     p_kranz = kranz_heuristik_wahrscheinlichkeiten(Xte[:, _KRANZ_DIFF_IDX])
     ergebnis["kranz_heuristik"] = _bewerte(p_kranz, yte)
 
-    # 2) Elo-Baseline (rating_diff-Merkmal ist bereits (elo_a - elo_b) / 100).
-    p_elo = elo_baseline_wahrscheinlichkeiten(Xte[:, _RATING_DIFF_IDX] * 100.0)
+    # 2) Elo-Baseline aus dem rohen Elo-Abstand. NICHT aus dem Merkmal
+    #    rating_diff zurückrechnen: seit Merkmalsversion 2 ist es in Einheiten
+    #    der Rating-Streuung skaliert, nicht mehr fix durch 100.
+    elo_diff = np.array([m["elo_diff"] for m in meta], dtype=float)
+    p_elo = elo_baseline_wahrscheinlichkeiten(elo_diff[test_maske])
     ergebnis["elo_baseline"] = _bewerte(p_elo, yte)
 
     # 3) ML ohne Historie (nur Physis/Stil/Verband), gleicher Train/Test-Split.

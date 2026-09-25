@@ -32,8 +32,8 @@ for _stream in (sys.stdout, sys.stderr):
 from . import config, export
 from .config import FORM_FENSTER_K
 from .labels import dedupliziere
-from .ratings import fahre_elo_durch, bewerte_baseline, berechne_ueberraschung
-from .features import baue_features
+from .ratings import fahre_elo_durch, bewerte_baseline, berechne_ueberraschung, elo_streuung
+from .features import baue_features, gestellt_neigung_aktuell
 # sklearn-abhängige Module (train/benchmark/clustering) werden bewusst ERST in
 # main() importiert -- nach dem Daten-Fetch, damit das Einlesen sofort startet
 # statt am langsamen sklearn/scipy-Import zu hängen.
@@ -350,7 +350,12 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
         print(f"      Nur Porträt-gegen-Porträt (n={np_['n']}): Modell Acc={np_['accuracy']:.4f} "
               f"| Baseline Acc={baseline_portraet['accuracy']:.4f}", flush=True)
     print(f"      Modell   Log-Loss={train_res['log_loss']:.4f} "
-          f"Acc={train_res['accuracy']:.4f} (Holdout {train_res['holdout_jahr']})", flush=True)
+          f"Acc={train_res['accuracy']:.4f} (Holdout {train_res['holdout_jahr']}, "
+          f"Training ab {train_res.get('training_ab')})", flush=True)
+    kal = train_res.get("kalibrierung") or {}
+    if kal.get("n"):
+        print(f"      Gestellt vorhergesagt {kal['vorhergesagt']:.1%} / eingetreten "
+              f"{kal['eingetreten']:.1%}, ECE {kal['ece']:.2%}, AUC {kal['auc']}", flush=True)
 
     print("[6/8] 4-Wege-Benchmark (Heuristik/Elo/ML ohne Elo/ML komplett) ...", flush=True)
     benchmark_res = fuehre_benchmark_durch(X, y, meta)
@@ -377,9 +382,16 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
     form_aktuell = _aktuelle_form(gaenge)
     ueberraschung = berechne_ueberraschung(gaenge, snapshots)
     anzahl_feste = _anzahl_feste(gaenge)
-    export.exportiere_modell(train_res, fi)
+    # Stand der Merkmalsversion 2 für die Live-Prognose: Streuung der aktiven
+    # Ratings am jüngsten Festtag (deterministisch, nicht vom Laufdatum
+    # abhängig) und die Gestellt-Neigung je Schwinger nach allen Gängen.
+    neigung, gestellt_basis = gestellt_neigung_aktuell(gaenge, schwinger)
+    streuung_jetzt = elo_streuung(elo_modell, max(g.datum for g in gaenge))
+    print(f"      Elo-Streuung aktuell {streuung_jetzt:.1f}, Gestellt-Basis {gestellt_basis:.1%}", flush=True)
+    export.exportiere_modell(train_res, fi, elo_streuung=streuung_jetzt, gestellt_basis=gestellt_basis)
     export.exportiere_ratings(elo_modell, schwinger)
-    export.exportiere_schwinger(schwinger, form_aktuell, ueberraschung, anzahl_feste, aktive)
+    export.exportiere_schwinger(schwinger, form_aktuell, ueberraschung, anzahl_feste, aktive,
+                                gestellt_neigung=neigung)
     export.exportiere_kopf_an_kopf(gaenge)
     export.exportiere_kantone(schwinger, elo_modell, gaenge)
     export.exportiere_cluster(cluster_res)

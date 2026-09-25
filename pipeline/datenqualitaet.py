@@ -144,6 +144,16 @@ def _zeilen(report: dict) -> list[str]:
               f"{m.get('anteil_am_test', 0):.0%} des Tests)", "",
               f"- Accuracy {m.get('accuracy')} vs. Baseline {b.get('accuracy', '?')}",
               f"- Log-Loss {m.get('log_loss')} vs. Baseline {b.get('log_loss', '?')}", ""]
+
+    # Stimmt P(Gestellt)? Die einzige Klasse, die fast nie die wahrscheinlichste
+    # ist -- Accuracy und Log-Loss allein zeigen es nicht.
+    kal = report.get("gestellt_kalibrierung") or {}
+    if kal.get("n"):
+        abstand = abs(kal["vorhergesagt"] - kal["eingetreten"])
+        z += [f"**Gestellt-Kalibrierung** (Merkmalsversion {report.get('merkmal_version', 1)})", "",
+              f"- vorhergesagt {kal['vorhergesagt']:.1%} / eingetreten {kal['eingetreten']:.1%} "
+              f"({_ampel(abstand < 0.02, warn=0.02 <= abstand < 0.04)})",
+              f"- ECE {kal['ece']:.2%}, AUC {kal.get('auc')}", ""]
     return z
 
 

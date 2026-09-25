@@ -16,6 +16,13 @@ export interface ModelArtifact {
     form_fenster_k: number;
     elo_start: number;
     kranzstatus_ordinal: Record<string, number>;
+    /** Merkmalsdefinition, mit der dieses Modell trainiert wurde. Fehlt bei
+     *  Modellen vor Version 2 -- dann gilt 1 (s. baueFeatures). */
+    merkmal_version?: number;
+    /** Ab Version 2: Streuung der aktiven Elo-Ratings, Einheit des Elo-Abstands. */
+    elo_streuung?: number;
+    /** Ab Version 2: durchschnittliche Gestellt-Quote aller Gänge. */
+    gestellt_basis?: number;
   };
   erstellt: string;
 }
@@ -40,6 +47,9 @@ export interface Schwinger {
   schwingklub: string | null;
   bevorzugte_schwuenge: string[];
   form: number;
+  /** Geschrumpfte Gestellt-Quote (Merkmalsversion 2). null/fehlend: keine
+   *  Gänge bzw. älteres Artefakt -- die App rechnet dann mit dem Durchschnitt. */
+  gestellt_neigung?: number | null;
   /** Mittel (tatsächlich - Elo-erwartete Punkte) über alle Gänge; + = übertrifft Erwartung. */
   ueberraschungsindex: number | null;
   n_bewertete_gaenge: number;
@@ -185,11 +195,26 @@ export interface ClusterArtifact {
   aehnlichste: Record<string, AehnlichkeitsTreffer[]>;
 }
 
+/** Ein Balken unter "Warum diese Prognose?".
+ *
+ *  richtung "a"/"b": das Merkmal bevorzugt diesen Schwinger; staerke = um so
+ *  viele Prozentpunkte ist SEINE Siegchance dadurch höher, als wenn es bei
+ *  diesem Merkmal keinen Unterschied gäbe.
+ *  richtung "gestellt": das Merkmal bevorzugt niemanden (gleicher Verband,
+ *  Ausgeglichenheit, …) und verschiebt nur zwischen "einer gewinnt" und
+ *  "Gestellt"; veraenderung = Prozentpunkte P(Gestellt) gegenüber einer
+ *  durchschnittlichen Paarung, mit Vorzeichen. */
+export interface Beitrag {
+  titel: string;
+  unterzeile: string;
+  richtung: "a" | "b" | "gestellt";
+  staerke: number;
+  veraenderung: number;
+}
+
 export interface Prognose {
   p: Record<Klasse, number>;
   quote: Record<Klasse, number>; // 1/p, informativ (FR-2, AK-2.3)
-  /** staerke = Prozentpunkte, um die sich p(Sieg A) ändern würde, gäbe es
-   * diesen Merkmalsunterschied nicht (Gegenprobe mit z=0 für dieses Merkmal). */
-  beitraege: { titel: string; unterzeile: string; richtung: "a" | "b"; staerke: number }[];
+  beitraege: Beitrag[];
   unsicher: boolean; // FR-1 / AK-1.2
 }

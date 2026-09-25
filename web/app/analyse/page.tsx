@@ -3,7 +3,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { ladeFeatureImportance, ladeBenchmark, ladeSchwinger, ladeRatings } from "@/lib/data";
 import type { FeatureImportanceEntry, BenchmarkArtifact, Schwinger, RatingsArtifact } from "@/lib/types";
-import { Konfusionsmatrix, VergleichBalken, VierWegeBenchmark } from "@/components/ModellGuete";
+import {
+  GestelltKalibrierung,
+  Konfusionsmatrix,
+  VergleichBalken,
+  VierWegeBenchmark,
+  type GestelltKalibrierungDaten,
+} from "@/components/ModellGuete";
 import { StreudiagrammMitTrend } from "@/components/StreudiagrammMitTrend";
 import { SchwungVergleich, type SchwungStat } from "@/components/SchwungVergleich";
 
@@ -35,6 +41,8 @@ interface Report {
   n_parsing_warnungen: number;
   klassen?: string[];
   konfusionsmatrix?: number[][] | null;
+  /** Ab Merkmalsversion 2 (P3); ältere Reports haben den Block nicht. */
+  gestellt_kalibrierung?: GestelltKalibrierungDaten | null;
 }
 
 // Merkmale, die die Spec explizit beleuchten will (AK-4.2).
@@ -236,6 +244,22 @@ export default function Analyse() {
           </div>
         </>
       )}
+
+      {report?.gestellt_kalibrierung?.stufen?.length ? (
+        <>
+          <h2>Stimmt die Gestellt-Chance? (Holdout {report.holdout_jahr})</h2>
+          <div className="panel">
+            <p className="muted small" style={{ marginTop: 0 }}>
+              „Gestellt“ ist fast nie der wahrscheinlichste Ausgang — Accuracy und
+              Konfusionsmatrix sehen darum kaum, ob die angezeigte Gestellt-Chance stimmt. Hier
+              sind die {report.gestellt_kalibrierung.n} Testgänge nach vorhergesagter
+              Gestellt-Chance in zehn gleich grosse Stufen geteilt. Liegen die Punkte auf der
+              Diagonalen, endet ein Gang so oft gestellt, wie das Modell sagt.
+            </p>
+            <GestelltKalibrierung daten={report.gestellt_kalibrierung} />
+          </div>
+        </>
+      ) : null}
 
       <h2>Merkmalswichtigkeit</h2>
       <div className="panel">

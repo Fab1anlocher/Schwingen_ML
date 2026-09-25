@@ -54,26 +54,37 @@ Messbares, obwohl sie dort vollständig vorliegen.
 
 ---
 
-## P3 — „Gestellt" wird praktisch nie vorhergesagt
+## ✅ P3 — Gestellt-Prognose und Merkmale
 
-**Priorität hoch · Aufwand mittel**
+**Erledigt.** Der Befund „Gestellt wird praktisch nie vorhergesagt" (2.2 % der
+Gänge als wahrscheinlichste Klasse, Recall 4.5 %) war zur Hälfte ein
+Deutungsfehler: Gestellt ist fast nie der *wahrscheinlichste* Ausgang, und die
+App zeigt Wahrscheinlichkeiten, keine Klassen. Die richtige Frage ist, ob
+P(Gestellt) **stimmt** und ob das Modell gestellte Gänge **erkennt**. Beides
+wird jetzt gemessen (`report.json` → `gestellt_kalibrierung`: vorhergesagt vs.
+eingetreten, ECE, AUC, Kalibrierungskurve auf der Analyse-Seite).
 
-| Klasse | tatsächlich | prognostiziert | Recall |
-|---|---:|---:|---:|
-| sieg_a | 39.5 % | 48.8 % | 79.7 % |
-| **gestellt** | **21.1 %** | **2.3 %** | **4.6 %** |
-| sieg_b | 39.5 % | 48.8 % | 79.7 % |
+Umgesetzt als Merkmalsversion 2 (Details und Zerlegung im README):
+Stand vor dem Fest, Gestellt-Neigung, Erfahrung logarithmisch, Elo-Abstand pro
+Streuung, Einschwingphase. Test 2026, gleiche 36'485 Gänge:
 
-(Zahlen noch auf dem Testset mit Spiegelzeilen erhoben; die Grössenordnung
-ändert P1 nicht.) Jeder fünfte Gang endet gestellt, das Modell sagt es in 2 %
-der Fälle. Die App zeigt prominent eine Gestellt-Wahrscheinlichkeit samt Quote
-— die ist systematisch zu tief.
+| | vorher | jetzt |
+|---|---:|---:|
+| Log-Loss | 0.8314 | **0.7503** |
+| Accuracy | 63.9 % | **68.2 %** |
+| AUC Gestellt | 0.640 | **0.736** |
+| P(Gestellt) vorhergesagt / eingetreten | — | 20.5 % / 21.1 % |
+| Recall Gestellt (als wahrscheinlichste Klasse) | 4.5 % | 20.7 % |
+| nur Porträt-gegen-Porträt: Accuracy (Elo 58.0 %) | 57.7 % | **61.6 %** |
 
-- `class_weight="balanced"` gegen den Ist-Zustand messen (Log-Loss **und**
-  Recall je Klasse — Balancing kann den Log-Loss verschlechtern).
-- Kalibrierung prüfen: Reliability-Diagramm je Klasse.
-- Per-Klassen-Metriken in `report.json`; die Gesamt-Accuracy verdeckt heute,
-  dass eine von drei Klassen faktisch ausfällt.
+Validierung 2025 durchgehend gleichsinnig (0.8537 → 0.7771). Verworfen, weil
+gemessen schlechter: `class_weight="balanced"` (P(Gestellt) 30 % statt 21 %,
+Log-Loss +0.024), Regularisierung (ohne Effekt), 2023 hart ausschliessen
+(schwächer als die Einschwingphase).
+
+Nebenbei behoben: symmetrische Merkmale (gleicher Verband, Ausgeglichenheit,
+ähnlicher Stil) wurden in der App einem Schwinger gutgeschrieben, obwohl sie
+nur zwischen Sieg und Gestellt verschieben — jetzt neutral als „Gestellt ±X".
 
 ## ✅ P4 — Sicherheitslücken im Web-Stack
 

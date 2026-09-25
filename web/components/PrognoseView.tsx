@@ -77,7 +77,8 @@ export function PrognoseView({
         Jeder Balken zeigt, wie stark ein Merkmal zugunsten von{" "}
         <strong style={{ color: "var(--accent)" }}>{nameA}</strong> (rot, rechts) oder{" "}
         <strong style={{ color: "var(--ink)" }}>{nameB}</strong> (dunkel, links) wirkt — in
-        Prozentpunkten der Siegchance.
+        Prozentpunkten der Siegchance. Graue Balken bevorzugen keinen der beiden: sie
+        verändern nur, wie wahrscheinlich ein Gestellter ist.
       </p>
       <div className="panel">
         {beitraege.length === 0 && (
@@ -85,7 +86,13 @@ export function PrognoseView({
         )}
         {beitraege.map((b, i) => {
           const anteil = Math.min(b.staerke / BEITRAG_SKALA_MAX_PP, 1) * 50;
-          const favorit = b.richtung === "a" ? nameA : nameB;
+          const gestellt = b.richtung === "gestellt";
+          const favorit = gestellt ? "Gestellt" : b.richtung === "a" ? nameA : nameB;
+          // Gestellt-Balken sitzen mittig: sie zeigen zu keinem der beiden.
+          const fill = gestellt
+            ? { width: `${anteil}%`, left: `${50 - anteil / 2}%` }
+            : { width: `${anteil}%` };
+          const vorzeichen = b.veraenderung < 0 ? "−" : "+";
           return (
             <div className="beitrag" key={i}>
               <div className="beitrag-labels">
@@ -93,24 +100,26 @@ export function PrognoseView({
                 {b.unterzeile && <div className="beitrag-sub">{b.unterzeile}</div>}
               </div>
               <div className="beitrag-track" aria-hidden>
-                <div
-                  className={`beitrag-fill beitrag-fill-${b.richtung}`}
-                  style={{ width: `${anteil}%` }}
-                />
+                <div className={`beitrag-fill beitrag-fill-${b.richtung}`} style={fill} />
               </div>
               <div className={`beitrag-name beitrag-name-${b.richtung}`}>
                 {favorit}
-                <span className="beitrag-wert">+{b.staerke.toFixed(1)} %-Pkt.</span>
+                <span className="beitrag-wert">
+                  {vorzeichen}
+                  {b.staerke.toFixed(1)} %-Pkt.
+                </span>
               </div>
             </div>
           );
         })}
       </div>
       <p className="muted small" style={{ marginTop: "0.85rem" }}>
-        „+X %-Pkt.“ = um so viele Prozentpunkte würde sich {nameA}s Siegchance ändern, gäbe es
-        bei genau diesem Merkmal keinen Unterschied zwischen den beiden (alle anderen Merkmale
-        bleiben gleich). Balkenlänge auf fester Skala, damit sie auch zwischen verschiedenen
-        Paarungen vergleichbar ist.
+        Bei einem Namen: um so viele Prozentpunkte ist die Siegchance dieses Schwingers höher,
+        als wenn es bei genau diesem Merkmal keinen Unterschied zwischen den beiden gäbe (alle
+        anderen Merkmale bleiben gleich). Bei „Gestellt“: um so viel wahrscheinlicher (+) oder
+        unwahrscheinlicher (−) ist ein Gestellter als bei einer durchschnittlichen Paarung — die
+        Siegchancen beider sinken bzw. steigen dabei gemeinsam. Balkenlänge auf fester Skala,
+        damit sie auch zwischen verschiedenen Paarungen vergleichbar ist.
       </p>
     </div>
   );
