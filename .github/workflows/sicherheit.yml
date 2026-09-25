@@ -1,0 +1,82 @@
+name: Sicherheits-Audit
+
+# Ersatz für die Dependabot-Sicherheitsupdates: die lassen sich nur in den
+# Repo-Einstellungen einschalten (Settings -> Code security), nicht per Datei.
+# Dependabot-Versionsupdates (.github/dependabot.yml) laufen ohnehin wöchentlich
+# und heben dabei auch verwundbare Versionen an; dieser Lauf sorgt dafür, dass
+# eine bekannte Lücke nicht bis dahin unbemerkt bleibt:
+#   - Befund  -> Issue "Sicherheitslücken in Abhängigkeiten" anlegen bzw. mit
+#                dem neuen Bericht kommentieren, und der Lauf schlägt fehl
+#                (GitHub schickt dann zusätzlich eine Mail).
+#   - Entwarnung -> offenes Issue wird geschlossen.
+on:
+  schedule:
+    - cron: "0 5 * * *" # täglich 05:00 UTC, nach dem Pipeline-Lauf
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - web/package.json
+      - web/package-lock.json
+      - requirements-pipeline.txt
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: sicherheits-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # Exit-Codes bewusst ignoriert: ausgewertet wird das JSON (sicherheitsbericht.py).
+      - name: npm audit (Web-App, Laufzeit-Abhängigkeiten)
+        working-directory: web
+        run: npm audit --omit=dev --json > ../npm-audit.json || true
+
+      - name: pip-audit (Pipeline)
+        run: |
+          pip install --quiet pip-audit
+          pip-audit -r requirements-pipeline.txt --format json --output pip-audit.json || true
+
+      - name: Bericht
+        id: bericht
+        run: |
+          if python scripts/sicherheitsbericht.py npm-audit.json pip-audit.json bericht.md; then
+            echo "befund=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "befund=true" >> "$GITHUB_OUTPUT"
+          fi
+          cat bericht.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Issue anlegen, kommentieren oder schliessen
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TITEL: "Sicherheitslücken in Abhängigkeiten"
+          BEFUND: ${{ steps.bericht.outputs.befund }}
+        run: |
+          offen=$(gh issue list --state open --search "in:title \"$TITEL\"" --json number,title \
+            --jq "map(select(.title == \"$TITEL\")) | .[0].number // empty")
+          if [ "$BEFUND" = "true" ]; then
+            if [ -n "$offen" ]; then
+              gh issue comment "$offen" --body-file bericht.md
+            else
+              gh issue create --title "$TITEL" --body-file bericht.md
+            fi
+            echo "::error::Bekannte Schwachstellen gefunden, s. Issue \"$TITEL\"."
+            exit 1
+          elif [ -n "$offen" ]; then
+            gh issue close "$offen" --comment "Keine bekannten Schwachstellen mehr (Lauf ${GITHUB_RUN_ID})."
+          fi
