@@ -73,6 +73,11 @@ GBM_MIN_BLATT_SIEG = 40
 MONOTON_GESTELLT = {"paar_gestellt": 1, "gestellt_neigung": 1, "rating_abstand": -1}
 MONOTON_SIEG = {"rating_diff": 1, "kopf_an_kopf": 1}
 VALIDIERUNGSANTEIL = 0.15
+# Jüngere Gänge zählen mehr (Roadmap M2): Stichprobengewicht 0.5 ** (Alter /
+# Halbwertszeit), Alter in Tagen vor dem jüngsten Trainingsgang. Gemessen
+# (Boosting): 365 Tage Validierung 0.7400 -> 0.7390, Test 0.7207 -> 0.7203;
+# 180 Tage 0.7404 / 0.7202, 540 Tage 0.7393 / 0.7209. None = ungewichtet.
+GBM_HALBWERTSZEIT_TAGE: float | None = 365.0
 
 # Gestellt-Bilanz eines Paars: Anteil gestellter Duelle, geschrumpft gegen die
 # Erwartung aus den beiden Einzelneigungen mit so vielen "Phantom-Duellen".

@@ -31,6 +31,9 @@ interface Report {
   lauf_id?: string;
   holdout_jahr: number;
   n_train: number;
+  /** Trainingszeilen des ausgelieferten Modells (inkl. Holdout-Saison, s.
+   *  pipeline/train.py); fehlt bei Reports vor dem 26.09.2026. */
+  n_train_ausgeliefert?: number;
   n_test: number;
   modell: { log_loss: number; accuracy: number };
   baseline_elo: { log_loss: number; accuracy: number };
@@ -224,6 +227,14 @@ export default function Analyse() {
             Schwinger · Training {zahl(report.n_train / 2)} Gänge (je aus beiden Sichten, A/B
             gespiegelt) · Test {zahl(report.n_test)} Gänge der Saison {report.holdout_jahr}, die
             das Modell nie gesehen hat
+            {(report.n_train_ausgeliefert ?? 0) > report.n_train && (
+              <>
+                {" "}
+                · Die Prognosen der App rechnet danach ein Modell mit denselben Einstellungen, das
+                zusätzlich auf dieser Saison trainiert ist ({zahl(report.n_train_ausgeliefert! / 2)}{" "}
+                Gänge) — die Kennzahlen hier stammen bewusst vom Modell ohne sie.
+              </>
+            )}
           </p>
           {report.erfolgskriterien && (
             <p className="muted small">

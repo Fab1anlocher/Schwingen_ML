@@ -10,85 +10,85 @@
     {
       "feature": "rating_diff",
       "label": "Rating-Vorsprung (Elo)",
-      "wichtigkeit": 0.3643466995446589,
+      "wichtigkeit": 0.38341589115166197,
       "koeffizienten": null
     },
     {
       "feature": "erfahrung_diff",
       "label": "Erfahrung (Anzahl Gänge)",
-      "wichtigkeit": 0.13729626025869524,
+      "wichtigkeit": 0.13181595781714384,
       "koeffizienten": null
     },
     {
       "feature": "gestellt_neigung",
       "label": "Gestellt-Neigung beider Schwinger",
-      "wichtigkeit": 0.06506031088156938,
+      "wichtigkeit": 0.0665897905996038,
       "koeffizienten": null
     },
     {
       "feature": "rating_abstand",
       "label": "Rating-Nähe (ausgeglichenes Paar)",
-      "wichtigkeit": 0.04966234193079089,
+      "wichtigkeit": 0.055613504374324885,
       "koeffizienten": null
     },
     {
       "feature": "spitzen_niveau",
       "label": "Spitzenpaarung (beide stark)",
-      "wichtigkeit": 0.04775383904974961,
+      "wichtigkeit": 0.037673143388217145,
       "koeffizienten": null
     },
     {
       "feature": "kranz_diff",
       "label": "Kranzstatus",
-      "wichtigkeit": 0.025752281130600463,
+      "wichtigkeit": 0.022258057170569057,
       "koeffizienten": null
     },
     {
       "feature": "form_diff",
       "label": "aktuelle Form (letzte Gänge)",
-      "wichtigkeit": 0.010991141265243809,
-      "koeffizienten": null
-    },
-    {
-      "feature": "paar_gestellt",
-      "label": "Gestellt-Bilanz dieses Paars",
-      "wichtigkeit": 0.0031597562257920098,
-      "koeffizienten": null
-    },
-    {
-      "feature": "gewicht_diff",
-      "label": "Gewichtsunterschied",
-      "wichtigkeit": 0.0030931835566914145,
+      "wichtigkeit": 0.011163538864951361,
       "koeffizienten": null
     },
     {
       "feature": "kopf_an_kopf",
       "label": "Bisherige direkte Duelle",
-      "wichtigkeit": 0.002754108633133856,
+      "wichtigkeit": 0.003534961797478031,
       "koeffizienten": null
     },
     {
-      "feature": "alter_diff",
-      "label": "Altersunterschied",
-      "wichtigkeit": 0.001221915556917641,
+      "feature": "paar_gestellt",
+      "label": "Gestellt-Bilanz dieses Paars",
+      "wichtigkeit": 0.002637173764468481,
+      "koeffizienten": null
+    },
+    {
+      "feature": "gewicht_diff",
+      "label": "Gewichtsunterschied",
+      "wichtigkeit": 0.0024299024545260117,
       "koeffizienten": null
     },
     {
       "feature": "same_teilverband",
       "label": "gleicher Teilverband",
-      "wichtigkeit": 0.0008817592429302135,
+      "wichtigkeit": 0.001014628289253583,
       "koeffizienten": null
     },
     {
-      "feature": "portraet_diff",
-      "label": "Porträt/Profildaten vorhanden",
-      "wichtigkeit": 4.0755262763259026e-05,
+      "feature": "alter_diff",
+      "label": "Altersunterschied",
+      "wichtigkeit": 0.0008638512742801252,
+      "koeffizienten": null
+    },
+    {
+      "feature": "schwung_count_diff",
+      "label": "Unterschied Anzahl bevorzugter Schwünge",
+      "wichtigkeit": 0.00039307443285252486,
       "koeffizienten": null
     },
     {
       "feature": "groesse_diff",
       "label": "Grössenunterschied",
-      "wichtigkeit": 0.0,
+      "wichtigkeit": 0.0001336295055408554,
       "koeffizienten": null
     },
     {
@@ -98,8 +98,8 @@
       "koeffizienten": null
     },
     {
-      "feature": "schwung_count_diff",
-      "label": "Unterschied Anzahl bevorzugter Schwünge",
+      "feature": "portraet_diff",
+      "label": "Porträt/Profildaten vorhanden",
       "wichtigkeit": 0.0,
       "koeffizienten": null
     }

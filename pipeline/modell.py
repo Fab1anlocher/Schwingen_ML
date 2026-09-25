@@ -41,12 +41,16 @@ nimmt eine zufällige Stichprobe -- mit Spiegelzeilen und Gängen desselben
 Fests auf beiden Seiten wäre das zu optimistisch. Hier: die jüngsten
 ``VALIDIERUNGSANTEIL`` der Trainingsdaten (nach Datum) bestimmen die Baumzahl
 je Stufe, danach wird auf dem ganzen Training neu gefittet.
+
+**Jüngere Gänge zählen mehr** (Roadmap M2): Stichprobengewicht mit
+Halbwertszeit ``GBM_HALBWERTSZEIT_TAGE`` ab dem jüngsten Trainingsgang.
 """
 from __future__ import annotations
 
 import numpy as np
 
 from .config import (
+    GBM_HALBWERTSZEIT_TAGE,
     GBM_LERNRATE,
     GBM_MAX_BAEUME,
     GBM_MAX_BLAETTER,
@@ -156,19 +160,34 @@ def _gbm(n_baeume: int, min_blatt: int, monoton):
     )
 
 
-def beste_baumzahl(Xtr, ytr_binaer, datum_tr, *, symmetrie, min_blatt: int, monoton) -> int:
+def _tage(datum_tr) -> np.ndarray:
+    return np.asarray(datum_tr, dtype="datetime64[D]").astype(np.int64)
+
+
+def zeitgewicht(datum_tr, halbwertszeit: float | None = GBM_HALBWERTSZEIT_TAGE) -> np.ndarray | None:
+    """0.5 ** (Alter / Halbwertszeit), Alter in Tagen vor dem jüngsten Gang (M2)."""
+    if halbwertszeit is None or len(datum_tr) == 0:
+        return None
+    tage = _tage(datum_tr)
+    return 0.5 ** ((tage.max() - tage) / halbwertszeit)
+
+
+def beste_baumzahl(Xtr, ytr_binaer, datum_tr, *, symmetrie, min_blatt: int, monoton,
+                   gewicht: np.ndarray | None = None) -> int:
     """Baumzahl mit dem kleinsten Log-Loss auf den jüngsten Trainingsdaten.
 
     ``symmetrie``: _gestellt oder _sieg_a -- gemessen wird, was predict_proba
-    später rechnet (gemittelt mit der gespiegelten Paarung)."""
+    später rechnet (gemittelt mit der gespiegelten Paarung). Gewichtet wird
+    nur das Fitten, der Log-Loss zählt jeden Validierungsgang gleich."""
     from sklearn.metrics import log_loss
 
-    tage = np.asarray(datum_tr, dtype="datetime64[D]").astype(np.int64)
+    tage = _tage(datum_tr)
     grenze = np.quantile(tage, 1.0 - VALIDIERUNGSANTEIL)
     fit, val = tage < grenze, tage >= grenze
     if fit.sum() < 50 or val.sum() < 20 or len(np.unique(ytr_binaer[fit])) < 2:
         return max(10, GBM_MAX_BAEUME // 4)  # zu wenig Daten zum Messen (z.B. Tests)
-    sk = _gbm(GBM_MAX_BAEUME, min_blatt, monoton).fit(Xtr[fit], ytr_binaer[fit])
+    sk = _gbm(GBM_MAX_BAEUME, min_blatt, monoton).fit(
+        Xtr[fit], ytr_binaer[fit], sample_weight=None if gewicht is None else gewicht[fit])
     Xv, yv = Xtr[val], ytr_binaer[val]
     verluste = [
         log_loss(yv, symmetrie(p[:, 1], q[:, 1]), labels=[0, 1])
@@ -178,8 +197,10 @@ def beste_baumzahl(Xtr, ytr_binaer, datum_tr, *, symmetrie, min_blatt: int, mono
 
 
 def _stufe(Xtr, ytr_binaer, datum_tr, *, symmetrie, min_blatt: int, monoton):
-    n = beste_baumzahl(Xtr, ytr_binaer, datum_tr, symmetrie=symmetrie, min_blatt=min_blatt, monoton=monoton)
-    return _gbm(n, min_blatt, monoton).fit(Xtr, ytr_binaer)
+    gewicht = zeitgewicht(datum_tr)
+    n = beste_baumzahl(Xtr, ytr_binaer, datum_tr, symmetrie=symmetrie, min_blatt=min_blatt,
+                       monoton=monoton, gewicht=gewicht)
+    return _gbm(n, min_blatt, monoton).fit(Xtr, ytr_binaer, sample_weight=gewicht)
 
 
 def trainiere_modell(Xtr, ytr, datum_tr, typ: str = MODELL_TYP) -> Prognosemodell:

@@ -2,6 +2,12 @@
 
 - Das Modell selbst (Gradient Boosting oder LR) kommt aus modell.py.
 - Zeitlicher Train/Test-Split (jüngste Saison = Holdout), NICHT zufällig (ML-5).
+- Zwei Modelle (Roadmap M5): das EVALUATIONSMODELL sieht die Holdout-Saison
+  nicht und liefert alle Kennzahlen; AUSGELIEFERT wird danach ein zweites,
+  mit denselben Einstellungen auf allen Trainingszeilen INKLUSIVE der
+  Holdout-Saison. Sonst lernte das App-Modell nie aus der laufenden Saison --
+  rückwirkend gemessen kostet eine fehlende Saison 0.009 Log-Loss (Test 2026
+  mit Training bis 2024: 0.7294, bis 2025: 0.7207).
 - Metriken: Log-Loss (primär), Accuracy, MAE/MSE auf dem Punktwert des Gangs
   (s. pipeline/metriken.py), Vergleich gegen Elo-Baseline.
 - Merkmalswichtigkeit als eigenständiges Deliverable (ML-7 / FR-4).
@@ -157,12 +163,24 @@ def trainiere(X, y, meta, typ: str = MODELL_TYP) -> dict:
 
     nur_portraet = _bewerte_nur_portraet(p_test, yte, meta, holdout, labels_idx)
 
+    # Roadmap M5: ausgeliefert wird ein Modell, das auch die Holdout-Saison
+    # gesehen hat. Nur wenn es überhaupt einen Holdout gab (sonst ist das
+    # Evaluationsmodell schon auf allem trainiert).
+    ausgeliefert, n_ausgeliefert = modell, int(len(Xtr))
+    if len(Xte):
+        alle = trainings_maske(meta, np.asarray(y), holdout + 1)
+        datum_alle = [m["datum"] for m, drin in zip(meta, alle) if drin]
+        ausgeliefert = trainiere_modell(np.asarray(X)[alle], np.asarray(y)[alle], datum_alle, typ)
+        n_ausgeliefert = int(alle.sum())
+
     return {
+        # Evaluationsmodell: Kennzahlen, Merkmalswichtigkeit (auf den Testgängen).
         "modell": modell,
+        # Ausgeliefert (model.json): zusätzlich auf der Holdout-Saison trainiert.
+        "modell_ausgeliefert": ausgeliefert,
+        "n_train_ausgeliefert": n_ausgeliefert,
         "modell_typ": modell.typ,
-        "n_baeume": modell.n_baeume,
-        "mu": modell.mu,
-        "sigma": modell.sigma,
+        "n_baeume": ausgeliefert.n_baeume,
         # Für Merkmalswichtigkeit (Permutation) und die Export-Prüfung.
         "X_test": np.asarray(Xte),
         "y_test": np.asarray(yte),
