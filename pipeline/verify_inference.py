@@ -9,13 +9,12 @@ Python gebaut (feature_vektor_fuer_prognose), nicht mit baueFeatures aus
 inference.ts. Ein Fehler in der TypeScript-Spiegelung fiele diesem Check
 nicht auf und erzeugte still falsche Live-Prognosen. Früher stand hier, er
 stelle sicher, "dass die clientseitige Inferenz ... dieselben
-Wahrscheinlichkeiten liefert" -- das war zu weit gegriffen. Neue Merkmale
-darum von Hand auf Parität prüfen, s. ROADMAP.md (P5).
+Wahrscheinlichkeiten liefert" -- das war zu weit gegriffen. Die TypeScript-
+Seite prüft pipeline/paritaet.py (CI-Job inferenz-paritaet).
 """
 from __future__ import annotations
 
 import json
-import math
 import sys
 from datetime import date
 from pathlib import Path
@@ -28,30 +27,16 @@ import numpy as np
 if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
     sys.stdout.reconfigure(encoding="utf-8")
 
-from .features import feature_vektor_fuer_prognose
+from .paritaet import json_inferenz_wie_app, python_live_merkmale
 from .schema import Schwinger
 
 ROOT = Path(__file__).resolve().parent.parent
 ART = ROOT / "artifacts"
 
 
-def _softmax(logits):
-    m = max(logits)
-    exp = [math.exp(l - m) for l in logits]
-    s = sum(exp)
-    return [e / s for e in exp]
-
-
-def json_inferenz(model, x):
-    """Reine JSON-Logik (identisch zu web/lib/inference.ts)."""
-    mu = model["standardisierung"]["mu"]
-    sigma = model["standardisierung"]["sigma"]
-    z = [(x[i] - mu[i]) / (sigma[i] or 1) for i in range(len(x))]
-    logits = [
-        sum(model["coef"][k][i] * z[i] for i in range(len(z))) + model["intercept"][k]
-        for k in range(len(model["coef"]))
-    ]
-    return _softmax(logits)
+# Eine einzige Python-Spiegelung der App-Inferenz statt einer eigenen Kopie
+# hier -- jede weitere Kopie ist eine weitere Stelle, die auseinanderlaufen kann.
+json_inferenz = json_inferenz_wie_app
 
 
 _SCHWINGER_FELDER = {f.name for f in Schwinger.__dataclass_fields__.values()}
@@ -80,9 +65,11 @@ def main():
         # kein separat gepflegter Merkmalsvektor mehr, der aus dem Ruder
         # laufen kann (genau das ist hier zuvor passiert: rating_abstand
         # wurde in features.py ergänzt, aber nie in diesem Skript nachgezogen).
-        x = feature_vektor_fuer_prognose(
-            ra["elo"], rb["elo"], a_dict["form"], b_dict["form"],
-            ra["n_gaenge"], rb["n_gaenge"], a, b, heute,
+        # Mit Merkmalsversion, Skala und Neigung aus den Artefakten.
+        x = python_live_merkmale(model, a_dict, b_dict, ra, rb, 0.0, heute)
+        assert len(x) == len(model["features"]), (
+            f"Merkmalsvektor {len(x)} lang, Modell kennt {len(model['features'])} -- "
+            "Merkmalsversion im model.json passt nicht zum Code"
         )
 
         p_json = json_inferenz(model, x)
@@ -105,7 +92,7 @@ def main():
 
     print(f"\nMax. Abweichung JSON vs Referenz: {max_abw:.2e}")
     assert max_abw < 1e-9, "Inferenz-Drift!"
-    print("✓ model.json konsistent mit dem sklearn-Modell (TS-Merkmalsvektor NICHT geprüft).")
+    print("✓ model.json konsistent mit dem sklearn-Modell (TypeScript-Seite: pipeline.paritaet).")
 
 
 if __name__ == "__main__":

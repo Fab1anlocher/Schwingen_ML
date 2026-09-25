@@ -13,6 +13,8 @@ web/out/
 web/next-env.d.ts
 web/.vercel/
 web/*.tsbuildinfo
+# Build + Prüffälle der TS/Python-Paritätsprüfung (pipeline/paritaet.py)
+web/.paritaet/
 
 # OS / Editor
 .DS_Store

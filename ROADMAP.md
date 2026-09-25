@@ -44,70 +44,110 @@ nicht mehr als Grund, wenn sie für die Paarung auf fehlenden Daten beruhen;
 `report.json` → `nur_portraet` misst Modell und Baseline zusätzlich nur auf
 Porträt-gegen-Porträt-Gängen.
 
-**Nach dem ersten echten Lauf prüfen:** Wie viel Gewicht bekommt
-`portraet_diff`, und verliert `kranz_diff` dafür an Wichtigkeit? Wie gross ist
-der Vorsprung auf `nur_portraet` — das ist die ehrliche Messung der
-wrestlerischen Merkmale.
+**Ergebnis des ersten echten Laufs (24.09.2026):** `kranz_diff` verliert rund
+70 % seines Gewichts (0.166 → 0.049), `portraet_diff` übernimmt es offen
+(0.124). Der Kranzstatus hatte also tatsächlich überwiegend „hat ein Profil"
+transportiert. Und auf Porträt-gegen-Porträt-Gängen (9'319) ist das Modell
+**praktisch gleich gut wie Elo allein** (Log-Loss 0.9254 vs. 0.9299, Accuracy
+57.7 % vs. 58.0 %): Physis, Verband und Schwünge bringen über Elo hinaus nichts
+Messbares, obwohl sie dort vollständig vorliegen.
 
 ---
 
-## P3 — „Gestellt" wird praktisch nie vorhergesagt
+## ✅ P3 — Gestellt-Prognose und Merkmale
 
-**Priorität hoch · Aufwand mittel**
+**Erledigt.** Der Befund „Gestellt wird praktisch nie vorhergesagt" (2.2 % der
+Gänge als wahrscheinlichste Klasse, Recall 4.5 %) war zur Hälfte ein
+Deutungsfehler: Gestellt ist fast nie der *wahrscheinlichste* Ausgang, und die
+App zeigt Wahrscheinlichkeiten, keine Klassen. Die richtige Frage ist, ob
+P(Gestellt) **stimmt** und ob das Modell gestellte Gänge **erkennt**. Beides
+wird jetzt gemessen (`report.json` → `gestellt_kalibrierung`: vorhergesagt vs.
+eingetreten, ECE, AUC, Kalibrierungskurve auf der Analyse-Seite).
 
-| Klasse | tatsächlich | prognostiziert | Recall |
-|---|---:|---:|---:|
-| sieg_a | 39.5 % | 48.8 % | 79.7 % |
-| **gestellt** | **21.1 %** | **2.3 %** | **4.6 %** |
-| sieg_b | 39.5 % | 48.8 % | 79.7 % |
+Umgesetzt als Merkmalsversion 2 (Details und Zerlegung im README):
+Stand vor dem Fest, Gestellt-Neigung, Erfahrung logarithmisch, Elo-Abstand pro
+Streuung, Einschwingphase. Test 2026, gleiche 36'485 Gänge:
 
-(Zahlen noch auf dem Testset mit Spiegelzeilen erhoben; die Grössenordnung
-ändert P1 nicht.) Jeder fünfte Gang endet gestellt, das Modell sagt es in 2 %
-der Fälle. Die App zeigt prominent eine Gestellt-Wahrscheinlichkeit samt Quote
-— die ist systematisch zu tief.
+| | vorher | jetzt |
+|---|---:|---:|
+| Log-Loss | 0.8314 | **0.7503** |
+| Accuracy | 63.9 % | **68.2 %** |
+| AUC Gestellt | 0.640 | **0.736** |
+| P(Gestellt) vorhergesagt / eingetreten | — | 20.5 % / 21.1 % |
+| Recall Gestellt (als wahrscheinlichste Klasse) | 4.5 % | 20.7 % |
+| nur Porträt-gegen-Porträt: Accuracy (Elo 58.0 %) | 57.7 % | **61.6 %** |
 
-- `class_weight="balanced"` gegen den Ist-Zustand messen (Log-Loss **und**
-  Recall je Klasse — Balancing kann den Log-Loss verschlechtern).
-- Kalibrierung prüfen: Reliability-Diagramm je Klasse.
-- Per-Klassen-Metriken in `report.json`; die Gesamt-Accuracy verdeckt heute,
-  dass eine von drei Klassen faktisch ausfällt.
+Validierung 2025 durchgehend gleichsinnig (0.8537 → 0.7771). Verworfen, weil
+gemessen schlechter: `class_weight="balanced"` (P(Gestellt) 30 % statt 21 %,
+Log-Loss +0.024), Regularisierung (ohne Effekt), 2023 hart ausschliessen
+(schwächer als die Einschwingphase).
 
-## P4 — Sicherheitslücken im Web-Stack
+Nebenbei behoben: symmetrische Merkmale (gleicher Verband, Ausgeglichenheit,
+ähnlicher Stil) wurden in der App einem Schwinger gutgeschrieben, obwohl sie
+nur zwischen Sieg und Gestellt verschieben — jetzt neutral als „Gestellt ±X".
 
-**Priorität hoch · Aufwand klein**
+## ✅ P4 — Sicherheitslücken im Web-Stack
 
-`npm audit`: 3 Schwachstellen, davon 2 hoch und 1 kritisch (PostCSS, über
-`next`). `next` ist exakt auf `14.2.5` gepinnt; Fix wäre `14.2.35`.
+**Erledigt — aber anders als ursprünglich geplant.** Der Plan war „`next` auf
+14.2.35". Nachgemessen: auch 14.2.35, die letzte 14er, hat noch **23 offene
+Advisories**, darunter Remote Code Execution in der Image-Optimierung und XSS
+im App Router. Next 14 bekommt diese Fixes nicht mehr; der Patch-Sprung wäre
+eine Scheinlösung gewesen.
 
-- `next` aktualisieren, `npm audit --audit-level=high` in die CI.
-- Dependabot oder Renovate aktivieren.
+Umgesetzt: Next 15.5.26 + React 19 (kleinster sicherer Major-Schritt; 15 wird
+parallel zu 16 gepatcht), `overrides: postcss ≥ 8.5.28` (auch Next 15 pinnt
+das verwundbare 8.4.31). `npm audit`: 0 Befunde. Build, Typecheck und alle
+Seiten im Browser (Desktop + mobil, Funktionsprüfung) fehlerfrei. Neu:
+CI-Job `abhaengigkeiten-audit` und Dependabot.
 
-## P5 — Parität TypeScript ↔ Python automatisch prüfen
+**Offen:** Next 16 (Turbopack-Build, `middleware` → `proxy`, entfernte
+Sync-APIs) — eigenes Vorhaben, sobald 15 aus dem Support fällt. Dependabot-
+Sicherheitsupdates müssen einmalig in den Repo-Einstellungen aktiviert werden
+(Settings → Code security → Dependabot security updates).
 
-**Priorität mittel · Aufwand klein bis mittel**
+## ✅ P5 — Parität TypeScript ↔ Python automatisch geprüft
 
-`verify_inference` prüft nur `model.json` gegen sklearn, und zwar mit dem
-**Python**-Merkmalsvektor. Ein Fehler in `web/lib/inference.ts → baueFeatures`
-fiele nirgends auf und erzeugte still falsche Live-Prognosen. Für
-`portraet_diff` wurde die Parität von Hand geprüft (100 echte Paare,
-Abweichung 0).
+**Erledigt.** `pipeline/paritaet.py` erzeugt ~240 Prüffälle aus den echten
+Artefakten, `npm run paritaet` rechnet sie mit der App-Logik nach: Merkmale,
+Kopf-an-Kopf (inkl. Richtungsumkehr) und Wahrscheinlichkeiten. Läuft in jedem
+PR und im täglichen Lauf vor dem Commit neuer Artefakte. Mutationstest: sechs
+absichtlich eingebaute Fehler, alle erkannt. `verify_inference` nutzt jetzt
+dieselbe Python-Spiegelung statt einer eigenen Kopie.
 
-- Einen Paritätstest in die CI: `inference.ts` kompilieren, auf einer festen
-  Auswahl echter Paare gegen `feature_vektor_fuer_prognose` vergleichen.
-  Braucht einen Job mit Node **und** Python.
+## ✅ P6 — Datenabdeckung erhöhen (soweit messbar möglich)
 
-## P6 — Datenabdeckung erhöhen
+**Teilweise erledigt — was sich belegen liess, ist umgesetzt; der Rest ist
+blockiert und so benannt.**
 
-**Priorität mittel · Aufwand gross — behebt P2 an der Wurzel**
+Ausgangslage: 706 von 2904 Schwingern (24 %) haben ein Porträt; die übrigen
+2198 haben zu 100 % keine Physis, keinen Verband, keinen Kranzstatus. In
+2026 stammen 60 % aller Gangteilnahmen von Schwingern ohne Porträt. Die
+Porträts selbst sind fast vollständig (Gewicht 695/706, Grösse 693/706,
+Verband 706/706; Schwünge nur 418/706 — die Quelle führt sie nicht immer).
 
-Nur 706 von 2904 Schwingern haben ein Porträt. P2 macht die Lücke sichtbar,
-schliesst sie aber nicht. Eine zweite Quelle für Physis und Verband der übrigen
-76 % — z.B. die ESV-Ranglisten — würde P2 und P3 zugleich verbessern. Nicht als
-Ersatz für schlussgang.ch, sondern als Ergänzung.
-
-Vorher klären: Erlaubt die Quelle das Abrufen (robots.txt, Nutzungsbedingungen)?
-Ein früherer ESV-Teilbaum wurde entfernt, weil der Host CI-Runner mit 403
-sperrte.
+- **Teilverband aus Festbesuchen geschätzt** (`pipeline/verbandsschaetzung.py`).
+  An Kantonal-, Teilverbands- und Regionalfesten startet fast nur, wer dem
+  Verband angehört. Validiert an den Porträt-Schwingern mit bekanntem Verband
+  (Leave-one-out): **99.8 % richtig** (1 Fehler auf 583). Mit nur einem Fest
+  wären es 89.5 %, darum mindestens 3 zuordenbare Feste. Die Prüfung läuft
+  **bei jedem Lauf** erneut; unter 97 % wird nichts geschätzt.
+  Ergebnis: **1649 von 2198** Schwingern ohne Porträt haben jetzt einen
+  Verband; bekannt sind damit 81 % des Kaders statt 24 % (aktive 2026: 90 %).
+  In der App als „geschätzt" gekennzeichnet, Suche und Filter finden sie.
+- **Bewusst nicht ins Modell:** mit geschätzten Verbänden gälte „gleicher
+  Verband" für 73 % der Gänge statt 17 % — Test-Log-Loss 0.7503 → 0.7512,
+  also schlechter. Eigenes Feld `teilverband_geschaetzt`; das Modell nutzt
+  weiter nur den gemessenen Verband.
+- **Gespaltene Identitäten geprüft:** 66 Porträts ohne einen Gang seit 2023
+  (fast alle Jahrgang ≤ 1998, also wohl zurückgetreten). Keines davon ist ein
+  übersehener Stub: die drei Namensähnlichkeiten sind nachweislich andere
+  Personen (anderer Nachname bzw. anderer Verband laut Festbesuchen).
+- **ESV-Ranglisten: blockiert.** esv.ch ist aus der Entwicklungsumgebung nicht
+  erreichbar (Proxy 403), und der Host sperrte schon früher GitHub-Runner
+  (403) — der tägliche Lauf könnte die Quelle also auch nicht abrufen. Offen,
+  bis eine erlaubte Zugriffsart geklärt ist (Anfrage an den ESV, oder ein
+  Runner, den der Host zulässt). Physis und Kranzstatus der 76 % bleiben bis
+  dahin unbekannt; ehrlich als Datenlage im Modell (`portraet_diff`).
 
 ## P7 — Kleinkram
 

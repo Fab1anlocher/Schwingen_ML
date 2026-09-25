@@ -1,7 +1,7 @@
 // Clientseitige Logistic-Regression-Inferenz (§7, NFR-2: < 500 ms).
 // Spiegelt pipeline/features._feature_vektor und pipeline/train exakt.
 
-import type { ModelArtifact, Schwinger, Prognose, Klasse } from "./types";
+import type { ModelArtifact, Schwinger, Prognose, Klasse, Beitrag } from "./types";
 
 const AKTUELLES_JAHR = new Date().getFullYear();
 
@@ -27,7 +27,15 @@ function schwungOverlap(a: Schwinger, b: Schwinger): number {
   return inter / union.size;
 }
 
-/** Baut den Merkmalsvektor A-vs-B (identisch zur Python-Pipeline). */
+/** Baut den Merkmalsvektor A-vs-B (identisch zur Python-Pipeline,
+ *  features._feature_vektor / feature_vektor_fuer_prognose).
+ *
+ *  Nach der Merkmalsversion DES MODELLS, nicht nach der neuesten: das
+ *  ausgelieferte model.json kommt aus dem Repo und kann dem Code einen Lauf
+ *  hinterherhinken. Ohne Versionsangabe gilt 1.
+ *    1: Elo-Abstand / 100, Erfahrung als rohe Differenz, 13 Merkmale
+ *    2: Elo-Abstand / Streuung der aktiven Ratings, Erfahrung logarithmisch,
+ *       + Gestellt-Neigung (14 Merkmale) */
 export function baueFeatures(
   model: ModelArtifact,
   a: Schwinger,
@@ -43,22 +51,32 @@ export function baueFeatures(
   const kranzB = kranz[b.kranzstatus] ?? 0;
   const alterA = a.jahrgang !== null ? AKTUELLES_JAHR - a.jahrgang : null;
   const alterB = b.jahrgang !== null ? AKTUELLES_JAHR - b.jahrgang : null;
+  const v2 = (model.config.merkmal_version ?? 1) >= 2;
+  const skala = v2 ? (model.config.elo_streuung as number) : 100.0;
 
-  return [
-    (eloA - eloB) / 100.0, // rating_diff
-    Math.abs(eloA - eloB) / 100.0, // rating_abstand
+  const x = [
+    (eloA - eloB) / skala, // rating_diff
+    Math.abs(eloA - eloB) / skala, // rating_abstand
     a.form - b.form, // form_diff
     kranzA - kranzB, // kranz_diff
     diffOderNull(alterA, alterB), // alter_diff
     diffOderNull(a.gewicht_kg, b.gewicht_kg), // gewicht_diff
     diffOderNull(a.groesse_cm, b.groesse_cm), // groesse_diff
-    nA - nB, // erfahrung_diff
+    v2 ? Math.log1p(nA) - Math.log1p(nB) : nA - nB, // erfahrung_diff
     a.teilverband && a.teilverband === b.teilverband ? 1 : 0, // same_teilverband
     schwungOverlap(a, b), // schwung_overlap
     (a.bevorzugte_schwuenge?.length ?? 0) - (b.bevorzugte_schwuenge?.length ?? 0), // schwung_count_diff
     kopfAnKopfA, // kopf_an_kopf
     (hatPortraet(a) ? 1 : 0) - (hatPortraet(b) ? 1 : 0), // portraet_diff
   ];
+  if (v2) {
+    // Fehlt die Neigung (Neuling, älteres Artefakt): Durchschnitt = neutral.
+    const basis = model.config.gestellt_basis as number;
+    const neigungA = a.gestellt_neigung ?? basis;
+    const neigungB = b.gestellt_neigung ?? basis;
+    x.push((neigungA + neigungB) / 2 - basis); // gestellt_neigung
+  }
+  return x;
 }
 
 /** Beruht dieses Merkmal für DIESE Paarung auf fehlenden Daten?
@@ -125,7 +143,24 @@ const BEITRAG_TEXT: Record<string, { titel: string; unter: string }> = {
   schwung_count_diff: { titel: "Schwung-Vielfalt", unter: "Anzahl bevorzugter Schwünge" },
   kopf_an_kopf: { titel: "Direkte Duelle", unter: "Bisherige Begegnungen" },
   portraet_diff: { titel: "Datenlage", unter: "Profil mit Physis & Kranzstatus vorhanden" },
+  gestellt_neigung: { titel: "Gestellt-Neigung", unter: "Wie oft beide bisher gestellt haben" },
 };
+
+/** Merkmale, die beim Tausch von A und B GLEICH bleiben (statt das Vorzeichen
+ *  zu drehen). Sie können niemanden bevorzugen: das Modell hat für sie bei
+ *  "Sieg A" und "Sieg B" exakt dasselbe Gewicht (Folge der Spiegelzeilen im
+ *  Training) und verschiebt mit ihnen nur zwischen "einer gewinnt" und
+ *  "Gestellt". Früher wurden sie wie alle anderen an p(Sieg A) gemessen und
+ *  dem Gegner gutgeschrieben, sobald p(Sieg A) sank -- "Gleicher Verband:
+ *  +7 %-Pkt. für B", obwohl auch B's Siegchance dadurch sank. */
+const SYMMETRISCH = new Set(["rating_abstand", "same_teilverband", "schwung_overlap", "gestellt_neigung"]);
+
+function unterzeile(feat: string, a: Schwinger, b: Schwinger): string {
+  if (feat === "same_teilverband") {
+    return a.teilverband === b.teilverband ? "Gleicher Verband" : "Verschiedene Verbände";
+  }
+  return BEITRAG_TEXT[feat]?.unter ?? "";
+}
 
 /** Vollständige Prognose inkl. Erklärbarkeit (FR-1, FR-3). */
 export function prognostiziere(
@@ -160,27 +195,34 @@ export function prognostiziere(
   const quote: Record<Klasse, number> = {} as any;
   (Object.keys(p) as Klasse[]).forEach((kl) => (quote[kl] = 1 / Math.max(p[kl], 1e-6)));
 
-  // Erklärbarkeit (FR-3): Beitrag jedes Merkmals in Prozentpunkten von
-  // p(Sieg A) -- Gegenprobe "was wäre p(Sieg A), wenn genau dieses Merkmal
-  // keinen Unterschied machen würde (z=0), alle anderen unverändert". Direkt
-  // in derselben Einheit wie die Hauptzahlen oben auf der Seite, statt eines
-  // abstrakten, nicht weiter interpretierbaren Koeffizienten-Produkts.
+  // Erklärbarkeit (FR-3): Gegenprobe je Merkmal -- was käme heraus, wenn
+  // genau dieses Merkmal auf seinem Trainingsmittel stünde (z=0), alle
+  // anderen unverändert? Bei Unterschiedsmerkmalen ist das Mittel 0 (die
+  // Spiegelzeilen gleichen es aus), also "kein Unterschied zwischen den
+  // beiden"; bei symmetrischen Merkmalen die durchschnittliche Paarung.
+  // In Prozentpunkten, derselben Einheit wie die Zahlen oben auf der Seite.
   const iSiegA = model.klassen.indexOf("sieg_a");
-  const beitraege = model.features
+  const iSiegB = model.klassen.indexOf("sieg_b");
+  const iGestellt = model.klassen.indexOf("gestellt");
+  const beitraege: Beitrag[] = model.features
     .map((feat, i) => ({ feat, i }))
     .filter(({ feat }) => !beruhtAufFehlendenDaten(feat, a, b))
-    .map(({ feat, i }) => {
+    .map(({ feat, i }): Beitrag => {
       const zOhneMerkmal = z.slice();
       zOhneMerkmal[i] = 0;
-      const probsOhne = wahrscheinlichkeiten(model, zOhneMerkmal);
-      const einflussPp = (probs[iSiegA] - probsOhne[iSiegA]) * 100;
-      const text = BEITRAG_TEXT[feat] ?? { titel: model.feature_labels[feat] ?? feat, unter: "" };
-      return {
-        titel: text.titel,
-        unterzeile: text.unter,
-        richtung: (einflussPp >= 0 ? "a" : "b") as "a" | "b",
-        staerke: Math.abs(einflussPp),
-      };
+      const ohne = wahrscheinlichkeiten(model, zOhneMerkmal);
+      const titel = BEITRAG_TEXT[feat]?.titel ?? model.feature_labels[feat] ?? feat;
+      const basis = { titel, unterzeile: unterzeile(feat, a, b) };
+      if (SYMMETRISCH.has(feat)) {
+        const d = (probs[iGestellt] - ohne[iGestellt]) * 100;
+        return { ...basis, richtung: "gestellt", staerke: Math.abs(d), veraenderung: d };
+      }
+      // Gutgeschrieben wird dem, dessen EIGENE Siegchance steigt, und zwar
+      // mit genau diesem Anstieg.
+      const dA = (probs[iSiegA] - ohne[iSiegA]) * 100;
+      const dB = (probs[iSiegB] - ohne[iSiegB]) * 100;
+      const d = dA >= dB ? dA : dB;
+      return { ...basis, richtung: dA >= dB ? "a" : "b", staerke: Math.max(d, 0), veraenderung: d };
     })
     .filter((c) => c.staerke > 0.1)
     .sort((x, y) => y.staerke - x.staerke)

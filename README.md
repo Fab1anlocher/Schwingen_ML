@@ -30,7 +30,7 @@ Verbesserung, egal wie aufwendig es ist.
 | **Feste** | Vergangene Feste; kommende Feste der nächsten 60 Tage. Je veröffentlichter Paarung Prognose + informative Quote; ohne Startliste keine Prognose, sondern nur die belegten Angaben zum Fest. |
 | **Karte** | Choroplethen-Karte (Elo-Schnitt, Siegquote, Anteil Top-Schwinger, Kaderbreite) — Bern nach seinen 6 Gauverbänden statt als ein Kanton. |
 | **Typen** | K-Means-Clustering über das volle Schwinger-Profil, Cluster-Anzahl per Silhouette-Score gewählt, mit PCA-Streudiagramm. |
-| **Analyse** | Modellgüte vs. Elo-Baseline, Konfusionsmatrix, Merkmalswichtigkeit, 4-Wege-Benchmark. |
+| **Analyse** | Modellgüte vs. Elo-Baseline, Konfusionsmatrix, Kalibrierung der Gestellt-Chance, Merkmalswichtigkeit, 4-Wege-Benchmark. |
 
 ---
 
@@ -115,10 +115,12 @@ kompakten, abgeleiteten Artefakte.
 3. **`pipeline.run_pipeline --source scrape`** — trainiert und exportiert.
 4. **`pipeline.verify_inference`** — prüft, dass die exportierten Gewichte in
    `model.json` dieselben Wahrscheinlichkeiten liefern wie das sklearn-Modell.
-   (Den TypeScript-Merkmalsvektor prüft es **nicht**, s. unten.)
-5. **`pipeline.datenqualitaet`** — schreibt den Qualitätsbericht ins
+5. **`pipeline.paritaet`** + **`npm run paritaet`** — rechnet echte Fälle mit
+   der App-Logik (TypeScript) nach und bricht bei jeder Abweichung ab, **bevor**
+   die neuen Artefakte auf Prod gehen (s. unten).
+6. **`pipeline.datenqualitaet`** — schreibt den Qualitätsbericht ins
    Job-Summary des Actions-Laufs.
-6. **Artefakte committen** — Vercel deployt automatisch.
+7. **Artefakte committen** — Vercel deployt automatisch.
 
 Der Lauf **bricht ab, statt schlechte Daten zu committen**, wenn
 
@@ -142,7 +144,16 @@ Run workflow → „Volle Historie ab 2023 neu laden"** starten.
 ## Voraussetzungen
 
 * **Python ≥ 3.11**
-* **Node.js ≥ 20** (nur für die Web-App)
+* **Node.js ≥ 20** (nur für die Web-App; Next 15 verlangt ≥ 18.18, Vercel baut mit 24.x)
+
+**Abhängigkeiten der Web-App.** Next 15.5 statt 14: Next 14 bekommt keine
+Sicherheitsfixes mehr — selbst die letzte 14er (14.2.35) hat 23 offene
+Advisories, darunter Remote Code Execution in der Image-Optimierung und XSS im
+App Router. `package.json` erzwingt per `overrides` zudem `postcss ≥ 8.5.28`,
+weil auch Next 15.5 intern `postcss 8.4.31` pinnt (4 offene Advisories).
+`npm audit --omit=dev` meldet damit 0 Befunde; die CI prüft das in jedem PR
+(Job `abhaengigkeiten-audit`), Dependabot schlägt wöchentlich Updates vor
+(`.github/dependabot.yml`).
 * Netzzugriff auf `schlussgang.ch` / `backend-api.schlussgang.ch` (nur für
   echte Daten; der synthetische Modus läuft offline)
 
@@ -158,8 +169,9 @@ Python-Abhängigkeiten (`requirements-pipeline.txt`): `numpy`, `scikit-learn`,
 ```bash
 pip install -r requirements-pipeline.txt
 python -m pipeline.run_pipeline --source synth   # erzeugt alle Artefakte
-python -m pipeline.verify_inference              # Inferenz-Konsistenz
-python -m pytest pipeline/tests -q               # 185 Tests
+python -m pipeline.verify_inference              # model.json == sklearn
+python -m pipeline.paritaet && (cd web && npm run paritaet)   # App == Pipeline
+python -m pytest pipeline/tests -q               # 190 Tests
 ```
 
 > `--source synth` **überschreibt die Artefakte** mit Demodaten. Danach
@@ -222,11 +234,12 @@ pipeline/                  Python-Datenpipeline
   diagnose_agenda.py         CLI: warum die Vorschau "kommende Feste" leer ist
   diagnose_kranz.py          CLI: Gegenprobe zur Bedeutung des PDF-Sterns
   verify_inference.py        Cross-Check: model.json == sklearn-Modell
+  paritaet.py                Cross-Check: App (TypeScript) == Pipeline (Python)
   synth.py                   Synthetischer Datensatz (offline/CI)
   scrape/                    schlussgang.ch-Scraper + Rohdaten-Einlesen
   tests/                     pytest
 artifacts/                 Generierte Artefakte (versioniert, ausser raw/)
-web/                       Next.js App Router + TypeScript
+web/                       Next.js 15 (App Router) + React 19 + TypeScript
   lib/inference.ts           Clientseitige Inferenz (spiegelt features.py)
   app/                       Seiten
   public/data/               Artefakt-Kopie, die die App lädt
@@ -257,15 +270,79 @@ auf.
   Elo / ML komplett auf demselben Holdout, mit Accuracy, Brier-Score sowie
   MAE und MSE (s. unten).
 * **K-Means + KNN** (`clustering.py`): Cluster-Anzahl per Silhouette-Score.
-* **Clientseitige Inferenz** (`web/lib/inference.ts`) spiegelt `features.py` in
-  TypeScript. `verify_inference.py` prüft dabei nur die Gewichte in
-  `model.json` gegen sklearn, und zwar mit dem **Python**-Merkmalsvektor —
-  ein Fehler in `baueFeatures` (TypeScript) fiele ihm nicht auf und erzeugte
-  still falsche Live-Prognosen. Neue Merkmale darum von Hand auf Parität
-  prüfen (für `portraet_diff` geschehen: 100 echte Paare, Abweichung 0) und
-  **nur hinten** an `FEATURE_NAMES` anhängen — `model.json` ist
+* **Clientseitige Inferenz** (`web/lib/inference.ts`, `web/lib/kopfAnKopf.ts`)
+  spiegelt `features.py` in TypeScript — eine Handkopie, die still
+  auseinanderlaufen kann (ist schon einmal passiert). `verify_inference.py`
+  prüft nur `model.json` gegen sklearn, mit dem **Python**-Vektor. Die
+  TypeScript-Seite prüft **`pipeline/paritaet.py`**: Python erzeugt ~240
+  Prüffälle aus den echten Artefakten (alle vier Porträt/Stub-Kombinationen,
+  Kopf-an-Kopf in beiden Richtungen, fehlendes Rating), `npm run paritaet`
+  rechnet sie mit den kompilierten TS-Modulen nach — Merkmale, Kopf-an-Kopf
+  und Wahrscheinlichkeiten getrennt. Läuft in jedem PR (CI-Job
+  `inferenz-paritaet`) und im täglichen Lauf **vor** dem Commit neuer
+  Artefakte. Per Mutationstest belegt, dass er anschlägt: vertauschte
+  Kopf-an-Kopf-Richtung, falsches Vorzeichen, falsche Skala, fehlendes
+  Merkmal, fehlender Intercept — alle erkannt.
+
+  Neue Merkmale **nur hinten** an `FEATURE_NAMES` anhängen: `model.json` ist
   positionsgebunden, und die App kürzt den Vektor auf die Merkmale, die das
-  ausgelieferte Modell kennt.
+  ausgelieferte Modell kennt. Ändert sich die **Definition** eines Merkmals,
+  steigt `MERKMAL_VERSION` (`config.py`): sie steht in `model.json`, und App
+  wie Python rechnen ein älteres ausgeliefertes Modell mit **dessen**
+  Definition weiter. Die Paritätsprüfung testet beide Fälle (Gruppe
+  `modell-v1`).
+
+### Merkmalsversion 2: Stand vor dem Fest, Gestellt-Neigung
+
+Gemessen an echten Daten, Test 2026 (36'485 Gänge) und Validierung 2025
+jeweils gleichsinnig:
+
+| Schritt | Log-Loss Test | (Validierung) | Accuracy | AUC Gestellt |
+|---|---:|---:|---:|---:|
+| Version 1 | 0.8314 | (0.8537) | 63.9 % | 0.640 |
+| + alle Gänge eines Fests sehen den Stand **vor** dem Fest | 0.8204 | (0.8415) | 64.5 % | 0.645 |
+| + **Gestellt-Neigung** je Schwinger | 0.7923 | (0.8131) | 65.8 % | 0.722 |
+| + Erfahrung **logarithmisch** | 0.7582 | (0.7876) | 67.8 % | 0.732 |
+| + Elo-Abstand **pro Streuung** + **Einschwingphase** | **0.7503** | (**0.7771**) | **68.2 %** | **0.736** |
+
+* **Stand vor dem Fest.** Vorher bekam jeder Gang den Stand nach den im selben
+  Fest zuvor *verarbeiteten* Gängen, und die Verarbeitungsreihenfolge folgt der
+  Statistik-PDF, also dem Schlussrang. Die App prognostiziert dagegen immer aus
+  dem Stand vor einem Fest — Training und Betrieb passten nicht zusammen.
+* **Gestellt-Neigung.** Wie oft ein Schwinger stellt, ist eine stabile
+  Eigenschaft (erste gegen zweite Karrierehälfte r = 0.67, Spanne 0–63 %).
+  Anteil gestellter Gänge, geschrumpft gegen den Durchschnitt (20 „Phantom-
+  Gänge"); Merkmal = Mittel beider Schwinger minus Durchschnitt. Symmetrisch —
+  bevorzugt niemanden, sagt nur, wie wahrscheinlich ein Gestellter ist.
+* **Erfahrung logarithmisch.** Der Median an Gängen wächst von 15 (2023) auf
+  126 (2026); als rohe Differenz verzerrt das jedes Jahr mehr.
+* **Elo-Abstand pro Streuung.** Die Streuung der aktiven Ratings wächst,
+  solange das System einschwingt (2023: 41, 2026: 126). Ohne Skalierung sagte
+  das Modell 2026 18.3 % Gestellt voraus bei 21.1 % eingetreten; mit ihr 20.5 %.
+* **Einschwingphase.** Das erste Datenjahr liefert Historie, geht aber nicht
+  ins Training (Ratings noch nicht eingeschwungen, Gestellt-Quote 28.4 % statt
+  ~21.5 % in jedem späteren Jahr und jedem Festtyp).
+
+Verworfen, weil gemessen schlechter: `class_weight="balanced"` (Recall
+Gestellt 21 % → 46 %, aber P(Gestellt) 30 % statt 21 %, Log-Loss 0.7503 →
+0.7741 — die App zeigt Wahrscheinlichkeiten, keine Klassen) und andere
+Regularisierung (C = 0.1 … 10 ohne Unterschied). `report.json` →
+`gestellt_kalibrierung` misst jetzt eigens, ob P(Gestellt) stimmt; die
+Analyse-Seite zeigt die Kalibrierungskurve.
+
+### Erklärbalken: wem ein Merkmal nützt
+
+Ein Balken zeigt, um wie viele Prozentpunkte die Siegchance des genannten
+Schwingers durch dieses Merkmal höher ist. **Symmetrische** Merkmale —
+Ausgeglichenheit, gleicher Verband, ähnlicher Stil, Gestellt-Neigung — bleiben
+beim Tausch von A und B gleich; das Modell hat für sie bei „Sieg A" und
+„Sieg B" dasselbe Gewicht. Sie verschieben nur zwischen „einer gewinnt" und
+„Gestellt" und erscheinen darum neutral als **„Gestellt ± X %-Pkt."**.
+Früher wurden sie an P(Sieg A) gemessen und dem Gegner gutgeschrieben, sobald
+diese sank: „Gleicher Verband: Moser +7 %-Pkt." bei Staudenmann gegen Moser,
+obwohl auch Mosers Chance dadurch sank (Staudenmann −7.1, Gestellt +8.5,
+Moser −1.5). Der Effekt selbst ist echt, aber klein: Duelle im gleichen
+Verband enden in den Daten 30.5 % gestellt statt 28.8 %, in jedem Festtyp.
 
 ### Datenlage: Porträt oder Stub
 
@@ -294,6 +371,14 @@ Wahrheit „hat ein Profil" stand. Darum:
 * `report.json` → `nur_portraet` misst Modell **und** Elo-Baseline zusätzlich
   nur auf Porträt-gegen-Porträt-Gängen. Nur dort liegen die wrestlerischen
   Merkmale auf beiden Seiten vor.
+
+**Teilverband ohne Porträt** (`verbandsschaetzung.py`): aus den besuchten
+Festen geschätzt — an Kantonal-, Teilverbands- und Regionalfesten startet fast
+nur, wer dem Verband angehört. Validiert an den Porträt-Schwingern
+(Leave-one-out) mit 99.8 % Treffern; die Prüfung läuft bei jedem Lauf erneut
+und steht in `report.json` → `datenqualitaet.datenabdeckung`. Nur für Anzeige
+und Suche (eigenes Feld `teilverband_geschaetzt`, in der App als „geschätzt"
+markiert) — im Modell verschlechterte sie den Log-Loss und bleibt draussen.
 
 Eine Folge davon: die Ergebnisverteilung (`sieg_a` rund 35 %, `sieg_b` rund
 42 %) ist **kein Signal**. A und B werden alphabetisch per ID vergeben, und

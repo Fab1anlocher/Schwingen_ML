@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { BenchmarkKandidat } from "@/lib/types";
 
 const LABELS: Record<string, string> = {
@@ -225,6 +226,121 @@ export function Konfusionsmatrix({
         Zeile = tatsächliches Ergebnis, Spalte = Modell-Vorhersage. Dunklere Zellen = mehr
         Gänge; die Diagonale (hervorgehoben) sind die richtig klassifizierten Gänge.
       </p>
+    </div>
+  );
+}
+
+export interface GestelltKalibrierungDaten {
+  n: number;
+  vorhergesagt: number;
+  eingetreten: number;
+  ece: number;
+  auc: number | null;
+  stufen: { n: number; vorhergesagt: number; eingetreten: number }[];
+}
+
+const KW = 420;
+const KH = 300;
+const KPAD = { links: 44, rechts: 14, oben: 12, unten: 34 };
+
+/** Kalibrierung der Gestellt-Klasse: Testgänge nach vorhergesagter
+ *  P(Gestellt) in gleich grosse Stufen geteilt; je Stufe vorhergesagt gegen
+ *  tatsächlich eingetreten. Auf der Diagonalen = so oft gestellt wie
+ *  vorhergesagt. "Gestellt" ist fast nie die wahrscheinlichste Klasse --
+ *  Accuracy und Konfusionsmatrix sehen darum nicht, ob diese Zahl stimmt. */
+export function GestelltKalibrierung({ daten }: { daten: GestelltKalibrierungDaten }) {
+  const [hover, setHover] = useState<number | null>(null);
+  const hoechster = Math.max(...daten.stufen.flatMap((s) => [s.vorhergesagt, s.eingetreten]), 0.1);
+  const max = Math.min(1, Math.ceil(hoechster * 10 + 0.5) / 10);
+  const x = (v: number) => KPAD.links + (v / max) * (KW - KPAD.links - KPAD.rechts);
+  const y = (v: number) => KH - KPAD.unten - (v / max) * (KH - KPAD.oben - KPAD.unten);
+  const ticks = Array.from({ length: Math.round(max * 10) + 1 }, (_, i) => i / 10);
+  const pct = (v: number) => `${(v * 100).toFixed(1)} %`;
+  const aktiv = hover !== null ? daten.stufen[hover] : null;
+
+  return (
+    <div className="kal-wrap">
+      <div className="kal-kennzahlen">
+        <div>
+          <div className="muted small">Gestellt vorhergesagt</div>
+          <strong>{pct(daten.vorhergesagt)}</strong>
+        </div>
+        <div>
+          <div className="muted small">tatsächlich eingetreten</div>
+          <strong>{pct(daten.eingetreten)}</strong>
+        </div>
+        <div>
+          <div className="muted small">Kalibrierungsfehler (ECE)</div>
+          <strong>{(daten.ece * 100).toFixed(1)} %-Pkt.</strong>
+        </div>
+        {daten.auc !== null && (
+          <div>
+            <div className="muted small">Trennschärfe (AUC)</div>
+            <strong>{daten.auc.toFixed(2)}</strong>
+          </div>
+        )}
+      </div>
+      <svg
+        viewBox={`0 0 ${KW} ${KH}`}
+        className="kal-svg"
+        role="img"
+        aria-label={`Gestellt-Kalibrierung: vorhergesagt ${pct(daten.vorhergesagt)}, eingetreten ${pct(daten.eingetreten)}`}
+      >
+        {ticks.map((t) => (
+          <g key={t}>
+            <line x1={x(0)} x2={x(max)} y1={y(t)} y2={y(t)} stroke="var(--border)" strokeWidth={1} />
+            <text x={x(0) - 8} y={y(t) + 4} textAnchor="end" className="streu-achsentext">
+              {Math.round(t * 100)}%
+            </text>
+            <text x={x(t)} y={KH - 14} textAnchor="middle" className="streu-achsentext">
+              {Math.round(t * 100)}%
+            </text>
+          </g>
+        ))}
+        <line
+          x1={x(0)} y1={y(0)} x2={x(max)} y2={y(max)}
+          stroke="var(--muted-2)" strokeWidth={1.5} strokeDasharray="5 4"
+        />
+        <text x={x(max) - 4} y={y(max) + 14} textAnchor="end" className="streu-achsentext">
+          perfekt kalibriert
+        </text>
+        <polyline
+          points={daten.stufen.map((s) => `${x(s.vorhergesagt)},${y(s.eingetreten)}`).join(" ")}
+          fill="none" stroke="var(--accent-2)" strokeWidth={2}
+        />
+        {daten.stufen.map((s, i) => (
+          <g key={i} onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover((h) => (h === i ? null : h))}>
+            <circle cx={x(s.vorhergesagt)} cy={y(s.eingetreten)} r={12} fill="transparent" style={{ cursor: "pointer" }} />
+            <circle
+              cx={x(s.vorhergesagt)} cy={y(s.eingetreten)} r={hover === i ? 6 : 4.5}
+              fill="var(--accent-2)" stroke="var(--surface, #fff)" strokeWidth={2}
+            />
+          </g>
+        ))}
+      </svg>
+      <div className="row" style={{ justifyContent: "space-between" }}>
+        <span className="muted small">vorhergesagte Gestellt-Chance →</span>
+        <span className="muted small">
+          {aktiv
+            ? `Stufe ${hover! + 1}: vorhergesagt ${pct(aktiv.vorhergesagt)}, eingetreten ${pct(aktiv.eingetreten)} (${aktiv.n} Gänge)`
+            : "↑ tatsächlich gestellt"}
+        </span>
+      </div>
+      <details className="small" style={{ marginTop: "0.6rem" }}>
+        <summary className="muted">Als Tabelle</summary>
+        <table>
+          <thead>
+            <tr><th>Stufe</th><th>Gänge</th><th>vorhergesagt</th><th>eingetreten</th></tr>
+          </thead>
+          <tbody>
+            {daten.stufen.map((s, i) => (
+              <tr key={i}>
+                <td>{i + 1}</td><td>{s.n}</td><td>{pct(s.vorhergesagt)}</td><td>{pct(s.eingetreten)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </details>
     </div>
   );
 }

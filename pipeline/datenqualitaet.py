@@ -144,6 +144,29 @@ def _zeilen(report: dict) -> list[str]:
               f"{m.get('anteil_am_test', 0):.0%} des Tests)", "",
               f"- Accuracy {m.get('accuracy')} vs. Baseline {b.get('accuracy', '?')}",
               f"- Log-Loss {m.get('log_loss')} vs. Baseline {b.get('log_loss', '?')}", ""]
+
+    # P6: Datenabdeckung und Verbandsschätzung (mit Selbstprüfung je Lauf).
+    ab = (report.get("datenqualitaet") or {}).get("datenabdeckung") or {}
+    vs = ab.get("teilverband_schaetzung") or {}
+    if ab.get("n_schwinger"):
+        z += [f"**Datenabdeckung**: {ab['n_portraet']} von {ab['n_schwinger']} Schwingern mit "
+              f"Porträt ({ab['anteil_portraet']:.0%})", ""]
+        if vs:
+            quote = vs.get("trefferquote")
+            z += [f"- Teilverband geschätzt: {vs.get('n_geschaetzt', 0)} von {vs.get('n_ohne_verband')} "
+                  f"ohne Porträt ({_ampel(bool(vs.get('angewandt')))})",
+                  f"- Selbstprüfung an {vs.get('pruef_faelle')} Porträts: "
+                  f"{quote:.1%} richtig" if quote is not None else "- Selbstprüfung: keine Prüffälle", ""]
+
+    # Stimmt P(Gestellt)? Die einzige Klasse, die fast nie die wahrscheinlichste
+    # ist -- Accuracy und Log-Loss allein zeigen es nicht.
+    kal = report.get("gestellt_kalibrierung") or {}
+    if kal.get("n"):
+        abstand = abs(kal["vorhergesagt"] - kal["eingetreten"])
+        z += [f"**Gestellt-Kalibrierung** (Merkmalsversion {report.get('merkmal_version', 1)})", "",
+              f"- vorhergesagt {kal['vorhergesagt']:.1%} / eingetreten {kal['eingetreten']:.1%} "
+              f"({_ampel(abstand < 0.02, warn=0.02 <= abstand < 0.04)})",
+              f"- ECE {kal['ece']:.2%}, AUC {kal.get('auc')}", ""]
     return z
 
 

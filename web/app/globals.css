@@ -613,6 +613,10 @@ input:focus {
   right: 50%;
   background: var(--ink);
 }
+.beitrag-fill-gestellt {
+  /* left/width setzt die Komponente: mittig, weil der Balken zu keinem zeigt. */
+  background: var(--draw);
+}
 .beitrag-name {
   text-align: right;
   font-size: 0.85rem;
@@ -623,6 +627,9 @@ input:focus {
 }
 .beitrag-name-b {
   color: var(--ink);
+}
+.beitrag-name-gestellt {
+  color: var(--muted);
 }
 .beitrag-name-neutral {
   color: var(--muted-2);
@@ -1206,4 +1213,26 @@ tbody tr:hover {
   height: 14px;
   border-radius: 4px;
   flex-shrink: 0;
+}
+
+/* ---------- Gestellt-Kalibrierung (Analyse) ---------- */
+.kal-wrap {
+  min-width: 0;
+}
+.kal-kennzahlen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+}
+.kal-kennzahlen strong {
+  font-size: 1.1rem;
+  font-variant-numeric: tabular-nums;
+}
+.kal-svg {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  display: block;
+  margin-top: 0.5rem;
 }

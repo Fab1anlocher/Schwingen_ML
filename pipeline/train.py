@@ -8,13 +8,15 @@
 """
 from __future__ import annotations
 
+from datetime import date, timedelta
+
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import log_loss, accuracy_score, confusion_matrix
 
-from .config import SEED, KLASSEN
+from .config import SEED, KLASSEN, EINSCHWINGPHASE_TAGE
 from .features import FEATURE_NAMES, FEATURE_LABELS
-from .metriken import punktwert_fehlermasse
+from .metriken import punktwert_fehlermasse, gestellt_kalibrierung
 
 
 def _split_zeitlich(X, y, meta, holdout_ab_jahr: int):
@@ -28,14 +30,47 @@ def _split_zeitlich(X, y, meta, holdout_ab_jahr: int):
     erzwungen symmetrische Konfusionsmatrix (Zeilensummen sieg_a und sieg_b
     exakt gleich). Die Accuracy blieb davon fast unberührt, die Matrix und jede
     daraus gelesene Per-Klassen-Aussage nicht.
+
+    Die Einschwingphase bleibt aus dem Training draussen, s. trainings_maske.
     """
-    Xtr, ytr, Xte, yte = [], [], [], []
-    for xi, yi, mi in zip(X, y, meta):
-        if int(mi["datum"][:4]) < holdout_ab_jahr:
-            Xtr.append(xi); ytr.append(yi)
-        elif _ist_testzeile(mi, holdout_ab_jahr):
-            Xte.append(xi); yte.append(yi)
-    return np.array(Xtr), np.array(ytr), np.array(Xte), np.array(yte)
+    X_arr, y_arr = np.asarray(X), np.asarray(y)
+    train = trainings_maske(meta, y_arr, holdout_ab_jahr)
+    test = np.array([_ist_testzeile(m, holdout_ab_jahr) for m in meta], dtype=bool)
+    return X_arr[train], y_arr[train], X_arr[test], y_arr[test]
+
+
+def einschwing_ende(meta) -> str | None:
+    """Erstes Datum (ISO) NACH der Einschwingphase; None ohne Daten."""
+    if not meta:
+        return None
+    beginn = date.fromisoformat(min(m["datum"] for m in meta))
+    return (beginn + timedelta(days=EINSCHWINGPHASE_TAGE)).isoformat()
+
+
+def trainings_maske(meta, y, holdout_ab_jahr: int) -> np.ndarray:
+    """Welche Zeilen ins Training gehen -- geteilt von train und benchmark.
+
+    Alles vor dem Holdout-Jahr, OHNE die Einschwingphase: im ersten Jahr der
+    Datenbasis haben die Ratings noch keine Historie hinter sich (Streuung 41
+    statt 77+), und die Gestellt-Quote lag dort deutlich höher (2023: 28.4 %,
+    danach konstant ~21.5 %). Diese Gänge liefern Historie für Elo, Form und
+    Neigung, lehren das Modell aber ein Verhältnis, das später nicht mehr gilt.
+    Gemessen (mit Streuungs-Skalierung): Test-Log-Loss 0.7607 -> 0.7503,
+    Validierung 2025 0.7941 -> 0.7771.
+
+    Bleibt nach dem Ausschluss kein brauchbares Training übrig (weniger als
+    zwei Klassen, z.B. bei kurzen Datenbasen), gilt die Maske ohne Ausschluss.
+    """
+    y = np.asarray(y)
+    vor_holdout = np.array([int(m["datum"][:4]) < holdout_ab_jahr for m in meta], dtype=bool)
+    ende = einschwing_ende(meta)
+    if ende is None:
+        return vor_holdout
+    eingeschwungen = np.array([m["datum"] >= ende for m in meta], dtype=bool)
+    maske = vor_holdout & eingeschwungen
+    if len(np.unique(y[maske])) < 2:
+        return vor_holdout
+    return maske
 
 
 def _ist_testzeile(m: dict, holdout_ab_jahr: int) -> bool:
@@ -125,10 +160,12 @@ def trainiere(X, y, meta) -> dict:
         # MAE/MSE auf dem Punktwert des Gangs (s. pipeline/metriken.py) -- die
         # einzige Kennzahl hier, die in der Einheit des Ergebnisses selbst steht.
         fehler = punktwert_fehlermasse(p_test, yte)
+        kalibrierung = gestellt_kalibrierung(p_test, yte)
     else:
         ll, acc = float("nan"), float("nan")
         cm = None
         fehler = {"mae": float("nan"), "mse": float("nan")}
+        kalibrierung = None
 
     nur_portraet = _bewerte_nur_portraet(p_test, yte, meta, holdout, labels_idx)
 
@@ -145,7 +182,19 @@ def trainiere(X, y, meta) -> dict:
         "mse": float(fehler["mse"]),
         "confusion_matrix": cm,
         "nur_portraet": nur_portraet,
+        "kalibrierung": kalibrierung,
+        # Ab wann trainiert wird (davor: Einschwingphase, nur Historie).
+        "training_ab": _training_ab(meta, y, holdout),
     }
+
+
+def _training_ab(meta, y, holdout: int) -> str | None:
+    """Frühestes Datum einer Trainingszeile (für den Report)."""
+    if not meta:
+        return None
+    maske = trainings_maske(meta, y, holdout)
+    daten = [m["datum"] for m, drin in zip(meta, maske) if drin]
+    return min(daten) if daten else None
 
 
 def _bewerte_nur_portraet(p_test, yte, meta, holdout: int, labels_idx) -> dict:

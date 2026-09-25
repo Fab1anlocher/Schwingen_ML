@@ -104,3 +104,59 @@ def punktwert_fehlermasse(p, y) -> dict[str, float]:
     y_true = punktwert_aus_klasse(y)
     y_pred = erwarteter_punktwert(p)
     return {"mae": mae(y_true, y_pred), "mse": mse(y_true, y_pred)}
+
+
+def gestellt_kalibrierung(p, y, *, n_stufen: int = 10) -> dict:
+    """Wie gut stimmt P(gestellt) mit der tatsächlichen Gestellt-Quote überein?
+
+    Accuracy und Log-Loss sagen dazu wenig: "Gestellt" ist fast nie die
+    wahrscheinlichste Klasse, ein Modell kann es also komplett falsch
+    einschätzen, ohne dass die Accuracy es merkt. Darum getrennt:
+
+    * vorhergesagt / eingetreten: mittlere P(gestellt) gegen die echte Quote
+      -- liegt das auseinander, ist das Modell systematisch zu hoch/zu tief.
+    * ECE (Expected Calibration Error): Gänge nach P(gestellt) in gleich
+      grosse Stufen geteilt, je Stufe |vorhergesagt - eingetreten|, nach
+      Grösse gewichtet. 0 = perfekt kalibriert.
+    * AUC: trennt das Modell gestellte von entschiedenen Gängen überhaupt?
+      0.5 = Zufall.
+    * stufen: die Kalibrierungskurve selbst (für die Analyse-Seite).
+    """
+    p = np.asarray(p, dtype=float)
+    y = np.asarray(y, dtype=int)
+    if not len(y):
+        return {"n": 0}
+    i_g = KLASSEN.index("gestellt")
+    pg = p[:, i_g]
+    ist_g = (y == i_g).astype(float)
+
+    # Gleich grosse Stufen über die Rangfolge -- robust gegen Bindungen, die
+    # bei Quantilgrenzen leere oder doppelte Stufen erzeugen.
+    reihenfolge = np.argsort(pg, kind="stable")
+    stufen = []
+    ece = 0.0
+    for teil in np.array_split(reihenfolge, min(n_stufen, len(y))):
+        if not len(teil):
+            continue
+        vorh, eing = float(pg[teil].mean()), float(ist_g[teil].mean())
+        ece += len(teil) / len(y) * abs(vorh - eing)
+        stufen.append({"n": int(len(teil)), "vorhergesagt": round(vorh, 4),
+                       "eingetreten": round(eing, 4)})
+
+    return {
+        "n": int(len(y)),
+        "vorhergesagt": round(float(pg.mean()), 4),
+        "eingetreten": round(float(ist_g.mean()), 4),
+        "ece": round(ece, 4),
+        "auc": _auc(pg, ist_g),
+        "stufen": stufen,
+    }
+
+
+
+def _auc(score: np.ndarray, positiv: np.ndarray) -> float | None:
+    """ROC-AUC; None, wenn nur eine der beiden Gruppen vorkommt."""
+    if positiv.min() == positiv.max():
+        return None
+    from sklearn.metrics import roc_auc_score
+    return round(float(roc_auc_score(positiv, score)), 4)

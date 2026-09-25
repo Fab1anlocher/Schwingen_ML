@@ -40,10 +40,12 @@ def test_portraet_erkennung_ist_nicht_der_kranzstatus():
 
 # --- Merkmal -----------------------------------------------------------------
 
-def test_portraet_diff_ist_das_letzte_merkmal():
+def test_portraet_diff_bleibt_an_seiner_position():
     """Positionsgebunden in model.json: neue Merkmale nur HINTEN anhängen,
-    sonst verrutschen die Koeffizienten eines älteren ausgelieferten Modells."""
-    assert FEATURE_NAMES[-1] == "portraet_diff"
+    sonst verrutschen die Koeffizienten eines älteren ausgelieferten Modells.
+    portraet_diff war das 13. Merkmal (Version 1) und bleibt es."""
+    assert FEATURE_NAMES[12] == "portraet_diff"
+    assert FEATURE_NAMES[-1] == "gestellt_neigung"
 
 
 def test_portraet_diff_werte_je_konstellation():

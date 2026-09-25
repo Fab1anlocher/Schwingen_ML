@@ -14,26 +14,26 @@
     {
       "key": "elo_baseline",
       "label": "Elo-Baseline",
-      "accuracy": 0.6117,
+      "accuracy": 0.6106,
       "brier_score": 0.5325,
-      "mae": 0.3388,
+      "mae": 0.3387,
       "mse": 0.1451
     },
     {
       "key": "ml_ohne_elo",
       "label": "ML ohne Elo/Historie",
-      "accuracy": 0.5176,
-      "brier_score": 0.5646,
-      "mae": 0.3501,
-      "mse": 0.1587
+      "accuracy": 0.5291,
+      "brier_score": 0.5612,
+      "mae": 0.3466,
+      "mse": 0.1575
     },
     {
       "key": "ml_komplett",
       "label": "ML komplett (Champion)",
-      "accuracy": 0.639,
-      "brier_score": 0.4788,
-      "mae": 0.2676,
-      "mse": 0.1197
+      "accuracy": 0.6816,
+      "brier_score": 0.4315,
+      "mae": 0.2578,
+      "mse": 0.1058
     }
   ]
 }
