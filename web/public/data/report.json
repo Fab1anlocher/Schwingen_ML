@@ -1,28 +1,28 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-09-25T19:34:55.229279+00:00",
-  "lauf_id": "20260925T193455Z",
+  "erstellt": "2026-09-25T19:39:45.083364+00:00",
+  "lauf_id": "20260925T193945Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 133611,
-    "n_schwinger": 2916
+    "n_schwinger": 2910
   },
   "holdout_jahr": 2026,
   "n_train": 135722,
   "n_test": 36485,
   "modell": {
-    "log_loss": 0.7385,
-    "accuracy": 0.6868,
-    "mae": 0.2532,
-    "mse": 0.1033
+    "log_loss": 0.7404,
+    "accuracy": 0.6863,
+    "mae": 0.2535,
+    "mse": 0.1038
   },
   "baseline_elo": {
-    "log_loss": 0.9101,
-    "accuracy": 0.6126
+    "log_loss": 0.9104,
+    "accuracy": 0.6121
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0741,
-  "verbesserung_log_loss": 0.1717,
+  "accuracy_gg_baseline": 0.0742,
+  "verbesserung_log_loss": 0.17,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -30,92 +30,92 @@
   ],
   "konfusionsmatrix": [
     [
-      10310,
-      846,
-      1921
+      10293,
+      847,
+      1937
     ],
     [
-      2789,
-      1815,
-      3090
+      2783,
+      1813,
+      3098
     ],
     [
       1933,
-      849,
-      12932
+      847,
+      12934
     ]
   ],
   "nur_portraet": {
     "modell": {
-      "n": 9281,
-      "anteil_am_test": 0.2544,
-      "log_loss": 0.8276,
-      "accuracy": 0.6262,
-      "mae": 0.2545,
-      "mse": 0.1067
+      "n": 9288,
+      "anteil_am_test": 0.2546,
+      "log_loss": 0.8295,
+      "accuracy": 0.626,
+      "mae": 0.2549,
+      "mse": 0.1071
     },
     "baseline_elo": {
-      "n": 9281,
-      "log_loss": 0.9256,
-      "accuracy": 0.5832
+      "n": 9288,
+      "log_loss": 0.9263,
+      "accuracy": 0.5831
     }
   },
   "gestellt_kalibrierung": {
     "n": 36485,
-    "vorhergesagt": 0.2064,
+    "vorhergesagt": 0.2062,
     "eingetreten": 0.2109,
-    "ece": 0.0125,
-    "auc": 0.741,
+    "ece": 0.0123,
+    "auc": 0.7407,
     "stufen": [
       {
         "n": 3649,
-        "vorhergesagt": 0.0351,
-        "eingetreten": 0.0269
+        "vorhergesagt": 0.0349,
+        "eingetreten": 0.0271
       },
       {
         "n": 3649,
-        "vorhergesagt": 0.0762,
-        "eingetreten": 0.0578
+        "vorhergesagt": 0.0759,
+        "eingetreten": 0.0573
       },
       {
         "n": 3649,
-        "vorhergesagt": 0.1074,
-        "eingetreten": 0.0998
+        "vorhergesagt": 0.1071,
+        "eingetreten": 0.1003
       },
       {
         "n": 3649,
-        "vorhergesagt": 0.1347,
-        "eingetreten": 0.1288
+        "vorhergesagt": 0.1345,
+        "eingetreten": 0.1296
       },
       {
         "n": 3649,
-        "vorhergesagt": 0.1617,
-        "eingetreten": 0.1683
+        "vorhergesagt": 0.1616,
+        "eingetreten": 0.1688
       },
       {
         "n": 3648,
-        "vorhergesagt": 0.1916,
-        "eingetreten": 0.1987
+        "vorhergesagt": 0.1914,
+        "eingetreten": 0.1982
       },
       {
         "n": 3648,
-        "vorhergesagt": 0.2273,
-        "eingetreten": 0.2522
+        "vorhergesagt": 0.2272,
+        "eingetreten": 0.2519
       },
       {
         "n": 3648,
         "vorhergesagt": 0.2748,
-        "eingetreten": 0.3013
+        "eingetreten": 0.2977
       },
       {
         "n": 3648,
-        "vorhergesagt": 0.3469,
-        "eingetreten": 0.3596
+        "vorhergesagt": 0.3467,
+        "eingetreten": 0.3632
       },
       {
         "n": 3648,
-        "vorhergesagt": 0.5082,
-        "eingetreten": 0.5156
+        "vorhergesagt": 0.508,
+        "eingetreten": 0.5148
       }
     ]
   },
@@ -209,7 +209,7 @@
     },
     "abzeichen_plausibilitaet": {
       "n_feste_mit_kranzern": 480,
-      "trefferquote_median": 0.8966,
+      "trefferquote_median": 0.8947,
       "feste_ohne_abzeichen": 6,
       "abzeichen_gesamt": 18206,
       "plausibel": true,
@@ -217,15 +217,15 @@
       "hinweis_refetch": false
     },
     "datenabdeckung": {
-      "n_schwinger": 2916,
+      "n_schwinger": 2910,
       "n_portraet": 706,
-      "anteil_portraet": 0.2421,
+      "anteil_portraet": 0.2426,
       "teilverband_schaetzung": {
-        "pruef_faelle": 592,
+        "pruef_faelle": 586,
         "trefferquote": 0.9983,
-        "n_ohne_verband": 2210,
+        "n_ohne_verband": 2204,
         "angewandt": true,
-        "n_geschaetzt": 1661
+        "n_geschaetzt": 1655
       }
     },
     "ranglisten": {
@@ -253,16 +253,16 @@
       ],
       "klub_abdeckung_aktive": 0.9892,
       "verband_ueber_klub": {
-        "klubs_bekannt": 133,
-        "pruef_faelle": 595,
-        "trefferquote": 0.995,
-        "n_ohne_porträt_mit_klub": 2166,
-        "n_zugeordnet": 1998
+        "klubs_bekannt": 132,
+        "pruef_faelle": 588,
+        "trefferquote": 0.9932,
+        "n_ohne_porträt_mit_klub": 2160,
+        "n_zugeordnet": 1977
       },
       "konsistenz": {
-        "klub_wie_porträt": 0.9906,
+        "klub_wie_porträt": 0.989,
         "klub_vergleiche": 635,
-        "kranzgewinner_ohne_porträt": 88,
+        "kranzgewinner_ohne_porträt": 86,
         "beispiele_kranzgewinner_ohne_porträt": [
           "adrian elsener|?",
           "adrian schwyn|?",
@@ -282,7 +282,7 @@
     "feste_gelesen": 481,
     "feste_uebernommen": 481,
     "feste_verworfen": {},
-    "schwinger_im_kader": 2916,
+    "schwinger_im_kader": 2910,
     "unaufloesbare_namen": 10,
     "beispiele_unaufloesbare_namen": [
       "Wüthrich Jonas",
@@ -298,20 +298,16 @@
     ],
     "namensvettern": {
       "klubs_mit_verband": 128,
-      "personen_getrennt": 12,
-      "feste_umgehaengt": 179,
+      "personen_getrennt": 6,
+      "feste_umgehaengt": 119,
       "nicht_trennbar_selbes_fest": 13,
       "beispiele": [
         "Dominik Gasser: 24 Feste (Innerschweiz) getrennt von Bern",
-        "Remo Schärz: 15 Feste (Suedwestschweiz) getrennt von Bern",
-        "Théo Rogivue: 14 Feste (Bern) getrennt von Suedwestschweiz",
-        "Gaël Martin: 6 Feste (Suedwestschweiz) getrennt von Nordwestschweiz",
-        "Michael Müller: 10 Feste (Bern) getrennt von Innerschweiz",
         "Marco Ulrich: 23 Feste (Bern) getrennt von Innerschweiz",
         "Samuel Giger: 20 Feste (Innerschweiz) getrennt von Nordostschweiz",
         "Jonas Odermatt: 26 Feste (Innerschweiz) getrennt von Nordwestschweiz",
         "Simon Schmid: 16 Feste (Nordostschweiz) getrennt von Innerschweiz",
-        "Til Voggensperger: 4 Feste (Nordostschweiz) getrennt von Nordwestschweiz"
+        "Roland Bucher: 10 Feste (Nordostschweiz) getrennt von Innerschweiz"
       ]
     }
   }
