@@ -29,6 +29,7 @@ Verbesserung, egal wie aufwendig es ist.
 |---|---|
 | **Prognose** | Zwei Schwinger wählen → Sieg-A/Gestellt/Sieg-B-Wahrscheinlichkeit mit Merkmalsbeiträgen, Kopf-an-Kopf-Historie, teilbarer Link (`?a=…&b=…`). |
 | **Feste** | Kommende Feste der nächsten 60 Tage (je veröffentlichter Paarung Prognose + informative Quote; ohne Startliste keine Prognose). **Rückblick** je Saison: Festsieger, vergebene Kränze und Teilnehmer laut Schlussrangliste, dazu der **Prognose-Check**: wie oft die Prognose je Fest lag, mit dem Modell von vor der Saison, gegen die reine Elo-Prognose. |
+| **Simulator** | Monte-Carlo-Simulation eines ganzen Fests (Einteilung, Gänge, Noten, Ausstich, Schlussgang, Kränze) für das Teilnehmerfeld eines gewählten Fests: Festsieg-, Schlussgang- und Kranzchance je Schwinger, simulierte Kranzgrenze; Rückblick, wie gut die Simulation an den Kranzfesten der Saison lag. |
 | **Schwinger** | Alle erfassten Schwinger, durchsuchbar, nach Elo sortiert, mit Kränzen seit 2023. Profil: Verband, Klub, Festsiege, Überraschungs-Index, ähnliche Schwinger. Getrennte Namensvettern sind gekennzeichnet. |
 | **Typen** | K-Means-Clustering über das volle Profil der Porträt-Schwinger, Anzahl per Silhouette-Score, PCA-Streudiagramm. |
 | **Karte** | Choroplethen-Karte (Elo-Schnitt, Siegquote, Anteil Top-Schwinger, Kaderbreite) je Kanton, Bern nach seinen 6 Gauverbänden. Verband aus Porträt oder Schwingklub, gezählt ab 5 Gängen. |
@@ -266,6 +267,7 @@ pipeline/                  Python-Datenpipeline
   train.py                   Training + zeitliche Evaluation, Merkmalswichtigkeit
   benchmark.py               5-Wege-Modellvergleich (Accuracy/Brier/MAE/MSE)
   prognose_check.py          Rückblick je Fest: Treffer mit dem Modell von vor der Saison
+  fest_simulation.py         Monte-Carlo-Simulation eines Fests + Rückblick (Backtest)
   metriken.py                MAE/MSE, Gestellt-Kalibrierung
   ranglisten.py              Schlussranglisten: Kränze, Klub, Verband, Festsiege
   verbandsschaetzung.py      Teilverband aus Festbesuchen (nur Anzeige)
@@ -517,6 +519,34 @@ frühere, vor der mindestens eine halbe eingeschwungene Saison liegt (heute
 Kantonal- und Teilverbandsfeste liegen meist bei 68–75 %, Bergfeste und das
 Eidgenössische deutlich tiefer (58–62 %): dort treffen mehr Spitzenschwinger
 aufeinander, und es wird öfter gestellt.
+
+### Fest-Simulator (Monte Carlo)
+
+`fest_simulation.py` (Python) und `web/lib/simulation.ts` (App) spielen ein
+ganzes Fest tausendfach durch. Aus den Paar-Wahrscheinlichkeiten des Modells
+entsteht, was ein Einzelgang nicht sagt: Festsieg-, Schlussgang- und
+Kranzchance je Schwinger.
+
+| Baustein | Regel | Herkunft |
+|---|---|---|
+| Einteilung Gang 1 | stärkste 20 % nach Elo gegeneinander, Rest gemischt | kalibriert an den echten Paarungen 2026 |
+| Einteilung Gang 2.. | nach Punkten mit Ermessensspielraum (Punkte + 1.0 × Zufall), keine Wiederholung | Elo-Abstand der Gegner real 108 / simuliert 116; Gestellte real 22.1 % / simuliert 21.6 % (streng nach Punkten: 55 / 30 %) |
+| Noten | Sieg 10.00 in 52 % (sonst 9.75), Gestellt 9.00 in 31 % (sonst 8.75), Niederlage 8.75 in 11 % (sonst 8.50); Schlussgang 10.00 / 8.75 | gemessen auf den Rohdaten (Messung `noten`) |
+| Ausstich | Kranzfeste: nach Gang 4 schwingen 80 % weiter; ESAF: 82 % nach Gang 4, 55 % nach Gang 6 | Gangzahlen je Teilnehmer 2025/26 |
+| Schlussgang / Festsieg | die zwei Punktbesten; bei gestelltem Schlussgang der Punktbeste | Reglement |
+| Kränze | beste 16 % (ESAF 15 %), Punktgleichheit an der Grenze eingeschlossen | Kranzquote 15–18 % |
+
+Plausibilität: die simulierte Kranzgrenze liegt an Kantonalfesten bei
+Ø 56.6 Punkten (Richtwert 56.50), am ESAF mit 8 Gängen bei rund 75.
+Python und TypeScript rechnen bei gleichem Startwert exakt dieselben
+Zählungen (mulberry32, gleiche Reihenfolge der Zufallszahlen; geprüft in der
+Paritätsprüfung).
+
+**Rückblick** (`fest_simulation.backtest`, täglich im Pipeline-Lauf, Ergebnis
+in `simulation_backtest.json`): jedes Kranzfest der Holdout-Saison wird mit
+dem Modell von vor der Saison und dem Stand jedes Schwingers vor dem Fest
+simuliert und mit der Schlussrangliste verglichen, dazu dieselbe Simulation
+mit reinen Elo-Wahrscheinlichkeiten.
 
 ### Modellgüte im Verlauf
 

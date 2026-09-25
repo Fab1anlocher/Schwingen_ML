@@ -284,6 +284,26 @@ def exportiere_schwinger(
     })
 
 
+def exportiere_simulation_backtest(backtest: dict | None) -> None:
+    """simulation_backtest.json: wie gut die Fest-Simulation im Rückblick lag
+    (fest_simulation.backtest) samt den Regeln und Notenanteilen, mit denen
+    die App simuliert. Ohne Ranglisten (synthetische Daten) kein Rückblick --
+    dann bleibt die Datei des letzten echten Laufs stehen."""
+    if backtest is None:
+        return
+    from .fest_simulation import NOTEN, REGELN_JE_TYP
+
+    _dump_beide("simulation_backtest.json", {
+        "schema_version": config.SCHEMA_VERSION,
+        **backtest,
+        "noten": NOTEN,
+        "regeln": {typ: {"gaenge": r.gaenge, "ausstiche": [list(a) for a in r.ausstiche],
+                         "kranzquote": r.kranzquote, "anschwingen_anteil": r.anschwingen_anteil,
+                         "spielraum": r.spielraum}
+                   for typ, r in REGELN_JE_TYP.items()},
+    })
+
+
 def exportiere_events(events: list, kommende: list | None = None, *,
                       ueberblick: dict | None = None, schwinger: dict | None = None,
                       prognose_check: dict | None = None) -> None:

@@ -205,6 +205,15 @@ def fest_ueberblick(teilnahmen: list[Teilnahme]) -> dict[str, dict]:
     return out
 
 
+def kranz_je_fest(teilnahmen: list[Teilnahme]) -> dict[str, dict[str, bool]]:
+    """{event_id: {schwinger_id: Kranz ja/nein}} -- für den Rückblick der
+    Fest-Simulation (fest_simulation.backtest)."""
+    out: dict[str, dict[str, bool]] = defaultdict(dict)
+    for t in teilnahmen:
+        out[t.event_id][t.schwinger_id] = out[t.event_id].get(t.schwinger_id, False) or bool(t.kranz)
+    return dict(out)
+
+
 def klub_je_schwinger(teilnahmen: list[Teilnahme]) -> dict[str, str]:
     """Jüngster Schwingklub laut Rangliste (Klubwechsel: der aktuelle zählt)."""
     return _juengster_wert(teilnahmen, "schwingklub")

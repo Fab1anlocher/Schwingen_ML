@@ -317,3 +317,27 @@ export interface Prognose {
   beitraege: Beitrag[];
   unsicher: boolean; // FR-1 / AK-1.2
 }
+
+/** Rückblick der Fest-Simulation (pipeline/fest_simulation.backtest). */
+export interface SimulationBacktest {
+  saison: number;
+  n_feste: number;
+  n_teilnahmen: number;
+  n_simulationen: number;
+  kranz: {
+    brier_modell: number;
+    brier_elo: number;
+    brier_konstant: number;
+    kalibrierung: { von: number; bis: number; n: number; vorhergesagt: number; eingetreten: number }[];
+  };
+  festsieg: {
+    p_sieger_modell: number | null;
+    p_sieger_elo: number | null;
+    favorit_modell: number | null;
+    favorit_elo: number | null;
+    top3_modell: number | null;
+    top3_elo: number | null;
+    mittlere_feldgroesse: number | null;
+  };
+  noten: { plattwurf: number; aktiv_gestellt: number; offensiv_verloren: number };
+}

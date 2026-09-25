@@ -160,6 +160,7 @@ def baue_features(
     snapshots: list[dict],
     schwinger: dict[str, Schwinger],
     augment: bool = True,
+    pro_fest=None,
 ) -> tuple[list[list[float]], list[int], list[dict]]:
     """Baut Feature-Matrix, Labels und Metadaten je Gang (chronologisch).
 
@@ -172,6 +173,15 @@ def baue_features(
     mit gespiegeltem Label hinzu -> erzwingt paar-symmetrisches Modell.
 
     Rückgabe: (X, y, meta) mit y in {0:sieg_a, 1:gestellt, 2:sieg_b}.
+
+    ``pro_fest(event_id, datum, teilnehmer, vektor, elo)``: wird vor jedem
+    Fest aufgerufen, ``teilnehmer`` nach Elo vor dem Fest absteigend (die
+    Setzreihenfolge der Simulation), ``elo`` je Teilnehmer;
+    ``vektor(a_id, b_id)`` liefert den Merkmalsvektor für ein
+    BELIEBIGES Paar dieses Fests mit dem Stand vor dem Fest -- für die
+    Fest-Simulation im Rückblick (fest_simulation.backtest), die auch Paare
+    braucht, die nie gegeneinander geschwungen haben. ``vektor`` liest den
+    laufenden Stand: nur WÄHREND des Aufrufs gültig.
     """
     from .config import KLASSEN
     klass_idx = {k: i for i, k in enumerate(KLASSEN)}
@@ -198,6 +208,10 @@ def baue_features(
         # dort ist aber auch jede Neigung gleich der Basis, das Paar-Merkmal also
         # exakt 0; der Startwert kürzt sich heraus.
         basis = gesamt_d / gesamt_n if gesamt_n else 0.0
+
+        if pro_fest is not None and fest:
+            pro_fest(fest[0].event_id, fest[0].datum, *_fest_zustand(
+                fest, snap_idx, schwinger, form_hist, paar_hist, neigung_d, neigung_n, basis))
 
         for gang in fest:
             a_id, b_id = gang.schwinger_a_id, gang.schwinger_b_id
@@ -272,6 +286,40 @@ def baue_features(
             gesamt_d += v
 
     return X, y, meta
+
+
+def _fest_zustand(fest, snap_idx, schwinger, form_hist, paar_hist, neigung_d, neigung_n, basis):
+    """(Teilnehmer, vektor(a, b), Elo) mit dem Stand VOR diesem Fest, s. baue_features.
+
+    Elo und Gangzahl vor dem Fest stehen im Snapshot jedes Gangs, den der
+    Schwinger an diesem Fest bestritten hat -- also für jeden Teilnehmer.
+    """
+    elo: dict[str, float] = {}
+    n: dict[str, int] = {}
+    skala = 100.0
+    for g in fest:
+        snap = snap_idx.get(g.event_id + g.schwinger_a_id + g.schwinger_b_id, {})
+        skala = snap.get("elo_streuung", skala)
+        elo.setdefault(g.schwinger_a_id, snap.get("elo_a_pre", 1500.0))
+        elo.setdefault(g.schwinger_b_id, snap.get("elo_b_pre", 1500.0))
+        n.setdefault(g.schwinger_a_id, snap.get("n_a_pre", 0))
+        n.setdefault(g.schwinger_b_id, snap.get("n_b_pre", 0))
+    datum = fest[0].datum
+
+    def vektor(a_id: str, b_id: str) -> list[float]:
+        neigung_a = _neigung(neigung_d[a_id], neigung_n[a_id], basis)
+        neigung_b = _neigung(neigung_d[b_id], neigung_n[b_id], basis)
+        key = (a_id, b_id) if a_id < b_id else (b_id, a_id)
+        duelle = paar_hist.get(key, [])
+        return _feature_vektor(
+            elo[a_id], elo[b_id], _form_wert(form_hist[a_id]), _form_wert(form_hist[b_id]),
+            n[a_id], n[b_id], schwinger[a_id], schwinger[b_id], datum,
+            _kopf_an_kopf_vorteil(a_id, b_id, paar_hist), elo_skala=skala,
+            gestellt_neigung=paar_neigung(neigung_a, neigung_b, basis),
+            paar_gestellt=paar_gestellt(len(duelle), sum(1 for p in duelle if p == 0.5),
+                                        neigung_a, neigung_b))
+
+    return sorted(elo, key=lambda sid: (-elo[sid], sid)), vektor, dict(elo)
 
 
 def _feature_vektor(

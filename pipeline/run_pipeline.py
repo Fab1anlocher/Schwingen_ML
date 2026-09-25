@@ -190,8 +190,8 @@ def _ranglisten(source: str, events, schwinger: dict, aktive: set) -> tuple[dict
     from .scrape import lade_teilnahmen
     from .ranglisten import (
         fest_ueberblick, festsiege_je_schwinger, klub_je_schwinger, konsistenz,
-        kraenze_je_schwinger, kranzfeste_ohne_kranz, kranzquote_ausreisser, kranzquoten,
-        kranzstatus_je_schwinger,
+        kraenze_je_schwinger, kranz_je_fest, kranzfeste_ohne_kranz, kranzquote_ausreisser,
+        kranzquoten, kranzstatus_je_schwinger,
         senne_turner_je_schwinger, verband_ueber_klub,
     )
     teilnahmen, bericht = lade_teilnahmen(events)
@@ -226,7 +226,8 @@ def _ranglisten(source: str, events, schwinger: dict, aktive: set) -> tuple[dict
              "kranzstatus": kranzstatus_je_schwinger(teilnahmen),
              "festsiege": {sid: [{**f, "name": fest_name.get(f["event_id"], f["event_id"])} for f in liste]
                            for sid, liste in festsiege_je_schwinger(teilnahmen).items()},
-             "feste": fest_ueberblick(teilnahmen)}
+             "feste": fest_ueberblick(teilnahmen),
+             "kranz_je_fest": kranz_je_fest(teilnahmen)}
     return daten, bericht
 
 
@@ -472,6 +473,20 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
     from .verbandsschaetzung import schaetze_teilverbaende
     verband_geschaetzt, verband_pruefung = schaetze_teilverbaende(gaenge, schwinger)
     ranglisten, ranglisten_bericht = _ranglisten(source, events, schwinger, aktive)
+    # Fest-Simulation im Rückblick: jedes Kranzfest der Holdout-Saison mit dem
+    # Modell von vor der Saison simuliert und mit Rangliste verglichen (nur mit
+    # Ranglisten; s. fest_simulation.backtest).
+    sim_backtest = None
+    if ranglisten:
+        from .fest_simulation import backtest
+        sim_backtest = backtest(gaenge, snapshots, schwinger, train_res["modell"], holdout_jahr,
+                                ranglisten["feste"], ranglisten["kranz_je_fest"])
+        if sim_backtest:
+            k, f = sim_backtest["kranz"], sim_backtest["festsieg"]
+            print(f"      Fest-Simulation {holdout_jahr}: {sim_backtest['n_feste']} Feste, "
+                  f"Kranz-Brier Modell {k['brier_modell']} / Elo {k['brier_elo']} / "
+                  f"konstant {k['brier_konstant']}; Sieger Ø P {f['p_sieger_modell']} "
+                  f"(Elo {f['p_sieger_elo']}), Favorit gewinnt {f['favorit_modell']}", flush=True)
     print(f"      Teilverband geschätzt: {verband_pruefung['n_geschaetzt']}/"
           f"{verband_pruefung['n_ohne_verband']} ohne Porträt (Selbstprüfung "
           f"{verband_pruefung['trefferquote']} auf {verband_pruefung['pruef_faelle']} Porträts, "
@@ -486,6 +501,7 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
     export.exportiere_kopf_an_kopf(gaenge)
     export.exportiere_kantone(schwinger, elo_modell, gaenge, ranglisten=ranglisten)
     export.exportiere_cluster(cluster_res)
+    export.exportiere_simulation_backtest(sim_backtest)
     if benchmark_res is not None:
         export.exportiere_benchmark(benchmark_res)
     # Kommende Feste (FR-2): bei echten Daten aus der Fest-API (Agenda-HTML als
