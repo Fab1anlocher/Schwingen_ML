@@ -28,7 +28,12 @@ ranglisten.verband_ueber_klub). Zwei Belege trennen:
    Tag. Die Gruppe im Verband des Porträts bleibt beim Porträt, die andere
    bekommt einen eigenen Eintrag.
 
-Zurück kommt eine Zuordnung (Fest, Namens-Tokens) -> neue ID. Sie gilt für
+Umgekehrt löst die Rangliste auch **mehrdeutige** Namen auf, die der Index
+bewusst offen lässt (zwei Porträts gleichen Namens, z. B. Roman Bucher 2002
+und 2003): steht am Fest nur einer der beiden, sagt der Jahrgang-Zusatz oder
+der Verband seines Klubs, welcher. Vorher gingen alle ihre Gänge verloren.
+
+Zurück kommt eine Zuordnung (Fest, Namens-Tokens) -> ID. Sie gilt für
 die Gänge (Statistik-PDF) UND die Ranglisten-Einträge desselben Fests. Wo
 beide Gleichnamigen am selben Fest antraten, lässt sich über den Namen
 allein nicht sagen, wem welcher Gang gehört -- dort bleibt es beim Alten
@@ -124,6 +129,12 @@ def trenne_namensvettern(ranglisten: dict, events: dict, finde, schwinger: dict)
     Zuordnung: (event_id, namens_tokens) -> ID des Namensvetters.
     """
     verband_von_klub = klub_verbaende(ranglisten, finde, schwinger)
+    # Namens-Tokens -> Porträt-IDs, für die mehrdeutigen Namen.
+    portraets_je_name: dict[tuple, list[str]] = defaultdict(list)
+    for sid, sw in schwinger.items():
+        if hat_portraet(sw.quellen):
+            portraets_je_name[namens_tokens(sw.name)].append(sid)
+    mehrdeutig_eintraege: list[tuple[str, tuple, int | None, str | None]] = []
     je_fest_name: Counter = Counter()
     # Porträt-ID -> Liste (event_id, datum, verband des Klubs | None, tokens)
     auftritte: dict[str, list] = defaultdict(list)
@@ -140,6 +151,9 @@ def trenne_namensvettern(ranglisten: dict, events: dict, finde, schwinger: dict)
                 continue
             je_fest_name[(eid, tokens)] += 1
             sid = finde(basis)
+            if sid is None and len(portraets_je_name.get(tokens, [])) > 1:
+                mehrdeutig_eintraege.append((eid, tokens, jahr, verband_von_klub.get(e.get("schwingklub"))))
+                continue
             s = schwinger.get(sid) if sid else None
             if s is None or not hat_portraet(s.quellen):
                 continue
@@ -160,6 +174,16 @@ def trenne_namensvettern(ranglisten: dict, events: dict, finde, schwinger: dict)
             return False
         zuordnung[(eid, tokens)] = neue_id
         return True
+
+    aufgeloest = 0
+    for eid, tokens, jahr, verband in mehrdeutig_eintraege:
+        kandidaten = portraets_je_name[tokens]
+        if jahr:
+            passend = [k for k in kandidaten if schwinger[k].jahrgang == jahr]
+        else:
+            passend = [k for k in kandidaten if verband and schwinger[k].teilverband == verband]
+        if len(passend) == 1 and haenge_um(eid, tokens, passend[0]):
+            aufgeloest += 1
 
     for eid, tokens, basis, jahr, sid in jahrgang_vettern:
         neue_id = _vetter_id(tokens, str(jahr))
@@ -198,6 +222,7 @@ def trenne_namensvettern(ranglisten: dict, events: dict, finde, schwinger: dict)
         "personen_getrennt": len(neue),
         "feste_umgehaengt": len(zuordnung),
         "nicht_trennbar_selbes_fest": selbes_fest,
+        "mehrdeutige_feste_aufgeloest": aufgeloest,
         "beispiele": beispiele,
     }
     return zuordnung, neue, bericht

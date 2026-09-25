@@ -77,8 +77,10 @@ ausschliesslich aus den Schlussranglisten.
 schlussgang.ch schreibt denselben Schwinger unterschiedlich: Porträts als
 `Vorname Nachname`, Statistik-PDFs als `Nachname Vorname`. `identity.py` löst
 das über einen **reihenfolgeunabhängigen Schlüssel** aus der sortierten
-Token-Menge des Namens. Gibt es zu einem Namen mehrere Porträts, wird nicht
-geraten, sondern verworfen und gezählt.
+Token-Menge des Namens. Gibt es zu einem Namen mehrere Porträts, rät der
+Index nicht; welcher gemeint ist, entscheidet je Fest die Schlussrangliste
+(Jahrgang-Zusatz oder Verband des Klubs, s. unten). Nur wo auch sie es offen
+lässt, wird der Gang verworfen und gezählt.
 
 Teilnehmer ohne Porträt werden als „Stub" geführt: ihre Gänge zählen voll,
 Physis/Alter fehlen. Das betrifft rund drei Viertel des Kaders. Angezeigt
@@ -558,7 +560,8 @@ Wettangebot**. Betriebskosten: **$0**.
   trennen (13 Fest-Einträge, im Bericht `datenqualitaet.namensvettern`); dort
   bleiben die Gänge beim Porträt-Schwinger. Gleichnamige im **selben**
   Teilverband ohne Jahrgang-Zusatz bleiben zusammengelegt. Mehrere Porträts
-  gleichen Namens ohne Zähler: Gänge werden verworfen und gezählt.
+  gleichen Namens: aufgelöst je Fest über die Rangliste; wo Jahrgang und
+  Klub-Verband fehlen, werden die Gänge verworfen und gezählt.
 * **Freiburger Kantonalfest 2023:** die Rangliste führt keine Status-Einträge,
   dessen Kränze fehlen in der Zählung (als „Kranzfest ohne Kranz" im Bericht).
 * **Physis, Stil und Kranzstatus nur mit Porträt** (rund ein Viertel des

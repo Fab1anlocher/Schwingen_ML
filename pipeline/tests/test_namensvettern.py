@@ -116,3 +116,19 @@ def test_teilnahmen_folgen_der_zuordnung():
     teilnahmen, _ = teilnahmen_aus_ranglisten(rl, ev, idx.finde, sw, zuordnung=zuordnung)
     giger = sorted((t.event_id, t.schwinger_id) for t in teilnahmen if "giger" in t.schwinger_id)
     assert giger == [(f"e{i}", "giger" if i % 2 == 0 else "giger samuel|is") for i in range(8)]
+
+
+def test_mehrdeutiger_name_wird_je_fest_ueber_rangliste_aufgeloest():
+    """Zwei Porträts "Roman Bucher": der Index lässt den Namen offen, die
+    Rangliste entscheidet je Fest -- über den Jahrgang oder den Klub-Verband."""
+    sw = _sw()
+    sw["b02"] = Schwinger(id="b02", name="Roman Bucher", jahrgang=2002, teilverband="Innerschweiz", quellen=_P)
+    sw["b03"] = Schwinger(id="b03", name="Roman Bucher", jahrgang=2003, teilverband="Nordostschweiz", quellen=_P)
+    ev = _events("2024-05-01", "2024-06-01", "2024-07-01")
+    rl = _rl({"e0": [{"name": "Bucher Roman (2003)", "schwingklub": "Wolhusen"}],
+              "e1": [{"name": "Bucher Roman", "schwingklub": "Wolhusen"}],
+              "e2": [{"name": "Bucher Roman", "schwingklub": "Unbekannt"}]})
+    zuordnung, neue, bericht = _laufe(rl, ev, sw)
+    t = namens_tokens("Roman Bucher")
+    assert zuordnung == {("e0", t): "b03", ("e1", t): "b02"}  # e2: Klub ohne Verband -> offen
+    assert neue == {} and bericht["mehrdeutige_feste_aufgeloest"] == 2
