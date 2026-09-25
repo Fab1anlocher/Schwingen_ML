@@ -1,18 +1,169 @@
 # Roadmap
 
-Stand: Gesamtanalyse vom 24.09.2026. Jeder Punkt beruht auf einer Messung an
-den echten Artefakten, nicht auf einer Vermutung — die Zahlen stehen dabei.
+Jeder Punkt beruht auf einer Messung an den echten Artefakten, nicht auf
+einer Vermutung — die Zahlen stehen dabei. Gemessen mit `pipeline/harness.py`:
+trainiert auf allem vor dem Testjahr (echte Trainingsmaske), bewertet auf
+Validierung 2025 und Test 2026. **Übernommen wird nur, was in beiden Jahren
+besser wird.**
 
-Die Reihenfolge folgt den Abhängigkeiten: erst muss die **Messung** stimmen
-(P1), sonst lässt sich keine spätere Modelländerung bewerten; erst muss das
-Modell **ehrlich** erklären (P2), bevor es besser rechnen soll (P3).
+---
+
+# Planung ab 26.09.2026
+
+**Ausgangslage** (Merkmalsversion 3, nach der Namensvettern-Trennung):
+Log-Loss Validierung 2025 **0.7627**, Test 2026 **0.7400**, Accuracy 68.7 %,
+Gestellt 20.6 % vorhergesagt / 21.1 % eingetreten.
+
+## Übersicht und Reihenfolge
+
+| # | Vorhaben | Gemessener Nutzen | Aufwand | Priorität |
+|---|---|---|---|---|
+| M1 | Gradient Boosting statt Logistic Regression | Log-Loss −0.023 (Val) / −0.020 (Test) | 1–2 Tage | **1** |
+| T1 | Modellgüte je Lauf historisieren + Warnung | macht jede Änderung sichtbar | ½ Tag | **2** |
+| F1 | Prognose-Check je Fest im Rückblick | Vertrauen; Daten liegen vor | ½–1 Tag | **2** |
+| D3 | Rohdaten wöchentlich sichern | Voraussetzung für D1/D2, Ausfallschutz | ½ Tag | **3** |
+| M2 | Jüngere Gänge stärker gewichten | LR nur 2025: 0.7378 statt 0.7398 | ½ Tag | 3 |
+| D1 | Noten je Gang (Plattwurf 10.00 vs. 9.75) nutzen | offen — erst nach D3 messbar | 1 Tag | 4 |
+| D2 | Gangnummer aus der Rangliste (Anschwingen, Ausstich) | offen — erst nach D3 messbar | 1 Tag | 4 |
+| M3 | Heimvorteil (Fest des eigenen Verbands gegen Gäste) | +0.022 Punkte je Gästegang (2.6 SE) | ½ Tag | 5 |
+| M4 | Unsicherheit bei Neulingen (Glicko-artig) | Paarungen mit < 5 Gängen: Log-Loss 0.771 (sonst 0.70–0.75) | 1–2 Tage | 5 |
+| F2 | Elo-Verlauf im Schwinger-Profil | Produkt | 1 Tag | 5 |
+| F3 | Vorschaubild für geteilte Prognose-Links | Produkt | ½ Tag | 6 |
+| T2 | Frontend-Tests + Browser-Smoke-Test in der CI | Sicherheit | 1 Tag | 6 |
+| T3 | Altlasten: `diagnose_agenda` testen, `ml_ohne_elo` ohne `kranz_diff` | Sauberkeit | ½ Tag | 6 |
+
+Empfohlene Reihenfolge: **M1 mit T1** (die grösste Verbesserung, und T1 zeigt
+sie im Verlauf), dann **F1** (macht sie für Nutzer sichtbar), dann **D3** als
+Grundlage für D1/D2, M2 nebenbei in derselben Messung wie M1.
+
+## M1 — Gradient Boosting als Prognosemodell
+
+**Befund.** Mit **denselben 16 Merkmalen** erreicht ein Gradient-Boosting-
+Modell (`HistGradientBoostingClassifier`, 31 Blätter, Early Stopping) deutlich
+mehr als die lineare Regression — in beiden Jahren:
+
+| | Validierung 2025 | Test 2026 | AUC Gestellt (Test) |
+|---|---:|---:|---:|
+| Logistic Regression (heute) | 0.7627 | 0.7400 | 0.741 |
+| Gradient Boosting | **0.7398** | **0.7204** | **0.750** |
+
+Das ist mehr als die Merkmalsversionen 2 → 3 zusammen. Die Ursache liegt in der
+Kalibrierung der Siegchancen: die LR überschätzt Aussenseiter (vorhergesagt
+19.4 %, eingetreten 15.7 %) und unterschätzt Favoriten (59.6 % → 62.8 %,
+79.9 % → 82.7 %). Mit Handarbeit an der LR ist das nicht zu holen: nichtlinearer
+Elo-Abstand (d·|d|, d³) −0.0012, Elo-Trend über 12 Monate, Jugend-Merkmal und
+d × Erfahrung je ±0.0000. Der Gewinn steckt in Wechselwirkungen.
+
+**Umsetzung.**
+1. `train.py`: Modelltyp wählbar; Boosting mit festem Seed, Early Stopping auf
+   einem zeitlich letzten Teil des Trainings (nicht zufällig).
+2. `export.py`: Bäume als kompaktes JSON in `model.json` (heute rund 30–40 k
+   Knoten; Grösse messen, bei Bedarf Knotenzahl begrenzen), `modell_typ` und
+   `merkmal_version` bleiben Pflichtfelder. LR bleibt als Rückfall und als
+   Benchmark-Kandidat.
+3. `web/lib/inference.ts`: Baumauswertung. **Symmetrie erzwingen**: Mittel aus
+   P(A,B) und gespiegelt P(B,A). Die LR ist durch die Spiegelzeilen exakt
+   symmetrisch, Bäume nur ungefähr — ohne Mittelung wiche „Orlik gegen
+   Staudenmann" von „Staudenmann gegen Orlik" ab.
+4. Erklärbalken: die heutige Gegenprobe (Merkmal auf neutralen Wert, neu
+   rechnen) funktioniert modellunabhängig. Beiträge sind bei Bäumen nicht mehr
+   additiv — der Hilfetext muss das sagen.
+5. Parität (`paritaet.py`/`paritaet.cjs`) um den Baumpfad erweitern,
+   `verify_inference` ebenso.
+
+**Abnahme.** Validierung und Test besser als die LR; Parität grün; Symmetrie
+bis 1e-12; Ladezeit von `model.json` auf Mobil gemessen; Orlik–Staudenmann und
+fünf weitere Spitzenpaarungen plausibel erklärt.
+
+**Risiko.** Erklärungen werden weniger „linear" lesbar; das Modell ist grösser.
+Beides ist handhabbar; der Gewinn ist gross und in beiden Jahren gleichsinnig.
+
+## M2 — Jüngere Gänge stärker gewichten
+
+Lernkurve (Test 2026): nur mit 2025 trainiert ist die LR **besser** (0.7378)
+als mit 2024–2025 (0.7398); beim Boosting gleich (0.7204). Mehr alte Daten
+helfen also nicht, jüngere zählen mehr. Zu testen: Stichprobengewicht mit
+Halbwertszeit 6–18 Monate. Gleich in der M1-Messung mitlaufen lassen.
+
+**Verworfen, weil gemessen ohne Wirkung:** Elo-Trend (12 Monate), Jugend-
+Merkmal, d × Erfahrung, mehr Trainingshistorie. Daten vor 2023 würden nur das
+Elo-Aufwärmen verbessern, nicht das Training — erst angehen, wenn das nach M1
+noch nötig erscheint.
+
+## T1 — Modellgüte über die Zeit
+
+Heute überschreibt jeder Lauf `report.json`; ob das Modell über Wochen
+schlechter wird (neue Saison, Datenfehler), sieht niemand. Plan:
+`artifacts/report_verlauf.json` hängt je Lauf Datum, Log-Loss, Accuracy,
+Gestellt-Kalibrierung und Datenumfang an; der Lauf warnt im Job-Summary, wenn
+der Log-Loss gegenüber dem Median der letzten 14 Läufe um mehr als 0.01
+steigt. Die Analyse-Seite zeigt den Verlauf.
+
+## F1 — Prognose-Check je Fest
+
+Im Rückblick je Fest: wie oft lag das Modell richtig, wie gut war die
+Gestellt-Chance — gerechnet mit dem Modell, das **vor** dem Fest galt. Für die
+Holdout-Saison liegen diese Vorhersagen im Training ohnehin vor. Macht die
+Qualität für Nutzer greifbar („am Brünig 2026: 74 % der Gänge richtig").
+
+## D3 — Rohdaten sichern (Voraussetzung für D1/D2)
+
+`artifacts/raw` existiert nur im Actions-Cache. Geht er verloren, kostet der
+Neuaufbau rund 20 Minuten, und lokal (ohne Zugang zu schlussgang.ch) lässt
+sich nichts messen, was nicht in den Artefakten steht — etwa die Noten je Gang.
+Plan: wöchentlich `ranglisten.json`, `gaenge.json` und `events.json`
+komprimiert als Workflow-Artefakt sichern; der Harness kann sie optional laden.
+
+## D1 / D2 — Noten und Gangnummer
+
+* **D1 Noten:** Die Statistik-PDF führt je Gang die Note (10.00 = Sieg mit
+  Plattwurf, 9.75 …). Ein klarer Sieg sagt mehr über die Stärke als ein
+  knapper. Nutzen: Elo mit Siegqualität, Merkmal „Anteil Plattwürfe".
+* **D2 Gangnummer:** die Rangliste führt je Schwinger die Resultatfolge
+  („-+++++"), also die Reihenfolge der Gänge. Anschwingen (Spitzenpaarungen,
+  mehr Gestellte) und Ausstich unterscheiden sich; live ist die Gangnummer aus
+  der Einteilung bekannt.
+
+Beides erst nach D3 messbar, weil die Artefakte weder Noten noch Gangnummer
+enthalten.
+
+## M3 / M4 — kleinere Modellthemen
+
+* **M3 Heimvorteil:** an Festen des eigenen Teilverbands gewinnen Einheimische
+  gegen Gäste leicht mehr als erwartet (+0.022 Punkte je Gang, 1517
+  Test-Gänge, 2.6 Standardfehler). Klein, betrifft nur Gästegänge — mit M1
+  zusammen testen.
+* **M4 Neulinge:** Paarungen mit einem Schwinger unter 5 Gängen haben Log-Loss
+  0.771 (6 % der Gänge). Ein Rating mit Unsicherheit (Glicko) könnte das
+  senken; aufwendiger, weil Elo überall verwendet wird.
+
+## F2 / F3 / T2 / T3 — Produkt und Technik
+
+* **F2 Elo-Verlauf** im Schwinger-Profil (Sparkline), Daten serverseitig wie
+  der Kopf-an-Kopf-Index, damit der Download klein bleibt.
+* **F3 Vorschaubild** für geteilte Prognose-Links (Open Graph über
+  `next/og`): Paar und Prozente direkt im Chat sichtbar.
+* **T2 Tests:** Unit-Tests für `lib/labels.ts`, `lib/teilverband.ts`, und ein
+  Playwright-Smoke-Test in der CI (jede Seite lädt ohne Konsolenfehler, kein
+  horizontales Scrollen auf Mobil) — heute nur manuell geprüft.
+* **T3 Altlasten:** `diagnose_agenda` ist ungetestet; `benchmark.py →
+  ml_ohne_elo` enthält `kranz_diff` und misst damit teilweise die Datenlage
+  statt „Physis, Stil, Verband".
+
+Kein Handlungsbedarf: `schwinger.json` ist 3.1 MB roh, aber 150 KB
+komprimiert.
+
+---
+
+# Erledigt
 
 ## Was solide ist
 
 Leak-freie Merkmale (nur Daten von *vor* dem Gang), zeitlicher statt
 zufälliger Holdout, täglicher Lauf mit Abbruchbedingungen statt stillem
-Commit schlechter Daten, Verlustquote unter 1 %, 185 Tests. Die Befunde unten
-sind Mess- und Deutungsfehler — keine kaputte Pipeline.
+Commit schlechter Daten, Verlustquote unter 1 %, rund 260 Tests. Die
+erledigten Befunde unten waren Mess-, Deutungs- und Datenfehler — keine
+kaputte Pipeline.
 
 ---
 
@@ -192,12 +343,3 @@ Verband 706/706; Schwünge nur 418/706 — die Quelle führt sie nicht immer).
   von `labels.GangResultat`), Anzeigetexte zentral in `web/lib/labels.ts`,
   Echte-Daten-Harness ins Repo (`pipeline/harness.py`), `CLAUDE.md` für
   KI-Assistenten.
-
-## P7 — Kleinkram
-
-- `diagnose_agenda` ungetestet.
-- ✅ A/B-Zuteilung per Alphabet ist die Ursache der schiefen
-  Ergebnisverteilung (35 % / 42 %): im README erklärt und im Qualitätsbericht
-  als Artefakt gekennzeichnet.
-- `benchmark.py → ml_ohne_elo` enthält `kranz_diff` — misst damit teilweise
-  ebenfalls die Datenlage statt „Physis, Stil, Verband".
