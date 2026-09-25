@@ -1,28 +1,28 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-09-25T19:49:49.819859+00:00",
-  "lauf_id": "20260925T194949Z",
+  "erstellt": "2026-09-25T19:53:05.820610+00:00",
+  "lauf_id": "20260925T195305Z",
   "seed": 42,
   "datenbasis": {
-    "n_gaenge": 133611,
+    "n_gaenge": 134035,
     "n_schwinger": 2910
   },
   "holdout_jahr": 2026,
-  "n_train": 135722,
-  "n_test": 36485,
+  "n_train": 136118,
+  "n_test": 36610,
   "modell": {
-    "log_loss": 0.7404,
-    "accuracy": 0.6863,
-    "mae": 0.2535,
-    "mse": 0.1038
+    "log_loss": 0.7402,
+    "accuracy": 0.6861,
+    "mae": 0.2534,
+    "mse": 0.1039
   },
   "baseline_elo": {
-    "log_loss": 0.9104,
-    "accuracy": 0.6121
+    "log_loss": 0.91,
+    "accuracy": 0.6125
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0742,
-  "verbesserung_log_loss": 0.17,
+  "accuracy_gg_baseline": 0.0736,
+  "verbesserung_log_loss": 0.1698,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -30,92 +30,92 @@
   ],
   "konfusionsmatrix": [
     [
-      10293,
-      847,
-      1937
+      10252,
+      856,
+      2015
     ],
     [
-      2783,
+      2768,
       1813,
-      3098
+      3126
     ],
     [
-      1933,
-      847,
-      12934
+      1877,
+      851,
+      13052
     ]
   ],
   "nur_portraet": {
     "modell": {
-      "n": 9288,
-      "anteil_am_test": 0.2546,
-      "log_loss": 0.8295,
-      "accuracy": 0.626,
-      "mae": 0.2549,
-      "mse": 0.1071
+      "n": 9366,
+      "anteil_am_test": 0.2558,
+      "log_loss": 0.8293,
+      "accuracy": 0.6253,
+      "mae": 0.2551,
+      "mse": 0.1075
     },
     "baseline_elo": {
-      "n": 9288,
-      "log_loss": 0.9263,
-      "accuracy": 0.5831
+      "n": 9366,
+      "log_loss": 0.9254,
+      "accuracy": 0.583
     }
   },
   "gestellt_kalibrierung": {
-    "n": 36485,
-    "vorhergesagt": 0.2062,
-    "eingetreten": 0.2109,
-    "ece": 0.0123,
-    "auc": 0.7407,
+    "n": 36610,
+    "vorhergesagt": 0.2059,
+    "eingetreten": 0.2105,
+    "ece": 0.0125,
+    "auc": 0.741,
     "stufen": [
       {
-        "n": 3649,
-        "vorhergesagt": 0.0349,
-        "eingetreten": 0.0271
+        "n": 3661,
+        "vorhergesagt": 0.0348,
+        "eingetreten": 0.0273
       },
       {
-        "n": 3649,
-        "vorhergesagt": 0.0759,
-        "eingetreten": 0.0573
+        "n": 3661,
+        "vorhergesagt": 0.0757,
+        "eingetreten": 0.0568
       },
       {
-        "n": 3649,
-        "vorhergesagt": 0.1071,
-        "eingetreten": 0.1003
+        "n": 3661,
+        "vorhergesagt": 0.1069,
+        "eingetreten": 0.0983
       },
       {
-        "n": 3649,
-        "vorhergesagt": 0.1345,
-        "eingetreten": 0.1296
+        "n": 3661,
+        "vorhergesagt": 0.1343,
+        "eingetreten": 0.1295
       },
       {
-        "n": 3649,
-        "vorhergesagt": 0.1616,
-        "eingetreten": 0.1688
+        "n": 3661,
+        "vorhergesagt": 0.1613,
+        "eingetreten": 0.171
       },
       {
-        "n": 3648,
-        "vorhergesagt": 0.1914,
-        "eingetreten": 0.1982
+        "n": 3661,
+        "vorhergesagt": 0.1911,
+        "eingetreten": 0.1956
       },
       {
-        "n": 3648,
-        "vorhergesagt": 0.2272,
-        "eingetreten": 0.2519
+        "n": 3661,
+        "vorhergesagt": 0.2269,
+        "eingetreten": 0.2529
       },
       {
-        "n": 3648,
-        "vorhergesagt": 0.2748,
-        "eingetreten": 0.2977
+        "n": 3661,
+        "vorhergesagt": 0.2743,
+        "eingetreten": 0.2966
       },
       {
-        "n": 3648,
-        "vorhergesagt": 0.3467,
-        "eingetreten": 0.3632
+        "n": 3661,
+        "vorhergesagt": 0.3464,
+        "eingetreten": 0.3616
       },
       {
-        "n": 3648,
-        "vorhergesagt": 0.508,
-        "eingetreten": 0.5148
+        "n": 3661,
+        "vorhergesagt": 0.5078,
+        "eingetreten": 0.5154
       }
     ]
   },
@@ -178,17 +178,17 @@
     "schlussgang-21055 fankhauser reto|?/janik korrodi|2004: nur eine Perspektive vorhanden",
     "schlussgang-21055 janik korrodi|2004/tobias dunner|2005: nur eine Perspektive vorhanden"
   ],
-  "n_parsing_warnungen": 21227,
+  "n_parsing_warnungen": 21296,
   "datenqualitaet": {
     "warnungen_nach_kategorie": {
-      "nur_eine_perspektive": 21169,
-      "inkonsistente_symbole": 58
+      "nur_eine_perspektive": 21237,
+      "inkonsistente_symbole": 59
     },
     "anteil_unvollstaendiger_gaenge": 0.1584,
     "ergebnisverteilung": {
-      "gestellt": 0.2286,
-      "sieg_a": 0.352,
-      "sieg_b": 0.4194
+      "gestellt": 0.2284,
+      "sieg_a": 0.3521,
+      "sieg_b": 0.4196
     },
     "feste_zeitraum": {
       "von": "2023-04-01",
@@ -211,7 +211,7 @@
       "n_feste_mit_kranzern": 480,
       "trefferquote_median": 0.8947,
       "feste_ohne_abzeichen": 6,
-      "abzeichen_gesamt": 18206,
+      "abzeichen_gesamt": 18251,
       "plausibel": true,
       "anteil_feste_ohne_abzeichen": 0.0125,
       "hinweis_refetch": false
@@ -221,7 +221,7 @@
       "n_portraet": 706,
       "anteil_portraet": 0.2426,
       "teilverband_schaetzung": {
-        "pruef_faelle": 586,
+        "pruef_faelle": 589,
         "trefferquote": 0.9983,
         "n_ohne_verband": 2204,
         "angewandt": true,
@@ -231,19 +231,19 @@
     "ranglisten": {
       "n_feste": 481,
       "n_nicht_lesbar": 0,
-      "n_teilnahmen": 46050,
-      "anteil_namen_aufgeloest": 0.9938,
+      "n_teilnahmen": 46125,
+      "anteil_namen_aufgeloest": 0.9954,
       "beispiele_unaufloesbar": [
-        "Wüthrich Jonas",
-        "Bucher Roman",
         "Zemp Christian",
+        "Wüthrich Jonas",
         "Gerber Adrian",
-        "Zemp Silvan"
+        "Zemp Silvan",
+        "Herger Elias"
       ],
       "kranzquote_median": {
         "berg": 0.1556,
         "eidgenoessisch": 0.0,
-        "kantonal": 0.1602,
+        "kantonal": 0.1615,
         "regional": 0.0,
         "teilverband": 0.156
       },
@@ -254,14 +254,14 @@
       "klub_abdeckung_aktive": 0.9892,
       "verband_ueber_klub": {
         "klubs_bekannt": 132,
-        "pruef_faelle": 588,
-        "trefferquote": 0.9932,
+        "pruef_faelle": 600,
+        "trefferquote": 0.9933,
         "n_ohne_porträt_mit_klub": 2160,
         "n_zugeordnet": 1977
       },
       "konsistenz": {
         "klub_wie_porträt": 0.989,
-        "klub_vergleiche": 635,
+        "klub_vergleiche": 638,
         "kranzgewinner_ohne_porträt": 86,
         "beispiele_kranzgewinner_ohne_porträt": [
           "adrian elsener|?",
@@ -273,34 +273,35 @@
       }
     },
     "roh_eintraege_gelesen": 249109,
-    "roh_eintraege_uebernommen": 246749,
+    "roh_eintraege_uebernommen": 247532,
     "roh_eintraege_verworfen": {
-      "name_nicht_aufloesbar": 2353,
+      "name_nicht_aufloesbar": 1570,
       "schwinger_gegen_sich_selbst": 7
     },
-    "verlustquote": 0.0095,
+    "verlustquote": 0.0063,
     "feste_gelesen": 481,
     "feste_uebernommen": 481,
     "feste_verworfen": {},
     "schwinger_im_kader": 2910,
     "unaufloesbare_namen": 10,
     "beispiele_unaufloesbare_namen": [
-      "Wüthrich Jonas",
       "Zemp Christian",
-      "Bucher Roman",
+      "Wüthrich Jonas",
       "Gerber Adrian",
       "Zemp Silvan",
       "Koch Silvan",
       "Herger Elias",
       "Aegerter Manuel",
       "Portmann Jonas",
-      "Betschart Fabian"
+      "Betschart Fabian",
+      "Bucher Roman"
     ],
     "namensvettern": {
       "klubs_mit_verband": 128,
       "personen_getrennt": 6,
-      "feste_umgehaengt": 119,
-      "nicht_trennbar_selbes_fest": 13,
+      "feste_umgehaengt": 194,
+      "nicht_trennbar_selbes_fest": 22,
+      "mehrdeutige_feste_aufgeloest": 75,
       "beispiele": [
         "Dominik Gasser: 24 Feste (Innerschweiz) getrennt von Bern",
         "Marco Ulrich: 23 Feste (Bern) getrennt von Innerschweiz",
