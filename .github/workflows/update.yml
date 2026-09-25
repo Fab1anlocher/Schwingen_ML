@@ -10,6 +10,10 @@ on:
         description: "Volle Historie ab 2023 neu laden (Cache-Aufbau/-Reparatur, ~20 min)"
         type: boolean
         default: false
+      rohdaten_sichern:
+        description: "Rohdaten zusätzlich als Workflow-Artefakt sichern (sonst nur sonntags)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -33,6 +37,7 @@ jobs:
     timeout-minutes: 360
     env:
       VOLLER_REFETCH: ${{ github.event.inputs.voller_refetch || 'false' }}
+      ROHDATEN_SICHERN: ${{ github.event.inputs.rohdaten_sichern || 'false' }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
@@ -67,6 +72,28 @@ jobs:
         with:
           path: artifacts/raw
           key: rohdaten-${{ github.run_id }}
+
+      # Roadmap D3: Der Cache ist die EINZIGE Kopie der Rohdaten (Statistik-
+      # PDFs mit Noten je Gang, Ranglisten). GitHub verwirft Caches nach 7
+      # Tagen ohne Zugriff oder bei Platzmangel -- dann kostet der Neuaufbau
+      # rund 20 Minuten, und was schlussgang.ch inzwischen nicht mehr liefert,
+      # wäre weg. Darum sonntags (und auf Wunsch) zusätzlich als Artefakt,
+      # 90 Tage aufbewahrt; herunterladbar unter Actions -> Lauf -> Artifacts.
+      - name: Rohdaten-Sicherung fällig?
+        id: sicherung
+        run: |
+          if [ "${ROHDATEN_SICHERN}" = "true" ] || [ "$(date -u +%u)" = "7" ]; then
+            echo "faellig=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Rohdaten als Artefakt sichern
+        if: steps.sicherung.outputs.faellig == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: rohdaten-${{ github.run_id }}
+          path: artifacts/raw
+          retention-days: 90
+          compression-level: 9
+          if-no-files-found: error
 
       # Bricht ab, statt stillschweigend ein auf Bruchteilen trainiertes Modell
       # zu committen: zu hohe Verlustquote (Verarbeitung kaputt) oder
