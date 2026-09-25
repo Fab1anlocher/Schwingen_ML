@@ -83,8 +83,11 @@ a {
 .header {
   border-bottom: 1px solid var(--border);
   background: rgba(243, 241, 234, 0.82);
-  backdrop-filter: blur(14px) saturate(1.3);
+  /* Präfix ZUERST, Standard zuletzt: der CSS-Minifier von Next 16
+     (LightningCSS) fasst beide zu einer Eigenschaft zusammen und behält nur
+     die letzte -- stand -webkit- hinten, verlor Chrome den Blur komplett. */
   -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  backdrop-filter: blur(14px) saturate(1.3);
   position: sticky;
   top: 0;
   z-index: 30;
