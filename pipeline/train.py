@@ -1,22 +1,22 @@
-"""Training der Logistic Regression + Evaluation (ML-3, ML-6, ML-7).
+"""Training des Prognosemodells + Evaluation (ML-3, ML-6, ML-7).
 
+- Das Modell selbst (Gradient Boosting oder LR) kommt aus modell.py.
 - Zeitlicher Train/Test-Split (jüngste Saison = Holdout), NICHT zufällig (ML-5).
 - Metriken: Log-Loss (primär), Accuracy, MAE/MSE auf dem Punktwert des Gangs
   (s. pipeline/metriken.py), Vergleich gegen Elo-Baseline.
-- Export der Gewichte als JSON für triviale clientseitige JS-Inferenz (§7).
-- Feature-Wichtigkeit als eigenständiges Deliverable (ML-7 / FR-4).
+- Merkmalswichtigkeit als eigenständiges Deliverable (ML-7 / FR-4).
 """
 from __future__ import annotations
 
 from datetime import date, timedelta
 
 import numpy as np
-from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import log_loss, accuracy_score, confusion_matrix
 
-from .config import SEED, KLASSEN, EINSCHWINGPHASE_TAGE
+from .config import SEED, KLASSEN, EINSCHWINGPHASE_TAGE, MODELL_TYP
 from .features import FEATURE_NAMES, FEATURE_LABELS
 from .metriken import punktwert_fehlermasse, gestellt_kalibrierung
+from .modell import Prognosemodell, trainiere_modell
 
 
 def _split_zeitlich(X, y, meta, holdout_ab_jahr: int):
@@ -36,7 +36,8 @@ def _split_zeitlich(X, y, meta, holdout_ab_jahr: int):
     X_arr, y_arr = np.asarray(X), np.asarray(y)
     train = trainings_maske(meta, y_arr, holdout_ab_jahr)
     test = np.array([_ist_testzeile(m, holdout_ab_jahr) for m in meta], dtype=bool)
-    return X_arr[train], y_arr[train], X_arr[test], y_arr[test]
+    datum_tr = [m["datum"] for m, drin in zip(meta, train) if drin]
+    return X_arr[train], y_arr[train], X_arr[test], y_arr[test], datum_tr
 
 
 def einschwing_ende(meta) -> str | None:
@@ -103,56 +104,43 @@ def bestimme_holdout_jahr(meta) -> int:
     return jahre[-1] if len(jahre) > 1 else jahre[0]
 
 
-def trainiere(X, y, meta) -> dict:
-    """Trainiert LR, evaluiert zeitlich getrennt, gibt Ergebnis-Report zurück."""
+def trainiere(X, y, meta, typ: str = MODELL_TYP) -> dict:
+    """Trainiert das Prognosemodell, evaluiert zeitlich getrennt, gibt den Report zurück."""
     holdout = bestimme_holdout_jahr(meta)
-    Xtr, ytr, Xte, yte = _split_zeitlich(X, y, meta, holdout)
+    Xtr, ytr, Xte, yte, datum_tr = _split_zeitlich(X, y, meta, holdout)
 
     if len(Xtr) == 0 or len(np.unique(ytr)) < 2:
         if len(X) < 2 or len(np.unique(y)) < 2:
             raise RuntimeError(
-                "Zu wenig Trainingsdaten für Logistic Regression: "
+                "Zu wenig Trainingsdaten für das Prognosemodell: "
                 f"{len(X)} Beispiele, {len(np.unique(y))} Klassen."
             )
         X_arr = np.asarray(X)
         y_arr = np.asarray(y)
+        alle_daten = [m["datum"] for m in meta]
         if len(X_arr) >= 3:
-            Xtr = X_arr[:-1]
-            ytr = y_arr[:-1]
+            Xtr, ytr, datum_tr = X_arr[:-1], y_arr[:-1], alle_daten[:-1]
             Xte = X_arr[-1:]
             yte = y_arr[-1:]
         else:
-            Xtr = X_arr
-            ytr = y_arr
+            Xtr, ytr, datum_tr = X_arr, y_arr, alle_daten
             Xte = np.empty((0, X_arr.shape[1] if X_arr.ndim == 2 else 0))
             yte = np.empty((0,), dtype=int)
         if len(np.unique(ytr)) < 2:
-            Xtr = X_arr
-            ytr = y_arr
+            Xtr, ytr, datum_tr = X_arr, y_arr, alle_daten
             Xte = np.empty((0, X_arr.shape[1] if X_arr.ndim == 2 else 0))
             yte = np.empty((0,), dtype=int)
 
-    # Standardisierung (Mittel/Std aus TRAIN) -> im Artefakt gespeichert,
-    # damit die JS-Inferenz identisch skaliert.
-    mu = np.asarray(Xtr).mean(axis=0)
-    sigma = np.asarray(Xtr).std(axis=0)
-    sigma[sigma == 0] = 1.0
-    Xtr_s = (Xtr - mu) / sigma
-    Xte_s = (Xte - mu) / sigma
-
-    modell = LogisticRegression(
-        class_weight=None,
-        max_iter=2000,
-        C=1.0,
-        random_state=SEED,
-    )
-    modell.fit(Xtr_s, ytr)
+    # Mittel/Streuung aus TRAIN stecken im Modell und landen im Artefakt:
+    # die LR rechnet standardisiert, beide Typen nutzen das Mittel als
+    # neutralen Wert der Erklärbalken.
+    modell = trainiere_modell(Xtr, ytr, datum_tr, typ)
 
     labels_idx = list(range(len(KLASSEN)))
-    p_test = modell.predict_proba(Xte_s) if len(Xte_s) else np.empty((0, len(KLASSEN)))
+    p_test = modell.predict_proba(Xte) if len(Xte) else np.empty((0, len(KLASSEN)))
 
-    if len(Xte_s):
-        y_pred = modell.predict(Xte_s)
+    if len(Xte):
+        y_pred = np.argmax(p_test, axis=1)
         ll = log_loss(yte, p_test, labels=labels_idx)
         acc = accuracy_score(yte, y_pred)
         # Konfusionsmatrix (ML-6): Zeile = tatsächliche, Spalte = vorhergesagte Klasse.
@@ -171,8 +159,13 @@ def trainiere(X, y, meta) -> dict:
 
     return {
         "modell": modell,
-        "mu": mu,
-        "sigma": sigma,
+        "modell_typ": modell.typ,
+        "n_baeume": modell.n_baeume,
+        "mu": modell.mu,
+        "sigma": modell.sigma,
+        # Für Merkmalswichtigkeit (Permutation) und die Export-Prüfung.
+        "X_test": np.asarray(Xte),
+        "y_test": np.asarray(yte),
         "holdout_jahr": holdout,
         "n_train": int(len(Xtr)),
         "n_test": int(len(Xte)),
@@ -228,21 +221,52 @@ def _bewerte_nur_portraet(p_test, yte, meta, holdout: int, labels_idx) -> dict:
     }
 
 
-def feature_wichtigkeit(modell: LogisticRegression, sigma: np.ndarray) -> list[dict]:
+# Obergrenze der Testgänge für die Permutations-Wichtigkeit (Laufzeit).
+MAX_PERMUTATION = 8000
+
+
+def feature_wichtigkeit(train_res: dict) -> list[dict]:
     """Globale Merkmalswichtigkeit (ML-7 / FR-4, AK-4.1/4.2).
 
-    Standardisierte Koeffizienten je Klasse; Wichtigkeit = mittlerer Betrag
-    über die Klassen. Explizit inkl. Gewicht/Grösse/Schwünge-relevanter Merkmale.
+    Logistic Regression: mittlerer Betrag der standardisierten Koeffizienten
+    über die Klassen (plus die Koeffizienten selbst).
+    Gradient Boosting: Permutations-Wichtigkeit -- um wie viel der Log-Loss
+    auf den Testgängen steigt, wenn dieses Merkmal zufällig vertauscht wird.
+    Das ist modellunabhängig und direkt lesbar ("so viel schlechter ohne").
     """
-    coefs = modell.coef_            # (n_klassen, n_features)
-    wichtig = np.abs(coefs).mean(axis=0)
+    modell: Prognosemodell = train_res["modell"]
+    if modell.typ == "lr":
+        coefs = modell.sk.coef_            # (n_klassen, n_features)
+        wichtig = np.abs(coefs).mean(axis=0)
+        koeff = {i: {KLASSEN[k]: float(coefs[k, i]) for k in range(len(KLASSEN))}
+                 for i in range(len(FEATURE_NAMES))}
+    else:
+        wichtig = _permutations_wichtigkeit(modell, train_res["X_test"], train_res["y_test"])
+        koeff = {}
     eintraege = []
     for i, name in enumerate(FEATURE_NAMES):
         eintraege.append({
             "feature": name,
             "label": FEATURE_LABELS.get(name, name),
             "wichtigkeit": float(wichtig[i]),
-            "koeffizienten": {KLASSEN[k]: float(coefs[k, i]) for k in range(len(KLASSEN))},
+            "koeffizienten": koeff.get(i),
         })
     eintraege.sort(key=lambda e: e["wichtigkeit"], reverse=True)
     return eintraege
+
+
+def _permutations_wichtigkeit(modell: Prognosemodell, X: np.ndarray, y: np.ndarray) -> np.ndarray:
+    if len(X) == 0 or len(np.unique(y)) < 2:
+        return np.zeros(len(FEATURE_NAMES))
+    rng = np.random.default_rng(SEED)
+    if len(X) > MAX_PERMUTATION:
+        auswahl = rng.choice(len(X), MAX_PERMUTATION, replace=False)
+        X, y = X[auswahl], y[auswahl]
+    labels = list(range(len(KLASSEN)))
+    basis = log_loss(y, modell.predict_proba(X), labels=labels)
+    out = np.zeros(X.shape[1])
+    for i in range(X.shape[1]):
+        Xp = X.copy()
+        Xp[:, i] = rng.permutation(Xp[:, i])
+        out[i] = max(0.0, log_loss(y, modell.predict_proba(Xp), labels=labels) - basis)
+    return out

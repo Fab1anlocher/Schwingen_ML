@@ -44,8 +44,11 @@ export function kopfAnKopfVorteilA(treffer: H2HTreffer[]): number {
     (s, t) => s + (t.ergebnis === "sieg_a" ? 1 : t.ergebnis === "gestellt" ? 0.5 : 0),
     0
   );
-  const quote = (summe + KOPF_AN_KOPF_K * 0.5) / (treffer.length + KOPF_AN_KOPF_K);
-  return 2 * (quote - 0.5);
+  // = 2 * (geglättete Quote - 0.5), als (2 * Punkte_A - n) / (n + K): ganzzahliger
+  // Zähler, eine Division -- bitgleich zu Python und exakt antisymmetrisch.
+  // Nötig für die Bäume des Boosting-Modells (s. features._kopf_an_kopf_vorteil).
+  const n = treffer.length;
+  return (2 * summe - n) / (n + KOPF_AN_KOPF_K);
 }
 
 export const KEINE_HISTORIE: PaarHistorie = { vorteilA: 0, duelle: 0, gestellt: 0 };

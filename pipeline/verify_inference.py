@@ -27,6 +27,7 @@ import numpy as np
 if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
     sys.stdout.reconfigure(encoding="utf-8")
 
+from .modell import TYP_GBM
 from .paritaet import json_inferenz_wie_app, python_live_merkmale
 from .schema import Schwinger
 
@@ -73,6 +74,18 @@ def main():
         )
 
         p_json = json_inferenz(model, x)
+
+        if model.get("typ") == TYP_GBM:
+            # Das sklearn-Modell selbst gibt es nach dem Lauf nicht mehr; die
+            # Gleichheit JSON == sklearn prüft export.pruefe_modell_export schon
+            # beim Export. Hier: normiert und paar-symmetrisch -- "B gegen A"
+            # muss "A gegen B" mit vertauschten Siegklassen ergeben.
+            x_ba = python_live_merkmale(model, b_dict, a_dict, rb, ra, 0.0, heute)
+            p_ba = json_inferenz(model, x_ba)
+            abw = max(abs(sum(p_json) - 1.0), *(abs(u - v) for u, v in zip(p_json, p_ba[::-1])))
+            max_abw = max(max_abw, abw)
+            print(f"{a.name} vs {b.name}: P={[round(v, 3) for v in p_json]} symmetrisch, abw={abw:.2e}")
+            continue
 
         # Referenz: sklearn-Logik direkt (coef·z + intercept -> softmax) ist
         # identisch zu predict_proba der Multinomial-LR.

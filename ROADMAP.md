@@ -14,12 +14,16 @@ besser wird.**
 Log-Loss Validierung 2025 **0.7627**, Test 2026 **0.7400**, Accuracy 68.7 %,
 Gestellt 20.6 % vorhergesagt / 21.1 % eingetreten.
 
+**Stand nach M1** (zweistufiges Boosting, 26.09.2026): Validierung **0.7400**,
+Test **0.7207**, Accuracy 69.0 %, Gestellt 20.5 % / 21.1 %.
+
 ## Übersicht und Reihenfolge
 
 | # | Vorhaben | Gemessener Nutzen | Aufwand | Priorität |
 |---|---|---|---|---|
-| M1 | Gradient Boosting statt Logistic Regression | Log-Loss −0.023 (Val) / −0.020 (Test) | 1–2 Tage | **1** |
-| T1 | Modellgüte je Lauf historisieren + Warnung | macht jede Änderung sichtbar | ½ Tag | **2** |
+| ✅ M1 | Gradient Boosting statt Logistic Regression | Log-Loss −0.023 (Val) / −0.019 (Test) — **erledigt** | 1–2 Tage | ~~1~~ |
+| ✅ T1 | Modellgüte je Lauf historisieren + Warnung | **erledigt**, Verlauf ab 21.07.2026 | ½ Tag | ~~2~~ |
+| M5 | Ausgeliefertes Modell auch auf der laufenden Saison trainieren | offen — heute lernt es nie aus der jüngsten Saison | ½ Tag | **2** |
 | F1 | Prognose-Check je Fest im Rückblick | Vertrauen; Daten liegen vor | ½–1 Tag | **2** |
 | D3 | Rohdaten wöchentlich sichern | Voraussetzung für D1/D2, Ausfallschutz | ½ Tag | **3** |
 | M2 | Jüngere Gänge stärker gewichten | LR nur 2025: 0.7378 statt 0.7398 | ½ Tag | 3 |
@@ -32,11 +36,39 @@ Gestellt 20.6 % vorhergesagt / 21.1 % eingetreten.
 | T2 | Frontend-Tests + Browser-Smoke-Test in der CI | Sicherheit | 1 Tag | 6 |
 | T3 | Altlasten: `diagnose_agenda` testen, `ml_ohne_elo` ohne `kranz_diff` | Sauberkeit | ½ Tag | 6 |
 
-Empfohlene Reihenfolge: **M1 mit T1** (die grösste Verbesserung, und T1 zeigt
-sie im Verlauf), dann **F1** (macht sie für Nutzer sichtbar), dann **D3** als
-Grundlage für D1/D2, M2 nebenbei in derselben Messung wie M1.
+Empfohlene Reihenfolge: ~~M1 mit T1~~ (erledigt), dann **M5** und **F1**
+(macht die Güte für Nutzer sichtbar), dann **D3** als Grundlage für D1/D2,
+M2 zusammen mit M5 messen (beide betreffen, welche Gänge wie stark zählen).
 
-## M1 — Gradient Boosting als Prognosemodell
+## ✅ M1 — Gradient Boosting als Prognosemodell (erledigt 26.09.2026)
+
+**Ergebnis.** Umgesetzt als **zweistufiges** Boosting (`pipeline/modell.py`):
+erst P(Gestellt), dann P(Sieg A | entschieden), je mit Monotonie-Vorgaben und
+gemittelt mit der gespiegelten Paarung (exakt symmetrisch).
+
+| | Validierung 2025 | Test 2026 | Fehlrichtungen* |
+|---|---:|---:|---:|
+| Logistic Regression | 0.7627 | 0.7400 | – |
+| Boosting, drei Klassen | 0.7388 | 0.7206 | 6.5 % / 8.2 % |
+| Boosting, drei Klassen, min. 200 je Blatt | 0.7396 | 0.7203 | 6.6 % / 11.1 % |
+| Zweistufig, Monotonie (Gestellt-Bilanz, -Neigung; Rating, Kopf-an-Kopf) | 0.7406 | 0.7213 | 0 % |
+| + Gestellt-Stufe min. 100 je Blatt | 0.7398 | 0.7211 | 0 % |
+| **+ Rating-Abstand monoton (fallend) → Produktion** | **0.7400** | **0.7207** | **0 %** |
+| Zweistufig, zusätzlich Form/Kranz/Erfahrung monoton | 0.7465 | 0.7262 | 0 % |
+| Zweistufig, Lernrate 0.05, 31 Blätter | 0.7414 | 0.7207 | 0 % |
+
+\* Anteil der Paare mit Vorgeschichte, bei denen eine höhere Gestellt-Bilanz
+die Gestellt-Chance um mehr als 1 Punkt **senkt** (Validierung / Test).
+Anlass war Orlik–Staudenmann (5 von 6 Duellen gestellt): das Drei-Klassen-
+Modell zeigte „Gestellt-Bilanz −8.7 %-Pkt.". Jetzt: 13 / 58 / 29 %,
+Gestellt-Bilanz +5.2, Niveau der Paarung +27.4 %-Pkt. Richtung Gestellt.
+
+Echter Lauf: Log-Loss 0.7207, Accuracy 69.0 %, Brier 0.416 (LR 0.426),
+Gestellt-Kalibrierung in allen zehn Stufen getroffen (oberstes Zehntel 51.7 %
+vorhergesagt / 51.7 % eingetreten). `model.json` 0.26 MB (gzip ~90 kB),
+Parität TypeScript ↔ Python bitgleich (Abweichung 1e-16).
+
+Ursprünglicher Befund und Plan:
 
 **Befund.** Mit **denselben 16 Merkmalen** erreicht ein Gradient-Boosting-
 Modell (`HistGradientBoostingClassifier`, 31 Blätter, Early Stopping) deutlich
@@ -90,14 +122,35 @@ Merkmal, d × Erfahrung, mehr Trainingshistorie. Daten vor 2023 würden nur das
 Elo-Aufwärmen verbessern, nicht das Training — erst angehen, wenn das nach M1
 noch nötig erscheint.
 
-## T1 — Modellgüte über die Zeit
+## ✅ T1 — Modellgüte über die Zeit (erledigt 26.09.2026)
 
-Heute überschreibt jeder Lauf `report.json`; ob das Modell über Wochen
-schlechter wird (neue Saison, Datenfehler), sieht niemand. Plan:
+Umgesetzt: `artifacts/report_verlauf.json` (je Tag und Modellstand, ab
+21.07.2026 aus der Git-Historie nachgetragen), Warnung im
+Datenqualitätsbericht, Verlauf auf der Analyse-Seite. Ein Modellwechsel am
+selben Tag behält den Punkt davor, damit der Sprung sichtbar bleibt.
+
+Ursprünglicher Plan: Heute überschreibt jeder Lauf `report.json`; ob das
+Modell über Wochen schlechter wird (neue Saison, Datenfehler), sieht niemand.
 `artifacts/report_verlauf.json` hängt je Lauf Datum, Log-Loss, Accuracy,
 Gestellt-Kalibrierung und Datenumfang an; der Lauf warnt im Job-Summary, wenn
 der Log-Loss gegenüber dem Median der letzten 14 Läufe um mehr als 0.01
 steigt. Die Analyse-Seite zeigt den Verlauf.
+
+## M5 — Ausgeliefertes Modell auch auf der laufenden Saison trainieren
+
+**Befund (beim Prüfen von M1).** `train.trainiere` fittet das Modell auf allem
+**vor** der Holdout-Saison und liefert genau dieses Modell aus. Die jüngste
+Saison (2026: 36'610 Gänge, ein Viertel der Daten) dient nur als Test — das
+ausgelieferte Modell lernt nie aus ihr. Die Merkmale (Elo, Form, Neigung)
+sind zwar aktuell, die Abbildung Merkmale → Wahrscheinlichkeit aber nicht.
+M2 zeigt, dass jüngere Gänge mehr zählen.
+
+**Plan.** Evaluation unverändert (Modell auf < Holdout, Kennzahlen auf der
+Holdout-Saison), danach **auf allen Daten neu fitten** und dieses Modell
+exportieren (gleiche Hyperparameter, Baumzahl neu zeitlich gewählt).
+Messen lässt sich der Nutzen rückwirkend: Test 2026 mit Training bis 2024
+gegen Training bis 2025 — das ist genau der Schritt „eine Saison mehr".
+Der Report muss sagen, dass die Kennzahlen vom Evaluationsmodell stammen.
 
 ## F1 — Prognose-Check je Fest
 

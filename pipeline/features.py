@@ -133,9 +133,16 @@ def _kopf_an_kopf_vorteil(a_id: str, b_id: str, historie: dict[tuple[str, str], 
     punkte = historie.get(key)
     if not punkte:
         return 0.0
-    quote_klein = (sum(punkte) + KOPF_AN_KOPF_K * 0.5) / (len(punkte) + KOPF_AN_KOPF_K)
-    quote_a = quote_klein if kanonisch_a_klein else (1.0 - quote_klein)
-    return 2.0 * (quote_a - 0.5)
+    n = len(punkte)
+    punkte_a = sum(punkte) if kanonisch_a_klein else n - sum(punkte)
+    # = 2 * (geglättete Quote - 0.5), umgeformt zu (2 * Punkte_A - n) / (n + K):
+    # der Zähler ist eine ganze Zahl (Punkte in Halben), gerundet wird nur die
+    # eine Division. Damit ist der Wert exakt antisymmetrisch (B-Sicht = -A-Sicht)
+    # und in TypeScript bitgleich (kopfAnKopf.ts). Die frühere Form über
+    # 1 - Quote wich im letzten Bit ab (-0.33333333333333337 gegen
+    # -0.33333333333333326) -- egal für die LR, aber ein Baum kann seine
+    # Schwelle genau dazwischen legen und dann anders entscheiden.
+    return (2.0 * punkte_a - n) / (n + KOPF_AN_KOPF_K)
 
 
 def _schwung_overlap(sa: Schwinger, sb: Schwinger) -> float:

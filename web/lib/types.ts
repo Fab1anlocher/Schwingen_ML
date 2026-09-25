@@ -2,15 +2,35 @@
 
 export type Klasse = "sieg_a" | "gestellt" | "sieg_b";
 
+/** Knoten eines exportierten Baums (pipeline/export.py _baum_json): innerer
+ *  Knoten [Merkmal, Schwelle, links, rechts] -- links, wenn x <= Schwelle --,
+ *  Blatt = sein Wert. */
+export type BaumKnoten = number | [number, number, number, number];
+
+/** Binäre Boosting-Stufe: Sigmoid(basis + Summe der Bäume). */
+export interface BoostingStufe {
+  basis: number;
+  baeume: BaumKnoten[][];
+}
+
 export interface ModelArtifact {
   schema_version: string;
+  /** "gradient_boosting_zweistufig" (seit 26.09.2026) oder "logistic_regression_multinomial". */
   typ: string;
   klassen: Klasse[];
   features: string[];
   feature_labels: Record<string, string>;
+  /** Mittel/Streuung der Trainingsmerkmale: LR rechnet standardisiert, beide
+   *  Typen nehmen das Mittel als neutralen Wert der Erklärbalken. */
   standardisierung: { mu: number[]; sigma: number[] };
-  coef: number[][]; // [n_klassen][n_features]
-  intercept: number[]; // [n_klassen]
+  /** Nur LR. */
+  coef?: number[][]; // [n_klassen][n_features]
+  intercept?: number[]; // [n_klassen]
+  /** Nur Gradient Boosting: Stufe "gestellt" = P(Gestellt), Stufe "sieg" =
+   *  P(Sieg A | entschieden); Spiegel-Vorzeichen je Merkmal (+1 symmetrisch,
+   *  -1 Differenz). S. pipeline/modell.py. */
+  stufen?: { gestellt: BoostingStufe; sieg: BoostingStufe };
+  spiegel?: number[];
   config: {
     min_gaenge_fuer_sicherheit: number;
     form_fenster_k: number;
@@ -119,7 +139,8 @@ export interface FeatureImportanceEntry {
   feature: string;
   label: string;
   wichtigkeit: number;
-  koeffizienten: Record<Klasse, number>;
+  /** Nur LR; beim Boosting null. */
+  koeffizienten: Record<Klasse, number> | null;
 }
 
 export interface KommendesFest {

@@ -178,10 +178,17 @@ def _zeilen(report: dict) -> list[str]:
     kal = report.get("gestellt_kalibrierung") or {}
     if kal.get("n"):
         abstand = abs(kal["vorhergesagt"] - kal["eingetreten"])
-        z += [f"**Gestellt-Kalibrierung** (Merkmalsversion {report.get('merkmal_version', 1)})", "",
+        z += [f"**Gestellt-Kalibrierung** (Modell {report.get('modell_typ', 'lr')}, "
+              f"Merkmalsversion {report.get('merkmal_version', 1)})", "",
               f"- vorhergesagt {kal['vorhergesagt']:.1%} / eingetreten {kal['eingetreten']:.1%} "
               f"({_ampel(abstand < 0.02, warn=0.02 <= abstand < 0.04)})",
               f"- ECE {kal['ece']:.2%}, AUC {kal.get('auc')}", ""]
+    # Verlauf (Roadmap T1): ist dieser Lauf deutlich schlechter als die letzten?
+    verlauf = report.get("modell_verlauf") or {}
+    if verlauf.get("n_laeufe"):
+        warnung = verlauf.get("warnung")
+        z += [f"**Modellgüte im Verlauf** ({verlauf['n_laeufe']} Tage): "
+              + (f"{_ampel(False)} {warnung}" if warnung else f"{_ampel(True)} kein Rückschritt"), ""]
     return z
 
 

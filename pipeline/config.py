@@ -48,6 +48,32 @@ ELO_DRAW_WIDTH = 0.30
 #      0.7771 -> 0.7757, Test 2026 0.7503 -> 0.7491.
 MERKMAL_VERSION = 3
 
+# --- Modelltyp (Roadmap M1, s. modell.py) ------------------------------
+# "gbm" = zweistufiges Gradient Boosting (P(Gestellt), dann P(Sieg A |
+# entschieden)), "lr" = Logistic Regression (bis 25.09.2026; bleibt als
+# Rückfall und im Benchmark). Gemessen mit denselben Merkmalen: Log-Loss
+# Validierung 2025 0.7627 -> 0.7400, Test 2026 0.7400 -> 0.7207.
+MODELL_TYP = "gbm"
+# Baumzahl je Stufe: bis zu GBM_MAX_BAEUME, gewählt auf den jüngsten
+# VALIDIERUNGSANTEIL der Trainingsdaten (zeitlich, nicht zufällig).
+GBM_MAX_BAEUME = 800
+GBM_LERNRATE = 0.1
+GBM_MAX_BLAETTER = 15
+# Mindestens so viele Trainingszeilen je Blatt. Die Gestellt-Stufe braucht
+# mehr (100 statt 40: Validierung 0.7406 -> 0.7398, Test 0.7213 -> 0.7211);
+# Lernrate 0.05 mit 31 Blättern war nicht besser (0.7414 / 0.7207).
+GBM_MIN_BLATT_GESTELLT = 100
+GBM_MIN_BLATT_SIEG = 40
+# Monotonie-Vorgaben je Stufe: +1 = steigt das Merkmal, darf die
+# Wahrscheinlichkeit nicht sinken; -1 = nicht steigen. Nur wo die Richtung
+# sachlich feststeht. Ohne sie senkte bei 6-15 % der Paare eine höhere
+# Gestellt-Bilanz oder ein kleinerer Rating-Abstand die Gestellt-Chance
+# (Erklärbalken dann unsinnig); mit ihnen 0 %, Log-Loss gleich (+-0.0004).
+# Mehr Vorgaben (Form, Kranz, Erfahrung) kosteten 0.005-0.007.
+MONOTON_GESTELLT = {"paar_gestellt": 1, "gestellt_neigung": 1, "rating_abstand": -1}
+MONOTON_SIEG = {"rating_diff": 1, "kopf_an_kopf": 1}
+VALIDIERUNGSANTEIL = 0.15
+
 # Gestellt-Bilanz eines Paars: Anteil gestellter Duelle, geschrumpft gegen die
 # Erwartung aus den beiden Einzelneigungen mit so vielen "Phantom-Duellen".
 # K = 2, 4, 8, 16 lagen auf Validierung und Test gleichauf (+-0.0001); 4 heisst:

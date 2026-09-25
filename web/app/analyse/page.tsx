@@ -1,13 +1,14 @@
 "use client";
 
-// Seite "Analyse": Modellgüte gegen die Elo-Baseline, 4-Wege-Benchmark,
+// Seite "Analyse": Modellgüte gegen die Elo-Baseline und im Verlauf, Benchmark,
 // Konfusionsmatrix, Gestellt-Kalibrierung (report.json, benchmark.json),
 // Merkmalswichtigkeit (feature_importance.json) sowie Physis/Schwünge gegen
 // Elo (schwinger.json + ratings.json). Alle Zahlen stammen aus dem letzten
 // Pipeline-Lauf; hier wird nichts neu geschätzt.
 
 import { useEffect, useMemo, useState } from "react";
-import { ladeFeatureImportance, ladeBenchmark, ladeSchwinger, ladeRatings } from "@/lib/data";
+import { ladeFeatureImportance, ladeBenchmark, ladeSchwinger, ladeRatings, ladeVerlauf } from "@/lib/data";
+import { VerlaufDiagramm, modellStand, type VerlaufLauf } from "@/components/VerlaufDiagramm";
 import type { FeatureImportanceEntry, BenchmarkArtifact, Schwinger, RatingsArtifact } from "@/lib/types";
 import {
   GestelltKalibrierung,
@@ -18,7 +19,7 @@ import {
 } from "@/components/ModellGuete";
 import { StreudiagrammMitTrend } from "@/components/StreudiagrammMitTrend";
 import { SchwungVergleich, type SchwungStat } from "@/components/SchwungVergleich";
-import { schwungName, zahl } from "@/lib/labels";
+import { datumKurz, schwungName, zahl } from "@/lib/labels";
 
 const MIN_SCHWINGER_PRO_SCHWUNG = 15;
 // Ab so vielen Gängen gilt ein Elo als Messung (wie model.json
@@ -42,6 +43,10 @@ interface Report {
     gesamt_erfuellt: boolean;
   };
   datenbasis: { n_gaenge: number; n_schwinger: number };
+  /** "gbm" (zweistufiges Gradient Boosting) oder "lr"; ältere Reports ohne Angabe = LR. */
+  modell_typ?: string;
+  /** Bäume je Stufe (nur Boosting). */
+  n_baeume?: { gestellt: number; sieg: number } | null;
   klassen?: string[];
   konfusionsmatrix?: number[][] | null;
   /** Ab Merkmalsversion 2 (P3); ältere Reports haben den Block nicht. */
@@ -58,6 +63,8 @@ const FOKUS = new Set([
 
 export default function Analyse() {
   const [fi, setFi] = useState<FeatureImportanceEntry[]>([]);
+  const [fiArt, setFiArt] = useState<"koeffizient" | "permutation">("koeffizient");
+  const [verlauf, setVerlauf] = useState<VerlaufLauf[]>([]);
   const [report, setReport] = useState<Report | null>(null);
   const [benchmark, setBenchmark] = useState<BenchmarkArtifact | null>(null);
   const [schwinger, setSchwinger] = useState<Schwinger[]>([]);
@@ -65,7 +72,13 @@ export default function Analyse() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    ladeFeatureImportance().then(setFi).catch((e) => setError(String(e)));
+    ladeFeatureImportance()
+      .then(({ art, features }) => {
+        setFi(features);
+        setFiArt(art);
+      })
+      .catch((e) => setError(String(e)));
+    ladeVerlauf().then(setVerlauf);
     fetch("/data/report.json", { cache: "no-store" })
       .then((r) => r.json())
       .then(setReport)
@@ -139,6 +152,7 @@ export default function Analyse() {
 
   if (error) return <p className="warn">Fehler: {error}</p>;
   const max = Math.max(...fi.map((f) => f.wichtigkeit), 1e-6);
+  const modellName = report?.modell_typ === "gbm" ? "Gradient Boosting" : "Logistic Regression";
 
   return (
     <div>
@@ -154,7 +168,7 @@ export default function Analyse() {
             <thead>
               <tr>
                 <th>Metrik</th>
-                <th>Modell (Logistic Regression)</th>
+                <th>Modell ({modellName})</th>
                 <th>Baseline (Elo)</th>
               </tr>
             </thead>
@@ -176,6 +190,7 @@ export default function Analyse() {
             </tbody>
           </table>
           <VergleichBalken
+            modellName={modellName}
             metriken={[
               {
                 key: "log_loss",
@@ -225,17 +240,75 @@ export default function Analyse() {
 
       {benchmark && (
         <>
-          <h2>4-Wege-Benchmark (Holdout {benchmark.holdout_jahr})</h2>
+          <h2>Benchmark (Holdout {benchmark.holdout_jahr})</h2>
           <div className="panel">
             <p className="muted small" style={{ marginTop: 0, marginBottom: "1rem" }}>
-              Vier unabhängige Ansätze, ausgewertet auf denselben {zahl(benchmark.n_test)} echten
+              Unabhängige Ansätze, ausgewertet auf denselben {zahl(benchmark.n_test)} echten
               Gängen der jüngsten Saison (keine gespiegelten Trainings-Duplikate): eine reine
               Kranz-Heuristik ohne Statistik, das klassische Elo-Rating, ein ML-Modell{" "}
-              <em>ohne</em> Elo/Historie (nur Physis, Stil, Verband) und das komplette
-              Produktionsmodell. Beantwortet die Frage, ob Elo wirklich einen Mehrwert bringt —
-              und ob unser Modell besser ist als reines Elo-Ranking.
+              <em>ohne</em> Elo/Historie (nur Physis, Stil, Verband), die lineare Logistic
+              Regression mit allen Merkmalen (das Modell bis 25.09.2026) und das
+              Produktionsmodell. Beantwortet, ob Elo einen Mehrwert bringt, ob das Modell
+              besser ist als reines Elo-Ranking — und was der Wechsel auf Gradient Boosting
+              gebracht hat.
             </p>
             <VierWegeBenchmark kandidaten={benchmark.kandidaten} />
+          </div>
+        </>
+      )}
+
+      {verlauf.length >= 2 && (
+        <>
+          <h2>Modellgüte im Verlauf</h2>
+          <div className="panel">
+            <p className="muted small" style={{ marginTop: 0 }}>
+              Ein Punkt je Tag mit Pipeline-Lauf, gemessen auf der jeweils jüngsten Saison, die
+              das Modell nicht gesehen hat. Gestrichelt: Wechsel des Modells oder der Merkmale
+              (wechselt es an einem Tag, stehen dort beide Punkte übereinander).
+              Steigt der Log-Loss ohne solchen Wechsel deutlich, schlägt der tägliche Lauf Alarm
+              (Datenqualitätsbericht).
+            </p>
+            <div className="grid-2">
+              <VerlaufDiagramm
+                laeufe={verlauf}
+                titel="Log-Loss (tiefer = besser)"
+                wert={(l) => l.log_loss}
+                format={(v) => v.toFixed(3)}
+              />
+              <VerlaufDiagramm
+                laeufe={verlauf}
+                titel="Accuracy (höher = besser)"
+                wert={(l) => l.accuracy}
+                format={(v) => `${(v * 100).toFixed(1)}%`}
+              />
+            </div>
+            <details style={{ marginTop: "0.6rem" }}>
+              <summary className="muted small">Als Tabelle</summary>
+              <div className="tabelle-wrap">
+                <table style={{ minWidth: 420 }}>
+                  <thead>
+                    <tr>
+                      <th>Datum</th>
+                      <th>Modell</th>
+                      <th>Log-Loss</th>
+                      <th>Accuracy</th>
+                      <th>Gänge</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[...verlauf].reverse().map((l, i) => (
+                      <tr key={`${l.datum}-${i}`}>
+                        <td>{datumKurz(l.datum)}</td>
+                        <td className="muted small">{modellStand(l)}</td>
+                        <td>{l.log_loss.toFixed(4)}</td>
+                        <td>{(l.accuracy * 100).toFixed(1)}%</td>
+                        <td className="muted">{l.n_gaenge ? zahl(l.n_gaenge) : "—"}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </details>
           </div>
         </>
       )}
@@ -299,8 +372,10 @@ export default function Analyse() {
         </table>
       </div>
       <p className="muted small" style={{ marginTop: "0.75rem" }}>
-        Wichtigkeit = mittlerer Betrag der standardisierten Koeffizienten über die drei
-        Klassen. „Fokus" markiert Merkmale, deren Beitrag die Spezifikation explizit prüfen
+        {fiArt === "permutation"
+          ? "Wichtigkeit = um so viel steigt der Log-Loss auf den Testgängen, wenn dieses Merkmal zufällig vertauscht wird (Permutation) — also wie viel schlechter das Modell ohne das Merkmal wäre."
+          : "Wichtigkeit = mittlerer Betrag der standardisierten Koeffizienten über die drei Klassen."}{" "}
+        „Fokus" markiert Merkmale, deren Beitrag die Spezifikation explizit prüfen
         will (Gewicht, Grösse, bevorzugte Schwünge — vgl. AK-4.2). Klein heisst hier nicht
         bedeutungslos: Physis und Stil sind nur für Schwinger mit Porträt erfasst, und ein Teil
         ihrer Wirkung steckt schon im Elo-Rating.
