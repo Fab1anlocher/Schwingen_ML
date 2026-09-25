@@ -6,8 +6,9 @@
 //
 // Geprüft wird dreierlei, bewusst getrennt, damit ein Fehler dort gemeldet
 // wird, wo er entsteht:
-//   1. Kopf-an-Kopf-Vorteil inkl. Richtungsumkehr (kopfAnKopf.ts)
-//   2. Merkmalsvektor, mit PYTHONS Kopf-an-Kopf als Eingabe (baueFeatures)
+//   1. Paar-Historie: Kopf-an-Kopf-Vorteil inkl. Richtungsumkehr, Anzahl
+//      Duelle und davon gestellte (kopfAnKopf.ts)
+//   2. Merkmalsvektor, mit PYTHONS Paar-Historie als Eingabe (baueFeatures)
 //   3. Wahrscheinlichkeiten Ende-zu-Ende, genau wie die App sie berechnet
 
 const fs = require("fs");
@@ -15,10 +16,10 @@ const path = require("path");
 
 const BUILD = path.resolve(__dirname, "../.paritaet");
 const { baueFeatures, prognostiziere } = require(path.join(BUILD, "inference.js"));
-const { kopfAnKopfVorteilA, trefferAusSichtVonA } = require(path.join(BUILD, "kopfAnKopf.js"));
+const { paarHistorie, trefferAusSichtVonA } = require(path.join(BUILD, "kopfAnKopf.js"));
 
 const datei = process.argv[2] || path.join(BUILD, "faelle.json");
-const { model, model_v1: modelV1, jahr, faelle } = JSON.parse(fs.readFileSync(datei, "utf8"));
+const { model, modelle_alt: modelleAlt = {}, jahr, faelle } = JSON.parse(fs.readFileSync(datei, "utf8"));
 
 // Relativ, weil Python und V8 bei exp/log1p im letzten Bit abweichen dürfen.
 const TOL = 1e-9;
@@ -38,19 +39,24 @@ for (const f of faelle) {
   g.n++;
   const kennung = `${f.gruppe}: ${f.a.id} vs ${f.b.id}`;
   const vorher = fehler.length;
-  // Gruppe "modell-v1": dieselbe App gegen ein model.json älterer Version --
-  // sie muss dann nach DESSEN Merkmalsdefinition rechnen.
-  const m = f.modell === "v1" ? modelV1 : model;
+  // Gruppen "modell-v1", "modell-v2": dieselbe App gegen ein model.json
+  // älterer Version -- sie muss dann nach DESSEN Merkmalsdefinition rechnen.
+  const m = f.modell ? modelleAlt[f.modell] : model;
 
-  // 1. Kopf-an-Kopf
-  const h2hTs = kopfAnKopfVorteilA(trefferAusSichtVonA(f.treffer_kanonisch, f.a.id, f.b.id));
-  if (!gleich(h2hTs, f.erwartet.h2h)) {
-    fehler.push(`${kennung} | Kopf-an-Kopf TS ${h2hTs} ≠ Python ${f.erwartet.h2h}`);
+  // 1. Paar-Historie
+  const paarTs = paarHistorie(trefferAusSichtVonA(f.treffer_kanonisch, f.a.id, f.b.id));
+  if (!gleich(paarTs.vorteilA, f.erwartet.h2h)) {
+    fehler.push(`${kennung} | Kopf-an-Kopf TS ${paarTs.vorteilA} ≠ Python ${f.erwartet.h2h}`);
+  }
+  if (paarTs.duelle !== f.erwartet.duelle || paarTs.gestellt !== f.erwartet.duelle_gestellt) {
+    fehler.push(`${kennung} | Duelle TS ${paarTs.gestellt}/${paarTs.duelle} gestellt ≠ ` +
+      `Python ${f.erwartet.duelle_gestellt}/${f.erwartet.duelle}`);
   }
 
   // 2. Merkmalsvektor, isoliert
   const x = baueFeatures(m, f.a, f.b, f.rating_a.elo, f.rating_b.elo,
-    f.rating_a.n_gaenge, f.rating_b.n_gaenge, f.erwartet.h2h);
+    f.rating_a.n_gaenge, f.rating_b.n_gaenge,
+    { vorteilA: f.erwartet.h2h, duelle: f.erwartet.duelle, gestellt: f.erwartet.duelle_gestellt });
   if (x.length !== f.erwartet.merkmale.length) {
     fehler.push(`${kennung} | ${x.length} Merkmale in TS, ${f.erwartet.merkmale.length} in Python ` +
       `— ein Merkmal fehlt auf einer Seite`);
@@ -67,7 +73,7 @@ for (const f of faelle) {
 
   // 3. Wahrscheinlichkeiten Ende-zu-Ende
   const prognose = prognostiziere(m, f.a, f.b, f.rating_a.elo, f.rating_b.elo,
-    f.rating_a.n_gaenge, f.rating_b.n_gaenge, h2hTs);
+    f.rating_a.n_gaenge, f.rating_b.n_gaenge, paarTs);
   const p = prognose.p;
   m.klassen.forEach((kl, k) => {
     const d = Math.abs(p[kl] - f.erwartet.wahrscheinlichkeiten[k]);
@@ -83,7 +89,8 @@ for (const f of faelle) {
     if (!Number.isFinite(b.staerke) || !Number.isFinite(b.veraenderung)) {
       fehler.push(`${kennung} | Beitrag „${b.titel}“ nicht endlich`);
     }
-    if (["Ausgeglichenheit", "Teilverband", "Ähnlicher Stil", "Gestellt-Neigung"].includes(b.titel) &&
+    if (["Ausgeglichenheit", "Teilverband", "Ähnlicher Stil", "Gestellt-Neigung", "Gestellt-Bilanz",
+         "Niveau der Paarung"].includes(b.titel) &&
         b.richtung !== "gestellt") {
       fehler.push(`${kennung} | „${b.titel}“ bevorzugt niemanden, steht aber bei ${b.richtung}`);
     }

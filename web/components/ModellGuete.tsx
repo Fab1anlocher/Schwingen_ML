@@ -246,7 +246,7 @@ const KPAD = { links: 44, rechts: 14, oben: 12, unten: 34 };
 /** Kalibrierung der Gestellt-Klasse: Testgänge nach vorhergesagter
  *  P(Gestellt) in gleich grosse Stufen geteilt; je Stufe vorhergesagt gegen
  *  tatsächlich eingetreten. Auf der Diagonalen = so oft gestellt wie
- *  vorhergesagt. "Gestellt" ist fast nie die wahrscheinlichste Klasse --
+ *  vorhergesagt. "Gestellt" ist nur selten die wahrscheinlichste Klasse --
  *  Accuracy und Konfusionsmatrix sehen darum nicht, ob diese Zahl stimmt. */
 export function GestelltKalibrierung({ daten }: { daten: GestelltKalibrierungDaten }) {
   const [hover, setHover] = useState<number | null>(null);

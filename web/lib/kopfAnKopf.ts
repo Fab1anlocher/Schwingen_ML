@@ -2,7 +2,7 @@
 // pipeline/features.py::_kopf_an_kopf_vorteil exakt (gleiches K, gleiche
 // Formel) — muss synchron bleiben, sonst weicht Live-Prognose vom Modell ab.
 
-import type { Klasse } from "./types";
+import type { Klasse, PaarHistorie } from "./types";
 
 export interface H2HTreffer {
   event_id: string;
@@ -46,4 +46,15 @@ export function kopfAnKopfVorteilA(treffer: H2HTreffer[]): number {
   );
   const quote = (summe + KOPF_AN_KOPF_K * 0.5) / (treffer.length + KOPF_AN_KOPF_K);
   return 2 * (quote - 0.5);
+}
+
+export const KEINE_HISTORIE: PaarHistorie = { vorteilA: 0, duelle: 0, gestellt: 0 };
+
+/** Alles, was die Prognose aus den direkten Duellen braucht -- Treffer aus Sicht von A. */
+export function paarHistorie(treffer: H2HTreffer[]): PaarHistorie {
+  return {
+    vorteilA: kopfAnKopfVorteilA(treffer),
+    duelle: treffer.length,
+    gestellt: treffer.filter((t) => t.ergebnis === "gestellt").length,
+  };
 }

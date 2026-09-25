@@ -289,8 +289,8 @@ auf.
   ausgelieferte Modell kennt. Ändert sich die **Definition** eines Merkmals,
   steigt `MERKMAL_VERSION` (`config.py`): sie steht in `model.json`, und App
   wie Python rechnen ein älteres ausgeliefertes Modell mit **dessen**
-  Definition weiter. Die Paritätsprüfung testet beide Fälle (Gruppe
-  `modell-v1`).
+  Definition weiter. Die Paritätsprüfung testet das für jede ältere Version
+  (Gruppen `modell-v1`, `modell-v2`).
 
 ### Merkmalsversion 2: Stand vor dem Fest, Gestellt-Neigung
 
@@ -330,11 +330,42 @@ Regularisierung (C = 0.1 … 10 ohne Unterschied). `report.json` →
 `gestellt_kalibrierung` misst jetzt eigens, ob P(Gestellt) stimmt; die
 Analyse-Seite zeigt die Kalibrierungskurve.
 
+### Merkmalsversion 3: Spitzenpaarungen und Gestellt-Bilanz des Paars
+
+Anlass: Orlik gegen Staudenmann bekam 17 / 18 / 65 %, obwohl die beiden fünf
+ihrer sechs Duelle gestellt haben. Die Nachmessung zeigte, dass das kein
+Einzelfall war. Version 2 unterschätzte Gestellt genau bei den Paarungen, auf
+die man schaut:
+
+| Test 2026 — P(Gestellt) vorhergesagt / eingetreten | Version 2 | Version 3 |
+|---|---:|---:|
+| oberstes 1 % nach Stärke des Paars (306 Gänge) | 18.2 % / 29.7 % | **29.6 %** / 29.7 % |
+| ≥ 2 frühere Duelle, davon ≥ die Hälfte gestellt (972) | 32.5 % / 42.1 % | **40.1 %** / 42.1 % |
+| alle Testgänge | 20.5 % / 21.1 % | 20.6 % / 21.1 % |
+
+Log-Loss Test 0.7503 → **0.7491** (Validierung 2025: 0.7771 → **0.7757**),
+Accuracy 68.2 % → **68.5 %**, AUC Gestellt 0.736 → **0.738**.
+
+* **Spitzen-Niveau** (`spitzen_niveau`): wie stark der *schwächere* der beiden
+  ist, in Streuungen über dem Startwert, unten bei 0 abgeschnitten. Hoch nur,
+  wenn beide stark sind. Spitzenschwinger schlagen das Feld und haben darum
+  eine tiefe Gestellt-Neigung (Staudenmann 17 %). Treffen zwei aufeinander,
+  wird aber viel öfter gestellt: 34 % ab 1 Streuung, 45–61 % ab 4. Version 2
+  sagte mit steigendem Niveau sogar *weniger* Gestellte voraus.
+* **Gestellt-Bilanz des Paars** (`paar_gestellt`): Anteil gestellter
+  bisheriger Duelle, gegen die Erwartung aus beiden Einzelneigungen
+  geschrumpft (4 „Phantom-Duelle", K = 2 … 16 gleichauf), minus diese
+  Erwartung; ohne Duelle 0. Das bestehende Merkmal `kopf_an_kopf` zählt
+  Gestellte als halben Sieg, also fast als „kein Signal".
+
+Orlik gegen Staudenmann steht damit bei 11 / 54 / 36 %.
+
 ### Erklärbalken: wem ein Merkmal nützt
 
 Ein Balken zeigt, um wie viele Prozentpunkte die Siegchance des genannten
 Schwingers durch dieses Merkmal höher ist. **Symmetrische** Merkmale —
-Ausgeglichenheit, gleicher Verband, ähnlicher Stil, Gestellt-Neigung — bleiben
+Ausgeglichenheit, gleicher Verband, ähnlicher Stil, Gestellt-Neigung,
+Gestellt-Bilanz des Paars, Niveau der Paarung — bleiben
 beim Tausch von A und B gleich; das Modell hat für sie bei „Sieg A" und
 „Sieg B" dasselbe Gewicht. Sie verschieben nur zwischen „einer gewinnt" und
 „Gestellt" und erscheinen darum neutral als **„Gestellt ± X %-Pkt."**.

@@ -8,7 +8,7 @@ import { PrognoseView } from "@/components/PrognoseView";
 import { kranzstatusVon, verbandText } from "@/lib/teilverband";
 import { SchwingerSuche } from "@/components/SchwingerSuche";
 import { KopfAnKopf } from "@/components/KopfAnKopf";
-import { ladeKopfAnKopf, kopfAnKopfVorteilA, type H2HTreffer } from "@/lib/kopfAnKopf";
+import { ladeKopfAnKopf, paarHistorie, KEINE_HISTORIE, type H2HTreffer } from "@/lib/kopfAnKopf";
 
 export default function Home() {
   const [model, setModel] = useState<ModelArtifact | null>(null);
@@ -81,8 +81,8 @@ export default function Home() {
     };
   }, [aId, bId]);
 
-  const h2hVorteilA = useMemo(
-    () => (h2hTreffer ? kopfAnKopfVorteilA(h2hTreffer) : 0),
+  const paar = useMemo(
+    () => (h2hTreffer ? paarHistorie(h2hTreffer) : KEINE_HISTORIE),
     [h2hTreffer]
   );
 
@@ -104,8 +104,8 @@ export default function Home() {
   const prognose: Prognose | null = useMemo(() => {
     if (!model || !eingaben) return null;
     const { a, b, eloA, eloB, nA, nB } = eingaben;
-    return prognostiziere(model, a, b, eloA, eloB, nA, nB, h2hVorteilA);
-  }, [model, eingaben, h2hVorteilA]);
+    return prognostiziere(model, a, b, eloA, eloB, nA, nB, paar);
+  }, [model, eingaben, paar]);
 
   if (error) return <p className="warn">Fehler beim Laden: {error}</p>;
   if (!model) return <p className="loading">Modell wird geladen …</p>;

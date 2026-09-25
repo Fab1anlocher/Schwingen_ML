@@ -250,7 +250,7 @@ export default function Analyse() {
           <h2>Stimmt die Gestellt-Chance? (Holdout {report.holdout_jahr})</h2>
           <div className="panel">
             <p className="muted small" style={{ marginTop: 0 }}>
-              „Gestellt“ ist fast nie der wahrscheinlichste Ausgang — Accuracy und
+              „Gestellt“ ist nur selten der wahrscheinlichste Ausgang — Accuracy und
               Konfusionsmatrix sehen darum kaum, ob die angezeigte Gestellt-Chance stimmt. Hier
               sind die {report.gestellt_kalibrierung.n} Testgänge nach vorhergesagter
               Gestellt-Chance in zehn gleich grosse Stufen geteilt. Liegen die Punkte auf der

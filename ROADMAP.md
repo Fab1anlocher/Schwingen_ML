@@ -77,7 +77,10 @@ Streuung, Einschwingphase. Test 2026, gleiche 36'485 Gänge:
 | Recall Gestellt (als wahrscheinlichste Klasse) | 4.5 % | 20.7 % |
 | nur Porträt-gegen-Porträt: Accuracy (Elo 58.0 %) | 57.7 % | **61.6 %** |
 
-Validierung 2025 durchgehend gleichsinnig (0.8537 → 0.7771). Verworfen, weil
+Validierung 2025 durchgehend gleichsinnig (0.8537 → 0.7771). Nachgezogen als
+Merkmalsversion 3: Spitzen-Niveau und Gestellt-Bilanz des Paars. Spitzen-
+paarungen bekamen vorher 18 % Gestellt bei 30 % eingetreten, jetzt 29.6 %;
+Test-Log-Loss 0.7503 → 0.7491 (README, Abschnitt Merkmalsversion 3). Verworfen, weil
 gemessen schlechter: `class_weight="balanced"` (P(Gestellt) 30 % statt 21 %,
 Log-Loss +0.024), Regularisierung (ohne Effekt), 2023 hart ausschliessen
 (schwächer als die Einschwingphase).

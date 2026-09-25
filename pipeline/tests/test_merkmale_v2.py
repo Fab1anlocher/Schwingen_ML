@@ -165,7 +165,7 @@ def test_modell_ohne_versionsangabe_rechnet_nach_version_1():
 
 def test_version_2_skaliert_mit_der_streuung_und_logarithmiert():
     x = _live(_V2, neigung_a=0.3, neigung_b=0.2)
-    assert len(x) == len(FEATURE_NAMES)
+    assert len(x) == 14  # ein v2-Modell kennt die Merkmale ab Version 3 nicht
     assert x[_I["rating_diff"]] == 250 / 125.0
     assert math.isclose(x[_I["erfahrung_diff"]], math.log1p(100) - math.log1p(9))
     assert math.isclose(x[_I["gestellt_neigung"]], 0.05)

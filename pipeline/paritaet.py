@@ -33,7 +33,7 @@ import random
 from datetime import date
 from pathlib import Path
 
-from .features import feature_vektor_fuer_prognose, _kopf_an_kopf_vorteil
+from .features import MERKMALE_JE_VERSION, feature_vektor_fuer_prognose, _kopf_an_kopf_vorteil
 from .schema import Schwinger, hat_portraet
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -73,14 +73,15 @@ def json_inferenz_wie_app(model: dict, x: list[float]) -> list[float]:
 
 
 def python_live_merkmale(
-    model: dict, a: dict, b: dict, ra: dict, rb: dict, h2h: float, datum: str
+    model: dict, a: dict, b: dict, ra: dict, rb: dict, h2h: float, datum: str,
+    duelle: int = 0, duelle_gestellt: int = 0,
 ) -> list[float]:
     """Der Merkmalsvektor mit genau den Eingaben, die die App verwendet.
 
     Elo und Gänge aus ratings.json, Form, Attribute und Gestellt-Neigung aus
-    schwinger.json, Kopf-an-Kopf aus der API, Merkmalsversion/Skala/Basis aus
-    model.json. Muss mit baueFeatures() in inference.ts übereinstimmen -- das
-    prüft npm run paritaet.
+    schwinger.json, Kopf-an-Kopf und Paar-Bilanz aus der API, Merkmals-
+    version/Skala/Basis aus model.json. Muss mit baueFeatures() in
+    inference.ts übereinstimmen -- das prüft npm run paritaet.
     """
     return feature_vektor_fuer_prognose(
         ra["elo"], rb["elo"], a["form"], b["form"], ra["n_gaenge"], rb["n_gaenge"],
@@ -88,29 +89,38 @@ def python_live_merkmale(
         modell_config=model.get("config"),
         neigung_a=a.get("gestellt_neigung"),
         neigung_b=b.get("gestellt_neigung"),
+        duelle=duelle, duelle_gestellt=duelle_gestellt,
     )
 
 
 # Was Version 1 NICHT kannte -- für das Ableiten eines v1-Modells (s. unten).
 _NUR_AB_V2 = ("merkmal_version", "elo_streuung", "gestellt_basis")
-_V1_MERKMALE = 13
 
 
-def als_v1_modell(model: dict) -> dict:
-    """Dasselbe Modell in der Form, die ein Lauf vor Merkmalsversion 2 schrieb.
+def modell_version(model: dict) -> int:
+    return int(model.get("config", {}).get("merkmal_version", 1))
 
-    Kein trainiertes Modell, nur die Gestalt: 13 Merkmale, keine Versionsangabe.
-    Damit prüft die Parität auch den Fall, dass die App ein ÄLTERES model.json
-    bekommt als ihr Code (Übergang, oder ein Lauf ist fehlgeschlagen) -- dann
-    muss sie nach Version 1 rechnen, nicht nach der eigenen.
+
+def als_modell_version(model: dict, version: int) -> dict:
+    """Dasselbe Modell in der Gestalt, die ein Lauf mit ``version`` schrieb.
+
+    Kein trainiertes Modell, nur die Gestalt: die ersten N Merkmale und die
+    Versionsangabe (Version 1 hatte keine). Damit prüft die Parität auch den
+    Fall, dass die App ein ÄLTERES model.json bekommt als ihr Code (Übergang,
+    oder ein Lauf ist fehlgeschlagen) -- dann muss sie nach DESSEN Version
+    rechnen, nicht nach der eigenen.
     """
-    n = _V1_MERKMALE
+    n = MERKMALE_JE_VERSION[version]
+    if version == 1:
+        cfg = {k: v for k, v in model["config"].items() if k not in _NUR_AB_V2}
+    else:
+        cfg = {**model["config"], "merkmal_version": version}
     return {
         **model,
         "features": model["features"][:n],
         "standardisierung": {k: v[:n] for k, v in model["standardisierung"].items()},
         "coef": [zeile[:n] for zeile in model["coef"]],
-        "config": {k: v for k, v in model["config"].items() if k not in _NUR_AB_V2},
+        "config": cfg,
     }
 
 
@@ -175,32 +185,41 @@ def erzeuge_faelle(artefakte: Path = ART, n_je_gruppe: int = 40, seed: int = 7) 
             b = {**b, "gestellt_neigung": None}
         paare.append(("ohne-neigung", a, b))
 
-    ist_v2 = int(model.get("config", {}).get("merkmal_version", 1)) >= 2
-    modell_v1 = als_v1_modell(model) if ist_v2 else None
+    # Ältere Gestalten des ausgelieferten Modells (Übergang: neuer Code,
+    # älteres model.json). Paare mit Historie, damit auch Kopf-an-Kopf und
+    # Paar-Bilanz dort geprüft werden, wo eine Version sie (noch) nicht kennt.
+    modelle_alt = {f"v{v}": als_modell_version(model, v) for v in range(1, modell_version(model))}
+    for name in modelle_alt:
+        for i in range(n_je_gruppe):
+            if i % 2 == 0 and mit_historie:
+                ia, ib = map(int, rng.choice(mit_historie).split("_"))
+                a, b = schwinger.get(wid[ia]), schwinger.get(wid[ib])
+                if a is not None and b is not None:
+                    paare.append((f"modell-{name}", a, b))
+                    continue
+            paare.append((f"modell-{name}", rng.choice(alle), rng.choice(alle)))
 
     datum = date.today().isoformat()  # die App rechnet das Alter mit dem aktuellen Jahr
-    # Ist das ausgelieferte Modell schon Version 2, laufen zusätzlich Paare
-    # gegen seine v1-Gestalt (Übergang: neuer Code, älteres model.json).
-    if modell_v1 is not None:
-        for _ in range(n_je_gruppe):
-            paare.append(("modell-v1", rng.choice(alle), rng.choice(alle)))
-
     faelle = []
     for gruppe, a, b in paare:
         if a["id"] == b["id"]:
             continue
-        m = modell_v1 if gruppe == "modell-v1" else model
+        alt = gruppe.removeprefix("modell-") if gruppe.startswith("modell-") else None
+        m = modelle_alt[alt] if alt else model
         ra, rb = _rating(ratings, elo_start, a["id"]), _rating(ratings, elo_start, b["id"])
         treffer = _treffer_kanonisch(kk, eid_von, a["id"], b["id"])
         h2h = _h2h_python(a["id"], b["id"], treffer)
-        x = python_live_merkmale(m, a, b, ra, rb, h2h, datum)
+        duelle = len(treffer)
+        gestellt = sum(1 for t in treffer if t["ergebnis"] == "gestellt")
+        x = python_live_merkmale(m, a, b, ra, rb, h2h, datum, duelle, gestellt)
         faelle.append({
             "gruppe": gruppe, "a": a, "b": b, "rating_a": ra, "rating_b": rb,
             "treffer_kanonisch": treffer,
-            **({"modell": "v1"} if m is modell_v1 else {}),
-            "erwartet": {"h2h": h2h, "merkmale": x, "wahrscheinlichkeiten": json_inferenz_wie_app(m, x)},
+            **({"modell": alt} if alt else {}),
+            "erwartet": {"h2h": h2h, "duelle": duelle, "duelle_gestellt": gestellt,
+                         "merkmale": x, "wahrscheinlichkeiten": json_inferenz_wie_app(m, x)},
         })
-    return {"model": model, "model_v1": modell_v1, "jahr": date.today().year, "faelle": faelle}
+    return {"model": model, "modelle_alt": modelle_alt, "jahr": date.today().year, "faelle": faelle}
 
 
 def main(argv: list[str] | None = None) -> int:

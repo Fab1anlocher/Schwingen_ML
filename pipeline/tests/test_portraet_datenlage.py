@@ -45,7 +45,8 @@ def test_portraet_diff_bleibt_an_seiner_position():
     sonst verrutschen die Koeffizienten eines älteren ausgelieferten Modells.
     portraet_diff war das 13. Merkmal (Version 1) und bleibt es."""
     assert FEATURE_NAMES[12] == "portraet_diff"
-    assert FEATURE_NAMES[-1] == "gestellt_neigung"
+    assert FEATURE_NAMES[13] == "gestellt_neigung"  # Version 2
+    assert FEATURE_NAMES[14:] == ["paar_gestellt", "spitzen_niveau"]  # Version 3
 
 
 def test_portraet_diff_werte_je_konstellation():

@@ -11,7 +11,7 @@ from __future__ import annotations
 import json
 import math
 
-from pipeline.features import FEATURE_NAMES
+from pipeline.features import FEATURE_NAMES, MERKMALE_JE_VERSION, paar_gestellt
 from pipeline.paritaet import _h2h_python, erzeuge_faelle, json_inferenz_wie_app
 
 
@@ -69,7 +69,7 @@ def _artefakte(tmp_path):
         "index": {sid: i for i, sid in enumerate(ids)}, "event_index": {"e1": 0, "e2": 1},
         "paare": {"0_4": [[0, "A"], [1, "D"]], "1_5": [[0, "B"], [1, "B"]]},
     }))
-    (tmp_path / "model.json").write_text(json.dumps(_modell(len(FEATURE_NAMES), version=2)))
+    (tmp_path / "model.json").write_text(json.dumps(_modell(len(FEATURE_NAMES), version=3)))
     return tmp_path
 
 
@@ -77,18 +77,39 @@ def test_faelle_decken_alle_datenlagen_und_beide_richtungen_ab(tmp_path):
     daten = erzeuge_faelle(_artefakte(tmp_path), n_je_gruppe=5)
     gruppen = {f["gruppe"] for f in daten["faelle"]}
     assert {"portraet-portraet", "portraet-stub", "stub-portraet", "stub-stub",
-            "historie-a<b", "historie-a>b", "ohne-rating", "ohne-neigung", "modell-v1"} <= gruppen
+            "historie-a<b", "historie-a>b", "ohne-rating", "ohne-neigung",
+            "modell-v1", "modell-v2"} <= gruppen
     for f in daten["faelle"]:
-        n = 13 if f.get("modell") == "v1" else len(FEATURE_NAMES)
+        n = MERKMALE_JE_VERSION[int(f.get("modell", "v3")[1:])]
         assert len(f["erwartet"]["merkmale"]) == n
         assert math.isclose(sum(f["erwartet"]["wahrscheinlichkeiten"]), 1.0)
 
 
-def test_v1_gestalt_hat_13_merkmale_und_keine_versionsangabe(tmp_path):
+def test_aeltere_gestalten_haben_ihre_merkmalszahl_und_versionsangabe(tmp_path):
     daten = erzeuge_faelle(_artefakte(tmp_path), n_je_gruppe=2)
-    v1 = daten["model_v1"]
+    v1, v2 = daten["modelle_alt"]["v1"], daten["modelle_alt"]["v2"]
     assert len(v1["features"]) == 13 and all(len(z) == 13 for z in v1["coef"])
     assert "merkmal_version" not in v1["config"] and "elo_streuung" not in v1["config"]
+    assert len(v2["features"]) == 14 and all(len(z) == 14 for z in v2["coef"])
+    assert v2["config"]["merkmal_version"] == 2 and v2["config"]["gestellt_basis"] == 0.22
+
+
+def test_paar_bilanz_kommt_aus_der_api_historie(tmp_path):
+    """p0 gegen s0: ein Sieg, ein Gestellt -> 2 Duelle, 1 gestellt; ohne Historie 0."""
+    daten = erzeuge_faelle(_artefakte(tmp_path), n_je_gruppe=40)
+    i = FEATURE_NAMES.index("paar_gestellt")
+    for f in daten["faelle"]:
+        if f.get("modell"):
+            continue
+        e = f["erwartet"]
+        assert e["duelle"] == len(f["treffer_kanonisch"])
+        na = f["a"].get("gestellt_neigung")
+        nb = f["b"].get("gestellt_neigung")
+        na, nb = (0.22 if na is None else na), (0.22 if nb is None else nb)
+        assert math.isclose(e["merkmale"][i], paar_gestellt(e["duelle"], e["duelle_gestellt"], na, nb),
+                            abs_tol=1e-12)
+    paar = next(f for f in daten["faelle"] if {f["a"]["id"], f["b"]["id"]} == {"p0|1990", "s0|?"})
+    assert (paar["erwartet"]["duelle"], paar["erwartet"]["duelle_gestellt"]) == (2, 1)
 
 
 def test_fehlende_neigung_zaehlt_als_durchschnitt(tmp_path):
@@ -101,7 +122,8 @@ def test_fehlende_neigung_zaehlt_als_durchschnitt(tmp_path):
         na = f["a"].get("gestellt_neigung")
         nb = f["b"].get("gestellt_neigung")
         erwartet = ((0.22 if na is None else na) + (0.22 if nb is None else nb)) / 2 - 0.22
-        assert math.isclose(f["erwartet"]["merkmale"][-1], erwartet, abs_tol=1e-12)
+        i = FEATURE_NAMES.index("gestellt_neigung")
+        assert math.isclose(f["erwartet"]["merkmale"][i], erwartet, abs_tol=1e-12)
 
 
 def test_fall_ohne_rating_nutzt_den_fallback_der_app(tmp_path):
