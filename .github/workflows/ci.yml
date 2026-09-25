@@ -4,6 +4,12 @@ on:
   push:
     branches: ["**"]
   pull_request:
+  # Der Pipeline-Lauf (update.yml) startet die CI nach seinem Artefakt-Commit
+  # selbst. Nötig, weil Pushes mit dem GITHUB_TOKEN keine push-Läufe auslösen
+  # und PR-Läufe daraus seit Juni 2026 auf eine manuelle Freigabe warten;
+  # workflow_dispatch ist von beidem ausgenommen. So läuft die volle CI auch
+  # auf jedem täglichen Artefakt-Commit auf main -- vorher lief dort keine.
+  workflow_dispatch:
 
 jobs:
   pipeline-tests:

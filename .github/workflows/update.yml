@@ -13,6 +13,8 @@ on:
 
 permissions:
   contents: write
+  # Für "CI auf dem Artefakt-Commit starten" (gh workflow run, s. unten).
+  actions: write
 
 concurrency:
   # Zwei gleichzeitige Läufe würden sich beim Commit der Artefakte in die Quere
@@ -105,6 +107,7 @@ jobs:
       # nochmals versuchen. Die Artefakte sind reproduzierbare Ableitungen,
       # ein Rebase darauf ist unkritisch.
       - name: Artefakte committen (falls geändert)
+        id: commit
         run: |
           git config user.name "schwingen-ml-bot"
           git config user.email "actions@github.com"
@@ -117,6 +120,7 @@ jobs:
           for versuch in 1 2 3; do
             if git push; then
               echo "Push erfolgreich (Versuch $versuch)."
+              echo "gepusht=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             echo "Push abgelehnt -- hole neuen Stand und rebase (Versuch $versuch) ..."
@@ -124,4 +128,15 @@ jobs:
           done
           echo "::error::Push nach 3 Versuchen fehlgeschlagen."
           exit 1
+
+      # Ein Push mit dem GITHUB_TOKEN löst keine CI aus (Schutz vor
+      # Endlosschleifen), und auf PR-Branches wartet der daraus entstehende
+      # PR-Lauf seit Juni 2026 auf eine manuelle Freigabe. workflow_dispatch
+      # ist ausdrücklich ausgenommen -- also die CI hier selbst starten. Sie
+      # läuft auf dem neuen Commit, ihre Checks erscheinen an ihm (auch im PR).
+      - name: CI auf dem Artefakt-Commit starten
+        if: steps.commit.outputs.gepusht == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run ci.yml --ref "${GITHUB_REF_NAME}"
     # Vercel deployt automatisch bei neuem Commit.
