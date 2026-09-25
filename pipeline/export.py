@@ -125,7 +125,9 @@ def exportiere_modell(
     denen Merkmalsversion 2 rechnet -- die App braucht sie, um den Vektor
     genauso zu bauen wie das Training (s. features.feature_vektor_fuer_prognose).
     """
-    modell = train_res["modell"]
+    # Ausgeliefert wird das Modell, das auch die Holdout-Saison gesehen hat
+    # (train.trainiere, Roadmap M5); die Kennzahlen stammen vom Evaluationsmodell.
+    modell = train_res.get("modell_ausgeliefert") or train_res["modell"]
     artefakt = {
         "schema_version": config.SCHEMA_VERSION,
         "klassen": KLASSEN,
@@ -652,6 +654,10 @@ def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
         "modell_typ": train_res.get("modell_typ", "lr"),
         "n_baeume": train_res.get("n_baeume"),
         "n_train": train_res["n_train"],
+        # Das ausgelieferte Modell (model.json) ist zusätzlich auf der
+        # Holdout-Saison trainiert; alle Kennzahlen hier stammen vom
+        # Evaluationsmodell, das sie nicht gesehen hat (s. train.trainiere).
+        "n_train_ausgeliefert": train_res.get("n_train_ausgeliefert", train_res["n_train"]),
         "n_test": train_res["n_test"],
         "modell": {
             "log_loss": round(ll, 4),

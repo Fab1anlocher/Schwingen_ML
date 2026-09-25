@@ -9,6 +9,8 @@ Prognose für Schwingen-Gänge (Sieg A / Gestellt / Sieg B) mit Erklärung, dazu
 Schwinger-Übersicht, Feste, Karte, Typen und Modellgüte. Modell: zweistufiges
 Gradient Boosting (`pipeline/modell.py`; P(Gestellt), dann P(Sieg A |
 entschieden)), die Logistic Regression bleibt als Rückfall und Benchmark.
+Je Lauf zwei Modelle (`train.trainiere`): das Evaluationsmodell ohne die
+jüngste Saison liefert die Kennzahlen, ausgeliefert wird eines inklusive.
 **Pipeline** in Python (`pipeline/`) → JSON-Artefakte → **Web-App** in
 Next.js 16 (`web/`). Die App rechnet jede Prognose selbst im Browser
 (`web/lib/inference.ts`). Live: schwingen-ml.vercel.app, deployt von `main`.

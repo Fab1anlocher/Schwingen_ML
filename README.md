@@ -303,7 +303,7 @@ Datenqualitätsbericht nicht auf.
 
 **Stand 26.09.2026** (Merkmalsversion 3, zweistufiges Gradient Boosting,
 Test = Saison 2026, 36'610 Gänge, die das Modell nie gesehen hat): Log-Loss
-**0.7207** (Logistic Regression bis 25.09.: 0.7402, Elo-Baseline 0.910),
+**0.7209** (Logistic Regression bis 25.09.: 0.7402, Elo-Baseline 0.910),
 Accuracy **69.0 %** (Elo 61.3 %), Gestellt 20.5 % vorhergesagt bei 21.1 %
 eingetreten, Kalibrierungsfehler 0.7 Prozentpunkte. Die aktuellen Zahlen
 stehen immer in `artifacts/report.json` und auf der Analyse-Seite, ihr
@@ -325,6 +325,15 @@ Verlauf in `artifacts/report_verlauf.json`.
   Gradient Boosting mit Monotonie-Vorgaben, gemittelt mit der gespiegelten
   Paarung. Die Logistic Regression bleibt als Rückfall
   (`config.MODELL_TYP = "lr"`) und als Benchmark-Kandidat.
+* **Zwei Modelle je Lauf** (`train.trainiere`): das **Evaluationsmodell**
+  sieht die jüngste Saison nicht und liefert alle Kennzahlen; **ausgeliefert**
+  (`model.json`) wird danach eines mit denselben Einstellungen, das zusätzlich
+  auf dieser Saison trainiert ist. Sonst lernte die App nie aus der laufenden
+  Saison — rückwirkend kostet eine fehlende Saison 0.009 Log-Loss (Test 2026
+  mit Training bis 2024: 0.7294, bis 2025: 0.7207).
+* **Jüngere Gänge zählen mehr**: Stichprobengewicht mit Halbwertszeit 365
+  Tage (`config.GBM_HALBWERTSZEIT_TAGE`). Validierung 0.7400 → 0.7390, Test
+  0.7207 → 0.7203; 180 und 540 Tage waren je in einem Jahr schlechter.
 * **5-Wege-Benchmark** (`benchmark.py`): Kranz-Heuristik / reine Elo / ML ohne
   Elo / Logistic Regression / Produktionsmodell auf demselben Holdout, mit
   Accuracy, Brier-Score sowie MAE und MSE (s. unten).

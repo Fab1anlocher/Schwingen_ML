@@ -15,7 +15,9 @@ Log-Loss Validierung 2025 **0.7627**, Test 2026 **0.7400**, Accuracy 68.7 %,
 Gestellt 20.6 % vorhergesagt / 21.1 % eingetreten.
 
 **Stand nach M1** (zweistufiges Boosting, 26.09.2026): Validierung **0.7400**,
-Test **0.7207**, Accuracy 69.0 %, Gestellt 20.5 % / 21.1 %.
+Test **0.7207**, Accuracy 69.0 %, Gestellt 20.5 % / 21.1 %. **Mit M2**
+(Zeitgewichtung): 0.7390 / 0.7203. Dazu **M5**: die App rechnet mit einem
+Modell, das auch die laufende Saison gesehen hat.
 
 ## Übersicht und Reihenfolge
 
@@ -23,10 +25,10 @@ Test **0.7207**, Accuracy 69.0 %, Gestellt 20.5 % / 21.1 %.
 |---|---|---|---|---|
 | ✅ M1 | Gradient Boosting statt Logistic Regression | Log-Loss −0.023 (Val) / −0.019 (Test) — **erledigt** | 1–2 Tage | ~~1~~ |
 | ✅ T1 | Modellgüte je Lauf historisieren + Warnung | **erledigt**, Verlauf ab 21.07.2026 | ½ Tag | ~~2~~ |
-| M5 | Ausgeliefertes Modell auch auf der laufenden Saison trainieren | offen — heute lernt es nie aus der jüngsten Saison | ½ Tag | **2** |
+| ✅ M5 | Ausgeliefertes Modell auch auf der laufenden Saison trainieren | eine Saison mehr: Test 0.7294 → 0.7207 — **erledigt** | ½ Tag | ~~2~~ |
 | F1 | Prognose-Check je Fest im Rückblick | Vertrauen; Daten liegen vor | ½–1 Tag | **2** |
 | D3 | Rohdaten wöchentlich sichern | Voraussetzung für D1/D2, Ausfallschutz | ½ Tag | **3** |
-| M2 | Jüngere Gänge stärker gewichten | LR nur 2025: 0.7378 statt 0.7398 | ½ Tag | 3 |
+| ✅ M2 | Jüngere Gänge stärker gewichten | Val 0.7400 → 0.7390, Test 0.7207 → 0.7203 — **erledigt** | ½ Tag | ~~3~~ |
 | D1 | Noten je Gang (Plattwurf 10.00 vs. 9.75) nutzen | offen — erst nach D3 messbar | 1 Tag | 4 |
 | D2 | Gangnummer aus der Rangliste (Anschwingen, Ausstich) | offen — erst nach D3 messbar | 1 Tag | 4 |
 | M3 | Heimvorteil (Fest des eigenen Verbands gegen Gäste) | +0.022 Punkte je Gästegang (2.6 SE) | ½ Tag | 5 |
@@ -36,9 +38,8 @@ Test **0.7207**, Accuracy 69.0 %, Gestellt 20.5 % / 21.1 %.
 | T2 | Frontend-Tests + Browser-Smoke-Test in der CI | Sicherheit | 1 Tag | 6 |
 | T3 | Altlasten: `diagnose_agenda` testen, `ml_ohne_elo` ohne `kranz_diff` | Sauberkeit | ½ Tag | 6 |
 
-Empfohlene Reihenfolge: ~~M1 mit T1~~ (erledigt), dann **M5** und **F1**
-(macht die Güte für Nutzer sichtbar), dann **D3** als Grundlage für D1/D2,
-M2 zusammen mit M5 messen (beide betreffen, welche Gänge wie stark zählen).
+Empfohlene Reihenfolge: ~~M1 mit T1~~, ~~M5 mit M2~~ (erledigt), dann **F1**
+(macht die Güte für Nutzer sichtbar), dann **D3** als Grundlage für D1/D2.
 
 ## ✅ M1 — Gradient Boosting als Prognosemodell (erledigt 26.09.2026)
 
@@ -110,7 +111,22 @@ fünf weitere Spitzenpaarungen plausibel erklärt.
 **Risiko.** Erklärungen werden weniger „linear" lesbar; das Modell ist grösser.
 Beides ist handhabbar; der Gewinn ist gross und in beiden Jahren gleichsinnig.
 
-## M2 — Jüngere Gänge stärker gewichten
+## ✅ M2 — Jüngere Gänge stärker gewichten (erledigt 26.09.2026)
+
+Umgesetzt für das Boosting: Stichprobengewicht 0.5 ^ (Alter / 365 Tage),
+Alter ab dem jüngsten Trainingsgang (`modell.zeitgewicht`). Gemessen:
+
+| Halbwertszeit | Validierung 2025 | Test 2026 |
+|---|---:|---:|
+| ungewichtet | 0.7400 | 0.7207 |
+| 180 Tage | 0.7404 | 0.7202 |
+| **365 Tage** | **0.7390** | **0.7203** |
+| 540 Tage | 0.7393 | 0.7209 |
+
+Klein, aber in beiden Jahren besser. Nebenwirkung: mit Gewichten rechnet
+sklearn die Bin-Grenzen als gewichtete Perzentile, ~5 s mehr je Fit.
+
+Ursprünglicher Befund:
 
 Lernkurve (Test 2026): nur mit 2025 trainiert ist die LR **besser** (0.7378)
 als mit 2024–2025 (0.7398); beim Boosting gleich (0.7204). Mehr alte Daten
@@ -136,7 +152,15 @@ Gestellt-Kalibrierung und Datenumfang an; der Lauf warnt im Job-Summary, wenn
 der Log-Loss gegenüber dem Median der letzten 14 Läufe um mehr als 0.01
 steigt. Die Analyse-Seite zeigt den Verlauf.
 
-## M5 — Ausgeliefertes Modell auch auf der laufenden Saison trainieren
+## ✅ M5 — Ausgeliefertes Modell auch auf der laufenden Saison trainieren (erledigt 26.09.2026)
+
+**Umgesetzt.** `train.trainiere` fittet nach der Evaluation ein zweites Modell
+auf allen Trainingszeilen inklusive der Holdout-Saison (gleiche Einstellungen,
+Baumzahl neu zeitlich gewählt); das geht in `model.json`. Die Kennzahlen im
+Report bleiben die des Evaluationsmodells; `report.json` →
+`n_train_ausgeliefert` nennt den Umfang des ausgelieferten, die Analyse-Seite
+sagt es dazu. Rückwirkend gemessen (Test 2026): Training bis 2024 0.7294,
+bis 2025 0.7207 — eine fehlende Saison kostet also rund 0.009.
 
 **Befund (beim Prüfen von M1).** `train.trainiere` fittet das Modell auf allem
 **vor** der Holdout-Saison und liefert genau dieses Modell aus. Die jüngste
