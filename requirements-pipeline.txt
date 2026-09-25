@@ -2,6 +2,6 @@
 numpy>=1.26
 scikit-learn>=1.4
 # Statistik-PDFs von schlussgang.ch parsen (pipeline/scrape/schlussgang_pdf.py):
-pdfplumber>=0.11
+pdfplumber>=0.11.10
 # Tests:
 pytest>=8.0
