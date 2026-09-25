@@ -332,29 +332,34 @@ export default function Analyse() {
         </>
       )}
 
-      <h2>Was die Prognose treibt</h2>
-      <div className="panel">
-        <p className="muted small" style={{ marginTop: 0 }}>
-          {fiArt === "permutation"
-            ? "Um so viel verschlechtert sich die Prognose (Log-Loss), wenn man ein Merkmal zufällig unter den Testgängen vertauscht — also wie viel das Modell ohne dieses Merkmal verlöre."
-            : "Mittlerer Betrag der standardisierten Koeffizienten über die drei Ausgänge."}
-        </p>
-        <FiTabelle eintraege={haupt} max={max} />
-        {rest.length > 0 && (
-          <details style={{ marginTop: "0.4rem" }}>
-            <summary className="muted small">
-              Weitere {rest.length} Merkmale mit kleinem Beitrag
-            </summary>
-            <FiTabelle eintraege={rest} max={max} />
-          </details>
-        )}
-        <p className="muted small" style={{ marginBottom: 0 }}>
-          „Fokus“ markiert die Merkmale, deren Beitrag die Spezifikation eigens prüfen will
-          (Gewicht, Grösse, bevorzugte Schwünge, AK-4.2). Klein heisst nicht bedeutungslos: Physis
-          und Stil sind nur für Schwinger mit Porträt erfasst, und ein Teil ihrer Wirkung steckt
-          schon im Elo-Rating — der Exkurs unten zeigt die Zusammenhänge direkt.
-        </p>
-      </div>
+      {/* Erst mit den Daten zeigen: vorher stünde der Text der falschen Methode da. */}
+      {fi.length > 0 && (
+        <>
+          <h2>Was die Prognose treibt</h2>
+          <div className="panel">
+            <p className="muted small" style={{ marginTop: 0 }}>
+              {fiArt === "permutation"
+                ? "Um so viel verschlechtert sich die Prognose (Log-Loss), wenn man ein Merkmal zufällig unter den Testgängen vertauscht — also wie viel das Modell ohne dieses Merkmal verlöre."
+                : "Mittlerer Betrag der standardisierten Koeffizienten über die drei Ausgänge."}
+            </p>
+            <FiTabelle eintraege={haupt} max={max} />
+            {rest.length > 0 && (
+              <details style={{ marginTop: "0.4rem" }}>
+                <summary className="muted small">
+                  Weitere {rest.length} Merkmale mit kleinem Beitrag
+                </summary>
+                <FiTabelle eintraege={rest} max={max} />
+              </details>
+            )}
+            <p className="muted small" style={{ marginBottom: 0 }}>
+              „Fokus“ markiert die Merkmale, deren Beitrag die Spezifikation eigens prüfen will
+              (Gewicht, Grösse, bevorzugte Schwünge, AK-4.2). Klein heisst nicht bedeutungslos:
+              Physis und Stil sind nur für Schwinger mit Porträt erfasst, und ein Teil ihrer Wirkung
+              steckt schon im Elo-Rating — der Exkurs unten zeigt die Zusammenhänge direkt.
+            </p>
+          </div>
+        </>
+      )}
 
       {(streuGroesse.length > 0 || streuGewicht.length > 0 || streuAlter.length > 0) && (
         <>
