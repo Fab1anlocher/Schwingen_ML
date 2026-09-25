@@ -6,11 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
     "paritaet": "tsc lib/inference.ts lib/kopfAnKopf.ts --outDir .paritaet --module commonjs --target es2020 --lib es2020,dom --strict --skipLibCheck && node scripts/paritaet.cjs"
   },
   "dependencies": {
-    "next": "15.5.26",
+    "next": "16.3.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
