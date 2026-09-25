@@ -60,13 +60,16 @@ export function teilverbandFuerFest(name: string, typ: string): string | null {
   return null;
 }
 
-/** Teilverband eines Schwingers für Anzeige und Suche: gemessen (Porträt)
- *  oder, wenn keiner vorliegt, aus den Festbesuchen geschätzt. */
+/** Teilverband eines Schwingers für Anzeige und Suche, in dieser Reihenfolge:
+ *  Porträt, über den Schwingklub (Mitgliedschaft laut offizieller Rangliste),
+ *  aus den Festbesuchen geschätzt. Nur Letzteres ist eine Schätzung. */
 export function verbandVon(s: {
   teilverband: string | null;
+  teilverband_klub?: string | null;
   teilverband_geschaetzt?: string | null;
 }): { verband: string | null; geschaetzt: boolean } {
   if (s.teilverband) return { verband: s.teilverband, geschaetzt: false };
+  if (s.teilverband_klub) return { verband: s.teilverband_klub, geschaetzt: false };
   if (s.teilverband_geschaetzt) return { verband: s.teilverband_geschaetzt, geschaetzt: true };
   return { verband: null, geschaetzt: false };
 }
@@ -75,4 +78,9 @@ export function verbandVon(s: {
 export function verbandText(s: Parameters<typeof verbandVon>[0]): string | null {
   const { verband, geschaetzt } = verbandVon(s);
   return verband && (geschaetzt ? `${verband} (geschätzt)` : verband);
+}
+
+/** Kranzstatus für die Anzeige: Porträt, sonst laut Schlussranglisten. */
+export function kranzstatusVon(s: { kranzstatus: string; kranzstatus_rangliste?: string | null }): string {
+  return s.kranzstatus && s.kranzstatus !== "kein" ? s.kranzstatus : s.kranzstatus_rangliste ?? "kein";
 }

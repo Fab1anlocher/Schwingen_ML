@@ -142,12 +142,30 @@ Verband 706/706; Schwünge nur 418/706 — die Quelle führt sie nicht immer).
   (fast alle Jahrgang ≤ 1998, also wohl zurückgetreten). Keines davon ist ein
   übersehener Stub: die drei Namensähnlichkeiten sind nachweislich andere
   Personen (anderer Nachname bzw. anderer Verband laut Festbesuchen).
-- **ESV-Ranglisten: blockiert.** esv.ch ist aus der Entwicklungsumgebung nicht
-  erreichbar (Proxy 403), und der Host sperrte schon früher GitHub-Runner
-  (403) — der tägliche Lauf könnte die Quelle also auch nicht abrufen. Offen,
-  bis eine erlaubte Zugriffsart geklärt ist (Anfrage an den ESV, oder ein
-  Runner, den der Host zulässt). Physis und Kranzstatus der 76 % bleiben bis
-  dahin unbekannt; ehrlich als Datenlage im Modell (`portraet_diff`).
+- **ESV-Ranglisten: gelöst über schlussgang.ch.** esv.ch sperrt Cloud-IPs
+  weiterhin (schon `robots.txt` antwortet 403 — über GitHub-Runner geprüft,
+  25.09.2026). Eine Sonde fand aber: schlussgang.ch führt zu jedem Fest die
+  offizielle **Schlussrangliste des ESV** (`field_final_ranking_pdf`, Fusszeile
+  „Quelle: ESV"), für 480 von 481 Festen seit 2023 — mit Schwingklub, Wohnort,
+  Senn/Turner, Kranzabzeichen und Kranz JEDES Teilnehmers. Umgesetzt
+  (`scrape/schlussgang_rangliste.py`, `ranglisten.py`): echte **Kranzzahlen
+  seit 2023**, Klub/Kranzstatus/Senn-Turner auch ohne Porträt, Teilverband
+  und Gauverband über den Klub (Leave-one-out 99.75 %). Was die Ranglisten
+  nicht enthalten: Gewicht, Grösse, Jahrgang (nur bei Namensvettern) — Physis
+  bleibt für Schwinger ohne Porträt unbekannt.
+
+## ✅ Betrieb: CI auf Artefakt-Commits, Sicherheits-Audit
+
+- **Bot-Commits ohne CI.** Pushes mit dem `GITHUB_TOKEN` lösen keine
+  push-Läufe aus, und PR-Läufe daraus warten seit Juni 2026 auf Freigabe
+  („action_required"). `update.yml` startet die CI nach seinem Commit jetzt
+  selbst per `workflow_dispatch` (davon ausgenommen) — die täglichen
+  Artefakt-Commits auf main laufen damit erstmals durch die volle CI.
+- **Dependabot-Sicherheitsupdates** lassen sich nur in den Repo-Einstellungen
+  einschalten. Ersatz: `sicherheit.yml` prüft täglich `npm audit` und
+  `pip-audit`, legt bei Befund ein Issue an (und schlägt fehl → Mail) und
+  schliesst es bei Entwarnung. Die Einstellung zusätzlich einzuschalten
+  schadet nicht (Settings → Code security → Dependabot security updates).
 
 ## P7 — Kleinkram
 

@@ -5,7 +5,7 @@ import { ladeEvents, ladeModel, ladeRatings, ladeSchwinger } from "@/lib/data";
 import { prognostiziere } from "@/lib/inference";
 import type { ModelArtifact, RatingsArtifact, Schwinger, Prognose } from "@/lib/types";
 import { PrognoseView } from "@/components/PrognoseView";
-import { verbandText } from "@/lib/teilverband";
+import { kranzstatusVon, verbandText } from "@/lib/teilverband";
 import { SchwingerSuche } from "@/components/SchwingerSuche";
 import { KopfAnKopf } from "@/components/KopfAnKopf";
 import { ladeKopfAnKopf, kopfAnKopfVorteilA, type H2HTreffer } from "@/lib/kopfAnKopf";
@@ -211,22 +211,22 @@ function metaZeile(s: Schwinger | undefined): string {
   return teile.join(" · ");
 }
 
-/** Kranzstufe + Anzahl Feste.
+/** Kranzstufe, gewonnene Kränze und Anzahl Feste.
  *
- *  Hier stand bis vor Kurzem "N Kränze seit 2023". Diese Zahl kam aus den
- *  Stern-Markierungen der Statistik-PDFs und war falsch: der Stern ist das
- *  STATUSABZEICHEN des Schwingers (Kranzer/Eidgenosse), kein Kranzgewinn an
- *  diesem Fest. Belegt am Kilchberger Schwinget — ein Einladungsfest, zu dem
- *  praktisch nur Eidgenossen antreten: 59 Teilnehmer, 59 markiert. Selbst
- *  Regional- und Klubfeste ohne jeden Kranz trugen Markierungen. Eine
- *  belastbare Kranzzahl geben die Quellen nicht her (die Kranzgrenze legt
- *  jedes Fest selbst fest und steht nicht in der PDF), darum steht hier jetzt
- *  die höchste erreichte Kranzstufe aus dem Porträt — eine gemessene Angabe —
- *  und die Anzahl besuchter Feste. */
+ *  Die Kränze kommen aus den offiziellen Schlussranglisten (Status "Kranz",
+ *  "Neukranzer", "Neueidgenosse" bzw. Punkteschwelle, s.
+ *  pipeline/scrape/schlussgang_rangliste.py). Hier stand früher schon einmal
+ *  "N Kränze seit 2023" -- damals aus den Sternen der Statistik-PDF, und das
+ *  war falsch: der Stern ist das STATUSABZEICHEN des Schwingers, kein
+ *  Kranzgewinn. Die Zahl entfiel deshalb, bis es eine echte Quelle gab. Die
+ *  Kranzstufe kommt aus dem Porträt, ohne Porträt aus den Ranglisten. */
 function statusUndFeste(s: Schwinger): string[] {
   const teile: string[] = [];
-  const stufe = KRANZ_LABEL[s.kranzstatus];
+  const stufe = KRANZ_LABEL[kranzstatusVon(s)];
   if (stufe) teile.push(stufe);
+  if (typeof s.kraenze === "number" && s.kraenze > 0) {
+    teile.push(`${s.kraenze} ${s.kraenze === 1 ? "Kranz" : "Kränze"} seit 2023`);
+  }
   if (s.anzahl_feste && s.anzahl_feste > 0) {
     teile.push(`${s.anzahl_feste} ${s.anzahl_feste === 1 ? "Fest" : "Feste"} seit 2023`);
   }

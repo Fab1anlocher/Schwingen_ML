@@ -42,6 +42,14 @@ export interface Schwinger {
   groesse_cm: number | null;
   gewicht_kg: number | null;
   kranzstatus: string;
+  /** Nur ohne Porträt: Kranzstatus laut Sternen/Kränzen der Schlussranglisten
+   *  (z.B. Fritz Ramseier, Eidgenosse ohne Porträt). Nur Anzeige. */
+  kranzstatus_rangliste?: string | null;
+  /** Gewonnene Kränze seit Datenbeginn laut offizieller Schlussrangliste.
+   *  null/fehlend = keine Ranglisten geladen (NICHT: null Kränze). */
+  kraenze?: number | null;
+  kraenze_nach_typ?: Record<string, number> | null;
+  senne_turner?: string | null;
   /** Gemessen: aus dem schlussgang.ch-Porträt. Nur dieses Feld nutzt das Modell. */
   teilverband: string | null;
   /** Nur bei Schwingern ohne Porträt-Verband: aus ihren Festbesuchen geschätzt
@@ -49,6 +57,11 @@ export interface Schwinger {
    *  Anzeige und Suche -- immer als "geschätzt" kenntlich. Optional, weil
    *  ältere Artefakte das Feld nicht führen. */
   teilverband_geschaetzt?: string | null;
+  /** Ohne Porträt-Verband: Teilverband bzw. Kantonal-/Gauverband über den
+   *  Schwingklub laut offizieller Schlussrangliste (Mitgliedschaft, gemessen;
+   *  pipeline/ranglisten.py). Vorrang vor der Schätzung aus Festbesuchen. */
+  teilverband_klub?: string | null;
+  kanton_klub?: string | null;
   kanton: string | null;
   schwingklub: string | null;
   bevorzugte_schwuenge: string[];

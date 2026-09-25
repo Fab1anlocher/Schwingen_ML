@@ -33,17 +33,32 @@ def _listen_url(offset: int, limit: int, *, seit_datum: str, typ: str) -> str:
         "sort": "-field_event_date",
         "page[limit]": limit,
         "page[offset]": offset,
-        "include": "field_category",
+        "include": "field_category,field_final_ranking_pdf",
         "fields[node--event]": (
             "drupal_internal__nid,title,field_title_custom,field_event_date,"
-            "field_event_location,field_event_esv_id,field_category"
+            "field_event_location,field_event_esv_id,field_category,field_final_ranking_pdf"
         ),
         "fields[taxonomy_term--event_tags]": "name",
+        "fields[file--file]": "uri",
     }
     if typ:
         params["filter[typ][condition][path]"] = "field_event_type"
         params["filter[typ][condition][value]"] = typ
     return f"{EVENT_LIST_URL}?{urlencode(params)}"
+
+
+def _rangliste_url(item: dict, included_by_id: dict[str, dict]) -> str | None:
+    """Absolute URL der Schlussrangliste (field_final_ranking_pdf) oder None.
+
+    Meist <nid>-final.pdf, aber nicht immer (ESAF 2025 liegt unter
+    2025-09/Schlussrangliste.pdf) -- darum aus der API statt aus einem Muster.
+    """
+    ref = ((item.get("relationships") or {}).get("field_final_ranking_pdf") or {}).get("data")
+    if not isinstance(ref, dict):
+        return None
+    uri = ((included_by_id.get(ref.get("id")) or {}).get("attributes") or {}).get("uri") or {}
+    pfad = uri.get("url") if isinstance(uri, dict) else None
+    return f"https://www.schlussgang.ch{pfad}" if pfad else None
 
 
 def _kategorie_name(item: dict, included_by_id: dict[str, dict]) -> str | None:
@@ -114,6 +129,7 @@ def scrape_events(
                     "kategorie": kategorie,
                     "ort": attrs.get("field_event_location"),
                     "quelle": "schlussgang.ch/event",
+                    "rangliste_url": _rangliste_url(item, included_by_id),
                 }
             )
         if neu_auf_seite == 0:
@@ -216,3 +232,76 @@ def merge_gaenge_raw_json(
         json.dumps({"gaenge": zusammengefuehrt}, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     return zusammengefuehrt
+
+
+def vervollstaendige_rangliste_urls(
+    events: list[dict], schon_geladen: set[str], *, typ: str = "Aktivschwinger"
+) -> int:
+    """Trägt fehlende ``rangliste_url`` nach (ältere Cache-Einträge kennen sie nicht).
+
+    Nur für Feste, deren Rangliste noch nicht im Cache liegt. Eine reine
+    Listenabfrage (kein PDF), also wenige Anfragen -- und nötig, weil drei
+    Feste nicht dem Muster <nid>-final.pdf folgen, darunter das ESAF 2025.
+    Gibt die Zahl ergänzter URLs zurück; ``events`` wird in-place ergänzt.
+    """
+    offen = [e for e in events if not e.get("rangliste_url") and str(e["id"]) not in schon_geladen]
+    if not offen:
+        return 0
+    seit = min(str(e.get("datum") or "")[:10] for e in offen)
+    urls = {e["id"]: e.get("rangliste_url") for e in scrape_events(None, seit_datum=seit, typ=typ)}
+    n = 0
+    for e in offen:
+        if urls.get(e["id"]):
+            e["rangliste_url"] = urls[e["id"]]
+            n += 1
+    return n
+
+
+def rangliste_url_fallback(nid) -> str:
+    """Übliches Muster, falls ein älterer Cache-Eintrag die URL noch nicht führt."""
+    return f"https://www.schlussgang.ch/sites/default/files/event-ranking-list/{nid}-final.pdf"
+
+
+def lade_rangliste(event: dict) -> list[dict]:
+    """Schlussrangliste eines Fests laden + parsen, inkl. Kranz je Teilnehmer."""
+    from .schlussgang_rangliste import mit_kranz, parse_rangliste
+
+    url = event.get("rangliste_url") or rangliste_url_fallback(event["nid"])
+    return mit_kranz(parse_rangliste(hole(url, binaer=True)))
+
+
+def ergaenze_ranglisten(path: Path, events: list[dict], *, neu_laden: set[str] = frozenset()) -> dict:
+    """artifacts/raw/ranglisten.json additiv um fehlende Feste ergänzen.
+
+    Beim ersten Lauf ist das ein Nachladen der ganzen Historie (rund 480 PDFs,
+    2 s Abstand -> ~16 min), danach nur neue Feste. Ein Fest, dessen Liste
+    nicht lesbar war, wird mit ``fehler`` vermerkt und nicht täglich erneut
+    versucht; ``neu_laden`` erzwingt es für bestimmte IDs (z.B. die frisch
+    geladenen, falls ein Resultat nachgetragen wurde).
+    """
+    daten: dict = {}
+    if path.exists():
+        daten = json.loads(path.read_text(encoding="utf-8")).get("ranglisten", {})
+    offen = [e for e in events if str(e["id"]) not in daten or str(e["id"]) in neu_laden]
+    print(f"      Schlussranglisten: {len(daten)} im Cache, {len(offen)} zu laden", flush=True)
+    for i, event in enumerate(offen, start=1):
+        eid = str(event["id"])
+        try:
+            eintraege = lade_rangliste(event)
+            daten[eid] = {"eintraege": eintraege}
+            n_kranz = sum(1 for e in eintraege if e.get("kranz"))
+            meldung = f"{len(eintraege)} Teilnehmer, {n_kranz} Kränze"
+        except Exception as ex:  # noqa: BLE001 - ein Fest darf den Rest nicht blockieren
+            daten[eid] = {"fehler": f"{type(ex).__name__}: {ex}"[:200]}
+            meldung = f"nicht lesbar ({daten[eid]['fehler']})"
+        if i % 25 == 0 or i == len(offen) or "fehler" in daten[eid]:
+            print(f"      [{i}/{len(offen)}] {event.get('datum')} {event.get('name')}: {meldung}", flush=True)
+        if i % 50 == 0:  # Zwischenstand sichern: ein Abbruch verliert nicht alles
+            _schreibe_ranglisten(path, daten)
+    _schreibe_ranglisten(path, daten)
+    return daten
+
+
+def _schreibe_ranglisten(path: Path, daten: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps({"ranglisten": daten}, ensure_ascii=False), encoding="utf-8")
