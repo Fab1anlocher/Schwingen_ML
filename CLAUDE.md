@@ -106,7 +106,10 @@ Die Rohdaten liegen nur im Actions-Cache. Workflow **„Datenpipeline
 aktualisieren"** (`update.yml`) per `workflow_dispatch` auf dem eigenen Branch
 starten. Er rechnet mit dem Branch-Code, prüft Parität und Inferenz,
 committet die Artefakte auf den Branch und startet danach die CI selbst.
-Bot-Pushes lösen sonst keine CI aus. Die Ergebnisse stehen in
+Bot-Pushes lösen sonst keine CI aus. Messungen, die die Rohdaten brauchen
+(z.B. Noten je Gang), laufen im Workflow **„Messung auf Rohdaten"**
+(`messung.yml`, Modul `pipeline/messung.py`), Ergebnis im Job-Summary. Die
+Ergebnisse des Pipeline-Laufs stehen in
 `artifacts/report.json` → `datenqualitaet`, der Verlauf in
 `artifacts/report_verlauf.json`.
 

@@ -170,9 +170,17 @@ Cache verloren: **Actions → Datenpipeline aktualisieren → Run workflow →
 „Volle Historie ab 2023 neu laden"** (rund 20 Minuten; der tägliche Lauf
 braucht rund 2 Minuten).
 
+**Rohdaten-Sicherung** (Roadmap D3): Der Actions-Cache ist die einzige Kopie
+der Rohdaten. Sonntags (und per Option „Rohdaten zusätzlich sichern") lädt
+der Lauf `artifacts/raw` zusätzlich als Workflow-Artefakt hoch, 90 Tage
+aufbewahrt (Actions → Lauf → Artifacts).
+
 Weitere Workflows: `ci.yml` (Tests, synthetischer End-to-End-Lauf, Parität,
 Build, `npm audit` in jedem PR), `sicherheit.yml` (tägliches
-Sicherheits-Audit npm + pip, meldet Befunde als Issue), Dependabot
+Sicherheits-Audit npm + pip, meldet Befunde als Issue), `messung.yml`
+(„Messung auf Rohdaten": rechnet `python -m pipeline.messung <name>` auf dem
+Rohdaten-Cache, Ergebnis im Job-Summary — für alles, was nicht in den
+committeten Artefakten steht, etwa die Noten je Gang), Dependabot
 (`.github/dependabot.yml`).
 
 ---
@@ -268,6 +276,7 @@ pipeline/                  Python-Datenpipeline
   fetch_raw.py               CLI: Webquellen → artifacts/raw
   run_pipeline.py            Orchestrator (8 Stufen)
   harness.py                 Echte-Daten-Harness für Modellexperimente
+  messung.py                 Messungen auf den Rohdaten (Workflow messung.yml)
   datenqualitaet.py          Qualitätsbericht aus report.json
   verify_inference.py        Cross-Check: model.json == sklearn-Modell
   paritaet.py                Cross-Check: App (TypeScript) == Pipeline (Python)
@@ -502,8 +511,8 @@ frühere, vor der mindestens eine halbe eingeschwungene Saison liegt (heute
 
 | Saison | Gänge | Treffer | Elo | P(tatsächlicher Ausgang) |
 |---|---:|---:|---:|---:|
-| 2025 | 37'159 | 67.9 % | 61.1 % | 56.9 % |
-| 2026 | 36'610 | 69.1 % | 61.3 % | 58.1 % |
+| 2025 | 37'159 | 67.7 % | 61.1 % | 56.7 % |
+| 2026 | 36'610 | 69.0 % | 61.3 % | 58.2 % |
 
 Kantonal- und Teilverbandsfeste liegen meist bei 68–75 %, Bergfeste und das
 Eidgenössische deutlich tiefer (58–62 %): dort treffen mehr Spitzenschwinger

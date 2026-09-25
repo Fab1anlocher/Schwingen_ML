@@ -27,7 +27,7 @@ Modell, das auch die laufende Saison gesehen hat.
 | ✅ T1 | Modellgüte je Lauf historisieren + Warnung | **erledigt**, Verlauf ab 21.07.2026 | ½ Tag | ~~2~~ |
 | ✅ M5 | Ausgeliefertes Modell auch auf der laufenden Saison trainieren | eine Saison mehr: Test 0.7294 → 0.7207 — **erledigt** | ½ Tag | ~~2~~ |
 | ✅ F1 | Prognose-Check je Fest im Rückblick | 2026: 69 % Treffer (Elo 61 %) — **erledigt** | ½–1 Tag | ~~2~~ |
-| D3 | Rohdaten wöchentlich sichern | Voraussetzung für D1/D2, Ausfallschutz | ½ Tag | **3** |
+| ✅ D3 | Rohdaten wöchentlich sichern | Voraussetzung für D1/D2, Ausfallschutz — **erledigt** | ½ Tag | ~~3~~ |
 | ✅ M2 | Jüngere Gänge stärker gewichten | Val 0.7400 → 0.7390, Test 0.7207 → 0.7203 — **erledigt** | ½ Tag | ~~3~~ |
 | D1 | Noten je Gang (Plattwurf 10.00 vs. 9.75) nutzen | offen — erst nach D3 messbar | 1 Tag | 4 |
 | D2 | Gangnummer aus der Rangliste (Anschwingen, Ausstich) | offen — erst nach D3 messbar | 1 Tag | 4 |
@@ -38,8 +38,8 @@ Modell, das auch die laufende Saison gesehen hat.
 | T2 | Frontend-Tests + Browser-Smoke-Test in der CI | Sicherheit | 1 Tag | 6 |
 | T3 | Altlasten: `diagnose_agenda` testen, `ml_ohne_elo` ohne `kranz_diff` | Sauberkeit | ½ Tag | 6 |
 
-Empfohlene Reihenfolge: ~~M1 mit T1~~, ~~M5 mit M2~~, ~~F1~~ (erledigt), als
-Nächstes **D3** als Grundlage für D1/D2.
+Empfohlene Reihenfolge: ~~M1 mit T1~~, ~~M5 mit M2~~, ~~F1~~, ~~D3~~
+(erledigt), als Nächstes **D1** (Messung läuft über `messung.yml`).
 
 ## ✅ M1 — Gradient Boosting als Prognosemodell (erledigt 26.09.2026)
 
@@ -181,8 +181,8 @@ Der Report muss sagen, dass die Kennzahlen vom Evaluationsmodell stammen.
 Umgesetzt in `pipeline/prognose_check.py`, angezeigt im Rückblick der
 Feste-Seite (Spalte „Prognose" und Saison-Zusammenfassung mit Aufschlüsselung
 nach Festtyp). Ausgewertet werden 2025 (Modell bis 2024) und 2026 (Modell bis
-2025): Treffer 67.9 % / 69.1 % gegen Elo 61.1 % / 61.3 %; dem tatsächlichen
-Ausgang gab das Modell im Schnitt 56.9 % / 58.1 %. Bergfeste und das
+2025): Treffer 67.7 % / 69.0 % gegen Elo 61.1 % / 61.3 %; dem tatsächlichen
+Ausgang gab das Modell im Schnitt 56.7 % / 58.2 %. Bergfeste und das
 Eidgenössische sind am schwersten (58–62 %). Das Modell trifft an 263 von 270
 Festen mindestens so oft wie Elo; darunter liegt es an vier Bergfesten
 (Schwägalp 2025/2026, Rigi und Schwarzsee 2025, je 1–2 Punkte) und drei
@@ -195,7 +195,17 @@ Gestellt-Chance — gerechnet mit dem Modell, das **vor** dem Fest galt. Für di
 Holdout-Saison liegen diese Vorhersagen im Training ohnehin vor. Macht die
 Qualität für Nutzer greifbar („am Brünig 2026: 74 % der Gänge richtig").
 
-## D3 — Rohdaten sichern (Voraussetzung für D1/D2)
+## ✅ D3 — Rohdaten sichern (erledigt 26.09.2026)
+
+Umgesetzt auf zwei Wegen:
+- **Sicherung:** `update.yml` lädt `artifacts/raw` sonntags (und auf Wunsch)
+  als Workflow-Artefakt hoch, 90 Tage aufbewahrt.
+- **Messen ohne Download:** Workflow „Messung auf Rohdaten" (`messung.yml`)
+  lädt den Rohdaten-Cache nur lesend und führt `python -m pipeline.messung
+  <name>` aus; das Ergebnis steht im Job-Summary. Erste Messung: `noten`
+  (Verteilung je Ausgang und Noten-Merkmale im Modell, D1).
+
+Ursprünglicher Plan:
 
 `artifacts/raw` existiert nur im Actions-Cache. Geht er verloren, kostet der
 Neuaufbau rund 20 Minuten, und lokal (ohne Zugang zu schlussgang.ch) lässt

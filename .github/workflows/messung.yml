@@ -1,0 +1,56 @@
+name: Messung auf Rohdaten
+
+# Roadmap D3: Auswertungen, die die Rohdaten brauchen (etwa die Note je Gang,
+# Roadmap D1), laufen hier -- auf dem Runner liegt der Rohdaten-Cache, lokal
+# und in der Build-Sandbox nicht. Nur lesend: speichert keinen Cache und
+# committet nichts. Das Ergebnis steht im Job-Summary des Laufs.
+#
+# Starten: Actions -> "Messung auf Rohdaten" -> Run workflow (auf einem Branch
+# läuft dessen Code). Neue Messungen: pipeline/messung.py (MESSUNGEN) und die
+# Auswahl unten ergänzen.
+on:
+  workflow_dispatch:
+    inputs:
+      messung:
+        description: "Welche Messung (s. pipeline/messung.py)"
+        type: choice
+        options:
+          - noten
+        default: noten
+
+permissions:
+  contents: read
+
+concurrency:
+  group: messung-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  messung:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-pipeline.txt
+      - run: pip install -r requirements-pipeline.txt
+
+      # Derselbe Präfix wie in update.yml: nimmt den jüngsten Rohdaten-Cache.
+      # Der Key selbst wird nie gespeichert (nur restore).
+      - name: Rohdaten-Cache laden (nur lesen)
+        uses: actions/cache/restore@v6
+        with:
+          path: artifacts/raw
+          key: rohdaten-messung-${{ github.run_id }}
+          restore-keys: rohdaten-
+          fail-on-cache-miss: true
+
+      # Die Auswahl kommt über eine Umgebungsvariable, nicht direkt in den
+      # Befehl (kein Einschleusen über den Eingabewert).
+      - name: Messung ausführen
+        env:
+          MESSUNG: ${{ inputs.messung }}
+        run: python -m pipeline.messung "$MESSUNG" | tee -a "$GITHUB_STEP_SUMMARY"
