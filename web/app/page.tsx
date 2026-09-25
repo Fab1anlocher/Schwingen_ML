@@ -5,6 +5,7 @@ import { ladeEvents, ladeModel, ladeRatings, ladeSchwinger } from "@/lib/data";
 import { prognostiziere } from "@/lib/inference";
 import type { ModelArtifact, RatingsArtifact, Schwinger, Prognose } from "@/lib/types";
 import { PrognoseView } from "@/components/PrognoseView";
+import { verbandText } from "@/lib/teilverband";
 import { SchwingerSuche } from "@/components/SchwingerSuche";
 import { KopfAnKopf } from "@/components/KopfAnKopf";
 import { ladeKopfAnKopf, kopfAnKopfVorteilA, type H2HTreffer } from "@/lib/kopfAnKopf";
@@ -203,7 +204,8 @@ const KRANZ_LABEL: Record<string, string> = {
 function metaZeile(s: Schwinger | undefined): string {
   if (!s) return "";
   const teile: string[] = [];
-  if (s.teilverband) teile.push(s.teilverband);
+  const verband = verbandText(s);
+  if (verband) teile.push(verband);
   if (s.jahrgang) teile.push(`Jg. ${s.jahrgang}`);
   teile.push(...statusUndFeste(s));
   return teile.join(" · ");
@@ -235,7 +237,8 @@ function statusUndFeste(s: Schwinger): string[] {
  * Rating-Zahl gehört nicht so prominent an die Spitze der Prognose). */
 function vsMeta(s: Schwinger): string {
   const teile: string[] = [];
-  if (s.teilverband) teile.push(s.teilverband);
+  const verband = verbandText(s);
+  if (verband) teile.push(verband);
   teile.push(...statusUndFeste(s));
   return teile.join(" · ");
 }

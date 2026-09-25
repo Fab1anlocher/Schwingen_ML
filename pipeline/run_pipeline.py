@@ -125,7 +125,8 @@ def _pruefe_datenqualitaet(source: str, bericht, n_gaenge_neu: int, *, streng: b
 def _datenqualitaet(bericht, gaenge, events, warnungen: list[str], *,
                     schwinger: dict | None = None,
                     kommende: list | None = None,
-                    kommende_diagnose: dict | None = None) -> dict:
+                    kommende_diagnose: dict | None = None,
+                    verbandsschaetzung: dict | None = None) -> dict:
     """Nachvollziehbare Kennzahlen darüber, was aus den Rohdaten geworden ist.
 
     Landet in report.json und ist damit von Lauf zu Lauf vergleichbar --
@@ -169,9 +170,24 @@ def _datenqualitaet(bericht, gaenge, events, warnungen: list[str], *,
     qualitaet["abzeichen_plausibilitaet"] = _abzeichen_plausibilitaet(
         gaenge, schwinger or {}
     )
+    qualitaet["datenabdeckung"] = _datenabdeckung(schwinger or {}, verbandsschaetzung)
     if bericht is not None:
         qualitaet.update(bericht.als_dict())
     return qualitaet
+
+
+def _datenabdeckung(schwinger: dict, verbandsschaetzung: dict | None) -> dict:
+    """Wie viel des Kaders ein Porträt hat, und was die Verbandsschätzung
+    davon schliesst (P6). Von Lauf zu Lauf vergleichbar im report.json."""
+    from .schema import hat_portraet
+    n = len(schwinger)
+    n_portraet = sum(1 for s in schwinger.values() if hat_portraet(s.quellen))
+    return {
+        "n_schwinger": n,
+        "n_portraet": n_portraet,
+        "anteil_portraet": round(n_portraet / n, 4) if n else None,
+        "teilverband_schaetzung": verbandsschaetzung or {},
+    }
 
 
 def _aktuelle_form(gaenge) -> dict:
@@ -386,12 +402,20 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
     # Ratings am jüngsten Festtag (deterministisch, nicht vom Laufdatum
     # abhängig) und die Gestellt-Neigung je Schwinger nach allen Gängen.
     neigung, gestellt_basis = gestellt_neigung_aktuell(gaenge, schwinger)
+    # P6: Teilverband der Schwinger ohne Porträt aus ihren Festen -- nur für
+    # Anzeige und Suche, nicht fürs Modell (s. verbandsschaetzung.py).
+    from .verbandsschaetzung import schaetze_teilverbaende
+    verband_geschaetzt, verband_pruefung = schaetze_teilverbaende(gaenge, schwinger)
+    print(f"      Teilverband geschätzt: {verband_pruefung['n_geschaetzt']}/"
+          f"{verband_pruefung['n_ohne_verband']} ohne Porträt (Selbstprüfung "
+          f"{verband_pruefung['trefferquote']} auf {verband_pruefung['pruef_faelle']} Porträts, "
+          f"{'angewandt' if verband_pruefung['angewandt'] else 'NICHT angewandt'})", flush=True)
     streuung_jetzt = elo_streuung(elo_modell, max(g.datum for g in gaenge))
     print(f"      Elo-Streuung aktuell {streuung_jetzt:.1f}, Gestellt-Basis {gestellt_basis:.1%}", flush=True)
     export.exportiere_modell(train_res, fi, elo_streuung=streuung_jetzt, gestellt_basis=gestellt_basis)
     export.exportiere_ratings(elo_modell, schwinger)
     export.exportiere_schwinger(schwinger, form_aktuell, ueberraschung, anzahl_feste, aktive,
-                                gestellt_neigung=neigung)
+                                gestellt_neigung=neigung, teilverband_geschaetzt=verband_geschaetzt)
     export.exportiere_kopf_an_kopf(gaenge)
     export.exportiere_kantone(schwinger, elo_modell, gaenge)
     export.exportiere_cluster(cluster_res)
@@ -435,6 +459,7 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
         datenqualitaet=_datenqualitaet(
             bericht, gaenge, events, warnungen, schwinger=schwinger,
             kommende=kommende, kommende_diagnose=kommende_diagnose,
+            verbandsschaetzung=verband_pruefung,
         ),
     )
 

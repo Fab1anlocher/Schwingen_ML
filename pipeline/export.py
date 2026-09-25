@@ -101,12 +101,17 @@ def exportiere_schwinger(
     anzahl_feste: dict | None = None,
     aktive: set | None = None,
     gestellt_neigung: dict | None = None,
+    teilverband_geschaetzt: dict | None = None,
 ) -> None:
     """schwinger.json: Profil + aktuelle Form (für Live-Prognose & Suche FR-5).
 
     gestellt_neigung: geschrumpfte Gestellt-Quote je Schwinger (Merkmals-
     version 2, s. features.gestellt_neigung_aktuell). Fehlt sie (null), rechnet
     die App mit dem Durchschnitt -- neutral, wie für einen Neuling.
+
+    teilverband_geschaetzt: nur für Schwinger ohne Porträt-Verband, aus ihren
+    Festen geschätzt (s. verbandsschaetzung.py). Eigenes Feld, damit gemessen
+    und geschätzt nie verwechselt werden; das Modell nutzt nur ``teilverband``.
 
     Sensible Felder werden NICHT exportiert (NFR-5): kein Geburtsdatum, nur
     Jahrgang bleibt intern; Anzeige nutzt Alter.
@@ -115,6 +120,7 @@ def exportiere_schwinger(
     anzahl_feste = anzahl_feste or {}
     aktive = aktive if aktive is not None else set()
     gestellt_neigung = gestellt_neigung or {}
+    teilverband_geschaetzt = teilverband_geschaetzt or {}
     liste = []
     for sid, s in schwinger.items():
         u = ueberraschung.get(sid)
@@ -137,6 +143,9 @@ def exportiere_schwinger(
             "gewicht_kg": s.gewicht_kg,
             "kranzstatus": s.kranzstatus,
             "teilverband": s.teilverband,
+            "teilverband_geschaetzt": (
+                None if s.teilverband else teilverband_geschaetzt.get(sid)
+            ),
             "kanton": s.kanton,
             "schwingklub": s.schwingklub,
             "bevorzugte_schwuenge": s.bevorzugte_schwuenge,

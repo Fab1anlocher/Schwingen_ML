@@ -42,7 +42,13 @@ export interface Schwinger {
   groesse_cm: number | null;
   gewicht_kg: number | null;
   kranzstatus: string;
+  /** Gemessen: aus dem schlussgang.ch-Porträt. Nur dieses Feld nutzt das Modell. */
   teilverband: string | null;
+  /** Nur bei Schwingern ohne Porträt-Verband: aus ihren Festbesuchen geschätzt
+   *  (pipeline/verbandsschaetzung.py, Selbstprüfung ~99.8 % je Lauf). Für
+   *  Anzeige und Suche -- immer als "geschätzt" kenntlich. Optional, weil
+   *  ältere Artefakte das Feld nicht führen. */
+  teilverband_geschaetzt?: string | null;
   kanton: string | null;
   schwingklub: string | null;
   bevorzugte_schwuenge: string[];

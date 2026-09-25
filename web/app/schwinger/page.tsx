@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ladeCluster, ladeRatings, ladeSchwinger } from "@/lib/data";
 import type { ClusterArtifact, RatingsArtifact, Schwinger } from "@/lib/types";
 import { gruende, hatProfildaten } from "@/lib/aehnlichkeit";
+import { verbandText, verbandVon } from "@/lib/teilverband";
 
 const KRANZ_LABEL: Record<string, string> = {
   kein: "—",
@@ -47,7 +48,7 @@ export default function SchwingerListe() {
   }, []);
 
   const verfuegbareTeilverbaende = useMemo(() => {
-    const gefunden = new Set(schwinger.map((s) => s.teilverband).filter(Boolean) as string[]);
+    const gefunden = new Set(schwinger.map((s) => verbandVon(s).verband).filter(Boolean) as string[]);
     return TEILVERBAND_OPTIONEN.filter((t) => gefunden.has(t));
   }, [schwinger]);
 
@@ -63,12 +64,14 @@ export default function SchwingerListe() {
         if (!nadel) return true;
         // Nicht nur der Name -- auch Teilverband/Kanton/Klub sollen über die
         // freie Suche auffindbar sein, nicht nur über das Teilverband-Dropdown.
-        const heuhaufen = `${s.name} ${s.teilverband ?? ""} ${s.kanton ?? ""} ${
+        const heuhaufen = `${s.name} ${verbandVon(s).verband ?? ""} ${s.kanton ?? ""} ${
           s.schwingklub ?? ""
         }`.toLowerCase();
         return heuhaufen.includes(nadel);
       })
-      .filter((s) => !teilverband || s.teilverband === teilverband)
+      // Geschätzte Verbände zählen mit: sonst fänden sich unter "Bern" nur die
+      // gut 700 Schwinger mit Porträt, nicht die übrigen drei Viertel des Kaders.
+      .filter((s) => !teilverband || verbandVon(s).verband === teilverband)
       .filter((s) => s.n >= minGaenge)
       .filter((s) => zeigeInaktive || s.aktiv)
       .sort((a, b) => b.elo - a.elo);
@@ -83,7 +86,8 @@ export default function SchwingerListe() {
         offizielles ESV-Ranking, sondern die modellinterne Einstufung. Suchen, filtern oder
         auf einen Namen klicken für Profildetails. Die Spalte „Kranz" ist die höchste je
         erreichte Kranzstufe laut Porträt; „Feste" zählt die besuchten Feste seit 2023
-        (Beginn unserer Datenbasis).
+        (Beginn unserer Datenbasis). Wer kein Porträt hat, dessen Teilverband ist aus den
+        besuchten Festen geschätzt und als „geschätzt" gekennzeichnet.
       </p>
 
       <div className="panel" style={{ marginBottom: "1.25rem" }}>
@@ -237,7 +241,13 @@ function SchwingerDetail({
   return (
     <div className="small" style={{ padding: "0.6rem 0" }}>
       <div>
-        <strong>Teilverband:</strong> {s.teilverband ?? "?"} ·{" "}
+        <strong>Teilverband:</strong> {verbandText(s) ?? "?"}
+        {verbandVon(s).geschaetzt && (
+          <span className="muted" title="Kein Porträt vorhanden. Geschätzt aus den Festen, an denen er antrat — an Kantonal-, Teilverbands- und Regionalfesten startet fast nur, wer dem Verband angehört. Treffsicherheit an Schwingern mit bekanntem Verband: ~99.8 %.">
+            {" "}ⓘ
+          </span>
+        )}{" "}
+        ·{" "}
         <strong>Kantonal-/Gauverband:</strong> {s.kanton ?? "?"} · <strong>Klub:</strong>{" "}
         {s.schwingklub ?? "?"}
       </div>

@@ -372,6 +372,14 @@ Wahrheit „hat ein Profil" stand. Darum:
   nur auf Porträt-gegen-Porträt-Gängen. Nur dort liegen die wrestlerischen
   Merkmale auf beiden Seiten vor.
 
+**Teilverband ohne Porträt** (`verbandsschaetzung.py`): aus den besuchten
+Festen geschätzt — an Kantonal-, Teilverbands- und Regionalfesten startet fast
+nur, wer dem Verband angehört. Validiert an den Porträt-Schwingern
+(Leave-one-out) mit 99.8 % Treffern; die Prüfung läuft bei jedem Lauf erneut
+und steht in `report.json` → `datenqualitaet.datenabdeckung`. Nur für Anzeige
+und Suche (eigenes Feld `teilverband_geschaetzt`, in der App als „geschätzt"
+markiert) — im Modell verschlechterte sie den Log-Loss und bleibt draussen.
+
 Eine Folge davon: die Ergebnisverteilung (`sieg_a` rund 35 %, `sieg_b` rund
 42 %) ist **kein Signal**. A und B werden alphabetisch per ID vergeben, und
 Stub-IDs sortieren systematisch häufiger nach vorne (29'690 gemischte

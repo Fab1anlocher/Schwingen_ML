@@ -114,18 +114,40 @@ PR und im täglichen Lauf vor dem Commit neuer Artefakte. Mutationstest: sechs
 absichtlich eingebaute Fehler, alle erkannt. `verify_inference` nutzt jetzt
 dieselbe Python-Spiegelung statt einer eigenen Kopie.
 
-## P6 — Datenabdeckung erhöhen
+## ✅ P6 — Datenabdeckung erhöhen (soweit messbar möglich)
 
-**Priorität mittel · Aufwand gross — behebt P2 an der Wurzel**
+**Teilweise erledigt — was sich belegen liess, ist umgesetzt; der Rest ist
+blockiert und so benannt.**
 
-Nur 706 von 2904 Schwingern haben ein Porträt. P2 macht die Lücke sichtbar,
-schliesst sie aber nicht. Eine zweite Quelle für Physis und Verband der übrigen
-76 % — z.B. die ESV-Ranglisten — würde P2 und P3 zugleich verbessern. Nicht als
-Ersatz für schlussgang.ch, sondern als Ergänzung.
+Ausgangslage: 706 von 2904 Schwingern (24 %) haben ein Porträt; die übrigen
+2198 haben zu 100 % keine Physis, keinen Verband, keinen Kranzstatus. In
+2026 stammen 60 % aller Gangteilnahmen von Schwingern ohne Porträt. Die
+Porträts selbst sind fast vollständig (Gewicht 695/706, Grösse 693/706,
+Verband 706/706; Schwünge nur 418/706 — die Quelle führt sie nicht immer).
 
-Vorher klären: Erlaubt die Quelle das Abrufen (robots.txt, Nutzungsbedingungen)?
-Ein früherer ESV-Teilbaum wurde entfernt, weil der Host CI-Runner mit 403
-sperrte.
+- **Teilverband aus Festbesuchen geschätzt** (`pipeline/verbandsschaetzung.py`).
+  An Kantonal-, Teilverbands- und Regionalfesten startet fast nur, wer dem
+  Verband angehört. Validiert an den Porträt-Schwingern mit bekanntem Verband
+  (Leave-one-out): **99.8 % richtig** (1 Fehler auf 583). Mit nur einem Fest
+  wären es 89.5 %, darum mindestens 3 zuordenbare Feste. Die Prüfung läuft
+  **bei jedem Lauf** erneut; unter 97 % wird nichts geschätzt.
+  Ergebnis: **1649 von 2198** Schwingern ohne Porträt haben jetzt einen
+  Verband; bekannt sind damit 81 % des Kaders statt 24 % (aktive 2026: 90 %).
+  In der App als „geschätzt" gekennzeichnet, Suche und Filter finden sie.
+- **Bewusst nicht ins Modell:** mit geschätzten Verbänden gälte „gleicher
+  Verband" für 73 % der Gänge statt 17 % — Test-Log-Loss 0.7503 → 0.7512,
+  also schlechter. Eigenes Feld `teilverband_geschaetzt`; das Modell nutzt
+  weiter nur den gemessenen Verband.
+- **Gespaltene Identitäten geprüft:** 66 Porträts ohne einen Gang seit 2023
+  (fast alle Jahrgang ≤ 1998, also wohl zurückgetreten). Keines davon ist ein
+  übersehener Stub: die drei Namensähnlichkeiten sind nachweislich andere
+  Personen (anderer Nachname bzw. anderer Verband laut Festbesuchen).
+- **ESV-Ranglisten: blockiert.** esv.ch ist aus der Entwicklungsumgebung nicht
+  erreichbar (Proxy 403), und der Host sperrte schon früher GitHub-Runner
+  (403) — der tägliche Lauf könnte die Quelle also auch nicht abrufen. Offen,
+  bis eine erlaubte Zugriffsart geklärt ist (Anfrage an den ESV, oder ein
+  Runner, den der Host zulässt). Physis und Kranzstatus der 76 % bleiben bis
+  dahin unbekannt; ehrlich als Datenlage im Modell (`portraet_diff`).
 
 ## P7 — Kleinkram
 

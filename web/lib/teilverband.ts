@@ -59,3 +59,20 @@ export function teilverbandFuerFest(name: string, typ: string): string | null {
   }
   return null;
 }
+
+/** Teilverband eines Schwingers für Anzeige und Suche: gemessen (Porträt)
+ *  oder, wenn keiner vorliegt, aus den Festbesuchen geschätzt. */
+export function verbandVon(s: {
+  teilverband: string | null;
+  teilverband_geschaetzt?: string | null;
+}): { verband: string | null; geschaetzt: boolean } {
+  if (s.teilverband) return { verband: s.teilverband, geschaetzt: false };
+  if (s.teilverband_geschaetzt) return { verband: s.teilverband_geschaetzt, geschaetzt: true };
+  return { verband: null, geschaetzt: false };
+}
+
+/** "Bern" bzw. "Bern (geschätzt)" -- eine Schätzung wird nie als Messung gezeigt. */
+export function verbandText(s: Parameters<typeof verbandVon>[0]): string | null {
+  const { verband, geschaetzt } = verbandVon(s);
+  return verband && (geschaetzt ? `${verband} (geschätzt)` : verband);
+}
