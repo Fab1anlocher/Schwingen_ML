@@ -1,103 +1,109 @@
-"""Einmalige Quellen-Diagnose (läuft auf einem GitHub-Runner, nicht lokal).
+"""Einmalige Quellen-Diagnose, Runde 2 (läuft auf einem GitHub-Runner).
 
-Fragen:
-  1. Sperrt esv.ch (inkl. Verbands-Subdomains) Cloud-IPs weiterhin?
-  2. Welche Felder/Dateien führt ein Fest in der schlussgang.ch-JSON:API?
-  3. Gibt es neben der Statistik-PDF eine vollständige Rangliste (Jahrgang,
-     Klub je Teilnehmer)?
+Befund Runde 1: jedes Fest führt eine Schlussrangliste (field_final_ranking_pdf,
+<nid>-final.pdf) mit Wohnort und Schwingklub JEDES Teilnehmers.
 
-Höflich: wenige Anfragen, robots.txt geprüft, 2 s Abstand je Host (http.hole).
+Fragen jetzt:
+  1. Abdeckung: wie viele Feste 2023-2026 haben eine Schlussrangliste?
+  2. Layout: Wortpositionen (x0) von Kopf- und Datenzeilen -- Wohnort und
+     Schwingklub lassen sich im Fliesstext nicht trennen ("Appenzell Schlatt
+     Appenzell"), nur über die Spaltenposition.
+  3. Ist das Layout über Jahre und Festtypen gleich?
+
+Höflich: robots.txt geprüft, 2 s Abstand je Host (http.hole).
 """
 from __future__ import annotations
 
+import collections
 import io
 import json
 import sys
-import time
-import urllib.error
-import urllib.request
 from urllib.parse import urlencode
 
 sys.path.insert(0, ".")
-from pipeline.config import USER_AGENT  # noqa: E402
-from pipeline.scrape.http import darf_abrufen, hole  # noqa: E402
+from pipeline.scrape.http import hole  # noqa: E402
 
 API = "https://backend-api.schlussgang.ch/jsonapi/node/event"
+BASIS = "https://www.schlussgang.ch"
+
+print("## 1. Abdeckung Schlussrangliste 2023-2026 (Aktivschwinger, abgeschlossen)")
+feste = []
+offset = 0
+while True:
+    params = {
+        "filter[state][condition][path]": "field_event_state",
+        "filter[state][condition][value]": "finished",
+        "filter[typ][condition][path]": "field_event_type",
+        "filter[typ][condition][value]": "Aktivschwinger",
+        "filter[datum][condition][path]": "field_event_date",
+        "filter[datum][condition][value]": "2023-01-01",
+        "filter[datum][condition][operator]": ">=",
+        "sort": "-field_event_date",
+        "page[limit]": 50,
+        "page[offset]": offset,
+        "include": "field_final_ranking_pdf",
+        "fields[node--event]": "drupal_internal__nid,title,field_event_date,field_final_ranking_pdf,field_final_statistic_pdf",
+        "fields[file--file]": "filename,uri",
+    }
+    daten = json.loads(hole(f"{API}?{urlencode(params)}"))
+    dateien = {i["id"]: i["attributes"] for i in daten.get("included", [])}
+    for item in daten["data"]:
+        a = item["attributes"]
+        rel = (item["relationships"].get("field_final_ranking_pdf") or {}).get("data")
+        stat = (item["relationships"].get("field_final_statistic_pdf") or {}).get("data")
+        datei = dateien.get(rel["id"]) if rel else None
+        feste.append({
+            "nid": a["drupal_internal__nid"], "datum": a["field_event_date"], "titel": a["title"],
+            "rangliste": (datei or {}).get("uri", {}).get("url") if datei else None,
+            "statistik": bool(stat),
+        })
+    if len(daten["data"]) < 50 or offset > 1500:
+        break
+    offset += 50
+
+nach_jahr = collections.defaultdict(lambda: [0, 0, 0])
+for f in feste:
+    j = nach_jahr[f["datum"][:4]]
+    j[0] += 1
+    j[1] += bool(f["rangliste"])
+    j[2] += f["statistik"]
+for jahr in sorted(nach_jahr):
+    n, r, s = nach_jahr[jahr]
+    print(f"- {jahr}: {n} Feste, Schlussrangliste {r}, Statistik {s}")
+namen = collections.Counter((f["rangliste"] or "").rsplit("-", 1)[-1] for f in feste if f["rangliste"])
+print(f"- Dateinamen-Endungen: {dict(namen)}")
 
 
-def status(url: str, methode: str = "GET") -> str:
-    if not darf_abrufen(url):
-        return "robots.txt verbietet"
-    time.sleep(2)
-    req = urllib.request.Request(url, method=methode, headers={"User-Agent": USER_AGENT})
-    try:
-        with urllib.request.urlopen(req, timeout=20) as r:
-            return f"{r.status} {r.headers.get('content-type', '')} {r.headers.get('content-length', '')}"
-    except urllib.error.HTTPError as e:
-        return f"HTTP {e.code} {e.headers.get('server', '')}"
-    except Exception as e:  # noqa: BLE001
-        return f"{type(e).__name__}: {e}"
-
-
-def kurz(v, n=140):
-    s = json.dumps(v, ensure_ascii=False) if not isinstance(v, str) else v
-    return s if len(s) <= n else s[:n] + "…"
-
-
-print("## 1. Erreichbarkeit von Cloud-IP (GitHub-Runner)")
-for url in ("https://esv.ch/robots.txt", "https://esv.ch/ranglisten/",
-            "https://zksv.esv.ch/agenda/", "https://nosv.esv.ch/agenda/",
-            "https://www.schlussgang.ch/robots.txt"):
-    print(f"- {url}: {status(url)}")
-
-print("\n## 2. Ein abgeschlossenes Fest, alle Felder")
-params = {
-    "filter[state][condition][path]": "field_event_state",
-    "filter[state][condition][value]": "finished",
-    "filter[typ][condition][path]": "field_event_type",
-    "filter[typ][condition][value]": "Aktivschwinger",
-    "sort": "-field_event_date",
-    "page[limit]": 3,
-}
-daten = json.loads(hole(f"{API}?{urlencode(params)}"))
-for item in daten["data"]:
-    a = item["attributes"]
-    print(f"\n### nid {a.get('drupal_internal__nid')} — {a.get('title')} ({a.get('field_event_date')})")
-    for k in sorted(a):
-        if k.startswith("field_") or k in ("title", "path"):
-            print(f"  attr {k}: {kurz(a[k])}")
-    for k, rel in sorted((item.get("relationships") or {}).items()):
-        d = rel.get("data")
-        print(f"  rel  {k}: {kurz(d, 200)}")
-        # Datei-/Medien-Beziehungen auflösen
-        if d and any(t in json.dumps(d) for t in ("file--file", "media--")):
-            link = (rel.get("links") or {}).get("related", {}).get("href")
-            if link:
-                try:
-                    inhalt = json.loads(hole(link))
-                    eintraege = inhalt["data"] if isinstance(inhalt["data"], list) else [inhalt["data"]]
-                    for e in eintraege:
-                        ea = e.get("attributes", {})
-                        print(f"       -> {e.get('type')}: {ea.get('filename')} {kurz(ea.get('uri'), 200)}")
-                except Exception as ex:  # noqa: BLE001
-                    print(f"       -> Fehler: {ex}")
-
-nid = daten["data"][0]["attributes"]["drupal_internal__nid"]
-print(f"\n## 3. Kandidaten für eine Rangliste (nid {nid})")
-basis = "https://www.schlussgang.ch/sites/default/files/event-ranking-list"
-gefunden = []
-for suffix in ("statistic-final", "ranking-final", "rangliste-final", "ranking-list-final",
-               "ranking", "rangliste", "result-final", "results-final", "final"):
-    url = f"{basis}/{nid}-{suffix}.pdf"
-    s = status(url, "HEAD")
-    print(f"- {nid}-{suffix}.pdf: {s}")
-    if s.startswith("200") and suffix != "statistic-final":
-        gefunden.append(url)
-
-for url in gefunden[:2]:
-    print(f"\n### Textauszug {url}")
+def layout(fest: dict, n_zeilen: int = 14) -> None:
     import pdfplumber
+    url = BASIS + fest["rangliste"]
+    print(f"\n### {fest['titel']} ({fest['datum']}) {url}")
     with pdfplumber.open(io.BytesIO(hole(url, binaer=True))) as pdf:
-        text = (pdf.pages[0].extract_text() or "").splitlines()
-    for zeile in text[:60]:
-        print("   " + zeile)
+        print(f"  Seiten: {len(pdf.pages)}, Breite {pdf.pages[0].width:.0f}")
+        woerter = pdf.pages[0].extract_words(keep_blank_chars=False, use_text_flow=False)
+        zeilen = collections.defaultdict(list)
+        for w in woerter:
+            zeilen[round(w["top"] / 3)].append(w)
+        for i, key in enumerate(sorted(zeilen)):
+            if i >= n_zeilen:
+                break
+            ws = sorted(zeilen[key], key=lambda w: w["x0"])
+            print("  " + " | ".join(f"{w['text']}@{w['x0']:.0f}" for w in ws))
+        # letzte Seite, letzte Zeilen (Fusszeile / Ende der Tabelle)
+        letzte = pdf.pages[-1].extract_text() or ""
+        print("  … letzte Zeilen: " + " // ".join(letzte.splitlines()[-4:]))
+
+
+mit = [f for f in feste if f["rangliste"]]
+if mit:
+    stichprobe = {}
+    for f in mit:
+        t = f["titel"].lower()
+        if "eidgen" in t and "eidg" not in stichprobe:
+            stichprobe["eidg"] = f
+        elif "kantonal" in t and "kant" not in stichprobe:
+            stichprobe["kant"] = f
+    stichprobe["aeltestes"] = mit[-1]
+    stichprobe["neuestes"] = mit[0]
+    for f in stichprobe.values():
+        layout(f)
