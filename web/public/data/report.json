@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-09-25T21:17:12.010311+00:00",
-  "lauf_id": "20260925T211712Z",
+  "erstellt": "2026-09-25T21:30:06.205613+00:00",
+  "lauf_id": "20260925T213006Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 134035,
@@ -256,6 +256,10 @@
       "kranzfeste_ohne_kranz": 1,
       "beispiele_kranzfeste_ohne_kranz": [
         "schlussgang-22490"
+      ],
+      "kranzquote_ausserhalb": 1,
+      "beispiele_kranzquote_ausserhalb": [
+        "Urner Kantonalschwingfest Flüelen 2026: 24.3%"
       ],
       "klub_abdeckung_aktive": 0.9892,
       "verband_ueber_klub": {
