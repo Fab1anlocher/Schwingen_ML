@@ -61,3 +61,18 @@ def test_fehlender_snapshot_wird_uebersprungen():
     ]
     ergebnis = berechne_ueberraschung(gaenge, [])
     assert ergebnis == {}
+
+
+def test_gaenge_vor_ab_datum_zaehlen_nicht():
+    """Die Pipeline übergibt das Ende der Einschwingphase: davor liegen alle
+    Ratings beim Startwert, jeder Sieg eines späteren Spitzenschwingers sähe
+    wie eine Überraschung aus."""
+    gaenge = [
+        GangResultat("ev1", "2023-05-01", "a", "b", "+", 10.0, "-", 8.75, "sieg_a", "kantonal"),
+        GangResultat("ev2", "2024-06-01", "a", "b", "+", 10.0, "-", 8.75, "sieg_a", "kantonal"),
+    ]
+    snapshots = [_snap("ev1", "a", "b", 1500.0, 1900.0), _snap("ev2", "a", "b", 1900.0, 1500.0)]
+    ergebnis = berechne_ueberraschung(gaenge, snapshots, ab_datum="2024-01-01")
+
+    assert ergebnis["a"]["n"] == 1
+    assert ergebnis["a"]["groesster_erfolg"]["event_id"] == "ev2"

@@ -75,14 +75,18 @@ def namensaufloesung(finde, schwinger: dict | None = None):
 
 
 def teilnahmen_aus_ranglisten(ranglisten: dict, events: dict, finde,
-                              schwinger: dict | None = None) -> tuple[list[Teilnahme], dict]:
+                              schwinger: dict | None = None, *,
+                              zuordnung: dict | None = None) -> tuple[list[Teilnahme], dict]:
     """Rohe Ranglisten -> Teilnahmen mit aufgelöster Schwinger-ID.
 
     ``events``: event_id -> Event (nur bekannte Feste zählen).
     ``finde``: Name -> Schwinger-ID oder None (Namensindex.finde).
     ``schwinger``: für die Auflösung über den Jahrgang (s. namensaufloesung).
+    ``zuordnung``: (Fest, Namens-Tokens) -> ID eines Namensvetters (s.
+    namensvettern.py) -- hat Vorrang vor der Auflösung über den Namen.
     """
     finde = namensaufloesung(finde, schwinger)
+    zuordnung = zuordnung or {}
     teilnahmen: list[Teilnahme] = []
     unaufloesbar: Counter = Counter()
     n_feste = n_fehler = 0
@@ -95,7 +99,8 @@ def teilnahmen_aus_ranglisten(ranglisten: dict, events: dict, finde,
             continue
         n_feste += 1
         for e in eintrag.get("eintraege", []):
-            sid = finde(e["name"])
+            m = _JAHRGANG_RE.match(e["name"].strip())
+            sid = zuordnung.get((eid, namens_tokens(m.group(1) if m else e["name"]))) or finde(e["name"])
             if sid is None:
                 unaufloesbar[e["name"]] += 1
                 continue
@@ -158,6 +163,46 @@ def kranzstatus_je_schwinger(teilnahmen: list[Teilnahme]) -> dict[str, str]:
             s = max(s, 2 if (t.fest_typ == "eidgenoessisch" or t.status == "Neueidgenosse") else 1)
         stufe[t.schwinger_id] = max(stufe[t.schwinger_id], s)
     return {sid: ("eidgenosse" if n >= 2 else "kranzer") for sid, n in stufe.items() if n}
+
+
+# Rang 1 der Schlussrangliste; bei Punktgleichheit teilen sich mehrere den
+# Festsieg ("1a", "1b").
+_FESTSIEG_RE = re.compile(r"^1[a-z]?$")
+
+
+def ist_festsieg(rang: str) -> bool:
+    return bool(_FESTSIEG_RE.match(str(rang).strip()))
+
+
+def festsiege_je_schwinger(teilnahmen: list[Teilnahme]) -> dict[str, list[dict]]:
+    """Festsiege je Schwinger (Rang 1, auch geteilt), jüngster zuerst.
+
+    Ersetzt in der App den früheren "grössten Erfolg" (grösster Elo-
+    Rückstand bei einem Sieg) als Leistungsausweis: der fiel bei jedem
+    Spitzenschwinger in die ersten Wochen 2023, als alle Ratings noch beim
+    Startwert lagen -- Orlik: "schlug Thomas Bucher (17 Elo-Punkte)".
+    """
+    out: dict[str, list[dict]] = defaultdict(list)
+    for t in teilnahmen:
+        if ist_festsieg(t.rang):
+            out[t.schwinger_id].append({"event_id": t.event_id, "datum": t.datum, "typ": t.fest_typ})
+    return {sid: sorted(v, key=lambda x: x["datum"], reverse=True) for sid, v in out.items()}
+
+
+def fest_ueberblick(teilnahmen: list[Teilnahme]) -> dict[str, dict]:
+    """Je Fest: Sieger (IDs, geteilt möglich), Teilnehmer und vergebene Kränze.
+
+    Gezählt über die aufgelösten Teilnahmen (99.4 % der Ranglisten-Namen);
+    die Zahlen können darum um einzelne Unaufgelöste zu tief liegen.
+    """
+    out: dict[str, dict] = {}
+    for t in teilnahmen:
+        f = out.setdefault(t.event_id, {"sieger": [], "n_teilnehmer": 0, "n_kraenze": 0})
+        f["n_teilnehmer"] += 1
+        f["n_kraenze"] += bool(t.kranz)
+        if ist_festsieg(t.rang):
+            f["sieger"].append(t.schwinger_id)
+    return out
 
 
 def klub_je_schwinger(teilnahmen: list[Teilnahme]) -> dict[str, str]:

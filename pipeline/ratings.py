@@ -140,7 +140,8 @@ def fahre_elo_durch(gaenge: list[GangResultat]) -> tuple[EloModell, list[dict]]:
     return modell, snapshots
 
 
-def berechne_ueberraschung(gaenge: list[GangResultat], snapshots: list[dict]) -> dict[str, dict]:
+def berechne_ueberraschung(gaenge: list[GangResultat], snapshots: list[dict],
+                           ab_datum: str | None = None) -> dict[str, dict]:
     """Überraschungs-Index je Schwinger: tatsächliche vs. Elo-erwartete Punkte.
 
     Nutzt dieselben leak-freien Pre-Gang-Ratings wie die Features (ML-5) und
@@ -149,6 +150,12 @@ def berechne_ueberraschung(gaenge: list[GangResultat], snapshots: list[dict]) ->
     Schwingers; positiv = übertrifft die Elo-Erwartung im Schnitt, negativ =
     bleibt darunter. Ergänzt die globale Feature-Wichtigkeit (ML-7) um eine
     Pro-Schwinger-Sicht.
+
+    ``ab_datum``: nur Gänge ab diesem Datum zählen (die Pipeline übergibt das
+    Ende der Einschwingphase). Davor liegen alle Ratings noch nahe beim
+    Startwert: jeder Spitzenschwinger "übertraf die Erwartung", und sein
+    grösster Überraschungssieg fiel in die ersten Wochen 2023 -- Orlik
+    "schlug Thomas Bucher (17 Elo-Punkte Unterschied)".
     """
     idx = {s["event_id"] + s["schwinger_a_id"] + s["schwinger_b_id"]: s for s in snapshots}
     summe: dict[str, float] = defaultdict(float)
@@ -156,6 +163,8 @@ def berechne_ueberraschung(gaenge: list[GangResultat], snapshots: list[dict]) ->
     bester: dict[str, dict] = {}
 
     for gang in gaenge:
+        if ab_datum and gang.datum < ab_datum:
+            continue
         snap = idx.get(gang.event_id + gang.schwinger_a_id + gang.schwinger_b_id)
         if snap is None:
             continue

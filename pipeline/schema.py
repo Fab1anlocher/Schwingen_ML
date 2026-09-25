@@ -75,6 +75,9 @@ class Schwinger:
     schwinger_seit: Optional[int] = None
     bevorzugte_schwuenge: list[str] = field(default_factory=list)
     quellen: list[str] = field(default_factory=list)
+    # Gleichnamiger Porträt-Schwinger, von dem dieser Eintrag getrennt wurde
+    # (s. namensvettern.py); sonst None.
+    namensvetter_von: Optional[str] = None
 
     def to_dict(self) -> dict:
         return asdict(self)
