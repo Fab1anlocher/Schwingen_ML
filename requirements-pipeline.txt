@@ -1,5 +1,5 @@
 # Python-Abhängigkeiten der Datenpipeline (läuft auf GitHub Actions).
-numpy>=1.26
+numpy>=2.5.3
 scikit-learn>=1.4
 # Statistik-PDFs von schlussgang.ch parsen (pipeline/scrape/schlussgang_pdf.py):
 pdfplumber>=0.11
