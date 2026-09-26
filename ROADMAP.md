@@ -336,6 +336,41 @@ komprimiert.
 
 ---
 
+## ✅ Audit der Analyse-Seite (26.09.2026)
+
+Jede Zahl der Seite nachgerechnet: Evaluationsmodell mit dem Harness
+nachgebaut (Log-Loss 0.7203 statt 0.7204, Treffer 69.05 % statt 69.01 %; die
+Abweichung kommt vom Nachbau aus den Artefakten), Bootstrap über Feste,
+Gegenproben. Die berichteten Zahlen waren rechnerisch richtig; falsch oder
+irreführend waren Vergleiche und Deutungen:
+
+| Befund | Wirkung | Korrektur |
+|---|---|---|
+| Elo-Vergleich mit fester Formel, viel zu zaghaft (Favorit „64 %“ gewinnt in 85 %) | Vorsprung des Modells überzeichnet: Log-Loss 0.910 → 0.720 statt fair 0.857 → 0.720 | Kandidat `elo_angepasst` (nur Elo, Wahrscheinlichkeiten gelernt), die Seite vergleicht damit |
+| Kranz-Faustregel: bei gleichem Status (65 % der Gänge) „Gestellt“ | „42 % Treffer“ klang nach „Kranzstatus taugt nichts“; mit Favorit sind es 77 % | Anteil ohne Favorit und Treffer mit Favorit im Artefakt und im Text |
+| „Modell ohne Elo“ = „ohne Ergebnisse der Vergangenheit“ | falsch, es enthält den Kranzstatus | Text korrigiert |
+| MAE als Fehlermass | belohnt Übertreibung: Faustregel 0.301 besser als Elo 0.338 | aus der Anzeige entfernt (bleibt im Artefakt), Log-Loss je Ansatz ergänzt |
+| Merkmalswichtigkeit: 1 Vertauschung auf 8000 Gängen, bei 0 abgeschnitten | Plätze vertauscht, kleine Merkmale „0.000“ | 5 Wiederholungen auf allen Testgängen, Streuung im Artefakt |
+| „…wie viel das Modell ohne dieses Merkmal verlöre“ | falsch: Kranzstatus 0.023 vertauscht, ohne ihn neu trainiert +0.0007 | Text: „so stark stützt sich das Modell darauf“ |
+| „Merkmale Stand vor dem Fest“ | nicht für Porträt-Merkmale: Kranzstatus ist der heutige | offen benannt; Obergrenze gemessen: ohne Kranzstatus und Porträt-Angabe Test-Log-Loss +0.0015, Treffer −0.2 Pkt. |
+| „ganze Saison 2026“ | 4 Feste stehen noch aus | „Saison 2026 bis 13.9.“ |
+| keine Unsicherheit | 69.0 % wirkte exakt | 95-%-Bereiche, Bootstrap über die 133 Feste: Treffer 68.2–69.8 %, Log-Loss 0.709–0.732 |
+| Boosting „deutlich besser“ als LR | übertrieben: −0.020 Log-Loss [−0.017, −0.022], +0.4 Pkt. Treffer [+0.1, +0.6] | „klein, aber in beiden Prüfsaisons“ |
+| Eidgenössisch 2026 = 1 Fest (Kilchberg), 165 Gänge | Zeile wirkte gleichwertig | Feste, Gänge, Gestellt-Anteil je Festtyp, „wenig Daten“ |
+| Schwünge: Ø Elo ohne Unsicherheit | Übersprung +60 wirkte echt, 95-%-Bereich ±61 | Fehlerbalken; kein Unterschied ist gesichert |
+| Streudiagramme | Auswahl nur Porträt-Schwinger (fast nur Kranzer) dämpft r; Achsen zeigten den Rand (Alter „14“) | Hinweis, 95-%-Bereich für r, echte Extremwerte an der Achse |
+| Alarmgrenze der Überwachung | Seite nahm den unteren Median, die Pipeline `np.median` | wie die Pipeline |
+| Tabelle „Alle Läufe“ | Läufe bis 23.9. zählten jeden Gang doppelt, Werte nicht vergleichbar | Spalte Testgänge und Hinweis |
+| Auswahl an 2025 und 2026 | Kennzahlen leicht optimistisch | offen benannt; unberührte Prüfsaison erst 2027 |
+
+Zusätzlich sichtbar gemacht: Unter Porträt-Schwingern (26 % der Gänge)
+trifft das Modell 62.8 % (Elo 58.3 %) — die 69 % insgesamt kommen auch von
+vielen ungleichen Paarungen.
+
+Offen: Kranzstatus zum Zeitpunkt des Gangs (aus den Sternen der Rangliste
+bzw. dem Statusabzeichen der Statistik-PDF) statt aus dem heutigen Porträt —
+würde das kleine Leck ganz schliessen.
+
 # Erledigt
 
 ## Was solide ist

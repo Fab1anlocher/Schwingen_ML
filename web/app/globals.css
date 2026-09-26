@@ -1564,7 +1564,9 @@ tbody tr:hover {
 }
 @media (max-width: 760px) {
   .kal-layout {
-    grid-template-columns: 1fr;
+    /* minmax(0, …): sonst setzt die Tabelle darunter die Mindestbreite und
+       die Seite wird auf dem Handy breiter als der Bildschirm. */
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 .kal-layout .kal-kennzahlen {

@@ -162,6 +162,7 @@ def trainiere(X, y, meta, typ: str = MODELL_TYP) -> dict:
         kalibrierung = None
 
     nur_portraet = _bewerte_nur_portraet(p_test, yte, meta, holdout, labels_idx)
+    konfidenz = konfidenzintervalle(p_test, yte, [m for m in meta if _ist_testzeile(m, holdout)])
 
     # Roadmap M5: ausgeliefert wird ein Modell, das auch die Holdout-Saison
     # gesehen hat. Nur wenn es überhaupt einen Holdout gab (sonst ist das
@@ -195,9 +196,43 @@ def trainiere(X, y, meta, typ: str = MODELL_TYP) -> dict:
         "mse": float(fehler["mse"]),
         "confusion_matrix": cm,
         "nur_portraet": nur_portraet,
+        "konfidenz": konfidenz,
         "kalibrierung": kalibrierung,
         # Ab wann trainiert wird (davor: Einschwingphase, nur Historie).
         "training_ab": _training_ab(meta, y, holdout),
+    }
+
+
+# Bootstrap über ganze Feste: Gänge desselben Fests hängen zusammen (gleiches
+# Feld, gleiche Einteilung, gleiche Kampfrichter). Ein Bootstrap über einzelne
+# Gänge täte so, als wären es 36'610 unabhängige Beobachtungen, und gäbe zu
+# enge Intervalle (Audit 25.09.2026: Treffer 2026 69.0 % [68.2, 69.8]).
+BOOTSTRAP_WIEDERHOLUNGEN = 1000
+
+
+def konfidenzintervalle(p_test, yte, test_meta, wiederholungen: int = BOOTSTRAP_WIEDERHOLUNGEN) -> dict | None:
+    """95-%-Intervalle für Trefferquote und Log-Loss, Bootstrap über Feste."""
+    if len(yte) == 0 or len(test_meta) != len(yte):
+        return None
+    yte = np.asarray(yte)
+    nll = -np.log(np.clip(p_test[np.arange(len(yte)), yte], 1e-15, 1.0))
+    treffer = (np.argmax(p_test, axis=1) == yte).astype(float)
+    fest = np.array([m["event_id"] for m in test_meta])
+    feste, idx = np.unique(fest, return_inverse=True)
+    # Summen je Fest: ein Bootstrap-Zug ist dann nur noch eine Gewichtung.
+    n_je = np.bincount(idx, minlength=len(feste)).astype(float)
+    nll_je = np.bincount(idx, weights=nll, minlength=len(feste))
+    tr_je = np.bincount(idx, weights=treffer, minlength=len(feste))
+    rng = np.random.default_rng(SEED)
+    zuege = rng.multinomial(len(feste), np.full(len(feste), 1 / len(feste)), size=wiederholungen)
+    n_b = zuege @ n_je
+    ll_b, acc_b = (zuege @ nll_je) / n_b, (zuege @ tr_je) / n_b
+    return {
+        "methode": "bootstrap_feste",
+        "n_feste": int(len(feste)),
+        "wiederholungen": wiederholungen,
+        "accuracy": [round(float(v), 4) for v in np.percentile(acc_b, [2.5, 97.5])],
+        "log_loss": [round(float(v), 4) for v in np.percentile(ll_b, [2.5, 97.5])],
     }
 
 
@@ -241,8 +276,12 @@ def _bewerte_nur_portraet(p_test, yte, meta, holdout: int, labels_idx) -> dict:
     }
 
 
-# Obergrenze der Testgänge für die Permutations-Wichtigkeit (Laufzeit).
-MAX_PERMUTATION = 8000
+# Permutations-Wichtigkeit: alle Testgänge, jedes Merkmal mehrfach vertauscht.
+# Früher eine Vertauschung auf 8000 Gängen: benachbarte Merkmale tauschten die
+# Plätze (Rating-Nähe 0.065 vor Gestellt-Neigung 0.056; mit 5 Wiederholungen
+# auf allen 36'610 Gängen 0.056 hinter 0.061, Streuung je Merkmal ~0.001) und
+# kleine Merkmale erschienen als exakt 0. Kosten ~40 s je Lauf.
+PERMUTATION_WIEDERHOLUNGEN = 5
 
 
 def feature_wichtigkeit(train_res: dict) -> list[dict]:
@@ -255,13 +294,14 @@ def feature_wichtigkeit(train_res: dict) -> list[dict]:
     Das ist modellunabhängig und direkt lesbar ("so viel schlechter ohne").
     """
     modell: Prognosemodell = train_res["modell"]
+    streuung = None
     if modell.typ == "lr":
         coefs = modell.sk.coef_            # (n_klassen, n_features)
         wichtig = np.abs(coefs).mean(axis=0)
         koeff = {i: {KLASSEN[k]: float(coefs[k, i]) for k in range(len(KLASSEN))}
                  for i in range(len(FEATURE_NAMES))}
     else:
-        wichtig = _permutations_wichtigkeit(modell, train_res["X_test"], train_res["y_test"])
+        wichtig, streuung = _permutations_wichtigkeit(modell, train_res["X_test"], train_res["y_test"])
         koeff = {}
     eintraege = []
     for i, name in enumerate(FEATURE_NAMES):
@@ -269,24 +309,33 @@ def feature_wichtigkeit(train_res: dict) -> list[dict]:
             "feature": name,
             "label": FEATURE_LABELS.get(name, name),
             "wichtigkeit": float(wichtig[i]),
+            # Standardabweichung über die Wiederholungen (nur Permutation).
+            "streuung": float(streuung[i]) if streuung is not None else None,
             "koeffizienten": koeff.get(i),
         })
     eintraege.sort(key=lambda e: e["wichtigkeit"], reverse=True)
     return eintraege
 
 
-def _permutations_wichtigkeit(modell: Prognosemodell, X: np.ndarray, y: np.ndarray) -> np.ndarray:
+def _permutations_wichtigkeit(modell: Prognosemodell, X: np.ndarray, y: np.ndarray,
+                              wiederholungen: int = PERMUTATION_WIEDERHOLUNGEN) -> tuple[np.ndarray, np.ndarray]:
+    """Anstieg des Log-Loss, wenn ein Merkmal unter den Testgängen vertauscht
+    wird: Mittel und Streuung über ``wiederholungen``. Misst, wie stark sich
+    DIESES Modell auf das Merkmal stützt -- nicht, wie viel ein ohne das
+    Merkmal neu trainiertes Modell verlöre (dort springen verwandte Merkmale
+    ein: Kranzstatus 0.023 hier, ohne ihn neu trainiert +0.0007).
+    Nicht bei 0 abgeschnitten: ein Mittel um 0 heisst "nutzt es nicht"."""
+    null = np.zeros(len(FEATURE_NAMES))
     if len(X) == 0 or len(np.unique(y)) < 2:
-        return np.zeros(len(FEATURE_NAMES))
+        return null, null
     rng = np.random.default_rng(SEED)
-    if len(X) > MAX_PERMUTATION:
-        auswahl = rng.choice(len(X), MAX_PERMUTATION, replace=False)
-        X, y = X[auswahl], y[auswahl]
     labels = list(range(len(KLASSEN)))
     basis = log_loss(y, modell.predict_proba(X), labels=labels)
-    out = np.zeros(X.shape[1])
-    for i in range(X.shape[1]):
-        Xp = X.copy()
-        Xp[:, i] = rng.permutation(Xp[:, i])
-        out[i] = max(0.0, log_loss(y, modell.predict_proba(Xp), labels=labels) - basis)
-    return out
+    werte = np.zeros((wiederholungen, X.shape[1]))
+    for w in range(wiederholungen):
+        for i in range(X.shape[1]):
+            Xp = X.copy()
+            Xp[:, i] = rng.permutation(Xp[:, i])
+            werte[w, i] = log_loss(y, modell.predict_proba(Xp), labels=labels) - basis
+    streuung = werte.std(axis=0, ddof=1) if wiederholungen > 1 else np.zeros(X.shape[1])
+    return werte.mean(axis=0), streuung

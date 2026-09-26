@@ -37,3 +37,11 @@ export function korrelationsStaerke(r: number): string {
   if (a < 0.5) return "mittlerer Zusammenhang";
   return "starker Zusammenhang";
 }
+
+/** 95-%-Bereich für Pearson-r (Fisher-z), null unter 4 Punkten. */
+export function korrelationsBereich(r: number, n: number): [number, number] | null {
+  if (n < 4 || Math.abs(r) >= 1) return null;
+  const z = Math.atanh(r);
+  const se = 1 / Math.sqrt(n - 3);
+  return [Math.tanh(z - 1.96 * se), Math.tanh(z + 1.96 * se)];
+}

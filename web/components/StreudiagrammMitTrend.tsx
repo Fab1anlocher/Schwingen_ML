@@ -3,7 +3,7 @@
 // Streudiagramm mit linearer Trendlinie und Korrelation r (lib/regression.ts).
 
 import { useMemo, useState } from "react";
-import { linearRegression, korrelationsStaerke } from "@/lib/regression";
+import { korrelationsBereich, korrelationsStaerke, linearRegression } from "@/lib/regression";
 import { useBreite } from "@/lib/useBreite";
 
 interface Punkt {
@@ -38,12 +38,20 @@ export function StreudiagrammMitTrend({
 
   const regression = useMemo(() => linearRegression(punkte), [punkte]);
 
-  const { xMin, xMax, yMin, yMax } = useMemo(() => {
+  // Achse mit etwas Rand; beschriftet werden aber die echten Extremwerte (der
+  // Rand allein zeigte etwa ein Alter von 14, das es nicht gibt).
+  const { xMin, xMax, yMin, yMax, daten } = useMemo(() => {
     const xs = punkte.map((p) => p.x);
     const ys = punkte.map((p) => p.y);
-    const [x0, x1] = nizeRange(Math.min(...xs), Math.max(...xs));
-    const [y0, y1] = nizeRange(Math.min(...ys), Math.max(...ys));
-    return { xMin: x0, xMax: x1, yMin: y0, yMax: y1 };
+    const d = {
+      x0: Math.min(...xs),
+      x1: Math.max(...xs),
+      y0: Math.min(...ys),
+      y1: Math.max(...ys),
+    };
+    const [x0, x1] = nizeRange(d.x0, d.x1);
+    const [y0, y1] = nizeRange(d.y0, d.y1);
+    return { xMin: x0, xMax: x1, yMin: y0, yMax: y1, daten: d };
   }, [punkte]);
 
   const px0 = PAD.links;
@@ -63,6 +71,7 @@ export function StreudiagrammMitTrend({
   const trendY1 = regression.steigung * trendX1 + regression.achsenabschnitt;
 
   const rQuadrat = regression.r * regression.r;
+  const bereich = korrelationsBereich(regression.r, punkte.length);
 
   return (
     <div className="streu-wrap" ref={ref}>
@@ -72,6 +81,13 @@ export function StreudiagrammMitTrend({
           r = {regression.r.toFixed(2)} (R² = {(rQuadrat * 100).toFixed(0)}%) —{" "}
           {korrelationsStaerke(regression.r)}
         </span>
+      </div>
+      <div className="muted small">
+        {punkte.length} Schwinger
+        {bereich &&
+          ` · 95 %-Bereich für r: ${bereich[0].toFixed(2)} bis ${bereich[1].toFixed(2)}${
+            bereich[0] < 0 && bereich[1] > 0 ? " — kein gesicherter Zusammenhang" : ""
+          }`}
       </div>
       <svg
         viewBox={`0 0 ${W} ${H}`}
@@ -119,17 +135,17 @@ export function StreudiagrammMitTrend({
           strokeDasharray="6 4"
         />
 
-        <text x={px0} y={H - 10} textAnchor="start" className="streu-achsentext">
-          {formatX(xMin)}
+        <text x={xScale(daten.x0)} y={H - 10} textAnchor="start" className="streu-achsentext">
+          {formatX(daten.x0)}
         </text>
-        <text x={px1} y={H - 10} textAnchor="end" className="streu-achsentext">
-          {formatX(xMax)}
+        <text x={xScale(daten.x1)} y={H - 10} textAnchor="end" className="streu-achsentext">
+          {formatX(daten.x1)}
         </text>
-        <text x={px0 - 8} y={py0 + 4} textAnchor="end" className="streu-achsentext">
-          {Math.round(yMax)}
+        <text x={px0 - 8} y={yScale(daten.y1) + 4} textAnchor="end" className="streu-achsentext">
+          {Math.round(daten.y1)}
         </text>
-        <text x={px0 - 8} y={py1 + 4} textAnchor="end" className="streu-achsentext">
-          {Math.round(yMin)}
+        <text x={px0 - 8} y={yScale(daten.y0) + 4} textAnchor="end" className="streu-achsentext">
+          {Math.round(daten.y0)}
         </text>
       </svg>
       <div className="row" style={{ justifyContent: "space-between" }}>
