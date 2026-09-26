@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-09-25T22:17:51.945941+00:00",
-  "lauf_id": "20260925T221751Z",
+  "erstellt": "2026-09-26T00:14:32.358530+00:00",
+  "lauf_id": "20260926T001432Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 134035,
@@ -125,6 +125,19 @@
       }
     ]
   },
+  "konfidenz": {
+    "methode": "bootstrap_feste",
+    "n_feste": 133,
+    "wiederholungen": 1000,
+    "accuracy": [
+      0.682,
+      0.6981
+    ],
+    "log_loss": [
+      0.7082,
+      0.7317
+    ]
+  },
   "merkmal_version": 3,
   "training_ab": "2024-04-01",
   "erfolgskriterien": {
@@ -200,7 +213,7 @@
       "von": "2023-04-01",
       "bis": "2026-09-13"
     },
-    "tage_seit_juengstem_fest": 12,
+    "tage_seit_juengstem_fest": 13,
     "kommende_feste": {
       "n": 4,
       "n_mit_paarungen": 0,
@@ -323,7 +336,7 @@
     }
   },
   "modell_verlauf": {
-    "n_laeufe": 47,
+    "n_laeufe": 48,
     "warnung": null
   }
 }
