@@ -134,6 +134,12 @@ Ergebnisse des Pipeline-Laufs stehen in
 
 ## Fallstricke (real passiert)
 
+- **Vergleiche fair halten** (Audit der Analyse-Seite, `ROADMAP.md`): Die
+  Elo-Formel (`elo_baseline`) ist viel zu zaghaft; der faire Massstab ist
+  `elo_angepasst`. MAE belohnt Übertreibung und taugt nicht zur Rangfolge.
+  Permutations-Wichtigkeit heisst „so stark stützt sich das Modell darauf“,
+  nicht „so viel ginge ohne verloren“. Kranzstatus, Porträt und Physis sind
+  der **heutige** Stand, nicht der vor dem Fest.
 - **Namensvettern:** Ein Porträt pro Name heisst nicht eine Person.
   `namensvettern.py` trennt über Klub/Jahrgang der Rangliste, aber nur bei
   durchmischten Auftritten. Ein Klubwechsel bleibt eine Person.

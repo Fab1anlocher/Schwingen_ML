@@ -7,7 +7,15 @@
 
 import { useMemo } from "react";
 import type { BenchmarkKandidat, PrognoseCheck, VergangenesFest } from "@/lib/types";
-import { datumKurz, festtypName, modellStandText, prozent, zahl } from "@/lib/labels";
+import {
+  ansatzName,
+  datumKurz,
+  festtypName,
+  modellStandText,
+  prozent,
+  prozent1,
+  zahl,
+} from "@/lib/labels";
 import { VerlaufDiagramm, type VerlaufLauf } from "@/components/VerlaufDiagramm";
 
 // --- Kennzahlen -------------------------------------------------------------
@@ -35,28 +43,51 @@ export function Kennzahlen({ werte }: { werte: Kennzahl[] }) {
 
 // --- Rangliste der Ansätze --------------------------------------------------
 
-const ANSATZ_TEXT: Record<string, { name: string; was: string }> = {
-  ml_komplett: {
-    name: "Unser Modell",
-    was: "Gradient Boosting mit allen Merkmalen (Produktion)",
-  },
-  lr_komplett: {
-    name: "Lineares Modell",
-    was: "Logistische Regression, gleiche Merkmale — bis 25.9.2026 im Einsatz",
-  },
-  elo_baseline: {
-    name: "Elo-Rating",
-    was: "nur die Rating-Differenz der beiden Schwinger",
-  },
-  ml_ohne_elo: {
-    name: "Modell ohne Elo",
-    was: "nur Physis, Stil und Verband — ohne Ergebnisse der Vergangenheit",
-  },
-  kranz_heuristik: {
-    name: "Faustregel Kranzstatus",
-    was: "wer den höheren Kranzstatus hat, gewinnt",
-  },
-};
+// Was jeder Ansatz weiss. Geprüft im Audit vom 25.09.2026: "Modell ohne Elo"
+// enthält den Kranzstatus (selbst ein Ergebnis der Vergangenheit), und die
+// Faustregel hat bei gleichem Kranzstatus keinen Favoriten.
+function ansatzText(k: BenchmarkKandidat): { name: string; was: string } {
+  switch (k.key) {
+    case "ml_komplett":
+      return {
+        name: ansatzName(k.key, k.label),
+        was: "Gradient Boosting mit allen Merkmalen (im Einsatz)",
+      };
+    case "lr_komplett":
+      return {
+        name: ansatzName(k.key, k.label),
+        was: "Logistische Regression, gleiche Merkmale — bis 25.9.2026 im Einsatz",
+      };
+    case "elo_angepasst":
+      return {
+        name: ansatzName(k.key, k.label),
+        was: "nur der Elo-Abstand der beiden; wie sicher ein Abstand ist, aus den Vorjahren gelernt",
+      };
+    case "elo_baseline":
+      return {
+        name: ansatzName(k.key, k.label),
+        was: "derselbe Elo-Abstand mit der klassischen Formel, nicht an Schwingen angepasst — traut Favoriten zu wenig zu",
+      };
+    case "ml_ohne_elo":
+      return {
+        name: ansatzName(k.key, k.label),
+        was: "Kranzstatus, Physis, Stil und Verband — ohne Elo, Form, Erfahrung und direkte Duelle",
+      };
+    case "kranz_heuristik": {
+      const gleich = k.anteil_gleichstand;
+      const mit = k.accuracy_ohne_gleichstand;
+      return {
+        name: ansatzName(k.key, k.label),
+        was:
+          gleich !== undefined && mit !== undefined && mit !== null
+            ? `wer den höheren Kranzstatus hat, gewinnt; bei gleichem Status (${prozent(gleich)} der Gänge) tippt sie auf Gestellt. Wo sie einen Favoriten hat, liegt sie in ${prozent1(mit)} richtig.`
+            : "wer den höheren Kranzstatus hat, gewinnt; bei gleichem Status tippt sie auf Gestellt",
+      };
+    }
+    default:
+      return { name: k.label, was: "" };
+  }
+}
 
 /** Alle Ansätze auf denselben Testgängen, beste zuerst (nach Brier-Score).
  *  Ein Balken (Treffer) für die Intuition, der Brier-Score als Zahl für die
@@ -73,7 +104,7 @@ export function AnsatzRangliste({ kandidaten }: { kandidaten: BenchmarkKandidat[
         </span>
       </div>
       {sortiert.map((k, i) => {
-        const text = ANSATZ_TEXT[k.key] ?? { name: k.label, was: "" };
+        const text = ansatzText(k);
         const unser = k.key === "ml_komplett";
         return (
           <div className={`rang-zeile${unser ? " rang-unser" : ""}`} key={k.key}>
@@ -102,9 +133,15 @@ export function AnsatzRangliste({ kandidaten }: { kandidaten: BenchmarkKandidat[
 interface TypZeile {
   typ: string;
   n: number;
+  feste: number;
   modell: number;
   elo: number | null;
+  gestellt: number;
 }
+
+// Unter so vielen Gängen ist eine Trefferquote kaum belastbar (95 %-Bereich
+// grob ±4 Prozentpunkte und mehr): die Zeile wird als "wenig Daten" markiert.
+const WENIG_GAENGE = 600;
 
 /** Trefferquote je Festtyp aus dem Prognose-Check (events.json), nach Gängen
  *  gewichtet: Hantel von der reinen Elo-Prognose zum Modell. */
@@ -116,13 +153,18 @@ export function SchwierigkeitJeFesttyp({
   saison: string;
 }) {
   const zeilen = useMemo<TypZeile[]>(() => {
-    const summe = new Map<string, { n: number; t: number; e: number; ne: number }>();
+    const summe = new Map<
+      string,
+      { n: number; t: number; e: number; ne: number; g: number; feste: number }
+    >();
     for (const f of feste) {
       const c: PrognoseCheck | undefined = f.prognose_check;
       if (!c || !f.datum.startsWith(saison)) continue;
-      const z = summe.get(f.typ) ?? { n: 0, t: 0, e: 0, ne: 0 };
+      const z = summe.get(f.typ) ?? { n: 0, t: 0, e: 0, ne: 0, g: 0, feste: 0 };
       z.n += c.n;
       z.t += c.treffer * c.n;
+      z.g += c.gestellt_eingetreten * c.n;
+      z.feste += 1;
       if (c.treffer_elo !== null) {
         z.e += c.treffer_elo * c.n;
         z.ne += c.n;
@@ -133,8 +175,10 @@ export function SchwierigkeitJeFesttyp({
       .map(([typ, z]) => ({
         typ,
         n: z.n,
+        feste: z.feste,
         modell: z.t / z.n,
         elo: z.ne ? z.e / z.ne : null,
+        gestellt: z.g / z.n,
       }))
       .sort((a, b) => b.modell - a.modell);
   }, [feste, saison]);
@@ -164,7 +208,11 @@ export function SchwierigkeitJeFesttyp({
         <div className="hantel-zeile" key={z.typ}>
           <div>
             <div className="hantel-name">{festtypName(z.typ)}</div>
-            <div className="muted small">{zahl(z.n)} Gänge</div>
+            <div className="muted small">
+              {z.feste} {z.feste === 1 ? "Fest" : "Feste"} · {zahl(z.n)} Gänge ·{" "}
+              {prozent(z.gestellt)} gestellt
+              {z.n < WENIG_GAENGE && " · wenig Daten"}
+            </div>
           </div>
           <div
             className="hantel-track"
@@ -292,7 +340,14 @@ export function Ueberwachung({
     .slice(-14)
     .map((l) => l.log_loss)
     .sort((a, b) => a - b);
-  const median = frueher.length ? frueher[Math.floor((frueher.length - 1) / 2)] : null;
+  // Median wie in der Pipeline (np.median): bei gerader Anzahl das Mittel der
+  // beiden mittleren Werte.
+  const mitte = Math.floor(frueher.length / 2);
+  const median = frueher.length
+    ? frueher.length % 2
+      ? frueher[mitte]
+      : (frueher[mitte - 1] + frueher[mitte]) / 2
+    : null;
   const grenze = frueher.length >= 3 && median !== null ? median + 0.01 : null;
 
   return (

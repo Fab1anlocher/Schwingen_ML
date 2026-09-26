@@ -658,6 +658,20 @@
       "auc_gestellt": 0.7508,
       "n_gaenge": 134035,
       "n_test": 36610
+    },
+    {
+      "datum": "2026-09-26",
+      "modell_typ": "gbm",
+      "merkmal_version": 3,
+      "holdout_jahr": 2026,
+      "log_loss": 0.7204,
+      "accuracy": 0.6901,
+      "baseline_log_loss": 0.91,
+      "gestellt_vorhergesagt": 0.2043,
+      "gestellt_eingetreten": 0.2105,
+      "auc_gestellt": 0.7508,
+      "n_gaenge": 134035,
+      "n_test": 36610
     }
   ]
 }

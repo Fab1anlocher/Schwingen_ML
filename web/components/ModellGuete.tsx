@@ -1,11 +1,11 @@
 "use client";
 
-// Diagramme der Analyse-Seite: Balkenvergleich Modell/Baseline, 4-Wege-
-// Benchmark, Konfusionsmatrix und Kalibrierungskurve der Gestellt-Chance.
+// Diagramme der Analyse-Seite: alle Masse der Ansätze, Konfusionsmatrix und
+// Kalibrierungskurve der Gestellt-Chance.
 
 import { useState } from "react";
 import type { BenchmarkKandidat } from "@/lib/types";
-import { zahl } from "@/lib/labels";
+import { ansatzName, zahl } from "@/lib/labels";
 import { useBreite } from "@/lib/useBreite";
 
 const LABELS: Record<string, string> = {
@@ -20,67 +20,10 @@ const KLASSE_FARBE: Record<string, string> = {
   sieg_b: "var(--b)",
 };
 
-interface Metrik {
-  key: string;
-  label: string;
-  modell: number;
-  baseline: number;
-  format: (v: number) => string;
-}
-
-/** Modell-vs-Baseline-Vergleich als horizontale Balken (ergänzt die Zahlentabelle). */
-export function VergleichBalken({
-  metriken,
-  modellName = "Logistic Regression",
-}: {
-  metriken: Metrik[];
-  modellName?: string;
-}) {
-  return (
-    <div className="vergleich-balken">
-      {metriken.map((m) => {
-        const max = Math.max(m.modell, m.baseline, 1e-9);
-        return (
-          <div className="vb-zeile" key={m.key}>
-            <div className="vb-label">{m.label}</div>
-            <div className="vb-bar-row">
-              <span className="vb-name">Modell</span>
-              <div className="vb-track">
-                <div
-                  className="vb-fill vb-fill-modell"
-                  style={{ width: `${(m.modell / max) * 100}%` }}
-                />
-              </div>
-              <span className="vb-value">{m.format(m.modell)}</span>
-            </div>
-            <div className="vb-bar-row">
-              <span className="vb-name">Baseline</span>
-              <div className="vb-track">
-                <div
-                  className="vb-fill vb-fill-baseline"
-                  style={{ width: `${(m.baseline / max) * 100}%` }}
-                />
-              </div>
-              <span className="vb-value">{m.format(m.baseline)}</span>
-            </div>
-          </div>
-        );
-      })}
-      <div className="vb-legend">
-        <span>
-          <i className="vb-swatch vb-swatch-modell" /> Modell ({modellName})
-        </span>
-        <span>
-          <i className="vb-swatch vb-swatch-baseline" /> Baseline (Elo)
-        </span>
-      </div>
-    </div>
-  );
-}
-
 const BENCHMARK_REIHENFOLGE = [
   "kranz_heuristik",
   "elo_baseline",
+  "elo_angepasst",
   "ml_ohne_elo",
   "lr_komplett",
   "ml_komplett",
@@ -88,11 +31,11 @@ const BENCHMARK_REIHENFOLGE = [
 const CHAMPION_FARBE = "var(--accent-2)";
 const VERGLEICH_FARBE = "#9b978c";
 
-/** 4-Wege-Vergleich Kranz-Heuristik / Elo-Baseline / ML ohne Elo / ML komplett.
- * Champion (ML komplett, Produktionsmodell) ist immer gleich hervorgehoben
- * (Grün) — alle Vergleichskandidaten teilen dieselbe neutrale Vergleichsfarbe,
- * statt vier beliebiger kategorialer Farben (Farbe folgt hier der Rolle
- * "Champion vs. Vergleich", nicht einer willkürlichen Identität). */
+/** Alle Masse aller Ansätze (Treffer, Log-Loss, Brier, MSE). Das Modell im
+ * Einsatz ist hervorgehoben (Grün), alle anderen teilen eine neutrale Farbe --
+ * Farbe folgt der Rolle, nicht einer willkürlichen Identität.
+ * Kein MAE: er belohnt übertriebene Sicherheit (die Kranz-Faustregel hätte
+ * einen besseren MAE als Elo, s. pipeline/benchmark.py). */
 export function VierWegeBenchmark({ kandidaten }: { kandidaten: BenchmarkKandidat[] }) {
   const sortiert = [...kandidaten].sort(
     (a, b) => BENCHMARK_REIHENFOLGE.indexOf(a.key) - BENCHMARK_REIHENFOLGE.indexOf(b.key)
@@ -102,11 +45,11 @@ export function VierWegeBenchmark({ kandidaten }: { kandidaten: BenchmarkKandida
   // MAE/MSE erst anzeigen, wenn JEDER Kandidat sie mitbringt: ein älteres
   // benchmark.json (vor Einführung der Fehlermasse) hat die Felder nicht, und
   // ein halb gefüllter Vergleich wäre irreführender als gar keiner.
-  const hatFehlermasse = sortiert.every(
-    (k) => typeof k.mae === "number" && typeof k.mse === "number"
-  );
-  const maxMae = Math.max(...sortiert.map((k) => k.mae ?? 0), 1e-9);
+  const hatMse = sortiert.every((k) => typeof k.mse === "number");
   const maxMse = Math.max(...sortiert.map((k) => k.mse ?? 0), 1e-9);
+  // Log-Loss: ab dem Audit vom 25.09.2026 im Artefakt; die 0/1-Faustregel hat keinen.
+  const mitLogLoss = sortiert.filter((k) => typeof k.log_loss === "number");
+  const maxLl = Math.max(...mitLogLoss.map((k) => k.log_loss as number), 1e-9);
 
   const Balken = (
     k: BenchmarkKandidat,
@@ -117,7 +60,7 @@ export function VierWegeBenchmark({ kandidaten }: { kandidaten: BenchmarkKandida
   ) => (
     <div className="vb-bar-row vwb-row" key={key}>
       <span className={`vb-name${k.key === "ml_komplett" ? " vwb-champion-label" : ""}`}>
-        {k.label}
+        {ansatzName(k.key, k.label)}
       </span>
       <div className="vb-track">
         <div
@@ -136,12 +79,26 @@ export function VierWegeBenchmark({ kandidaten }: { kandidaten: BenchmarkKandida
     <div className="vwb-wrap">
       <div className="vwb-gruppe">
         <div className="vwb-titel">
-          Accuracy <span className="muted small">(höher = besser)</span>
+          Treffer <span className="muted small">(höher = besser)</span>
         </div>
         {sortiert.map((k) =>
           Balken(k, k.accuracy, maxAcc, (v) => `${(v * 100).toFixed(1)}%`, `acc-${k.key}`)
         )}
       </div>
+      {mitLogLoss.length > 0 && (
+        <div className="vwb-gruppe" style={{ marginTop: "1.1rem" }}>
+          <div className="vwb-titel">
+            Log-Loss{" "}
+            <span className="muted small">
+              (tiefer = besser; bestraft sichere Fehlprognosen stark — für die Faustregel, die immer
+              „sicher“ ist, nicht definiert)
+            </span>
+          </div>
+          {mitLogLoss.map((k) =>
+            Balken(k, k.log_loss as number, maxLl, (v) => v.toFixed(3), `ll-${k.key}`)
+          )}
+        </div>
+      )}
       <div className="vwb-gruppe" style={{ marginTop: "1.1rem" }}>
         <div className="vwb-titel">
           Brier-Score{" "}
@@ -153,33 +110,21 @@ export function VierWegeBenchmark({ kandidaten }: { kandidaten: BenchmarkKandida
           Balken(k, k.brier_score, maxBrier, (v) => v.toFixed(3), `brier-${k.key}`)
         )}
       </div>
-      {hatFehlermasse && (
-        <>
-          <div className="vwb-gruppe" style={{ marginTop: "1.1rem" }}>
-            <div className="vwb-titel">
-              MAE{" "}
-              <span className="muted small">
-                (tiefer = besser; Punktwert des Gangs, Sieg=1 / Gestellt=0.5 / Niederlage=0 — „im
-                Schnitt so weit daneben“)
-              </span>
-            </div>
-            {sortiert.map((k) => Balken(k, k.mae!, maxMae, (v) => v.toFixed(3), `mae-${k.key}`))}
+      {hatMse && (
+        <div className="vwb-gruppe" style={{ marginTop: "1.1rem" }}>
+          <div className="vwb-titel">
+            MSE{" "}
+            <span className="muted small">
+              (tiefer = besser; quadrierter Abstand der erwarteten zur tatsächlichen Punktzahl des
+              Gangs, Sieg = 1 / Gestellt = 0.5 / Niederlage = 0)
+            </span>
           </div>
-          <div className="vwb-gruppe" style={{ marginTop: "1.1rem" }}>
-            <div className="vwb-titel">
-              MSE{" "}
-              <span className="muted small">
-                (tiefer = besser; quadriert, gewichtet grosse Fehlprognosen also stärker als MAE)
-              </span>
-            </div>
-            {sortiert.map((k) => Balken(k, k.mse!, maxMse, (v) => v.toFixed(3), `mse-${k.key}`))}
-          </div>
-        </>
+          {sortiert.map((k) => Balken(k, k.mse!, maxMse, (v) => v.toFixed(3), `mse-${k.key}`))}
+        </div>
       )}
       <div className="vb-legend" style={{ marginTop: "0.7rem" }}>
         <span>
-          <i className="vb-swatch" style={{ background: CHAMPION_FARBE }} /> ML komplett (Champion,
-          Produktionsmodell)
+          <i className="vb-swatch" style={{ background: CHAMPION_FARBE }} /> Modell im Einsatz
         </span>
         <span>
           <i className="vb-swatch" style={{ background: VERGLEICH_FARBE }} /> Vergleichskandidaten
@@ -247,7 +192,8 @@ export function Konfusionsmatrix({ klassen, matrix }: { klassen: string[]; matri
       </table>
       <p className="muted small" style={{ marginTop: "0.6rem" }}>
         Zeile = tatsächliches Ergebnis, Spalte = Modell-Vorhersage. Dunklere Zellen = mehr Gänge;
-        die Diagonale (hervorgehoben) sind die richtig klassifizierten Gänge.
+        die Diagonale (hervorgehoben) sind die richtig vorhergesagten Gänge. A ist der alphabetisch
+        erste der beiden Schwinger — eine reine Ordnung, keine Heim- oder Favoritenrolle.
       </p>
     </div>
   );
@@ -394,26 +340,28 @@ export function GestelltKalibrierung({
         {erklaerung}
         <details className="small" style={{ marginTop: "0.6rem" }}>
           <summary className="muted">Als Tabelle</summary>
-          <table>
-            <thead>
-              <tr>
-                <th>Stufe</th>
-                <th>Gänge</th>
-                <th>vorhergesagt</th>
-                <th>eingetreten</th>
-              </tr>
-            </thead>
-            <tbody>
-              {daten.stufen.map((s, i) => (
-                <tr key={i}>
-                  <td>{i + 1}</td>
-                  <td>{s.n}</td>
-                  <td>{pct(s.vorhergesagt)}</td>
-                  <td>{pct(s.eingetreten)}</td>
+          <div className="tabelle-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Stufe</th>
+                  <th>Gänge</th>
+                  <th>vorhergesagt</th>
+                  <th>eingetreten</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {daten.stufen.map((s, i) => (
+                  <tr key={i}>
+                    <td>{i + 1}</td>
+                    <td>{s.n}</td>
+                    <td>{pct(s.vorhergesagt)}</td>
+                    <td>{pct(s.eingetreten)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </details>
       </div>
     </div>

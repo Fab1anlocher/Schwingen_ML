@@ -6,7 +6,14 @@
 // (report_verlauf.json), Merkmalswichtigkeit, Exkurse zu Physis/Schwüngen
 // und zuletzt Details für Fachleute (Methodik, Konfusionsmatrix, alle
 // Fehlermasse, alle Läufe). Alle Zahlen stammen aus dem letzten
-// Pipeline-Lauf; hier wird nichts neu geschätzt.
+// Pipeline-Lauf; hier wird nichts neu geschätzt (ausser Mittelwerten und
+// Unsicherheiten der Exkurse, die aus schwinger.json/ratings.json folgen).
+//
+// Audit 25.09.2026 (jede Zahl nachgerechnet, harness + Rohdaten): die
+// Elo-Vergleichsprognose ist jetzt die an die Daten angepasste (die feste
+// Formel ist viel zu zaghaft), MAE fällt weg (belohnt Übertreibung), die
+// Faustregel weist ihren Gleichstand aus, Intervalle über Feste, und die
+// Grenzen (heutiger Kranzstatus, Auswahl an 2025/2026) stehen offen da.
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
@@ -42,7 +49,7 @@ import {
 } from "@/components/AnalyseTeile";
 import { StreudiagrammMitTrend } from "@/components/StreudiagrammMitTrend";
 import { SchwungVergleich, type SchwungStat } from "@/components/SchwungVergleich";
-import { datumKurz, prozent, schwungName, zahl } from "@/lib/labels";
+import { datumKurz, prozent, prozent1, schwungName, zahl } from "@/lib/labels";
 
 const MIN_SCHWINGER_PRO_SCHWUNG = 15;
 // Ab so vielen Gängen gilt ein Elo als Messung (wie model.json
@@ -79,6 +86,19 @@ interface Report {
   gestellt_kalibrierung?: GestelltKalibrierungDaten | null;
   /** T1: Stand des Verlaufs und Warnung des jüngsten Laufs (export.ergaenze_verlauf). */
   modell_verlauf?: { n_laeufe: number; warnung: string | null } | null;
+  /** 95-%-Intervalle, Bootstrap über Feste (train.konfidenzintervalle); ab 26.09.2026. */
+  konfidenz?: {
+    n_feste: number;
+    accuracy: [number, number];
+    log_loss: [number, number];
+  } | null;
+  /** Nur Gänge, in denen beide ein Porträt haben (fast nur Kranzer). */
+  nur_portraet?: {
+    modell?: { n: number; anteil_am_test: number; accuracy: number; log_loss: number };
+    baseline_elo?: { accuracy: number; log_loss: number };
+  } | null;
+  training_ab?: string | null;
+  datenqualitaet?: { feste_zeitraum?: { von: string; bis: string } };
 }
 
 // Merkmale, die die Spec explizit beleuchten will (AK-4.2).
@@ -181,19 +201,25 @@ export default function Analyse() {
     const summeGesamt = mitSchwung.reduce((acc, e) => acc + e.r!.elo, 0);
     const gesamtschnitt = summeGesamt / mitSchwung.length;
 
-    const gruppen = new Map<string, { summe: number; n: number }>();
+    const gruppen = new Map<string, { summe: number; quadrate: number; n: number }>();
     for (const { s, r } of mitSchwung) {
-      for (const roh of s.bevorzugte_schwuenge ?? []) {
-        const name = schwungName(roh);
-        const g = gruppen.get(name) ?? { summe: 0, n: 0 };
+      // Derselbe Schwung zweimal geschrieben ("innerer Haken" / "Innerer
+      // Haken") zählt den Schwinger nur einmal.
+      for (const name of new Set((s.bevorzugte_schwuenge ?? []).map(schwungName))) {
+        const g = gruppen.get(name) ?? { summe: 0, quadrate: 0, n: 0 };
         g.summe += r!.elo;
+        g.quadrate += r!.elo * r!.elo;
         g.n += 1;
         gruppen.set(name, g);
       }
     }
     const stats = [...gruppen.entries()]
       .filter(([, g]) => g.n >= MIN_SCHWINGER_PRO_SCHWUNG)
-      .map(([schwung, g]) => ({ schwung, n: g.n, eloAvg: g.summe / g.n }))
+      .map(([schwung, g]) => {
+        const mittel = g.summe / g.n;
+        const varianz = Math.max(0, (g.quadrate - g.n * mittel * mittel) / (g.n - 1));
+        return { schwung, n: g.n, eloAvg: mittel, ki: 1.96 * Math.sqrt(varianz / g.n) };
+      })
       .sort((a, b) => b.eloAvg - a.eloAvg);
     return { schwungStats: stats, gesamtschnittElo: gesamtschnitt };
   }, [schwinger, ratings]);
@@ -206,36 +232,60 @@ export default function Analyse() {
   const check = events?.prognose_check_saisons?.[saison];
   const kal = report?.gestellt_kalibrierung;
   const lr = benchmark?.kandidaten.find((k) => k.key === "lr_komplett");
+  const gb = benchmark?.kandidaten.find((k) => k.key === "ml_komplett");
+  // Fairer Elo-Vergleich: die angepasste Elo-Prognose. Ältere Artefakte haben
+  // nur die feste Formel -- dann wird sie als solche benannt.
+  const eloFit = benchmark?.kandidaten.find((k) => k.key === "elo_angepasst");
+  const eloVergleich =
+    eloFit?.log_loss != null
+      ? { name: "Elo angepasst", log_loss: eloFit.log_loss }
+      : report
+        ? { name: "Elo-Formel", log_loss: report.baseline_elo.log_loss }
+        : null;
+  const ki = report?.konfidenz;
+  const bis = report?.datenqualitaet?.feste_zeitraum?.bis;
+  const portraet = report?.nur_portraet;
+  const einschwingen = report ? report.datenbasis.n_gaenge - report.n_train / 2 - report.n_test : 0;
+  // Brier-Score der "Grundhäufigkeit" (jedem Gang die Anteile der Saison geben,
+  // 1 - Summe der quadrierten Anteile) als Massstab für Laien: aus den
+  // Zeilensummen der Konfusionsmatrix (= tatsächliche Ausgänge der Testgänge).
+  const brierGrund = (() => {
+    const km = report?.konfusionsmatrix;
+    if (!km) return null;
+    const z = km.map((r) => r.reduce((a, b) => a + b, 0));
+    const n = z.reduce((a, b) => a + b, 0);
+    return n ? 1 - z.reduce((a, c) => a + (c / n) ** 2, 0) : null;
+  })();
 
   const kennzahlen: Kennzahl[] = report
     ? [
         {
-          zahl: prozent(report.modell.accuracy),
+          zahl: prozent1(report.modell.accuracy),
           label: "der Gänge richtig vorhergesagt",
-          sub: `reine Elo-Prognose: ${prozent(report.baseline_elo.accuracy)}`,
+          sub: `${ki ? `95 %-Bereich ${prozent1(ki.accuracy[0])}–${prozent1(ki.accuracy[1])} · ` : ""}nur Elo: ${prozent1(report.baseline_elo.accuracy)}`,
         },
         check
           ? {
               zahl: prozent(check.p_eingetreten),
-              label: "gab das Modell im Schnitt dem tatsächlichen Ausgang",
-              sub: `Log-Loss ${report.modell.log_loss.toFixed(3)} · Elo ${report.baseline_elo.log_loss.toFixed(3)}`,
+              label: "Wahrscheinlichkeit gab das Modell im Schnitt dem Ausgang, der dann eintrat",
+              sub: `Raten: 33% · Log-Loss ${report.modell.log_loss.toFixed(3)}${eloVergleich ? `, ${eloVergleich.name} ${eloVergleich.log_loss.toFixed(3)}` : ""}`,
             }
           : {
               zahl: report.modell.log_loss.toFixed(3),
               label: "Log-Loss (tiefer = besser)",
-              sub: `reine Elo-Prognose: ${report.baseline_elo.log_loss.toFixed(3)}`,
+              sub: eloVergleich ? `${eloVergleich.name}: ${eloVergleich.log_loss.toFixed(3)}` : "",
             },
         kal
           ? {
-              zahl: `${prozent(kal.vorhergesagt)} / ${prozent(kal.eingetreten)}`,
+              zahl: `${prozent1(kal.vorhergesagt)} / ${prozent1(kal.eingetreten)}`,
               label: "Gestellt vorhergesagt / eingetreten",
-              sub: `im Schnitt ${(kal.ece * 100).toFixed(1)} Prozentpunkte daneben`,
+              sub: `in den zehn Gruppen unten im Schnitt ${(kal.ece * 100).toFixed(1)} Prozentpunkte daneben`,
             }
           : { zahl: "–", label: "Gestellt-Kalibrierung", sub: "noch nicht gemessen" },
         {
           zahl: zahl(report.n_test),
-          label: `Testgänge der Saison ${report.holdout_jahr}`,
-          sub: "beim Training unbekannt",
+          label: `Testgänge der Saison ${report.holdout_jahr}${check ? ` an ${check.n_feste} Festen` : ""}`,
+          sub: "das Modell der Kennzahlen kannte nur die Jahre davor",
         },
       ]
     : [];
@@ -244,8 +294,10 @@ export default function Analyse() {
     <div>
       <h1>Wie gut sind die Prognosen?</h1>
       <p className="subtitle">
-        Gemessen an der ganzen Saison {saison || "…"}: jeder Gang so vorhergesagt, als hätte er noch
-        nicht stattgefunden — und verglichen mit dem, was dann geschah.
+        Gemessen an der Saison {saison || "…"}
+        {bis ? ` bis ${datumKurz(bis)}` : ""}: jeder Gang vorhergesagt mit einem Modell, das nur die
+        Jahre davor kannte, und dem Stand der Schwinger vor dem jeweiligen Fest — dann verglichen
+        mit dem, was geschah.
       </p>
 
       {report && <Kennzahlen werte={kennzahlen} />}
@@ -255,17 +307,17 @@ export default function Analyse() {
           <h2>Im Vergleich</h2>
           <div className="panel">
             <p className="muted small" style={{ marginTop: 0 }}>
-              Fünf Ansätze auf denselben {zahl(benchmark.n_test)} Gängen, bester zuerst. Der Balken
+              Alle Ansätze auf denselben {zahl(benchmark.n_test)} Gängen, bester zuerst. Der Balken
               zeigt, wie oft der wahrscheinlichste Ausgang eintrat; der Brier-Score misst
-              zusätzlich, ob die Wahrscheinlichkeiten stimmen (tiefer = besser).
+              zusätzlich, ob die Wahrscheinlichkeiten stimmen (tiefer = besser; 0 = perfekt
+              {brierGrund !== null &&
+                `, jedem Gang einfach die Anteile der Saison geben ergäbe ${brierGrund.toFixed(2)}`}
+              ).
               {lr &&
-                ` Der Wechsel vom linearen Modell auf Gradient Boosting brachte ${(
-                  (benchmark.kandidaten.find((k) => k.key === "ml_komplett")!.accuracy -
-                    lr.accuracy) *
-                  100
-                ).toFixed(
-                  1
-                )} Prozentpunkte mehr Treffer und deutlich bessere Wahrscheinlichkeiten.`}
+                gb &&
+                ` Vom linearen Modell zum Gradient Boosting: ${((gb.accuracy - lr.accuracy) * 100).toFixed(1)} Prozentpunkte mehr Treffer und etwas bessere Wahrscheinlichkeiten (Brier ${lr.brier_score.toFixed(3)} → ${gb.brier_score.toFixed(3)}). Klein, aber in beiden Prüfsaisons gleich gerichtet.`}
+              {eloFit &&
+                ` Das Elo-Rating allein trifft gleich oft wie die Elo-Formel; angepasst gibt es aber ehrlichere Wahrscheinlichkeiten.`}
             </p>
             <AnsatzRangliste kandidaten={benchmark.kandidaten} />
           </div>
@@ -278,11 +330,20 @@ export default function Analyse() {
           <div className="panel">
             <p className="muted small" style={{ marginTop: 0 }}>
               Treffer je Festtyp in der Saison {saison}, gerechnet mit dem Modell, das vor der
-              Saison galt. An Bergfesten und am Eidgenössischen treffen mehr Spitzenschwinger
+              Saison galt. An Berg- und eidgenössischen Festen treffen mehr Spitzenschwinger
               aufeinander, und es wird öfter gestellt — dort liegt jede Prognose seltener richtig.
               Je Fest steht die Trefferquote im <Link href="/feste">Rückblick der Feste</Link>.
             </p>
             <SchwierigkeitJeFesttyp feste={events.vergangene} saison={saison} />
+            {portraet?.modell && portraet.baseline_elo && portraet.modell.n > 0 && (
+              <p className="muted small" style={{ marginBottom: 0 }}>
+                Dasselbe quer durch alle Feste: Treffen zwei Schwinger mit Porträt aufeinander (fast
+                nur Kranzer, {prozent(portraet.modell.anteil_am_test)} der Gänge), trifft das Modell{" "}
+                {prozent1(portraet.modell.accuracy)} — nur Elo{" "}
+                {prozent1(portraet.baseline_elo.accuracy)}. Die hohe Quote insgesamt kommt auch von
+                vielen ungleichen Paarungen im breiten Feld.
+              </p>
+            )}
           </div>
         </>
       )}
@@ -313,9 +374,10 @@ export default function Analyse() {
           <div className="panel">
             <p className="muted small" style={{ marginTop: 0 }}>
               Jeder Schritt wurde an der Saison {saison} gemessen und nur übernommen, wenn er auch
-              auf der Saison davor besser war. Der Balken zeigt den Vorsprung vor der reinen
-              Elo-Prognose (länger = besser); daneben der Log-Loss und seine Änderung zum vorherigen
-              Schritt.
+              auf der Saison davor besser war. Der Balken zeigt den Vorsprung vor der Elo-Formel
+              (länger = besser); daneben der Log-Loss und seine Änderung zum vorherigen Schritt.
+              Weil diese beiden Saisons auch zur Auswahl dienten, sind die Kennzahlen eher leicht zu
+              gut — eine ganz unberührte Prüfsaison gibt es erst 2027.
             </p>
             <ModellEntwicklung laeufe={verlauf} />
           </div>
@@ -339,7 +401,7 @@ export default function Analyse() {
           <div className="panel">
             <p className="muted small" style={{ marginTop: 0 }}>
               {fiArt === "permutation"
-                ? "Um so viel verschlechtert sich die Prognose (Log-Loss), wenn man ein Merkmal zufällig unter den Testgängen vertauscht — also wie viel das Modell ohne dieses Merkmal verlöre."
+                ? `Um so viel steigt der Log-Loss, wenn man ein Merkmal unter den Testgängen zufällig vertauscht${fi.some((f) => f.streuung != null) ? " (Mittel aus fünf Vertauschungen aller Testgänge)" : ""} — so stark stützt sich das Modell darauf. Ohne das Merkmal neu trainiert, ginge meist weniger verloren, weil verwandte Merkmale einspringen (etwa Elo für den Kranzstatus).`
                 : "Mittlerer Betrag der standardisierten Koeffizienten über die drei Ausgänge."}
             </p>
             <FiTabelle eintraege={haupt} max={max} />
@@ -366,10 +428,11 @@ export default function Analyse() {
           <h2>Exkurs: Macht Grösse, Gewicht oder Alter einen Unterschied?</h2>
           <div className="panel">
             <p className="muted small" style={{ marginTop: 0, marginBottom: "1rem" }}>
-              Jeder Punkt ein Schwinger mit mindestens {MIN_GAENGE_FUER_ELO} erfassten Gängen (Elo
-              also eine echte Messung, nicht mehr der Startwert). Die gestrichelte Linie ist die
-              lineare Trendlinie; r zeigt, wie stark der Zusammenhang tatsächlich ist (0 = keiner,
-              ±1 = perfekt).
+              Jeder Punkt ein Schwinger mit Porträt und mindestens {MIN_GAENGE_FUER_ELO} erfassten
+              Gängen (Elo also nicht mehr der Startwert). Die gestrichelte Linie ist die lineare
+              Trendlinie; r zeigt, wie stark der Zusammenhang ist (0 = keiner, ±1 = perfekt).
+              Porträts gibt es fast nur für Kranzer: Die Schwächeren fehlen, und das dämpft jeden
+              Zusammenhang. Grösse, Gewicht und Elo sind der heutige Stand.
             </p>
             <div className="grid-3">
               <StreudiagrammMitTrend
@@ -419,9 +482,12 @@ export default function Analyse() {
               <ul className="small" style={{ lineHeight: 1.6 }}>
                 <li>
                   Datenbasis: {zahl(report.datenbasis.n_gaenge)} Gänge,{" "}
-                  {zahl(report.datenbasis.n_schwinger)} Schwinger. Training{" "}
-                  {zahl(report.n_train / 2)} Gänge vor der Saison {report.holdout_jahr} (je aus
-                  beiden Sichten, A/B gespiegelt), Test {zahl(report.n_test)} Gänge der Saison{" "}
+                  {zahl(report.datenbasis.n_schwinger)} Schwinger.
+                  {einschwingen > 0 &&
+                    report.training_ab &&
+                    ` Davon ${zahl(einschwingen)} Gänge vor dem ${datumKurz(report.training_ab)} nur zum Einschwingen von Elo und Form.`}{" "}
+                  Training {zahl(report.n_train / 2)} Gänge vor der Saison {report.holdout_jahr} (je
+                  aus beiden Sichten, A/B gespiegelt), Test {zahl(report.n_test)} Gänge der Saison{" "}
                   {report.holdout_jahr} — zeitlich getrennt, kein Zufallssplit.
                 </li>
                 <li>
@@ -431,7 +497,11 @@ export default function Analyse() {
                     : "Logistic Regression"}
                   {report.n_baeume &&
                     ` (${report.n_baeume.gestellt} Bäume für Gestellt, ${report.n_baeume.sieg} für den Sieger)`}
-                  , Merkmale Stand vor dem jeweiligen Fest.
+                  . Elo, Form, Erfahrung, Gestellt-Neigung und direkte Duelle mit dem Stand vor dem
+                  jeweiligen Fest. Kranzstatus, Porträt, Gewicht, Grösse und Schwünge sind der
+                  heutige Stand des Porträts — ein erst später gewonnener Kranz steckt darin schon.
+                  Gemessen: Ohne Kranzstatus und Porträt-Angabe wäre der Test-Log-Loss höchstens
+                  0.002 höher.
                 </li>
                 {(report.n_train_ausgeliefert ?? 0) > report.n_train && (
                   <li>
@@ -442,11 +512,22 @@ export default function Analyse() {
                   </li>
                 )}
                 <li>
-                  Log-Loss {report.modell.log_loss.toFixed(4)} gegen Elo{" "}
-                  {report.baseline_elo.log_loss.toFixed(4)} (Differenz{" "}
-                  {report.verbesserung_log_loss.toFixed(4)}); Treffer{" "}
-                  {(report.modell.accuracy * 100).toFixed(1)}% gegen{" "}
-                  {(report.baseline_elo.accuracy * 100).toFixed(1)}%.
+                  Log-Loss {report.modell.log_loss.toFixed(4)}
+                  {ki && ` [${ki.log_loss[0].toFixed(3)}–${ki.log_loss[1].toFixed(3)}]`} gegen
+                  {eloFit?.log_loss != null &&
+                    ` Elo angepasst ${eloFit.log_loss.toFixed(4)} und`}{" "}
+                  Elo-Formel {report.baseline_elo.log_loss.toFixed(4)}; Treffer{" "}
+                  {prozent1(report.modell.accuracy)}
+                  {ki && ` [${prozent1(ki.accuracy[0])}–${prozent1(ki.accuracy[1])}]`} gegen{" "}
+                  {prozent1(report.baseline_elo.accuracy)} (Elo, beide Varianten gleich).
+                  {ki &&
+                    ` Klammern: 95 %-Bereich, Bootstrap über die ${ki.n_feste} Feste (Gänge desselben Fests hängen zusammen, einzelne Gänge als unabhängig zu zählen, gäbe zu enge Bereiche).`}
+                </li>
+                <li>
+                  Die Modellschritte wurden an den Saisons {report.holdout_jahr - 1} und{" "}
+                  {report.holdout_jahr} gemessen und nur bei Verbesserung in beiden übernommen. Die
+                  Kennzahlen sind darum eher leicht zu gut; die Unterschiede zwischen den Kandidaten
+                  lagen aber weit über dem Zufallsbereich.
                 </li>
               </ul>
             </details>
@@ -458,7 +539,7 @@ export default function Analyse() {
             )}
             {benchmark && (
               <details>
-                <summary>Alle Fehlermasse der Ansätze (Accuracy, Brier, MAE, MSE)</summary>
+                <summary>Alle Masse der Ansätze (Treffer, Log-Loss, Brier, MSE)</summary>
                 <VierWegeBenchmark kandidaten={benchmark.kandidaten} />
               </details>
             )}
@@ -473,7 +554,7 @@ export default function Analyse() {
                         <th>Modell</th>
                         <th>Log-Loss</th>
                         <th>Treffer</th>
-                        <th>Gänge</th>
+                        <th>Testgänge</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -483,12 +564,18 @@ export default function Analyse() {
                           <td className="muted small">{modellStand(l)}</td>
                           <td>{l.log_loss.toFixed(4)}</td>
                           <td>{(l.accuracy * 100).toFixed(1)}%</td>
-                          <td className="muted">{l.n_gaenge ? zahl(l.n_gaenge) : "—"}</td>
+                          <td className="muted">{l.n_test ? zahl(l.n_test) : "—"}</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
+                <p className="muted small">
+                  Läufe vor dem 24.9.2026 sind mit den späteren nicht vergleichbar: Bis zum 23.9.
+                  zählte der Test jeden Gang doppelt (beide Sichten) und die Elo-Prognose lief auf
+                  anderen Gängen, bis Mitte August änderten sich zudem Datenquelle und
+                  Namensauflösung.
+                </p>
               </details>
             )}
           </div>
@@ -514,10 +601,21 @@ function FiTabelle({ eintraege, max }: { eintraege: FeatureImportanceEntry[]; ma
               )}
             </td>
             <td style={{ width: "48%" }}>
-              <div className="fi-bar" style={{ width: `${(f.wichtigkeit / max) * 100}%` }} />
+              <div
+                className="fi-bar"
+                style={{ width: `${(Math.max(0, f.wichtigkeit) / max) * 100}%` }}
+              />
             </td>
-            <td className="muted small" style={{ textAlign: "right" }}>
-              {f.wichtigkeit.toFixed(3)}
+            <td
+              className="muted small"
+              style={{ textAlign: "right" }}
+              title={
+                f.streuung != null
+                  ? `± ${f.streuung.toFixed(4)} über die Wiederholungen`
+                  : undefined
+              }
+            >
+              {f.wichtigkeit < 0.001 ? "< 0.001" : f.wichtigkeit.toFixed(3)}
             </td>
           </tr>
         ))}

@@ -20,6 +20,8 @@ export interface VerlaufLauf {
   log_loss: number;
   accuracy: number;
   n_gaenge: number | null;
+  /** Anzahl Testzeilen dieses Laufs (bis 23.9.2026 jeder Gang doppelt). */
+  n_test?: number | null;
   /** Log-Loss der reinen Elo-Prognose auf denselben Testgängen. */
   baseline_log_loss?: number | null;
 }

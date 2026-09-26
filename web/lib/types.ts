@@ -139,6 +139,8 @@ export interface FeatureImportanceEntry {
   feature: string;
   label: string;
   wichtigkeit: number;
+  /** Permutation: Standardabweichung über die Wiederholungen; sonst null/fehlend. */
+  streuung?: number | null;
   /** Nur LR; beim Boosting null. */
   koeffizienten: Record<Klasse, number> | null;
 }
@@ -227,10 +229,22 @@ export interface GauverbaendeArtifact {
 }
 
 export interface BenchmarkKandidat {
-  key: "kranz_heuristik" | "elo_baseline" | "ml_ohne_elo" | "lr_komplett" | "ml_komplett";
+  key:
+    | "kranz_heuristik"
+    | "elo_baseline"
+    | "elo_angepasst"
+    | "ml_ohne_elo"
+    | "lr_komplett"
+    | "ml_komplett";
   label: string;
   accuracy: number;
+  /** Fehlt vor dem Audit vom 25.09.2026; null bei der 0/1-Heuristik (undefiniert). */
+  log_loss?: number | null;
   brier_score: number;
+  /** Nur Kranz-Heuristik: Anteil Gänge ohne Favorit (gleicher Kranzstatus)
+   *  und die Trefferquote auf den übrigen. */
+  anteil_gleichstand?: number;
+  accuracy_ohne_gleichstand?: number | null;
   // MAE/MSE auf dem Punktwert des Gangs (s. pipeline/metriken.py). Optional,
   // weil ein vor dieser Änderung erzeugtes benchmark.json sie nicht enthält —
   // ausgeliefert wird das Artefakt aus dem Repo, nicht aus diesem Build.
@@ -328,7 +342,13 @@ export interface SimulationBacktest {
     brier_modell: number;
     brier_elo: number;
     brier_konstant: number;
-    kalibrierung: { von: number; bis: number; n: number; vorhergesagt: number; eingetreten: number }[];
+    kalibrierung: {
+      von: number;
+      bis: number;
+      n: number;
+      vorhergesagt: number;
+      eingetreten: number;
+    }[];
   };
   festsieg: {
     p_sieger_modell: number | null;

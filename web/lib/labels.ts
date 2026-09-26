@@ -95,8 +95,28 @@ export function prozent(anteil: number): string {
   return `${Math.round(anteil * 100)}%`;
 }
 
+/** Anteil als Prozent mit einer Nachkommastelle: 0.6901 -> "69.0%". */
+export function prozent1(anteil: number): string {
+  return `${(anteil * 100).toFixed(1)}%`;
+}
+
 /** ISO-Datum "2026-09-05" -> "5.9.2026". */
 export function datumKurz(iso: string): string {
   const [j, m, t] = iso.slice(0, 10).split("-").map(Number);
   return j && m && t ? `${t}.${m}.${j}` : iso;
+}
+
+/** Kurzname je Ansatz im Vergleich der Analyse-Seite (benchmark.json key).
+ *  Dieselben Namen in der Rangliste und in der Tabelle für Fachleute. */
+const ANSATZ_NAME: Record<string, string> = {
+  ml_komplett: "Unser Modell",
+  lr_komplett: "Lineares Modell",
+  elo_angepasst: "Elo-Rating",
+  elo_baseline: "Elo-Formel",
+  ml_ohne_elo: "Modell ohne Elo",
+  kranz_heuristik: "Faustregel Kranzstatus",
+};
+
+export function ansatzName(key: string, fallback: string): string {
+  return ANSATZ_NAME[key] ?? fallback;
 }

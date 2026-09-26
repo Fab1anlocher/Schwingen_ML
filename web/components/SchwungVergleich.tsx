@@ -8,6 +8,8 @@ export interface SchwungStat {
   schwung: string;
   n: number;
   eloAvg: number;
+  /** Halbe Breite des 95-%-Bereichs des Mittels (1.96 · Standardfehler). */
+  ki: number;
 }
 
 const ZEILE_H = 34;
@@ -31,7 +33,7 @@ export function SchwungVergleich({
   const H = daten.length * ZEILE_H + PAD.oben + PAD.unten;
   const links = Math.min(130, Math.round(W * 0.32));
 
-  const werte = daten.map((d) => d.eloAvg).concat(gesamtschnitt);
+  const werte = daten.flatMap((d) => [d.eloAvg - d.ki, d.eloAvg + d.ki]).concat(gesamtschnitt);
   const xMin = Math.min(...werte);
   const xMax = Math.max(...werte);
   const puffer = (xMax - xMin) * 0.15 || 20;
@@ -62,19 +64,22 @@ export function SchwungVergleich({
         {daten.map((d, i) => {
           const y = PAD.oben + i * ZEILE_H + ZEILE_H / 2;
           const ueberdurchschnitt = d.eloAvg >= gesamtschnitt;
+          // Nur wenn der 95-%-Bereich die Referenzlinie nicht berührt, ist der
+          // Unterschied mehr als Zufall (ohne Korrektur für mehrere Vergleiche).
+          const gesichert = Math.abs(d.eloAvg - gesamtschnitt) > d.ki;
           return (
             <g key={d.schwung}>
               <text x={0} y={y + 4} className="schwung-label">
                 {d.schwung}
               </text>
               <line
-                x1={xScale(gesamtschnitt)}
-                x2={xScale(d.eloAvg)}
+                x1={xScale(d.eloAvg - d.ki)}
+                x2={xScale(d.eloAvg + d.ki)}
                 y1={y}
                 y2={y}
                 stroke={ueberdurchschnitt ? "var(--accent-2)" : "var(--muted-2)"}
                 strokeWidth={2}
-                opacity={0.5}
+                opacity={0.6}
               />
               <circle
                 cx={xScale(d.eloAvg)}
@@ -85,21 +90,26 @@ export function SchwungVergleich({
                 strokeWidth={1.5}
               >
                 <title>
-                  {d.schwung}: Ø {d.eloAvg.toFixed(0)} Elo ({d.n} Schwinger)
+                  {d.schwung}: Ø {d.eloAvg.toFixed(0)} Elo ± {d.ki.toFixed(0)} ({d.n} Schwinger)
+                  {gesichert ? "" : " — nicht vom Schnitt unterscheidbar"}
                 </title>
               </circle>
               <text x={xScale(d.eloAvg)} y={y - 10} textAnchor="middle" className="schwung-wert">
-                {d.eloAvg.toFixed(0)}
+                {d.eloAvg.toFixed(0)} <tspan className="muted">({d.n})</tspan>
               </text>
             </g>
           );
         })}
       </svg>
       <p className="muted small" style={{ marginTop: "0.3rem" }}>
-        Gestrichelte Linie = Ø Elo über alle abgebildeten Schwinger. Grün = überdurchschnittlich,
-        Grau = unterdurchschnittlich. Nur Schwünge mit ausreichend vielen Schwingern (sonst zu
-        verrauscht), Achse startet bewusst nicht bei 0 — die Unterschiede liegen in einer engen
-        Elo-Bandbreite, ein Nullpunkt würde sie unsichtbar machen.
+        Punkt = Ø Elo, in Klammern die Anzahl Schwinger; der Strich zeigt den 95-%-Bereich des
+        Mittels. Gestrichelte Linie = Ø Elo aller Schwinger mit erfasstem Schwung. Grün = über, Grau
+        = unter dem Schnitt.{" "}
+        {daten.some((d) => Math.abs(d.eloAvg - gesamtschnitt) > d.ki)
+          ? "Berührt ein Strich die gestrichelte Linie nicht, ist der Unterschied mehr als Zufall."
+          : "Alle Striche berühren die gestrichelte Linie: Kein Unterschied ist mehr als Zufall."}{" "}
+        Die Achse beginnt bewusst nicht bei 0, weil die Unterschiede in einer engen Elo-Bandbreite
+        liegen.
       </p>
     </div>
   );

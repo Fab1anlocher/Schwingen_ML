@@ -156,7 +156,8 @@ def exportiere_modell(
         "schema_version": config.SCHEMA_VERSION,
         "klassen": KLASSEN,
         # "koeffizient" (LR: mittlerer Betrag der standardisierten Koeffizienten)
-        # oder "permutation" (Boosting: Anstieg des Log-Loss ohne das Merkmal).
+        # oder "permutation" (Boosting: Anstieg des Log-Loss, wenn das Merkmal
+        # vertauscht wird; Mittel über Wiederholungen, s. train.py).
         "art": "koeffizient" if modell.typ == "lr" else "permutation",
         "features": feature_importance,
     })
@@ -539,8 +540,9 @@ def exportiere_cluster(cluster_res: dict | None) -> None:
 
 _KANDIDAT_LABELS = {
     "kranz_heuristik": "Kranz-Heuristik",
-    "elo_baseline": "Elo-Baseline",
-    "ml_ohne_elo": "ML ohne Elo/Historie",
+    "elo_baseline": "Elo-Formel (nicht angepasst)",
+    "elo_angepasst": "Elo, angepasst",
+    "ml_ohne_elo": "ML ohne Elo (Kranzstatus, Physis, Stil, Verband)",
     "lr_komplett": "Logistic Regression (bis 25.09.2026)",
     "ml_komplett": "Gradient Boosting (Produktionsmodell)",
 }
@@ -558,9 +560,12 @@ def exportiere_benchmark(benchmark_res: dict) -> None:
             "key": key,
             "label": _KANDIDAT_LABELS.get(key, key),
             "accuracy": werte["accuracy"],
+            "log_loss": werte.get("log_loss"),
             "brier_score": werte["brier_score"],
             "mae": werte["mae"],
             "mse": werte["mse"],
+            # Nur die Kranz-Heuristik: Anteil ohne Favorit, Treffer mit Favorit.
+            **{k: werte[k] for k in ("anteil_gleichstand", "accuracy_ohne_gleichstand") if k in werte},
         }
         for key, werte in benchmark_res["kandidaten"].items()
     ]
@@ -712,6 +717,8 @@ def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
         # die einzige Klasse, die fast nie die wahrscheinlichste ist -- Accuracy
         # und Log-Loss allein zeigen nicht, ob P(gestellt) stimmt.
         "gestellt_kalibrierung": train_res.get("kalibrierung"),
+        # 95-%-Intervalle (Bootstrap über Feste, s. train.konfidenzintervalle).
+        "konfidenz": train_res.get("konfidenz"),
         "merkmal_version": MERKMAL_VERSION,
         "training_ab": train_res.get("training_ab"),
         "erfolgskriterien": {

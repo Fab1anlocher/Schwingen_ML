@@ -109,11 +109,17 @@ def test_fuehre_benchmark_durch_ignoriert_augmentierte_testzeilen():
     # Nur die 4 ECHTEN Testgänge zählen, nicht die 4 gespiegelten.
     assert ergebnis["n_test"] == 4
     assert set(ergebnis["kandidaten"].keys()) == {
-        "kranz_heuristik", "elo_baseline", "ml_ohne_elo", "lr_komplett", "ml_komplett",
+        "kranz_heuristik", "elo_baseline", "elo_angepasst", "ml_ohne_elo", "lr_komplett", "ml_komplett",
     }
-    for werte in ergebnis["kandidaten"].values():
+    for key, werte in ergebnis["kandidaten"].items():
         assert 0.0 <= werte["accuracy"] <= 1.0
         assert 0.0 <= werte["brier_score"] <= 2.0
+        # Log-Loss für alle mit Wahrscheinlichkeiten, nicht für die 0/1-Heuristik.
+        assert (werte["log_loss"] is None) == (key == "kranz_heuristik")
+
+    # Die Heuristik weist aus, wie oft sie keinen Favoriten hat.
+    kranz = ergebnis["kandidaten"]["kranz_heuristik"]
+    assert kranz["anteil_gleichstand"] == 0.25 and kranz["accuracy_ohne_gleichstand"] == 1.0
 
     # Kranz-Heuristik ist auf diesen Daten deterministisch perfekt (Label
     # folgt exakt dem Vorzeichen von kranz_diff, s. Testdaten oben).
