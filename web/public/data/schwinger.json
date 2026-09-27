@@ -88407,46 +88407,6 @@
       ]
     },
     {
-      "id": "roman bucher|2003",
-      "name": "Roman Bucher",
-      "jahrgang": 2003,
-      "groesse_cm": 173.0,
-      "gewicht_kg": 80.0,
-      "kranzstatus": "kranzer",
-      "kranzstatus_rangliste": null,
-      "teilverband": "Nordostschweiz",
-      "teilverband_klub": null,
-      "kanton_klub": null,
-      "teilverband_geschaetzt": null,
-      "kanton": "Zürich",
-      "schwingklub": "Zürcher Oberland",
-      "senne_turner": "senne",
-      "kraenze": 1,
-      "kraenze_nach_typ": {
-        "kantonal": 1
-      },
-      "bevorzugte_schwuenge": [],
-      "form": 0.5,
-      "gestellt_neigung": 0.27541,
-      "ueberraschungsindex": -0.0238,
-      "n_bewertete_gaenge": 12,
-      "anzahl_feste": 4,
-      "aktiv": false,
-      "groesster_erfolg": {
-        "gegner_name": "Flavio Sutter",
-        "event_id": "schlussgang-36810",
-        "datum": "2024-04-01",
-        "eigenes_elo": 1520.5,
-        "gegner_elo": 1497.7
-      },
-      "festsiege": [],
-      "namensvetter_von": null,
-      "quellen": [
-        "schlussgang.ch/portraet",
-        "https://www.schlussgang.ch/portraet/roman-bucher"
-      ]
-    },
-    {
       "id": "roman bucher|2002",
       "name": "Roman Bucher",
       "jahrgang": 2002,
@@ -88484,6 +88444,46 @@
       "quellen": [
         "schlussgang.ch/portraet",
         "https://www.schlussgang.ch/portraet/roman-bucher-0"
+      ]
+    },
+    {
+      "id": "roman bucher|2003",
+      "name": "Roman Bucher",
+      "jahrgang": 2003,
+      "groesse_cm": 173.0,
+      "gewicht_kg": 80.0,
+      "kranzstatus": "kranzer",
+      "kranzstatus_rangliste": null,
+      "teilverband": "Nordostschweiz",
+      "teilverband_klub": null,
+      "kanton_klub": null,
+      "teilverband_geschaetzt": null,
+      "kanton": "Zürich",
+      "schwingklub": "Zürcher Oberland",
+      "senne_turner": "senne",
+      "kraenze": 1,
+      "kraenze_nach_typ": {
+        "kantonal": 1
+      },
+      "bevorzugte_schwuenge": [],
+      "form": 0.5,
+      "gestellt_neigung": 0.27541,
+      "ueberraschungsindex": -0.0238,
+      "n_bewertete_gaenge": 12,
+      "anzahl_feste": 4,
+      "aktiv": false,
+      "groesster_erfolg": {
+        "gegner_name": "Flavio Sutter",
+        "event_id": "schlussgang-36810",
+        "datum": "2024-04-01",
+        "eigenes_elo": 1520.5,
+        "gegner_elo": 1497.7
+      },
+      "festsiege": [],
+      "namensvetter_von": null,
+      "quellen": [
+        "schlussgang.ch/portraet",
+        "https://www.schlussgang.ch/portraet/roman-bucher"
       ]
     },
     {
