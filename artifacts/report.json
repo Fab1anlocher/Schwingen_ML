@@ -1,34 +1,34 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-09-27T09:54:54.122045+00:00",
-  "lauf_id": "20260927T095454Z",
+  "erstellt": "2026-09-28T10:41:03.401682+00:00",
+  "lauf_id": "20260928T104103Z",
   "seed": 42,
   "datenbasis": {
-    "n_gaenge": 134035,
-    "n_schwinger": 2910
+    "n_gaenge": 135013,
+    "n_schwinger": 2913
   },
   "holdout_jahr": 2026,
   "modell_typ": "gbm",
   "n_baeume": {
-    "gestellt": 294,
-    "sieg": 372
+    "gestellt": 307,
+    "sieg": 334
   },
   "n_train": 136118,
-  "n_train_ausgeliefert": 209338,
-  "n_test": 36610,
+  "n_train_ausgeliefert": 211294,
+  "n_test": 37588,
   "modell": {
-    "log_loss": 0.7204,
-    "accuracy": 0.6901,
-    "mae": 0.2432,
-    "mse": 0.0998
+    "log_loss": 0.7198,
+    "accuracy": 0.6915,
+    "mae": 0.2426,
+    "mse": 0.0996
   },
   "baseline_elo": {
-    "log_loss": 0.91,
-    "accuracy": 0.6125
+    "log_loss": 0.9093,
+    "accuracy": 0.6131
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0776,
-  "verbesserung_log_loss": 0.1896,
+  "accuracy_gg_baseline": 0.0783,
+  "verbesserung_log_loss": 0.1895,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -36,106 +36,106 @@
   ],
   "konfusionsmatrix": [
     [
-      10290,
-      959,
-      1874
+      10607,
+      961,
+      1934
     ],
     [
-      2665,
-      2013,
-      3029
+      2740,
+      2046,
+      3122
     ],
     [
-      1795,
-      1024,
-      12961
+      1823,
+      1017,
+      13338
     ]
   ],
   "nur_portraet": {
     "modell": {
-      "n": 9366,
-      "anteil_am_test": 0.2558,
-      "log_loss": 0.8118,
-      "accuracy": 0.6278,
-      "mae": 0.2522,
-      "mse": 0.1033
+      "n": 9445,
+      "anteil_am_test": 0.2513,
+      "log_loss": 0.8137,
+      "accuracy": 0.6274,
+      "mae": 0.2523,
+      "mse": 0.1034
     },
     "baseline_elo": {
-      "n": 9366,
-      "log_loss": 0.9254,
-      "accuracy": 0.583
+      "n": 9445,
+      "log_loss": 0.9266,
+      "accuracy": 0.581
     }
   },
   "gestellt_kalibrierung": {
-    "n": 36610,
-    "vorhergesagt": 0.2043,
-    "eingetreten": 0.2105,
-    "ece": 0.008,
-    "auc": 0.7508,
+    "n": 37588,
+    "vorhergesagt": 0.2046,
+    "eingetreten": 0.2104,
+    "ece": 0.0074,
+    "auc": 0.7504,
     "stufen": [
       {
-        "n": 3661,
-        "vorhergesagt": 0.021,
-        "eingetreten": 0.0229
+        "n": 3759,
+        "vorhergesagt": 0.0226,
+        "eingetreten": 0.0223
       },
       {
-        "n": 3661,
-        "vorhergesagt": 0.054,
-        "eingetreten": 0.0549
+        "n": 3759,
+        "vorhergesagt": 0.056,
+        "eingetreten": 0.0551
       },
       {
-        "n": 3661,
-        "vorhergesagt": 0.0879,
-        "eingetreten": 0.0855
+        "n": 3759,
+        "vorhergesagt": 0.0892,
+        "eingetreten": 0.0889
       },
       {
-        "n": 3661,
-        "vorhergesagt": 0.1206,
-        "eingetreten": 0.1235
+        "n": 3759,
+        "vorhergesagt": 0.1214,
+        "eingetreten": 0.1224
       },
       {
-        "n": 3661,
-        "vorhergesagt": 0.1547,
-        "eingetreten": 0.1647
+        "n": 3759,
+        "vorhergesagt": 0.155,
+        "eingetreten": 0.1604
       },
       {
-        "n": 3661,
-        "vorhergesagt": 0.1908,
-        "eingetreten": 0.204
+        "n": 3759,
+        "vorhergesagt": 0.1901,
+        "eingetreten": 0.2107
       },
       {
-        "n": 3661,
-        "vorhergesagt": 0.2347,
-        "eingetreten": 0.2538
+        "n": 3759,
+        "vorhergesagt": 0.2342,
+        "eingetreten": 0.2477
       },
       {
-        "n": 3661,
-        "vorhergesagt": 0.2903,
-        "eingetreten": 0.301
+        "n": 3759,
+        "vorhergesagt": 0.29,
+        "eingetreten": 0.3097
       },
       {
-        "n": 3661,
-        "vorhergesagt": 0.3672,
-        "eingetreten": 0.3794
+        "n": 3758,
+        "vorhergesagt": 0.3669,
+        "eingetreten": 0.3725
       },
       {
-        "n": 3661,
-        "vorhergesagt": 0.5218,
-        "eingetreten": 0.5154
+        "n": 3758,
+        "vorhergesagt": 0.5208,
+        "eingetreten": 0.5144
       }
     ]
   },
   "konfidenz": {
     "methode": "bootstrap_feste",
-    "n_feste": 133,
+    "n_feste": 136,
     "wiederholungen": 1000,
     "accuracy": [
-      0.682,
-      0.6981
+      0.6839,
+      0.6985
     ],
     "log_loss": [
-      0.7082,
-      0.7317
+      0.7087,
+      0.7321
     ]
   },
   "merkmal_version": 3,
@@ -203,55 +203,55 @@
       "nur_eine_perspektive": 21237,
       "inkonsistente_symbole": 59
     },
-    "anteil_unvollstaendiger_gaenge": 0.1584,
+    "anteil_unvollstaendiger_gaenge": 0.1573,
     "ergebnisverteilung": {
-      "gestellt": 0.2284,
-      "sieg_a": 0.3521,
-      "sieg_b": 0.4196
+      "gestellt": 0.2282,
+      "sieg_a": 0.3531,
+      "sieg_b": 0.4187
     },
     "feste_zeitraum": {
       "von": "2023-04-01",
-      "bis": "2026-09-13"
+      "bis": "2026-09-27"
     },
-    "tage_seit_juengstem_fest": 14,
+    "tage_seit_juengstem_fest": 1,
     "kommende_feste": {
-      "n": 4,
+      "n": 1,
       "n_mit_paarungen": 0,
       "quelle": "jsonapi",
       "versuche": [
         {
           "pfad": "jsonapi",
-          "n": 4
+          "n": 1
         }
       ],
-      "naechstes": "2026-09-27"
+      "naechstes": "2026-10-04"
     },
     "abzeichen_plausibilitaet": {
-      "n_feste_mit_kranzern": 480,
-      "trefferquote_median": 0.8947,
+      "n_feste_mit_kranzern": 483,
+      "trefferquote_median": 0.9,
       "feste_ohne_abzeichen": 6,
-      "abzeichen_gesamt": 18251,
+      "abzeichen_gesamt": 18358,
       "plausibel": true,
-      "anteil_feste_ohne_abzeichen": 0.0125,
+      "anteil_feste_ohne_abzeichen": 0.0124,
       "hinweis_refetch": false
     },
     "datenabdeckung": {
-      "n_schwinger": 2910,
-      "n_portraet": 706,
-      "anteil_portraet": 0.2426,
+      "n_schwinger": 2913,
+      "n_portraet": 703,
+      "anteil_portraet": 0.2413,
       "teilverband_schaetzung": {
-        "pruef_faelle": 589,
+        "pruef_faelle": 586,
         "trefferquote": 0.9983,
-        "n_ohne_verband": 2204,
+        "n_ohne_verband": 2210,
         "angewandt": true,
-        "n_geschaetzt": 1655
+        "n_geschaetzt": 1659
       }
     },
     "ranglisten": {
-      "n_feste": 481,
+      "n_feste": 484,
       "n_nicht_lesbar": 0,
-      "n_teilnahmen": 46125,
-      "anteil_namen_aufgeloest": 0.9954,
+      "n_teilnahmen": 46471,
+      "anteil_namen_aufgeloest": 0.9955,
       "beispiele_unaufloesbar": [
         "Zemp Christian",
         "Wüthrich Jonas",
@@ -277,15 +277,15 @@
       "klub_abdeckung_aktive": 0.9892,
       "verband_ueber_klub": {
         "klubs_bekannt": 132,
-        "pruef_faelle": 600,
+        "pruef_faelle": 597,
         "trefferquote": 0.9933,
-        "n_ohne_porträt_mit_klub": 2160,
-        "n_zugeordnet": 1977
+        "n_ohne_porträt_mit_klub": 2166,
+        "n_zugeordnet": 1983
       },
       "konsistenz": {
         "klub_wie_porträt": 0.989,
-        "klub_vergleiche": 638,
-        "kranzgewinner_ohne_porträt": 86,
+        "klub_vergleiche": 635,
+        "kranzgewinner_ohne_porträt": 88,
         "beispiele_kranzgewinner_ohne_porträt": [
           "adrian elsener|?",
           "adrian schwyn|?",
@@ -295,17 +295,17 @@
         ]
       }
     },
-    "roh_eintraege_gelesen": 249109,
-    "roh_eintraege_uebernommen": 247532,
+    "roh_eintraege_gelesen": 251077,
+    "roh_eintraege_uebernommen": 249488,
     "roh_eintraege_verworfen": {
-      "name_nicht_aufloesbar": 1570,
+      "name_nicht_aufloesbar": 1582,
       "schwinger_gegen_sich_selbst": 7
     },
     "verlustquote": 0.0063,
-    "feste_gelesen": 481,
-    "feste_uebernommen": 481,
+    "feste_gelesen": 484,
+    "feste_uebernommen": 484,
     "feste_verworfen": {},
-    "schwinger_im_kader": 2910,
+    "schwinger_im_kader": 2913,
     "unaufloesbare_namen": 10,
     "beispiele_unaufloesbare_namen": [
       "Zemp Christian",
@@ -322,21 +322,21 @@
     "namensvettern": {
       "klubs_mit_verband": 128,
       "personen_getrennt": 6,
-      "feste_umgehaengt": 194,
+      "feste_umgehaengt": 196,
       "nicht_trennbar_selbes_fest": 22,
       "mehrdeutige_feste_aufgeloest": 75,
       "beispiele": [
         "Dominik Gasser: 24 Feste (Innerschweiz) getrennt von Bern",
-        "Marco Ulrich: 23 Feste (Bern) getrennt von Innerschweiz",
+        "Marco Ulrich: 24 Feste (Bern) getrennt von Innerschweiz",
         "Samuel Giger: 20 Feste (Innerschweiz) getrennt von Nordostschweiz",
-        "Jonas Odermatt: 26 Feste (Innerschweiz) getrennt von Nordwestschweiz",
+        "Jonas Odermatt: 27 Feste (Innerschweiz) getrennt von Nordwestschweiz",
         "Simon Schmid: 16 Feste (Nordostschweiz) getrennt von Innerschweiz",
         "Roland Bucher: 10 Feste (Nordostschweiz) getrennt von Innerschweiz"
       ]
     }
   },
   "modell_verlauf": {
-    "n_laeufe": 49,
+    "n_laeufe": 50,
     "warnung": null
   }
 }

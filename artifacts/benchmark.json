@@ -1,63 +1,63 @@
 {
   "schema_version": "1.0.0",
   "holdout_jahr": 2026,
-  "n_test": 36610,
+  "n_test": 37588,
   "kandidaten": [
     {
       "key": "kranz_heuristik",
       "label": "Kranz-Heuristik",
-      "accuracy": 0.4234,
+      "accuracy": 0.4221,
       "log_loss": null,
-      "brier_score": 1.1532,
-      "mae": 0.301,
-      "mse": 0.1632,
-      "anteil_gleichstand": 0.65,
-      "accuracy_ohne_gleichstand": 0.7678
+      "brier_score": 1.1558,
+      "mae": 0.302,
+      "mse": 0.164,
+      "anteil_gleichstand": 0.6504,
+      "accuracy_ohne_gleichstand": 0.7656
     },
     {
       "key": "elo_baseline",
       "label": "Elo-Formel (nicht angepasst)",
-      "accuracy": 0.6125,
-      "log_loss": 0.91,
-      "brier_score": 0.5304,
-      "mae": 0.3376,
-      "mse": 0.1442
+      "accuracy": 0.6131,
+      "log_loss": 0.9093,
+      "brier_score": 0.5299,
+      "mae": 0.3375,
+      "mse": 0.1441
     },
     {
       "key": "elo_angepasst",
       "label": "Elo, angepasst",
-      "accuracy": 0.6125,
-      "log_loss": 0.8572,
-      "brier_score": 0.501,
-      "mae": 0.2991,
-      "mse": 0.1297
+      "accuracy": 0.6131,
+      "log_loss": 0.8566,
+      "brier_score": 0.5005,
+      "mae": 0.2989,
+      "mse": 0.1296
     },
     {
       "key": "ml_ohne_elo",
       "label": "ML ohne Elo (Kranzstatus, Physis, Stil, Verband)",
-      "accuracy": 0.5195,
-      "log_loss": 0.9435,
-      "brier_score": 0.5589,
-      "mae": 0.345,
-      "mse": 0.1566
+      "accuracy": 0.5291,
+      "log_loss": 0.9453,
+      "brier_score": 0.5601,
+      "mae": 0.3461,
+      "mse": 0.1572
     },
     {
       "key": "lr_komplett",
       "label": "Logistic Regression (bis 25.09.2026)",
-      "accuracy": 0.6861,
-      "log_loss": 0.7402,
-      "brier_score": 0.4259,
-      "mae": 0.2534,
-      "mse": 0.1039
+      "accuracy": 0.6864,
+      "log_loss": 0.7396,
+      "brier_score": 0.4254,
+      "mae": 0.2533,
+      "mse": 0.1038
     },
     {
       "key": "ml_komplett",
       "label": "Gradient Boosting (Produktionsmodell)",
-      "accuracy": 0.6901,
-      "log_loss": 0.7204,
-      "brier_score": 0.4154,
-      "mae": 0.2432,
-      "mse": 0.0998
+      "accuracy": 0.6915,
+      "log_loss": 0.7198,
+      "brier_score": 0.415,
+      "mae": 0.2426,
+      "mse": 0.0996
     }
   ]
 }

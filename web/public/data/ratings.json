@@ -15,8 +15,8 @@
       "n_gaenge": 71
     },
     "ueli achermann|2001": {
-      "elo": 1622.0,
-      "n_gaenge": 359
+      "elo": 1625.3,
+      "n_gaenge": 365
     },
     "remo ackermann|1993": {
       "elo": 1618.5,
@@ -39,8 +39,8 @@
       "n_gaenge": 358
     },
     "florian aellen|1995": {
-      "elo": 1790.7,
-      "n_gaenge": 303
+      "elo": 1792.9,
+      "n_gaenge": 309
     },
     "philip aellen|1998": {
       "elo": 1510.3,
@@ -59,8 +59,8 @@
       "n_gaenge": 27
     },
     "nick alpiger|1996": {
-      "elo": 2109.1,
-      "n_gaenge": 464
+      "elo": 2106.9,
+      "n_gaenge": 470
     },
     "thiben althaus|2006": {
       "elo": 1492.0,
@@ -71,16 +71,16 @@
       "n_gaenge": 14
     },
     "joel ambuhl|1998": {
-      "elo": 1928.2,
-      "n_gaenge": 240
+      "elo": 1934.6,
+      "n_gaenge": 246
     },
     "roman amgarten|1988": {
       "elo": 1500.0,
       "n_gaenge": 0
     },
     "jonas amrhyn|2003": {
-      "elo": 1850.3,
-      "n_gaenge": 326
+      "elo": 1845.1,
+      "n_gaenge": 332
     },
     "enea ancona|2004": {
       "elo": 1534.6,
@@ -151,8 +151,8 @@
       "n_gaenge": 29
     },
     "francois barras|1998": {
-      "elo": 1695.7,
-      "n_gaenge": 232
+      "elo": 1701.1,
+      "n_gaenge": 238
     },
     "fabian bartsch|2000": {
       "elo": 1764.0,
@@ -179,16 +179,16 @@
       "n_gaenge": 137
     },
     "loris berger|2006": {
-      "elo": 1624.0,
-      "n_gaenge": 236
+      "elo": 1632.2,
+      "n_gaenge": 242
     },
     "sascha berger|1996": {
       "elo": 1529.0,
       "n_gaenge": 146
     },
     "ueli berger|1998": {
-      "elo": 1551.7,
-      "n_gaenge": 179
+      "elo": 1559.4,
+      "n_gaenge": 185
     },
     "joel bernardi|1993": {
       "elo": 1500.0,
@@ -227,8 +227,8 @@
       "n_gaenge": 355
     },
     "ramon betschart|1998": {
-      "elo": 1468.5,
-      "n_gaenge": 174
+      "elo": 1462.7,
+      "n_gaenge": 184
     },
     "roger betschart|2003": {
       "elo": 1576.1,
@@ -271,8 +271,8 @@
       "n_gaenge": 76
     },
     "luc bissig|2007": {
-      "elo": 1806.3,
-      "n_gaenge": 305
+      "elo": 1815.4,
+      "n_gaenge": 311
     },
     "lukas bissig|2003": {
       "elo": 2048.2,
@@ -331,8 +331,8 @@
       "n_gaenge": 189
     },
     "fredi bruhin|1997": {
-      "elo": 1856.2,
-      "n_gaenge": 153
+      "elo": 1864.0,
+      "n_gaenge": 154
     },
     "dominik brulisauer|2001": {
       "elo": 1610.1,
@@ -351,24 +351,24 @@
       "n_gaenge": 176
     },
     "christian bucher|1998": {
-      "elo": 1802.6,
-      "n_gaenge": 361
+      "elo": 1808.0,
+      "n_gaenge": 367
     },
     "roland bucher|1994": {
-      "elo": 1746.4,
-      "n_gaenge": 349
-    },
-    "roman bucher|2002": {
-      "elo": 1665.5,
-      "n_gaenge": 200
+      "elo": 1751.3,
+      "n_gaenge": 355
     },
     "roman bucher|2003": {
       "elo": 1517.8,
       "n_gaenge": 22
     },
+    "roman bucher|2002": {
+      "elo": 1665.5,
+      "n_gaenge": 200
+    },
     "thomas bucher|1996": {
-      "elo": 1745.1,
-      "n_gaenge": 328
+      "elo": 1760.1,
+      "n_gaenge": 334
     },
     "livio buchler|2001": {
       "elo": 1527.6,
@@ -379,12 +379,12 @@
       "n_gaenge": 74
     },
     "moritz buchmann|2005": {
-      "elo": 1650.7,
-      "n_gaenge": 263
+      "elo": 1656.0,
+      "n_gaenge": 269
     },
     "dario buhler|2003": {
-      "elo": 1757.6,
-      "n_gaenge": 245
+      "elo": 1750.4,
+      "n_gaenge": 251
     },
     "kilian buhler|2000": {
       "elo": 1739.4,
@@ -395,12 +395,12 @@
       "n_gaenge": 235
     },
     "ramon buhler|2002": {
-      "elo": 1736.1,
-      "n_gaenge": 279
+      "elo": 1742.6,
+      "n_gaenge": 285
     },
     "daniel buhlmann|2000": {
-      "elo": 1614.9,
-      "n_gaenge": 300
+      "elo": 1617.4,
+      "n_gaenge": 306
     },
     "dean burch|2001": {
       "elo": 1590.0,
@@ -463,8 +463,8 @@
       "n_gaenge": 183
     },
     "florian christen|2002": {
-      "elo": 1594.0,
-      "n_gaenge": 252
+      "elo": 1602.7,
+      "n_gaenge": 258
     },
     "jerome christen|2002": {
       "elo": 1543.6,
@@ -519,12 +519,8 @@
       "n_gaenge": 127
     },
     "ueli doppmann|1998": {
-      "elo": 1601.8,
-      "n_gaenge": 181
-    },
-    "urs doppmann|1994": {
-      "elo": 1847.2,
-      "n_gaenge": 378
+      "elo": 1606.4,
+      "n_gaenge": 187
     },
     "theo dorsaz|1998": {
       "elo": 1523.4,
@@ -535,8 +531,8 @@
       "n_gaenge": 0
     },
     "damian dubach|2005": {
-      "elo": 1804.6,
-      "n_gaenge": 304
+      "elo": 1805.9,
+      "n_gaenge": 310
     },
     "gael dubey|1992": {
       "elo": 1494.4,
@@ -583,8 +579,8 @@
       "n_gaenge": 126
     },
     "yvan duss|2003": {
-      "elo": 1556.5,
-      "n_gaenge": 170
+      "elo": 1551.8,
+      "n_gaenge": 171
     },
     "marco eggimann|1998": {
       "elo": 1649.4,
@@ -599,12 +595,12 @@
       "n_gaenge": 160
     },
     "martin egli|1997": {
-      "elo": 1635.4,
-      "n_gaenge": 163
+      "elo": 1638.4,
+      "n_gaenge": 169
     },
     "fabio eicher|2008": {
-      "elo": 1647.9,
-      "n_gaenge": 244
+      "elo": 1646.5,
+      "n_gaenge": 250
     },
     "damian eisenring|2006": {
       "elo": 1569.7,
@@ -671,8 +667,8 @@
       "n_gaenge": 295
     },
     "marco fankhauser|1996": {
-      "elo": 1684.3,
-      "n_gaenge": 494
+      "elo": 1648.8,
+      "n_gaenge": 500
     },
     "thomas fankhauser|1990": {
       "elo": 1564.2,
@@ -699,12 +695,12 @@
       "n_gaenge": 64
     },
     "patrik feldmann|2005": {
-      "elo": 1752.8,
-      "n_gaenge": 228
+      "elo": 1761.4,
+      "n_gaenge": 234
     },
     "sandro fitze|2009": {
-      "elo": 1602.5,
-      "n_gaenge": 174
+      "elo": 1612.1,
+      "n_gaenge": 180
     },
     "marco flutsch|1999": {
       "elo": 1556.8,
@@ -723,8 +719,8 @@
       "n_gaenge": 36
     },
     "david forrer|2009": {
-      "elo": 1655.6,
-      "n_gaenge": 162
+      "elo": 1666.2,
+      "n_gaenge": 168
     },
     "marius frank|2004": {
       "elo": 1980.2,
@@ -743,8 +739,8 @@
       "n_gaenge": 221
     },
     "nicola funk|1999": {
-      "elo": 1683.8,
-      "n_gaenge": 181
+      "elo": 1678.7,
+      "n_gaenge": 182
     },
     "jannis furter|2004": {
       "elo": 1576.5,
@@ -759,8 +755,8 @@
       "n_gaenge": 180
     },
     "simon gabriel|2002": {
-      "elo": 1583.6,
-      "n_gaenge": 308
+      "elo": 1591.7,
+      "n_gaenge": 314
     },
     "cedric galli|2001": {
       "elo": 1570.1,
@@ -855,16 +851,16 @@
       "n_gaenge": 174
     },
     "timo gisler|2009": {
-      "elo": 1651.0,
-      "n_gaenge": 151
+      "elo": 1650.8,
+      "n_gaenge": 157
     },
     "jonas glutz|2006": {
       "elo": 1726.3,
       "n_gaenge": 266
     },
     "sandro gmur|1997": {
-      "elo": 1639.7,
-      "n_gaenge": 305
+      "elo": 1645.7,
+      "n_gaenge": 311
     },
     "christian gnagi|1992": {
       "elo": 1464.9,
@@ -875,8 +871,8 @@
       "n_gaenge": 221
     },
     "patrick gobeli|1998": {
-      "elo": 1857.4,
-      "n_gaenge": 310
+      "elo": 1865.5,
+      "n_gaenge": 316
     },
     "marco good|1996": {
       "elo": 1887.1,
@@ -899,16 +895,16 @@
       "n_gaenge": 176
     },
     "nicola graf|2003": {
-      "elo": 1619.1,
-      "n_gaenge": 203
+      "elo": 1624.3,
+      "n_gaenge": 209
     },
     "simon graf|2001": {
       "elo": 1654.1,
       "n_gaenge": 214
     },
     "paxton grass|2008": {
-      "elo": 1726.7,
-      "n_gaenge": 230
+      "elo": 1729.1,
+      "n_gaenge": 236
     },
     "enea grob|2003": {
       "elo": 1676.5,
@@ -927,8 +923,8 @@
       "n_gaenge": 120
     },
     "michael gwerder|2000": {
-      "elo": 1991.7,
-      "n_gaenge": 303
+      "elo": 1999.7,
+      "n_gaenge": 309
     },
     "andrin habegger|2005": {
       "elo": 1849.1,
@@ -983,8 +979,8 @@
       "n_gaenge": 96
     },
     "pascal heierli|1999": {
-      "elo": 1757.4,
-      "n_gaenge": 283
+      "elo": 1758.2,
+      "n_gaenge": 289
     },
     "michael heim|2001": {
       "elo": 1519.2,
@@ -995,28 +991,28 @@
       "n_gaenge": 258
     },
     "marco heiniger|1996": {
-      "elo": 1776.5,
-      "n_gaenge": 288
+      "elo": 1782.2,
+      "n_gaenge": 294
     },
     "vincent heiniger|1987": {
       "elo": 1500.0,
       "n_gaenge": 0
     },
     "benno heinzer|2006": {
-      "elo": 1832.0,
-      "n_gaenge": 355
+      "elo": 1837.1,
+      "n_gaenge": 361
     },
     "lukas heinzer|2004": {
       "elo": 1831.8,
       "n_gaenge": 373
     },
     "maurus heinzer|2007": {
-      "elo": 1505.2,
-      "n_gaenge": 186
+      "elo": 1500.3,
+      "n_gaenge": 192
     },
     "ronny heinzer|1996": {
-      "elo": 1647.9,
-      "n_gaenge": 324
+      "elo": 1655.7,
+      "n_gaenge": 330
     },
     "stefan heinzer|1990": {
       "elo": 1625.5,
@@ -1035,16 +1031,16 @@
       "n_gaenge": 176
     },
     "marco herger|2002": {
-      "elo": 1486.2,
-      "n_gaenge": 175
+      "elo": 1491.4,
+      "n_gaenge": 181
     },
     "oliver hermann|1996": {
       "elo": 1830.0,
       "n_gaenge": 337
     },
     "dominik hess|1994": {
-      "elo": 1686.9,
-      "n_gaenge": 236
+      "elo": 1695.8,
+      "n_gaenge": 242
     },
     "michael hess|1992": {
       "elo": 1500.0,
@@ -1079,8 +1075,8 @@
       "n_gaenge": 0
     },
     "melchior huber|2002": {
-      "elo": 1699.8,
-      "n_gaenge": 322
+      "elo": 1699.9,
+      "n_gaenge": 328
     },
     "lars hugelshofer|2001": {
       "elo": 1591.7,
@@ -1131,8 +1127,8 @@
       "n_gaenge": 55
     },
     "marco iseli|1997": {
-      "elo": 1681.6,
-      "n_gaenge": 146
+      "elo": 1683.9,
+      "n_gaenge": 152
     },
     "fabien jacquaz|2006": {
       "elo": 1698.4,
@@ -1175,12 +1171,12 @@
       "n_gaenge": 145
     },
     "matthias jund|1999": {
-      "elo": 1535.4,
-      "n_gaenge": 141
+      "elo": 1536.7,
+      "n_gaenge": 147
     },
     "alexander kampf|1985": {
-      "elo": 1684.0,
-      "n_gaenge": 191
+      "elo": 1687.9,
+      "n_gaenge": 197
     },
     "bernhard kampf|1988": {
       "elo": 1986.0,
@@ -1255,8 +1251,8 @@
       "n_gaenge": 79
     },
     "adrian klossner|1993": {
-      "elo": 1764.2,
-      "n_gaenge": 266
+      "elo": 1760.3,
+      "n_gaenge": 267
     },
     "sven klossner|1996": {
       "elo": 1542.3,
@@ -1267,8 +1263,8 @@
       "n_gaenge": 77
     },
     "alexander knutti|1999": {
-      "elo": 1601.5,
-      "n_gaenge": 136
+      "elo": 1610.1,
+      "n_gaenge": 142
     },
     "marcel kobel|1996": {
       "elo": 1553.6,
@@ -1323,8 +1319,8 @@
       "n_gaenge": 115
     },
     "cyrill krieg|2009": {
-      "elo": 1562.4,
-      "n_gaenge": 203
+      "elo": 1565.5,
+      "n_gaenge": 209
     },
     "rolf kropf|1988": {
       "elo": 1500.0,
@@ -1335,8 +1331,8 @@
       "n_gaenge": 235
     },
     "lars kupferschmied|2007": {
-      "elo": 1576.3,
-      "n_gaenge": 53
+      "elo": 1588.7,
+      "n_gaenge": 59
     },
     "patrick kurmann|2003": {
       "elo": 1770.0,
@@ -1355,8 +1351,8 @@
       "n_gaenge": 54
     },
     "patrik laimbacher|2010": {
-      "elo": 1638.3,
-      "n_gaenge": 66
+      "elo": 1648.9,
+      "n_gaenge": 72
     },
     "sven lang|1998": {
       "elo": 1818.5,
@@ -1407,8 +1403,8 @@
       "n_gaenge": 245
     },
     "michael leuenberger|1993": {
-      "elo": 1697.8,
-      "n_gaenge": 186
+      "elo": 1711.6,
+      "n_gaenge": 192
     },
     "karim leuppi|1995": {
       "elo": 1587.7,
@@ -1439,8 +1435,8 @@
       "n_gaenge": 187
     },
     "elias luscher|2006": {
-      "elo": 1734.7,
-      "n_gaenge": 263
+      "elo": 1738.1,
+      "n_gaenge": 268
     },
     "sinisha luscher|2006": {
       "elo": 2028.6,
@@ -1451,16 +1447,16 @@
       "n_gaenge": 343
     },
     "marc lustenberger|2003": {
-      "elo": 1910.3,
-      "n_gaenge": 348
+      "elo": 1918.7,
+      "n_gaenge": 354
     },
     "tim lustenberger|2005": {
       "elo": 1757.7,
       "n_gaenge": 303
     },
     "david luthi|2002": {
-      "elo": 1801.5,
-      "n_gaenge": 240
+      "elo": 1818.7,
+      "n_gaenge": 246
     },
     "corsin magani|2007": {
       "elo": 1574.4,
@@ -1535,8 +1531,8 @@
       "n_gaenge": 0
     },
     "valentin mettler|1996": {
-      "elo": 1660.5,
-      "n_gaenge": 226
+      "elo": 1656.9,
+      "n_gaenge": 232
     },
     "adrian meuter|1985": {
       "elo": 1500.0,
@@ -1579,8 +1575,8 @@
       "n_gaenge": 326
     },
     "timo mosli|2006": {
-      "elo": 1540.2,
-      "n_gaenge": 298
+      "elo": 1552.9,
+      "n_gaenge": 304
     },
     "dominik muller|1995": {
       "elo": 1549.3,
@@ -1603,16 +1599,16 @@
       "n_gaenge": 136
     },
     "philipp muller|2005": {
-      "elo": 1581.8,
-      "n_gaenge": 151
+      "elo": 1584.9,
+      "n_gaenge": 157
     },
     "roger muller|1995": {
       "elo": 1500.0,
       "n_gaenge": 0
     },
     "roman muller|2009": {
-      "elo": 1541.8,
-      "n_gaenge": 94
+      "elo": 1543.6,
+      "n_gaenge": 100
     },
     "remo murer|1996": {
       "elo": 1514.3,
@@ -1651,8 +1647,8 @@
       "n_gaenge": 160
     },
     "sandro nuesch|2005": {
-      "elo": 1626.5,
-      "n_gaenge": 224
+      "elo": 1637.8,
+      "n_gaenge": 230
     },
     "sami nufer|1998": {
       "elo": 1616.9,
@@ -1667,8 +1663,8 @@
       "n_gaenge": 287
     },
     "gian maria odermatt|2004": {
-      "elo": 1788.9,
-      "n_gaenge": 235
+      "elo": 1784.7,
+      "n_gaenge": 240
     },
     "jonas odermatt|2004": {
       "elo": 1786.7,
@@ -1687,8 +1683,8 @@
       "n_gaenge": 263
     },
     "damian ott|2000": {
-      "elo": 2086.5,
-      "n_gaenge": 353
+      "elo": 2089.1,
+      "n_gaenge": 358
     },
     "yannick parvex|1985": {
       "elo": 1500.0,
@@ -1703,8 +1699,8 @@
       "n_gaenge": 321
     },
     "reto pfyl|2006": {
-      "elo": 1597.8,
-      "n_gaenge": 208
+      "elo": 1595.5,
+      "n_gaenge": 214
     },
     "christian pianta|1997": {
       "elo": 1604.5,
@@ -1839,8 +1835,8 @@
       "n_gaenge": 204
     },
     "jerome rohrbach|2000": {
-      "elo": 1663.9,
-      "n_gaenge": 241
+      "elo": 1670.4,
+      "n_gaenge": 247
     },
     "ueli rohrer|1999": {
       "elo": 1826.6,
@@ -1851,8 +1847,8 @@
       "n_gaenge": 180
     },
     "adrian roschi|1999": {
-      "elo": 1522.8,
-      "n_gaenge": 214
+      "elo": 1526.0,
+      "n_gaenge": 220
     },
     "ruedi roschi|1991": {
       "elo": 1684.5,
@@ -1899,8 +1895,8 @@
       "n_gaenge": 228
     },
     "florian rothlisberger|1999": {
-      "elo": 1626.6,
-      "n_gaenge": 209
+      "elo": 1631.6,
+      "n_gaenge": 215
     },
     "simon rothlisberger|1998": {
       "elo": 1629.6,
@@ -1915,8 +1911,8 @@
       "n_gaenge": 116
     },
     "daniel ruegg|2003": {
-      "elo": 1534.0,
-      "n_gaenge": 247
+      "elo": 1539.5,
+      "n_gaenge": 253
     },
     "patrick ruegg|1999": {
       "elo": 1603.1,
@@ -1963,8 +1959,8 @@
       "n_gaenge": 230
     },
     "noah schaller|2000": {
-      "elo": 1627.6,
-      "n_gaenge": 220
+      "elo": 1631.7,
+      "n_gaenge": 226
     },
     "alex schar|2000": {
       "elo": 1767.4,
@@ -1979,16 +1975,16 @@
       "n_gaenge": 108
     },
     "adrian scharz|2008": {
-      "elo": 1690.7,
-      "n_gaenge": 266
+      "elo": 1698.7,
+      "n_gaenge": 272
     },
     "fabian scharz|2004": {
-      "elo": 1835.5,
-      "n_gaenge": 256
+      "elo": 1839.0,
+      "n_gaenge": 262
     },
     "remo scharz|2006": {
-      "elo": 1757.9,
-      "n_gaenge": 263
+      "elo": 1770.8,
+      "n_gaenge": 269
     },
     "adrian schenk|1995": {
       "elo": 1490.2,
@@ -2003,16 +1999,16 @@
       "n_gaenge": 10
     },
     "niklaus scherer|1995": {
-      "elo": 1664.0,
-      "n_gaenge": 423
+      "elo": 1664.6,
+      "n_gaenge": 429
     },
     "fabian scherrer|2002": {
       "elo": 1834.5,
       "n_gaenge": 338
     },
     "johann scherrer|1983": {
-      "elo": 1565.3,
-      "n_gaenge": 194
+      "elo": 1565.5,
+      "n_gaenge": 200
     },
     "patrick scherrer|1993": {
       "elo": 1523.3,
@@ -2023,16 +2019,16 @@
       "n_gaenge": 178
     },
     "adrian scheuner|2009": {
-      "elo": 1723.0,
-      "n_gaenge": 190
+      "elo": 1726.0,
+      "n_gaenge": 196
     },
     "david scheuner|2005": {
       "elo": 1822.2,
       "n_gaenge": 183
     },
     "janis schick|2003": {
-      "elo": 1635.5,
-      "n_gaenge": 291
+      "elo": 1635.9,
+      "n_gaenge": 297
     },
     "patrik schiesser|1998": {
       "elo": 1583.8,
@@ -2041,10 +2037,6 @@
     "cornel schild|2004": {
       "elo": 1518.1,
       "n_gaenge": 121
-    },
-    "daniel schilter|1989": {
-      "elo": 1480.1,
-      "n_gaenge": 123
     },
     "hugo schlafli|2002": {
       "elo": 1733.8,
@@ -2119,8 +2111,8 @@
       "n_gaenge": 354
     },
     "martin schonbachler|2007": {
-      "elo": 1773.5,
-      "n_gaenge": 128
+      "elo": 1776.5,
+      "n_gaenge": 133
     },
     "tobias schonenberger|2004": {
       "elo": 1590.8,
@@ -2151,8 +2143,8 @@
       "n_gaenge": 84
     },
     "alex schuler|1998": {
-      "elo": 1755.8,
-      "n_gaenge": 445
+      "elo": 1752.8,
+      "n_gaenge": 451
     },
     "martin schuler|1996": {
       "elo": 1564.7,
@@ -2163,8 +2155,8 @@
       "n_gaenge": 12
     },
     "bruno schurpf|1995": {
-      "elo": 1649.4,
-      "n_gaenge": 243
+      "elo": 1648.7,
+      "n_gaenge": 249
     },
     "guido schurpf|1995": {
       "elo": 1571.2,
@@ -2187,20 +2179,20 @@
       "n_gaenge": 0
     },
     "samuel schwyzer|2001": {
-      "elo": 1969.4,
-      "n_gaenge": 393
+      "elo": 1976.9,
+      "n_gaenge": 399
     },
     "sebastian schwyzer|2004": {
-      "elo": 1624.5,
-      "n_gaenge": 75
+      "elo": 1620.0,
+      "n_gaenge": 76
     },
     "leo siegenthaler|2005": {
       "elo": 1552.7,
       "n_gaenge": 107
     },
     "lukas siegrist|1996": {
-      "elo": 1551.8,
-      "n_gaenge": 267
+      "elo": 1551.0,
+      "n_gaenge": 273
     },
     "silas siegrist|1992": {
       "elo": 1500.0,
@@ -2283,16 +2275,16 @@
       "n_gaenge": 190
     },
     "kevin steinauer|2004": {
-      "elo": 1633.8,
-      "n_gaenge": 196
+      "elo": 1645.0,
+      "n_gaenge": 202
     },
     "samuel steinauer|2007": {
-      "elo": 1607.2,
-      "n_gaenge": 217
+      "elo": 1612.9,
+      "n_gaenge": 223
     },
     "severin steiner|2001": {
-      "elo": 1686.9,
-      "n_gaenge": 278
+      "elo": 1675.3,
+      "n_gaenge": 284
     },
     "kevin steudler|2001": {
       "elo": 1675.2,
@@ -2339,8 +2331,8 @@
       "n_gaenge": 268
     },
     "simon stucki|2005": {
-      "elo": 1716.2,
-      "n_gaenge": 219
+      "elo": 1714.5,
+      "n_gaenge": 225
     },
     "remo studer|1996": {
       "elo": 1590.9,
@@ -2371,32 +2363,32 @@
       "n_gaenge": 284
     },
     "pirmin suter|1997": {
-      "elo": 1689.1,
-      "n_gaenge": 167
+      "elo": 1691.4,
+      "n_gaenge": 173
     },
     "samuel suter|1999": {
       "elo": 1685.9,
       "n_gaenge": 200
     },
     "flavio sutter|2008": {
-      "elo": 1635.0,
-      "n_gaenge": 378
+      "elo": 1641.9,
+      "n_gaenge": 384
     },
     "marco sutter|2008": {
       "elo": 1565.7,
       "n_gaenge": 128
     },
     "adrian thalmann|1999": {
-      "elo": 1630.8,
-      "n_gaenge": 233
+      "elo": 1644.4,
+      "n_gaenge": 239
     },
     "beat theiler|1986": {
       "elo": 1500.0,
       "n_gaenge": 0
     },
     "nils theiler|2004": {
-      "elo": 1789.6,
-      "n_gaenge": 431
+      "elo": 1794.4,
+      "n_gaenge": 437
     },
     "marco thierstein|1997": {
       "elo": 1644.6,
@@ -2447,16 +2439,16 @@
       "n_gaenge": 0
     },
     "jeremy tschanz|2006": {
-      "elo": 1677.7,
-      "n_gaenge": 227
+      "elo": 1681.0,
+      "n_gaenge": 233
     },
     "mario tschudi|2001": {
       "elo": 1544.3,
       "n_gaenge": 191
     },
     "sales tschudi|2009": {
-      "elo": 1722.9,
-      "n_gaenge": 157
+      "elo": 1714.4,
+      "n_gaenge": 163
     },
     "daniel tschumi|2005": {
       "elo": 1811.8,
@@ -2487,12 +2479,12 @@
       "n_gaenge": 248
     },
     "marco ulrich|1997": {
-      "elo": 1708.0,
-      "n_gaenge": 295
+      "elo": 1713.6,
+      "n_gaenge": 301
     },
     "michael ulrich|2003": {
-      "elo": 1733.4,
-      "n_gaenge": 251
+      "elo": 1727.8,
+      "n_gaenge": 257
     },
     "noe van messel|2002": {
       "elo": 1836.1,
@@ -2509,10 +2501,6 @@
     "julian vogel|2007": {
       "elo": 1606.9,
       "n_gaenge": 233
-    },
-    "marcel vogel|1997": {
-      "elo": 1644.8,
-      "n_gaenge": 264
     },
     "remo vogel|1994": {
       "elo": 1690.7,
@@ -2543,8 +2531,8 @@
       "n_gaenge": 199
     },
     "lukas von euw|2002": {
-      "elo": 1824.1,
-      "n_gaenge": 272
+      "elo": 1832.0,
+      "n_gaenge": 278
     },
     "carlo von rickenbach|2005": {
       "elo": 1693.1,
@@ -2583,8 +2571,8 @@
       "n_gaenge": 123
     },
     "reto walther|2003": {
-      "elo": 1717.8,
-      "n_gaenge": 183
+      "elo": 1715.9,
+      "n_gaenge": 189
     },
     "roman wandeler|2002": {
       "elo": 1837.6,
@@ -2603,8 +2591,8 @@
       "n_gaenge": 294
     },
     "manuel weber|2003": {
-      "elo": 1627.8,
-      "n_gaenge": 307
+      "elo": 1631.7,
+      "n_gaenge": 312
     },
     "marcel wenger|1999": {
       "elo": 1588.1,
@@ -2615,16 +2603,16 @@
       "n_gaenge": 165
     },
     "nicola wey|1995": {
-      "elo": 1682.2,
-      "n_gaenge": 322
+      "elo": 1686.7,
+      "n_gaenge": 328
     },
     "cedric wicki|1996": {
       "elo": 1587.0,
       "n_gaenge": 261
     },
     "david wicki|1998": {
-      "elo": 1595.3,
-      "n_gaenge": 235
+      "elo": 1595.1,
+      "n_gaenge": 241
     },
     "adrian widmer|1993": {
       "elo": 1514.9,
@@ -2675,16 +2663,16 @@
       "n_gaenge": 204
     },
     "roy wittwer|1995": {
-      "elo": 1636.3,
-      "n_gaenge": 312
+      "elo": 1640.5,
+      "n_gaenge": 318
     },
     "raphael wolf|2007": {
       "elo": 1599.7,
       "n_gaenge": 139
     },
     "stefan wolf|2006": {
-      "elo": 1630.1,
-      "n_gaenge": 237
+      "elo": 1635.4,
+      "n_gaenge": 243
     },
     "lukas wolfer|1992": {
       "elo": 1488.8,
@@ -2703,8 +2691,8 @@
       "n_gaenge": 135
     },
     "jonas (1) wuthrich|2001": {
-      "elo": 1683.3,
-      "n_gaenge": 196
+      "elo": 1682.1,
+      "n_gaenge": 202
     },
     "pascal wuthrich|2004": {
       "elo": 1599.3,
@@ -2715,8 +2703,8 @@
       "n_gaenge": 124
     },
     "thomas (2) wuthrich|2007": {
-      "elo": 1540.3,
-      "n_gaenge": 295
+      "elo": 1520.3,
+      "n_gaenge": 301
     },
     "ueli wuthrich|2007": {
       "elo": 1604.2,
@@ -2739,16 +2727,16 @@
       "n_gaenge": 0
     },
     "kaspar wyss|2000": {
-      "elo": 1606.9,
-      "n_gaenge": 178
+      "elo": 1609.0,
+      "n_gaenge": 184
     },
     "sven wyss|2001": {
       "elo": 1605.0,
       "n_gaenge": 202
     },
     "lars zaugg|2002": {
-      "elo": 2006.7,
-      "n_gaenge": 329
+      "elo": 2012.2,
+      "n_gaenge": 335
     },
     "adrian zbinden|1995": {
       "elo": 1505.3,
@@ -2766,17 +2754,17 @@
       "elo": 1772.2,
       "n_gaenge": 232
     },
-    "christian zemp|2004": {
-      "elo": 1500.0,
-      "n_gaenge": 0
-    },
     "christian zemp|2000": {
       "elo": 1500.0,
       "n_gaenge": 0
     },
+    "christian zemp|2004": {
+      "elo": 1500.0,
+      "n_gaenge": 0
+    },
     "matteo zenklusen|2005": {
-      "elo": 1554.6,
-      "n_gaenge": 159
+      "elo": 1565.9,
+      "n_gaenge": 165
     },
     "fabian zgraggen|1992": {
       "elo": 1500.0,
@@ -2807,8 +2795,8 @@
       "n_gaenge": 14
     },
     "benjamin zuger|2004": {
-      "elo": 1749.4,
-      "n_gaenge": 243
+      "elo": 1741.3,
+      "n_gaenge": 249
     },
     "roman zumstein|2006": {
       "elo": 1646.9,
@@ -2879,8 +2867,8 @@
       "n_gaenge": 17
     },
     "2 elias herger|?": {
-      "elo": 1424.9,
-      "n_gaenge": 80
+      "elo": 1429.5,
+      "n_gaenge": 86
     },
     "2 jonas portmann|?": {
       "elo": 1499.7,
@@ -2923,8 +2911,8 @@
       "n_gaenge": 6
     },
     "abgottspon mattia|?": {
-      "elo": 1449.1,
-      "n_gaenge": 99
+      "elo": 1447.1,
+      "n_gaenge": 105
     },
     "abt robin|?": {
       "elo": 1456.0,
@@ -2991,12 +2979,12 @@
       "n_gaenge": 58
     },
     "adrian bohl|?": {
-      "elo": 1429.9,
-      "n_gaenge": 208
+      "elo": 1433.3,
+      "n_gaenge": 214
     },
     "adrian bucher|?": {
-      "elo": 1542.0,
-      "n_gaenge": 141
+      "elo": 1551.1,
+      "n_gaenge": 147
     },
     "adrian burki|?": {
       "elo": 1553.7,
@@ -3019,12 +3007,12 @@
       "n_gaenge": 38
     },
     "adrian horath|?": {
-      "elo": 1402.0,
-      "n_gaenge": 183
+      "elo": 1389.3,
+      "n_gaenge": 189
     },
     "adrian jarmann|?": {
-      "elo": 1394.5,
-      "n_gaenge": 121
+      "elo": 1399.3,
+      "n_gaenge": 127
     },
     "adrian kohler|?": {
       "elo": 1514.4,
@@ -3063,16 +3051,16 @@
       "n_gaenge": 101
     },
     "adrian muller|?": {
-      "elo": 1463.7,
-      "n_gaenge": 207
+      "elo": 1464.2,
+      "n_gaenge": 213
     },
     "adrian rothlisberger|?": {
       "elo": 1388.6,
       "n_gaenge": 45
     },
     "adrian rytz|?": {
-      "elo": 1357.6,
-      "n_gaenge": 81
+      "elo": 1356.3,
+      "n_gaenge": 87
     },
     "adrian schwyn|?": {
       "elo": 1551.0,
@@ -3103,8 +3091,8 @@
       "n_gaenge": 28
     },
     "adriano riedweg|?": {
-      "elo": 1384.6,
-      "n_gaenge": 116
+      "elo": 1381.4,
+      "n_gaenge": 122
     },
     "adrien girod|?": {
       "elo": 1433.2,
@@ -3155,8 +3143,8 @@
       "n_gaenge": 38
     },
     "aeschlimann noe|?": {
-      "elo": 1388.4,
-      "n_gaenge": 26
+      "elo": 1383.8,
+      "n_gaenge": 32
     },
     "affentranger martin|?": {
       "elo": 1445.9,
@@ -3191,8 +3179,8 @@
       "n_gaenge": 34
     },
     "alain kung|?": {
-      "elo": 1469.6,
-      "n_gaenge": 142
+      "elo": 1474.0,
+      "n_gaenge": 148
     },
     "alain vachoud|?": {
       "elo": 1413.4,
@@ -3275,20 +3263,20 @@
       "n_gaenge": 20
     },
     "alex spiess|?": {
-      "elo": 1437.1,
-      "n_gaenge": 55
+      "elo": 1438.3,
+      "n_gaenge": 61
     },
     "alex styger|?": {
       "elo": 1487.1,
       "n_gaenge": 4
     },
     "alexander bueler|?": {
-      "elo": 1466.3,
-      "n_gaenge": 122
+      "elo": 1469.2,
+      "n_gaenge": 128
     },
     "alexander dellenbach|?": {
-      "elo": 1309.4,
-      "n_gaenge": 42
+      "elo": 1292.9,
+      "n_gaenge": 46
     },
     "alexander eichhorn|?": {
       "elo": 1374.8,
@@ -3299,8 +3287,8 @@
       "n_gaenge": 81
     },
     "alexander schnellmann|?": {
-      "elo": 1513.1,
-      "n_gaenge": 174
+      "elo": 1512.7,
+      "n_gaenge": 180
     },
     "alexander wurmli|?": {
       "elo": 1491.5,
@@ -3363,8 +3351,8 @@
       "n_gaenge": 33
     },
     "amir zimmermann|?": {
-      "elo": 1418.7,
-      "n_gaenge": 32
+      "elo": 1405.7,
+      "n_gaenge": 36
     },
     "ammann joel|?": {
       "elo": 1457.0,
@@ -3407,12 +3395,12 @@
       "n_gaenge": 20
     },
     "andre betschart|?": {
-      "elo": 1551.3,
-      "n_gaenge": 151
+      "elo": 1550.2,
+      "n_gaenge": 157
     },
     "andre gloggner|?": {
-      "elo": 1431.5,
-      "n_gaenge": 62
+      "elo": 1437.2,
+      "n_gaenge": 68
     },
     "andre guggisberg|?": {
       "elo": 1450.3,
@@ -3423,8 +3411,8 @@
       "n_gaenge": 154
     },
     "andre reichmuth|?": {
-      "elo": 1504.1,
-      "n_gaenge": 109
+      "elo": 1503.6,
+      "n_gaenge": 114
     },
     "andre rossier|?": {
       "elo": 1554.3,
@@ -3527,16 +3515,16 @@
       "n_gaenge": 117
     },
     "andreas wyss|?": {
-      "elo": 1514.5,
-      "n_gaenge": 217
+      "elo": 1506.7,
+      "n_gaenge": 223
     },
     "andreas zemp|?": {
-      "elo": 1511.7,
-      "n_gaenge": 42
+      "elo": 1504.4,
+      "n_gaenge": 47
     },
     "andres birrer|?": {
-      "elo": 1345.7,
-      "n_gaenge": 75
+      "elo": 1343.2,
+      "n_gaenge": 81
     },
     "andri anliker|?": {
       "elo": 1502.6,
@@ -3571,8 +3559,8 @@
       "n_gaenge": 12
     },
     "andrin graf|?": {
-      "elo": 1436.4,
-      "n_gaenge": 172
+      "elo": 1444.8,
+      "n_gaenge": 178
     },
     "andrin grob|?": {
       "elo": 1493.5,
@@ -3619,8 +3607,8 @@
       "n_gaenge": 14
     },
     "andrin stampfli|?": {
-      "elo": 1523.6,
-      "n_gaenge": 229
+      "elo": 1529.0,
+      "n_gaenge": 235
     },
     "andrin suter|?": {
       "elo": 1455.1,
@@ -3699,8 +3687,8 @@
       "n_gaenge": 7
     },
     "aregger silvan|?": {
-      "elo": 1545.7,
-      "n_gaenge": 191
+      "elo": 1545.8,
+      "n_gaenge": 193
     },
     "arnaud eyraud|?": {
       "elo": 1475.3,
@@ -3759,8 +3747,8 @@
       "n_gaenge": 99
     },
     "arnold livio|?": {
-      "elo": 1564.6,
-      "n_gaenge": 258
+      "elo": 1566.1,
+      "n_gaenge": 264
     },
     "arnold lukas|?": {
       "elo": 1382.9,
@@ -3779,8 +3767,8 @@
       "n_gaenge": 66
     },
     "arnold robin|?": {
-      "elo": 1498.3,
-      "n_gaenge": 192
+      "elo": 1510.2,
+      "n_gaenge": 198
     },
     "arnold sebastian|?": {
       "elo": 1496.2,
@@ -3839,12 +3827,12 @@
       "n_gaenge": 96
     },
     "auf damian der maur|?": {
-      "elo": 1424.6,
-      "n_gaenge": 50
+      "elo": 1419.6,
+      "n_gaenge": 56
     },
     "auf der jonas maur|?": {
-      "elo": 1508.0,
-      "n_gaenge": 96
+      "elo": 1506.8,
+      "n_gaenge": 102
     },
     "auke fennemann|?": {
       "elo": 1483.7,
@@ -3907,8 +3895,8 @@
       "n_gaenge": 123
     },
     "bader marek|?": {
-      "elo": 1295.8,
-      "n_gaenge": 79
+      "elo": 1298.4,
+      "n_gaenge": 85
     },
     "badetscher tim|?": {
       "elo": 1496.4,
@@ -3927,8 +3915,8 @@
       "n_gaenge": 45
     },
     "bamert mathis|?": {
-      "elo": 1449.9,
-      "n_gaenge": 166
+      "elo": 1450.2,
+      "n_gaenge": 172
     },
     "bammert raphael|?": {
       "elo": 1460.3,
@@ -4087,16 +4075,16 @@
       "n_gaenge": 81
     },
     "beetschen nicolas|?": {
-      "elo": 1343.5,
-      "n_gaenge": 151
+      "elo": 1342.4,
+      "n_gaenge": 157
     },
     "beffa mario|?": {
       "elo": 1524.1,
       "n_gaenge": 44
     },
     "beglinger fridolin|?": {
-      "elo": 1341.0,
-      "n_gaenge": 171
+      "elo": 1340.9,
+      "n_gaenge": 177
     },
     "beguelin elias|?": {
       "elo": 1438.1,
@@ -4135,8 +4123,8 @@
       "n_gaenge": 4
     },
     "benhard bullakaj|?": {
-      "elo": 1446.3,
-      "n_gaenge": 113
+      "elo": 1445.5,
+      "n_gaenge": 119
     },
     "beni gwerder|?": {
       "elo": 1458.3,
@@ -4183,8 +4171,8 @@
       "n_gaenge": 5
     },
     "benoit danz|?": {
-      "elo": 1473.4,
-      "n_gaenge": 125
+      "elo": 1473.5,
+      "n_gaenge": 131
     },
     "benoit egger|?": {
       "elo": 1478.6,
@@ -4207,8 +4195,8 @@
       "n_gaenge": 36
     },
     "berger christian|?": {
-      "elo": 1536.6,
-      "n_gaenge": 129
+      "elo": 1536.2,
+      "n_gaenge": 135
     },
     "berger dilan|?": {
       "elo": 1497.3,
@@ -4311,12 +4299,12 @@
       "n_gaenge": 108
     },
     "bieri elias|?": {
-      "elo": 1540.1,
-      "n_gaenge": 72
+      "elo": 1538.6,
+      "n_gaenge": 78
     },
     "bieri manuel|?": {
-      "elo": 1578.1,
-      "n_gaenge": 222
+      "elo": 1587.3,
+      "n_gaenge": 228
     },
     "bieri norik|?": {
       "elo": 1442.4,
@@ -4343,8 +4331,8 @@
       "n_gaenge": 72
     },
     "birrer david|?": {
-      "elo": 1427.1,
-      "n_gaenge": 161
+      "elo": 1425.7,
+      "n_gaenge": 167
     },
     "birrer jonas|?": {
       "elo": 1426.5,
@@ -4387,12 +4375,12 @@
       "n_gaenge": 40
     },
     "bjorn salzmann|?": {
-      "elo": 1382.1,
-      "n_gaenge": 104
+      "elo": 1379.6,
+      "n_gaenge": 110
     },
     "bjorn trachsel|?": {
-      "elo": 1511.3,
-      "n_gaenge": 141
+      "elo": 1518.9,
+      "n_gaenge": 143
     },
     "blaise roux|?": {
       "elo": 1431.0,
@@ -4415,8 +4403,8 @@
       "n_gaenge": 236
     },
     "blatter tobias|?": {
-      "elo": 1396.2,
-      "n_gaenge": 167
+      "elo": 1403.5,
+      "n_gaenge": 173
     },
     "blattler christoph|?": {
       "elo": 1440.1,
@@ -4527,8 +4515,8 @@
       "n_gaenge": 71
     },
     "bossert simon|?": {
-      "elo": 1440.2,
-      "n_gaenge": 152
+      "elo": 1444.0,
+      "n_gaenge": 158
     },
     "bosshard felix|?": {
       "elo": 1463.6,
@@ -4539,8 +4527,8 @@
       "n_gaenge": 4
     },
     "botta gian joel|?": {
-      "elo": 1342.7,
-      "n_gaenge": 62
+      "elo": 1332.8,
+      "n_gaenge": 66
     },
     "bragger pascal|?": {
       "elo": 1362.1,
@@ -4671,12 +4659,12 @@
       "n_gaenge": 87
     },
     "bruno grossen|?": {
-      "elo": 1555.4,
-      "n_gaenge": 278
+      "elo": 1554.4,
+      "n_gaenge": 284
     },
     "bruno kehrli|?": {
-      "elo": 1565.8,
-      "n_gaenge": 269
+      "elo": 1569.8,
+      "n_gaenge": 275
     },
     "bruno seliner|?": {
       "elo": 1482.4,
@@ -4719,8 +4707,8 @@
       "n_gaenge": 1
     },
     "bucher matteo|?": {
-      "elo": 1441.5,
-      "n_gaenge": 48
+      "elo": 1437.5,
+      "n_gaenge": 54
     },
     "bucher sandro|?": {
       "elo": 1406.8,
@@ -4755,16 +4743,16 @@
       "n_gaenge": 61
     },
     "bueler ivo|?": {
-      "elo": 1404.1,
-      "n_gaenge": 108
+      "elo": 1413.9,
+      "n_gaenge": 114
     },
     "bueler lukas|?": {
-      "elo": 1472.9,
-      "n_gaenge": 12
+      "elo": 1451.7,
+      "n_gaenge": 16
     },
     "bueler ronny|?": {
-      "elo": 1391.9,
-      "n_gaenge": 102
+      "elo": 1388.4,
+      "n_gaenge": 106
     },
     "bugnon cedric|?": {
       "elo": 1479.7,
@@ -4799,8 +4787,8 @@
       "n_gaenge": 60
     },
     "buhler marco|?": {
-      "elo": 1417.2,
-      "n_gaenge": 14
+      "elo": 1394.7,
+      "n_gaenge": 20
     },
     "buhler roland|?": {
       "elo": 1459.6,
@@ -4894,6 +4882,10 @@
       "elo": 1421.0,
       "n_gaenge": 72
     },
+    "burkhalter daniel|?": {
+      "elo": 1496.1,
+      "n_gaenge": 6
+    },
     "burkhalter silvan|?": {
       "elo": 1462.5,
       "n_gaenge": 66
@@ -4939,8 +4931,8 @@
       "n_gaenge": 16
     },
     "burri fabian|?": {
-      "elo": 1467.5,
-      "n_gaenge": 48
+      "elo": 1463.4,
+      "n_gaenge": 53
     },
     "burri flemming|?": {
       "elo": 1426.2,
@@ -4951,8 +4943,8 @@
       "n_gaenge": 45
     },
     "burri livio|?": {
-      "elo": 1478.0,
-      "n_gaenge": 40
+      "elo": 1469.6,
+      "n_gaenge": 46
     },
     "burri silvan|?": {
       "elo": 1400.1,
@@ -5003,8 +4995,8 @@
       "n_gaenge": 164
     },
     "buttler gian|?": {
-      "elo": 1544.0,
-      "n_gaenge": 138
+      "elo": 1540.9,
+      "n_gaenge": 144
     },
     "caflisch riet|?": {
       "elo": 1455.1,
@@ -5055,8 +5047,8 @@
       "n_gaenge": 116
     },
     "cedric eicher|?": {
-      "elo": 1337.9,
-      "n_gaenge": 181
+      "elo": 1344.6,
+      "n_gaenge": 187
     },
     "cedric gilgen|?": {
       "elo": 1559.5,
@@ -5075,8 +5067,8 @@
       "n_gaenge": 4
     },
     "cedric schmid|?": {
-      "elo": 1436.2,
-      "n_gaenge": 95
+      "elo": 1434.7,
+      "n_gaenge": 101
     },
     "cedric steiert|?": {
       "elo": 1464.8,
@@ -5127,8 +5119,8 @@
       "n_gaenge": 6
     },
     "christen samuel|?": {
-      "elo": 1503.1,
-      "n_gaenge": 150
+      "elo": 1511.6,
+      "n_gaenge": 156
     },
     "christen silvan|?": {
       "elo": 1519.7,
@@ -5139,8 +5131,8 @@
       "n_gaenge": 5
     },
     "christian egli|?": {
-      "elo": 1462.9,
-      "n_gaenge": 100
+      "elo": 1465.3,
+      "n_gaenge": 106
     },
     "christian fohn|?": {
       "elo": 1457.3,
@@ -5219,8 +5211,8 @@
       "n_gaenge": 5
     },
     "christof kohli|?": {
-      "elo": 1463.6,
-      "n_gaenge": 143
+      "elo": 1462.0,
+      "n_gaenge": 149
     },
     "christof schilliger|?": {
       "elo": 1491.5,
@@ -5271,12 +5263,12 @@
       "n_gaenge": 36
     },
     "colin estermann|?": {
-      "elo": 1435.1,
-      "n_gaenge": 70
+      "elo": 1440.8,
+      "n_gaenge": 76
     },
     "colin suter|?": {
-      "elo": 1370.7,
-      "n_gaenge": 107
+      "elo": 1377.0,
+      "n_gaenge": 113
     },
     "colin zurfluh|?": {
       "elo": 1465.0,
@@ -5291,8 +5283,8 @@
       "n_gaenge": 10
     },
     "cornel laimbacher|?": {
-      "elo": 1512.0,
-      "n_gaenge": 112
+      "elo": 1518.8,
+      "n_gaenge": 118
     },
     "cornel schoch|?": {
       "elo": 1446.7,
@@ -5339,8 +5331,8 @@
       "n_gaenge": 76
     },
     "curdin portmann|?": {
-      "elo": 1511.6,
-      "n_gaenge": 132
+      "elo": 1525.4,
+      "n_gaenge": 138
     },
     "cyril hess|?": {
       "elo": 1441.1,
@@ -5379,16 +5371,16 @@
       "n_gaenge": 42
     },
     "cyrill spiess|?": {
-      "elo": 1387.3,
-      "n_gaenge": 53
+      "elo": 1380.7,
+      "n_gaenge": 57
     },
     "cyrill stadelmann|?": {
       "elo": 1484.2,
       "n_gaenge": 148
     },
     "cyrill styger|?": {
-      "elo": 1501.8,
-      "n_gaenge": 98
+      "elo": 1499.7,
+      "n_gaenge": 104
     },
     "da rodrigues ruben silva|?": {
       "elo": 1351.2,
@@ -5399,8 +5391,8 @@
       "n_gaenge": 96
     },
     "dahler mike|?": {
-      "elo": 1462.0,
-      "n_gaenge": 64
+      "elo": 1475.0,
+      "n_gaenge": 70
     },
     "dalpiaz sergio|?": {
       "elo": 1372.8,
@@ -5439,8 +5431,8 @@
       "n_gaenge": 77
     },
     "damian wuthrich|?": {
-      "elo": 1386.6,
-      "n_gaenge": 191
+      "elo": 1375.9,
+      "n_gaenge": 195
     },
     "damian wyss|?": {
       "elo": 1458.4,
@@ -5490,6 +5482,10 @@
       "elo": 1487.9,
       "n_gaenge": 14
     },
+    "daniel schilter|?": {
+      "elo": 1497.2,
+      "n_gaenge": 129
+    },
     "daniel schuler|?": {
       "elo": 1518.6,
       "n_gaenge": 31
@@ -5511,8 +5507,8 @@
       "n_gaenge": 6
     },
     "danzer fabio|?": {
-      "elo": 1513.7,
-      "n_gaenge": 124
+      "elo": 1517.1,
+      "n_gaenge": 130
     },
     "danzer lars|?": {
       "elo": 1454.1,
@@ -5543,8 +5539,8 @@
       "n_gaenge": 134
     },
     "dario schopfer|?": {
-      "elo": 1347.6,
-      "n_gaenge": 31
+      "elo": 1332.5,
+      "n_gaenge": 35
     },
     "dario steiger|?": {
       "elo": 1463.7,
@@ -5563,8 +5559,8 @@
       "n_gaenge": 11
     },
     "david eberli|?": {
-      "elo": 1362.7,
-      "n_gaenge": 106
+      "elo": 1358.7,
+      "n_gaenge": 110
     },
     "david fitze|?": {
       "elo": 1377.6,
@@ -5607,8 +5603,8 @@
       "n_gaenge": 26
     },
     "david roos|?": {
-      "elo": 1477.5,
-      "n_gaenge": 48
+      "elo": 1465.8,
+      "n_gaenge": 54
     },
     "david schwab|?": {
       "elo": 1455.4,
@@ -5619,12 +5615,12 @@
       "n_gaenge": 87
     },
     "david suter|?": {
-      "elo": 1530.7,
-      "n_gaenge": 358
+      "elo": 1541.4,
+      "n_gaenge": 364
     },
     "david walser|?": {
-      "elo": 1456.8,
-      "n_gaenge": 24
+      "elo": 1452.6,
+      "n_gaenge": 30
     },
     "david waser|?": {
       "elo": 1548.0,
@@ -5651,8 +5647,8 @@
       "n_gaenge": 60
     },
     "deck lukas|?": {
-      "elo": 1359.6,
-      "n_gaenge": 30
+      "elo": 1339.9,
+      "n_gaenge": 34
     },
     "decker kieran|?": {
       "elo": 1465.7,
@@ -5695,8 +5691,8 @@
       "n_gaenge": 66
     },
     "dessiex rodrick|?": {
-      "elo": 1450.9,
-      "n_gaenge": 38
+      "elo": 1446.7,
+      "n_gaenge": 39
     },
     "deven siegrist|?": {
       "elo": 1406.8,
@@ -5723,8 +5719,8 @@
       "n_gaenge": 193
     },
     "diethelm noah|?": {
-      "elo": 1440.2,
-      "n_gaenge": 22
+      "elo": 1429.2,
+      "n_gaenge": 26
     },
     "diethelm samuel|?": {
       "elo": 1361.2,
@@ -5747,8 +5743,8 @@
       "n_gaenge": 10
     },
     "dobler fabian|?": {
-      "elo": 1408.6,
-      "n_gaenge": 118
+      "elo": 1419.7,
+      "n_gaenge": 124
     },
     "dobler florian|?": {
       "elo": 1493.0,
@@ -5779,8 +5775,8 @@
       "n_gaenge": 17
     },
     "dominic gerber|?": {
-      "elo": 1393.6,
-      "n_gaenge": 72
+      "elo": 1390.9,
+      "n_gaenge": 78
     },
     "dominic horat|?": {
       "elo": 1435.0,
@@ -5815,20 +5811,20 @@
       "n_gaenge": 82
     },
     "dominik husistein|?": {
-      "elo": 1471.5,
-      "n_gaenge": 17
+      "elo": 1460.7,
+      "n_gaenge": 23
     },
     "dominik inderbitzin|?": {
-      "elo": 1457.7,
-      "n_gaenge": 173
+      "elo": 1453.8,
+      "n_gaenge": 179
     },
     "dominik kammermann|?": {
       "elo": 1549.5,
       "n_gaenge": 60
     },
     "dominik nussbaumer|?": {
-      "elo": 1540.4,
-      "n_gaenge": 222
+      "elo": 1531.2,
+      "n_gaenge": 225
     },
     "dominik rohrer|?": {
       "elo": 1439.2,
@@ -5865,6 +5861,10 @@
     "donelli enea|?": {
       "elo": 1411.7,
       "n_gaenge": 35
+    },
+    "doppmann urs|?": {
+      "elo": 1847.2,
+      "n_gaenge": 378
     },
     "dorig fabian|?": {
       "elo": 1407.9,
@@ -5947,8 +5947,8 @@
       "n_gaenge": 72
     },
     "duss janis|?": {
-      "elo": 1434.3,
-      "n_gaenge": 146
+      "elo": 1439.1,
+      "n_gaenge": 152
     },
     "duss jonas|?": {
       "elo": 1445.6,
@@ -5991,8 +5991,8 @@
       "n_gaenge": 7
     },
     "edi iten|?": {
-      "elo": 1408.2,
-      "n_gaenge": 36
+      "elo": 1397.1,
+      "n_gaenge": 42
     },
     "edi steiner|?": {
       "elo": 1406.5,
@@ -6039,12 +6039,12 @@
       "n_gaenge": 3
     },
     "egli samuel|?": {
-      "elo": 1211.0,
-      "n_gaenge": 152
+      "elo": 1204.8,
+      "n_gaenge": 158
     },
     "egli severin|?": {
-      "elo": 1645.5,
-      "n_gaenge": 246
+      "elo": 1652.2,
+      "n_gaenge": 252
     },
     "eisenring leandro|?": {
       "elo": 1477.8,
@@ -6081,6 +6081,10 @@
     "elia strahl|?": {
       "elo": 1466.2,
       "n_gaenge": 7
+    },
+    "elia tolone|?": {
+      "elo": 1478.4,
+      "n_gaenge": 4
     },
     "elias elmiger|?": {
       "elo": 1444.3,
@@ -6163,8 +6167,8 @@
       "n_gaenge": 92
     },
     "emmenegger patrik|?": {
-      "elo": 1518.4,
-      "n_gaenge": 64
+      "elo": 1525.8,
+      "n_gaenge": 70
     },
     "emmenegger tim|?": {
       "elo": 1417.6,
@@ -6187,12 +6191,12 @@
       "n_gaenge": 24
     },
     "enz simon|?": {
-      "elo": 1442.7,
-      "n_gaenge": 60
+      "elo": 1440.8,
+      "n_gaenge": 66
     },
     "epp fabian|?": {
-      "elo": 1487.7,
-      "n_gaenge": 168
+      "elo": 1491.4,
+      "n_gaenge": 174
     },
     "epp severin|?": {
       "elo": 1427.3,
@@ -6275,8 +6279,8 @@
       "n_gaenge": 90
     },
     "ettlin raphael|?": {
-      "elo": 1377.8,
-      "n_gaenge": 52
+      "elo": 1373.0,
+      "n_gaenge": 58
     },
     "eugster sandro|?": {
       "elo": 1352.0,
@@ -6319,8 +6323,8 @@
       "n_gaenge": 26
     },
     "fabian imgruth|?": {
-      "elo": 1440.7,
-      "n_gaenge": 200
+      "elo": 1439.3,
+      "n_gaenge": 206
     },
     "fabian klaiber|?": {
       "elo": 1485.5,
@@ -6359,16 +6363,16 @@
       "n_gaenge": 22
     },
     "fabian pluer|?": {
-      "elo": 1484.4,
-      "n_gaenge": 49
+      "elo": 1481.4,
+      "n_gaenge": 52
     },
     "fabian ramseier|?": {
       "elo": 1481.3,
       "n_gaenge": 4
     },
     "fabian rogenmoser|?": {
-      "elo": 1362.8,
-      "n_gaenge": 128
+      "elo": 1366.3,
+      "n_gaenge": 134
     },
     "fabian roos|?": {
       "elo": 1485.4,
@@ -6399,8 +6403,8 @@
       "n_gaenge": 39
     },
     "fabian zurcher|?": {
-      "elo": 1484.5,
-      "n_gaenge": 4
+      "elo": 1460.9,
+      "n_gaenge": 10
     },
     "fabien rigolet|?": {
       "elo": 1412.2,
@@ -6423,12 +6427,12 @@
       "n_gaenge": 72
     },
     "fabio kamer|?": {
-      "elo": 1483.8,
-      "n_gaenge": 30
+      "elo": 1482.3,
+      "n_gaenge": 36
     },
     "fabio karlen|?": {
-      "elo": 1452.3,
-      "n_gaenge": 90
+      "elo": 1449.9,
+      "n_gaenge": 96
     },
     "fabio mettler|?": {
       "elo": 1478.2,
@@ -6467,8 +6471,8 @@
       "n_gaenge": 46
     },
     "fabrice zurcher|?": {
-      "elo": 1437.5,
-      "n_gaenge": 96
+      "elo": 1444.5,
+      "n_gaenge": 102
     },
     "fadri widmer|?": {
       "elo": 1570.5,
@@ -6487,16 +6491,16 @@
       "n_gaenge": 43
     },
     "fankhauser jarne|?": {
-      "elo": 1402.5,
-      "n_gaenge": 80
+      "elo": 1401.5,
+      "n_gaenge": 86
     },
     "fankhauser julian|?": {
-      "elo": 1499.8,
-      "n_gaenge": 67
+      "elo": 1496.0,
+      "n_gaenge": 73
     },
     "fankhauser kevin|?": {
-      "elo": 1506.7,
-      "n_gaenge": 36
+      "elo": 1503.4,
+      "n_gaenge": 42
     },
     "fankhauser lars|?": {
       "elo": 1444.5,
@@ -6507,8 +6511,8 @@
       "n_gaenge": 96
     },
     "fankhauser mick|?": {
-      "elo": 1351.1,
-      "n_gaenge": 39
+      "elo": 1353.8,
+      "n_gaenge": 45
     },
     "fankhauser reto|?": {
       "elo": 1706.5,
@@ -6691,8 +6695,8 @@
       "n_gaenge": 105
     },
     "florian kundig|?": {
-      "elo": 1307.2,
-      "n_gaenge": 86
+      "elo": 1294.6,
+      "n_gaenge": 90
     },
     "florian lustenberger|?": {
       "elo": 1515.0,
@@ -6775,12 +6779,12 @@
       "n_gaenge": 116
     },
     "flukiger sascha|?": {
-      "elo": 1446.4,
-      "n_gaenge": 30
+      "elo": 1441.3,
+      "n_gaenge": 36
     },
     "flurin knutti|?": {
-      "elo": 1427.1,
-      "n_gaenge": 83
+      "elo": 1424.8,
+      "n_gaenge": 89
     },
     "flurin magani|?": {
       "elo": 1422.5,
@@ -6795,8 +6799,8 @@
       "n_gaenge": 5
     },
     "flurin schwyzer|?": {
-      "elo": 1591.3,
-      "n_gaenge": 248
+      "elo": 1595.3,
+      "n_gaenge": 254
     },
     "flury matthias|?": {
       "elo": 1436.9,
@@ -6847,8 +6851,8 @@
       "n_gaenge": 64
     },
     "fredy santschi|?": {
-      "elo": 1401.2,
-      "n_gaenge": 84
+      "elo": 1404.7,
+      "n_gaenge": 90
     },
     "fredy vogt|?": {
       "elo": 1552.9,
@@ -6883,8 +6887,8 @@
       "n_gaenge": 32
     },
     "friedli simon|?": {
-      "elo": 1506.8,
-      "n_gaenge": 111
+      "elo": 1498.4,
+      "n_gaenge": 117
     },
     "fritz ramseier|?": {
       "elo": 1846.5,
@@ -6895,8 +6899,8 @@
       "n_gaenge": 36
     },
     "frutiger jonas|?": {
-      "elo": 1346.8,
-      "n_gaenge": 64
+      "elo": 1341.7,
+      "n_gaenge": 70
     },
     "frutiger silvan|?": {
       "elo": 1361.5,
@@ -6943,8 +6947,8 @@
       "n_gaenge": 53
     },
     "fynn zurfluh|?": {
-      "elo": 1546.6,
-      "n_gaenge": 112
+      "elo": 1556.3,
+      "n_gaenge": 118
     },
     "gabriel kurth|?": {
       "elo": 1473.8,
@@ -7051,8 +7055,8 @@
       "n_gaenge": 195
     },
     "gehrig ueli|?": {
-      "elo": 1453.9,
-      "n_gaenge": 55
+      "elo": 1447.5,
+      "n_gaenge": 61
     },
     "geisser lars|?": {
       "elo": 1691.8,
@@ -7103,8 +7107,8 @@
       "n_gaenge": 61
     },
     "gerber jason|?": {
-      "elo": 1477.4,
-      "n_gaenge": 47
+      "elo": 1477.5,
+      "n_gaenge": 53
     },
     "gerber kurt|?": {
       "elo": 1492.6,
@@ -7167,8 +7171,8 @@
       "n_gaenge": 70
     },
     "gian gwerder|?": {
-      "elo": 1398.8,
-      "n_gaenge": 20
+      "elo": 1379.0,
+      "n_gaenge": 24
     },
     "gian gysel|?": {
       "elo": 1391.0,
@@ -7231,8 +7235,8 @@
       "n_gaenge": 72
     },
     "gianluca muff|?": {
-      "elo": 1536.2,
-      "n_gaenge": 175
+      "elo": 1543.1,
+      "n_gaenge": 181
     },
     "giezendanner leandro|?": {
       "elo": 1464.2,
@@ -7295,8 +7299,8 @@
       "n_gaenge": 98
     },
     "gisler raphael|?": {
-      "elo": 1344.5,
-      "n_gaenge": 79
+      "elo": 1344.1,
+      "n_gaenge": 85
     },
     "gisler silvan|?": {
       "elo": 1495.0,
@@ -7335,8 +7339,8 @@
       "n_gaenge": 6
     },
     "gobeli marc|?": {
-      "elo": 1513.0,
-      "n_gaenge": 24
+      "elo": 1513.9,
+      "n_gaenge": 30
     },
     "gobeli simon|?": {
       "elo": 1479.2,
@@ -7375,8 +7379,8 @@
       "n_gaenge": 6
     },
     "grab stephan|?": {
-      "elo": 1467.8,
-      "n_gaenge": 129
+      "elo": 1483.5,
+      "n_gaenge": 135
     },
     "graf joris|?": {
       "elo": 1399.1,
@@ -7391,8 +7395,8 @@
       "n_gaenge": 16
     },
     "graf marco|?": {
-      "elo": 1559.6,
-      "n_gaenge": 122
+      "elo": 1555.3,
+      "n_gaenge": 128
     },
     "graf silvan|?": {
       "elo": 1468.1,
@@ -7487,8 +7491,8 @@
       "n_gaenge": 30
     },
     "gugolz louis|?": {
-      "elo": 1499.5,
-      "n_gaenge": 18
+      "elo": 1489.4,
+      "n_gaenge": 20
     },
     "guler leo|?": {
       "elo": 1357.6,
@@ -7507,16 +7511,16 @@
       "n_gaenge": 24
     },
     "gwerder livio|?": {
-      "elo": 1400.1,
-      "n_gaenge": 46
+      "elo": 1392.5,
+      "n_gaenge": 50
     },
     "hacki sepp|?": {
       "elo": 1391.9,
       "n_gaenge": 27
     },
     "hadorn joel|?": {
-      "elo": 1408.0,
-      "n_gaenge": 24
+      "elo": 1393.8,
+      "n_gaenge": 30
     },
     "hafelfinger silvan|?": {
       "elo": 1460.8,
@@ -7595,8 +7599,8 @@
       "n_gaenge": 18
     },
     "hasler oliver|?": {
-      "elo": 1460.8,
-      "n_gaenge": 34
+      "elo": 1461.5,
+      "n_gaenge": 38
     },
     "hassler laurin|?": {
       "elo": 1465.7,
@@ -7643,12 +7647,12 @@
       "n_gaenge": 18
     },
     "heeb lukas|?": {
-      "elo": 1411.8,
-      "n_gaenge": 54
+      "elo": 1400.3,
+      "n_gaenge": 60
     },
     "hegglin julian|?": {
-      "elo": 1485.6,
-      "n_gaenge": 112
+      "elo": 1484.8,
+      "n_gaenge": 116
     },
     "hegi marvin|?": {
       "elo": 1536.9,
@@ -7671,8 +7675,8 @@
       "n_gaenge": 24
     },
     "heinzer linus|?": {
-      "elo": 1413.0,
-      "n_gaenge": 22
+      "elo": 1396.9,
+      "n_gaenge": 25
     },
     "heinzer remo|?": {
       "elo": 1443.2,
@@ -7779,8 +7783,8 @@
       "n_gaenge": 20
     },
     "hofer simon|?": {
-      "elo": 1253.8,
-      "n_gaenge": 116
+      "elo": 1252.4,
+      "n_gaenge": 120
     },
     "hofer stefan|?": {
       "elo": 1340.2,
@@ -7815,8 +7819,8 @@
       "n_gaenge": 18
     },
     "horat lenny|?": {
-      "elo": 1481.3,
-      "n_gaenge": 89
+      "elo": 1479.9,
+      "n_gaenge": 95
     },
     "horner sami|?": {
       "elo": 1465.5,
@@ -7835,8 +7839,8 @@
       "n_gaenge": 98
     },
     "huber remo|?": {
-      "elo": 1475.8,
-      "n_gaenge": 12
+      "elo": 1466.9,
+      "n_gaenge": 19
     },
     "hug jan|?": {
       "elo": 1485.3,
@@ -7847,8 +7851,8 @@
       "n_gaenge": 50
     },
     "huppin lukas|?": {
-      "elo": 1584.0,
-      "n_gaenge": 324
+      "elo": 1579.6,
+      "n_gaenge": 330
     },
     "hurlimann ueli|?": {
       "elo": 1587.3,
@@ -7879,8 +7883,8 @@
       "n_gaenge": 25
     },
     "husmann lukas|?": {
-      "elo": 1435.1,
-      "n_gaenge": 30
+      "elo": 1437.1,
+      "n_gaenge": 36
     },
     "hutter luca|?": {
       "elo": 1467.2,
@@ -7915,8 +7919,8 @@
       "n_gaenge": 136
     },
     "ianis zeller|?": {
-      "elo": 1424.8,
-      "n_gaenge": 116
+      "elo": 1418.4,
+      "n_gaenge": 122
     },
     "ignaz speck|?": {
       "elo": 1485.5,
@@ -7991,8 +7995,8 @@
       "n_gaenge": 31
     },
     "ineichen silvan|?": {
-      "elo": 1402.7,
-      "n_gaenge": 46
+      "elo": 1394.9,
+      "n_gaenge": 52
     },
     "isenschmid nico|?": {
       "elo": 1361.8,
@@ -8047,8 +8051,8 @@
       "n_gaenge": 34
     },
     "ivan wiss|?": {
-      "elo": 1573.2,
-      "n_gaenge": 183
+      "elo": 1575.2,
+      "n_gaenge": 189
     },
     "ivo ruch|?": {
       "elo": 1474.8,
@@ -8103,12 +8107,12 @@
       "n_gaenge": 86
     },
     "jamil marti|?": {
-      "elo": 1417.0,
-      "n_gaenge": 38
+      "elo": 1407.5,
+      "n_gaenge": 44
     },
     "jan jauch|?": {
-      "elo": 1368.3,
-      "n_gaenge": 105
+      "elo": 1375.0,
+      "n_gaenge": 111
     },
     "jan jenni|?": {
       "elo": 1476.6,
@@ -8127,8 +8131,8 @@
       "n_gaenge": 51
     },
     "jan schnyder|?": {
-      "elo": 1456.5,
-      "n_gaenge": 66
+      "elo": 1454.7,
+      "n_gaenge": 72
     },
     "jan sommer|?": {
       "elo": 1464.8,
@@ -8187,8 +8191,8 @@
       "n_gaenge": 10
     },
     "janis lustenberger|?": {
-      "elo": 1372.9,
-      "n_gaenge": 60
+      "elo": 1367.9,
+      "n_gaenge": 66
     },
     "janis stager|?": {
       "elo": 1480.6,
@@ -8199,8 +8203,8 @@
       "n_gaenge": 44
     },
     "janis wittwer|?": {
-      "elo": 1577.7,
-      "n_gaenge": 164
+      "elo": 1597.3,
+      "n_gaenge": 170
     },
     "jann spirig|?": {
       "elo": 1449.5,
@@ -8263,8 +8267,8 @@
       "n_gaenge": 67
     },
     "jenni jonas|?": {
-      "elo": 1454.0,
-      "n_gaenge": 16
+      "elo": 1434.1,
+      "n_gaenge": 20
     },
     "jenny sven|?": {
       "elo": 1453.9,
@@ -8327,8 +8331,8 @@
       "n_gaenge": 185
     },
     "joel schnyder|?": {
-      "elo": 1416.6,
-      "n_gaenge": 210
+      "elo": 1412.2,
+      "n_gaenge": 216
     },
     "joel siegenthaler|?": {
       "elo": 1487.8,
@@ -8431,8 +8435,8 @@
       "n_gaenge": 47
     },
     "jonas wigger|?": {
-      "elo": 1457.7,
-      "n_gaenge": 113
+      "elo": 1454.4,
+      "n_gaenge": 119
     },
     "jonas ziegler|?": {
       "elo": 1359.3,
@@ -8463,8 +8467,8 @@
       "n_gaenge": 42
     },
     "joschua nussbaumer|?": {
-      "elo": 1384.6,
-      "n_gaenge": 145
+      "elo": 1385.6,
+      "n_gaenge": 151
     },
     "josef schnider|?": {
       "elo": 1460.9,
@@ -8523,8 +8527,8 @@
       "n_gaenge": 16
     },
     "julian scheidegger|?": {
-      "elo": 1457.4,
-      "n_gaenge": 46
+      "elo": 1451.3,
+      "n_gaenge": 52
     },
     "julian schmid|?": {
       "elo": 1561.1,
@@ -8567,8 +8571,8 @@
       "n_gaenge": 137
     },
     "justin schmid|?": {
-      "elo": 1622.8,
-      "n_gaenge": 155
+      "elo": 1627.2,
+      "n_gaenge": 161
     },
     "jvo kurmann|?": {
       "elo": 1495.8,
@@ -8587,8 +8591,8 @@
       "n_gaenge": 90
     },
     "kalin remo|?": {
-      "elo": 1419.8,
-      "n_gaenge": 133
+      "elo": 1429.3,
+      "n_gaenge": 139
     },
     "kalin reto|?": {
       "elo": 1459.9,
@@ -8599,12 +8603,12 @@
       "n_gaenge": 52
     },
     "kalin thomas|?": {
-      "elo": 1501.3,
-      "n_gaenge": 98
+      "elo": 1519.5,
+      "n_gaenge": 104
     },
     "kalt silas|?": {
-      "elo": 1417.5,
-      "n_gaenge": 86
+      "elo": 1411.9,
+      "n_gaenge": 90
     },
     "kamer ueli|?": {
       "elo": 1512.0,
@@ -8631,16 +8635,16 @@
       "n_gaenge": 117
     },
     "kanel pascal von|?": {
-      "elo": 1428.9,
-      "n_gaenge": 211
+      "elo": 1433.4,
+      "n_gaenge": 218
     },
     "kappeler ruedi|?": {
       "elo": 1516.9,
       "n_gaenge": 51
     },
     "kari wyssen|?": {
-      "elo": 1329.8,
-      "n_gaenge": 34
+      "elo": 1305.9,
+      "n_gaenge": 40
     },
     "karl tyler|?": {
       "elo": 1502.2,
@@ -8659,8 +8663,8 @@
       "n_gaenge": 32
     },
     "kaspar michel|?": {
-      "elo": 1507.0,
-      "n_gaenge": 87
+      "elo": 1516.7,
+      "n_gaenge": 93
     },
     "kathriner lenny|?": {
       "elo": 1389.6,
@@ -8711,8 +8715,8 @@
       "n_gaenge": 80
     },
     "keller philipp|?": {
-      "elo": 1240.7,
-      "n_gaenge": 206
+      "elo": 1242.5,
+      "n_gaenge": 212
     },
     "keller samuel|?": {
       "elo": 1412.5,
@@ -8759,8 +8763,8 @@
       "n_gaenge": 91
     },
     "kevin perler|?": {
-      "elo": 1403.5,
-      "n_gaenge": 145
+      "elo": 1395.6,
+      "n_gaenge": 151
     },
     "kevin pollinger|?": {
       "elo": 1454.8,
@@ -8783,8 +8787,8 @@
       "n_gaenge": 4
     },
     "kevin sutter|?": {
-      "elo": 1527.0,
-      "n_gaenge": 114
+      "elo": 1527.4,
+      "n_gaenge": 120
     },
     "kevin wicki|?": {
       "elo": 1591.5,
@@ -8803,8 +8807,8 @@
       "n_gaenge": 21
     },
     "kilian lortscher|?": {
-      "elo": 1402.3,
-      "n_gaenge": 46
+      "elo": 1392.0,
+      "n_gaenge": 52
     },
     "kilian morf|?": {
       "elo": 1427.7,
@@ -8831,8 +8835,8 @@
       "n_gaenge": 97
     },
     "kilian wyssen|?": {
-      "elo": 1432.9,
-      "n_gaenge": 226
+      "elo": 1450.3,
+      "n_gaenge": 232
     },
     "kilian zberg|?": {
       "elo": 1492.9,
@@ -8843,8 +8847,8 @@
       "n_gaenge": 9
     },
     "kiser markus|?": {
-      "elo": 1551.3,
-      "n_gaenge": 211
+      "elo": 1549.1,
+      "n_gaenge": 217
     },
     "kitho regli|?": {
       "elo": 1467.3,
@@ -8963,8 +8967,8 @@
       "n_gaenge": 18
     },
     "krebser silvan|?": {
-      "elo": 1467.4,
-      "n_gaenge": 290
+      "elo": 1463.1,
+      "n_gaenge": 296
     },
     "kretz marius|?": {
       "elo": 1389.5,
@@ -8975,8 +8979,8 @@
       "n_gaenge": 27
     },
     "kropf simon|?": {
-      "elo": 1470.9,
-      "n_gaenge": 6
+      "elo": 1448.4,
+      "n_gaenge": 12
     },
     "kropf thomas|?": {
       "elo": 1528.7,
@@ -8995,8 +8999,8 @@
       "n_gaenge": 58
     },
     "krummenacher severin|?": {
-      "elo": 1523.3,
-      "n_gaenge": 90
+      "elo": 1530.5,
+      "n_gaenge": 96
     },
     "kryenbuhl mauro|?": {
       "elo": 1421.4,
@@ -9019,12 +9023,12 @@
       "n_gaenge": 6
     },
     "kung simon|?": {
-      "elo": 1572.6,
-      "n_gaenge": 190
+      "elo": 1581.6,
+      "n_gaenge": 196
     },
     "kung stefan|?": {
-      "elo": 1325.4,
-      "n_gaenge": 68
+      "elo": 1321.8,
+      "n_gaenge": 74
     },
     "kung thomas|?": {
       "elo": 1470.4,
@@ -9055,16 +9059,16 @@
       "n_gaenge": 159
     },
     "kuster marco|?": {
-      "elo": 1410.3,
-      "n_gaenge": 132
+      "elo": 1417.4,
+      "n_gaenge": 138
     },
     "kyburz silas|?": {
       "elo": 1490.0,
       "n_gaenge": 4
     },
     "kyron nay|?": {
-      "elo": 1540.9,
-      "n_gaenge": 310
+      "elo": 1538.8,
+      "n_gaenge": 316
     },
     "laager michael|?": {
       "elo": 1479.6,
@@ -9095,8 +9099,8 @@
       "n_gaenge": 131
     },
     "langenegger philip|?": {
-      "elo": 1303.0,
-      "n_gaenge": 72
+      "elo": 1301.3,
+      "n_gaenge": 76
     },
     "lanz pedro|?": {
       "elo": 1513.0,
@@ -9139,8 +9143,8 @@
       "n_gaenge": 37
     },
     "lauener marco|?": {
-      "elo": 1427.3,
-      "n_gaenge": 140
+      "elo": 1431.7,
+      "n_gaenge": 146
     },
     "laurent linder|?": {
       "elo": 1468.0,
@@ -9155,8 +9159,8 @@
       "n_gaenge": 209
     },
     "lauro zenklusen|?": {
-      "elo": 1402.3,
-      "n_gaenge": 44
+      "elo": 1394.0,
+      "n_gaenge": 50
     },
     "lazic marco|?": {
       "elo": 1397.4,
@@ -9247,8 +9251,8 @@
       "n_gaenge": 26
     },
     "leon zemp|?": {
-      "elo": 1454.7,
-      "n_gaenge": 41
+      "elo": 1457.8,
+      "n_gaenge": 47
     },
     "lepori mike|?": {
       "elo": 1419.3,
@@ -9287,16 +9291,16 @@
       "n_gaenge": 213
     },
     "levin reichen|?": {
-      "elo": 1442.7,
-      "n_gaenge": 18
+      "elo": 1429.6,
+      "n_gaenge": 24
     },
     "levin stalder|?": {
-      "elo": 1452.9,
-      "n_gaenge": 58
+      "elo": 1461.8,
+      "n_gaenge": 65
     },
     "levin tresch|?": {
-      "elo": 1324.3,
-      "n_gaenge": 76
+      "elo": 1320.8,
+      "n_gaenge": 80
     },
     "lewin luond|?": {
       "elo": 1353.8,
@@ -9339,8 +9343,8 @@
       "n_gaenge": 22
     },
     "linus vogel|?": {
-      "elo": 1366.1,
-      "n_gaenge": 100
+      "elo": 1372.1,
+      "n_gaenge": 106
     },
     "lionel zindel|?": {
       "elo": 1482.2,
@@ -9351,8 +9355,8 @@
       "n_gaenge": 195
     },
     "livio trachsel|?": {
-      "elo": 1466.2,
-      "n_gaenge": 6
+      "elo": 1436.5,
+      "n_gaenge": 12
     },
     "livio weber|?": {
       "elo": 1449.2,
@@ -9391,8 +9395,8 @@
       "n_gaenge": 22
     },
     "lorenz wanner|?": {
-      "elo": 1390.4,
-      "n_gaenge": 156
+      "elo": 1379.4,
+      "n_gaenge": 160
     },
     "lorenzo mignola|?": {
       "elo": 1366.4,
@@ -9475,8 +9479,8 @@
       "n_gaenge": 104
     },
     "luca rogenmoser|?": {
-      "elo": 1380.0,
-      "n_gaenge": 94
+      "elo": 1377.1,
+      "n_gaenge": 98
     },
     "luca schaller|?": {
       "elo": 1524.2,
@@ -9583,20 +9587,20 @@
       "n_gaenge": 15
     },
     "lukas steiner|?": {
-      "elo": 1501.4,
-      "n_gaenge": 138
+      "elo": 1505.5,
+      "n_gaenge": 144
     },
     "lukas suter|?": {
-      "elo": 1505.1,
-      "n_gaenge": 256
+      "elo": 1501.2,
+      "n_gaenge": 262
     },
     "lukas thomi|?": {
       "elo": 1442.7,
       "n_gaenge": 36
     },
     "lukas tresch|?": {
-      "elo": 1402.5,
-      "n_gaenge": 70
+      "elo": 1399.5,
+      "n_gaenge": 76
     },
     "lukas wampfler|?": {
       "elo": 1436.1,
@@ -9611,8 +9615,8 @@
       "n_gaenge": 3
     },
     "lukas wyss|?": {
-      "elo": 1419.4,
-      "n_gaenge": 64
+      "elo": 1426.7,
+      "n_gaenge": 70
     },
     "lukas zingg|?": {
       "elo": 1375.6,
@@ -9635,8 +9639,8 @@
       "n_gaenge": 90
     },
     "lussi michael|?": {
-      "elo": 1455.0,
-      "n_gaenge": 15
+      "elo": 1445.3,
+      "n_gaenge": 21
     },
     "lussi ramon|?": {
       "elo": 1449.1,
@@ -9671,8 +9675,8 @@
       "n_gaenge": 12
     },
     "machler severin|?": {
-      "elo": 1373.9,
-      "n_gaenge": 42
+      "elo": 1368.0,
+      "n_gaenge": 48
     },
     "macleod nathan|?": {
       "elo": 1482.3,
@@ -9691,8 +9695,8 @@
       "n_gaenge": 20
     },
     "maik vollenweider|?": {
-      "elo": 1502.2,
-      "n_gaenge": 195
+      "elo": 1510.4,
+      "n_gaenge": 201
     },
     "maksymiliann michellod|?": {
       "elo": 1439.8,
@@ -9719,8 +9723,8 @@
       "n_gaenge": 12
     },
     "manuel maurer|?": {
-      "elo": 1381.4,
-      "n_gaenge": 116
+      "elo": 1385.6,
+      "n_gaenge": 122
     },
     "manuel muller|?": {
       "elo": 1441.1,
@@ -9735,8 +9739,8 @@
       "n_gaenge": 40
     },
     "manuel suter|?": {
-      "elo": 1363.4,
-      "n_gaenge": 234
+      "elo": 1364.1,
+      "n_gaenge": 240
     },
     "manuel vogel|?": {
       "elo": 1484.0,
@@ -9790,6 +9794,10 @@
       "elo": 1437.8,
       "n_gaenge": 140
     },
+    "marcel vogel|?": {
+      "elo": 1656.3,
+      "n_gaenge": 270
+    },
     "marcel walthert|?": {
       "elo": 1364.0,
       "n_gaenge": 70
@@ -9819,8 +9827,8 @@
       "n_gaenge": 9
     },
     "marco schmidiger|?": {
-      "elo": 1268.7,
-      "n_gaenge": 65
+      "elo": 1269.4,
+      "n_gaenge": 71
     },
     "marco schwob|?": {
       "elo": 1459.8,
@@ -9879,8 +9887,8 @@
       "n_gaenge": 27
     },
     "mario zgraggen|?": {
-      "elo": 1448.4,
-      "n_gaenge": 123
+      "elo": 1449.0,
+      "n_gaenge": 129
     },
     "marius meier|?": {
       "elo": 1375.8,
@@ -9935,20 +9943,24 @@
       "n_gaenge": 6
     },
     "martin niederhauser|?": {
-      "elo": 1594.0,
-      "n_gaenge": 123
+      "elo": 1594.5,
+      "n_gaenge": 129
     },
     "martin rempfler|?": {
-      "elo": 1536.9,
-      "n_gaenge": 173
+      "elo": 1547.3,
+      "n_gaenge": 179
     },
     "martin rolli|?": {
       "elo": 1611.1,
       "n_gaenge": 91
     },
     "martin schappi|?": {
-      "elo": 1553.9,
-      "n_gaenge": 79
+      "elo": 1561.0,
+      "n_gaenge": 84
+    },
+    "martin schranz|?": {
+      "elo": 1475.9,
+      "n_gaenge": 6
     },
     "martin sprecher|?": {
       "elo": 1470.9,
@@ -9967,8 +9979,8 @@
       "n_gaenge": 104
     },
     "martin vogel|?": {
-      "elo": 1440.7,
-      "n_gaenge": 21
+      "elo": 1426.3,
+      "n_gaenge": 25
     },
     "marty remo|?": {
       "elo": 1416.7,
@@ -9991,8 +10003,8 @@
       "n_gaenge": 64
     },
     "mathias steiner|?": {
-      "elo": 1504.0,
-      "n_gaenge": 28
+      "elo": 1506.4,
+      "n_gaenge": 34
     },
     "mathias studer|?": {
       "elo": 1474.2,
@@ -10087,12 +10099,12 @@
       "n_gaenge": 39
     },
     "maurice riedweg|?": {
-      "elo": 1320.3,
-      "n_gaenge": 87
+      "elo": 1321.4,
+      "n_gaenge": 93
     },
     "maurus schelbert|?": {
-      "elo": 1482.6,
-      "n_gaenge": 91
+      "elo": 1478.4,
+      "n_gaenge": 97
     },
     "maurus zogg|?": {
       "elo": 1484.5,
@@ -10103,8 +10115,8 @@
       "n_gaenge": 40
     },
     "max suter|?": {
-      "elo": 1452.4,
-      "n_gaenge": 43
+      "elo": 1455.0,
+      "n_gaenge": 49
     },
     "maxence tissot|?": {
       "elo": 1460.3,
@@ -10131,8 +10143,8 @@
       "n_gaenge": 72
     },
     "melk roth|?": {
-      "elo": 1371.4,
-      "n_gaenge": 44
+      "elo": 1365.8,
+      "n_gaenge": 50
     },
     "memaj yannis|?": {
       "elo": 1491.8,
@@ -10147,8 +10159,8 @@
       "n_gaenge": 26
     },
     "messerli niklaus|?": {
-      "elo": 1351.5,
-      "n_gaenge": 220
+      "elo": 1353.5,
+      "n_gaenge": 226
     },
     "messerli robin|?": {
       "elo": 1279.5,
@@ -10159,8 +10171,8 @@
       "n_gaenge": 36
     },
     "micha stucki|?": {
-      "elo": 1283.7,
-      "n_gaenge": 113
+      "elo": 1290.7,
+      "n_gaenge": 119
     },
     "micha wesemann|?": {
       "elo": 1470.9,
@@ -10291,8 +10303,8 @@
       "n_gaenge": 235
     },
     "mirco tschan|?": {
-      "elo": 1521.0,
-      "n_gaenge": 173
+      "elo": 1516.7,
+      "n_gaenge": 179
     },
     "mischa pfister|?": {
       "elo": 1434.5,
@@ -10327,8 +10339,8 @@
       "n_gaenge": 6
     },
     "moser sami|?": {
-      "elo": 1524.3,
-      "n_gaenge": 72
+      "elo": 1526.2,
+      "n_gaenge": 78
     },
     "mosimann simon|?": {
       "elo": 1439.4,
@@ -10399,12 +10411,12 @@
       "n_gaenge": 114
     },
     "nef tobias|?": {
-      "elo": 1431.3,
-      "n_gaenge": 139
+      "elo": 1431.2,
+      "n_gaenge": 145
     },
     "neukomm nevio|?": {
-      "elo": 1475.2,
-      "n_gaenge": 54
+      "elo": 1478.8,
+      "n_gaenge": 60
     },
     "neukomm thierry|?": {
       "elo": 1509.9,
@@ -10427,16 +10439,16 @@
       "n_gaenge": 59
     },
     "nick ruoff|?": {
-      "elo": 1481.7,
-      "n_gaenge": 18
+      "elo": 1472.3,
+      "n_gaenge": 24
     },
     "nick sidler|?": {
       "elo": 1402.2,
       "n_gaenge": 52
     },
     "nick stalder|?": {
-      "elo": 1473.6,
-      "n_gaenge": 337
+      "elo": 1482.8,
+      "n_gaenge": 343
     },
     "nick thomas|?": {
       "elo": 1371.8,
@@ -10447,8 +10459,8 @@
       "n_gaenge": 12
     },
     "nick trachsel|?": {
-      "elo": 1479.7,
-      "n_gaenge": 239
+      "elo": 1484.3,
+      "n_gaenge": 245
     },
     "nick wyss|?": {
       "elo": 1434.8,
@@ -10519,8 +10531,8 @@
       "n_gaenge": 75
     },
     "niederberger nils|?": {
-      "elo": 1604.3,
-      "n_gaenge": 135
+      "elo": 1610.5,
+      "n_gaenge": 141
     },
     "niederberger sven|?": {
       "elo": 1470.7,
@@ -10531,24 +10543,24 @@
       "n_gaenge": 73
     },
     "niklas rubin|?": {
-      "elo": 1475.2,
-      "n_gaenge": 123
+      "elo": 1480.8,
+      "n_gaenge": 129
     },
     "niklas zubler|?": {
       "elo": 1446.8,
       "n_gaenge": 115
     },
     "nino schmidlin|?": {
-      "elo": 1443.6,
-      "n_gaenge": 22
+      "elo": 1431.6,
+      "n_gaenge": 28
     },
     "noah vogler|?": {
       "elo": 1316.4,
       "n_gaenge": 108
     },
     "noah weber|?": {
-      "elo": 1481.9,
-      "n_gaenge": 266
+      "elo": 1486.4,
+      "n_gaenge": 272
     },
     "noe rognon|?": {
       "elo": 1406.2,
@@ -10583,8 +10595,8 @@
       "n_gaenge": 25
     },
     "nussbaum ueli|?": {
-      "elo": 1556.2,
-      "n_gaenge": 151
+      "elo": 1563.2,
+      "n_gaenge": 157
     },
     "nussbaumer yanik|?": {
       "elo": 1481.9,
@@ -10651,8 +10663,8 @@
       "n_gaenge": 22
     },
     "pache yannis|?": {
-      "elo": 1388.9,
-      "n_gaenge": 42
+      "elo": 1381.3,
+      "n_gaenge": 48
     },
     "pascal peter|?": {
       "elo": 1315.7,
@@ -10807,16 +10819,16 @@
       "n_gaenge": 46
     },
     "philipp wittwer|?": {
-      "elo": 1424.6,
-      "n_gaenge": 28
+      "elo": 1404.8,
+      "n_gaenge": 34
     },
     "philippe wild|?": {
       "elo": 1434.9,
       "n_gaenge": 63
     },
     "pieren timeon|?": {
-      "elo": 1475.0,
-      "n_gaenge": 6
+      "elo": 1445.1,
+      "n_gaenge": 12
     },
     "pierrick winzeler|?": {
       "elo": 1352.0,
@@ -10835,12 +10847,12 @@
       "n_gaenge": 114
     },
     "pius thoni|?": {
-      "elo": 1554.0,
-      "n_gaenge": 216
+      "elo": 1564.7,
+      "n_gaenge": 222
     },
     "pius tobler|?": {
-      "elo": 1446.5,
-      "n_gaenge": 214
+      "elo": 1443.3,
+      "n_gaenge": 220
     },
     "portmann remo|?": {
       "elo": 1310.4,
@@ -10979,12 +10991,12 @@
       "n_gaenge": 11
     },
     "renggli silvan|?": {
-      "elo": 1487.6,
-      "n_gaenge": 242
+      "elo": 1489.8,
+      "n_gaenge": 248
     },
     "reto schmid|?": {
-      "elo": 1366.6,
-      "n_gaenge": 208
+      "elo": 1372.6,
+      "n_gaenge": 214
     },
     "reto steuble|?": {
       "elo": 1452.7,
@@ -11055,8 +11067,8 @@
       "n_gaenge": 46
     },
     "rolli toni|?": {
-      "elo": 1457.8,
-      "n_gaenge": 111
+      "elo": 1476.7,
+      "n_gaenge": 117
     },
     "roman roner|?": {
       "elo": 1448.6,
@@ -11155,8 +11167,8 @@
       "n_gaenge": 6
     },
     "ruch tim|?": {
-      "elo": 1427.1,
-      "n_gaenge": 67
+      "elo": 1433.0,
+      "n_gaenge": 73
     },
     "ruedi suter|?": {
       "elo": 1471.3,
@@ -11187,20 +11199,20 @@
       "n_gaenge": 111
     },
     "rust sandro|?": {
-      "elo": 1426.5,
-      "n_gaenge": 297
+      "elo": 1435.5,
+      "n_gaenge": 303
     },
     "rust silvio|?": {
-      "elo": 1447.0,
-      "n_gaenge": 271
+      "elo": 1443.5,
+      "n_gaenge": 277
     },
     "sam schar|?": {
       "elo": 1371.6,
       "n_gaenge": 36
     },
     "sami wampfler|?": {
-      "elo": 1524.6,
-      "n_gaenge": 145
+      "elo": 1532.1,
+      "n_gaenge": 151
     },
     "samuel schuler|?": {
       "elo": 1549.2,
@@ -11239,8 +11251,8 @@
       "n_gaenge": 63
     },
     "sandro ulrich|?": {
-      "elo": 1462.1,
-      "n_gaenge": 154
+      "elo": 1461.8,
+      "n_gaenge": 160
     },
     "sandro vollmeier|?": {
       "elo": 1500.2,
@@ -11303,8 +11315,8 @@
       "n_gaenge": 222
     },
     "severin wiss|?": {
-      "elo": 1303.2,
-      "n_gaenge": 110
+      "elo": 1290.7,
+      "n_gaenge": 114
     },
     "severin wuthrich|?": {
       "elo": 1514.2,
@@ -11331,28 +11343,28 @@
       "n_gaenge": 44
     },
     "silvan steinauer|?": {
-      "elo": 1562.4,
-      "n_gaenge": 54
+      "elo": 1568.1,
+      "n_gaenge": 60
     },
     "silvan sutter|?": {
-      "elo": 1495.4,
-      "n_gaenge": 255
+      "elo": 1493.6,
+      "n_gaenge": 261
     },
     "silvan tschumperlin|?": {
       "elo": 1480.2,
       "n_gaenge": 10
     },
     "silvan waser|?": {
-      "elo": 1450.8,
-      "n_gaenge": 32
+      "elo": 1436.3,
+      "n_gaenge": 36
     },
     "silvan wolf|?": {
       "elo": 1380.7,
       "n_gaenge": 122
     },
     "silvan wyttenbach|?": {
-      "elo": 1513.8,
-      "n_gaenge": 112
+      "elo": 1515.7,
+      "n_gaenge": 118
     },
     "silvan zemp|?": {
       "elo": 1500.0,
@@ -11419,8 +11431,8 @@
       "n_gaenge": 7
     },
     "stadelmann tino|?": {
-      "elo": 1286.1,
-      "n_gaenge": 163
+      "elo": 1282.4,
+      "n_gaenge": 169
     },
     "stadelmann tobias|?": {
       "elo": 1483.3,
@@ -11447,16 +11459,16 @@
       "n_gaenge": 15
     },
     "stefan wicki|?": {
-      "elo": 1365.8,
-      "n_gaenge": 130
+      "elo": 1366.8,
+      "n_gaenge": 136
     },
     "stefan zemp|?": {
       "elo": 1438.6,
       "n_gaenge": 81
     },
     "steffen sven|?": {
-      "elo": 1459.4,
-      "n_gaenge": 31
+      "elo": 1460.0,
+      "n_gaenge": 37
     },
     "steiger tim|?": {
       "elo": 1447.5,
@@ -11519,8 +11531,8 @@
       "n_gaenge": 277
     },
     "sylvan tresch|?": {
-      "elo": 1364.8,
-      "n_gaenge": 60
+      "elo": 1360.9,
+      "n_gaenge": 66
     },
     "teo zryd|?": {
       "elo": 1365.2,
@@ -11555,8 +11567,8 @@
       "n_gaenge": 32
     },
     "tim wuthrich|?": {
-      "elo": 1611.9,
-      "n_gaenge": 234
+      "elo": 1596.8,
+      "n_gaenge": 240
     },
     "tim wyssmann|?": {
       "elo": 1436.1,
@@ -11599,8 +11611,8 @@
       "n_gaenge": 6
     },
     "tschan yannick|?": {
-      "elo": 1347.2,
-      "n_gaenge": 34
+      "elo": 1339.1,
+      "n_gaenge": 39
     },
     "valentin vogelsanger|?": {
       "elo": 1466.3,
@@ -11623,16 +11635,16 @@
       "n_gaenge": 136
     },
     "marco ulrich|be": {
-      "elo": 1290.9,
-      "n_gaenge": 131
+      "elo": 1295.1,
+      "n_gaenge": 137
     },
     "giger samuel|is": {
       "elo": 1475.2,
       "n_gaenge": 110
     },
     "jonas odermatt|is": {
-      "elo": 1435.0,
-      "n_gaenge": 145
+      "elo": 1433.4,
+      "n_gaenge": 151
     },
     "schmid simon|nos": {
       "elo": 1387.3,
