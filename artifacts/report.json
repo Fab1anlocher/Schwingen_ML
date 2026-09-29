@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-09-28T10:41:03.401682+00:00",
-  "lauf_id": "20260928T104103Z",
+  "erstellt": "2026-09-29T10:29:38.956886+00:00",
+  "lauf_id": "20260929T102938Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 135013,
@@ -10,16 +10,16 @@
   "holdout_jahr": 2026,
   "modell_typ": "gbm",
   "n_baeume": {
-    "gestellt": 307,
-    "sieg": 334
+    "gestellt": 207,
+    "sieg": 374
   },
   "n_train": 136118,
   "n_train_ausgeliefert": 211294,
   "n_test": 37588,
   "modell": {
-    "log_loss": 0.7198,
-    "accuracy": 0.6915,
-    "mae": 0.2426,
+    "log_loss": 0.7199,
+    "accuracy": 0.6908,
+    "mae": 0.2432,
     "mse": 0.0996
   },
   "baseline_elo": {
@@ -27,8 +27,8 @@
     "accuracy": 0.6131
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0783,
-  "verbesserung_log_loss": 0.1895,
+  "accuracy_gg_baseline": 0.0777,
+  "verbesserung_log_loss": 0.1894,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -36,29 +36,29 @@
   ],
   "konfusionsmatrix": [
     [
-      10607,
-      961,
-      1934
+      10627,
+      953,
+      1922
     ],
     [
-      2740,
-      2046,
-      3122
+      2757,
+      1997,
+      3154
     ],
     [
-      1823,
-      1017,
-      13338
+      1828,
+      1007,
+      13343
     ]
   ],
   "nur_portraet": {
     "modell": {
       "n": 9445,
       "anteil_am_test": 0.2513,
-      "log_loss": 0.8137,
-      "accuracy": 0.6274,
-      "mae": 0.2523,
-      "mse": 0.1034
+      "log_loss": 0.8128,
+      "accuracy": 0.6253,
+      "mae": 0.2525,
+      "mse": 0.1033
     },
     "baseline_elo": {
       "n": 9445,
@@ -68,60 +68,60 @@
   },
   "gestellt_kalibrierung": {
     "n": 37588,
-    "vorhergesagt": 0.2046,
+    "vorhergesagt": 0.205,
     "eingetreten": 0.2104,
-    "ece": 0.0074,
-    "auc": 0.7504,
+    "ece": 0.0075,
+    "auc": 0.7502,
     "stufen": [
       {
         "n": 3759,
-        "vorhergesagt": 0.0226,
-        "eingetreten": 0.0223
+        "vorhergesagt": 0.0246,
+        "eingetreten": 0.025
       },
       {
         "n": 3759,
-        "vorhergesagt": 0.056,
-        "eingetreten": 0.0551
+        "vorhergesagt": 0.0587,
+        "eingetreten": 0.0537
       },
       {
         "n": 3759,
-        "vorhergesagt": 0.0892,
-        "eingetreten": 0.0889
+        "vorhergesagt": 0.0921,
+        "eingetreten": 0.0894
       },
       {
         "n": 3759,
-        "vorhergesagt": 0.1214,
-        "eingetreten": 0.1224
+        "vorhergesagt": 0.1237,
+        "eingetreten": 0.1248
       },
       {
         "n": 3759,
-        "vorhergesagt": 0.155,
-        "eingetreten": 0.1604
+        "vorhergesagt": 0.1563,
+        "eingetreten": 0.1588
       },
       {
         "n": 3759,
-        "vorhergesagt": 0.1901,
-        "eingetreten": 0.2107
+        "vorhergesagt": 0.1904,
+        "eingetreten": 0.2072
       },
       {
         "n": 3759,
-        "vorhergesagt": 0.2342,
-        "eingetreten": 0.2477
+        "vorhergesagt": 0.2334,
+        "eingetreten": 0.2487
       },
       {
         "n": 3759,
-        "vorhergesagt": 0.29,
-        "eingetreten": 0.3097
+        "vorhergesagt": 0.2888,
+        "eingetreten": 0.3075
       },
       {
         "n": 3758,
-        "vorhergesagt": 0.3669,
-        "eingetreten": 0.3725
+        "vorhergesagt": 0.3647,
+        "eingetreten": 0.3739
       },
       {
         "n": 3758,
-        "vorhergesagt": 0.5208,
-        "eingetreten": 0.5144
+        "vorhergesagt": 0.5178,
+        "eingetreten": 0.5149
       }
     ]
   },
@@ -130,12 +130,12 @@
     "n_feste": 136,
     "wiederholungen": 1000,
     "accuracy": [
-      0.6839,
-      0.6985
+      0.6834,
+      0.698
     ],
     "log_loss": [
-      0.7087,
-      0.7321
+      0.7089,
+      0.732
     ]
   },
   "merkmal_version": 3,
@@ -213,7 +213,7 @@
       "von": "2023-04-01",
       "bis": "2026-09-27"
     },
-    "tage_seit_juengstem_fest": 1,
+    "tage_seit_juengstem_fest": 2,
     "kommende_feste": {
       "n": 1,
       "n_mit_paarungen": 0,
@@ -336,7 +336,7 @@
     }
   },
   "modell_verlauf": {
-    "n_laeufe": 50,
+    "n_laeufe": 51,
     "warnung": null
   }
 }

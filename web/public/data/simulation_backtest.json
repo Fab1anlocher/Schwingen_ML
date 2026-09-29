@@ -5,67 +5,67 @@
   "n_teilnahmen": 5419,
   "n_simulationen": 200,
   "kranz": {
-    "brier_modell": 0.0758,
+    "brier_modell": 0.0754,
     "brier_elo": 0.0812,
     "brier_konstant": 0.1354,
     "kalibrierung": [
       {
         "von": 0.0,
         "bis": 0.05,
-        "n": 2689,
-        "vorhergesagt": 0.0081,
+        "n": 2700,
+        "vorhergesagt": 0.0082,
         "eingetreten": 0.0041
       },
       {
         "von": 0.05,
         "bis": 0.15,
-        "n": 749,
-        "vorhergesagt": 0.0914,
-        "eingetreten": 0.0441
+        "n": 741,
+        "vorhergesagt": 0.0916,
+        "eingetreten": 0.0486
       },
       {
         "von": 0.15,
         "bis": 0.3,
-        "n": 625,
-        "vorhergesagt": 0.2153,
-        "eingetreten": 0.168
+        "n": 626,
+        "vorhergesagt": 0.2168,
+        "eingetreten": 0.1565
       },
       {
         "von": 0.3,
         "bis": 0.5,
-        "n": 638,
-        "vorhergesagt": 0.386,
-        "eingetreten": 0.3542
+        "n": 645,
+        "vorhergesagt": 0.3857,
+        "eingetreten": 0.3612
       },
       {
         "von": 0.5,
         "bis": 0.7,
-        "n": 359,
-        "vorhergesagt": 0.5914,
-        "eingetreten": 0.5571
+        "n": 362,
+        "vorhergesagt": 0.5949,
+        "eingetreten": 0.5525
       },
       {
         "von": 0.7,
         "bis": 0.9,
-        "n": 234,
-        "vorhergesagt": 0.79,
-        "eingetreten": 0.7991
+        "n": 218,
+        "vorhergesagt": 0.7902,
+        "eingetreten": 0.8349
       },
       {
         "von": 0.9,
         "bis": 1.0,
-        "n": 125,
-        "vorhergesagt": 0.9486,
-        "eingetreten": 0.904
+        "n": 127,
+        "vorhergesagt": 0.9504,
+        "eingetreten": 0.9055
       }
     ]
   },
   "festsieg": {
-    "p_sieger_modell": 0.2671,
+    "p_sieger_modell": 0.2589,
     "p_sieger_elo": 0.1799,
     "favorit_modell": 0.5263,
     "favorit_elo": 0.4737,
-    "top3_modell": 0.8684,
+    "top3_modell": 0.8421,
     "top3_elo": 0.8684,
     "mittlere_feldgroesse": 144.1
   },
