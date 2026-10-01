@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-09-30T10:22:37.950945+00:00",
-  "lauf_id": "20260930T102237Z",
+  "erstellt": "2026-10-01T10:48:59.957448+00:00",
+  "lauf_id": "20261001T104859Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 135013,
@@ -213,7 +213,7 @@
       "von": "2023-04-01",
       "bis": "2026-09-27"
     },
-    "tage_seit_juengstem_fest": 3,
+    "tage_seit_juengstem_fest": 4,
     "kommende_feste": {
       "n": 1,
       "n_mit_paarungen": 0,
@@ -336,7 +336,7 @@
     }
   },
   "modell_verlauf": {
-    "n_laeufe": 52,
+    "n_laeufe": 53,
     "warnung": null
   }
 }
