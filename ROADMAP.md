@@ -30,6 +30,7 @@ Modell, das auch die laufende Saison gesehen hat.
 | ✅ D3 | Rohdaten wöchentlich sichern | Voraussetzung für D1/D2, Ausfallschutz — **erledigt** | ½ Tag | ~~3~~ |
 | ✅ M2 | Jüngere Gänge stärker gewichten | Val 0.7400 → 0.7390, Test 0.7207 → 0.7203 — **erledigt** | ½ Tag | ~~3~~ |
 | D1 | Noten je Gang (Plattwurf 10.00 vs. 9.75) nutzen | gemessen: Val −0.0027, Test −0.0039 (Messung ohne Ranglisten-Anreicherung) | 1 Tag | **2** |
+| ✅ T4 | Härtetest: eingefrorenes Modell an der Saison 2027 messen | ehrlicher Test ohne Auswahl-Optimismus — Mechanik **erledigt**, Einfrieren nach M4 | 1 Tag | ~~1~~ |
 | ✅ F4 | Fest-Simulator (Monte Carlo) mit Rückblick | Festsieger bekam Ø 27 % (Elo 18 %), Kranz-Brier 0.076 (Elo 0.081) — **erledigt** | 1–2 Tage | ~~–~~ |
 | D2 | Gangnummer aus der Rangliste (Anschwingen, Ausstich) | offen — erst nach D3 messbar | 1 Tag | 4 |
 | M3 | Heimvorteil (Fest des eigenen Verbands gegen Gäste) | +0.022 Punkte je Gästegang (2.6 SE) | ½ Tag | 5 |

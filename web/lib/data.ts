@@ -11,6 +11,7 @@ import type {
   BenchmarkArtifact,
   ClusterArtifact,
   SimulationBacktest,
+  HaertetestArtifact,
 } from "./types";
 import type { VerlaufLauf } from "@/components/VerlaufDiagramm";
 
@@ -31,6 +32,10 @@ export const ladeCluster = () => ladeJson<ClusterArtifact>("/data/cluster.json")
 export const ladeSimulationBacktest = () =>
   ladeJson<SimulationBacktest>("/data/simulation_backtest.json").catch(() => null);
 
+/** Härtetest der nächsten Saison; fehlt die Datei (ältere Läufe), null. */
+export const ladeHaertetest = () =>
+  ladeJson<HaertetestArtifact>("/data/haertetest.json").catch(() => null);
+
 export async function ladeSchwinger(): Promise<Schwinger[]> {
   const obj = await ladeJson<{ schwinger: Schwinger[] }>("/data/schwinger.json");
   return obj.schwinger;
@@ -43,9 +48,10 @@ export async function ladeFeatureImportance(): Promise<{
   art: "koeffizient" | "permutation";
   features: FeatureImportanceEntry[];
 }> {
-  const obj = await ladeJson<{ art?: "koeffizient" | "permutation"; features: FeatureImportanceEntry[] }>(
-    "/data/feature_importance.json"
-  );
+  const obj = await ladeJson<{
+    art?: "koeffizient" | "permutation";
+    features: FeatureImportanceEntry[];
+  }>("/data/feature_importance.json");
   return { art: obj.art ?? "koeffizient", features: obj.features };
 }
 

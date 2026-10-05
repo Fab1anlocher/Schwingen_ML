@@ -188,6 +188,11 @@ def _zeilen(report: dict) -> list[str]:
               f"({_ampel(abstand < 0.02, warn=0.02 <= abstand < 0.04)})",
               f"- ECE {kal['ece']:.2%}, AUC {kal.get('auc')}", ""]
     # Verlauf (Roadmap T1): ist dieser Lauf deutlich schlechter als die letzten?
+    ht = report.get("haertetest") or {}
+    if ht.get("status") and ht["status"] != "nicht_eingefroren":
+        z += [f"**Härtetest** ({ht['status']}): "
+              + (f"{_ampel(False)} {ht['warnung']}" if ht.get("warnung")
+                 else f"{_ampel(True)} eingefrorenes Modell und Eingaben unverändert"), ""]
     verlauf = report.get("modell_verlauf") or {}
     if verlauf.get("n_laeufe"):
         warnung = verlauf.get("warnung")

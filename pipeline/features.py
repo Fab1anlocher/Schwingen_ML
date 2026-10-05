@@ -161,6 +161,7 @@ def baue_features(
     schwinger: dict[str, Schwinger],
     augment: bool = True,
     pro_fest=None,
+    version: int = MERKMAL_VERSION,
 ) -> tuple[list[list[float]], list[int], list[dict]]:
     """Baut Feature-Matrix, Labels und Metadaten je Gang (chronologisch).
 
@@ -182,6 +183,9 @@ def baue_features(
     Fest-Simulation im Rückblick (fest_simulation.backtest), die auch Paare
     braucht, die nie gegeneinander geschwungen haben. ``vektor`` liest den
     laufenden Stand: nur WÄHREND des Aufrufs gültig.
+
+    ``version``: Merkmalsdefinition (Standard die aktuelle). Ältere Versionen
+    braucht der Härtetest, wenn das eingefrorene Modell dem Code hinterherhinkt.
     """
     from .config import KLASSEN
     klass_idx = {k: i for i, k in enumerate(KLASSEN)}
@@ -235,7 +239,7 @@ def baue_features(
                                    neigung_a, neigung_b)
 
             X.append(_feature_vektor(elo_a, elo_b, form_a, form_b, n_a, n_b, sa, sb,
-                                     gang.datum, h2h_a, elo_skala=skala,
+                                     gang.datum, h2h_a, elo_skala=skala, version=version,
                                      gestellt_neigung=neigung, paar_gestellt=bilanz))
             label = klass_idx[gang.ergebnis]
             y.append(label)
@@ -260,7 +264,7 @@ def baue_features(
             if augment:
                 # Die Neigung ist symmetrisch und bleibt; alles Gerichtete dreht.
                 X.append(_feature_vektor(elo_b, elo_a, form_b, form_a, n_b, n_a, sb, sa,
-                                         gang.datum, -h2h_a, elo_skala=skala,
+                                         gang.datum, -h2h_a, elo_skala=skala, version=version,
                                          gestellt_neigung=neigung, paar_gestellt=bilanz))
                 y.append({0: 2, 1: 1, 2: 0}[label])
                 meta.append({**meta[-1], "augmented": True, "elo_diff": elo_b - elo_a})

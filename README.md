@@ -149,7 +149,9 @@ Versioniert werden nur die kompakten, abgeleiteten Artefakte.
 ### Automatischer täglicher Lauf
 
 `.github/workflows/update.yml` läuft täglich um 04:00 UTC (und per
-`workflow_dispatch` auf jedem Branch):
+`workflow_dispatch` auf jedem Branch; der Schalter `haertetest_einfrieren`
+friert einmalig das ausgelieferte Modell für den Härtetest der nächsten
+Saison ein, s. `pipeline/haertetest.py`):
 
 1. **Rohdaten-Cache laden** (`actions/cache`) — trägt die Historie über Läufe.
 2. **`pipeline.fetch_raw --seit-datum auto`** — holt Feste ab dem jüngsten
@@ -279,6 +281,7 @@ pipeline/                  Python-Datenpipeline
   run_pipeline.py            Orchestrator (8 Stufen)
   harness.py                 Echte-Daten-Harness für Modellexperimente
   messung.py                 Messungen auf den Rohdaten (Workflow messung.yml)
+  haertetest.py              Härtetest: eingefrorenes Modell an der nächsten Saison messen
   datenqualitaet.py          Qualitätsbericht aus report.json
   verify_inference.py        Cross-Check: model.json == sklearn-Modell
   paritaet.py                Cross-Check: App (TypeScript) == Pipeline (Python)

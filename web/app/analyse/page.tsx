@@ -21,6 +21,7 @@ import {
   ladeBenchmark,
   ladeEvents,
   ladeFeatureImportance,
+  ladeHaertetest,
   ladeRatings,
   ladeSchwinger,
   ladeVerlauf,
@@ -30,6 +31,7 @@ import type {
   BenchmarkArtifact,
   EventsArtifact,
   FeatureImportanceEntry,
+  HaertetestArtifact,
   RatingsArtifact,
   Schwinger,
 } from "@/lib/types";
@@ -41,6 +43,7 @@ import {
 } from "@/components/ModellGuete";
 import {
   AnsatzRangliste,
+  Haertetest,
   Kennzahlen,
   ModellEntwicklung,
   SchwierigkeitJeFesttyp,
@@ -113,6 +116,7 @@ export default function Analyse() {
   const [schwinger, setSchwinger] = useState<Schwinger[]>([]);
   const [ratings, setRatings] = useState<RatingsArtifact | null>(null);
   const [events, setEvents] = useState<EventsArtifact | null>(null);
+  const [haertetest, setHaertetest] = useState<HaertetestArtifact | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -139,6 +143,7 @@ export default function Analyse() {
     ladeEvents()
       .then(setEvents)
       .catch(() => {});
+    ladeHaertetest().then(setHaertetest);
   }, []);
 
   // Nur Schwinger mit tatsächlich erfassten Gängen (nicht der Elo-Startwert
@@ -302,6 +307,32 @@ export default function Analyse() {
 
       {report && <Kennzahlen werte={kennzahlen} />}
 
+      {haertetest && haertetest.status !== "nicht_eingefroren" && (
+        <>
+          <h2 id="haertetest">Der ehrliche Test: Saison {haertetest.saison}</h2>
+          <div className="panel">
+            <p className="muted small" style={{ marginTop: 0 }}>
+              Die Zahlen oben stammen aus Saisons, an denen das Modell auch ausgewählt wurde — sie
+              sind darum eher leicht zu gut. Ehrlich ist erst eine Saison, die nach dem Festlegen
+              beginnt: Das Modell ist eingefroren, eine Prüfsumme belegt, dass es danach niemand
+              mehr verändert hat.
+            </p>
+            <Haertetest
+              daten={haertetest}
+              auswahl={
+                report
+                  ? {
+                      saison: report.holdout_jahr,
+                      treffer: report.modell.accuracy,
+                      log_loss: report.modell.log_loss,
+                    }
+                  : null
+              }
+            />
+          </div>
+        </>
+      )}
+
       {benchmark && (
         <>
           <h2>Im Vergleich</h2>
@@ -377,7 +408,15 @@ export default function Analyse() {
               auf der Saison davor besser war. Der Balken zeigt den Vorsprung vor der Elo-Formel
               (länger = besser); daneben der Log-Loss und seine Änderung zum vorherigen Schritt.
               Weil diese beiden Saisons auch zur Auswahl dienten, sind die Kennzahlen eher leicht zu
-              gut — eine ganz unberührte Prüfsaison gibt es erst 2027.
+              gut
+              {haertetest && haertetest.status !== "nicht_eingefroren" ? (
+                <>
+                  {" "}
+                  — den unberührten Test zeigt <a href="#haertetest">„Der ehrliche Test“</a> oben.
+                </>
+              ) : (
+                " — eine ganz unberührte Prüfsaison gibt es erst 2027."
+              )}
             </p>
             <ModellEntwicklung laeufe={verlauf} />
           </div>

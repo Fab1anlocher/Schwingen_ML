@@ -73,7 +73,13 @@ Benchmark → Clustering → Export.
    kein Zufallssplit. Training mit Spiegelzeilen (B-gegen-A), Test **ohne**.
 4. **Artefakte nie von Hand ändern.** Sie entstehen im Workflow `update.yml`.
    `run_pipeline --source synth` überschreibt sie mit Demodaten → danach
-   `git checkout -- artifacts web/public/data web/data`.
+   `git checkout -- artifacts web/public/data web/data` (neue, noch nicht
+   committete Dateien zusätzlich löschen).
+   **Härtetest:** `artifacts/haertetest_modell.json` ist das eingefrorene
+   Modell für die nächste Saison (`pipeline/haertetest.py`). Nie ändern; ein
+   Test prüft die Prüfsumme. Eingefroren wird nur über den Workflow-Schalter
+   `haertetest_einfrieren`. Ändert sich danach Rating- oder Merkmalscode,
+   meldet die Wache das (die Referenzgänge ergeben andere Prognosen).
 5. **Datenwerte sind ASCII-Schlüssel** (`Suedwestschweiz`, `eidgenoessisch`,
    `koenig`). Angezeigt wird nur über `lib/labels.ts`.
 6. **Gemessen statt geschätzt kennzeichnen.** Geschätzte Werte haben eigene

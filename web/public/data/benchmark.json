@@ -35,7 +35,7 @@
     {
       "key": "ml_ohne_elo",
       "label": "ML ohne Elo (Kranzstatus, Physis, Stil, Verband)",
-      "accuracy": 0.5187,
+      "accuracy": 0.529,
       "log_loss": 0.9454,
       "brier_score": 0.5601,
       "mae": 0.3462,

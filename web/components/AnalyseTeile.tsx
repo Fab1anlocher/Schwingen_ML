@@ -6,7 +6,12 @@
 // Artefakten (report.json, benchmark.json, report_verlauf.json, events.json).
 
 import { useMemo } from "react";
-import type { BenchmarkKandidat, PrognoseCheck, VergangenesFest } from "@/lib/types";
+import type {
+  BenchmarkKandidat,
+  HaertetestArtifact,
+  PrognoseCheck,
+  VergangenesFest,
+} from "@/lib/types";
 import {
   ansatzName,
   datumKurz,
@@ -377,6 +382,91 @@ export function Ueberwachung({
           drei täglichen Läufen; die Alarmgrenze ab dann.
         </p>
       )}
+    </div>
+  );
+}
+
+// --- Härtetest ----------------------------------------------------------------
+
+// Unter so vielen Festen schwanken die Zahlen noch stark (s. 95-%-Bereich).
+const HAERTETEST_WENIG_FESTE = 10;
+
+/** Das eingefrorene Modell an einer Saison, die beim Bauen niemand kannte
+ *  (haertetest.json). Vor der Saison: wann und wie eingefroren; danach die
+ *  Kennzahlen neben denen der Auswahl-Saison. */
+export function Haertetest({
+  daten,
+  auswahl,
+}: {
+  daten: HaertetestArtifact;
+  /** Kennzahlen der Saison, an der das Modell auch ausgewählt wurde. */
+  auswahl: { saison: number; treffer: number; log_loss: number } | null;
+}) {
+  if (daten.status === "nicht_eingefroren") return null;
+  const wache = daten.wache;
+  const ok = wache && !wache.warnung;
+  const technik = (
+    <p className="muted small" style={{ marginBottom: 0 }}>
+      Eingefroren am {daten.eingefroren_am ? datumKurz(daten.eingefroren_am) : "–"}
+      {daten.pruefsumme && ` · Prüfsumme ${daten.pruefsumme.slice(0, 12)}`}
+      {daten.code_commit && ` · Code-Stand ${daten.code_commit.slice(0, 7)}`}
+      {daten.merkmal_version && ` · Merkmale v${daten.merkmal_version}`}
+      {wache &&
+        ` · Wache: ${ok ? "Modell und Eingaben unverändert" : "Abweichung, s. oben"} (Referenzgänge ${prozent(wache.referenz_gleich)} gleich)`}
+    </p>
+  );
+  return (
+    <div>
+      {wache?.warnung && (
+        <p style={{ marginTop: 0 }}>
+          <span className="badge badge-warn">⚠ {wache.warnung}</span>
+        </p>
+      )}
+      {daten.status === "wartet" || !daten.modell ? (
+        <p style={{ marginTop: 0 }}>
+          Ab dem ersten Fest {daten.saison} misst die Pipeline jeden Tag, wie gut{" "}
+          <strong>genau dieses Modell</strong> Gänge trifft, die beim Bauen niemand kannte — ohne
+          jede nachträgliche Anpassung. Das Ergebnis erscheint hier.
+        </p>
+      ) : (
+        <>
+          <div className="kpi-grid">
+            <div className="kpi">
+              <div className="kpi-zahl">{prozent1(daten.modell.treffer)}</div>
+              <div className="kpi-label">der Gänge {daten.saison} richtig vorhergesagt</div>
+              <div className="kpi-sub">
+                {daten.konfidenz &&
+                  `95 %-Bereich ${prozent1(daten.konfidenz.accuracy[0])}–${prozent1(daten.konfidenz.accuracy[1])}`}
+                {auswahl && ` · ${auswahl.saison}: ${prozent1(auswahl.treffer)}`}
+              </div>
+            </div>
+            <div className="kpi">
+              <div className="kpi-zahl">{daten.modell.log_loss.toFixed(3)}</div>
+              <div className="kpi-label">Log-Loss (tiefer = besser)</div>
+              <div className="kpi-sub">
+                {daten.elo_angepasst && `Elo angepasst ${daten.elo_angepasst.log_loss.toFixed(3)}`}
+                {auswahl && ` · ${auswahl.saison}: ${auswahl.log_loss.toFixed(3)}`}
+              </div>
+            </div>
+            <div className="kpi">
+              <div className="kpi-zahl">{zahl(daten.n ?? 0)}</div>
+              <div className="kpi-label">
+                Gänge an {daten.n_feste} {daten.n_feste === 1 ? "Fest" : "Festen"}
+              </div>
+              <div className="kpi-sub">
+                {daten.bis && `bis ${datumKurz(daten.bis)}`}
+                {(daten.n_feste ?? 0) < HAERTETEST_WENIG_FESTE && " · noch wenig Daten"}
+              </div>
+            </div>
+          </div>
+          <p className="muted small">
+            Gleich gut wie {auswahl?.saison ?? "in der Auswahl-Saison"} heisst: Die Kennzahlen oben
+            waren nicht geschönt. Deutlich schlechter hiesse: Die Auswahl hat zu den Prüfsaisons
+            gepasst, nicht zum Schwingen.
+          </p>
+        </>
+      )}
+      {technik}
     </div>
   );
 }
