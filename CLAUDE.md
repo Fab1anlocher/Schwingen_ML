@@ -79,10 +79,9 @@ Benchmark → Clustering → Export.
    `git checkout -- artifacts web/public/data web/data` (neue, noch nicht
    committete Dateien zusätzlich löschen).
    **Härtetest:** `artifacts/haertetest_modell.json` ist das eingefrorene
-   Modell für die nächste Saison (`pipeline/haertetest.py`). Nie ändern; ein
-   Test prüft die Prüfsumme. Eingefroren wird nur über den Workflow-Schalter
-   `haertetest_einfrieren`. Ändert sich danach Rating- oder Merkmalscode,
-   meldet die Wache das (die Referenzgänge ergeben andere Prognosen).
+   Modell für die nächste Saison (`pipeline/haertetest.py`). Nie von Hand
+   ändern; ein Test prüft die Prüfsumme. Eingefroren wird nur über den
+   Workflow-Schalter `haertetest_einfrieren` (s. Abschnitt Härtetest).
 5. **Datenwerte sind ASCII-Schlüssel** (`Suedwestschweiz`, `eidgenoessisch`,
    `koenig`). Angezeigt wird nur über `lib/labels.ts`.
 6. **Gemessen statt geschätzt kennzeichnen.** Geschätzte Werte haben eigene
@@ -130,13 +129,20 @@ Ergebnisse des Pipeline-Laufs stehen in
 ## Härtetest (eingefroren)
 
 Das Modell für die Prüfsaison 2027 ist eingefroren
-(`artifacts/haertetest_modell.json` mit Prüfsumme). **Nie neu einfrieren
-oder von Hand ändern**: der Test ist nur ehrlich, solange das Modell vor
-der Saison feststand. Die Wache in `haertetest.py` meldet, wenn sich
-Modell oder Eingaben ändern. Eine neue `MERKMAL_VERSION` fängt die Pipeline
-ab (sie rechnet das eingefrorene Modell nach dessen eigener Version); ein
-neues Rating (`RATING_VERSION`) verändert die Eingaben dagegen bis 2027
-sichtbar, der Test wäre dann nicht mehr sauber.
+(`artifacts/haertetest_modell.json` mit Prüfsumme). Der Test ist nur
+ehrlich, solange das Modell vor der Saison feststand. Darum gilt:
+
+- **Neu einfrieren** (Schalter `haertetest_einfrieren`) geht nur, solange
+  die Prüfsaison keinen einzigen Gang hat; danach bricht `einfrieren` ab.
+  Der Vorgänger bleibt in `vorgaenger` stehen und die Analyse-Seite zeigt
+  ihn. Anlass ist eine Korrektur der Daten oder des Ratings vor der Saison
+  (so am 05.10.2026 nach D4), nie ein besseres Ergebnis.
+- Die Wache in `haertetest.py` meldet, wenn sich Modell oder Eingaben
+  ändern. Eine neue `MERKMAL_VERSION` fängt die Pipeline ab (sie rechnet
+  das eingefrorene Modell nach dessen eigener Version); ein neues Rating
+  (`RATING_VERSION`) oder eine Datenkorrektur verändert die Eingaben dagegen
+  sichtbar. Während der Prüfsaison heisst das: nicht ändern, sonst ist der
+  Test nicht mehr sauber.
 
 ## Fachwissen Schwingen (für Plausibilitätsprüfungen)
 

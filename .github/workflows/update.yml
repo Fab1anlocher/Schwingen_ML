@@ -15,7 +15,7 @@ on:
         type: boolean
         default: false
       haertetest_einfrieren:
-        description: "Ausgeliefertes Modell für den Härtetest der nächsten Saison einfrieren (einmalig, s. pipeline/haertetest.py)"
+        description: "Ausgeliefertes Modell für den Härtetest der nächsten Saison einfrieren (ersetzt ein vorhandenes nur, solange die Prüfsaison keinen Gang hat; s. pipeline/haertetest.py)"
         type: boolean
         default: false
 

@@ -374,11 +374,13 @@ def _haertetest(X, y, meta, gaenge, snapshots, schwinger, *, einfrieren: bool) -
 
     pfad = config.ARTIFACTS_DIR / haertetest.DATEINAME
     if einfrieren:
-        if pfad.exists():
-            raise RuntimeError(f"{pfad.name} existiert schon -- ein Härtetest-Modell wird nur "
-                               "einmal eingefroren. Für eine neue Saison zuerst bewusst entfernen.")
+        # Ein vorhandenes Modell wird ersetzt -- aber nur, solange die
+        # Prüfsaison noch keinen Gang hat (einfrieren bricht sonst ab). Der
+        # Vorgänger bleibt in "vorgaenger" stehen (z.B. Datenkorrektur D4).
+        alt = json.loads(pfad.read_text(encoding="utf-8")) if pfad.exists() else None
         modell = json.loads((config.ARTIFACTS_DIR / "model.json").read_text(encoding="utf-8"))
-        obj = haertetest.einfrieren(modell, X, meta, code_commit=os.environ.get("GITHUB_SHA"))
+        obj = haertetest.einfrieren(modell, X, meta, code_commit=os.environ.get("GITHUB_SHA"),
+                                    vorgaenger=alt)
         pfad.write_text(json.dumps(obj, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
         print(f"      Härtetest: Modell für {obj['saison']} eingefroren, Prüfsumme "
               f"{obj['pruefsumme'][:12]}, {len(obj['referenz'])} Referenzgänge", flush=True)

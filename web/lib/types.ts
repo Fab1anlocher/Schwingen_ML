@@ -379,6 +379,8 @@ export interface HaertetestArtifact {
   code_commit?: string | null;
   pruefsumme?: string;
   merkmal_version?: number;
+  /** Ersetzte Einfrierungen (nur vor der Prüfsaison möglich), älteste zuerst. */
+  vorgaenger?: { eingefroren_am: string; pruefsumme: string; code_commit: string | null }[];
   wache?: {
     modell_unveraendert: boolean;
     eingaben_unveraendert: boolean;

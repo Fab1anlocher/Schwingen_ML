@@ -151,8 +151,9 @@ Versioniert werden nur die kompakten, abgeleiteten Artefakte.
 
 `.github/workflows/update.yml` läuft täglich um 04:00 UTC (und per
 `workflow_dispatch` auf jedem Branch; der Schalter `haertetest_einfrieren`
-friert einmalig das ausgelieferte Modell für den Härtetest der nächsten
-Saison ein, s. `pipeline/haertetest.py`):
+friert das ausgelieferte Modell für den Härtetest der nächsten Saison ein,
+neu einfrieren nur, solange diese Saison noch keinen Gang hat, s.
+`pipeline/haertetest.py`):
 
 1. **Rohdaten-Cache laden** (`actions/cache`) — trägt die Historie über Läufe.
 2. **`pipeline.fetch_raw --seit-datum auto`** — holt Feste ab dem jüngsten
