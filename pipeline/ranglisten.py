@@ -76,7 +76,8 @@ def namensaufloesung(finde, schwinger: dict | None = None):
 
 def teilnahmen_aus_ranglisten(ranglisten: dict, events: dict, finde,
                               schwinger: dict | None = None, *,
-                              zuordnung: dict | None = None) -> tuple[list[Teilnahme], dict]:
+                              zuordnung: dict | None = None,
+                              block: dict | None = None) -> tuple[list[Teilnahme], dict]:
     """Rohe Ranglisten -> Teilnahmen mit aufgelöster Schwinger-ID.
 
     ``events``: event_id -> Event (nur bekannte Feste zählen).
@@ -84,9 +85,14 @@ def teilnahmen_aus_ranglisten(ranglisten: dict, events: dict, finde,
     ``schwinger``: für die Auflösung über den Jahrgang (s. namensaufloesung).
     ``zuordnung``: (Fest, Namens-Tokens) -> ID eines Namensvetters (s.
     namensvettern.py) -- hat Vorrang vor der Auflösung über den Namen.
+    ``block``: (Fest, Namens-Tokens, Punkte) -> ID, wo Gleichnamige am
+    selben Fest antraten (namensvettern.trenne_nach_herkunft).
     """
+    from .namensvettern import _punkte
+
     finde = namensaufloesung(finde, schwinger)
     zuordnung = zuordnung or {}
+    block = block or {}
     teilnahmen: list[Teilnahme] = []
     unaufloesbar: Counter = Counter()
     n_feste = n_fehler = 0
@@ -100,7 +106,9 @@ def teilnahmen_aus_ranglisten(ranglisten: dict, events: dict, finde,
         n_feste += 1
         for e in eintrag.get("eintraege", []):
             m = _JAHRGANG_RE.match(e["name"].strip())
-            sid = zuordnung.get((eid, namens_tokens(m.group(1) if m else e["name"]))) or finde(e["name"])
+            tokens = namens_tokens(m.group(1) if m else e["name"])
+            sid = (block.get((eid, tokens, _punkte(e.get("punkte"))))
+                   or zuordnung.get((eid, tokens)) or finde(e["name"]))
             if sid is None:
                 unaufloesbar[e["name"]] += 1
                 continue

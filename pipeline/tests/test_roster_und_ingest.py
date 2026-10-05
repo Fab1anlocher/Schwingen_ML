@@ -218,3 +218,50 @@ class TestBlaetternAbbruch:
         )
         events = sr.scrape_events(seit_datum="2023-01-01", page_size=50)
         assert len(events) == 50 * sr.MAX_SEITEN   # hart begrenzt, kein Endlosloop
+
+
+class TestNamensvetternAmSelbenFest:
+    """Roadmap D5: Zwei "Alex Schuler" am selben Fest -- der eigene Block über
+    das Punktetotal, die Gegnerzeilen über die Gegnerliste des Blocks."""
+
+    @pytest.fixture
+    def raw(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(scrape, "RAW_DIR", tmp_path)
+        def schreibe(name, obj):
+            (tmp_path / name).write_text(json.dumps(obj, ensure_ascii=False), encoding="utf-8")
+        return schreibe
+
+    def test_gaenge_landen_beim_richtigen_namensvetter(self, raw):
+        def g(a, b, sym, note, total):
+            return {**_gang("schlussgang-1", a, b, sym, note), "punktetotal": total}
+        raw("schwinger.json", {"schwinger": [
+            {"id": "schuler", "name": "Alex Schuler", "jahrgang": 1998, "schwingklub": "am Mythen",
+             "quellen": ["schlussgang.ch/portraet"]},
+            {"id": "b", "name": "Beat Muster"}, {"id": "c", "name": "Carl Kunz"},
+            {"id": "d", "name": "Dan Huber"}, {"id": "e", "name": "Eva Meier"}]})
+        raw("events.json", {"events": [
+            {"id": "schlussgang-1", "name": "Fest", "datum": "2026-05-01", "typ": "kantonal"},
+            {"id": "schlussgang-2", "name": "Fest 2", "datum": "2026-05-08", "typ": "regional"}]})
+        raw("ranglisten.json", {"ranglisten": {
+            "schlussgang-1": {"eintraege": [
+                {"name": "Schuler Alex", "schwingklub": "am Mythen", "wohnort": "Rothenthurm", "punkte": 19.75},
+                {"name": "Schuler Alex", "schwingklub": "Einsiedeln", "wohnort": "Rothenthurm", "punkte": 18.5}]},
+            "schlussgang-2": {"eintraege": [
+                {"name": "Schuler Alex", "schwingklub": "Einsiedeln", "wohnort": "Rothenthurm", "punkte": 9.75}]}}})
+        raw("gaenge.json", {"gaenge": [
+            # Block am Mythen (19.75) und Block Einsiedeln (18.50), dazu die Gegner-Seiten.
+            g("Schuler Alex", "Muster Beat", "+", 10.0, 19.75), g("Schuler Alex", "Kunz Carl", "+", 9.75, 19.75),
+            g("Schuler Alex", "Huber Dan", "+", 10.0, 18.5), g("Schuler Alex", "Meier Eva", "o", 8.5, 18.5),
+            g("Muster Beat", "Schuler Alex", "o", 8.5, 8.5), g("Kunz Carl", "Schuler Alex", "o", 8.75, 8.75),
+            g("Huber Dan", "Schuler Alex", "o", 8.5, 8.5), g("Meier Eva", "Schuler Alex", "+", 10.0, 10.0),
+        ]})
+        from pipeline.labels import dedupliziere
+        _, _, roh, bericht = lade_echte_daten(mit_bericht=True)
+        gaenge, warnungen = dedupliziere(roh)
+        vetter = [k for k in {r.schwinger_id for r in roh} if k.endswith("|einsiedeln")]
+        assert len(vetter) == 1
+        paare = {frozenset((x.schwinger_a_id, x.schwinger_b_id)) for x in gaenge}
+        assert paare == {frozenset(p) for p in [("schuler", "b"), ("schuler", "c"),
+                                                 (vetter[0], "d"), (vetter[0], "e")]}
+        assert not [w for w in warnungen if "nur eine Perspektive" in w]
+        assert bericht.namensvettern["herkunft"]["personen_getrennt"] == 1

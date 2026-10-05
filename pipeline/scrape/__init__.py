@@ -159,18 +159,49 @@ def _lade_events(raw_e: list[dict], bericht: IngestBericht) -> list[Event]:
 def _namensvettern(raw_s: list[dict], events: list[Event]):
     """Namensvettern aus den Ranglisten trennen (s. namensvettern.py).
 
-    Rückgabe: (Zuordnung (Fest, Namens-Tokens) -> ID, neue Roh-Einträge, Bericht).
-    Ohne Ranglisten im Cache: nichts zu trennen.
+    Rückgabe: (Zuordnung (Fest, Namens-Tokens) -> ID, neue Roh-Einträge,
+    Bericht, Block-Zuordnung (Fest, Namens-Tokens, Punkte) -> ID für Feste,
+    an denen Gleichnamige zusammen antraten). Ohne Ranglisten: nichts.
     """
-    from ..namensvettern import trenne_namensvettern
+    from ..namensvettern import trenne_nach_herkunft, trenne_namensvettern
 
     roh = _lade_raw_json("ranglisten.json", {"ranglisten": {}}).get("ranglisten", {})
     if not roh:
-        return {}, [], {}
+        return {}, [], {}, {}
     index = baue_namensindex(raw_s)
-    zuordnung, neue, bericht = trenne_namensvettern(
-        roh, {e.id: e for e in events}, index.finde, _lade_schwinger(raw_s))
-    return zuordnung, list(neue.values()), bericht
+    feste = {e.id: e for e in events}
+    schwinger = _lade_schwinger(raw_s)
+    zuordnung, neue, bericht = trenne_namensvettern(roh, feste, index.finde, schwinger)
+    zuordnung, neue, block, bericht["herkunft"] = trenne_nach_herkunft(
+        roh, feste, index.finde, schwinger, zuordnung, neue)
+    return zuordnung, list(neue.values()), bericht, block
+
+
+def _block_aufloesung(raw_g: list[dict], block: dict):
+    """Gleichnamige am selben Fest: Block (Punktetotal) und Gegnerzeilen -> ID.
+
+    Der eigene Block eines Schwingers trägt sein Punktetotal, das die
+    Rangliste mit Klub nennt (Block-Zuordnung). Die Zeile eines Gegners X
+    ("o Schuler Alex") gehört dem Gleichnamigen, in dessen Block X steht.
+    Rückgabe: (mehrfach: {(Fest, Tokens)}, eigen(Fest, Tokens, Total) -> ID,
+    gegner(Fest, Tokens, Gegner-Tokens) -> ID).
+    """
+    from ..namensvettern import _punkte
+
+    mehrfach = {k[:2] for k in block}
+    gegner: dict[tuple, str | None] = {}
+    for r in raw_g:
+        eid = str(r.get("event_id") or "")
+        st = namens_tokens(str(r.get("schwinger_name") or ""))
+        if (eid, st) not in mehrfach:
+            continue
+        sid = block.get((eid, st, _punkte(r.get("punktetotal"))))
+        if sid is None:
+            continue
+        schluessel = (eid, st, namens_tokens(str(r.get("gegner_name") or "")))
+        # Beide Gleichnamigen gegen denselben Gegner: nicht entscheidbar.
+        gegner[schluessel] = sid if gegner.get(schluessel, sid) == sid else None
+    return mehrfach, gegner
 
 
 def _finde_mit_vettern(index, zuordnung: dict):
@@ -197,11 +228,13 @@ def lade_echte_daten(*, mit_bericht: bool = False):
     bericht.punktetotal = punktetotal_pruefung(raw_g)
     events = _lade_events(raw_e, bericht)
     gueltige_events = {e.id for e in events}
-    zuordnung, vettern, bericht.namensvettern = _namensvettern(raw_s, events)
+    zuordnung, vettern, bericht.namensvettern, block = _namensvettern(raw_s, events)
     schwinger = _lade_schwinger(raw_s + vettern)
     bericht.n_schwinger = len(schwinger)
 
     finde = _finde_mit_vettern(baue_namensindex(raw_s), zuordnung)
+    mehrfach, gegner_block = _block_aufloesung(raw_g, block)
+    from ..namensvettern import _punkte
     unaufloesbar: Counter = Counter()
 
     roh: list[RohGangEintrag] = []
@@ -218,12 +251,18 @@ def lade_echte_daten(*, mit_bericht: bool = False):
 
         sid = str(r.get("schwinger_id") or "") or None
         gid = str(r.get("gegner_id") or "") or None
+        st = namens_tokens(str(r.get("schwinger_name") or ""))
+        gt = namens_tokens(str(r.get("gegner_name") or ""))
         if not sid and r.get("schwinger_name"):
-            sid = finde(event_id, str(r["schwinger_name"]))
+            if (event_id, st) in mehrfach:
+                sid = block.get((event_id, st, _punkte(r.get("punktetotal"))))
+            sid = sid or finde(event_id, str(r["schwinger_name"]))
             if sid is None:
                 unaufloesbar[str(r["schwinger_name"])] += 1
         if not gid and r.get("gegner_name"):
-            gid = finde(event_id, str(r["gegner_name"]))
+            if (event_id, gt) in mehrfach:
+                gid = gegner_block.get((event_id, gt, st))
+            gid = gid or finde(event_id, str(r["gegner_name"]))
             if gid is None:
                 unaufloesbar[str(r["gegner_name"])] += 1
         if not sid or not gid:
@@ -283,9 +322,10 @@ def lade_teilnahmen(events: list[Event]):
     roh = _lade_raw_json("ranglisten.json", {"ranglisten": {}}).get("ranglisten", {})
     raw_s = _lade_raw_json("schwinger.json", {"schwinger": []}).get("schwinger", [])
     index = baue_namensindex(raw_s)
-    zuordnung, vettern, _ = _namensvettern(raw_s, events)
+    zuordnung, vettern, _, block = _namensvettern(raw_s, events)
     return teilnahmen_aus_ranglisten(roh, {e.id: e for e in events}, index.finde,
-                                     _lade_schwinger(raw_s + vettern), zuordnung=zuordnung)
+                                     _lade_schwinger(raw_s + vettern), zuordnung=zuordnung,
+                                     block=block)
 
 
 def lade_kommende_feste(*, heute=None):
