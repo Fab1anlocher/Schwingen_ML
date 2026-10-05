@@ -14,6 +14,7 @@ from itertools import groupby
 
 from .config import (
     ELO_START, ELO_K, ELO_DRAW_WIDTH, FEST_K_GEWICHT,
+    ELO_NEULING_BOOST, ELO_NEULING_N0, ELO_PLATTWURF_FAKTOR,
     ELO_STREUUNG_AKTIV_TAGE, ELO_STREUUNG_MIN_AKTIVE,
     ELO_STREUUNG_ERSATZ, ELO_STREUUNG_UNTERGRENZE,
 )
@@ -24,6 +25,11 @@ from .labels import GangResultat
 class EloModell:
     k: float = ELO_K
     draw_width: float = ELO_DRAW_WIDTH
+    # Neulings-Bonus: K eines Schwingers = k * (1 + boost * n0 / (n0 + Gänge)),
+    # s. config.ELO_NEULING_BOOST. 0 = für alle dasselbe K (bis 05.10.2026).
+    neuling_boost: float = ELO_NEULING_BOOST
+    neuling_n0: float = ELO_NEULING_N0
+    plattwurf_faktor: float = ELO_PLATTWURF_FAKTOR
     ratings: dict[str, float] = field(default_factory=dict)
     gaenge_gezaehlt: dict[str, int] = field(default_factory=dict)
     # Datum (ISO) des letzten Gangs je Schwinger -- für die Streuung der
@@ -69,10 +75,19 @@ class EloModell:
         else:
             s_a = 0.0
         k = self.k * self.fest_gewicht.get(gang.fest_typ, 0.6)
-        self.ratings[a] = ra + k * (s_a - e_a)
-        self.ratings[b] = rb + k * ((1.0 - s_a) - (1.0 - e_a))
-        self.gaenge_gezaehlt[a] = self.gaenge_gezaehlt.get(a, 0) + 1
-        self.gaenge_gezaehlt[b] = self.gaenge_gezaehlt.get(b, 0) + 1
+        if self.plattwurf_faktor != 1.0:
+            note_sieger = gang.note_a if s_a == 1.0 else gang.note_b if s_a == 0.0 else None
+            if note_sieger is not None and note_sieger >= 10.0:
+                k *= self.plattwurf_faktor
+        na, nb = self.gaenge_gezaehlt.get(a, 0), self.gaenge_gezaehlt.get(b, 0)
+        # Je Schwinger eigenes K: ein Neuling bewegt sich stark, sein Gegner
+        # mit vielen Gängen kaum (nicht mehr nullsummig, wie bei Glicko).
+        ka = k * (1.0 + self.neuling_boost * self.neuling_n0 / (self.neuling_n0 + na))
+        kb = k * (1.0 + self.neuling_boost * self.neuling_n0 / (self.neuling_n0 + nb))
+        self.ratings[a] = ra + ka * (s_a - e_a)
+        self.ratings[b] = rb + kb * ((1.0 - s_a) - (1.0 - e_a))
+        self.gaenge_gezaehlt[a] = na + 1
+        self.gaenge_gezaehlt[b] = nb + 1
         self.letzter_gang[a] = gang.datum
         self.letzter_gang[b] = gang.datum
 
