@@ -70,6 +70,20 @@ def test_einfrieren_und_warten():
     assert res["wache"]["warnung"] is None
 
 
+def test_ersetzen_vor_der_pruefsaison_fuehrt_den_vorgaenger_mit():
+    """Nach einer Datenkorrektur darf neu eingefroren werden, solange die
+    Prüfsaison keinen Gang hat -- der Vorgänger bleibt sichtbar."""
+    X, y, meta = _daten()
+    erst = haertetest.einfrieren(_modell(X, y, meta), X, meta, saison=2027, code_commit="aaa")
+    assert erst["vorgaenger"] == []
+    zweit = haertetest.einfrieren(_modell(X[::-1], y[::-1], meta[::-1]), X, meta, saison=2027,
+                                  code_commit="bbb", vorgaenger=erst)
+    dritt = haertetest.einfrieren(_modell(X, y, meta), X, meta, saison=2027, vorgaenger=zweit)
+    assert [v["code_commit"] for v in dritt["vorgaenger"]] == ["aaa", "bbb"]
+    assert dritt["vorgaenger"][0]["pruefsumme"] == erst["pruefsumme"]
+    assert haertetest.auswerten(dritt, X, y, meta)["vorgaenger"] == dritt["vorgaenger"]
+
+
 def test_einfrieren_zu_spaet_bricht_ab():
     X, y, meta = _daten(jahre=(2026, 2027))
     with pytest.raises(RuntimeError, match="zu spät"):

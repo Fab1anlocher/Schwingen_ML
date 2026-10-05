@@ -151,8 +151,9 @@ Versioniert werden nur die kompakten, abgeleiteten Artefakte.
 
 `.github/workflows/update.yml` läuft täglich um 04:00 UTC (und per
 `workflow_dispatch` auf jedem Branch; der Schalter `haertetest_einfrieren`
-friert einmalig das ausgelieferte Modell für den Härtetest der nächsten
-Saison ein, s. `pipeline/haertetest.py`):
+friert das ausgelieferte Modell für den Härtetest der nächsten Saison ein,
+neu einfrieren nur, solange diese Saison noch keinen Gang hat, s.
+`pipeline/haertetest.py`):
 
 1. **Rohdaten-Cache laden** (`actions/cache`) — trägt die Historie über Läufe.
 2. **`pipeline.fetch_raw --seit-datum auto`** — holt Feste ab dem jüngsten
@@ -320,10 +321,10 @@ Datenqualitätsbericht nicht auf.
 
 **Stand 05.10.2026** (Merkmalsversion 3, Rating-Version 2, zweistufiges
 Gradient Boosting, Test = Saison 2026, 37'747 Gänge, die das Modell nie
-gesehen hat): Log-Loss **0.6949** (Logistic Regression: 0.7067, Elo-Formel
-0.8078), Accuracy **69.8 %** (95 %-Bereich über die Feste 69.1–70.6 %, Elo
-65.9 %), Gestellt 20.7 % vorhergesagt bei 21.0 % eingetreten,
-Kalibrierungsfehler 0.7 Prozentpunkte. Die aktuellen Zahlen
+gesehen hat): Log-Loss **0.6935** (Logistic Regression: 0.7053, Elo-Formel
+0.8085), Accuracy **70.0 %** (95 %-Bereich über die Feste 69.2–70.7 %, Elo
+66.0 %), Gestellt 20.5 % vorhergesagt bei 21.0 % eingetreten,
+Kalibrierungsfehler 0.8 Prozentpunkte. Die aktuellen Zahlen
 stehen immer in `artifacts/report.json` und auf der Analyse-Seite, ihr
 Verlauf in `artifacts/report_verlauf.json`.
 
@@ -522,8 +523,8 @@ frühere, vor der mindestens eine halbe eingeschwungene Saison liegt (heute
 
 | Saison | Gänge | Treffer | Elo | P(tatsächlicher Ausgang) |
 |---|---:|---:|---:|---:|
-| 2025 | 37'159 | 68.8 % | 64.8 % | 58.3 % |
-| 2026 | 37'747 | 69.8 % | 65.9 % | 59.6 % |
+| 2025 | 37'159 | 68.9 % | 64.8 % | 58.7 % |
+| 2026 | 37'747 | 70.0 % | 66.0 % | 59.9 % |
 
 Kantonal- und Teilverbandsfeste liegen meist bei 68–75 %, Bergfeste und das
 Eidgenössische deutlich tiefer (58–62 %): dort treffen mehr Spitzenschwinger

@@ -20,6 +20,8 @@ on:
           - festtag
           - historie
           - rating_noten
+          - paarung
+          - vettern
         default: noten
 
 permissions:

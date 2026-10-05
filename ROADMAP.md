@@ -36,6 +36,8 @@ Modell, das auch die laufende Saison gesehen hat.
 | M3 | Heimvorteil (Fest des eigenen Verbands gegen Gäste) | +0.022 Punkte je Gästegang (2.6 SE) | ½ Tag | 5 |
 | ✅ M4 | Schnelleres Rating, Neulinge bewegen sich stärker (Glicko-artig) | Val 0.7394 → 0.7154, Test 0.7197 → 0.6947; Treffer 67.8 → 68.9 % / 69.0 → 70.0 % — **erledigt** | 1–2 Tage | ~~5~~ |
 | ✅ F5 | Saisonrückblick (`/rueckblick`) | Aufsteiger, Kränze, Überraschungen, Kranzfeste je Saison — **erledigt** | 1 Tag | ~~–~~ |
+| ✅ D4 | Niederlage „0" in den PDFs bis Anfang 2024 richtig lesen | einseitige Gänge 15.7 % → 0.16 %, Gestellt 2023 28.5 % → 20.6 %, Test 0.6949 → 0.6935 — **erledigt** | ½ Tag | ~~1~~ |
+| D5 | Namensvettern im selben Teilverband trennen (Wohnort/Klub, Punktetotal) | betrifft u. a. Alex Schuler, Marcel Stucki, Ramon Betschart | 1 Tag | **1** |
 | F2 | Elo-Verlauf im Schwinger-Profil | Produkt | 1 Tag | 5 |
 | F3 | Vorschaubild für geteilte Prognose-Links | Produkt | ½ Tag | 6 |
 | T2 | Frontend-Tests + Browser-Smoke-Test in der CI | Sicherheit | 1 Tag | 6 |
@@ -354,40 +356,50 @@ Einzelprognose sind. 74 % vor dem Fest würde fast diese Obergrenze
 verlangen. Mehr Treffer bringen nur neue Information (z.B. Tagesform,
 Verletzungen, Einteilung), keine weitere Modellfeinheit.
 
-## D4 — Gänge 2023 falsch gepaart (offen, gefunden 05.10.2026)
+## ✅ D4 — Niederlage als „0": Gänge bis Anfang 2024 falsch gepaart (erledigt 05.10.2026)
 
-2023 endet laut Daten 28.5 % der Gänge gestellt, 2024–2026 nur 21–22 %,
-durch alle Festtypen und steigend im Lauf der Saison (April 21 %,
-Juli–September 31 %). Die Ursache zeigt die Zahl der Gänge je Schwinger
-und Fest (normal 6, im Ausstich höchstens 8):
+**Befund.** 2023 endeten laut Daten 28.5 % der Gänge gestellt (2024–2026
+21–22 %), 13.9 % der Auftritte hatten mehr als 8 Gänge an einem Fest, 81 %
+der Gänge 2023 waren nur aus einer Perspektive belegt.
 
-| Saison | Auftritte mit mehr als 8 Gängen | betroffene Feste |
+**Ursache** (Messung `paarung`): Die Statistik-PDFs bis Anfang 2024
+schreiben die Niederlage als Ziffer **„0"** statt als Buchstabe „o". Das
+Rang-Muster des Parsers (`\d+`) hielt „0 Zurfluh Roman 8.50" für eine
+Kopfzeile: Jede Niederlage eröffnete einen Block auf den Namen des Gegners,
+und die folgenden Gänge hingen an ihm. Der Cache enthält nur die damals
+geparsten Einträge, darum lebte der Fehler weiter, obwohl ab 2024 „o"
+steht.
+
+**Fix.** Ein Rang beginnt nie mit 0, „0" wird als „o" gelesen
+(`schlussgang_pdf.py`); voller Neu-Abruf aller Feste ab 2023. Jeder
+Roh-Eintrag trägt jetzt das Punktetotal seines Blocks, und
+`scrape.punktetotal_pruefung` prüft beim Einlesen Notensumme == Total; der
+Datenqualitätsbericht warnt ab 2 % Abweichung (je Jahr ausgewiesen). Ein
+solcher Formatwechsel fällt so am nächsten Tag auf statt nach drei Jahren.
+
+| | vorher | nachher |
 |---|---:|---:|
-| 2023 | 1'141 von 8'231 (13.9 %) | 72 von 81 |
-| 2024 | 36 (0.3 %) | 18 von 130 |
-| 2025 | 43 (0.3 %) | 20 von 137 |
-| 2026 | 14 (0.1 %) | 12 von 137 |
+| Gänge nur einseitig belegt | 15.7 % | 0.16 % |
+| Blöcke mit Notensumme ≠ Punktetotal | – | 11 von 45'920 |
+| 2023: Gänge / gestellt / Auftritte > 8 Gänge | 25'512 / 28.5 % / 13.9 % | 23'364 / 20.6 % / 0.17 % |
+| Test 2026: Log-Loss / Treffer | 0.6949 / 69.8 % | 0.6935 / 70.0 % |
+| Prognose-Check 2025 / 2026 | 68.8 % / 69.8 % | 68.9 % / 70.0 % |
 
-2023 hat z.B. Damian Ott am Zürcher Kantonalen 13 Gänge, alle gegen
-verschiedene Gegner. Die Statistik-PDFs 2023 werden also anders gepaart
-als ab 2024 (Format oder Gegner-Zuordnung), und dabei entstehen Gänge,
-die es nie gab. Ab 2024 sind es Einzelfälle von Namensvettern, die
-`namensvettern.py` nicht trennt (z.B. Ramon Betschart 2026: 132 Gänge,
-10 an einem Fest, zwei Feste am selben Tag).
+Das Härtetest-Modell wurde danach (vor dem ersten Gang 2027) neu
+eingefroren; der Vorgänger steht in `vorgaenger`.
 
-Gemessen (Harness, Training einheitlich ab 1.4.2024), LL / Treffer:
+## D5 — Namensvettern im selben Teilverband (offen, gefunden 05.10.2026)
 
-| Einschwing-Historie | Val 2025 | Test 2026 |
-|---|---|---|
-| alle Gänge (heute) | 0.7154 / 68.9 % | 0.6947 / 70.0 % |
-| ohne 2023 | 0.7269 / 68.3 % | 0.6966 / 70.0 % |
-| 2023 ohne Auftritte mit > 8 Gängen | 0.7171 / 68.7 % | 0.6949 / 69.9 % |
-
-Weglassen schadet: Auch die verrauschte Historie trägt Information über
-die Stärke. Die Folgen sind heute gering (2023 dient nur dem Einschwingen,
-Training ab 1.4.2024, fehlt im Saisonrückblick). Richtig wäre, die Paarung
-der PDFs 2023 zu reparieren: auf den Rohdaten prüfen (Messung), wie die
-PDFs 2023 Gegner und Gangfolge angeben.
+Die Trennung (`namensvettern.py`) greift nur über verschiedene
+Teilverbände und nur für Schwinger mit Porträt. Messung `vettern`: Alex
+Schuler sind zwei Personen aus Rothenthurm (Klub am Mythen, Eidgenosse
+`***`, und Klub Einsiedeln, `*`), oft am selben Fest; ebenso Marcel Stucki
+(Siehen / Zäziwil), Simon Röthlisberger (drei Klubs), Ramon Betschart
+(Muotathal / Mittel-Rheintal, ohne Trennung, weil das Porträt keinen
+belegten Verband hat), Adrian Meier (ohne Porträt). Idee: Personen über
+Wohnort + Klub der Rangliste unterscheiden (zwei Herkünfte am selben Fest
+oder Tag = zwei Personen); am selben Fest die Blöcke über Punktetotal ==
+Rangliste-Punkte zuordnen, die Gegnerzeilen über die Gegnerliste des Blocks.
 
 ## F2 / F3 / T2 / T3 — Produkt und Technik
 

@@ -23,8 +23,15 @@ from typing import Iterable
 # Feste Spalten-x-Positionen des Tabellen-Templates (Punkte, aus PDF-Wortkoordinaten).
 _SPALTEN = [(0.0, 200.0), (200.0, 380.0), (380.0, 600.0)]
 
-_RANG_RE = re.compile(r"^\d+[a-z]?$")
-_SYMBOL_RE = re.compile(r"^[+\-o]$")
+# Ein Rang beginnt nie mit 0 (Roadmap D4): Die Statistik-PDFs bis Anfang 2024
+# schreiben die Niederlage als Ziffer "0" statt als Buchstabe "o". Mit dem
+# früheren Muster (\d+) war jede Niederlage eine Kopfzeile: Sie eröffnete
+# einen Block auf den Namen des Gegners, und die folgenden Gänge landeten bei
+# ihm. 2023 waren so 81 % der Gänge nur einseitig belegt, Spitzenschwinger
+# hatten bis 19 "Gänge" an einem Fest, die Gestellt-Quote lag bei 28 %.
+_RANG_RE = re.compile(r"^[1-9]\d*[a-z]?$")
+_SYMBOL_RE = re.compile(r"^[+\-o0]$")
+_SYMBOL_NORMAL = {"0": "o"}
 _NOTE_RE = re.compile(r"^\d{1,2}\.\d{2}$")
 # STATUSABZEICHEN des Schwingers in der Kopfzeile -- NICHT ein Kranzgewinn
 # an diesem Fest. Dieselbe Bedeutung wie field_portrait_wreath_status im
@@ -183,7 +190,8 @@ def tabellen_bloecke(pages_words: Iterable[list[dict]]) -> list[dict]:
                 if not gegner_name:
                     continue
                 aktuell["gaenge"].append(
-                    {"symbol": erstes, "gegner_name": gegner_name, "note": note}
+                    {"symbol": _SYMBOL_NORMAL.get(erstes, erstes),
+                     "gegner_name": gegner_name, "note": note}
                 )
         if aktuell is not None:
             bloecke.append(aktuell)
@@ -213,6 +221,9 @@ def parse_pdf_bytes(
                     "symbol": gang["symbol"],
                     "note": gang["note"],
                     "status_abzeichen": block["status_abzeichen"],
+                    # Für die Gegenprobe beim Einlesen: Summe der Noten des
+                    # Blocks == Punktetotal (s. scrape.punktetotal_pruefung).
+                    "punktetotal": block["total"],
                 }
             )
     return eintraege

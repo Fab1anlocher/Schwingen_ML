@@ -419,6 +419,8 @@ export function Haertetest({
       {daten.pruefsumme && ` · Prüfsumme ${daten.pruefsumme.slice(0, 12)}`}
       {daten.code_commit && ` · Code-Stand ${daten.code_commit.slice(0, 7)}`}
       {daten.merkmal_version && ` · Merkmale v${daten.merkmal_version}`}
+      {daten.vorgaenger && daten.vorgaenger.length > 0 &&
+        ` · ersetzt das am ${daten.vorgaenger.map((v) => datumKurz(v.eingefroren_am)).join(", ")} eingefrorene Modell (vor dem ersten Gang der Saison, nach einer Datenkorrektur)`}
       {wache &&
         ` · Wache: ${ok ? "Modell und Eingaben unverändert" : "Abweichung, s. oben"} (Referenzgänge ${prozent(wache.referenz_gleich)} gleich)`}
     </p>

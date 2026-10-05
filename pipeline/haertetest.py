@@ -128,12 +128,14 @@ def _originale(meta) -> np.ndarray:
 
 
 def einfrieren(modell: dict, X, meta, *, saison: int = PRUEFSAISON, code_commit: str | None = None,
-               jetzt: datetime | None = None) -> dict:
+               jetzt: datetime | None = None, vorgaenger: dict | None = None) -> dict:
     """Das eingefrorene Objekt: Modell, Prüfsumme, Fingerabdruck.
 
     Nur Gänge VOR der Prüfsaison zählen zum Fingerabdruck -- das Modell darf
     die Prüfsaison nicht kennen; liegt schon ein Gang von ihr vor, wird nicht
-    eingefroren.
+    eingefroren. Darum ist auch das Ersetzen eines eingefrorenen Modells
+    (``vorgaenger``) nur bis dahin möglich, etwa nach einer Datenkorrektur;
+    Datum und Prüfsumme jedes Vorgängers bleiben in "vorgaenger" stehen.
     """
     X = np.asarray(X, dtype=float)
     orig = _originale(meta)
@@ -153,7 +155,16 @@ def einfrieren(modell: dict, X, meta, *, saison: int = PRUEFSAISON, code_commit:
         "referenz": [{"gang": _schluessel(meta[i]), "p": [float(v) for v in p[k]]}
                      for k, i in enumerate(idx)],
         "modell": modell,
+        "vorgaenger": _vorgaenger(vorgaenger),
     }
+
+
+def _vorgaenger(alt: dict | None) -> list[dict]:
+    """Kette der ersetzten Einfrierungen, älteste zuerst."""
+    if alt is None:
+        return []
+    return list(alt.get("vorgaenger") or []) + [
+        {k: alt.get(k) for k in ("eingefroren_am", "pruefsumme", "code_commit")}]
 
 
 def _wache(eingefroren: dict, X: np.ndarray, meta) -> dict:
@@ -221,6 +232,7 @@ def auswerten(eingefroren: dict | None, X, y, meta, *, X_version=None) -> dict:
         "code_commit": eingefroren.get("code_commit"),
         "pruefsumme": eingefroren["pruefsumme"],
         "merkmal_version": eingefroren.get("merkmal_version"),
+        "vorgaenger": eingefroren.get("vorgaenger") or [],
         "wache": _wache(eingefroren, Xm, meta),
     }
     jahre = np.array([int(m["datum"][:4]) for m in meta])

@@ -113,3 +113,31 @@ def test_festtag_gangnummer_und_vorherige_punkte():
     assert info["anteil_gleiche_position"] == 1.0
     assert F[0].tolist() == [10.0 - 8.75, 1.0, 2.0]      # vor Gang 2: a 10.00/1 Sieg, b 8.75/0
     assert F[1].tolist() == [8.75 - 10.0, -1.0, 2.0]
+
+
+def test_paarung_kennzahlen_einseitig_und_zu_viele_gaenge():
+    from pipeline.labels import RohGangEintrag
+    from pipeline.messung import paarung_kennzahlen
+
+    def e(eid, datum, s, g, sym):
+        return RohGangEintrag(event_id=eid, datum=datum, schwinger_id=s, gegner_id=g,
+                              symbol=sym, note=None, fest_typ="regional")
+    roh = [e("f1", "2023-05-01", "a", "b", "+"), e("f1", "2023-05-01", "b", "a", "o"),   # beidseitig
+           e("f1", "2023-05-01", "a", "c", "-")]                                          # nur eine Seite
+    roh += [e("f1", "2023-05-01", "a", f"x{i}", "+") for i in range(7)]                   # a: 9 Gänge
+    c = paarung_kennzahlen(roh)["2023"]
+    assert c["ueber8"] == 1 and c["paare"] == 9 and c["einseitig"] == 8
+    assert c["gestellt_einseitig"] == 1 and c["gestellt_zweiseitig"] == 0
+
+
+def test_vettern_verdacht_doppeltage_und_zu_viele_gaenge():
+    from pipeline.labels import RohGangEintrag
+    from pipeline.messung import vettern_verdacht
+
+    def e(eid, datum, s, g):
+        return RohGangEintrag(event_id=eid, datum=datum, schwinger_id=s, gegner_id=g,
+                              symbol="+", note=None, fest_typ="regional")
+    roh = [e("f1", "2026-04-12", "a", "b"), e("f2", "2026-04-12", "a", "c")]   # zwei Feste, ein Tag
+    roh += [e("f3", "2026-05-01", "d", f"x{i}") for i in range(9)]              # 9 Gänge
+    v = vettern_verdacht(roh)
+    assert v["a"]["doppeltage"] == 1 and v["d"]["ueber8"] == 1 and "b" not in v

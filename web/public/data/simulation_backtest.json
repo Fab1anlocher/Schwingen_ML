@@ -5,68 +5,68 @@
   "n_teilnahmen": 5419,
   "n_simulationen": 200,
   "kranz": {
-    "brier_modell": 0.0752,
+    "brier_modell": 0.0751,
     "brier_elo": 0.0764,
     "brier_konstant": 0.1354,
     "kalibrierung": [
       {
         "von": 0.0,
         "bis": 0.05,
-        "n": 2730,
-        "vorhergesagt": 0.008,
-        "eingetreten": 0.0044
+        "n": 2745,
+        "vorhergesagt": 0.0083,
+        "eingetreten": 0.0047
       },
       {
         "von": 0.05,
         "bis": 0.15,
-        "n": 746,
-        "vorhergesagt": 0.091,
-        "eingetreten": 0.0509
+        "n": 738,
+        "vorhergesagt": 0.0913,
+        "eingetreten": 0.0569
       },
       {
         "von": 0.15,
         "bis": 0.3,
-        "n": 604,
-        "vorhergesagt": 0.2201,
-        "eingetreten": 0.1656
+        "n": 581,
+        "vorhergesagt": 0.22,
+        "eingetreten": 0.1497
       },
       {
         "von": 0.3,
         "bis": 0.5,
-        "n": 630,
-        "vorhergesagt": 0.3903,
-        "eingetreten": 0.3698
+        "n": 640,
+        "vorhergesagt": 0.3909,
+        "eingetreten": 0.3609
       },
       {
         "von": 0.5,
         "bis": 0.7,
-        "n": 342,
-        "vorhergesagt": 0.5938,
-        "eingetreten": 0.538
+        "n": 355,
+        "vorhergesagt": 0.5942,
+        "eingetreten": 0.5662
       },
       {
         "von": 0.7,
         "bis": 0.9,
-        "n": 240,
-        "vorhergesagt": 0.7889,
-        "eingetreten": 0.7917
+        "n": 228,
+        "vorhergesagt": 0.7844,
+        "eingetreten": 0.7763
       },
       {
         "von": 0.9,
         "bis": 1.0,
-        "n": 127,
-        "vorhergesagt": 0.9511,
-        "eingetreten": 0.9291
+        "n": 132,
+        "vorhergesagt": 0.9505,
+        "eingetreten": 0.9394
       }
     ]
   },
   "festsieg": {
-    "p_sieger_modell": 0.2591,
-    "p_sieger_elo": 0.2386,
-    "favorit_modell": 0.5263,
+    "p_sieger_modell": 0.2621,
+    "p_sieger_elo": 0.2443,
+    "favorit_modell": 0.4474,
     "favorit_elo": 0.5263,
-    "top3_modell": 0.8421,
-    "top3_elo": 0.8947,
+    "top3_modell": 0.8158,
+    "top3_elo": 0.8684,
     "mittlere_feldgroesse": 144.1
   },
   "noten": {

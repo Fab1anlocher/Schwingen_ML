@@ -9,7 +9,7 @@ Roh-Einträgen kamen nur 95'241 im Training an, ohne dass das irgendwo auffiel.
 from __future__ import annotations
 
 import json
-from collections import Counter
+from collections import Counter, defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -39,6 +39,7 @@ class IngestBericht:
     n_namen_unaufloesbar: int = 0
     beispiele_unaufloesbar: list[str] = field(default_factory=list)
     namensvettern: dict = field(default_factory=dict)
+    punktetotal: dict = field(default_factory=dict)
 
     @property
     def verlustquote(self) -> float:
@@ -59,7 +60,41 @@ class IngestBericht:
             "unaufloesbare_namen": self.n_namen_unaufloesbar,
             "beispiele_unaufloesbare_namen": self.beispiele_unaufloesbar[:10],
             "namensvettern": self.namensvettern,
+            "punktetotal": self.punktetotal,
         }
+
+
+def punktetotal_pruefung(raw_g: list[dict]) -> dict:
+    """Gegenprobe je Block (ein Schwinger an einem Fest): Summe der Noten ==
+    ausgewiesenes Punktetotal.
+
+    Stimmt sie nicht, hat der Parser Gänge dem falschen Schwinger zugeordnet.
+    So wäre Roadmap D4 sofort aufgefallen: In den PDFs bis Anfang 2024 stand
+    die Niederlage als "0", und 2023 passte darum fast kein Block. Einträge
+    aus älteren Cache-Ständen tragen noch kein Punktetotal ("ohne_total").
+    """
+    bloecke: dict[tuple, list] = defaultdict(list)
+    ohne = 0
+    for r in raw_g:
+        total = r.get("punktetotal")
+        if total is None:
+            ohne += 1
+            continue
+        schluessel = (str(r.get("event_id")), str(r.get("datum") or "")[:4],
+                      r.get("schwinger_name"), total)
+        bloecke[schluessel].append(r.get("note"))
+    je_jahr: dict[str, Counter] = defaultdict(Counter)
+    for (_, jahr, _, total), noten in bloecke.items():
+        if any(n is None for n in noten):
+            continue
+        je_jahr[jahr]["geprueft"] += 1
+        je_jahr[jahr]["abweichend"] += abs(sum(noten) - total) > 0.01
+    geprueft = sum(c["geprueft"] for c in je_jahr.values())
+    abweichend = sum(c["abweichend"] for c in je_jahr.values())
+    return {"bloecke_geprueft": geprueft, "abweichend": abweichend,
+            "anteil_abweichend": round(abweichend / geprueft, 4) if geprueft else None,
+            "eintraege_ohne_total": ohne,
+            "je_jahr": {j: dict(c) for j, c in sorted(je_jahr.items())}}
 
 
 def _lade_raw_json(name: str, default):
@@ -159,6 +194,7 @@ def lade_echte_daten(*, mit_bericht: bool = False):
     raw_g = _lade_raw_json("gaenge.json", {"gaenge": []}).get("gaenge", [])
 
     bericht = IngestBericht()
+    bericht.punktetotal = punktetotal_pruefung(raw_g)
     events = _lade_events(raw_e, bericht)
     gueltige_events = {e.id for e in events}
     zuordnung, vettern, bericht.namensvettern = _namensvettern(raw_s, events)
