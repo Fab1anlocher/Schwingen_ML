@@ -47,15 +47,15 @@ function EloListe({ liste, wert }: { liste: SaisonEloEintrag[]; wert: "gewinn" |
                   <strong>
                     {a.gewinn >= 0 ? "+" : "−"}
                     {Math.abs(Math.round(a.gewinn))}
-                  </strong>{" "}
-                  <span className="muted">
-                    ({Math.round(a.elo_vorher)} → {Math.round(a.elo_nachher)})
-                  </span>
+                  </strong>
+                  <div className="muted">
+                    {Math.round(a.elo_vorher)} → {Math.round(a.elo_nachher)}
+                  </div>
                 </>
               ) : (
                 <>
-                  <strong>{Math.round(a.elo_nachher)}</strong>{" "}
-                  <span className="muted">({a.gaenge} Gänge)</span>
+                  <strong>{Math.round(a.elo_nachher)}</strong>
+                  <div className="muted">{a.gaenge} Gänge</div>
                 </>
               )}
             </td>
@@ -116,8 +116,13 @@ export default function Rueckblick() {
       .slice(0, 10);
   }, [schwinger, saison]);
 
+  // Kilchberg, Unspunnen und Jubiläumsfeste laufen als "eidgenössisch",
+  // vergeben aber keine Kränze (n_kraenze 0) -- kein Kranzfest.
   const kranzfeste = useMemo(
-    () => feste.filter((f) => KRANZFESTE.has(f.typ)).sort((a, b) => a.datum.localeCompare(b.datum)),
+    () =>
+      feste
+        .filter((f) => KRANZFESTE.has(f.typ) && f.n_kraenze !== 0)
+        .sort((a, b) => a.datum.localeCompare(b.datum)),
     [feste]
   );
   const mitCheck = useMemo(
