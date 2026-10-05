@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-10-05T14:47:11.488480+00:00",
-  "lauf_id": "20261005T144711Z",
+  "erstellt": "2026-10-05T15:32:07.503366+00:00",
+  "lauf_id": "20261005T153207Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 132985,
@@ -148,7 +148,7 @@
   },
   "haertetest": {
     "status": "wartet",
-    "warnung": "Die Referenzgänge ergeben andere Prognosen als beim Einfrieren (6% gleich, 100% gefunden): Merkmals-/Rating-Code oder Datengrundlage hat sich verändert."
+    "warnung": null
   },
   "parsing_warnungen": [
     "schlussgang-22460 christian biasch|1996/hochholdinger roman|?: nur eine Perspektive vorhanden",
@@ -346,21 +346,21 @@
       ]
     },
     "punktetotal": {
-      "bloecke_geprueft": 45920,
+      "bloecke_geprueft": 46256,
       "abweichend": 11,
       "anteil_abweichend": 0.0002,
-      "eintraege_ohne_total": 4259,
+      "eintraege_ohne_total": 2349,
       "je_jahr": {
         "2023": {
           "geprueft": 8244,
           "abweichend": 1
         },
         "2024": {
-          "geprueft": 11827,
+          "geprueft": 12140,
           "abweichend": 2
         },
         "2025": {
-          "geprueft": 12726,
+          "geprueft": 12749,
           "abweichend": 7
         },
         "2026": {
