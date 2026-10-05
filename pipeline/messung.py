@@ -18,6 +18,9 @@ Messungen:
   rating_noten  Soll ein Plattwurf das Rating stärker bewegen (Siegqualität)?
   paarung   Warum 2023 so viele Gänge je Schwinger und Fest hat (D4): Cache je
             Jahr, dazu eine Stichprobe frisch geladen und neu geparst.
+  vettern   Schwinger, die an einem Tag an zwei Festen oder mit > 8 Gängen an
+            einem Fest stehen (ungetrennte Namensvettern), mit ihren
+            Rangliste-Auftritten (Klub, Wohnort, Jahrgang).
 """
 from __future__ import annotations
 
@@ -755,8 +758,59 @@ def _ist_kopf(tokens: list[str], name: str) -> bool:
     return all(t in tokens for t in name.split())
 
 
+# --- Namensvettern, die die Trennung nicht erwischt (Aufgabe "vettern") -------
+
+def vettern_verdacht(roh) -> dict[str, Counter]:
+    """ID -> {"doppeltage": Tage mit zwei Festen, "ueber8": Feste mit > 8 Gängen}."""
+    n = Counter((r.event_id, r.schwinger_id) for r in roh)
+    feste_je_tag: dict[tuple, set] = defaultdict(set)
+    for r in roh:
+        feste_je_tag[(r.schwinger_id, r.datum)].add(r.event_id)
+    aus: dict[str, Counter] = defaultdict(Counter)
+    for (_, sid), k in n.items():
+        if k > MAX_GAENGE_FEST:
+            aus[sid]["ueber8"] += 1
+    for (sid, _), feste in feste_je_tag.items():
+        if len(feste) > 1:
+            aus[sid]["doppeltage"] += 1
+    return aus
+
+
+def vettern() -> list[str]:
+    import json
+
+    from .identity import namens_tokens
+    from .namensvettern import _basisname
+    from .scrape import RAW_DIR, lade_echte_daten
+
+    schwinger, events, roh, bericht = lade_echte_daten(mit_bericht=True)
+    fest = {e.id: e for e in events}
+    verdacht = vettern_verdacht(roh)
+    ranglisten = json.loads((RAW_DIR / "ranglisten.json").read_text(encoding="utf-8")).get("ranglisten", {})
+    je_name: dict[tuple, list] = defaultdict(list)
+    for eid, eintrag in ranglisten.items():
+        if not isinstance(eintrag, dict) or eid not in fest:
+            continue
+        for e in eintrag.get("eintraege", []):
+            basis, jahr = _basisname(str(e.get("name", "")))
+            je_name[namens_tokens(basis)].append((fest[eid].datum, fest[eid].name, jahr, e))
+    z = ["# Messung: Namensvettern, die die Trennung nicht erwischt", "",
+         f"Trennung heute: {json.dumps(bericht.namensvettern, ensure_ascii=False)}", "",
+         f"Verdächtige IDs (Tage mit zwei Festen oder > {MAX_GAENGE_FEST} Gänge an einem Fest): {len(verdacht)}", ""]
+    for sid, c in sorted(verdacht.items(), key=lambda kv: -(kv[1]["doppeltage"] * 3 + kv[1]["ueber8"]))[:12]:
+        s = schwinger.get(sid)
+        name = s.name if s else sid
+        z += [f"## {name} (`{sid}`): {c['doppeltage']} Doppeltage, {c['ueber8']} Feste mit > 8 Gängen", "",
+              "| Datum | Fest | Jahrgang | Wohnort | Klub | Rang | Punkte |", "|---|---|---|---|---|---|---:|"]
+        for datum, fname, jahr, e in sorted(je_name.get(namens_tokens(name), []), key=lambda t: t[0])[-30:]:
+            z.append(f"| {datum} | {fname[:40]} | {jahr or ''} | {e.get('wohnort') or ''} | "
+                     f"{e.get('schwingklub') or ''} | {e.get('rang')} | {e.get('punkte')} |")
+        z.append("")
+    return z
+
+
 MESSUNGEN = {"noten": noten, "siegart": siegart, "festtag": festtag, "historie": historie,
-             "rating_noten": rating_noten, "paarung": paarung}
+             "rating_noten": rating_noten, "paarung": paarung, "vettern": vettern}
 
 
 def main(argv: list[str] | None = None) -> int:
