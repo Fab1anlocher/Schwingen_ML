@@ -17,6 +17,9 @@ from . import config
 GRENZE_VERLUSTQUOTE = 0.10
 GRENZE_UNVOLLSTAENDIG = 0.10
 GRENZE_TAGE_OHNE_FEST = 21
+# Anteil der PDF-Blöcke, deren Notensumme nicht zum Punktetotal passt. Normal
+# 0 %; vor dem Fix von D4 (Niederlage als "0") waren es 2023 fast alle.
+GRENZE_PUNKTETOTAL = 0.02
 
 
 def _tausender(wert) -> str:
@@ -68,7 +71,20 @@ def _zeilen(report: dict) -> list[str]:
     if unvollstaendig is not None:
         z += [f"| Gänge mit nur einer Perspektive | {unvollstaendig:.1%} | "
               f"{_ampel(unvollstaendig <= GRENZE_UNVOLLSTAENDIG, warn=unvollstaendig > GRENZE_UNVOLLSTAENDIG)} |"]
+    pt = dq.get("punktetotal") or {}
+    if pt.get("anteil_abweichend") is not None:
+        a = pt["anteil_abweichend"]
+        z += [f"| Notensumme ≠ Punktetotal (Blöcke) | {a:.1%} von {_tausender(pt['bloecke_geprueft'])} | "
+              f"{_ampel(a <= GRENZE_PUNKTETOTAL, warn=a > GRENZE_PUNKTETOTAL)} |"]
     z += [""]
+    auffaellig = {j: c for j, c in (pt.get("je_jahr") or {}).items()
+                  if c.get("geprueft") and c["abweichend"] / c["geprueft"] > GRENZE_PUNKTETOTAL}
+    if auffaellig:
+        z += ["Notensumme passt nicht zum Punktetotal (Parser liest das PDF-Format falsch?): "
+              + ", ".join(f"{j}: {c['abweichend']} von {c['geprueft']}" for j, c in auffaellig.items()), ""]
+    if pt.get("eintraege_ohne_total"):
+        z += [f"_{_tausender(pt['eintraege_ohne_total'])} Roh-Einträge aus älteren Cache-Ständen ohne "
+              "Punktetotal (ungeprüft; ein voller Refetch füllt es nach)._", ""]
 
     # Abzeichen-Erkennung. Soll-Ist-Vergleich gegen den Kranzstatus aus dem
     # Porträt: das Abzeichen hängt am Schwinger, an jedem Fest müssen also

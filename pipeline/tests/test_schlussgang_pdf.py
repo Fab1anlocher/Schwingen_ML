@@ -118,3 +118,51 @@ def test_rang_wird_mitgefuehrt():
     assert b["rang"] == "7"
     b2 = tabellen_bloecke([_kopf("3a", "Lisa", "Kunz", "55.00")])[0]
     assert b2["rang"] == "3a"
+
+
+# --- Roadmap D4: Niederlage als Ziffer "0" (PDFs bis Anfang 2024) -------------
+
+def test_niederlage_als_null_ist_gang_keine_kopfzeile():
+    """Vorher war "0" ein Rang: jede Niederlage eröffnete einen falschen Block
+    auf den Namen des Gegners, die folgenden Gänge hingen dann an ihm."""
+    woerter = [
+        _wort("8h", 10, 5), _wort("Heinzer", 10, 20), _wort("Ronny", 10, 60), _wort("27.50", 10, 110),
+        _wort("0", 25, 5), _wort("Lemmenmeier", 25, 20), _wort("Lukas", 25, 60), _wort("8.50", 25, 110),
+        _wort("+", 40, 5), _wort("Achermann", 40, 20), _wort("Christian", 40, 60), _wort("10.00", 40, 110),
+        _wort("-", 55, 5), _wort("Heiniger", 55, 20), _wort("Marco", 55, 60), _wort("9.00", 55, 110),
+        _wort("8k", 70, 5), _wort("Thalmann", 70, 20), _wort("Adrian", 70, 60), _wort("19.75", 70, 110),
+        _wort("+", 85, 5), _wort("Hug", 85, 20), _wort("Jan", 85, 60), _wort("10.00", 85, 110),
+        _wort("0", 100, 5), _wort("Fellmann", 100, 20), _wort("Roman", 100, 60), _wort("9.75", 100, 110),
+    ]
+    bloecke = tabellen_bloecke([woerter])
+    assert [b["name"] for b in bloecke] == ["Heinzer Ronny", "Thalmann Adrian"]
+    assert [g["symbol"] for g in bloecke[0]["gaenge"]] == ["o", "+", "-"]
+    assert [g["symbol"] for g in bloecke[1]["gaenge"]] == ["+", "o"]
+    # Gegenprobe: die Notensumme passt zum Punktetotal.
+    assert all(abs(sum(g["note"] for g in b["gaenge"]) - b["total"]) < 0.01 for b in bloecke)
+
+
+def test_parse_pdf_bytes_speichert_punktetotal(monkeypatch):
+    woerter = [
+        _wort("1", 10, 5), _wort("Hans", 10, 20), _wort("Meier", 10, 50), _wort("9.75", 10, 110),
+        _wort("+", 25, 5), _wort("Peter", 25, 20), _wort("Muster", 25, 60), _wort("9.75", 25, 110),
+    ]
+    monkeypatch.setattr(
+        "pipeline.scrape.schlussgang_pdf.extrahiere_woerter", lambda pdf_bytes: [woerter]
+    )
+    e = parse_pdf_bytes(b"x", event_id="ev1", datum="2023-05-01", fest_typ="regional")[0]
+    assert e["punktetotal"] == 9.75 and e["note"] == 9.75
+
+
+def test_punktetotal_pruefung_findet_falsch_zugeordnete_gaenge():
+    from pipeline.scrape import punktetotal_pruefung
+
+    def r(name, note, total, datum="2023-05-01"):
+        return {"event_id": "f1", "datum": datum, "schwinger_name": name, "note": note,
+                "punktetotal": total}
+    roh = [r("A", 10.0, 19.75), r("A", 9.75, 19.75),            # passt
+           r("B", 8.5, 8.5), r("B", 10.0, 8.5),                  # fremder Gang angehängt
+           {"event_id": "f1", "datum": "2023-05-01", "schwinger_name": "C", "note": 9.0}]  # alter Cache
+    p = punktetotal_pruefung(roh)
+    assert p["bloecke_geprueft"] == 2 and p["abweichend"] == 1 and p["eintraege_ohne_total"] == 1
+    assert p["je_jahr"]["2023"] == {"geprueft": 2, "abweichend": 1}
