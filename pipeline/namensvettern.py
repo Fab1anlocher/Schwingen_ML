@@ -298,6 +298,18 @@ def _zwei_personen(a: list[tuple[str, str]], b: list[tuple[str, str]],
     return bool(wo_a and wo_b and not (wo_a & wo_b)) and sind_zwei_personen(a, b)
 
 
+def beleg(a: list[tuple[str, str]], b: list[tuple[str, str]]) -> str:
+    """Kurzer Beleg, warum zwei Herkünfte zwei Personen sind (für den Bericht)."""
+    gemeinsam = sorted({e for _, e in a} & {e for _, e in b})
+    if gemeinsam:
+        datum = next(d for d, e in a if e == gemeinsam[0])
+        return f"{len(gemeinsam)}x selbes Fest, z.B. {datum}"
+    tage = sorted({d for d, _ in a} & {d for d, _ in b})
+    if tage:
+        return f"{len(tage)}x selber Tag, z.B. {tage[0]}"
+    return "abwechselnd, verschiedene Wohnorte"
+
+
 def herkunft_gruppen(auftritte: dict[str, list[tuple[str, str]]], wohnorte: dict[str, set[str]],
                      fest_id: dict[str, str] | None = None) -> list[set[str]]:
     """Klubs eines Namens zu Personen gruppieren.
@@ -434,9 +446,11 @@ def trenne_nach_herkunft(ranglisten: dict, events: dict, finde, schwinger: dict,
                                  "jahrgang": None, "kranzstatus": "kein", "namensvetter_von": basis_id,
                                  "quellen": ["schlussgang.ch/rangliste"]}
                     getrennt += 1
-                    if len(beispiele) < 10:
-                        beispiele.append(f"{ref.name if ref else ' '.join(tokens)}: "
-                                         f"{', '.join(sorted(g))} getrennt von {', '.join(sorted(basis))}")
+                    a = [x for k in g for x in auftritte[k]]
+                    b = [x for k in basis for x in auftritte[k]]
+                    beispiele.append(f"{ref.name if ref else ' '.join(tokens)}: {', '.join(sorted(g))} "
+                                     f"({len(a)} Feste) getrennt von {', '.join(sorted(basis))} "
+                                     f"({len(b)} Feste) -- {beleg(a, b)}")
             for k in g:
                 ids[k] = gid
         je_fest: dict[str, list] = defaultdict(list)
@@ -457,5 +471,5 @@ def trenne_nach_herkunft(ranglisten: dict, events: dict, finde, schwinger: dict,
                 if gid and p is not None and punkte[p] == 1:
                     block[(eid, tokens, p)] = gid
     bericht = {"personen_getrennt": getrennt, "feste_selber_name_mehrfach": len({k[:2] for k in block}),
-               "beispiele": beispiele}
+               "beispiele": beispiele[:10], "alle": beispiele}
     return zuordnung, neue, block, bericht
