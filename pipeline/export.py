@@ -577,6 +577,12 @@ def exportiere_benchmark(benchmark_res: dict) -> None:
     })
 
 
+def exportiere_saison_rueckblick(obj: dict) -> None:
+    """saison_rueckblick.json: Aufsteiger, Kränze, Überraschungen je Saison
+    (s. pipeline/saison_rueckblick.py)."""
+    _dump_beide("saison_rueckblick.json", {**obj, "schema_version": config.SCHEMA_VERSION})
+
+
 def exportiere_haertetest(res: dict) -> None:
     """haertetest.json: Stand des Härtetests (s. pipeline/haertetest.py)."""
     _dump_beide("haertetest.json", res)

@@ -35,6 +35,10 @@ from .train import einschwing_ende
 MIN_TRAININGSZEILEN = 20_000
 
 
+# So viele Überraschungen je Saison kommen in den Saisonrückblick.
+UEBERRASCHUNGEN = 10
+
+
 def auswertbare_saisons(meta, holdout: int) -> list[int]:
     """Saisons vor dem Holdout mit genug eingeschwungenem Training davor."""
     ende = einschwing_ende(meta)
@@ -85,10 +89,19 @@ def prognose_check(X, y, meta, snapshots, holdout: int, p_holdout: np.ndarray,
 
     summen: dict[str, dict] = defaultdict(lambda: defaultdict(float))
     saison_summen: dict[str, dict] = defaultdict(lambda: defaultdict(float))
+    # Überraschungen: entschiedene Gänge, deren Sieger das Modell am wenigsten
+    # erwartet hatte (für den Saisonrückblick).
+    siege: dict[str, list[tuple]] = defaultdict(list)
     for saison, idx, p in teile:
         for i, probs in zip(idx, p):
             m = meta[i]
             wahr = int(y[i])
+            if wahr != 1:
+                a_siegt = wahr == 0
+                siege[str(saison)].append((
+                    float(probs[wahr]), m["event_id"], m["datum"],
+                    m["schwinger_a_id"] if a_siegt else m["schwinger_b_id"],
+                    m["schwinger_b_id"] if a_siegt else m["schwinger_a_id"], float(probs[1])))
             s = snap.get((m["event_id"], m["schwinger_a_id"], m["schwinger_b_id"]))
             for ziel in (summen[m["event_id"]], saison_summen[str(saison)]):
                 ziel["n"] += 1
@@ -107,6 +120,11 @@ def prognose_check(X, y, meta, snapshots, holdout: int, p_holdout: np.ndarray,
         "feste": {eid: _verdichte(z) for eid, z in summen.items()},
         "saisons": {j: {**_verdichte(z), "n_feste": int(z["n_feste"])}
                     for j, z in sorted(saison_summen.items())},
+        "ueberraschungen": {
+            j: [{"event_id": eid, "datum": datum, "sieger": s, "verlierer": v,
+                 "p_sieger": round(ps, 4), "p_gestellt": round(pg, 4)}
+                for ps, eid, datum, s, v, pg in sorted(liste)[:UEBERRASCHUNGEN]]
+            for j, liste in sorted(siege.items())},
     }
 
 

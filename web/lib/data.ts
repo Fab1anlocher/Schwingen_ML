@@ -12,6 +12,7 @@ import type {
   ClusterArtifact,
   SimulationBacktest,
   HaertetestArtifact,
+  SaisonRueckblickArtifact,
 } from "./types";
 import type { VerlaufLauf } from "@/components/VerlaufDiagramm";
 
@@ -31,6 +32,9 @@ export const ladeCluster = () => ladeJson<ClusterArtifact>("/data/cluster.json")
 /** Fehlt, solange kein echter Pipeline-Lauf mit Ranglisten stattgefunden hat. */
 export const ladeSimulationBacktest = () =>
   ladeJson<SimulationBacktest>("/data/simulation_backtest.json").catch(() => null);
+
+export const ladeSaisonRueckblick = () =>
+  ladeJson<SaisonRueckblickArtifact>("/data/saison_rueckblick.json");
 
 /** Härtetest der nächsten Saison; fehlt die Datei (ältere Läufe), null. */
 export const ladeHaertetest = () =>
