@@ -354,17 +354,40 @@ Einzelprognose sind. 74 % vor dem Fest würde fast diese Obergrenze
 verlangen. Mehr Treffer bringen nur neue Information (z.B. Tagesform,
 Verletzungen, Einteilung), keine weitere Modellfeinheit.
 
-## D4 — Gestellt-Quote 2023 klären (offen, gefunden 05.10.2026)
+## D4 — Gänge 2023 falsch gepaart (offen, gefunden 05.10.2026)
 
-2023 endet laut Daten 28.5 % der Gänge gestellt, 2024–2026 nur 21–22 %.
-Der Unterschied zieht sich durch alle Festtypen (regional 28.3 % gegen
-21.6 %, kantonal 25.8 % gegen 20.2 %, Berg 34.7 % gegen 26.5 %) und wächst
-im Lauf der Saison (April 21 %, Mai 26 %, Juli–September 31 %). Das spricht
-eher für eine Eigenheit der Statistik-PDFs 2023 (Symbol oder Notation) als
-für echtes Schwingen. Folgen heute gering: 2023 dient nur dem Einschwingen
-der Ratings (Training ab 1.4.2024) und fehlt im Saisonrückblick. Zu
-prüfen mit einer Messung auf den Rohdaten (Noten der Gestellten 2023 gegen
-2024, Symbolfolgen, Beispiel-PDFs).
+2023 endet laut Daten 28.5 % der Gänge gestellt, 2024–2026 nur 21–22 %,
+durch alle Festtypen und steigend im Lauf der Saison (April 21 %,
+Juli–September 31 %). Die Ursache zeigt die Zahl der Gänge je Schwinger
+und Fest (normal 6, im Ausstich höchstens 8):
+
+| Saison | Auftritte mit mehr als 8 Gängen | betroffene Feste |
+|---|---:|---:|
+| 2023 | 1'141 von 8'231 (13.9 %) | 72 von 81 |
+| 2024 | 36 (0.3 %) | 18 von 130 |
+| 2025 | 43 (0.3 %) | 20 von 137 |
+| 2026 | 14 (0.1 %) | 12 von 137 |
+
+2023 hat z.B. Damian Ott am Zürcher Kantonalen 13 Gänge, alle gegen
+verschiedene Gegner. Die Statistik-PDFs 2023 werden also anders gepaart
+als ab 2024 (Format oder Gegner-Zuordnung), und dabei entstehen Gänge,
+die es nie gab. Ab 2024 sind es Einzelfälle von Namensvettern, die
+`namensvettern.py` nicht trennt (z.B. Ramon Betschart 2026: 132 Gänge,
+10 an einem Fest, zwei Feste am selben Tag).
+
+Gemessen (Harness, Training einheitlich ab 1.4.2024), LL / Treffer:
+
+| Einschwing-Historie | Val 2025 | Test 2026 |
+|---|---|---|
+| alle Gänge (heute) | 0.7154 / 68.9 % | 0.6947 / 70.0 % |
+| ohne 2023 | 0.7269 / 68.3 % | 0.6966 / 70.0 % |
+| 2023 ohne Auftritte mit > 8 Gängen | 0.7171 / 68.7 % | 0.6949 / 69.9 % |
+
+Weglassen schadet: Auch die verrauschte Historie trägt Information über
+die Stärke. Die Folgen sind heute gering (2023 dient nur dem Einschwingen,
+Training ab 1.4.2024, fehlt im Saisonrückblick). Richtig wäre, die Paarung
+der PDFs 2023 zu reparieren: auf den Rohdaten prüfen (Messung), wie die
+PDFs 2023 Gegner und Gangfolge angeben.
 
 ## F2 / F3 / T2 / T3 — Produkt und Technik
 
