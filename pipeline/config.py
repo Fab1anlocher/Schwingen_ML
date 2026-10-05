@@ -32,6 +32,9 @@ ELO_START = 1500.0
 #   K 56                               0.7312 68.2 % / 0.7106 69.3 %
 #   K 24, Neulinge x5 (n0 10)          0.7263 68.5 % / 0.7067 69.5 %
 #   K 56, Neulinge x5 (n0 10)          0.7174 68.7 % / 0.6984 69.7 %
+#   K 56, Neulinge x8 (n0 10) -> hier  0.7154 68.9 % / 0.6947 70.0 %
+#   K 56, Neulinge x12 / x16           0.7150 / 0.7169 und 0.6920 / 0.6920
+#                                      (Plateau, Treffer leicht tiefer)
 # Die Ratings waren 2026 noch nicht eingeschwungen (Streuung 2023: 41 ->
 # 2026: 126) und die Elo-Formel viel zu zaghaft: ein schnelleres K und ein
 # Rating, das am Anfang unsicher ist und sich darum stärker bewegt (der Kern
@@ -39,8 +42,8 @@ ELO_START = 1500.0
 # (K 24, Start 1400: 0.7438 / 0.7221) und wurde verworfen.
 ELO_K = 56.0
 # K eines Schwingers = ELO_K * (1 + BOOST * N0 / (N0 + bisherige Gänge)):
-# im ersten Gang x5, nach 10 Gängen x3, nach 40 Gängen x1.8.
-ELO_NEULING_BOOST = 4.0
+# im ersten Gang x8, nach 10 Gängen x4.5, nach 40 Gängen x2.4, nach 100 x1.6.
+ELO_NEULING_BOOST = 7.0
 ELO_NEULING_N0 = 10.0
 # Siegqualität (Roadmap D1, nur für die Messung "rating_noten"): ein
 # Plattwurf-Sieg (10.00) bewegt beide Ratings um diesen Faktor stärker.
