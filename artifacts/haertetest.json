@@ -1,5 +1,17 @@
 {
   "schema_version": "1.0.0",
-  "status": "nicht_eingefroren",
-  "saison": 2027
+  "saison": 2027,
+  "eingefroren_am": "2026-10-05T13:55:05+00:00",
+  "code_commit": "23cf8a9602f778ea82a4acd6e32d44fbc546e974",
+  "pruefsumme": "348ad478e9d4dc563f1a519ac6029c9af2481d2aa61c10be223d2e191496f2e0",
+  "merkmal_version": 3,
+  "wache": {
+    "modell_unveraendert": true,
+    "eingaben_unveraendert": true,
+    "referenz_gefunden": 1.0,
+    "referenz_gleich": 1.0,
+    "warnung": null
+  },
+  "status": "wartet",
+  "n": 0
 }

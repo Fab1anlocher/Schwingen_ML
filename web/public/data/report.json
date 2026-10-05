@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-10-05T13:32:00.555609+00:00",
-  "lauf_id": "20261005T133200Z",
+  "erstellt": "2026-10-05T13:55:10.298733+00:00",
+  "lauf_id": "20261005T135510Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 135172,
@@ -147,7 +147,7 @@
     "gesamt_erfuellt": true
   },
   "haertetest": {
-    "status": "nicht_eingefroren",
+    "status": "wartet",
     "warnung": null
   },
   "parsing_warnungen": [
