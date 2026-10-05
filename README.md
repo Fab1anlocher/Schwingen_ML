@@ -318,11 +318,12 @@ Datenqualitätsbericht nicht auf.
 
 ## Wie das Modell funktioniert
 
-**Stand 26.09.2026** (Merkmalsversion 3, zweistufiges Gradient Boosting,
-Test = Saison 2026, 36'610 Gänge, die das Modell nie gesehen hat): Log-Loss
-**0.7209** (Logistic Regression bis 25.09.: 0.7402, Elo-Baseline 0.910),
-Accuracy **69.0 %** (Elo 61.3 %), Gestellt 20.5 % vorhergesagt bei 21.1 %
-eingetreten, Kalibrierungsfehler 0.7 Prozentpunkte. Die aktuellen Zahlen
+**Stand 05.10.2026** (Merkmalsversion 3, Rating-Version 2, zweistufiges
+Gradient Boosting, Test = Saison 2026, 37'747 Gänge, die das Modell nie
+gesehen hat): Log-Loss **0.6949** (Logistic Regression: 0.7067, Elo-Formel
+0.8078), Accuracy **69.8 %** (95 %-Bereich über die Feste 69.1–70.6 %, Elo
+65.9 %), Gestellt 20.7 % vorhergesagt bei 21.0 % eingetreten,
+Kalibrierungsfehler 0.7 Prozentpunkte. Die aktuellen Zahlen
 stehen immer in `artifacts/report.json` und auf der Analyse-Seite, ihr
 Verlauf in `artifacts/report_verlauf.json`.
 
@@ -521,8 +522,8 @@ frühere, vor der mindestens eine halbe eingeschwungene Saison liegt (heute
 
 | Saison | Gänge | Treffer | Elo | P(tatsächlicher Ausgang) |
 |---|---:|---:|---:|---:|
-| 2025 | 37'159 | 67.7 % | 61.1 % | 56.7 % |
-| 2026 | 36'610 | 69.0 % | 61.3 % | 58.2 % |
+| 2025 | 37'159 | 68.8 % | 64.8 % | 58.3 % |
+| 2026 | 37'747 | 69.8 % | 65.9 % | 59.6 % |
 
 Kantonal- und Teilverbandsfeste liegen meist bei 68–75 %, Bergfeste und das
 Eidgenössische deutlich tiefer (58–62 %): dort treffen mehr Spitzenschwinger
