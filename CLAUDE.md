@@ -171,6 +171,12 @@ ehrlich, solange das Modell vor der Saison feststand. Darum gilt:
 - **Namensvettern:** Ein Porträt pro Name heisst nicht eine Person.
   `namensvettern.py` trennt über Klub/Jahrgang der Rangliste, aber nur bei
   durchmischten Auftritten. Ein Klubwechsel bleibt eine Person.
+- **Niederlage als „0":** Die Statistik-PDFs bis Anfang 2024 schreiben die
+  Niederlage als Ziffer 0. Als Rang gelesen, verschob das 2023 fast alle
+  Gänge (ROADMAP D4). Der Cache enthält geparste Einträge, keine PDFs: Nach
+  einem Parser-Fix braucht es `voller_refetch` (auf dem Branch und nach dem
+  Merge auf `main`, Actions-Caches sind je Branch getrennt). Die Gegenprobe
+  Notensumme == Punktetotal steht im Datenqualitätsbericht.
 - **Der Stern in der Statistik-PDF** ist das Statusabzeichen, kein Kranzgewinn.
   Kränze kommen ausschliesslich aus den Schlussranglisten.
 - **Next 16 / LightningCSS** fasst `-webkit-backdrop-filter` und
