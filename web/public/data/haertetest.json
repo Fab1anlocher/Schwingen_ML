@@ -5,12 +5,13 @@
   "code_commit": "23cf8a9602f778ea82a4acd6e32d44fbc546e974",
   "pruefsumme": "348ad478e9d4dc563f1a519ac6029c9af2481d2aa61c10be223d2e191496f2e0",
   "merkmal_version": 3,
+  "vorgaenger": [],
   "wache": {
     "modell_unveraendert": true,
     "eingaben_unveraendert": false,
-    "referenz_gefunden": 1.0,
-    "referenz_gleich": 0.063,
-    "warnung": "Die Referenzgänge ergeben andere Prognosen als beim Einfrieren (6% gleich, 100% gefunden): Merkmals-/Rating-Code oder Datengrundlage hat sich verändert."
+    "referenz_gefunden": 0.9895,
+    "referenz_gleich": 0.0394,
+    "warnung": "Die Referenzgänge ergeben andere Prognosen als beim Einfrieren (4% gleich, 99% gefunden): Merkmals-/Rating-Code oder Datengrundlage hat sich verändert."
   },
   "status": "wartet",
   "n": 0

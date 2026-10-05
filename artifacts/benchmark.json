@@ -6,58 +6,58 @@
     {
       "key": "kranz_heuristik",
       "label": "Kranz-Heuristik",
-      "accuracy": 0.4219,
+      "accuracy": 0.4225,
       "log_loss": null,
-      "brier_score": 1.1562,
-      "mae": 0.3021,
-      "mse": 0.1641,
-      "anteil_gleichstand": 0.6506,
-      "accuracy_ohne_gleichstand": 0.7656
+      "brier_score": 1.155,
+      "mae": 0.3008,
+      "mse": 0.1624,
+      "anteil_gleichstand": 0.6542,
+      "accuracy_ohne_gleichstand": 0.7721
     },
     {
       "key": "elo_baseline",
       "label": "Elo-Formel (nicht angepasst)",
-      "accuracy": 0.6596,
-      "log_loss": 0.8085,
-      "brier_score": 0.4579,
-      "mae": 0.2595,
-      "mse": 0.1087
+      "accuracy": 0.6617,
+      "log_loss": 0.8006,
+      "brier_score": 0.4539,
+      "mae": 0.2568,
+      "mse": 0.107
     },
     {
       "key": "elo_angepasst",
       "label": "Elo, angepasst",
-      "accuracy": 0.658,
-      "log_loss": 0.7819,
-      "brier_score": 0.4487,
-      "mae": 0.2576,
-      "mse": 0.1087
+      "accuracy": 0.6613,
+      "log_loss": 0.7732,
+      "brier_score": 0.4441,
+      "mae": 0.2542,
+      "mse": 0.1069
     },
     {
       "key": "ml_ohne_elo",
       "label": "ML ohne Elo (Kranzstatus, Physis, Stil, Verband)",
-      "accuracy": 0.529,
-      "log_loss": 0.9454,
-      "brier_score": 0.5601,
-      "mae": 0.3462,
-      "mse": 0.1572
+      "accuracy": 0.5306,
+      "log_loss": 0.9425,
+      "brier_score": 0.5583,
+      "mae": 0.3449,
+      "mse": 0.1564
     },
     {
       "key": "lr_komplett",
       "label": "Logistic Regression (bis 25.09.2026)",
-      "accuracy": 0.6957,
-      "log_loss": 0.7053,
-      "brier_score": 0.4065,
-      "mae": 0.2332,
-      "mse": 0.0967
+      "accuracy": 0.6992,
+      "log_loss": 0.6938,
+      "brier_score": 0.4009,
+      "mae": 0.229,
+      "mse": 0.0946
     },
     {
       "key": "ml_komplett",
       "label": "Gradient Boosting (Produktionsmodell)",
-      "accuracy": 0.6995,
-      "log_loss": 0.6935,
-      "brier_score": 0.3998,
-      "mae": 0.2297,
-      "mse": 0.0938
+      "accuracy": 0.7045,
+      "log_loss": 0.6829,
+      "brier_score": 0.3945,
+      "mae": 0.226,
+      "mse": 0.0919
     }
   ]
 }
