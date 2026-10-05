@@ -17,6 +17,9 @@ on:
         options:
           - noten
           - siegart
+          - festtag
+          - historie
+          - rating_noten
         default: noten
 
 permissions:

@@ -71,7 +71,7 @@ function ansatzText(k: BenchmarkKandidat): { name: string; was: string } {
     case "elo_baseline":
       return {
         name: ansatzName(k.key, k.label),
-        was: "derselbe Elo-Abstand mit der klassischen Formel, nicht an Schwingen angepasst — traut Favoriten zu wenig zu",
+        was: "derselbe Elo-Abstand mit der klassischen Formel, nicht an Schwingen angepasst",
       };
     case "ml_ohne_elo":
       return {
@@ -261,12 +261,14 @@ export function SchwierigkeitJeFesttyp({
 // --- Entwicklung des Modells ------------------------------------------------
 
 function stand(l: VerlaufLauf): string {
-  return `${l.modell_typ}|${l.merkmal_version}`;
+  return `${l.modell_typ}|${l.merkmal_version}|${l.rating_version ?? 1}`;
 }
 
 /** Je Modellstand der jüngste Lauf, in der Reihenfolge, in der die Stände
- *  eingeführt wurden. Der Balken zeigt den Vorsprung vor der reinen
- *  Elo-Prognose (Log-Loss-Differenz, länger = besser). */
+ *  eingeführt wurden. Der Balken zeigt, um wie viel der Log-Loss unter dem
+ *  des ersten Stands liegt (länger = besser). Früher der Vorsprung vor der
+ *  Elo-Formel -- seit dem Rating-Umbau verbessert sich aber die Formel
+ *  selbst, der Vorsprung sagte dann nichts mehr über das Modell. */
 export function ModellEntwicklung({ laeufe }: { laeufe: VerlaufLauf[] }) {
   const schritte = useMemo(() => {
     const erst = new Map<string, string>();
@@ -278,14 +280,14 @@ export function ModellEntwicklung({ laeufe }: { laeufe: VerlaufLauf[] }) {
     return [...letzt.entries()].map(([k, l]) => ({ ab: erst.get(k)!, l }));
   }, [laeufe]);
   if (schritte.length === 0) return null;
-  const vorsprung = (l: VerlaufLauf) =>
-    l.baseline_log_loss ? l.baseline_log_loss - l.log_loss : null;
-  const max = Math.max(...schritte.map((s) => vorsprung(s.l) ?? 0), 1e-6);
+  const start = schritte[0].l.log_loss;
+  const vorsprung = (l: VerlaufLauf) => start - l.log_loss;
+  const max = Math.max(...schritte.map((s) => vorsprung(s.l)), 1e-6);
 
   return (
     <ol className="meilensteine">
       {schritte.map(({ ab, l }, i) => {
-        const text = modellStandText(l.modell_typ, l.merkmal_version);
+        const text = modellStandText(l.modell_typ, l.merkmal_version, l.rating_version ?? 1);
         const v = vorsprung(l);
         const vorher = i > 0 ? schritte[i - 1].l.log_loss : null;
         const aktuell = i === schritte.length - 1;
@@ -301,7 +303,13 @@ export function ModellEntwicklung({ laeufe }: { laeufe: VerlaufLauf[] }) {
             <div className="muted small">{text.was}</div>
             <div className="ms-zeile">
               <div className="ms-track">
-                {v !== null && <div className="ms-fill" style={{ width: `${(v / max) * 100}%` }} />}
+                {i === 0 ? (
+                  <span className="muted small" style={{ paddingLeft: 4 }}>
+                    Ausgangspunkt
+                  </span>
+                ) : (
+                  <div className="ms-fill" style={{ width: `${(Math.max(0, v) / max) * 100}%` }} />
+                )}
               </div>
               <div className="ms-werte">
                 <span>

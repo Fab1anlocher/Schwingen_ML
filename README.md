@@ -30,6 +30,7 @@ Verbesserung, egal wie aufwendig es ist.
 | **Prognose** | Zwei Schwinger wählen → Sieg-A/Gestellt/Sieg-B-Wahrscheinlichkeit mit Merkmalsbeiträgen, Kopf-an-Kopf-Historie, teilbarer Link (`?a=…&b=…`). |
 | **Feste** | Kommende Feste der nächsten 60 Tage (je veröffentlichter Paarung Prognose + informative Quote; ohne Startliste keine Prognose). **Rückblick** je Saison: Festsieger, vergebene Kränze und Teilnehmer laut Schlussrangliste, dazu der **Prognose-Check**: wie oft die Prognose je Fest lag, mit dem Modell von vor der Saison, gegen die reine Elo-Prognose. |
 | **Simulator** | Monte-Carlo-Simulation eines ganzen Fests (Einteilung, Gänge, Noten, Ausstich, Schlussgang, Kränze) für das Teilnehmerfeld eines gewählten Fests: Festsieg-, Schlussgang- und Kranzchance je Schwinger, simulierte Kranzgrenze; Rückblick, wie gut die Simulation an den Kranzfesten der Saison lag. |
+| **Rückblick** | Die Saison auf einen Blick: Eckdaten, Festsieger, meiste Kränze, Aufsteiger (grösster Elo-Gewinn, ab 15 Gängen), die stärksten Neuen, Überraschungen (die Siege, die das Modell von vor der Saison am wenigsten erwartet hatte), Kranzfeste und die Feste mit der besten und der schwächsten Prognose. Ab 2024 (2023 ist das Einschwingen der Ratings). |
 | **Schwinger** | Alle erfassten Schwinger, durchsuchbar, nach Elo sortiert, mit Kränzen seit 2023. Profil: Verband, Klub, Festsiege, Überraschungs-Index, ähnliche Schwinger. Getrennte Namensvettern sind gekennzeichnet. |
 | **Typen** | K-Means-Clustering über das volle Profil der Porträt-Schwinger, Anzahl per Silhouette-Score, PCA-Streudiagramm. |
 | **Karte** | Choroplethen-Karte (Elo-Schnitt, Siegquote, Anteil Top-Schwinger, Kaderbreite) je Kanton, Bern nach seinen 6 Gauverbänden. Verband aus Porträt oder Schwingklub, gezählt ab 5 Gängen. |
@@ -269,6 +270,7 @@ pipeline/                  Python-Datenpipeline
   train.py                   Training + zeitliche Evaluation, Merkmalswichtigkeit
   benchmark.py               5-Wege-Modellvergleich (Accuracy/Brier/MAE/MSE)
   prognose_check.py          Rückblick je Fest: Treffer mit dem Modell von vor der Saison
+  saison_rueckblick.py       Saisonrückblick: Aufsteiger, Kränze, Überraschungen
   fest_simulation.py         Monte-Carlo-Simulation eines Fests + Rückblick (Backtest)
   metriken.py                MAE/MSE, Gestellt-Kalibrierung
   ranglisten.py              Schlussranglisten: Kränze, Klub, Verband, Festsiege
@@ -316,16 +318,20 @@ Datenqualitätsbericht nicht auf.
 
 ## Wie das Modell funktioniert
 
-**Stand 26.09.2026** (Merkmalsversion 3, zweistufiges Gradient Boosting,
-Test = Saison 2026, 36'610 Gänge, die das Modell nie gesehen hat): Log-Loss
-**0.7209** (Logistic Regression bis 25.09.: 0.7402, Elo-Baseline 0.910),
-Accuracy **69.0 %** (Elo 61.3 %), Gestellt 20.5 % vorhergesagt bei 21.1 %
-eingetreten, Kalibrierungsfehler 0.7 Prozentpunkte. Die aktuellen Zahlen
+**Stand 05.10.2026** (Merkmalsversion 3, Rating-Version 2, zweistufiges
+Gradient Boosting, Test = Saison 2026, 37'747 Gänge, die das Modell nie
+gesehen hat): Log-Loss **0.6949** (Logistic Regression: 0.7067, Elo-Formel
+0.8078), Accuracy **69.8 %** (95 %-Bereich über die Feste 69.1–70.6 %, Elo
+65.9 %), Gestellt 20.7 % vorhergesagt bei 21.0 % eingetreten,
+Kalibrierungsfehler 0.7 Prozentpunkte. Die aktuellen Zahlen
 stehen immer in `artifacts/report.json` und auf der Analyse-Seite, ihr
 Verlauf in `artifacts/report_verlauf.json`.
 
 * **Elo-Baseline** (`ratings.py`): chronologisch fortgeschrieben, K-Faktor nach
-  Fest-Wichtigkeit gewichtet. Jedes komplexere Modell muss sie schlagen.
+  Fest-Wichtigkeit gewichtet. Seit Rating-Version 2 (05.10.2026) K 56 statt
+  24, und wer neu ist, bewegt sich am Anfang stärker (K x8 im ersten Gang,
+  x1.6 nach 100 Gängen) — gemessen in beiden Jahren besser, Zahlen in
+  `config.py`. Jedes komplexere Modell muss die Elo-Prognose schlagen.
 * **Merkmale** (`features.py`): **leak-freie** A-minus-B-Merkmale —
   Rating-Vorsprung und -Nähe, Form, Kranzstatus, Alter, Gewicht/Grösse,
   Erfahrung, Verband, bevorzugte Schwünge, Kopf-an-Kopf-Bilanz, Gestellt-
@@ -516,8 +522,8 @@ frühere, vor der mindestens eine halbe eingeschwungene Saison liegt (heute
 
 | Saison | Gänge | Treffer | Elo | P(tatsächlicher Ausgang) |
 |---|---:|---:|---:|---:|
-| 2025 | 37'159 | 67.7 % | 61.1 % | 56.7 % |
-| 2026 | 36'610 | 69.0 % | 61.3 % | 58.2 % |
+| 2025 | 37'159 | 68.8 % | 64.8 % | 58.3 % |
+| 2026 | 37'747 | 69.8 % | 65.9 % | 59.6 % |
 
 Kantonal- und Teilverbandsfeste liegen meist bei 68–75 %, Bergfeste und das
 Eidgenössische deutlich tiefer (58–62 %): dort treffen mehr Spitzenschwinger

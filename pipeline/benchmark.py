@@ -9,8 +9,11 @@ Kandidaten:
                           bei gleichem Kranzstatus (rund zwei Drittel der
                           Gänge) tippt sie auf Gestellt.
   2. Elo-Baseline       – klassisches Elo, feste Formel, kein Fitting (ML-2).
-                          Viel zu zaghaft: wo sie dem Favoriten 64 % gibt,
-                          gewinnt er in 85 % (Audit 25.09.2026).
+                          Mit dem alten Rating (K 24) viel zu zaghaft: wo
+                          sie dem Favoriten 64 % gab, gewann er in 85 %
+                          (Audit 25.09.2026). Mit Rating-Version 2 (K 56,
+                          Neulings-Bonus) ist sie gut kalibriert (65 % ->
+                          64.6 %, 85 % -> 85.1 %).
   2b. Elo angepasst     – dieselbe Information (nur der Elo-Abstand), die
                           Wahrscheinlichkeiten aber an den Trainingsgängen
                           angepasst. Der faire Massstab für "was bringt das

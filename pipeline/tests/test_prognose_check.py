@@ -39,6 +39,10 @@ def test_holdout_vorhersagen_werden_je_fest_und_saison_verdichtet(monkeypatch):
     s = out["saisons"]["2026"]
     assert s["n"] == 3 and s["n_feste"] == 2
     assert s["treffer"] == round(2 / 3, 4)
+    # Überraschungen: nur entschiedene Gänge, aufsteigend nach der Siegchance des Siegers.
+    u = out["ueberraschungen"]["2026"]
+    assert [(x["event_id"], x["sieger"], x["verlierer"], x["p_sieger"]) for x in u] == [
+        ("f1", "a", "b", 0.6), ("f2", "b", "a", 0.6)]
 
 
 def test_nur_saisons_mit_eingeschwungenem_training_davor():

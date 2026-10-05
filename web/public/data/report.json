@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-10-05T12:42:57.305205+00:00",
-  "lauf_id": "20261005T124257Z",
+  "erstellt": "2026-10-05T13:32:00.555609+00:00",
+  "lauf_id": "20261005T133200Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 135172,
@@ -10,25 +10,25 @@
   "holdout_jahr": 2026,
   "modell_typ": "gbm",
   "n_baeume": {
-    "gestellt": 276,
-    "sieg": 286
+    "gestellt": 154,
+    "sieg": 363
   },
   "n_train": 136118,
   "n_train_ausgeliefert": 211612,
   "n_test": 37747,
   "modell": {
-    "log_loss": 0.7199,
-    "accuracy": 0.6909,
-    "mae": 0.2432,
-    "mse": 0.0996
+    "log_loss": 0.6949,
+    "accuracy": 0.6984,
+    "mae": 0.2305,
+    "mse": 0.094
   },
   "baseline_elo": {
-    "log_loss": 0.9091,
-    "accuracy": 0.6134
+    "log_loss": 0.8078,
+    "accuracy": 0.6594
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0775,
-  "verbesserung_log_loss": 0.1892,
+  "accuracy_gg_baseline": 0.039,
+  "verbesserung_log_loss": 0.1129,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -36,92 +36,92 @@
   ],
   "konfusionsmatrix": [
     [
-      10679,
-      954,
-      1931
+      10596,
+      1215,
+      1753
     ],
     [
-      2765,
-      2006,
-      3167
+      2618,
+      2368,
+      2952
     ],
     [
-      1840,
-      1011,
-      13394
+      1614,
+      1232,
+      13399
     ]
   ],
   "nur_portraet": {
     "modell": {
       "n": 9463,
       "anteil_am_test": 0.2507,
-      "log_loss": 0.8129,
-      "accuracy": 0.6256,
-      "mae": 0.2526,
-      "mse": 0.1033
+      "log_loss": 0.8115,
+      "accuracy": 0.6315,
+      "mae": 0.2505,
+      "mse": 0.1026
     },
     "baseline_elo": {
       "n": 9463,
-      "log_loss": 0.9264,
-      "accuracy": 0.5813
+      "log_loss": 0.9263,
+      "accuracy": 0.5861
     }
   },
   "gestellt_kalibrierung": {
     "n": 37747,
-    "vorhergesagt": 0.205,
+    "vorhergesagt": 0.2068,
     "eingetreten": 0.2103,
-    "ece": 0.0073,
-    "auc": 0.7502,
+    "ece": 0.007,
+    "auc": 0.7622,
     "stufen": [
       {
         "n": 3775,
-        "vorhergesagt": 0.0246,
-        "eingetreten": 0.0249
+        "vorhergesagt": 0.0177,
+        "eingetreten": 0.0185
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.0587,
-        "eingetreten": 0.0535
+        "vorhergesagt": 0.047,
+        "eingetreten": 0.0424
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.092,
-        "eingetreten": 0.0895
+        "vorhergesagt": 0.0828,
+        "eingetreten": 0.0705
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.1237,
-        "eingetreten": 0.124
+        "vorhergesagt": 0.1192,
+        "eingetreten": 0.1234
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.1563,
-        "eingetreten": 0.1595
+        "vorhergesagt": 0.1554,
+        "eingetreten": 0.1693
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.1904,
-        "eingetreten": 0.2072
+        "vorhergesagt": 0.1935,
+        "eingetreten": 0.1952
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.2334,
-        "eingetreten": 0.2487
+        "vorhergesagt": 0.2417,
+        "eingetreten": 0.2607
       },
       {
         "n": 3774,
-        "vorhergesagt": 0.2887,
-        "eingetreten": 0.3076
+        "vorhergesagt": 0.305,
+        "eingetreten": 0.3169
       },
       {
         "n": 3774,
-        "vorhergesagt": 0.3647,
-        "eingetreten": 0.3731
+        "vorhergesagt": 0.3835,
+        "eingetreten": 0.3831
       },
       {
         "n": 3774,
-        "vorhergesagt": 0.5176,
-        "eingetreten": 0.5151
+        "vorhergesagt": 0.5221,
+        "eingetreten": 0.5231
       }
     ]
   },
@@ -130,15 +130,16 @@
     "n_feste": 137,
     "wiederholungen": 1000,
     "accuracy": [
-      0.6839,
-      0.6979
+      0.6909,
+      0.7056
     ],
     "log_loss": [
-      0.7086,
-      0.7308
+      0.6823,
+      0.7074
     ]
   },
   "merkmal_version": 3,
+  "rating_version": 2,
   "training_ab": "2024-04-01",
   "erfolgskriterien": {
     "log_loss_besser_als_baseline": true,
@@ -346,7 +347,7 @@
     }
   },
   "modell_verlauf": {
-    "n_laeufe": 57,
+    "n_laeufe": 58,
     "warnung": null
   }
 }

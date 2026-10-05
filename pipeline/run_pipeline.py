@@ -194,6 +194,7 @@ def _ranglisten(source: str, events, schwinger: dict, aktive: set) -> tuple[dict
         kranzquoten, kranzstatus_je_schwinger,
         senne_turner_je_schwinger, verband_ueber_klub,
     )
+    from .saison_rueckblick import kraenze_je_saison
     teilnahmen, bericht = lade_teilnahmen(events)
     fest_name = {e.id: e.name for e in events}
     if not teilnahmen:
@@ -227,7 +228,8 @@ def _ranglisten(source: str, events, schwinger: dict, aktive: set) -> tuple[dict
              "festsiege": {sid: [{**f, "name": fest_name.get(f["event_id"], f["event_id"])} for f in liste]
                            for sid, liste in festsiege_je_schwinger(teilnahmen).items()},
              "feste": fest_ueberblick(teilnahmen),
-             "kranz_je_fest": kranz_je_fest(teilnahmen)}
+             "kranz_je_fest": kranz_je_fest(teilnahmen),
+             "kraenze_je_saison": kraenze_je_saison(teilnahmen)}
     return daten, bericht
 
 
@@ -568,6 +570,10 @@ def main(source: str = "synth", *, streng: bool = True, haertetest_einfrieren: b
         eingeschraenkt = sum(1 for f in kommende if f.get("teilverband"))
         print(f"      Teilnehmerkreis bestimmt: {eingeschraenkt}/{len(kommende)} Feste "
               "auf einen Teilverband eingeschränkt", flush=True)
+    from .saison_rueckblick import rueckblick
+    export.exportiere_saison_rueckblick(rueckblick(
+        gaenge, schwinger, kraenze=(ranglisten or {}).get("kraenze_je_saison"),
+        ueberraschungen=check.get("ueberraschungen")))
     export.exportiere_events(events, kommende, ueberblick=(ranglisten or {}).get("feste"),
                              schwinger=schwinger, prognose_check=check)
     report = export.exportiere_report(

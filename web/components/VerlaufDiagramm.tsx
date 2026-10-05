@@ -16,6 +16,8 @@ export interface VerlaufLauf {
   datum: string;
   modell_typ: string;
   merkmal_version: number;
+  /** Rating-Version (config.RATING_VERSION); fehlt vor dem 05.10.2026 = 1. */
+  rating_version?: number;
   holdout_jahr: number | null;
   log_loss: number;
   accuracy: number;
@@ -34,7 +36,8 @@ const PAD = { links: 52, rechts: 16, oben: 22, unten: 28 };
 
 /** Kurzname eines Modellstands für Markierung und Tooltip. */
 export function modellStand(l: VerlaufLauf): string {
-  return `${l.modell_typ === "gbm" ? "Boosting" : "LR"} · Merkmale v${l.merkmal_version}`;
+  const rating = (l.rating_version ?? 1) > 1 ? ` · Rating v${l.rating_version}` : "";
+  return `${l.modell_typ === "gbm" ? "Boosting" : "LR"} · Merkmale v${l.merkmal_version}${rating}`;
 }
 
 const tag = (iso: string) => Date.parse(`${iso}T00:00:00Z`) / 86_400_000;

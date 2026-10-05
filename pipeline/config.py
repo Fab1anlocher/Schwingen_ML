@@ -26,7 +26,39 @@ FORM_FENSTER_K = 5
 
 # Elo-Baseline (ML-2).
 ELO_START = 1500.0
-ELO_K = 24.0
+# K-Faktor und Neulings-Bonus (Roadmap M4, gemessen 05.10.2026 mit dem
+# Harness, Validierung 2025 / Test 2026, Log-Loss und Treffer):
+#   K 24 (bisher)                      0.7394 67.8 % / 0.7197 69.0 %
+#   K 56                               0.7312 68.2 % / 0.7106 69.3 %
+#   K 24, Neulinge x5 (n0 10)          0.7263 68.5 % / 0.7067 69.5 %
+#   K 56, Neulinge x5 (n0 10)          0.7174 68.7 % / 0.6984 69.7 %
+#   K 56, Neulinge x8 (n0 10) -> hier  0.7154 68.9 % / 0.6947 70.0 %
+#   K 56, Neulinge x12 / x16           0.7150 / 0.7169 und 0.6920 / 0.6920
+#                                      (Plateau, Treffer leicht tiefer)
+# Die Ratings waren 2026 noch nicht eingeschwungen (Streuung 2023: 41 ->
+# 2026: 126) und die Elo-Formel viel zu zaghaft: ein schnelleres K und ein
+# Rating, das am Anfang unsicher ist und sich darum stärker bewegt (der Kern
+# von Glicko), holen das auf. Ein tieferer Startwert für Neulinge schadete
+# (K 24, Start 1400: 0.7438 / 0.7221) und wurde verworfen.
+ELO_K = 56.0
+# K eines Schwingers = ELO_K * (1 + BOOST * N0 / (N0 + bisherige Gänge)):
+# im ersten Gang x8, nach 10 Gängen x4.5, nach 40 Gängen x2.4, nach 100 x1.6.
+ELO_NEULING_BOOST = 7.0
+ELO_NEULING_N0 = 10.0
+# Version des Ratings (wie MERKMAL_VERSION für die Merkmale): 1 = K 24 für
+# alle (bis 05.10.2026), 2 = K 56 mit Neulings-Bonus. Steht im Verlauf
+# (report_verlauf.json): nur Läufe derselben Version sind vergleichbar, und
+# die Analyse-Seite zeigt den Wechsel als eigenen Schritt.
+RATING_VERSION = 2
+# Siegqualität (Roadmap D1, Messung "rating_noten"): ein Plattwurf-Sieg
+# (10.00) bewegt beide Ratings um diesen Faktor stärker. 1.0 = aus.
+# Gemessen mit Rating-Version 2 (LL / Treffer, Validierung 2025 | Test 2026):
+#   1.0   0.7155 / 68.8 %  |  0.6949 / 69.8 %
+#   1.25  0.7161 / 68.8 %  |  0.6938 / 69.7 %
+#   1.5   0.7172 / 68.7 %  |  0.6941 / 69.8 %
+# 2025 schlechter, 2026 im Rauschen -> verworfen. Die Note sagt über die
+# Stärke nichts, was der Sieg nicht schon sagt (passt zur Messung "siegart").
+ELO_PLATTWURF_FAKTOR = 1.0
 # Draw-Breite: modelliert P(gestellt) rund um Ratinggleichheit.
 ELO_DRAW_WIDTH = 0.30
 

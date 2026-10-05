@@ -90,3 +90,26 @@ def test_siegart_bericht_trennt_staerke_und_abstand():
     zeile = next(l for l in z.splitlines() if l.startswith("| Abstand zum Verlierer"))
     koeff_abstand = float(zeile.split("|")[2])
     assert abs(koeff_staerke) < 0.1 and koeff_abstand > 0.4
+
+
+def test_festtag_gangnummer_und_vorherige_punkte():
+    from pipeline.labels import RohGangEintrag
+    from pipeline.messung import festtag_merkmale
+
+    def roh(sid, gid, sym, note):
+        return RohGangEintrag(event_id="f", datum="2025-05-01", schwinger_id=sid, gegner_id=gid,
+                              symbol=sym, note=note, fest_typ="kantonal")
+    # a: Gang 1 gegen c (Sieg 10.00), Gang 2 gegen b (Sieg 9.75).
+    # b: Gang 1 gegen d (gestellt 8.75), Gang 2 gegen a (Niederlage 8.50).
+    r = [roh("a", "c", "+", 10.0), roh("a", "b", "+", 9.75),
+         roh("b", "d", "-", 8.75), roh("b", "a", "o", 8.5),
+         roh("c", "a", "o", 8.5), roh("d", "b", "-", 8.75)]
+    gaenge = [_gang("f", "2025-05-01", "a", "b", "sieg_a", 9.75, 8.5),
+              _gang("f", "2025-05-01", "a", "c", "sieg_a", 10.0, 8.5),
+              _gang("f", "2025-05-01", "b", "d", "gestellt", 8.75, 8.75)]
+    meta = [{"event_id": "f", "schwinger_a_id": "a", "schwinger_b_id": "b"},
+            {"event_id": "f", "schwinger_a_id": "b", "schwinger_b_id": "a"}]   # Sicht B gegen A
+    F, info = festtag_merkmale(gaenge, r, meta)
+    assert info["anteil_gleiche_position"] == 1.0
+    assert F[0].tolist() == [10.0 - 8.75, 1.0, 2.0]      # vor Gang 2: a 10.00/1 Sieg, b 8.75/0
+    assert F[1].tolist() == [8.75 - 10.0, -1.0, 2.0]

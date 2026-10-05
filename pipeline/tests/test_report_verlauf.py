@@ -7,8 +7,9 @@ from pipeline import config
 from pipeline.export import ergaenze_verlauf, verlauf_warnung
 
 
-def _report(datum, ll, typ="gbm", version=3, holdout=2026):
+def _report(datum, ll, typ="gbm", version=3, holdout=2026, rating=None):
     return {"erstellt": f"{datum}T04:00:00+00:00", "modell_typ": typ, "merkmal_version": version,
+            **({"rating_version": rating} if rating else {}),
             "holdout_jahr": holdout, "modell": {"log_loss": ll, "accuracy": 0.68},
             "datenbasis": {"n_gaenge": 130000}, "n_test": 36000}
 
@@ -48,3 +49,14 @@ def test_warnung_nur_bei_rueckschritt_gegenueber_vergleichbaren_laeufen():
     # Modellwechsel oder neue Saison ist kein Rückschritt: nichts Vergleichbares davor.
     assert verlauf_warnung(ruhig + [_eintrag("2026-09-10", 0.80, typ="lr")]) is None
     assert verlauf_warnung(ruhig + [_eintrag("2027-06-01", 0.80, holdout=2027)]) is None
+    # Ebenso ein neues Rating (Läufe ohne Feld zählen als Rating-Version 1).
+    assert verlauf_warnung(ruhig + [_eintrag("2026-09-10", 0.80, rating=2)]) is None
+
+
+def test_ratingwechsel_am_selben_tag_ist_ein_eigener_punkt(tmp_path, monkeypatch):
+    monkeypatch.setattr(config, "ARTIFACTS_DIR", tmp_path / "a")
+    monkeypatch.setattr(config, "WEB_PUBLIC_DIR", tmp_path / "w")
+    ergaenze_verlauf(_report("2026-10-05", 0.72))            # alter Lauf ohne Feld
+    ergaenze_verlauf(_report("2026-10-05", 0.70, rating=2))
+    laeufe = json.loads((tmp_path / "a" / "report_verlauf.json").read_text())["laeufe"]
+    assert [(l["rating_version"], l["log_loss"]) for l in laeufe] == [(1, 0.72), (2, 0.70)]

@@ -12,6 +12,10 @@ Messungen:
   siegart   Gewinnen starke Schwinger eher mit 10.00? Nach Stärke und
             Elo-Abstand getrennt, als Eigenschaft der Person und als
             Merkmal im Modell.
+  festtag   Was bringen die Ergebnisse früherer Gänge desselben Fests
+            (Live-Prognose)? Prüft zuerst, ob die PDF die Gangreihenfolge hat.
+  historie  Gibt es Feste mit Statistik-PDF vor 2023 (längere Vorgeschichte)?
+  rating_noten  Soll ein Plattwurf das Rating stärker bewegen (Siegqualität)?
 """
 from __future__ import annotations
 
@@ -452,7 +456,172 @@ def siegart() -> list[str]:
     return z + [""]
 
 
-MESSUNGEN = {"noten": noten, "siegart": siegart}
+# --- Festtag: was bringen die Ergebnisse der früheren Gänge desselben Fests? --
+#
+# Die Statistik-PDF listet je Schwinger seine Gänge untereinander. Ist das die
+# Gangreihenfolge, steht ein Gang bei beiden Schwingern an derselben Stelle --
+# das wird zuerst geprüft. Dann: Punkte und Siege vor diesem Gang (live
+# bekannt, sobald die früheren Gänge geschwungen sind) als Merkmale.
+
+FESTTAG_MERKMALE = ["festtag_punkte_diff", "festtag_siege_diff", "gang_nr"]
+FESTTAG_SYMMETRISCH = {"gang_nr"}
+
+
+def _lade_roh():
+    from .labels import dedupliziere
+    from .scrape import lade_echte_daten
+
+    schwinger, events, roh, _ = lade_echte_daten(mit_bericht=True)
+    gaenge, _ = dedupliziere(roh)
+    return schwinger, roh, gaenge
+
+
+def gang_positionen(roh) -> dict[tuple, int]:
+    """(event, schwinger, gegner) -> Position in der Liste des Schwingers (ab 1)."""
+    zaehler: dict[tuple, int] = defaultdict(int)
+    pos = {}
+    for r in roh:
+        zaehler[(r.event_id, r.schwinger_id)] += 1
+        pos[(r.event_id, r.schwinger_id, r.gegner_id)] = zaehler[(r.event_id, r.schwinger_id)]
+    return pos
+
+
+def festtag_merkmale(gaenge, roh, meta) -> tuple[np.ndarray, dict]:
+    """Merkmale aus den früheren Gängen desselben Fests, je Zeile von meta."""
+    pos = gang_positionen(roh)
+    note = {(r.event_id, r.schwinger_id, r.gegner_id): (r.note, r.symbol) for r in roh}
+    nr: dict[tuple, int] = {}
+    gleich = 0
+    for g in gaenge:
+        pa = pos.get((g.event_id, g.schwinger_a_id, g.schwinger_b_id))
+        pb = pos.get((g.event_id, g.schwinger_b_id, g.schwinger_a_id))
+        if pa is not None and pa == pb:
+            gleich += 1
+            nr[(g.event_id, g.schwinger_a_id, g.schwinger_b_id)] = pa
+    # Punkte und Siege je Schwinger VOR Gang k desselben Fests.
+    stand: dict[tuple, list] = defaultdict(list)          # (event, sid) -> [(k, note, symbol)]
+    for (eid, a, b), k in nr.items():
+        for sid, gid in ((a, b), (b, a)):
+            n, sym = note.get((eid, sid, gid), (None, None))
+            stand[(eid, sid)].append((k, n or 0.0, sym))
+
+    def vorher(eid, sid, k):
+        frueher = [x for x in stand.get((eid, sid), []) if x[0] < k]
+        return sum(x[1] for x in frueher), sum(1 for x in frueher if x[2] == "+")
+
+    out = np.zeros((len(meta), len(FESTTAG_MERKMALE)))
+    for i, m in enumerate(meta):
+        a, b = m["schwinger_a_id"], m["schwinger_b_id"]
+        schl = (m["event_id"], a, b) if (m["event_id"], a, b) in nr else (m["event_id"], b, a)
+        k = nr.get(schl)
+        if k is None:
+            continue
+        pa, sa = vorher(m["event_id"], a, k)
+        pb, sb = vorher(m["event_id"], b, k)
+        out[i] = (pa - pb, sa - sb, k)          # meta-Zeile sieht a gegen b (Spiegelzeilen schon vertauscht)
+    return out, {"n_gaenge": len(gaenge), "anteil_gleiche_position": round(gleich / max(1, len(gaenge)), 4),
+                 "verteilung_gang_nr": dict(sorted(Counter(nr.values()).items()))}
+
+
+def festtag() -> list[str]:
+    from .features import baue_features
+    from .harness import bewerte
+    from .ratings import fahre_elo_durch
+    from .train import bestimme_holdout_jahr
+
+    schwinger, roh, gaenge = _lade_roh()
+    _, snapshots = fahre_elo_durch(gaenge)
+    X, y, meta = baue_features(gaenge, snapshots, schwinger, augment=True)
+    X, y = np.asarray(X), np.asarray(y)
+    # Spiegelzeilen: meta trägt dort weiter a/b des Originals -- für die
+    # Merkmale brauchen wir die Sicht der Zeile.
+    meta_sicht = [{**m, "schwinger_a_id": m["schwinger_b_id"], "schwinger_b_id": m["schwinger_a_id"]}
+                  if m.get("augmented") else m for m in meta]
+    F, info = festtag_merkmale(gaenge, roh, meta_sicht)
+    z = ["# Messung: Ergebnisse vom gleichen Festtag", "",
+         f"{info['n_gaenge']} Gänge; bei {info['anteil_gleiche_position']:.1%} steht der Gang bei beiden "
+         "Schwingern an derselben Position der Liste (= Gangreihenfolge belegt, wenn nahe 100 %).", "",
+         f"Gänge je Position: {info['verteilung_gang_nr']}", ""]
+    test = bestimme_holdout_jahr(meta)
+    jahre = (test - 1, test)
+    basis = bewerte(X, y, meta, jahre)
+    zeilen = [("heute", basis)]
+    with _mit_zusatzmerkmalen(["gang_nr"], FESTTAG_SYMMETRISCH):
+        zeilen.append(("+ Gangnummer", bewerte(np.hstack([X, F[:, 2:]]), y, meta, jahre)))
+    with _mit_zusatzmerkmalen(FESTTAG_MERKMALE, FESTTAG_SYMMETRISCH):
+        zeilen.append(("+ Punkte/Siege vorher + Gangnummer", bewerte(np.hstack([X, F]), y, meta, jahre)))
+    val, tst = jahre
+    z += [f"| | LL Val {val} | Treffer Val | LL Test {tst} | Treffer Test |", "|---|---:|---:|---:|---:|"]
+    for name, r in zeilen:
+        z.append(f"| {name} | {r[val]['log_loss']} | {r[val]['accuracy']:.1%} | "
+                 f"{r[tst]['log_loss']} | {r[tst]['accuracy']:.1%} |")
+    return z + ["", "Achtung: Punkte/Siege vorher sind erst WÄHREND des Fests bekannt -- eine "
+                "Live-Prognose, keine Prognose vor dem Fest.", ""]
+
+
+# --- Historie: gibt es Statistik-PDFs vor dem heutigen Datenbeginn? ----------
+
+def historie() -> list[str]:
+    from .scrape.schlussgang_resultate import lade_gaenge_fuer_event, scrape_events
+
+    events = scrape_events(None, seit_datum="2015-01-01")
+    alt = [e for e in events if e["datum"] < "2023-01-01"]
+    je_jahr = defaultdict(list)
+    for e in alt:
+        je_jahr[e["datum"][:4]].append(e)
+    z = ["# Messung: Historie vor 2023", "",
+         f"Feste ab 2015 laut API: {len(events)}, davon vor 2023: {len(alt)}.", "",
+         "| Jahr | Feste | Stichprobe Statistik-PDF | Gänge je PDF |", "|---|---:|---:|---:|"]
+    for jahr in sorted(je_jahr):
+        stich = je_jahr[jahr][:: max(1, len(je_jahr[jahr]) // 4)][:4]
+        ok, gaenge = 0, []
+        for e in stich:
+            try:
+                n = len(lade_gaenge_fuer_event(e))
+                ok += n > 0
+                gaenge.append(n)
+            except Exception:  # noqa: BLE001 - fehlende PDF zählt als "nicht vorhanden"
+                pass
+        z.append(f"| {jahr} | {len(je_jahr[jahr])} | {ok}/{len(stich)} | "
+                 f"{round(sum(gaenge) / len(gaenge)) if gaenge else '-'} |")
+    return z + [""]
+
+
+# --- Noten im Rating: zählt ein Plattwurf mehr? (Roadmap D1) -----------------
+
+def rating_noten() -> list[str]:
+    """Rating mit Siegqualität: ein Sieg mit 10.00 bewegt beide Ratings um
+    ELO_PLATTWURF_FAKTOR stärker. Gemessen auf dem aktuellen Rating."""
+    from . import ratings
+    from .features import baue_features
+    from .harness import bewerte
+    from .train import bestimme_holdout_jahr
+
+    schwinger, gaenge = _lade_gaenge()
+    original = ratings.EloModell
+    zeilen = []
+    try:
+        for faktor in (1.0, 1.25, 1.5):
+            ratings.EloModell = lambda f=faktor: original(plattwurf_faktor=f)
+            _, snapshots = ratings.fahre_elo_durch(gaenge)
+            X, y, meta = baue_features(gaenge, snapshots, schwinger, augment=True)
+            test = bestimme_holdout_jahr(meta)
+            jahre = (test - 1, test)
+            zeilen.append((faktor, bewerte(np.asarray(X), np.asarray(y), meta, jahre)))
+    finally:
+        ratings.EloModell = original
+    val, tst = jahre
+    z = ["# Messung: Noten im Rating (Plattwurf zählt mehr)", "",
+         f"| Plattwurf-Faktor | LL Val {val} | Treffer Val | LL Test {tst} | Treffer Test |",
+         "|---|---:|---:|---:|---:|"]
+    for faktor, r in zeilen:
+        z.append(f"| {faktor} | {r[val]['log_loss']} | {r[val]['accuracy']:.1%} | "
+                 f"{r[tst]['log_loss']} | {r[tst]['accuracy']:.1%} |")
+    return z + [""]
+
+
+MESSUNGEN = {"noten": noten, "siegart": siegart, "festtag": festtag, "historie": historie,
+             "rating_noten": rating_noten}
 
 
 def main(argv: list[str] | None = None) -> int:

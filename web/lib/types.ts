@@ -398,3 +398,42 @@ export interface HaertetestArtifact {
   elo_angepasst?: HaertetestKennzahlen;
   elo_formel?: HaertetestKennzahlen;
 }
+
+/** saison_rueckblick.json (pipeline/saison_rueckblick.py). */
+export interface SaisonEloEintrag {
+  id: string;
+  name: string;
+  elo_vorher: number;
+  elo_nachher: number;
+  gewinn: number;
+  gaenge: number;
+}
+
+export interface SaisonRueckblick {
+  von: string;
+  bis: string;
+  n_feste: number;
+  n_gaenge: number;
+  n_schwinger: number;
+  anteil_gestellt: number | null;
+  /** Grösster Elo-Gewinn über die Saison, nur wer schon vorher in den Daten war. */
+  aufsteiger: SaisonEloEintrag[];
+  /** Erste Saison in den Daten, nach dem Stand am Saisonende (fehlt in älteren Artefakten). */
+  neue?: SaisonEloEintrag[];
+  kraenze: { id: string; name: string; kraenze: number }[];
+  ueberraschungen: {
+    event_id: string;
+    datum: string;
+    sieger: string;
+    verlierer: string;
+    sieger_name: string;
+    verlierer_name: string;
+    p_sieger: number;
+    p_gestellt: number;
+  }[];
+}
+
+export interface SaisonRueckblickArtifact {
+  schema_version: string;
+  saisons: Record<string, SaisonRueckblick>;
+}
