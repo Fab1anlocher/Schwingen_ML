@@ -7,10 +7,10 @@
   "merkmal_version": 3,
   "wache": {
     "modell_unveraendert": true,
-    "eingaben_unveraendert": true,
+    "eingaben_unveraendert": false,
     "referenz_gefunden": 1.0,
-    "referenz_gleich": 1.0,
-    "warnung": null
+    "referenz_gleich": 0.063,
+    "warnung": "Die Referenzgänge ergeben andere Prognosen als beim Einfrieren (6% gleich, 100% gefunden): Merkmals-/Rating-Code oder Datengrundlage hat sich verändert."
   },
   "status": "wartet",
   "n": 0

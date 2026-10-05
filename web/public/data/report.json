@@ -1,34 +1,34 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-10-05T13:55:10.298733+00:00",
-  "lauf_id": "20261005T135510Z",
+  "erstellt": "2026-10-05T14:47:11.488480+00:00",
+  "lauf_id": "20261005T144711Z",
   "seed": 42,
   "datenbasis": {
-    "n_gaenge": 135172,
+    "n_gaenge": 132985,
     "n_schwinger": 2913
   },
   "holdout_jahr": 2026,
   "modell_typ": "gbm",
   "n_baeume": {
-    "gestellt": 154,
-    "sieg": 363
+    "gestellt": 202,
+    "sieg": 328
   },
   "n_train": 136118,
   "n_train_ausgeliefert": 211612,
   "n_test": 37747,
   "modell": {
-    "log_loss": 0.6949,
-    "accuracy": 0.6984,
-    "mae": 0.2305,
-    "mse": 0.094
+    "log_loss": 0.6935,
+    "accuracy": 0.6995,
+    "mae": 0.2297,
+    "mse": 0.0938
   },
   "baseline_elo": {
-    "log_loss": 0.8078,
-    "accuracy": 0.6594
+    "log_loss": 0.8085,
+    "accuracy": 0.6596
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.039,
-  "verbesserung_log_loss": 0.1129,
+  "accuracy_gg_baseline": 0.04,
+  "verbesserung_log_loss": 0.115,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -36,92 +36,92 @@
   ],
   "konfusionsmatrix": [
     [
-      10596,
-      1215,
-      1753
+      10570,
+      1274,
+      1720
     ],
     [
-      2618,
-      2368,
-      2952
+      2569,
+      2460,
+      2909
     ],
     [
-      1614,
-      1232,
-      13399
+      1574,
+      1296,
+      13375
     ]
   ],
   "nur_portraet": {
     "modell": {
       "n": 9463,
       "anteil_am_test": 0.2507,
-      "log_loss": 0.8115,
-      "accuracy": 0.6315,
-      "mae": 0.2505,
-      "mse": 0.1026
+      "log_loss": 0.8077,
+      "accuracy": 0.6296,
+      "mae": 0.2498,
+      "mse": 0.102
     },
     "baseline_elo": {
       "n": 9463,
-      "log_loss": 0.9263,
-      "accuracy": 0.5861
+      "log_loss": 0.9287,
+      "accuracy": 0.5862
     }
   },
   "gestellt_kalibrierung": {
     "n": 37747,
-    "vorhergesagt": 0.2068,
+    "vorhergesagt": 0.2051,
     "eingetreten": 0.2103,
-    "ece": 0.007,
-    "auc": 0.7622,
+    "ece": 0.0077,
+    "auc": 0.7641,
     "stufen": [
       {
         "n": 3775,
-        "vorhergesagt": 0.0177,
-        "eingetreten": 0.0185
+        "vorhergesagt": 0.0153,
+        "eingetreten": 0.0188
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.047,
-        "eingetreten": 0.0424
+        "vorhergesagt": 0.0411,
+        "eingetreten": 0.04
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.0828,
-        "eingetreten": 0.0705
+        "vorhergesagt": 0.0769,
+        "eingetreten": 0.0715
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.1192,
-        "eingetreten": 0.1234
+        "vorhergesagt": 0.1142,
+        "eingetreten": 0.1195
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.1554,
-        "eingetreten": 0.1693
+        "vorhergesagt": 0.1504,
+        "eingetreten": 0.1701
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.1935,
-        "eingetreten": 0.1952
+        "vorhergesagt": 0.1896,
+        "eingetreten": 0.1987
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.2417,
-        "eingetreten": 0.2607
+        "vorhergesagt": 0.2381,
+        "eingetreten": 0.2546
       },
       {
         "n": 3774,
-        "vorhergesagt": 0.305,
-        "eingetreten": 0.3169
+        "vorhergesagt": 0.3044,
+        "eingetreten": 0.3098
       },
       {
         "n": 3774,
-        "vorhergesagt": 0.3835,
-        "eingetreten": 0.3831
+        "vorhergesagt": 0.3888,
+        "eingetreten": 0.3937
       },
       {
         "n": 3774,
-        "vorhergesagt": 0.5221,
-        "eingetreten": 0.5231
+        "vorhergesagt": 0.5326,
+        "eingetreten": 0.5265
       }
     ]
   },
@@ -130,12 +130,12 @@
     "n_feste": 137,
     "wiederholungen": 1000,
     "accuracy": [
-      0.6909,
-      0.7056
+      0.6921,
+      0.7067
     ],
     "log_loss": [
-      0.6823,
-      0.7074
+      0.6809,
+      0.7061
     ]
   },
   "merkmal_version": 3,
@@ -148,71 +148,71 @@
   },
   "haertetest": {
     "status": "wartet",
-    "warnung": null
+    "warnung": "Die Referenzgänge ergeben andere Prognosen als beim Einfrieren (6% gleich, 100% gefunden): Merkmals-/Rating-Code oder Datengrundlage hat sich verändert."
   },
   "parsing_warnungen": [
-    "schlussgang-51915 cornel laimbacher|?/kay sussmeier|?: nur eine Perspektive vorhanden",
-    "schlussgang-51915 damian imfeld|?/kay sussmeier|?: nur eine Perspektive vorhanden",
-    "schlussgang-51915 imfeld maurus|?/kay sussmeier|?: nur eine Perspektive vorhanden",
-    "schlussgang-51915 jonas michel|?/kay sussmeier|?: nur eine Perspektive vorhanden",
-    "schlussgang-54093 andre reichmuth|?/inderbitzin tobias|?: nur eine Perspektive vorhanden",
-    "schlussgang-45973 marco ulrich|be/matter roman|?: Inkonsistente Symbole: A='+' erwartet B='o', gefunden B='+' -> verworfen",
-    "schlussgang-21055 joel kessler|1997/kaj hugli|1997: nur eine Perspektive vorhanden",
-    "schlussgang-21055 fabian birchler|2000/nicolas zimmermann|2001: nur eine Perspektive vorhanden",
-    "schlussgang-21055 fabian aebersold|2003/janik korrodi|2004: nur eine Perspektive vorhanden",
-    "schlussgang-21055 florian aellen|1995/janik korrodi|2004: nur eine Perspektive vorhanden",
-    "schlussgang-21055 florian aellen|1995/nicolas zimmermann|2001: nur eine Perspektive vorhanden",
-    "schlussgang-21055 etienne burger|2004/florian aellen|1995: nur eine Perspektive vorhanden",
-    "schlussgang-21055 florian aellen|1995/matthey mickael|?: nur eine Perspektive vorhanden",
-    "schlussgang-21055 dorian kramer|1999/florian aellen|1995: nur eine Perspektive vorhanden",
-    "schlussgang-21055 florian aellen|1995/robin studinger|2006: nur eine Perspektive vorhanden",
-    "schlussgang-21055 florian aellen|1995/kjetil fausch|1995: nur eine Perspektive vorhanden",
-    "schlussgang-21055 florian aellen|1995/paul tornare|2001: nur eine Perspektive vorhanden",
-    "schlussgang-21055 andy murer|?/florian aellen|1995: nur eine Perspektive vorhanden",
-    "schlussgang-21055 adrian aebersold|2003/florian aellen|1995: nur eine Perspektive vorhanden",
-    "schlussgang-21055 florian aellen|1995/valentin mettler|1996: nur eine Perspektive vorhanden",
-    "schlussgang-21055 etienne ducrest|1998/florian aellen|1995: nur eine Perspektive vorhanden",
-    "schlussgang-21055 florian aellen|1995/mario schneider|1992: nur eine Perspektive vorhanden",
-    "schlussgang-21055 florian aellen|1995/leandro nageli|2003: nur eine Perspektive vorhanden",
-    "schlussgang-21055 florian aellen|1995/kaj hugli|1997: nur eine Perspektive vorhanden",
-    "schlussgang-21055 fabian birchler|2000/kjetil fausch|1995: nur eine Perspektive vorhanden",
-    "schlussgang-21055 fabien jacquaz|2006/silvan trittibach|2004: nur eine Perspektive vorhanden",
-    "schlussgang-21055 fabien jacquaz|2006/luis hasler|2002: nur eine Perspektive vorhanden",
-    "schlussgang-21055 etienne burger|2004/fabian birchler|2000: nur eine Perspektive vorhanden",
-    "schlussgang-21055 janik korrodi|2004/michael ledermann|2000: nur eine Perspektive vorhanden",
-    "schlussgang-21055 joel kessler|1997/mario schneider|1992: nur eine Perspektive vorhanden",
-    "schlussgang-21055 adrian aebersold|2003/joel kessler|1997: nur eine Perspektive vorhanden",
-    "schlussgang-21055 andy murer|?/joel kessler|1997: nur eine Perspektive vorhanden",
-    "schlussgang-21055 dorian kramer|1999/fabian birchler|2000: nur eine Perspektive vorhanden",
-    "schlussgang-21055 marco thierstein|1997/sales tschudi|2009: Inkonsistente Symbole: A='+' erwartet B='o', gefunden B='+' -> verworfen",
-    "schlussgang-21055 fabian birchler|2000/sales tschudi|2009: nur eine Perspektive vorhanden",
-    "schlussgang-21055 michael ledermann|2000/sales tschudi|2009: nur eine Perspektive vorhanden",
-    "schlussgang-21055 fankhauser reto|?/sales tschudi|2009: nur eine Perspektive vorhanden",
-    "schlussgang-21055 sales tschudi|2009/tobias dunner|2005: nur eine Perspektive vorhanden",
-    "schlussgang-21055 roland reichmuth|1997/sales tschudi|2009: nur eine Perspektive vorhanden",
-    "schlussgang-21055 fabian aebersold|2003/sales tschudi|2009: nur eine Perspektive vorhanden",
-    "schlussgang-21055 benno heinzer|2006/sales tschudi|2009: nur eine Perspektive vorhanden",
-    "schlussgang-21055 fabian birchler|2000/paul tornare|2001: nur eine Perspektive vorhanden",
-    "schlussgang-21055 etienne ducrest|1998/joel kessler|1997: nur eine Perspektive vorhanden",
-    "schlussgang-21055 janik korrodi|2004/roland reichmuth|1997: nur eine Perspektive vorhanden",
-    "schlussgang-21055 erb roger|?/fabien jacquaz|2006: nur eine Perspektive vorhanden",
-    "schlussgang-21055 fabian birchler|2000/robin studinger|2006: nur eine Perspektive vorhanden",
-    "schlussgang-21055 fabien jacquaz|2006/jonas glutz|2006: nur eine Perspektive vorhanden",
-    "schlussgang-21055 fabien jacquaz|2006/michael zurfluh|1999: nur eine Perspektive vorhanden",
-    "schlussgang-21055 fankhauser reto|?/janik korrodi|2004: nur eine Perspektive vorhanden",
-    "schlussgang-21055 janik korrodi|2004/tobias dunner|2005: nur eine Perspektive vorhanden"
+    "schlussgang-22460 christian biasch|1996/hochholdinger roman|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 christian biasch|1996/luca bircher|1999: nur eine Perspektive vorhanden",
+    "schlussgang-22460 christian biasch|1996/josias muller|2006: nur eine Perspektive vorhanden",
+    "schlussgang-22460 christian biasch|1996/marc niederberger ursin|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 christian biasch|1996/jan wehrli|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 josias muller|2006/martin sprecher|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 elia mayer|2004/josias muller|2006: nur eine Perspektive vorhanden",
+    "schlussgang-22460 christian biasch|1996/simon walser|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 hochholdinger roman|?/jan wehrli|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 mathis patrick|?/pirmin tschudi|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 hassler laurin|?/mathis patrick|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 andreas wagner|?/bernhard thomas|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 alesch felix flurin|?/andreas wagner|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 beni rhyner|?/josias muller|2006: nur eine Perspektive vorhanden",
+    "schlussgang-22460 josias muller|2006/pirmin tschudi|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 bernhard thomas|?/patrik schiesser|1998: nur eine Perspektive vorhanden",
+    "schlussgang-22460 beni rhyner|?/jan wehrli|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 elias vogler|?/hochholdinger roman|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 corsin gansner|?/hochholdinger roman|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 janik korrodi|2004/patrik schiesser|1998: nur eine Perspektive vorhanden",
+    "schlussgang-22460 mayer sebastian|?/patrik schiesser|1998: nur eine Perspektive vorhanden",
+    "schlussgang-22460 andreas wagner|?/luthi noah|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 alesch felix flurin|?/arpagaus nino|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 alesch felix flurin|?/bartsch tobias|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 alesch felix flurin|?/hassler laurin|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 alesch felix flurin|?/elia mayer|2004: nur eine Perspektive vorhanden",
+    "schlussgang-22460 alesch felix flurin|?/bernhard thomas|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 corsin gansner|?/pirmin tschudi|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 corsin gansner|?/matthias siegrist|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 benno egli|?/marco flutsch|1999: nur eine Perspektive vorhanden",
+    "schlussgang-22460 arpagaus nino|?/peter tischhauser|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 claudio regli|?/niklas lotscher|2006: nur eine Perspektive vorhanden",
+    "schlussgang-22460 alesch felix flurin|?/niklas lotscher|2006: nur eine Perspektive vorhanden",
+    "schlussgang-22460 elias vogler|?/hassler laurin|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 elias vogler|?/mayer sebastian|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 christian biasch|1996/niklas lotscher|2006: nur eine Perspektive vorhanden",
+    "schlussgang-22460 christian biasch|1996/janik korrodi|2004: nur eine Perspektive vorhanden",
+    "schlussgang-22460 christian biasch|1996/patrik schiesser|1998: nur eine Perspektive vorhanden",
+    "schlussgang-22460 marco flutsch|1999/matthias siegrist|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 bernhard thomas|?/marco flutsch|1999: nur eine Perspektive vorhanden",
+    "schlussgang-22460 andreas wagner|?/marco flutsch|1999: nur eine Perspektive vorhanden",
+    "schlussgang-22460 janik korrodi|2004/niklas lotscher|2006: nur eine Perspektive vorhanden",
+    "schlussgang-22460 corsin gansner|?/niklas lotscher|2006: nur eine Perspektive vorhanden",
+    "schlussgang-22460 andreas wagner|?/simon walser|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 marc niederberger ursin|?/marco flutsch|1999: nur eine Perspektive vorhanden",
+    "schlussgang-22460 marc niederberger ursin|?/mathis patrick|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 corsin jorger|?/marc niederberger ursin|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 luca bircher|1999/marc niederberger ursin|?: nur eine Perspektive vorhanden",
+    "schlussgang-22460 corsin jorger|?/patrik schiesser|1998: nur eine Perspektive vorhanden",
+    "schlussgang-22460 aaron walser|?/niklas lotscher|2006: nur eine Perspektive vorhanden"
   ],
-  "n_parsing_warnungen": 21296,
+  "n_parsing_warnungen": 230,
   "datenqualitaet": {
     "warnungen_nach_kategorie": {
-      "nur_eine_perspektive": 21237,
-      "inkonsistente_symbole": 59
+      "nur_eine_perspektive": 216,
+      "inkonsistente_symbole": 14
     },
-    "anteil_unvollstaendiger_gaenge": 0.1571,
+    "anteil_unvollstaendiger_gaenge": 0.0016,
     "ergebnisverteilung": {
-      "gestellt": 0.2282,
-      "sieg_a": 0.3531,
-      "sieg_b": 0.4187
+      "gestellt": 0.2132,
+      "sieg_a": 0.362,
+      "sieg_b": 0.4248
     },
     "feste_zeitraum": {
       "von": "2023-04-01",
@@ -239,11 +239,11 @@
     },
     "abzeichen_plausibilitaet": {
       "n_feste_mit_kranzern": 484,
-      "trefferquote_median": 0.9,
-      "feste_ohne_abzeichen": 6,
-      "abzeichen_gesamt": 18370,
+      "trefferquote_median": 0.9091,
+      "feste_ohne_abzeichen": 3,
+      "abzeichen_gesamt": 18763,
       "plausibel": true,
-      "anteil_feste_ohne_abzeichen": 0.0124,
+      "anteil_feste_ohne_abzeichen": 0.0062,
       "hinweis_refetch": false
     },
     "datenabdeckung": {
@@ -306,13 +306,13 @@
         ]
       }
     },
-    "roh_eintraege_gelesen": 251397,
-    "roh_eintraege_uebernommen": 249808,
+    "roh_eintraege_gelesen": 267786,
+    "roh_eintraege_uebernommen": 266066,
     "roh_eintraege_verworfen": {
-      "name_nicht_aufloesbar": 1582,
-      "schwinger_gegen_sich_selbst": 7
+      "name_nicht_aufloesbar": 1716,
+      "schwinger_gegen_sich_selbst": 4
     },
-    "verlustquote": 0.0063,
+    "verlustquote": 0.0064,
     "feste_gelesen": 485,
     "feste_uebernommen": 485,
     "feste_verworfen": {},
@@ -323,8 +323,8 @@
       "Wüthrich Jonas",
       "Gerber Adrian",
       "Zemp Silvan",
-      "Koch Silvan",
       "Herger Elias",
+      "Koch Silvan",
       "Aegerter Manuel",
       "Portmann Jonas",
       "Betschart Fabian",
@@ -344,6 +344,30 @@
         "Simon Schmid: 16 Feste (Nordostschweiz) getrennt von Innerschweiz",
         "Roland Bucher: 10 Feste (Nordostschweiz) getrennt von Innerschweiz"
       ]
+    },
+    "punktetotal": {
+      "bloecke_geprueft": 45920,
+      "abweichend": 11,
+      "anteil_abweichend": 0.0002,
+      "eintraege_ohne_total": 4259,
+      "je_jahr": {
+        "2023": {
+          "geprueft": 8244,
+          "abweichend": 1
+        },
+        "2024": {
+          "geprueft": 11827,
+          "abweichend": 2
+        },
+        "2025": {
+          "geprueft": 12726,
+          "abweichend": 7
+        },
+        "2026": {
+          "geprueft": 13123,
+          "abweichend": 1
+        }
+      }
     }
   },
   "modell_verlauf": {

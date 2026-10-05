@@ -805,13 +805,13 @@
       "merkmal_version": 3,
       "rating_version": 2,
       "holdout_jahr": 2026,
-      "log_loss": 0.6949,
-      "accuracy": 0.6984,
-      "baseline_log_loss": 0.8078,
-      "gestellt_vorhergesagt": 0.2068,
+      "log_loss": 0.6935,
+      "accuracy": 0.6995,
+      "baseline_log_loss": 0.8085,
+      "gestellt_vorhergesagt": 0.2051,
       "gestellt_eingetreten": 0.2103,
-      "auc_gestellt": 0.7622,
-      "n_gaenge": 135172,
+      "auc_gestellt": 0.7641,
+      "n_gaenge": 132985,
       "n_test": 37747
     }
   ]

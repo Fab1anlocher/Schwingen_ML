@@ -17,20 +17,20 @@
     {
       "key": "elo_baseline",
       "label": "Elo-Formel (nicht angepasst)",
-      "accuracy": 0.6594,
-      "log_loss": 0.8078,
-      "brier_score": 0.4578,
-      "mae": 0.2611,
-      "mse": 0.1089
+      "accuracy": 0.6596,
+      "log_loss": 0.8085,
+      "brier_score": 0.4579,
+      "mae": 0.2595,
+      "mse": 0.1087
     },
     {
       "key": "elo_angepasst",
       "label": "Elo, angepasst",
-      "accuracy": 0.6577,
-      "log_loss": 0.7824,
-      "brier_score": 0.4489,
-      "mae": 0.2582,
-      "mse": 0.1088
+      "accuracy": 0.658,
+      "log_loss": 0.7819,
+      "brier_score": 0.4487,
+      "mae": 0.2576,
+      "mse": 0.1087
     },
     {
       "key": "ml_ohne_elo",
@@ -44,20 +44,20 @@
     {
       "key": "lr_komplett",
       "label": "Logistic Regression (bis 25.09.2026)",
-      "accuracy": 0.6955,
-      "log_loss": 0.7067,
-      "brier_score": 0.4071,
-      "mae": 0.2342,
-      "mse": 0.0968
+      "accuracy": 0.6957,
+      "log_loss": 0.7053,
+      "brier_score": 0.4065,
+      "mae": 0.2332,
+      "mse": 0.0967
     },
     {
       "key": "ml_komplett",
       "label": "Gradient Boosting (Produktionsmodell)",
-      "accuracy": 0.6984,
-      "log_loss": 0.6949,
-      "brier_score": 0.4007,
-      "mae": 0.2305,
-      "mse": 0.094
+      "accuracy": 0.6995,
+      "log_loss": 0.6935,
+      "brier_score": 0.3998,
+      "mae": 0.2297,
+      "mse": 0.0938
     }
   ]
 }
