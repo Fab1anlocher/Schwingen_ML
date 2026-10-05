@@ -16,6 +16,8 @@ Messungen:
             (Live-Prognose)? Prüft zuerst, ob die PDF die Gangreihenfolge hat.
   historie  Gibt es Feste mit Statistik-PDF vor 2023 (längere Vorgeschichte)?
   rating_noten  Soll ein Plattwurf das Rating stärker bewegen (Siegqualität)?
+  paarung   Warum 2023 so viele Gänge je Schwinger und Fest hat (D4): Cache je
+            Jahr, dazu eine Stichprobe frisch geladen und neu geparst.
 """
 from __future__ import annotations
 
@@ -620,8 +622,141 @@ def rating_noten() -> list[str]:
     return z + [""]
 
 
+# --- Paarung: warum 2023 so viele Gänge je Schwinger und Fest? (Roadmap D4) --
+
+# Mehr Gänge kann ein Schwinger an einem Fest nicht haben (6, mit Ausstich 8).
+MAX_GAENGE_FEST = 8
+
+
+def paarung_kennzahlen(roh) -> dict[str, Counter]:
+    """Je Jahr: Auftritte, davon mit > 8 Gängen, Paare, davon einseitig, Gestellte.
+
+    "Einseitig" heisst: der Gang steht nur in der Liste EINES der beiden
+    Schwinger. Im PDF steht jeder Gang zweimal; fehlt eine Seite, hängt
+    der Eintrag womöglich am falschen Schwinger.
+    """
+    auftritt = Counter((r.event_id, r.schwinger_id) for r in roh)
+    jahr = {r.event_id: r.datum[:4] for r in roh}
+    paare: dict = defaultdict(dict)
+    for r in roh:
+        paare[(r.event_id, tuple(sorted((r.schwinger_id, r.gegner_id))))][r.schwinger_id] = r.symbol
+    aus: dict[str, Counter] = defaultdict(Counter)
+    for (eid, _), n in auftritt.items():
+        aus[jahr[eid]]["auftritte"] += 1
+        aus[jahr[eid]]["ueber8"] += n > MAX_GAENGE_FEST
+    for (eid, _), seiten in paare.items():
+        einseitig = len(seiten) == 1
+        gestellt = any(s == "-" for s in seiten.values())
+        c = aus[jahr[eid]]
+        c["paare"] += 1
+        c["einseitig"] += einseitig
+        c["gestellt_einseitig" if einseitig else "gestellt_zweiseitig"] += gestellt
+    return aus
+
+
+def _block_kennzahlen(bloecke: list[dict]) -> dict:
+    """Blöcke eines PDFs: Anzahl, > 8 Gänge, Notensumme == Total."""
+    mit_total = [b for b in bloecke if b["total"] is not None
+                 and all(g["note"] is not None for g in b["gaenge"])]
+    passt = sum(abs(sum(g["note"] for g in b["gaenge"]) - b["total"]) < 0.01 for b in mit_total)
+    return {"bloecke": len(bloecke),
+            "ueber8": sum(len(b["gaenge"]) > MAX_GAENGE_FEST for b in bloecke),
+            "eintraege": sum(len(b["gaenge"]) for b in bloecke),
+            "total_passt": f"{passt}/{len(mit_total)}"}
+
+
+def _spalten_zeilen(seiten) -> list[list[str]]:
+    from .scrape.schlussgang_pdf import _gruppiere_zeilen, _spalte
+
+    spalten: list[list[list[str]]] = [[], [], []]
+    for woerter in seiten:
+        eimer: list[list[dict]] = [[], [], []]
+        for w in woerter:
+            i = _spalte(w["x0"])
+            if i is not None:
+                eimer[i].append(w)
+        for i in range(3):
+            spalten[i].extend(_gruppiere_zeilen(eimer[i]))
+    return spalten
+
+
+def paarung() -> list[str]:
+    import json
+
+    from .scrape import RAW_DIR, lade_echte_daten
+    from .scrape.http import hole
+    from .scrape.schlussgang_pdf import extrahiere_woerter, pdf_url, tabellen_bloecke
+
+    _, _, roh, _ = lade_echte_daten(mit_bericht=True)
+    z = ["# Messung: Paarung der Gänge je Jahr (Roadmap D4)", "",
+         "## Cache (so, wie die Feste damals geparst wurden)", "",
+         "| Jahr | Auftritte | > 8 Gänge | Paare | einseitig | gestellt (einseitig) | gestellt (beidseitig) |",
+         "|---|---:|---:|---:|---:|---:|---:|"]
+    for j, c in sorted(paarung_kennzahlen(roh).items()):
+        n1, n2 = c["einseitig"], c["paare"] - c["einseitig"]
+        z.append(f"| {j} | {c['auftritte']} | {c['ueber8']} ({c['ueber8'] / c['auftritte']:.1%}) | "
+                 f"{c['paare']} | {n1} ({n1 / c['paare']:.1%}) | "
+                 f"{c['gestellt_einseitig'] / max(n1, 1):.1%} | {c['gestellt_zweiseitig'] / max(n2, 1):.1%} |")
+
+    # Stichprobe: frisch laden und mit dem heutigen Parser lesen.
+    events = json.loads((RAW_DIR / "events.json").read_text(encoding="utf-8"))["events"]
+    roh_cache = json.loads((RAW_DIR / "gaenge.json").read_text(encoding="utf-8"))["gaenge"]
+    cache_je_fest: dict[str, list[dict]] = defaultdict(list)
+    for g in roh_cache:
+        cache_je_fest[str(g["event_id"])].append(g)
+
+    def ueber8(eintraege):
+        return sum(n > MAX_GAENGE_FEST for n in Counter(g["schwinger_name"] for g in eintraege).values())
+
+    jahr_feste = defaultdict(list)
+    for e in events:
+        if cache_je_fest.get(str(e["id"])):
+            jahr_feste[e["datum"][:4]].append(e)
+    stichprobe = sorted(jahr_feste["2023"], key=lambda e: -ueber8(cache_je_fest[str(e["id"])]))[:6]
+    stichprobe += jahr_feste["2023"][::max(1, len(jahr_feste["2023"]) // 4)][:4]
+    stichprobe += jahr_feste["2024"][::max(1, len(jahr_feste["2024"]) // 2)][:2]
+    z += ["", "## Stichprobe: Cache gegen frisch geladen (heutiger Parser)", "",
+          "| Fest | Datum | Einträge Cache | > 8 Cache | Einträge neu | > 8 neu | Blöcke neu | Total passt neu |",
+          "|---|---|---:|---:|---:|---:|---:|---:|"]
+    beispiel = None
+    for e in stichprobe:
+        cache = cache_je_fest[str(e["id"])]
+        try:
+            seiten = extrahiere_woerter(hole(pdf_url(e["nid"]), binaer=True))
+        except Exception as err:  # noqa: BLE001
+            z.append(f"| {e['name']} | {e['datum']} | {len(cache)} | {ueber8(cache)} | Fehler: {err} | | | |")
+            continue
+        k = _block_kennzahlen(tabellen_bloecke(seiten))
+        z.append(f"| {e['name']} | {e['datum']} | {len(cache)} | {ueber8(cache)} | "
+                 f"{k['eintraege']} | {k['ueber8']} | {k['bloecke']} | {k['total_passt']} |")
+        if beispiel is None and ueber8(cache):
+            beispiel = (e, cache, seiten)
+
+    if beispiel:
+        e, cache, seiten = beispiel
+        n = Counter(g["schwinger_name"] for g in cache)
+        name = next(s for s, k in n.most_common() if k > MAX_GAENGE_FEST)
+        z += ["", f"## Beispiel: {name} am {e['name']} ({n[name]} Gänge im Cache)", "",
+              "Im Cache:", "", "```"]
+        z += [f"{g['symbol']} {g['gegner_name']} {g['note']}" for g in cache if g["schwinger_name"] == name]
+        z += ["```", "", "PDF-Zeilen rund um den Namen (Spalte, Zeile: Tokens):", "", "```"]
+        teil = name.split()[0]
+        for si, zeilen in enumerate(_spalten_zeilen(seiten)):
+            for zi, tokens in enumerate(zeilen):
+                if teil in tokens and _ist_kopf(tokens, name):
+                    for zz in range(max(0, zi - 2), min(len(zeilen), zi + 18)):
+                        z.append(f"{si},{zz}: {' | '.join(zeilen[zz])}")
+                    z.append("...")
+        z += ["```"]
+    return z + [""]
+
+
+def _ist_kopf(tokens: list[str], name: str) -> bool:
+    return all(t in tokens for t in name.split())
+
+
 MESSUNGEN = {"noten": noten, "siegart": siegart, "festtag": festtag, "historie": historie,
-             "rating_noten": rating_noten}
+             "rating_noten": rating_noten, "paarung": paarung}
 
 
 def main(argv: list[str] | None = None) -> int:
