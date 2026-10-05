@@ -9,12 +9,62 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { ladeEvents, ladeSaisonRueckblick, ladeSchwinger } from "@/lib/data";
-import type { EventsArtifact, SaisonRueckblickArtifact, Schwinger } from "@/lib/types";
+import type {
+  EventsArtifact,
+  SaisonEloEintrag,
+  SaisonRueckblickArtifact,
+  Schwinger,
+} from "@/lib/types";
 import { datumKurz, festtypName, prozent, prozent1, zahl } from "@/lib/labels";
 
 const KRANZFESTE = new Set(["kantonal", "teilverband", "berg", "eidgenoessisch"]);
 // Für "beste/schwächste Prognose": nur Feste mit genug Gängen.
 const MIN_GAENGE_FEST = 100;
+// Wie saison_rueckblick.MIN_GAENGE_AUFSTEIGER (nur für den Text).
+const MIN_GAENGE = 15;
+
+/** Aufsteiger (Balken = Gewinn) oder Neue (Balken = Elo am Saisonende). */
+function EloListe({ liste, wert }: { liste: SaisonEloEintrag[]; wert: "gewinn" | "elo_nachher" }) {
+  const werte = liste.map((a) => a[wert]);
+  // Neue: Balken ab dem kleinsten gezeigten Wert, sonst wären alle fast gleich lang.
+  const boden = wert === "gewinn" ? 0 : Math.min(...werte) - 50;
+  const max = Math.max(...werte.map((v) => v - boden), 1);
+  return (
+    <table>
+      <tbody>
+        {liste.map((a) => (
+          <tr key={a.id}>
+            <td style={{ width: "40%" }}>{a.name}</td>
+            <td style={{ width: "28%" }}>
+              <div
+                className="fi-bar"
+                style={{ width: `${(Math.max(0, a[wert] - boden) / max) * 100}%` }}
+              />
+            </td>
+            <td className="small" style={{ textAlign: "right", whiteSpace: "nowrap" }}>
+              {wert === "gewinn" ? (
+                <>
+                  <strong>
+                    {a.gewinn >= 0 ? "+" : "−"}
+                    {Math.abs(Math.round(a.gewinn))}
+                  </strong>{" "}
+                  <span className="muted">
+                    ({Math.round(a.elo_vorher)} → {Math.round(a.elo_nachher)})
+                  </span>
+                </>
+              ) : (
+                <>
+                  <strong>{Math.round(a.elo_nachher)}</strong>{" "}
+                  <span className="muted">({a.gaenge} Gänge)</span>
+                </>
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
 
 export default function Rueckblick() {
   const [daten, setDaten] = useState<SaisonRueckblickArtifact | null>(null);
@@ -82,7 +132,6 @@ export default function Rueckblick() {
   if (!daten) return <p className="muted">Lade …</p>;
   const jahre = Object.keys(daten.saisons).sort().reverse();
   if (!s) return <p className="muted">Noch keine Saison ausgewertet.</p>;
-  const maxGewinn = Math.max(...s.aufsteiger.map((a) => a.gewinn), 1);
 
   return (
     <div>
@@ -191,41 +240,30 @@ export default function Rueckblick() {
         </div>
       </div>
 
-      <h2>Die Aufsteiger</h2>
-      <div className="panel">
-        <p className="muted small" style={{ marginTop: 0 }}>
-          Grösster Elo-Gewinn von vor dem ersten bis nach dem letzten Gang der Saison, nur wer
-          mindestens 15 Gänge bestritt. „Neu“ heisst: der erste Gang überhaupt in den Daten — sein
-          Gewinn ist auch das Einpendeln vom Startwert.
-        </p>
-        <table>
-          <tbody>
-            {s.aufsteiger.map((a) => (
-              <tr key={a.id}>
-                <td style={{ width: "34%" }}>
-                  {a.name}
-                  {a.neu && (
-                    <span className="badge" style={{ marginLeft: 6, fontSize: "0.7rem" }}>
-                      neu
-                    </span>
-                  )}
-                </td>
-                <td style={{ width: "36%" }}>
-                  <div
-                    className="fi-bar"
-                    style={{ width: `${(Math.max(0, a.gewinn) / maxGewinn) * 100}%` }}
-                  />
-                </td>
-                <td className="small" style={{ textAlign: "right", whiteSpace: "nowrap" }}>
-                  <strong>+{Math.round(a.gewinn)}</strong>{" "}
-                  <span className="muted">
-                    ({Math.round(a.elo_vorher)} → {Math.round(a.elo_nachher)}, {a.gaenge} Gänge)
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="grid-2" style={{ marginTop: "1.2rem" }}>
+        <div>
+          <h2>Die Aufsteiger</h2>
+          <div className="panel">
+            <p className="muted small" style={{ marginTop: 0 }}>
+              Grösster Elo-Gewinn von vor dem ersten bis nach dem letzten Gang der Saison — wer schon
+              vorher in den Daten war und mindestens {MIN_GAENGE} Gänge bestritt.
+            </p>
+            <EloListe liste={s.aufsteiger} wert="gewinn" />
+          </div>
+        </div>
+        {s.neue && s.neue.length > 0 && (
+          <div>
+            <h2>Die stärksten Neuen</h2>
+            <div className="panel">
+              <p className="muted small" style={{ marginTop: 0 }}>
+                Zum ersten Mal in den Daten (ab {MIN_GAENGE} Gängen), nach dem Elo am Saisonende. Ihr
+                Gewinn wäre vor allem der Weg vom Startwert {Math.round(s.neue[0].elo_vorher)} zur
+                eigenen Stärke.
+              </p>
+              <EloListe liste={s.neue} wert="elo_nachher" />
+            </div>
+          </div>
+        )}
       </div>
 
       {s.ueberraschungen.length > 0 && (

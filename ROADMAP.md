@@ -354,6 +354,18 @@ Einzelprognose sind. 74 % vor dem Fest würde fast diese Obergrenze
 verlangen. Mehr Treffer bringen nur neue Information (z.B. Tagesform,
 Verletzungen, Einteilung), keine weitere Modellfeinheit.
 
+## D4 — Gestellt-Quote 2023 klären (offen, gefunden 05.10.2026)
+
+2023 endet laut Daten 28.5 % der Gänge gestellt, 2024–2026 nur 21–22 %.
+Der Unterschied zieht sich durch alle Festtypen (regional 28.3 % gegen
+21.6 %, kantonal 25.8 % gegen 20.2 %, Berg 34.7 % gegen 26.5 %) und wächst
+im Lauf der Saison (April 21 %, Mai 26 %, Juli–September 31 %). Das spricht
+eher für eine Eigenheit der Statistik-PDFs 2023 (Symbol oder Notation) als
+für echtes Schwingen. Folgen heute gering: 2023 dient nur dem Einschwingen
+der Ratings (Training ab 1.4.2024) und fehlt im Saisonrückblick. Zu
+prüfen mit einer Messung auf den Rohdaten (Noten der Gestellten 2023 gegen
+2024, Symbolfolgen, Beispiel-PDFs).
+
 ## F2 / F3 / T2 / T3 — Produkt und Technik
 
 * **F2 Elo-Verlauf** im Schwinger-Profil (Sparkline), Daten serverseitig wie

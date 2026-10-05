@@ -11,7 +11,7 @@
 //
 // Audit 25.09.2026 (jede Zahl nachgerechnet, harness + Rohdaten): die
 // Elo-Vergleichsprognose ist jetzt die an die Daten angepasste (die feste
-// Formel ist viel zu zaghaft), MAE fällt weg (belohnt Übertreibung), die
+// Formel war mit dem alten Rating viel zu zaghaft), MAE fällt weg (belohnt Übertreibung), die
 // Faustregel weist ihren Gleichstand aus, Intervalle über Feste, und die
 // Grenzen (heutiger Kranzstatus, Auswahl an 2025/2026) stehen offen da.
 
@@ -364,7 +364,9 @@ export default function Analyse() {
                 gb &&
                 ` Vom linearen Modell zum Gradient Boosting: ${((gb.accuracy - lr.accuracy) * 100).toFixed(1)} Prozentpunkte mehr Treffer und etwas bessere Wahrscheinlichkeiten (Brier ${lr.brier_score.toFixed(3)} → ${gb.brier_score.toFixed(3)}). Klein, aber in beiden Prüfsaisons gleich gerichtet.`}
               {eloFit &&
-                ` Das Elo-Rating allein trifft gleich oft wie die Elo-Formel; angepasst gibt es aber ehrlichere Wahrscheinlichkeiten.`}
+                eloFit.log_loss != null &&
+                report &&
+                ` Elo angepasst und Elo-Formel treffen praktisch gleich oft (${prozent1(eloFit.accuracy)} und ${prozent1(report.baseline_elo.accuracy)}); angepasst sind die Wahrscheinlichkeiten ehrlicher (Log-Loss ${eloFit.log_loss.toFixed(3)} statt ${report.baseline_elo.log_loss.toFixed(3)}).`}
             </p>
             <AnsatzRangliste kandidaten={benchmark.kandidaten} />
           </div>
@@ -575,7 +577,8 @@ export default function Analyse() {
                   Elo-Formel {report.baseline_elo.log_loss.toFixed(4)}; Treffer{" "}
                   {prozent1(report.modell.accuracy)}
                   {ki && ` [${prozent1(ki.accuracy[0])}–${prozent1(ki.accuracy[1])}]`} gegen{" "}
-                  {prozent1(report.baseline_elo.accuracy)} (Elo, beide Varianten gleich).
+                  {prozent1(report.baseline_elo.accuracy)} (Elo-Formel)
+                  {eloFit && ` und ${prozent1(eloFit.accuracy)} (Elo angepasst)`}.
                   {ki &&
                     ` Klammern: 95 %-Bereich, Bootstrap über die ${ki.n_feste} Feste (Gänge desselben Fests hängen zusammen, einzelne Gänge als unabhängig zu zählen, gäbe zu enge Bereiche).`}
                 </li>

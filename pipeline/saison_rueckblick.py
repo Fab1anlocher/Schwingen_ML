@@ -3,8 +3,10 @@
 Je Saison:
 * Eckdaten: Feste, Gänge, aktive Schwinger, Anteil Gestellte.
 * Aufsteiger: grösster Elo-Gewinn über die Saison (Stand vor dem ersten bis
-  nach dem letzten Fest), nur wer genug Gänge hatte -- sonst ist der Gewinn
-  vor allem das Einschwingen eines Neulings.
+  nach dem letzten Fest), nur wer genug Gänge hatte und schon vorher in den
+  Daten war. Bei einem Neuling ist der Gewinn vor allem der Weg vom
+  Startwert zu seiner Stärke; die Neuen stehen darum in einer eigenen
+  Liste, geordnet nach dem Stand am Saisonende.
 * Kränze je Schwinger in dieser Saison (aus den Schlussranglisten).
 * Überraschungen: Siege, die das Modell von vor der Saison am wenigsten
   erwartet hatte (prognose_check).
@@ -21,8 +23,11 @@ from .ratings import EloModell
 
 # Mindestzahl Gänge in der Saison für die Aufsteiger-Liste.
 MIN_GAENGE_AUFSTEIGER = 15
-# Ab dieser Zahl Feste gilt ein Jahr als Saison (2023 begann der Datenbestand im April).
+# Ab dieser Zahl Feste gilt ein Jahr als Saison.
 MIN_FESTE_SAISON = 20
+# Die erste Saison im Datenbestand (2023) fehlt im Rückblick: alle starten
+# beim Startwert, jeder "steigt auf", und sie ist unvollständig (81 statt
+# rund 135 Feste).
 TOP = 10
 
 
@@ -77,18 +82,19 @@ def rueckblick(gaenge, schwinger: dict, *, kraenze: dict[int, dict[str, int]] | 
     name = lambda sid: schwinger[sid].name if sid in schwinger else sid  # noqa: E731
     elo = elo_je_saison(gaenge)
     saisons = {}
-    for jahr, e in sorted(elo.items()):
+    for jahr, e in sorted(elo.items())[1:]:
         if e["feste"] < MIN_FESTE_SAISON:
             continue
-        auf = []
+        auf, neue = [], []
         for sid, n in e["gaenge"].items():
             if n < MIN_GAENGE_AUFSTEIGER:
                 continue
             vor, nach = e["vorher"][sid], e["nachher"][sid]
-            auf.append({"id": sid, "name": name(sid), "elo_vorher": round(vor, 1),
-                        "elo_nachher": round(nach, 1), "gewinn": round(nach - vor, 1), "gaenge": n,
-                        "neu": sid in e["neu"]})
+            eintrag = {"id": sid, "name": name(sid), "elo_vorher": round(vor, 1),
+                       "elo_nachher": round(nach, 1), "gewinn": round(nach - vor, 1), "gaenge": n}
+            (neue if sid in e["neu"] else auf).append(eintrag)
         auf.sort(key=lambda a: -a["gewinn"])
+        neue.sort(key=lambda a: -a["elo_nachher"])
         kr = sorted(((kraenze or {}).get(jahr, {})).items(), key=lambda kv: (-kv[1], name(kv[0])))
         saisons[str(jahr)] = {
             "von": e["von"], "bis": e["bis"],
@@ -96,6 +102,7 @@ def rueckblick(gaenge, schwinger: dict, *, kraenze: dict[int, dict[str, int]] | 
             "n_schwinger": len(e["gaenge"]),
             "anteil_gestellt": round(e["gestellt"] / e["n_gaenge"], 4) if e["n_gaenge"] else None,
             "aufsteiger": auf[:TOP],
+            "neue": neue[:TOP],
             "kraenze": [{"id": sid, "name": name(sid), "kraenze": n} for sid, n in kr[:TOP]],
             "ueberraschungen": [
                 {**u, "sieger_name": name(u["sieger"]), "verlierer_name": name(u["verlierer"])}
