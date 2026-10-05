@@ -622,6 +622,8 @@ def verlauf_eintrag(report: dict) -> dict:
         "datum": str(report.get("erstellt", ""))[:10],
         "modell_typ": report.get("modell_typ", "lr"),
         "merkmal_version": report.get("merkmal_version", 1),
+        # Fehlt bei Läufen vor dem Rating-Umbau (05.10.2026): Version 1.
+        "rating_version": report.get("rating_version", 1),
         "holdout_jahr": report.get("holdout_jahr"),
         "log_loss": report["modell"]["log_loss"],
         "accuracy": report["modell"]["accuracy"],
@@ -641,8 +643,9 @@ def verlauf_warnung(laeufe: list[dict]) -> str | None:
     jetzt = laeufe[-1]
     vergleich = [
         l["log_loss"] for l in laeufe[:-1]
-        if (l["holdout_jahr"], l["modell_typ"], l["merkmal_version"])
-        == (jetzt["holdout_jahr"], jetzt["modell_typ"], jetzt["merkmal_version"])
+        if (l["holdout_jahr"], l["modell_typ"], l["merkmal_version"], l.get("rating_version", 1))
+        == (jetzt["holdout_jahr"], jetzt["modell_typ"], jetzt["merkmal_version"],
+            jetzt.get("rating_version", 1))
     ][-VERLAUF_VERGLEICH_LAEUFE:]
     if len(vergleich) < 3:
         return None
@@ -655,7 +658,8 @@ def verlauf_warnung(laeufe: list[dict]) -> str | None:
 
 def verlauf_schluessel(eintrag: dict) -> tuple:
     """Ein Eintrag je Tag und Modellstand; bei gleichem Schlüssel zählt der jüngste Lauf."""
-    return eintrag.get("datum"), eintrag.get("modell_typ"), eintrag.get("merkmal_version")
+    return (eintrag.get("datum"), eintrag.get("modell_typ"), eintrag.get("merkmal_version"),
+            eintrag.get("rating_version", 1))
 
 
 def ergaenze_verlauf(report: dict) -> dict:
@@ -732,6 +736,7 @@ def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
         # 95-%-Intervalle (Bootstrap über Feste, s. train.konfidenzintervalle).
         "konfidenz": train_res.get("konfidenz"),
         "merkmal_version": MERKMAL_VERSION,
+        "rating_version": config.RATING_VERSION,
         "training_ab": train_res.get("training_ab"),
         "erfolgskriterien": {
             "log_loss_besser_als_baseline": erreicht_log_loss,

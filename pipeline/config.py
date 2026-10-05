@@ -45,9 +45,19 @@ ELO_K = 56.0
 # im ersten Gang x8, nach 10 Gängen x4.5, nach 40 Gängen x2.4, nach 100 x1.6.
 ELO_NEULING_BOOST = 7.0
 ELO_NEULING_N0 = 10.0
-# Siegqualität (Roadmap D1, nur für die Messung "rating_noten"): ein
-# Plattwurf-Sieg (10.00) bewegt beide Ratings um diesen Faktor stärker.
-# 1.0 = aus.
+# Version des Ratings (wie MERKMAL_VERSION für die Merkmale): 1 = K 24 für
+# alle (bis 05.10.2026), 2 = K 56 mit Neulings-Bonus. Steht im Verlauf
+# (report_verlauf.json): nur Läufe derselben Version sind vergleichbar, und
+# die Analyse-Seite zeigt den Wechsel als eigenen Schritt.
+RATING_VERSION = 2
+# Siegqualität (Roadmap D1, Messung "rating_noten"): ein Plattwurf-Sieg
+# (10.00) bewegt beide Ratings um diesen Faktor stärker. 1.0 = aus.
+# Gemessen mit Rating-Version 2 (LL / Treffer, Validierung 2025 | Test 2026):
+#   1.0   0.7155 / 68.8 %  |  0.6949 / 69.8 %
+#   1.25  0.7161 / 68.8 %  |  0.6938 / 69.7 %
+#   1.5   0.7172 / 68.7 %  |  0.6941 / 69.8 %
+# 2025 schlechter, 2026 im Rauschen -> verworfen. Die Note sagt über die
+# Stärke nichts, was der Sieg nicht schon sagt (passt zur Messung "siegart").
 ELO_PLATTWURF_FAKTOR = 1.0
 # Draw-Breite: modelliert P(gestellt) rund um Ratinggleichheit.
 ELO_DRAW_WIDTH = 0.30

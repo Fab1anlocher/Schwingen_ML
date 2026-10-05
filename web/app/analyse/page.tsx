@@ -262,6 +262,20 @@ export default function Analyse() {
     return n ? 1 - z.reduce((a, c) => a + (c / n) ** 2, 0) : null;
   })();
 
+  // Alle Prüfsaisons zusammen: jede mit dem Modell von vor ihr vorhergesagt
+  // (prognose_check). Mehr echte Gänge statt doppelt gezählter Spiegelzeilen.
+  const saisonen = Object.entries(events?.prognose_check_saisons ?? {}).sort(([a], [b]) =>
+    a.localeCompare(b)
+  );
+  const alleSaisonen =
+    saisonen.length > 1
+      ? (() => {
+          const n = saisonen.reduce((a, [, c]) => a + c.n, 0);
+          const treffer = saisonen.reduce((a, [, c]) => a + c.treffer * c.n, 0) / n;
+          return { n, treffer, von: saisonen[0][0], bis: saisonen[saisonen.length - 1][0] };
+        })()
+      : null;
+
   const kennzahlen: Kennzahl[] = report
     ? [
         {
@@ -290,7 +304,9 @@ export default function Analyse() {
         {
           zahl: zahl(report.n_test),
           label: `Testgänge der Saison ${report.holdout_jahr}${check ? ` an ${check.n_feste} Festen` : ""}`,
-          sub: "das Modell der Kennzahlen kannte nur die Jahre davor",
+          sub: alleSaisonen
+            ? `${alleSaisonen.von}–${alleSaisonen.bis} zusammen: ${zahl(alleSaisonen.n)} Gänge, ${prozent1(alleSaisonen.treffer)} richtig`
+            : "das Modell der Kennzahlen kannte nur die Jahre davor",
         },
       ]
     : [];
@@ -405,8 +421,9 @@ export default function Analyse() {
           <div className="panel">
             <p className="muted small" style={{ marginTop: 0 }}>
               Jeder Schritt wurde an der Saison {saison} gemessen und nur übernommen, wenn er auch
-              auf der Saison davor besser war. Der Balken zeigt den Vorsprung vor der Elo-Formel
-              (länger = besser); daneben der Log-Loss und seine Änderung zum vorherigen Schritt.
+              auf der Saison davor besser war. Der Balken zeigt, um wie viel der Log-Loss unter dem des
+              ersten Stands liegt (länger = besser); daneben der Log-Loss und seine Änderung zum
+              vorherigen Schritt.
               Weil diese beiden Saisons auch zur Auswahl dienten, sind die Kennzahlen eher leicht zu
               gut
               {haertetest && haertetest.status !== "nicht_eingefroren" ? (
@@ -562,6 +579,18 @@ export default function Analyse() {
                   {ki &&
                     ` Klammern: 95 %-Bereich, Bootstrap über die ${ki.n_feste} Feste (Gänge desselben Fests hängen zusammen, einzelne Gänge als unabhängig zu zählen, gäbe zu enge Bereiche).`}
                 </li>
+                {alleSaisonen && (
+                  <li>
+                    Alle Prüfsaisons zusammen ({saisonen.map(([j]) => j).join(", ")}): jede mit dem
+                    Modell vorhergesagt, das nur die Jahre davor kannte —{" "}
+                    {saisonen
+                      .map(([j, c]) => `${j}: ${prozent1(c.treffer)} von ${zahl(c.n)} Gängen`)
+                      .join(" · ")}
+                    ; zusammen {prozent1(alleSaisonen.treffer)} von {zahl(alleSaisonen.n)} Gängen.
+                    Das sind echte, verschiedene Gänge (bis 23.9.2026 wurde dagegen jeder Gang aus
+                    beiden Sichten doppelt gezählt, s. „Alle Läufe“).
+                  </li>
+                )}
                 <li>
                   Die Modellschritte wurden an den Saisons {report.holdout_jahr - 1} und{" "}
                   {report.holdout_jahr} gemessen und nur bei Verbesserung in beiden übernommen. Die

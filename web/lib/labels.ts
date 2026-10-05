@@ -63,7 +63,11 @@ export function zahl(n: number): string {
 
 /** Name und Inhalt eines Modellstands (report_verlauf.json: Modelltyp +
  *  Merkmalsversion) für die Meilensteine der Analyse-Seite. */
-export function modellStandText(typ: string, version: number): { name: string; was: string } {
+export function modellStandText(
+  typ: string,
+  version: number,
+  rating = 1
+): { name: string; was: string } {
   const bekannt: Record<string, { name: string; was: string }> = {
     "lr|1": {
       name: "Lineares Modell",
@@ -81,8 +85,13 @@ export function modellStandText(typ: string, version: number): { name: string; w
       name: "Gradient Boosting",
       was: "zweistufig (erst Gestellt, dann Sieger) mit Monotonie-Vorgaben; jüngere Gänge zählen mehr",
     },
+    "gbm|3|2": {
+      name: "+ schnelleres Rating, Neulings-Bonus",
+      was: "Elo reagiert schneller (K 56 statt 24), und wer neu ist, bewegt sich am Anfang stark — das Rating ist zu Beginn unsicher",
+    },
   };
   return (
+    (rating > 1 ? bekannt[`${typ}|${version}|${rating}`] : undefined) ??
     bekannt[`${typ}|${version}`] ?? {
       name: `${typ === "gbm" ? "Gradient Boosting" : "Lineares Modell"} · Merkmale v${version}`,
       was: "",
