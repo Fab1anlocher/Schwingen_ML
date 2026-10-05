@@ -363,7 +363,38 @@ def _aktive_schwinger(gaenge, referenz_jahr: int) -> set:
     return aktive
 
 
-def main(source: str = "synth", *, streng: bool = True) -> dict:
+def _haertetest(X, y, meta, gaenge, snapshots, schwinger, *, einfrieren: bool) -> dict:
+    """Härtetest (pipeline/haertetest.py): auf Wunsch einfrieren, dann auswerten."""
+    import os
+
+    from . import haertetest
+    from .features import MERKMAL_VERSION
+
+    pfad = config.ARTIFACTS_DIR / haertetest.DATEINAME
+    if einfrieren:
+        if pfad.exists():
+            raise RuntimeError(f"{pfad.name} existiert schon -- ein Härtetest-Modell wird nur "
+                               "einmal eingefroren. Für eine neue Saison zuerst bewusst entfernen.")
+        modell = json.loads((config.ARTIFACTS_DIR / "model.json").read_text(encoding="utf-8"))
+        obj = haertetest.einfrieren(modell, X, meta, code_commit=os.environ.get("GITHUB_SHA"))
+        pfad.write_text(json.dumps(obj, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+        print(f"      Härtetest: Modell für {obj['saison']} eingefroren, Prüfsumme "
+              f"{obj['pruefsumme'][:12]}, {len(obj['referenz'])} Referenzgänge", flush=True)
+    eingefroren = json.loads(pfad.read_text(encoding="utf-8")) if pfad.exists() else None
+    X_version = None
+    if eingefroren and eingefroren.get("merkmal_version") != MERKMAL_VERSION:
+        # Das eingefrorene Modell kennt eine ältere Merkmalsdefinition.
+        X_version, _, _ = baue_features(gaenge, snapshots, schwinger, augment=True,
+                                        version=eingefroren["merkmal_version"])
+    res = haertetest.auswerten(eingefroren, X, y, meta, X_version=X_version)
+    wache = res.get("wache") or {}
+    print(f"      Härtetest: {res['status']}"
+          + (f", {res['n']} Gänge, Treffer {res['modell']['treffer']:.1%}" if res["status"] == "laeuft" else "")
+          + (f" -- WARNUNG: {wache['warnung']}" if wache.get("warnung") else ""), flush=True)
+    return res
+
+
+def main(source: str = "synth", *, streng: bool = True, haertetest_einfrieren: bool = False) -> dict:
     config.ensure_dirs()
     print(f"[1/8] Lade Daten (Quelle={source}) ...", flush=True)
     schwinger, events, roh, bericht = _lade_daten(source)
@@ -494,6 +525,8 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
     streuung_jetzt = elo_streuung(elo_modell, max(g.datum for g in gaenge))
     print(f"      Elo-Streuung aktuell {streuung_jetzt:.1f}, Gestellt-Basis {gestellt_basis:.1%}", flush=True)
     export.exportiere_modell(train_res, fi, elo_streuung=streuung_jetzt, gestellt_basis=gestellt_basis)
+    haertetest_res = _haertetest(X, y, meta, gaenge, snapshots, schwinger, einfrieren=haertetest_einfrieren)
+    export.exportiere_haertetest(haertetest_res)
     export.exportiere_ratings(elo_modell, schwinger)
     export.exportiere_schwinger(schwinger, form_aktuell, ueberraschung, anzahl_feste, aktive,
                                 gestellt_neigung=neigung, teilverband_geschaetzt=verband_geschaetzt,
@@ -540,6 +573,7 @@ def main(source: str = "synth", *, streng: bool = True) -> dict:
     report = export.exportiere_report(
         train_res, baseline, warnungen, len(gaenge), len(schwinger),
         baseline_portraet=baseline_portraet,
+        haertetest=haertetest_res,
         datenqualitaet=_datenqualitaet(
             bericht, gaenge, events, warnungen, schwinger=schwinger,
             kommende=kommende, kommende_diagnose=kommende_diagnose,
@@ -573,5 +607,12 @@ if __name__ == "__main__":
         help="Vergleich mit dem vorigen Lauf überspringen (nur für den bewussten "
              "Neuaufbau nach vollem Refetch; die Verlustquoten-Prüfung bleibt aktiv).",
     )
+    ap.add_argument(
+        "--haertetest-einfrieren",
+        action="store_true",
+        help="Das ausgelieferte Modell für den Härtetest der nächsten Saison einfrieren "
+             "(einmalig; bricht ab, wenn schon eines eingefroren ist), s. pipeline/haertetest.py.",
+    )
     args = ap.parse_args()
-    main(args.source, streng=not args.ohne_volumenpruefung)
+    main(args.source, streng=not args.ohne_volumenpruefung,
+         haertetest_einfrieren=args.haertetest_einfrieren)

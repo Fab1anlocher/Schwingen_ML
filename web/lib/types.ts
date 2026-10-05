@@ -361,3 +361,40 @@ export interface SimulationBacktest {
   };
   noten: { plattwurf: number; aktiv_gestellt: number; offensiv_verloren: number };
 }
+
+/** Kennzahlen eines Ansatzes im Härtetest. */
+export interface HaertetestKennzahlen {
+  treffer: number;
+  log_loss: number;
+  brier: number;
+}
+
+/** haertetest.json (pipeline/haertetest.py): das eingefrorene Modell an einer
+ *  Saison gemessen, die beim Bauen niemand kannte. */
+export interface HaertetestArtifact {
+  schema_version: string;
+  status: "nicht_eingefroren" | "wartet" | "laeuft";
+  saison: number;
+  eingefroren_am?: string;
+  code_commit?: string | null;
+  pruefsumme?: string;
+  merkmal_version?: number;
+  wache?: {
+    modell_unveraendert: boolean;
+    eingaben_unveraendert: boolean;
+    referenz_gefunden: number;
+    referenz_gleich: number;
+    warnung: string | null;
+  };
+  n?: number;
+  n_feste?: number;
+  bis?: string;
+  modell?: HaertetestKennzahlen & {
+    p_eingetreten: number;
+    gestellt_vorhergesagt: number;
+    gestellt_eingetreten: number;
+  };
+  konfidenz?: { n_feste: number; accuracy: [number, number]; log_loss: [number, number] } | null;
+  elo_angepasst?: HaertetestKennzahlen;
+  elo_formel?: HaertetestKennzahlen;
+}

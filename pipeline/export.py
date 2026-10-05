@@ -577,6 +577,11 @@ def exportiere_benchmark(benchmark_res: dict) -> None:
     })
 
 
+def exportiere_haertetest(res: dict) -> None:
+    """haertetest.json: Stand des Härtetests (s. pipeline/haertetest.py)."""
+    _dump_beide("haertetest.json", res)
+
+
 def _nur_portraet_block(modell: dict | None, baseline: dict | None) -> dict:
     if not modell or not modell.get("n"):
         return {"n": 0}
@@ -667,7 +672,8 @@ def ergaenze_verlauf(report: dict) -> dict:
 def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
                       n_gaenge: int, n_schwinger: int,
                       datenqualitaet: dict | None = None,
-                      baseline_portraet: dict | None = None) -> dict:
+                      baseline_portraet: dict | None = None,
+                      haertetest: dict | None = None) -> dict:
     """report.json: Trainingslauf-Bericht (ML-6, reproduzierbar, versioniert)."""
     ll = train_res["log_loss"]
     base_ll = baseline["log_loss"]
@@ -726,6 +732,11 @@ def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
             "accuracy_mindestens_baseline": erreicht_accuracy,
             "gesamt_erfuellt": bool(erreicht_log_loss and erreicht_accuracy),
         },
+        # Härtetest (haertetest.json): hier nur Status und Wache für den
+        # Datenqualitätsbericht.
+        "haertetest": ({"status": haertetest.get("status"),
+                        "warnung": (haertetest.get("wache") or {}).get("warnung")}
+                       if haertetest else None),
         "parsing_warnungen": warnungen[:50],
         "n_parsing_warnungen": len(warnungen),
         "datenqualitaet": datenqualitaet or {},

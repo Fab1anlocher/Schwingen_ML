@@ -14,6 +14,10 @@ on:
         description: "Rohdaten zusätzlich als Workflow-Artefakt sichern (sonst nur sonntags)"
         type: boolean
         default: false
+      haertetest_einfrieren:
+        description: "Ausgeliefertes Modell für den Härtetest der nächsten Saison einfrieren (einmalig, s. pipeline/haertetest.py)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -38,6 +42,7 @@ jobs:
     env:
       VOLLER_REFETCH: ${{ github.event.inputs.voller_refetch || 'false' }}
       ROHDATEN_SICHERN: ${{ github.event.inputs.rohdaten_sichern || 'false' }}
+      HAERTETEST_EINFRIEREN: ${{ github.event.inputs.haertetest_einfrieren || 'false' }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
@@ -101,11 +106,14 @@ jobs:
       # entfällt nur der Vergleich mit dem Vorlauf, nicht die Verlustprüfung.
       - name: Pipeline ausführen
         run: |
+          ARGS="--source scrape"
           if [ "${VOLLER_REFETCH}" = "true" ]; then
-            python -m pipeline.run_pipeline --source scrape --ohne-volumenpruefung
-          else
-            python -m pipeline.run_pipeline --source scrape
+            ARGS="$ARGS --ohne-volumenpruefung"
           fi
+          if [ "${HAERTETEST_EINFRIEREN}" = "true" ]; then
+            ARGS="$ARGS --haertetest-einfrieren"
+          fi
+          python -m pipeline.run_pipeline $ARGS
 
       - name: Inferenz-Konsistenz prüfen (JSON == sklearn)
         run: python -m pipeline.verify_inference
