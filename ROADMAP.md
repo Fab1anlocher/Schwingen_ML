@@ -30,11 +30,12 @@ Modell, das auch die laufende Saison gesehen hat.
 | ✅ D3 | Rohdaten wöchentlich sichern | Voraussetzung für D1/D2, Ausfallschutz — **erledigt** | ½ Tag | ~~3~~ |
 | ✅ M2 | Jüngere Gänge stärker gewichten | Val 0.7400 → 0.7390, Test 0.7207 → 0.7203 — **erledigt** | ½ Tag | ~~3~~ |
 | D1 | Noten je Gang (Plattwurf 10.00 vs. 9.75) nutzen | gemessen: Val −0.0027, Test −0.0039 (Messung ohne Ranglisten-Anreicherung) | 1 Tag | **2** |
-| ✅ T4 | Härtetest: eingefrorenes Modell an der Saison 2027 messen | ehrlicher Test ohne Auswahl-Optimismus — Mechanik **erledigt**, Einfrieren nach M4 | 1 Tag | ~~1~~ |
+| ✅ T4 | Härtetest: eingefrorenes Modell an der Saison 2027 messen | ehrlicher Test ohne Auswahl-Optimismus — **erledigt**, Modell nach M4 eingefroren | 1 Tag | ~~1~~ |
 | ✅ F4 | Fest-Simulator (Monte Carlo) mit Rückblick | Festsieger bekam Ø 27 % (Elo 18 %), Kranz-Brier 0.076 (Elo 0.081) — **erledigt** | 1–2 Tage | ~~–~~ |
 | D2 | Gangnummer aus der Rangliste (Anschwingen, Ausstich) | offen — erst nach D3 messbar | 1 Tag | 4 |
 | M3 | Heimvorteil (Fest des eigenen Verbands gegen Gäste) | +0.022 Punkte je Gästegang (2.6 SE) | ½ Tag | 5 |
-| M4 | Unsicherheit bei Neulingen (Glicko-artig) | Paarungen mit < 5 Gängen: Log-Loss 0.771 (sonst 0.70–0.75) | 1–2 Tage | 5 |
+| ✅ M4 | Schnelleres Rating, Neulinge bewegen sich stärker (Glicko-artig) | Val 0.7394 → 0.7154, Test 0.7197 → 0.6947; Treffer 67.8 → 68.9 % / 69.0 → 70.0 % — **erledigt** | 1–2 Tage | ~~5~~ |
+| ✅ F5 | Saisonrückblick (`/rueckblick`) | Aufsteiger, Kränze, Überraschungen, Kranzfeste je Saison — **erledigt** | 1 Tag | ~~–~~ |
 | F2 | Elo-Verlauf im Schwinger-Profil | Produkt | 1 Tag | 5 |
 | F3 | Vorschaubild für geteilte Prognose-Links | Produkt | ½ Tag | 6 |
 | T2 | Frontend-Tests + Browser-Smoke-Test in der CI | Sicherheit | 1 Tag | 6 |
@@ -315,9 +316,43 @@ Gängen, Schlussgänge über den Punktbesten des Fests ausgenommen).
   gegen Gäste leicht mehr als erwartet (+0.022 Punkte je Gang, 1517
   Test-Gänge, 2.6 Standardfehler). Klein, betrifft nur Gästegänge — mit M1
   zusammen testen.
-* **M4 Neulinge:** Paarungen mit einem Schwinger unter 5 Gängen haben Log-Loss
-  0.771 (6 % der Gänge). Ein Rating mit Unsicherheit (Glicko) könnte das
-  senken; aufwendiger, weil Elo überall verwendet wird.
+* **✅ M4 Rating (erledigt 05.10.2026):** Paarungen mit einem Schwinger unter
+  5 Gängen hatten Log-Loss 0.771 (6 % der Gänge), und die Ratings waren 2026
+  noch nicht eingeschwungen (Streuung 2023: 41, 2026: 126). Umgesetzt in
+  `ratings.EloModell` (`config.RATING_VERSION = 2`): K 56 statt 24, und jeder
+  Schwinger bewegt sich am Anfang stärker (K x8 im ersten Gang, x4.5 nach 10,
+  x1.6 nach 100 Gängen; der Kern von Glicko, ohne eigene Unsicherheit je
+  Schwinger). Das vollständige Raster (K 24–96, Bonus x3–x16, Startwert 1400)
+  steht in `config.py`. Gewinn in beiden Jahren, und zwar der grösste seit
+  M1. Nebenwirkung: Die klassische Elo-Formel ist damit nicht mehr zu
+  zaghaft (Log-Loss 2026 vorher 0.91, jetzt etwa 0.81), der Vergleich
+  „Modell gegen Elo" auf der Analyse-Seite wird ehrlicher und kleiner.
+
+## Was gegen „74 % Treffer" spricht (Messungen 05.10.2026)
+
+Ziel war ein deutlich höherer Treffer-Anteil. Gemessen und verworfen, weil
+nicht beide Jahre besser wurden (Regel aus CLAUDE.md):
+
+| Massnahme | Val 2025 (LL / Treffer) | Test 2026 (LL / Treffer) | Entscheid |
+|---|---|---|---|
+| Rating neu (M4, Bezug für die Zeilen darunter) | 0.7154 / 68.9 % | 0.6947 / 70.0 % | übernommen |
+| Plattwurf zählt im Rating x1.25 (`rating_noten`) | 0.7161 / 68.8 % | 0.6938 / 69.7 % | verworfen |
+| Plattwurf zählt im Rating x1.5 | 0.7172 / 68.7 % | 0.6941 / 69.8 % | verworfen |
+| Mittel aus Boosting und LR (90/10 … 70/30) | bestenfalls −0.0003 / −0.1 Pkt. | bestenfalls −0.0003 / −0.0 Pkt. | verworfen: im Rauschen, Treffer leicht tiefer, zwei Modelle in der App |
+| Gangnummer (`festtag`) | −0.0005 / ±0 | −0.0002 / +0.1 Pkt. | verworfen: im Rauschen, Position nur bei 80.9 % der Gänge eindeutig, für eine frei gewählte Paarung unbekannt |
+| + Punkte und Siege vom selben Festtag (`festtag`) | +0.0001 / +0.1 Pkt. | −0.0015 / +0.1 Pkt. | verworfen: 2025 schlechter, und erst während des Fests bekannt |
+| Mehr Geschichte vor 2023 (`historie`) | – | – | nicht verfügbar: die Fest-API von schlussgang.ch führt vor 2023 kein Fest |
+
+(Die Messungen `festtag` liefen mit einem Zwischenstand des Ratings; die
+Differenzen beziehen sich auf die jeweilige Zeile „heute" derselben Messung.)
+
+**Obergrenze:** Selbst mit der Stärke, die man erst **nach** der Saison kennt
+(Rating aus allen Gängen der Saison, also mit Zukunftswissen), träfe man
+etwa 77 % aller Gänge; die entschiedenen zu 88–90 %, die Gestellten
+(rund 21 %) praktisch nie, weil sie selten die wahrscheinlichste
+Einzelprognose sind. 74 % vor dem Fest würde fast diese Obergrenze
+verlangen. Mehr Treffer bringen nur neue Information (z.B. Tagesform,
+Verletzungen, Einteilung), keine weitere Modellfeinheit.
 
 ## F2 / F3 / T2 / T3 — Produkt und Technik
 

@@ -28,7 +28,7 @@ FORM_FENSTER_K = 5
 ELO_START = 1500.0
 # K-Faktor und Neulings-Bonus (Roadmap M4, gemessen 05.10.2026 mit dem
 # Harness, Validierung 2025 / Test 2026, Log-Loss und Treffer):
-#   K 24 (bisher)                      0.7394 68.4 % / 0.7197 69.0 %
+#   K 24 (bisher)                      0.7394 67.8 % / 0.7197 69.0 %
 #   K 56                               0.7312 68.2 % / 0.7106 69.3 %
 #   K 24, Neulinge x5 (n0 10)          0.7263 68.5 % / 0.7067 69.5 %
 #   K 56, Neulinge x5 (n0 10)          0.7174 68.7 % / 0.6984 69.7 %

@@ -38,6 +38,9 @@ Benchmark → Clustering → Export.
 | Modellgüte je Lauf | `export.ergaenze_verlauf` → `report_verlauf.json` | `components/VerlaufDiagramm.tsx` |
 | Prognose-Check je Fest | `prognose_check.py` → `events.json` | `app/feste/page.tsx` (Rückblick) |
 | Fest-Simulation (Monte Carlo) | `fest_simulation.py` (+ `backtest` → `simulation_backtest.json`) | `lib/simulation.ts`, `app/simulation`, `/api/fest-feld` |
+| Rating (Elo, K-Faktor, Neulings-Bonus) | `ratings.py`, Werte und Messungen in `config.py` (`RATING_VERSION`) | – (Elo kommt fertig aus den Artefakten) |
+| Saisonrückblick | `saison_rueckblick.py` → `saison_rueckblick.json` | `app/rueckblick/page.tsx` |
+| Härtetest 2027 (eingefrorenes Modell) | `haertetest.py` → `haertetest.json`, `haertetest_modell.json` | Analyse, Abschnitt Härtetest |
 | Kopf-an-Kopf / Paar-Historie | `features._kopf_an_kopf_vorteil`, `paar_gestellt` | `lib/kopfAnKopf.ts` |
 | Konstanten der Merkmale | `config.py` (`MERKMAL_VERSION`, `PAAR_GESTELLT_K`, …) | `inference.ts` (gleiche Werte) |
 | Namen → Schwinger-ID | `identity.py`, `roster.py`, `namensvettern.py` | – |
@@ -124,6 +127,17 @@ Ergebnisse des Pipeline-Laufs stehen in
 `artifacts/report.json` → `datenqualitaet`, der Verlauf in
 `artifacts/report_verlauf.json`.
 
+## Härtetest (eingefroren)
+
+Das Modell für die Prüfsaison 2027 ist eingefroren
+(`artifacts/haertetest_modell.json` mit Prüfsumme). **Nie neu einfrieren
+oder von Hand ändern**: der Test ist nur ehrlich, solange das Modell vor
+der Saison feststand. Die Wache in `haertetest.py` meldet, wenn sich
+Modell oder Eingaben ändern. Eine neue `MERKMAL_VERSION` fängt die Pipeline
+ab (sie rechnet das eingefrorene Modell nach dessen eigener Version); ein
+neues Rating (`RATING_VERSION`) verändert die Eingaben dagegen bis 2027
+sichtbar, der Test wäre dann nicht mehr sauber.
+
 ## Fachwissen Schwingen (für Plausibilitätsprüfungen)
 
 - **Kranzquote:** An einem Kranzfest (Kantonal, Teilverband, Berg,
@@ -141,8 +155,10 @@ Ergebnisse des Pipeline-Laufs stehen in
 ## Fallstricke (real passiert)
 
 - **Vergleiche fair halten** (Audit der Analyse-Seite, `ROADMAP.md`): Die
-  Elo-Formel (`elo_baseline`) ist viel zu zaghaft; der faire Massstab ist
-  `elo_angepasst`. MAE belohnt Übertreibung und taugt nicht zur Rangfolge.
+  Elo-Formel (`elo_baseline`) war mit dem alten Rating (K 24) viel zu
+  zaghaft; seit Rating-Version 2 ist sie nahezu kalibriert. Der faire
+  Massstab bleibt `elo_angepasst`. Ein neues Rating heisst `RATING_VERSION`
+  erhöhen: Verlauf und Überwachung vergleichen nur Läufe desselben Stands. MAE belohnt Übertreibung und taugt nicht zur Rangfolge.
   Permutations-Wichtigkeit heisst „so stark stützt sich das Modell darauf“,
   nicht „so viel ginge ohne verloren“. Kranzstatus, Porträt und Physis sind
   der **heutige** Stand, nicht der vor dem Fest.

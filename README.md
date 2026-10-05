@@ -30,6 +30,7 @@ Verbesserung, egal wie aufwendig es ist.
 | **Prognose** | Zwei Schwinger wählen → Sieg-A/Gestellt/Sieg-B-Wahrscheinlichkeit mit Merkmalsbeiträgen, Kopf-an-Kopf-Historie, teilbarer Link (`?a=…&b=…`). |
 | **Feste** | Kommende Feste der nächsten 60 Tage (je veröffentlichter Paarung Prognose + informative Quote; ohne Startliste keine Prognose). **Rückblick** je Saison: Festsieger, vergebene Kränze und Teilnehmer laut Schlussrangliste, dazu der **Prognose-Check**: wie oft die Prognose je Fest lag, mit dem Modell von vor der Saison, gegen die reine Elo-Prognose. |
 | **Simulator** | Monte-Carlo-Simulation eines ganzen Fests (Einteilung, Gänge, Noten, Ausstich, Schlussgang, Kränze) für das Teilnehmerfeld eines gewählten Fests: Festsieg-, Schlussgang- und Kranzchance je Schwinger, simulierte Kranzgrenze; Rückblick, wie gut die Simulation an den Kranzfesten der Saison lag. |
+| **Rückblick** | Die Saison auf einen Blick: Eckdaten, Festsieger, meiste Kränze, Aufsteiger (grösster Elo-Gewinn, ab 15 Gängen), Überraschungen (die Siege, die das Modell von vor der Saison am wenigsten erwartet hatte), Kranzfeste und die Feste mit der besten und der schwächsten Prognose. |
 | **Schwinger** | Alle erfassten Schwinger, durchsuchbar, nach Elo sortiert, mit Kränzen seit 2023. Profil: Verband, Klub, Festsiege, Überraschungs-Index, ähnliche Schwinger. Getrennte Namensvettern sind gekennzeichnet. |
 | **Typen** | K-Means-Clustering über das volle Profil der Porträt-Schwinger, Anzahl per Silhouette-Score, PCA-Streudiagramm. |
 | **Karte** | Choroplethen-Karte (Elo-Schnitt, Siegquote, Anteil Top-Schwinger, Kaderbreite) je Kanton, Bern nach seinen 6 Gauverbänden. Verband aus Porträt oder Schwingklub, gezählt ab 5 Gängen. |
@@ -269,6 +270,7 @@ pipeline/                  Python-Datenpipeline
   train.py                   Training + zeitliche Evaluation, Merkmalswichtigkeit
   benchmark.py               5-Wege-Modellvergleich (Accuracy/Brier/MAE/MSE)
   prognose_check.py          Rückblick je Fest: Treffer mit dem Modell von vor der Saison
+  saison_rueckblick.py       Saisonrückblick: Aufsteiger, Kränze, Überraschungen
   fest_simulation.py         Monte-Carlo-Simulation eines Fests + Rückblick (Backtest)
   metriken.py                MAE/MSE, Gestellt-Kalibrierung
   ranglisten.py              Schlussranglisten: Kränze, Klub, Verband, Festsiege
@@ -325,7 +327,10 @@ stehen immer in `artifacts/report.json` und auf der Analyse-Seite, ihr
 Verlauf in `artifacts/report_verlauf.json`.
 
 * **Elo-Baseline** (`ratings.py`): chronologisch fortgeschrieben, K-Faktor nach
-  Fest-Wichtigkeit gewichtet. Jedes komplexere Modell muss sie schlagen.
+  Fest-Wichtigkeit gewichtet. Seit Rating-Version 2 (05.10.2026) K 56 statt
+  24, und wer neu ist, bewegt sich am Anfang stärker (K x8 im ersten Gang,
+  x1.6 nach 100 Gängen) — gemessen in beiden Jahren besser, Zahlen in
+  `config.py`. Jedes komplexere Modell muss die Elo-Prognose schlagen.
 * **Merkmale** (`features.py`): **leak-freie** A-minus-B-Merkmale —
   Rating-Vorsprung und -Nähe, Form, Kranzstatus, Alter, Gewicht/Grösse,
   Erfahrung, Verband, bevorzugte Schwünge, Kopf-an-Kopf-Bilanz, Gestellt-
