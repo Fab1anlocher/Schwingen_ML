@@ -31,7 +31,7 @@ Verbesserung, egal wie aufwendig es ist.
 | **Feste** | Kommende Feste der nächsten 60 Tage (je veröffentlichter Paarung Prognose + informative Quote; ohne Startliste keine Prognose). **Rückblick** je Saison: Festsieger, vergebene Kränze und Teilnehmer laut Schlussrangliste, dazu der **Prognose-Check**: wie oft die Prognose je Fest lag, mit dem Modell von vor der Saison, gegen die reine Elo-Prognose. |
 | **Simulator** | Monte-Carlo-Simulation eines ganzen Fests (Einteilung, Gänge, Noten, Ausstich, Schlussgang, Kränze) für das Teilnehmerfeld eines gewählten Fests: Festsieg-, Schlussgang- und Kranzchance je Schwinger, simulierte Kranzgrenze; Rückblick, wie gut die Simulation an den Kranzfesten der Saison lag. |
 | **Rückblick** | Die Saison auf einen Blick: Eckdaten, Festsieger, meiste Kränze, Aufsteiger (grösster Elo-Gewinn, ab 15 Gängen), die stärksten Neuen, Überraschungen (die Siege, die das Modell von vor der Saison am wenigsten erwartet hatte), Kranzfeste und die Feste mit der besten und der schwächsten Prognose. Ab 2024 (2023 ist das Einschwingen der Ratings). |
-| **Schwinger** | Alle erfassten Schwinger, durchsuchbar, nach Elo sortiert, mit Kränzen seit 2023. Profil: Verband, Klub, Festsiege, Überraschungs-Index, ähnliche Schwinger. Getrennte Namensvettern sind gekennzeichnet. |
+| **Schwinger** | Alle erfassten Schwinger, durchsuchbar, nach Elo sortiert, mit Kränzen seit 2023. Profil: Verband, Klub, Festsiege, Überraschungs-Index, ähnliche Schwinger. Getrennte Namensvettern sind gekennzeichnet (getrennt über Teilverband, Klub und Wohnort der Rangliste, am selben Fest über das Punktetotal). |
 | **Typen** | K-Means-Clustering über das volle Profil der Porträt-Schwinger, Anzahl per Silhouette-Score, PCA-Streudiagramm. |
 | **Karte** | Choroplethen-Karte (Elo-Schnitt, Siegquote, Anteil Top-Schwinger, Kaderbreite) je Kanton, Bern nach seinen 6 Gauverbänden. Verband aus Porträt oder Schwingklub, gezählt ab 5 Gängen. |
 | **Analyse** | Die Antwort zuerst (Treffer, Ø Wahrscheinlichkeit für den tatsächlichen Ausgang, Gestellt-Kalibrierung, Testumfang), Rangliste der fünf Ansätze, Treffer je Festtyp (Elo → Modell), Kalibrierung der Gestellt-Chance, Entwicklung des Modells als Meilensteine, tägliche Überwachung mit Alarmgrenze, Merkmalswichtigkeit, Exkurse zu Physis und Schwüngen; Methodik, Konfusionsmatrix und alle Fehlermasse für Fachleute. |
@@ -321,10 +321,10 @@ Datenqualitätsbericht nicht auf.
 
 **Stand 05.10.2026** (Merkmalsversion 3, Rating-Version 2, zweistufiges
 Gradient Boosting, Test = Saison 2026, 37'747 Gänge, die das Modell nie
-gesehen hat): Log-Loss **0.6935** (Logistic Regression: 0.7053, Elo-Formel
-0.8085), Accuracy **70.0 %** (95 %-Bereich über die Feste 69.2–70.7 %, Elo
-66.0 %), Gestellt 20.5 % vorhergesagt bei 21.0 % eingetreten,
-Kalibrierungsfehler 0.8 Prozentpunkte. Die aktuellen Zahlen
+gesehen hat): Log-Loss **0.6829** (Logistic Regression: 0.6938, Elo-Formel
+0.8006), Accuracy **70.4 %** (95 %-Bereich über die Feste 69.7–71.2 %, Elo
+66.2 %), Gestellt 20.5 % vorhergesagt bei 21.0 % eingetreten,
+Kalibrierungsfehler 0.7 Prozentpunkte. Die aktuellen Zahlen
 stehen immer in `artifacts/report.json` und auf der Analyse-Seite, ihr
 Verlauf in `artifacts/report_verlauf.json`.
 
@@ -523,8 +523,8 @@ frühere, vor der mindestens eine halbe eingeschwungene Saison liegt (heute
 
 | Saison | Gänge | Treffer | Elo | P(tatsächlicher Ausgang) |
 |---|---:|---:|---:|---:|
-| 2025 | 37'159 | 68.9 % | 64.8 % | 58.7 % |
-| 2026 | 37'747 | 70.0 % | 66.0 % | 59.9 % |
+| 2025 | 37'164 | 69.2 % | 65.1 % | 59.1 % |
+| 2026 | 37'747 | 70.4 % | 66.2 % | 60.3 % |
 
 Kantonal- und Teilverbandsfeste liegen meist bei 68–75 %, Bergfeste und das
 Eidgenössische deutlich tiefer (58–62 %): dort treffen mehr Spitzenschwinger

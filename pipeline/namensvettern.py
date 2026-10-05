@@ -442,8 +442,11 @@ def trenne_nach_herkunft(ranglisten: dict, events: dict, finde, schwinger: dict,
                 gid = _vetter_id(tokens, kurz)
                 if gid not in neue and gid not in schwinger:
                     ref = schwinger.get(basis_id)
+                    klub = Counter(e.get("schwingklub") for (_, _, e), k in zip(liste, klub_je_eintrag)
+                                   if k in g and e.get("schwingklub")).most_common(1)
                     neue[gid] = {"id": gid, "name": ref.name if ref else " ".join(tokens),
                                  "jahrgang": None, "kranzstatus": "kein", "namensvetter_von": basis_id,
+                                 "schwingklub": klub[0][0] if klub else None,
                                  "quellen": ["schlussgang.ch/rangliste"]}
                     getrennt += 1
                     a = [x for k in g for x in auftritte[k]]

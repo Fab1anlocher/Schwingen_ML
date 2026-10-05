@@ -169,8 +169,12 @@ ehrlich, solange das Modell vor der Saison feststand. Darum gilt:
   nicht „so viel ginge ohne verloren“. Kranzstatus, Porträt und Physis sind
   der **heutige** Stand, nicht der vor dem Fest.
 - **Namensvettern:** Ein Porträt pro Name heisst nicht eine Person.
-  `namensvettern.py` trennt über Klub/Jahrgang der Rangliste, aber nur bei
-  durchmischten Auftritten. Ein Klubwechsel bleibt eine Person.
+  `namensvettern.py` trennt in zwei Stufen: Teilverband/Jahrgang, dann
+  Herkunft (Klub, Wohnort) mit Beleg (selbes Fest, selber Tag, oder
+  Abwechseln bei verschiedenen Wohnorten). Am selben Fest entscheidet das
+  Punktetotal des PDF-Blocks. Ein Klubwechsel ohne Beleg bleibt eine Person.
+  Neue Trennungen ändern Ratings vieler Gegner: Härtetest vor der
+  Prüfsaison neu einfrieren, während der Saison nicht ändern.
 - **Niederlage als „0":** Die Statistik-PDFs bis Anfang 2024 schreiben die
   Niederlage als Ziffer 0. Als Rang gelesen, verschob das 2023 fast alle
   Gänge (ROADMAP D4). Der Cache enthält geparste Einträge, keine PDFs: Nach

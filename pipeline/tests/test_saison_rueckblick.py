@@ -6,6 +6,7 @@ from types import SimpleNamespace
 from pipeline import saison_rueckblick as sr
 from pipeline.labels import GangResultat
 from pipeline.ratings import EloModell, fahre_elo_durch
+from pipeline.schema import Schwinger
 
 
 def _gang(eid, datum, a, b, ergebnis, typ="kantonal"):
@@ -39,7 +40,7 @@ def test_elo_je_saison_endet_wie_fahre_elo_durch():
 
 def test_rueckblick_aufsteiger_und_kraenze():
     gaenge = _saisons()
-    schwinger = {s: SimpleNamespace(name=s.upper()) for s in "abc"}
+    schwinger = {s: Schwinger(id=s, name=s.upper()) for s in "abc"}
     kraenze = sr.kraenze_je_saison([
         SimpleNamespace(datum="2026-05-01", schwinger_id="a", kranz=True),
         SimpleNamespace(datum="2026-06-01", schwinger_id="a", kranz=True),
@@ -65,3 +66,15 @@ def test_rueckblick_aufsteiger_und_kraenze():
 def test_kurze_jahre_zaehlen_nicht_als_saison():
     gaenge = _saisons() + [_gang("x", "2027-09-01", "a", "b", "sieg_a")]
     assert list(sr.rueckblick(gaenge, {})["saisons"]) == ["2025", "2026"]
+
+
+def test_namen_wie_in_der_app():
+    """Ohne Porträt "Nachname Vorname" -> "Vorname Nachname"; Namensvetter mit Klub."""
+    sw = {"x": Schwinger(id="x", name="Streuli Luca"),
+          "v": Schwinger(id="v", name="Alex Schuler", namensvetter_von="p", schwingklub="Einsiedeln")}
+    gaenge = []
+    for f in range(sr.MIN_FESTE_SAISON):
+        for jahr in (2025, 2026):
+            gaenge.append(_gang(f"{jahr}-{f}", f"{jahr}-05-{1 + f:02d}", "x", "v", "sieg_a"))
+    r = sr.rueckblick(gaenge, sw)
+    assert {a["name"] for a in r["saisons"]["2026"]["aufsteiger"]} == {"Luca Streuli", "Alex Schuler (Einsiedeln)"}
