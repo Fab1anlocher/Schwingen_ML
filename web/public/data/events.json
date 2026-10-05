@@ -10135,21 +10135,33 @@
         "gestellt_vorhergesagt": 0.2166,
         "gestellt_eingetreten": 0.2112
       }
-    }
-  ],
-  "kommende": [
+    },
     {
       "id": "schlussgang-52069",
       "name": "Herbstschwinget Unteriberg 2026",
       "datum": "2026-10-04",
       "typ": "regional",
-      "kategorie": "Regionalfeste",
-      "ort": "Unteriberg",
       "quelle": "schlussgang.ch/event",
-      "teilverband": "Innerschweiz",
-      "teilverband_quelle": "vorausgabe"
+      "ort": "Unteriberg",
+      "sieger": [
+        {
+          "id": "martin schonbachler|2007",
+          "name": "Martin Schönbächler"
+        }
+      ],
+      "n_teilnehmer": 54,
+      "n_kraenze": 0,
+      "prognose_check": {
+        "n": 159,
+        "treffer": 0.7044,
+        "treffer_elo": 0.6855,
+        "p_eingetreten": 0.5863,
+        "gestellt_vorhergesagt": 0.1962,
+        "gestellt_eingetreten": 0.1887
+      }
     }
   ],
+  "kommende": [],
   "prognose_check_saisons": {
     "2025": {
       "n": 37159,
@@ -10161,13 +10173,13 @@
       "n_feste": 137
     },
     "2026": {
-      "n": 37588,
-      "treffer": 0.6908,
-      "treffer_elo": 0.6131,
+      "n": 37747,
+      "treffer": 0.6909,
+      "treffer_elo": 0.6134,
       "p_eingetreten": 0.5818,
       "gestellt_vorhergesagt": 0.205,
-      "gestellt_eingetreten": 0.2104,
-      "n_feste": 136
+      "gestellt_eingetreten": 0.2103,
+      "n_feste": 137
     }
   }
 }

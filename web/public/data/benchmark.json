@@ -1,44 +1,44 @@
 {
   "schema_version": "1.0.0",
   "holdout_jahr": 2026,
-  "n_test": 37588,
+  "n_test": 37747,
   "kandidaten": [
     {
       "key": "kranz_heuristik",
       "label": "Kranz-Heuristik",
-      "accuracy": 0.4221,
+      "accuracy": 0.4219,
       "log_loss": null,
-      "brier_score": 1.1558,
-      "mae": 0.302,
-      "mse": 0.164,
-      "anteil_gleichstand": 0.6504,
+      "brier_score": 1.1562,
+      "mae": 0.3021,
+      "mse": 0.1641,
+      "anteil_gleichstand": 0.6506,
       "accuracy_ohne_gleichstand": 0.7656
     },
     {
       "key": "elo_baseline",
       "label": "Elo-Formel (nicht angepasst)",
-      "accuracy": 0.6131,
-      "log_loss": 0.9093,
-      "brier_score": 0.5299,
-      "mae": 0.3375,
+      "accuracy": 0.6134,
+      "log_loss": 0.9091,
+      "brier_score": 0.5297,
+      "mae": 0.3374,
       "mse": 0.1441
     },
     {
       "key": "elo_angepasst",
       "label": "Elo, angepasst",
-      "accuracy": 0.6131,
-      "log_loss": 0.8566,
-      "brier_score": 0.5005,
-      "mae": 0.2989,
-      "mse": 0.1296
+      "accuracy": 0.6134,
+      "log_loss": 0.8562,
+      "brier_score": 0.5003,
+      "mae": 0.2988,
+      "mse": 0.1295
     },
     {
       "key": "ml_ohne_elo",
       "label": "ML ohne Elo (Kranzstatus, Physis, Stil, Verband)",
       "accuracy": 0.5187,
-      "log_loss": 0.9453,
+      "log_loss": 0.9454,
       "brier_score": 0.5601,
-      "mae": 0.3461,
+      "mae": 0.3462,
       "mse": 0.1572
     },
     {
@@ -53,7 +53,7 @@
     {
       "key": "ml_komplett",
       "label": "Gradient Boosting (Produktionsmodell)",
-      "accuracy": 0.6908,
+      "accuracy": 0.6909,
       "log_loss": 0.7199,
       "brier_score": 0.415,
       "mae": 0.2432,
