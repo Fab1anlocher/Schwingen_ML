@@ -94,11 +94,11 @@ export default function Typen() {
             </p>
             <p className="muted small">
               Plattwurf in {Math.round(auswahl.plattwurf_quote * 100)}% seiner Siege (erwartet{" "}
-              {Math.round(auswahl.plattwurf_erwartet * 100)}%, {prozentpunkte(auswahl.plattwurf)}{" "}
-              nach Schrumpfung) · gestellt in {Math.round(auswahl.gestellt_quote * 100)}% seiner
-              Gänge (erwartet {Math.round(auswahl.gestellt_erwartet * 100)}%,{" "}
-              {prozentpunkte(auswahl.gestellt)}) · {auswahl.n_siege} Siege, {auswahl.n_gaenge}{" "}
-              Gänge · <Link href={`/?a=${encodeURIComponent(auswahl.schwinger_id)}`}>zur Prognose</Link>
+              {Math.round(auswahl.plattwurf_erwartet * 100)}%) · gestellt in{" "}
+              {Math.round(auswahl.gestellt_quote * 100)}% seiner Gänge (erwartet{" "}
+              {Math.round(auswahl.gestellt_erwartet * 100)}%) · {auswahl.n_siege} Siege,{" "}
+              {auswahl.n_gaenge} Gänge ·{" "}
+              <Link href={`/?a=${encodeURIComponent(auswahl.schwinger_id)}`}>zur Prognose</Link>
             </p>
           </div>
         )}

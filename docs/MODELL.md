@@ -433,6 +433,12 @@ nicht als Stil erscheinen:
 * Jeder Lauf misst, ob die Achsen eine Eigenschaft der Person sind
   (Korrelation zweier Hälften der Gänge) und wie stark sie mit dem Elo
   zusammenhängen; die Seite zeigt beides (`stiltypen.json` → `pruefung`).
+* **Erster Lauf (06.10.2026):** 1'130 aktive Schwinger mit Typ (vorher 526
+  mit Porträt): Werfer 275, Bollwerk 241, Bodenarbeiter 217, Allrounder 175,
+  Entscheider 136, Lauerer 86. Hälften-Korrelation Plattwurf r = 0.46,
+  Gestellt r = 0.71; mit dem Elo r = 0.02 bzw. 0.12, die Achsen
+  untereinander r = −0.18. Plausibel gegen die Messung „siegart": Moser und
+  Walther sind Werfer, Bissig und Lüscher Bodenarbeiter.
 * Im Diagramm sind die Punkte einfarbig und die Zonen beschriftet: Sechs
   Kategorienfarben sind in einer Punktwolke nicht unterscheidbar, und die
   Lage sagt den Typ ohnehin.

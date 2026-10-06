@@ -1167,10 +1167,14 @@ tbody tr:hover {
   stroke: var(--border-strong);
   stroke-width: 1;
 }
+.stil-mitte {
+  fill: var(--surface-2);
+}
 .stil-grenze {
-  stroke: var(--muted-2);
-  stroke-width: 1;
-  stroke-dasharray: 4 4;
+  stroke: var(--ink);
+  stroke-width: 1.25;
+  stroke-dasharray: 5 4;
+  opacity: 0.55;
 }
 .stil-punkt {
   fill: var(--ink);
@@ -1324,7 +1328,21 @@ tbody tr:hover {
 }
 @media (max-width: 640px) {
   .stil-achsen {
-    font-size: 0.72rem;
+    flex-wrap: wrap;
+    font-size: 0.75rem;
+  }
+  .stil-achse-mitte {
+    order: 3;
+    flex-basis: 100%;
+  }
+  .stil-achse-rechts {
+    margin-left: auto;
+  }
+  .stil-zone {
+    font-size: 10px;
+  }
+  .stil-punkt {
+    opacity: 0.24;
   }
 }
 

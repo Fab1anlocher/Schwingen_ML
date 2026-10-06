@@ -44,6 +44,10 @@ export function StilLandkarte({
   const x = (v: number) => px0 + ((v + xMax) / (2 * xMax)) * (px1 - px0);
   const y = (v: number) => py1 - ((v + yMax) / (2 * yMax)) * (py1 - py0);
   const tg = daten.schwelle_gestellt, tp = daten.schwelle_plattwurf;
+  // Auf dem Handy keine Namen an den Vertretern (sie überdecken die Zonen),
+  // kleinere Punkte; der gesuchte Schwinger bleibt beschriftet.
+  const schmal = W < 520;
+  const radius = schmal ? 2 : 2.6;
 
   const ausgepraegt = useMemo(
     () => new Set(daten.typen.map((t) => t.ausgepraegteste)),
@@ -92,14 +96,11 @@ export function StilLandkarte({
           if (p) onWaehle(p.schwinger_id);
         }}
       >
-        {/* Nulllinien = genau wie erwartet */}
+        {/* Allrounder-Zone hinterlegt, Nulllinien = genau wie erwartet */}
+        <rect x={x(-tg)} y={y(tp)} width={x(tg) - x(-tg)} height={y(-tp) - y(tp)}
+              className="stil-mitte" />
         <line x1={x(0)} x2={x(0)} y1={py0} y2={py1} className="stil-null" />
         <line x1={px0} x2={px1} y1={y(0)} y2={y(0)} className="stil-null" />
-        {/* Grenzen der Typen */}
-        <line x1={px0} x2={px1} y1={y(tp)} y2={y(tp)} className="stil-grenze" />
-        <line x1={px0} x2={x(tg)} y1={y(-tp)} y2={y(-tp)} className="stil-grenze" />
-        <line x1={x(tg)} x2={x(tg)} y1={py0} y2={py1} className="stil-grenze" />
-        <line x1={x(-tg)} x2={x(-tg)} y1={y(tp)} y2={y(-tp)} className="stil-grenze" />
 
         {daten.punkte.map((p) => {
           const gedimmt = hervorTyp !== null && p.typ !== hervorTyp;
@@ -109,12 +110,18 @@ export function StilLandkarte({
               key={p.schwinger_id}
               cx={x(p.gestellt)}
               cy={y(p.plattwurf)}
-              r={ausgepraegt.has(p.schwinger_id) ? 4 : 2.6}
+              r={ausgepraegt.has(p.schwinger_id) ? radius + 1.4 : radius}
               className={ausgepraegt.has(p.schwinger_id) ? "stil-punkt stil-punkt-ausgepraegt" : "stil-punkt"}
               opacity={gedimmt ? 0.07 : undefined}
             />
           );
         })}
+
+        {/* Grenzen der Typen über den Punkten, sonst verschwinden sie in der Wolke */}
+        <line x1={px0} x2={px1} y1={y(tp)} y2={y(tp)} className="stil-grenze" />
+        <line x1={px0} x2={x(tg)} y1={y(-tp)} y2={y(-tp)} className="stil-grenze" />
+        <line x1={x(tg)} x2={x(tg)} y1={py0} y2={py1} className="stil-grenze" />
+        <line x1={x(-tg)} x2={x(-tg)} y1={y(tp)} y2={y(-tp)} className="stil-grenze" />
 
         {zonen.map((z) => (
           <text key={z.typ} x={z.x} y={z.y} textAnchor={z.anker}
@@ -124,7 +131,7 @@ export function StilLandkarte({
         ))}
 
         {/* Namen der ausgeprägtesten Vertreter je Typ */}
-        {daten.typen.map((t) => {
+        {!schmal && daten.typen.map((t) => {
           const p = daten.punkte.find((q) => q.schwinger_id === t.ausgepraegteste);
           if (!p || p.schwinger_id === markiert) return null;
           const cx = x(p.gestellt);
@@ -186,7 +193,7 @@ export function StilLandkarte({
       <div className="stil-achsen">
         <span>← stellt seltener</span>
         <span className="stil-achse-mitte">Gestellt gegenüber der Erwartung</span>
-        <span>stellt öfter →</span>
+        <span className="stil-achse-rechts">stellt öfter →</span>
       </div>
       <p className="muted small stil-achse-y">
         ↑ oben: gewinnt öfter mit dem Plattwurf als erwartet · ↓ unten: seltener. Die
