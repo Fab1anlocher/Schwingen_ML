@@ -199,14 +199,15 @@ Orlik gegen Staudenmann steht jetzt bei 13 / 58 / 29 %.
 
 ## Schnelleres Rating und saubere Daten (05.10.2026)
 
-Drei Schritte, jeder in Validierung 2025 **und** Test 2026 besser:
+Vier Schritte. Rating, D4 und D5 waren in Validierung 2025 **und** Test 2026 besser; D6 korrigiert Daten (der Test ändert sich im Rauschen, 0.0002), die Daten sind danach richtiger:
 
 | Schritt | Test 2026: Log-Loss / Treffer |
 |---|---:|
 | Gradient Boosting (Stand 04.10.) | 0.7199 / 69.1 % |
 | **Rating-Version 2**: K 56 statt 24, Neulings-Bonus (K x8 im ersten Gang) | 0.6947 / 70.0 % |
 | **D4**: Niederlage „0" in den PDFs bis Anfang 2024 richtig gelesen | 0.6935 / 70.0 % |
-| **D5**: Namensvettern über Klub, Wohnort und Punktetotal getrennt | **0.6829 / 70.4 %** |
+| **D5**: Namensvettern über Klub, Wohnort und Punktetotal getrennt | 0.6829 / 70.4 % |
+| **D6**: Ränge „15aa" richtig gelesen, Daten-Audit gegen die Rangliste (s. DATEN.md) | **0.6831 / 70.3 %** |
 
 * **Rating.** Die Ratings waren 2026 noch nicht eingeschwungen, die
   Elo-Formel zu zaghaft. Ein schnelleres K und ein Rating, das sich am

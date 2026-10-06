@@ -43,7 +43,7 @@ Modell beim Training nicht gesehen hat):
 
 | | Log-Loss | Treffer |
 |---|---:|---:|
-| **Gradient Boosting (ausgeliefert)** | **0.683** | **70.4 %** |
+| **Gradient Boosting (ausgeliefert)** | **0.683** | **70.3 %** |
 | Logistic Regression, gleiche Merkmale | 0.694 | 69.9 % |
 | Elo, auf die Daten angepasst | 0.773 | 66.1 % |
 | Elo-Formel | 0.801 | 66.2 % |
@@ -79,7 +79,7 @@ stehen in `artifacts/report.json` und auf der Analyse-Seite.
 | + Spitzenpaarungen, Gestellt-Bilanz des Paars | 0.740 | 68.6 % |
 | Gradient Boosting, zweistufig | 0.720 | 69.1 % |
 | + schnelleres Rating mit Neulings-Bonus | 0.695 | 70.0 % |
-| + Datenkorrekturen (Niederlage „0", Namensvettern) | 0.683 | 70.4 % |
+| + Datenkorrekturen (Niederlage „0", Namensvettern, Ränge „15aa") | 0.683 | 70.3 % |
 
 Was sonst geprüft und warum es verworfen wurde, steht in
 [docs/MODELL.md](docs/MODELL.md).

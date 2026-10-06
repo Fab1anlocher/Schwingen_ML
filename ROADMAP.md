@@ -43,6 +43,7 @@ Modell, das auch die laufende Saison gesehen hat.
 | ✅ F5 | Saisonrückblick (`/rueckblick`) | Aufsteiger, Kränze, Überraschungen, Kranzfeste je Saison — **erledigt** | 1 Tag | ~~–~~ |
 | ✅ D4 | Niederlage „0" in den PDFs bis Anfang 2024 richtig lesen | einseitige Gänge 15.7 % → 0.16 %, Gestellt 2023 28.5 % → 20.6 %, Test 0.6949 → 0.6935 — **erledigt** | ½ Tag | ~~1~~ |
 | ✅ D5 | Namensvettern über Herkunft trennen (Klub, Wohnort, Punktetotal) | 18 Personen, Test 0.6935 → 0.6829, Treffer 70.0 → 70.4 % — **erledigt** | 1 Tag | ~~1~~ |
+| ✅ D6 | Datenqualitäts-Audit: Gänge gegen die Resultatfolge der Rangliste, Ränge „15aa", Teilnehmer über alle Ranglisten-Zeilen, Jahrgang-Namen, Könige | zu viele Gänge 99 → 36, einseitige Gänge 228 → 28, Namen 99.55 → 99.67 % — **erledigt** (06.10.2026) | 1 Tag | ~~1~~ |
 | F2 | Elo-Verlauf im Schwinger-Profil | Produkt | 1 Tag | 5 |
 | F3 | Vorschaubild für geteilte Prognose-Links | Produkt | ½ Tag | 6 |
 | T2 | Frontend-Tests + Browser-Smoke-Test in der CI | Sicherheit | 1 Tag | 6 |

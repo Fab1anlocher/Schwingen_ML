@@ -171,13 +171,31 @@ Gänge der App), die Rangliste je Schwinger die Folge seiner Resultate
 für jeden Schwinger an jedem Fest; das Ergebnis steht im
 Datenqualitätsbericht und auf der Analyse-Seite.
 
-Erster Lauf (06.10.2026): 96.8 % von 46'525 Schwinger-Fest-Paaren stimmen
-exakt. 1'368 haben weniger Gänge als laut Rangliste (meist ein Gegner, dessen
-Name nicht aufzulösen war), 99 mehr: Namensvettern am selben Fest auf einer
-ID, oder eine Kopfzeile der Statistik-PDF, die der Parser nicht erkannt hat
-(die Gänge darunter landen beim Schwinger davor). Die Messung `pdf_diagnose`
-(Workflow „Messung auf Rohdaten") lädt die betroffenen PDFs frisch und zeigt
-die Zeilen, die der Parser nicht zuordnet.
+Was der Abgleich beim ersten Lauf (06.10.2026) fand und was behoben ist:
+
+| | vorher | nachher |
+|---|---:|---:|
+| Schwinger-Fest-Paare mit mehr Gängen als laut Rangliste | 99 | 36 |
+| Gänge nur aus einer Sicht im PDF | 228 | 28 |
+| Notensumme ≠ Punktetotal | 11 | 5 |
+| Ranglisten-Namen zugeordnet | 99.55 % | 99.67 % |
+| Kranzfeste mit unplausibler Kranzquote | 1 | 0 |
+
+* **Ränge mit zwei Buchstaben.** An grossen Festen folgen auf „15z" die
+  Ränge „15aa", „15ab". Beide Parser erlaubten nur einen Buchstaben; die
+  Kopfzeile blieb unerkannt, ihre Gänge hingen am Schwinger davor (ESAF
+  2025: Florian Aellen mit 24 Gängen). Gefunden mit der Messung
+  `pdf_diagnose` (Workflow „Messung auf Rohdaten"), behoben, voll neu
+  geladen.
+* **Teilnehmer und Kränze je Fest** zählen über alle Zeilen der Rangliste,
+  nicht nur über die zugeordneten Namen (Flüelen 2026: 140 statt 199).
+* **Namen mit Jahrgang-Zusatz** („Emmenegger Patrik (2010)") werden auch
+  ohne Porträt aufgelöst, sofern kein Namensvetter mit anderem Jahrgang
+  infrage kommt.
+
+Rest: 36 Paare mit zu vielen Gängen sind Gleichnamige mit gleichem Klub und
+Wohnort am selben Fest (aus den Daten nicht zu trennen), 1'358 mit zu wenig
+Gängen meist ein Gegner, dessen Name nicht aufzulösen war (Gang verworfen).
 
 **Schwingerkönige ohne Porträt:** Die Rangliste kennt nur Kranzer und
 Eidgenosse. Die Könige, die seit 2023 in den Daten vorkommen, stehen darum
