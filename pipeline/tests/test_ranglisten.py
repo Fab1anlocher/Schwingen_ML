@@ -141,3 +141,23 @@ def test_schwingerkoenig_nur_mit_passendem_klub():
     assert aus["joel wicki|?"] == "koenig"
     assert aus["joel wicki|2004"] == "kranzer"   # Namensvetter aus anderem Klub
     assert aus["x|?"] == "kranzer"
+
+
+def test_teilnehmer_und_kraenze_zaehlen_auch_nicht_zugeordnete_namen():
+    # Flüelen 2026: 196 in der Rangliste, nur 140 zugeordnet -- Teilnehmer und
+    # Kranzquote des Fests dürfen davon nicht abhängen.
+    from pipeline.ranglisten import fest_ueberblick
+
+    events = {"e1": Event(id="e1", name="Fest", datum="2026-06-01", typ="kantonal", quelle="x")}
+    eintraege = [{"name": f"Bekannt {i}", "rang": str(i + 1), "punkte": 57.0, "kranz": i < 2}
+                 for i in range(4)]
+    eintraege += [{"name": f"Fremd {i}", "rang": "9", "punkte": 56.0, "kranz": i < 1} for i in range(8)]
+    teilnahmen, bericht = teilnahmen_aus_ranglisten(
+        {"e1": {"eintraege": eintraege}}, events,
+        lambda name: name.lower().replace(" ", "_") if name.startswith("Bekannt") else None)
+    summen = bericht["fest_summen"]
+    assert summen == {"e1": {"n": 12, "kraenze": 3}}
+    assert bericht["feste_viele_unaufgeloest"] == 1
+    f = fest_ueberblick(teilnahmen, summen)["e1"]
+    assert (f["n_teilnehmer"], f["n_kraenze"]) == (12, 3)
+    assert fest_ueberblick(teilnahmen)["e1"]["n_teilnehmer"] == 4   # ohne Summen wie bisher

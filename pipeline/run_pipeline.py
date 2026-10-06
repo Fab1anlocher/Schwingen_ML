@@ -197,6 +197,7 @@ def _ranglisten(source: str, events, schwinger: dict, aktive: set,
     )
     from .saison_rueckblick import kraenze_je_saison
     teilnahmen, bericht = lade_teilnahmen(events)
+    summen = bericht.pop("fest_summen", {})
     fest_name = {e.id: e.name for e in events}
     if not teilnahmen:
         print("      Schlussranglisten: keine im Cache", flush=True)
@@ -205,10 +206,10 @@ def _ranglisten(source: str, events, schwinger: dict, aktive: set,
     klubs = klub_je_schwinger(teilnahmen)
     verband_klub, verband_bericht = verband_ueber_klub(klubs, schwinger)
     ohne_kranz = kranzfeste_ohne_kranz(teilnahmen)
-    ausreisser = kranzquote_ausreisser(teilnahmen)
+    ausreisser = kranzquote_ausreisser(teilnahmen, summen)
     bericht = {
         **bericht,
-        "kranzquote_median": kranzquoten(teilnahmen),
+        "kranzquote_median": kranzquoten(teilnahmen, summen),
         "kranzfeste_ohne_kranz": len(ohne_kranz),
         "beispiele_kranzfeste_ohne_kranz": ohne_kranz[:5],
         # Kranzquote ausserhalb 12-21 % (üblich 15-18 %), s. ranglisten.
@@ -236,7 +237,7 @@ def _ranglisten(source: str, events, schwinger: dict, aktive: set,
              "kranzstatus": mit_koenigen(kranzstatus_je_schwinger(teilnahmen), klubs),
              "festsiege": {sid: [{**f, "name": fest_name.get(f["event_id"], f["event_id"])} for f in liste]
                            for sid, liste in festsiege_je_schwinger(teilnahmen).items()},
-             "feste": fest_ueberblick(teilnahmen),
+             "feste": fest_ueberblick(teilnahmen, summen),
              "kranz_je_fest": kranz_je_fest(teilnahmen),
              "kraenze_je_saison": kraenze_je_saison(teilnahmen)}
     return daten, bericht

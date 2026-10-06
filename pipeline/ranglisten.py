@@ -98,6 +98,11 @@ def teilnahmen_aus_ranglisten(ranglisten: dict, events: dict, finde,
     block = block or {}
     teilnahmen: list[Teilnahme] = []
     unaufloesbar: Counter = Counter()
+    # Je Fest über ALLE Zeilen der Rangliste, auch nicht zugeordnete Namen:
+    # Teilnehmer und Kränze eines Fests hängen nicht davon ab, ob wir jeden
+    # Namen einer Person zuordnen können (Audit 06.10.2026: Flüelen 2026
+    # zeigte 140 statt 196 Teilnehmer und eine Kranzquote von 24 %).
+    summen: dict[str, dict] = {}
     n_feste = n_fehler = 0
     for eid, eintrag in ranglisten.items():
         event = events.get(eid)
@@ -107,13 +112,20 @@ def teilnahmen_aus_ranglisten(ranglisten: dict, events: dict, finde,
             n_fehler += 1
             continue
         n_feste += 1
-        for e in eintrag.get("eintraege", []):
+        eintraege = eintrag.get("eintraege", [])
+        summe = summen[eid] = {"n": len(eintraege),
+                               "kraenze": sum(1 for e in eintraege if e.get("kranz")),
+                               "unaufgeloest": 0, "beispiele": []}
+        for e in eintraege:
             m = _JAHRGANG_RE.match(e["name"].strip())
             tokens = namens_tokens(m.group(1) if m else e["name"])
             sid = (block.get((eid, tokens, _punkte(e.get("punkte"))))
                    or zuordnung.get((eid, tokens)) or finde(e["name"]))
             if sid is None:
                 unaufloesbar[e["name"]] += 1
+                summe["unaufgeloest"] += 1
+                if len(summe["beispiele"]) < 8:
+                    summe["beispiele"].append(e["name"])
                 continue
             teilnahmen.append(Teilnahme(
                 schwinger_id=sid, event_id=eid, datum=event.datum, fest_typ=event.typ,
@@ -125,12 +137,23 @@ def teilnahmen_aus_ranglisten(ranglisten: dict, events: dict, finde,
                 resultat=e.get("resultat"),
             ))
     n_eintraege = len(teilnahmen) + sum(unaufloesbar.values())
+    viele = sorted(((eid, s) for eid, s in summen.items()
+                    if s["unaufgeloest"] > max(5, 0.1 * s["n"])),
+                   key=lambda x: -x[1]["unaufgeloest"] / x[1]["n"])
     return teilnahmen, {
         "n_feste": n_feste,
         "n_nicht_lesbar": n_fehler,
         "n_teilnahmen": len(teilnahmen),
         "anteil_namen_aufgeloest": round(len(teilnahmen) / n_eintraege, 4) if n_eintraege else None,
         "beispiele_unaufloesbar": [n for n, _ in unaufloesbar.most_common(5)],
+        # Feste mit über 10 % nicht zugeordneten Namen (Gänge und Rückblick
+        # fehlen dort für diese Schwinger), mit Beispielen
+        "feste_viele_unaufgeloest": len(viele),
+        "beispiele_feste_viele_unaufgeloest": [
+            f"{events[eid].name}: {s['unaufgeloest']}/{s['n']} ({', '.join(s['beispiele'][:5])})"
+            for eid, s in viele[:5]],
+        # nur intern (run_pipeline nimmt es vor dem Export heraus)
+        "fest_summen": {eid: {"n": s["n"], "kraenze": s["kraenze"]} for eid, s in summen.items()},
     }
 
 
@@ -317,11 +340,11 @@ def festsiege_je_schwinger(teilnahmen: list[Teilnahme]) -> dict[str, list[dict]]
     return {sid: sorted(v, key=lambda x: x["datum"], reverse=True) for sid, v in out.items()}
 
 
-def fest_ueberblick(teilnahmen: list[Teilnahme]) -> dict[str, dict]:
+def fest_ueberblick(teilnahmen: list[Teilnahme], summen: dict | None = None) -> dict[str, dict]:
     """Je Fest: Sieger (IDs, geteilt möglich), Teilnehmer und vergebene Kränze.
 
-    Gezählt über die aufgelösten Teilnahmen (99.4 % der Ranglisten-Namen);
-    die Zahlen können darum um einzelne Unaufgelöste zu tief liegen.
+    Teilnehmer und Kränze aus ``summen`` (alle Zeilen der Rangliste, s.
+    teilnahmen_aus_ranglisten); ohne sie über die aufgelösten Teilnahmen.
     """
     out: dict[str, dict] = {}
     for t in teilnahmen:
@@ -330,6 +353,9 @@ def fest_ueberblick(teilnahmen: list[Teilnahme]) -> dict[str, dict]:
         f["n_kraenze"] += bool(t.kranz)
         if ist_festsieg(t.rang):
             f["sieger"].append(t.schwinger_id)
+    for eid, f in out.items():
+        if summen and eid in summen:
+            f["n_teilnehmer"], f["n_kraenze"] = summen[eid]["n"], summen[eid]["kraenze"]
     return out
 
 
@@ -433,7 +459,14 @@ def konsistenz(kraenze: dict[str, dict], klubs: dict[str, str], schwinger: dict)
     }
 
 
-def kranzquoten(teilnahmen: list[Teilnahme]) -> dict[str, float]:
+def _quote(eid: str, werte: list[bool], summen: dict | None) -> float:
+    """Kranzquote eines Fests, über alle Ranglisten-Zeilen, wenn bekannt."""
+    if summen and eid in summen and summen[eid]["n"]:
+        return summen[eid]["kraenze"] / summen[eid]["n"]
+    return sum(werte) / len(werte)
+
+
+def kranzquoten(teilnahmen: list[Teilnahme], summen: dict | None = None) -> dict[str, float]:
     """Median-Kranzquote je Festtyp (Plausibilität: Kranzfeste ~14-18 %)."""
     je_fest: dict[str, list[bool]] = defaultdict(list)
     typ: dict[str, str] = {}
@@ -442,7 +475,7 @@ def kranzquoten(teilnahmen: list[Teilnahme]) -> dict[str, float]:
         typ[t.event_id] = t.fest_typ
     quoten: dict[str, list[float]] = defaultdict(list)
     for eid, werte in je_fest.items():
-        quoten[typ[eid]].append(sum(werte) / len(werte))
+        quoten[typ[eid]].append(_quote(eid, werte, summen))
     return {t: round(sorted(q)[len(q) // 2], 4) for t, q in sorted(quoten.items())}
 
 
@@ -468,7 +501,7 @@ def kranzfeste_ohne_kranz(teilnahmen: list[Teilnahme]) -> list[str]:
 KRANZQUOTE_PLAUSIBEL = (0.12, 0.21)
 
 
-def kranzquote_ausreisser(teilnahmen: list[Teilnahme]) -> list[tuple[str, float]]:
+def kranzquote_ausreisser(teilnahmen: list[Teilnahme], summen: dict | None = None) -> list[tuple[str, float]]:
     """Kranzfeste mit Kränzen, deren Quote ausserhalb KRANZQUOTE_PLAUSIBEL liegt.
 
     Feste ganz ohne Kranz meldet kranzfeste_ohne_kranz. Eine Quote weit
@@ -482,7 +515,7 @@ def kranzquote_ausreisser(teilnahmen: list[Teilnahme]) -> list[tuple[str, float]
     unten, oben = KRANZQUOTE_PLAUSIBEL
     out = []
     for eid, werte in sorted(je_fest.items()):
-        quote = sum(werte) / len(werte)
+        quote = _quote(eid, werte, summen)
         if quote > 0 and not unten <= quote <= oben:
             out.append((eid, round(quote, 4)))
     return out

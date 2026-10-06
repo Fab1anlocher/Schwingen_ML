@@ -194,7 +194,10 @@ def _zeilen(report: dict) -> list[str]:
               f"Verband über Klub für {vk.get('n_zugeordnet', 0)} ohne Porträt "
               f"(Prüfung {vk.get('trefferquote')})",
               f"- Klub wie im Porträt: {ko.get('klub_wie_porträt')}; "
-              f"Kranzgewinner ohne Porträt: {ko.get('kranzgewinner_ohne_porträt')}", ""]
+              f"Kranzgewinner ohne Porträt: {ko.get('kranzgewinner_ohne_porträt')}",
+              f"- Feste mit über 10 % nicht zugeordneten Namen: {rl.get('feste_viele_unaufgeloest', 0)}"
+              + (f" -- {'; '.join(rl['beispiele_feste_viele_unaufgeloest'][:3])}"
+                 if rl.get("beispiele_feste_viele_unaufgeloest") else ""), ""]
         ra = rl.get("resultat_abgleich") or {}
         if ra.get("geprueft"):
             ab = 1 - ra["anteil_gleich"]
