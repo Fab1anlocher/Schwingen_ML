@@ -23,6 +23,47 @@ export function teilverbandName(verband: string): string {
   return TEILVERBAND_TEXT[verband] ?? verband;
 }
 
+/** Kantonsname auf Deutsch. Die Karte führt die Namen aus dem GeoJSON
+ *  ("Fribourg", "Ticino"), die Artefakte die Kantonal-/Gauverbände
+ *  ("Fribourgeoise", "Emmental") -- angezeigt wird beides nur hierüber. */
+const KANTON_TEXT: Record<string, string> = {
+  Fribourg: "Freiburg",
+  Genève: "Genf",
+  Neuchâtel: "Neuenburg",
+  Ticino: "Tessin",
+  Valais: "Wallis",
+  Vaud: "Waadt",
+};
+
+export function kantonName(name: string): string {
+  return KANTON_TEXT[name] ?? name;
+}
+
+const VERBAND_TEXT: Record<string, string> = {
+  Fribourgeoise: "Freiburg",
+  Genevoise: "Genf",
+  Neuchâteloise: "Neuenburg",
+  Vaudoise: "Waadt",
+  Valaisanne: "Wallis",
+  Baselland: "Basel-Landschaft",
+};
+/** Berner Gauverbände -- als Kartenfläche und als Verband "Emmental (BE)". */
+export const BERNER_GAUVERBAENDE = [
+  "Oberland",
+  "Emmental",
+  "Mittelland",
+  "Oberaargau",
+  "Seeland",
+  "Berner-Jura",
+] as const;
+
+/** Kantonal-/Gauverband zum Anzeigen: "Fribourgeoise" -> "Freiburg",
+ *  "Emmental" -> "Emmental (BE)". */
+export function kantonalverbandName(verband: string): string {
+  if ((BERNER_GAUVERBAENDE as readonly string[]).includes(verband)) return `${verband} (BE)`;
+  return VERBAND_TEXT[verband] ?? verband;
+}
+
 /** Festtyp als Adjektiv/Kurzform ("Bergfest", "Kantonal"). */
 const FESTTYP_TEXT: Record<string, string> = {
   eidgenoessisch: "Eidgenössisch",

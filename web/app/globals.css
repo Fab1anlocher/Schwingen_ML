@@ -1229,6 +1229,147 @@ tbody tr:hover {
   flex-shrink: 0;
 }
 
+.karte-flaeche:focus-visible {
+  outline: none;
+  stroke: var(--text);
+  stroke-width: 2.4;
+}
+
+/* ---------- Kantons-Steckbrief (Karte) ---------- */
+.kantonsmeister {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 0.9rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+}
+.krone {
+  font-size: 2rem;
+  line-height: 1;
+}
+.kantonsmeister-name {
+  font-size: 1.2rem;
+}
+.steckbrief-top {
+  margin: 0.4rem 0 0.8rem;
+  padding-left: 1.3rem;
+}
+.steckbrief-top li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.18rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.steckbrief-fakten {
+  margin: 0.4rem 0 0.6rem;
+  padding-left: 1.1rem;
+}
+.steckbrief-fakten li {
+  padding: 0.15rem 0;
+}
+
+/* ---------- Kantönligeist-Duell (Karte) ---------- */
+.duell-kopf {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.6rem;
+}
+.duell-auswahl {
+  width: 100%;
+  min-width: 0;
+}
+.duell-gegen {
+  font-size: 1.4rem;
+}
+.duell-stand {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 0.6rem;
+  margin: 1.1rem 0 0.4rem;
+}
+.duell-stand > .muted {
+  text-align: center;
+  padding-bottom: 0.4rem;
+}
+.duell-team {
+  font-weight: 700;
+}
+.duell-punkte {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.duell-legende {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.5rem;
+}
+.duell-legende > span:nth-child(2) {
+  text-align: center;
+}
+.duell-legende > span:last-child {
+  text-align: right;
+}
+.duell-paarungen {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+}
+.duell-gang {
+  display: grid;
+  grid-template-columns: 1fr minmax(70px, 160px) 1fr;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.duell-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.duell-name-b {
+  text-align: right;
+}
+.duell-mini {
+  display: flex;
+  height: 12px;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+}
+.duell-satz {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-style: italic;
+}
+.duell-gang-A .duell-name:first-child,
+.duell-gang-B .duell-name-b {
+  font-weight: 700;
+}
+.duell-los {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+@media (max-width: 560px) {
+  .duell-kopf {
+    grid-template-columns: 1fr;
+  }
+  .duell-gegen {
+    text-align: center;
+  }
+  .duell-gang {
+    grid-template-columns: 1fr 64px 1fr;
+    font-size: 0.9rem;
+  }
+}
+
 /* ---------- Gestellt-Kalibrierung (Analyse) ---------- */
 .kal-wrap {
   min-width: 0;
