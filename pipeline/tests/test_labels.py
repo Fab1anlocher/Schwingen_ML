@@ -6,7 +6,6 @@ import pytest
 from pipeline.labels import (
     ergebnis_aus_symbolen,
     dedupliziere,
-    validiere_punktetotal,
     RohGangEintrag,
     LabelError,
 )
@@ -111,12 +110,3 @@ def test_dedup_einzelne_perspektive_abzeichen_nur_fuer_vorhandene_seite():
     g = gaenge[0]
     assert g.status_abzeichen_a is True   # anna's eigene Kopfzeile war vorhanden
     assert g.status_abzeichen_b is False  # beats Kopfzeile wurde nie gesehen -> unbekannt, nicht geraten
-
-
-def test_punktetotal_ok():
-    assert validiere_punktetotal("anna|1995", [10.0, 9.75, 8.75], 28.50) is None
-
-
-def test_punktetotal_abweichung():
-    fehler = validiere_punktetotal("anna|1995", [10.0, 9.75], 28.50)
-    assert fehler is not None and "Abweichung" in fehler

@@ -60,9 +60,8 @@ def _kranzstatus(wreath_status: str, ist_koenig: bool, status_name: str) -> str:
     """Kranzstatus aus field_portrait_wreath_status ('*'/'**'/'***') + König-Flag.
 
     ACHTUNG: Diese Sterne sind der **Status** eines Schwingers (Kranzer /
-    Eidgenosse), nicht die Anzahl gewonnener Kränze. Ob die Sterne in den
-    Statistik-PDFs dasselbe bedeuten oder dort einen Kranzgewinn am
-    jeweiligen Fest markieren, ist offen -- s. ``pipeline.diagnose_kranz``.
+    Eidgenosse), nicht die Anzahl gewonnener Kränze. Die Sterne in den
+    Statistik-PDFs bedeuten dasselbe (s. ``scrape/schlussgang_pdf.py``).
 
     Fallback auf die Text-Heuristik für ältere Profile ohne diese Felder.
     """
