@@ -1,6 +1,7 @@
 # CLAUDE.md — Orientierung für KI-Assistenten
 
-Kurzfassung für jede KI, die an diesem Repo arbeitet. Ausführlich: `README.md`.
+Kurzfassung für jede KI, die an diesem Repo arbeitet. Ausführlich: `README.md`,
+`docs/MODELL.md` (Modell, Messungen) und `docs/DATEN.md` (Quellen, Namensvettern).
 Sprache im Projekt: **Deutsch** (Bezeichner, Kommentare, Commits, UI).
 
 ## Was das ist
@@ -93,7 +94,7 @@ Benchmark → Clustering → Export.
 ## Prüfen, bevor etwas gepusht wird
 
 ```bash
-python -m pytest pipeline/tests -q                      # ~260 Tests
+python -m pytest pipeline/tests -q                      # ~300 Tests
 python -m pipeline.run_pipeline --source synth && python -m pipeline.verify_inference
 git checkout -- artifacts web/public/data web/data      # Demodaten verwerfen!
 python -m pipeline.paritaet && (cd web && npm run paritaet)

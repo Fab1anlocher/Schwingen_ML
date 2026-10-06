@@ -1,4 +1,4 @@
-"""Label-Ableitung, Deduplizierung und Validierung (§4.3, KRITISCH).
+"""Label-Ableitung, Deduplizierung und Konsistenzprüfung (§4.3, KRITISCH).
 
 Das Symbol im PDF ist die massgebliche Ergebnisquelle aus Sicht des
 jeweiligen Schwingers:
@@ -6,6 +6,7 @@ jeweiligen Schwingers:
     -  -> Gestellt (unentschieden)
     o  -> Niederlage
 Die Note ist ein separates Qualitätsmerkmal, KEIN Ersatz fürs Symbol.
+Die Gegenprobe Notensumme == Punktetotal steht in scrape.punktetotal_pruefung.
 """
 from __future__ import annotations
 
@@ -147,25 +148,6 @@ def dedupliziere(eintraege: list[RohGangEintrag]) -> tuple[list["GangResultat"],
         )
 
     return resultate, warnungen
-
-
-def validiere_punktetotal(
-    schwinger_id: str,
-    einzelnoten: list[float],
-    ausgewiesenes_total: float,
-    toleranz: float = 0.01,
-) -> Optional[str]:
-    """Validierung §4.3 Regel 4: Summe der Noten = ausgewiesenes Total.
-
-    Rückgabe: Fehlermeldung bei Abweichung, sonst None.
-    """
-    summe = round(sum(einzelnoten), 2)
-    if abs(summe - ausgewiesenes_total) > toleranz:
-        return (
-            f"Punktetotal-Abweichung für {schwinger_id}: "
-            f"Summe {summe} != ausgewiesen {ausgewiesenes_total} (Parsing-Fehler)"
-        )
-    return None
 
 
 @dataclass

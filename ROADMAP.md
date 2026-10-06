@@ -6,6 +6,11 @@ trainiert auf allem vor dem Testjahr (echte Trainingsmaske), bewertet auf
 Validierung 2025 und Test 2026. **Übernommen wird nur, was in beiden Jahren
 besser wird.**
 
+**Offen**, nach Priorität: D1 Noten je Gang · D2 Gangnummer · M3 Heimvorteil ·
+F2 Elo-Verlauf im Profil · F3 Vorschaubild für geteilte Links · T2
+Frontend-Tests · T3 Altlasten. Die erledigten Punkte (✅) bleiben mit ihren
+Messungen stehen: Sie belegen, warum Modell und Daten so sind, wie sie sind.
+
 ---
 
 # Planung ab 26.09.2026
@@ -188,7 +193,7 @@ Der Report muss sagen, dass die Kennzahlen vom Evaluationsmodell stammen.
 ## ✅ F4 — Fest-Simulator (erledigt 26.09.2026)
 
 Monte-Carlo-Simulation eines ganzen Fests (Seite „Simulator"), Regeln an den
-echten Daten kalibriert (s. README „Fest-Simulator"). Die entscheidende
+echten Daten kalibriert (s. docs/MODELL.md, „Fest-Simulator"). Die entscheidende
 Kalibrierung war die Einteilung: streng nach Punkten gepaart, traf fast jeder
 auf einen Gleichstarken (Elo-Abstand 55 statt real 108), das Modell sagte
 darum 30 % Gestellte statt real 22 % voraus, und die Kranzchancen waren
@@ -539,7 +544,7 @@ P(Gestellt) **stimmt** und ob das Modell gestellte Gänge **erkennt**. Beides
 wird jetzt gemessen (`report.json` → `gestellt_kalibrierung`: vorhergesagt vs.
 eingetreten, ECE, AUC, Kalibrierungskurve auf der Analyse-Seite).
 
-Umgesetzt als Merkmalsversion 2 (Details und Zerlegung im README):
+Umgesetzt als Merkmalsversion 2 (Details und Zerlegung in docs/MODELL.md):
 Stand vor dem Fest, Gestellt-Neigung, Erfahrung logarithmisch, Elo-Abstand pro
 Streuung, Einschwingphase. Test 2026, gleiche 36'485 Gänge:
 
@@ -555,7 +560,7 @@ Streuung, Einschwingphase. Test 2026, gleiche 36'485 Gänge:
 Validierung 2025 durchgehend gleichsinnig (0.8537 → 0.7771). Nachgezogen als
 Merkmalsversion 3: Spitzen-Niveau und Gestellt-Bilanz des Paars. Spitzen-
 paarungen bekamen vorher 18 % Gestellt bei 30 % eingetreten, jetzt 29.6 %;
-Test-Log-Loss 0.7503 → 0.7491 (README, Abschnitt Merkmalsversion 3). Verworfen, weil
+Test-Log-Loss 0.7503 → 0.7491 (docs/MODELL.md, Abschnitt Merkmalsversion 3). Verworfen, weil
 gemessen schlechter: `class_weight="balanced"` (P(Gestellt) 30 % statt 21 %,
 Log-Loss +0.024), Regularisierung (ohne Effekt), 2023 hart ausschliessen
 (schwächer als die Einschwingphase).
