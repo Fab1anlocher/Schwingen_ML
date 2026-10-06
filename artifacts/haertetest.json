@@ -19,10 +19,10 @@
   ],
   "wache": {
     "modell_unveraendert": true,
-    "eingaben_unveraendert": true,
+    "eingaben_unveraendert": false,
     "referenz_gefunden": 1.0,
-    "referenz_gleich": 1.0,
-    "warnung": null
+    "referenz_gleich": 0.8865,
+    "warnung": "Die Referenzgänge ergeben andere Prognosen als beim Einfrieren (89% gleich, 100% gefunden): Merkmals-/Rating-Code oder Datengrundlage hat sich verändert."
   },
   "status": "wartet",
   "n": 0

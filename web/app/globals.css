@@ -1035,25 +1035,19 @@ tbody tr:hover {
   fill: var(--muted);
   font-size: 12px;
 }
-.schwung-svg {
-  width: 100%;
-  height: auto;
-  margin-top: 0.5rem;
+/* ---------- Datenqualität (Analyse) ---------- */
+.dq-tabelle td {
+  vertical-align: top;
 }
-.schwung-label {
-  fill: var(--text);
-  font-size: 14px;
-  dominant-baseline: middle;
-}
-.schwung-wert {
-  fill: var(--muted);
-  font-size: 12px;
-  font-variant-numeric: tabular-nums;
-}
-.schwung-referenz {
-  fill: var(--muted);
-  font-size: 12px;
+.dq-ok {
+  color: var(--accent-2);
   font-weight: 600;
+  white-space: nowrap;
+}
+.dq-warn {
+  color: #b26a00;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 /* ---------- Kopf-an-Kopf ---------- */

@@ -29,7 +29,7 @@ from __future__ import annotations
 import io
 import re
 
-_RANG_RE = re.compile(r"^\d{1,3}[a-z]?$")
+_RANG_RE = re.compile(r"^\d{1,3}[a-z]{0,2}$")  # "15aa": s. schlussgang_pdf._RANG_RE
 _PUNKTE_RE = re.compile(r"^(\d{1,2}\.\d{2})(.*)$")   # manche PDFs kleben das Resultat an
 _RESULTAT_RE = re.compile(r"^[+\-o0]{1,10}$")
 _STERNE_RE = re.compile(r"^\*{1,3}$")

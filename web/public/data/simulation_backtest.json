@@ -2,71 +2,71 @@
   "schema_version": "1.0.0",
   "saison": 2026,
   "n_feste": 38,
-  "n_teilnahmen": 5421,
+  "n_teilnahmen": 5477,
   "n_simulationen": 200,
   "kranz": {
-    "brier_modell": 0.0743,
-    "brier_elo": 0.075,
-    "brier_konstant": 0.1354,
+    "brier_modell": 0.0731,
+    "brier_elo": 0.0745,
+    "brier_konstant": 0.1342,
     "kalibrierung": [
       {
         "von": 0.0,
         "bis": 0.05,
-        "n": 2764,
-        "vorhergesagt": 0.008,
-        "eingetreten": 0.0029
+        "n": 2859,
+        "vorhergesagt": 0.0079,
+        "eingetreten": 0.0038
       },
       {
         "von": 0.05,
         "bis": 0.15,
-        "n": 721,
-        "vorhergesagt": 0.0899,
-        "eingetreten": 0.0499
+        "n": 692,
+        "vorhergesagt": 0.0921,
+        "eingetreten": 0.0549
       },
       {
         "von": 0.15,
         "bis": 0.3,
-        "n": 574,
-        "vorhergesagt": 0.2181,
-        "eingetreten": 0.1655
+        "n": 592,
+        "vorhergesagt": 0.2207,
+        "eingetreten": 0.1672
       },
       {
         "von": 0.3,
         "bis": 0.5,
-        "n": 637,
-        "vorhergesagt": 0.3882,
-        "eingetreten": 0.3579
+        "n": 633,
+        "vorhergesagt": 0.3908,
+        "eingetreten": 0.3586
       },
       {
         "von": 0.5,
         "bis": 0.7,
-        "n": 355,
-        "vorhergesagt": 0.5922,
-        "eingetreten": 0.5606
+        "n": 353,
+        "vorhergesagt": 0.5934,
+        "eingetreten": 0.5779
       },
       {
         "von": 0.7,
         "bis": 0.9,
-        "n": 236,
-        "vorhergesagt": 0.7873,
-        "eingetreten": 0.7881
+        "n": 222,
+        "vorhergesagt": 0.7891,
+        "eingetreten": 0.7928
       },
       {
         "von": 0.9,
         "bis": 1.0,
-        "n": 134,
-        "vorhergesagt": 0.9538,
-        "eingetreten": 0.9179
+        "n": 126,
+        "vorhergesagt": 0.9533,
+        "eingetreten": 0.9524
       }
     ]
   },
   "festsieg": {
-    "p_sieger_modell": 0.2658,
-    "p_sieger_elo": 0.2414,
-    "favorit_modell": 0.5,
+    "p_sieger_modell": 0.2649,
+    "p_sieger_elo": 0.245,
+    "favorit_modell": 0.4737,
     "favorit_elo": 0.5,
     "top3_modell": 0.8421,
-    "top3_elo": 0.8421,
+    "top3_elo": 0.7895,
     "mittlere_feldgroesse": 144.1
   },
   "noten": {

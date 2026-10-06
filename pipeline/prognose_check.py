@@ -132,8 +132,8 @@ def _verdichte(z: dict) -> dict:
     n = int(z["n"])
     return {
         "n": n,
-        "treffer": round(z["treffer"] / n, 4),
-        "treffer_elo": round(z["treffer_elo"] / z["n_elo"], 4) if z["n_elo"] else None,
+        "treffer": round(z["treffer"] / n, 6),
+        "treffer_elo": round(z["treffer_elo"] / z["n_elo"], 6) if z["n_elo"] else None,
         "p_eingetreten": round(z["p_eingetreten"] / n, 4),
         "gestellt_vorhergesagt": round(z["gestellt_vorhergesagt"] / n, 4),
         "gestellt_eingetreten": round(z["gestellt_eingetreten"] / n, 4),

@@ -202,7 +202,7 @@ def _kennzahlen(p: np.ndarray, y: np.ndarray) -> dict:
     onehot = np.zeros_like(p)
     onehot[np.arange(len(y)), y] = 1.0
     return {
-        "treffer": round(float((p.argmax(1) == y).mean()), 4),
+        "treffer": round(float((p.argmax(1) == y).mean()), 6),
         "log_loss": round(float(-np.log(p_ein).mean()), 4),
         "brier": round(float(((p - onehot) ** 2).sum(1).mean()), 4),
     }

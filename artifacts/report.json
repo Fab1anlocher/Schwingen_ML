@@ -1,34 +1,34 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-10-06T11:57:21.117541+00:00",
-  "lauf_id": "20261006T115721Z",
+  "erstellt": "2026-10-06T13:45:19.446585+00:00",
+  "lauf_id": "20261006T134519Z",
   "seed": 42,
   "datenbasis": {
-    "n_gaenge": 132997,
+    "n_gaenge": 132948,
     "n_schwinger": 2931
   },
   "holdout_jahr": 2026,
   "modell_typ": "gbm",
   "n_baeume": {
-    "gestellt": 231,
-    "sieg": 107
+    "gestellt": 207,
+    "sieg": 300
   },
-  "n_train": 136138,
-  "n_train_ausgeliefert": 211632,
+  "n_train": 136040,
+  "n_train_ausgeliefert": 211534,
   "n_test": 37747,
   "modell": {
-    "log_loss": 0.6829,
-    "accuracy": 0.7045,
+    "log_loss": 0.6831,
+    "accuracy": 0.70342,
     "mae": 0.226,
     "mse": 0.0919
   },
   "baseline_elo": {
     "log_loss": 0.8006,
-    "accuracy": 0.6617
+    "accuracy": 0.661615
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0428,
-  "verbesserung_log_loss": 0.1178,
+  "accuracy_gg_baseline": 0.0418,
+  "verbesserung_log_loss": 0.1175,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -36,92 +36,92 @@
   ],
   "konfusionsmatrix": [
     [
-      10689,
-      1177,
-      1666
+      10591,
+      1287,
+      1654
     ],
     [
-      2587,
-      2465,
-      2886
+      2532,
+      2547,
+      2859
     ],
     [
-      1643,
-      1197,
-      13437
+      1554,
+      1309,
+      13414
     ]
   ],
   "nur_portraet": {
     "modell": {
       "n": 9411,
       "anteil_am_test": 0.2493,
-      "log_loss": 0.7954,
-      "accuracy": 0.6367,
+      "log_loss": 0.7965,
+      "accuracy": 0.635639,
       "mae": 0.2468,
       "mse": 0.1
     },
     "baseline_elo": {
       "n": 9411,
-      "log_loss": 0.919,
-      "accuracy": 0.5885
+      "log_loss": 0.9188,
+      "accuracy": 0.588248
     }
   },
   "gestellt_kalibrierung": {
     "n": 37747,
     "vorhergesagt": 0.2046,
     "eingetreten": 0.2103,
-    "ece": 0.0074,
-    "auc": 0.7691,
+    "ece": 0.0076,
+    "auc": 0.7692,
     "stufen": [
       {
         "n": 3775,
-        "vorhergesagt": 0.0138,
+        "vorhergesagt": 0.0131,
         "eingetreten": 0.0114
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.0405,
+        "vorhergesagt": 0.039,
         "eingetreten": 0.0366
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.0767,
-        "eingetreten": 0.0744
+        "vorhergesagt": 0.0749,
+        "eingetreten": 0.0742
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.1136,
-        "eingetreten": 0.1203
+        "vorhergesagt": 0.1128,
+        "eingetreten": 0.1163
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.1491,
-        "eingetreten": 0.169
+        "vorhergesagt": 0.1482,
+        "eingetreten": 0.1706
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.189,
-        "eingetreten": 0.1981
+        "vorhergesagt": 0.1882,
+        "eingetreten": 0.2003
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.2381,
-        "eingetreten": 0.2575
+        "vorhergesagt": 0.2378,
+        "eingetreten": 0.2604
       },
       {
         "n": 3774,
-        "vorhergesagt": 0.3049,
-        "eingetreten": 0.3076
+        "vorhergesagt": 0.3066,
+        "eingetreten": 0.3034
       },
       {
         "n": 3774,
-        "vorhergesagt": 0.3893,
-        "eingetreten": 0.3961
+        "vorhergesagt": 0.3916,
+        "eingetreten": 0.3977
       },
       {
         "n": 3774,
-        "vorhergesagt": 0.5315,
-        "eingetreten": 0.5321
+        "vorhergesagt": 0.5336,
+        "eingetreten": 0.5323
       }
     ]
   },
@@ -130,12 +130,12 @@
     "n_feste": 137,
     "wiederholungen": 1000,
     "accuracy": [
-      0.6974,
-      0.7118
+      0.6962,
+      0.7106
     ],
     "log_loss": [
-      0.6705,
-      0.6957
+      0.6706,
+      0.6958
     ]
   },
   "merkmal_version": 3,
@@ -148,70 +148,60 @@
   },
   "haertetest": {
     "status": "wartet",
-    "warnung": null
+    "warnung": "Die Referenzgänge ergeben andere Prognosen als beim Einfrieren (89% gleich, 100% gefunden): Merkmals-/Rating-Code oder Datengrundlage hat sich verändert."
   },
   "parsing_warnungen": [
-    "schlussgang-22460 christian biasch|1996/hochholdinger roman|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 christian biasch|1996/luca bircher|1999: nur eine Perspektive vorhanden",
-    "schlussgang-22460 christian biasch|1996/josias muller|2006: nur eine Perspektive vorhanden",
-    "schlussgang-22460 christian biasch|1996/marc niederberger ursin|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 christian biasch|1996/jan wehrli|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 josias muller|2006/martin sprecher|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 elia mayer|2004/josias muller|2006: nur eine Perspektive vorhanden",
-    "schlussgang-22460 christian biasch|1996/simon walser|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 hochholdinger roman|?/jan wehrli|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 mathis patrick|?/pirmin tschudi|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 hassler laurin|?/mathis patrick|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 andreas wagner|?/bernhard thomas|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 alesch felix flurin|?/andreas wagner|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 beni rhyner|?/josias muller|2006: nur eine Perspektive vorhanden",
-    "schlussgang-22460 josias muller|2006/pirmin tschudi|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 bernhard thomas|?/patrik schiesser|1998: nur eine Perspektive vorhanden",
-    "schlussgang-22460 beni rhyner|?/jan wehrli|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 elias vogler|?/hochholdinger roman|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 corsin gansner|?/hochholdinger roman|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 janik korrodi|2004/patrik schiesser|1998: nur eine Perspektive vorhanden",
-    "schlussgang-22460 mayer sebastian|?/patrik schiesser|1998: nur eine Perspektive vorhanden",
-    "schlussgang-22460 andreas wagner|?/luthi noah|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 alesch felix flurin|?/arpagaus nino|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 alesch felix flurin|?/bartsch tobias|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 alesch felix flurin|?/hassler laurin|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 alesch felix flurin|?/elia mayer|2004: nur eine Perspektive vorhanden",
-    "schlussgang-22460 alesch felix flurin|?/bernhard thomas|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 corsin gansner|?/pirmin tschudi|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 corsin gansner|?/matthias siegrist|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 benno egli|?/marco flutsch|1999: nur eine Perspektive vorhanden",
-    "schlussgang-22460 arpagaus nino|?/peter tischhauser|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 claudio regli|?/niklas lotscher|2006: nur eine Perspektive vorhanden",
-    "schlussgang-22460 alesch felix flurin|?/niklas lotscher|2006: nur eine Perspektive vorhanden",
-    "schlussgang-22460 elias vogler|?/hassler laurin|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 elias vogler|?/mayer sebastian|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 christian biasch|1996/niklas lotscher|2006: nur eine Perspektive vorhanden",
-    "schlussgang-22460 christian biasch|1996/janik korrodi|2004: nur eine Perspektive vorhanden",
-    "schlussgang-22460 christian biasch|1996/patrik schiesser|1998: nur eine Perspektive vorhanden",
-    "schlussgang-22460 marco flutsch|1999/matthias siegrist|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 bernhard thomas|?/marco flutsch|1999: nur eine Perspektive vorhanden",
-    "schlussgang-22460 andreas wagner|?/marco flutsch|1999: nur eine Perspektive vorhanden",
-    "schlussgang-22460 janik korrodi|2004/niklas lotscher|2006: nur eine Perspektive vorhanden",
-    "schlussgang-22460 corsin gansner|?/niklas lotscher|2006: nur eine Perspektive vorhanden",
-    "schlussgang-22460 andreas wagner|?/simon walser|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 marc niederberger ursin|?/marco flutsch|1999: nur eine Perspektive vorhanden",
-    "schlussgang-22460 marc niederberger ursin|?/mathis patrick|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 corsin jorger|?/marc niederberger ursin|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 luca bircher|1999/marc niederberger ursin|?: nur eine Perspektive vorhanden",
-    "schlussgang-22460 corsin jorger|?/patrik schiesser|1998: nur eine Perspektive vorhanden",
-    "schlussgang-22460 aaron walser|?/niklas lotscher|2006: nur eine Perspektive vorhanden"
+    "schlussgang-37511 jonas muller|2007/jonas muller|amalbis: nur eine Perspektive vorhanden",
+    "schlussgang-51915 cornel laimbacher|?/kay sussmeier|?: nur eine Perspektive vorhanden",
+    "schlussgang-51915 damian imfeld|?/kay sussmeier|?: nur eine Perspektive vorhanden",
+    "schlussgang-51915 imfeld maurus|?/kay sussmeier|?: nur eine Perspektive vorhanden",
+    "schlussgang-51915 jonas michel|?/kay sussmeier|?: nur eine Perspektive vorhanden",
+    "schlussgang-54093 andre reichmuth|?/inderbitzin tobias|?: nur eine Perspektive vorhanden",
+    "schlussgang-45973 marco ulrich|be/matter roman|?: Inkonsistente Symbole: A='+' erwartet B='o', gefunden B='+' -> verworfen",
+    "schlussgang-21068 alex schuler|1998/andrin habegger|2005: Inkonsistente Symbole: A='o' erwartet B='+', gefunden B='-' -> verworfen",
+    "schlussgang-21068 alex schuler|einsiedeln/simon winzeler|2000: nur eine Perspektive vorhanden",
+    "schlussgang-21068 alex schuler|einsiedeln/andrin habegger|2005: nur eine Perspektive vorhanden",
+    "schlussgang-32657 alex schuler|einsiedeln/nils theiler|2004: nur eine Perspektive vorhanden",
+    "schlussgang-21069 bruno grossen|?/thomas (2) wuthrich|2007: Inkonsistente Symbole: A='o' erwartet B='+', gefunden B='o' -> verworfen",
+    "schlussgang-45946 fabian scherrer|2002/marc lustenberger|2003: Inkonsistente Symbole: A='-' erwartet B='-', gefunden B='+' -> verworfen",
+    "schlussgang-46046 aron kiser|2001/koller silvan|wil: nur eine Perspektive vorhanden",
+    "schlussgang-22218 kilian wyssen|?/marco ulrich|be: nur eine Perspektive vorhanden",
+    "schlussgang-37020 alex schuler|1998/alex schuler|einsiedeln: nur eine Perspektive vorhanden",
+    "schlussgang-37111 flavio niedermann|?/koller silvan|wil: nur eine Perspektive vorhanden",
+    "schlussgang-37052 hebeisen michael|?/remo scheuner|?: nur eine Perspektive vorhanden",
+    "schlussgang-37052 christian ruegg|?/dominic mausli|?: nur eine Perspektive vorhanden",
+    "schlussgang-35695 marcel stucki|zäziwil/michael zingg|?: nur eine Perspektive vorhanden",
+    "schlussgang-22268 bruno grossen|?/simon rothlisberger|1998: Inkonsistente Symbole: A='-' erwartet B='-', gefunden B='+' -> verworfen",
+    "schlussgang-22268 bruno grossen|?/rothlisberger simon|langenthal: nur eine Perspektive vorhanden",
+    "schlussgang-22308 bucher manuel|?/silvan sutter|?: Inkonsistente Symbole: A='-' erwartet B='-', gefunden B='+' -> verworfen",
+    "schlussgang-36884 marcel (1) stucki|2000/niklaus kappeler|1994: Inkonsistente Symbole: A='-' erwartet B='-', gefunden B='+' -> verworfen",
+    "schlussgang-36884 michael heim|2001/thomas fankhauser|1990: nur eine Perspektive vorhanden",
+    "schlussgang-36884 niklaus kappeler|1994/stucki timon|?: Inkonsistente Symbole: A='-' erwartet B='-', gefunden B='o' -> verworfen",
+    "schlussgang-36884 david maurer|1999/lorenz nageli|?: Inkonsistente Symbole: A='o' erwartet B='+', gefunden B='o' -> verworfen",
+    "schlussgang-36884 andi gerber|?/kappeler ruedi|?: nur eine Perspektive vorhanden",
+    "schlussgang-32684 liard samuel|?/messerli niklaus|?: nur eine Perspektive vorhanden",
+    "schlussgang-36810 david wuest|2000/gmur max|?: Inkonsistente Symbole: A='o' erwartet B='+', gefunden B='o' -> verworfen",
+    "schlussgang-37105 loris berger|2006/marcel stucki|zäziwil: nur eine Perspektive vorhanden",
+    "schlussgang-22327 hehlen mario|?/kohli patrick|?: Inkonsistente Symbole: A='o' erwartet B='+', gefunden B='o' -> verworfen",
+    "schlussgang-22329 koller silvan|wil/weder yanick|?: nur eine Perspektive vorhanden",
+    "schlussgang-36984 dominik hodel|2001/justin murati|?: nur eine Perspektive vorhanden",
+    "schlussgang-22360 bastien nicolet|?/flurin eymann|2006: nur eine Perspektive vorhanden",
+    "schlussgang-22360 elias pirkheim|2002/remo rutsch|2004: nur eine Perspektive vorhanden",
+    "schlussgang-22427 alex schuler|einsiedeln/marco heiniger|1996: nur eine Perspektive vorhanden",
+    "schlussgang-22489 alex schuler|1998/linus rogenmoser|2002: nur eine Perspektive vorhanden",
+    "schlussgang-22516 janis stutz|?/meier roger|?: Inkonsistente Symbole: A='o' erwartet B='+', gefunden B='o' -> verworfen",
+    "schlussgang-22514 freitag jan|?/martin strahm|?: nur eine Perspektive vorhanden"
   ],
-  "n_parsing_warnungen": 242,
+  "n_parsing_warnungen": 40,
   "datenqualitaet": {
     "warnungen_nach_kategorie": {
-      "nur_eine_perspektive": 228,
-      "inkonsistente_symbole": 14
+      "nur_eine_perspektive": 28,
+      "inkonsistente_symbole": 12
     },
-    "anteil_unvollstaendiger_gaenge": 0.0017,
+    "anteil_unvollstaendiger_gaenge": 0.0002,
     "ergebnisverteilung": {
       "gestellt": 0.2132,
-      "sieg_a": 0.3615,
+      "sieg_a": 0.3616,
       "sieg_b": 0.4253
     },
     "feste_zeitraum": {
@@ -235,7 +225,7 @@
       "n_feste_mit_kranzern": 484,
       "trefferquote_median": 0.9153,
       "feste_ohne_abzeichen": 3,
-      "abzeichen_gesamt": 18774,
+      "abzeichen_gesamt": 18778,
       "plausibel": true,
       "anteil_feste_ohne_abzeichen": 0.0062,
       "hinweis_refetch": false
@@ -255,8 +245,8 @@
     "ranglisten": {
       "n_feste": 485,
       "n_nicht_lesbar": 0,
-      "n_teilnahmen": 46525,
-      "anteil_namen_aufgeloest": 0.9955,
+      "n_teilnahmen": 46587,
+      "anteil_namen_aufgeloest": 0.9967,
       "beispiele_unaufloesbar": [
         "Zemp Christian",
         "Wüthrich Jonas",
@@ -264,10 +254,12 @@
         "Zemp Silvan",
         "Herger Elias"
       ],
+      "feste_viele_unaufgeloest": 0,
+      "beispiele_feste_viele_unaufgeloest": [],
       "kranzquote_median": {
         "berg": 0.1556,
         "eidgenoessisch": 0.0,
-        "kantonal": 0.1615,
+        "kantonal": 0.1613,
         "regional": 0.0,
         "teilverband": 0.156
       },
@@ -275,10 +267,8 @@
       "beispiele_kranzfeste_ohne_kranz": [
         "schlussgang-22490"
       ],
-      "kranzquote_ausserhalb": 1,
-      "beispiele_kranzquote_ausserhalb": [
-        "Urner Kantonalschwingfest Flüelen 2026: 24.3%"
-      ],
+      "kranzquote_ausserhalb": 0,
+      "beispiele_kranzquote_ausserhalb": [],
       "klub_abdeckung_aktive": 0.9893,
       "verband_ueber_klub": {
         "klubs_bekannt": 134,
@@ -298,13 +288,71 @@
           "aellen philipp|?",
           "alex schuler|einsiedeln"
         ]
+      },
+      "resultat_abgleich": {
+        "geprueft": 46587,
+        "gleich": 45193,
+        "anteil_gleich": 0.9701,
+        "mehr_gaenge": 36,
+        "weniger_gaenge": 1358,
+        "andere_ausgaenge": 0,
+        "je_jahr": {
+          "2023": {
+            "geprueft": 8253,
+            "abweichend": 299
+          },
+          "2024": {
+            "geprueft": 12244,
+            "abweichend": 538
+          },
+          "2025": {
+            "geprueft": 12945,
+            "abweichend": 312
+          },
+          "2026": {
+            "geprueft": 13145,
+            "abweichend": 245
+          }
+        },
+        "feste_ueber_5_prozent": 127,
+        "schlechteste_feste": [
+          "Abendschwinget Sumiswald 2023 (regional): 44% abweichend",
+          "Roteborger Schwinget Rothenburg 2023 (regional): 33% abweichend",
+          "Regionalschwingfest Ried bei Kerzers 2024 (regional): 25% abweichend",
+          "Kilbischwinget Einsiedeln 2025 (regional): 25% abweichend",
+          "Niklaus-Schwinget Pratteln 2025 (regional): 25% abweichend",
+          "Zugerberg-Schwinget 2024 (regional): 24% abweichend",
+          "Abendschwinget Fankhaus 2024 (regional): 23% abweichend",
+          "Morgarten-Schwinget 2024 (regional): 19% abweichend",
+          "Urner Rangschwinget Altdorf 2024 (regional): 18% abweichend",
+          "Urnerboden-Schwinget 2024 (regional): 16% abweichend"
+        ],
+        "beispiele": [
+          "dominik gasser|is @ Luzerner Kantonalschwingfest Nottwil 2023: Rangliste o++oo-, Gänge 4+ 2- 6o",
+          "dominik gasser|is @ Luzerner Kantonalschwingfest Nottwil 2023: Rangliste o+oo-+, Gänge 4+ 2- 6o",
+          "alex schuler|1998 @ Schwyzer Kantonalschwingfest Galgenen 2024: Rangliste -+--++, Gänge 5+ 7- 0o",
+          "alex schuler|1998 @ Schwyzer Kantonalschwingfest Galgenen 2024: Rangliste --++--, Gänge 5+ 7- 0o",
+          "thomas (2) wuthrich|2007 @ Abendschwinget Langenthal 2025: Rangliste o--+--, Gänge 1+ 5- 6o",
+          "thomas (2) wuthrich|2007 @ Abendschwinget Langenthal 2025: Rangliste ooooo-, Gänge 1+ 5- 6o",
+          "silvan koller|2002 @ St. Galler Kantonalschwingfest Unterwasser 2025: Rangliste +o--++, Gänge 6+ 2- 4o",
+          "silvan koller|2002 @ St. Galler Kantonalschwingfest Unterwasser 2025: Rangliste +o+o+o, Gänge 6+ 2- 4o",
+          "thomas (2) wuthrich|2007 @ Abendschwinget Sumiswald 2025: Rangliste o+++o+, Gänge 5+ 1- 6o",
+          "thomas (2) wuthrich|2007 @ Abendschwinget Sumiswald 2025: Rangliste oooo+-, Gänge 5+ 1- 6o",
+          "marcel (1) stucki|2000 @ Bern-Jurassisches Schwingfest Nods 2025: Rangliste +o++o+, Gänge 6+ 0- 6o",
+          "marcel stucki|zäziwil @ Bern-Jurassisches Schwingfest Nods 2025: Rangliste oooo++, Gänge 0+ 0- 0o",
+          "thomas (2) wuthrich|2007 @ Bad-Schwinget Wolhusen 2026: Rangliste -++o-+, Gänge 4+ 2- 6o",
+          "thomas (2) wuthrich|2007 @ Bad-Schwinget Wolhusen 2026: Rangliste ooo+oo, Gänge 4+ 2- 6o",
+          "thomas (2) wuthrich|2007 @ Abendschwinget Frutigen 2026: Rangliste +-+o++, Gänge 5+ 1- 6o"
+        ],
+        "ranglisten_unvollstaendig": 0,
+        "beispiele_ranglisten_unvollstaendig": []
       }
     },
-    "roh_eintraege_gelesen": 267786,
-    "roh_eintraege_uebernommen": 266068,
+    "roh_eintraege_gelesen": 267869,
+    "roh_eintraege_uebernommen": 266151,
     "roh_eintraege_verworfen": {
-      "name_nicht_aufloesbar": 1716,
-      "schwinger_gegen_sich_selbst": 2
+      "schwinger_gegen_sich_selbst": 2,
+      "name_nicht_aufloesbar": 1716
     },
     "verlustquote": 0.0064,
     "feste_gelesen": 485,
@@ -376,25 +424,25 @@
       }
     },
     "punktetotal": {
-      "bloecke_geprueft": 45920,
-      "abweichend": 11,
-      "anteil_abweichend": 0.0002,
-      "eintraege_ohne_total": 4259,
+      "bloecke_geprueft": 46543,
+      "abweichend": 5,
+      "anteil_abweichend": 0.0001,
+      "eintraege_ohne_total": 780,
       "je_jahr": {
         "2023": {
-          "geprueft": 8244,
+          "geprueft": 8276,
           "abweichend": 1
         },
         "2024": {
-          "geprueft": 11827,
+          "geprueft": 12287,
           "abweichend": 2
         },
         "2025": {
-          "geprueft": 12726,
-          "abweichend": 7
+          "geprueft": 12825,
+          "abweichend": 1
         },
         "2026": {
-          "geprueft": 13123,
+          "geprueft": 13155,
           "abweichend": 1
         }
       }

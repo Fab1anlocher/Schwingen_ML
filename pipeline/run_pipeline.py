@@ -179,7 +179,8 @@ def _datenqualitaet(bericht, gaenge, events, warnungen: list[str], *,
     return qualitaet
 
 
-def _ranglisten(source: str, events, schwinger: dict, aktive: set) -> tuple[dict | None, dict | None]:
+def _ranglisten(source: str, events, schwinger: dict, aktive: set,
+                gaenge=()) -> tuple[dict | None, dict | None]:
     """Offizielle Schlussranglisten auswerten (s. ranglisten.py).
 
     (Daten für den Export, Bericht für report.json) -- beides None ohne
@@ -191,11 +192,12 @@ def _ranglisten(source: str, events, schwinger: dict, aktive: set) -> tuple[dict
     from .ranglisten import (
         fest_ueberblick, festsiege_je_schwinger, klub_je_schwinger, konsistenz,
         kraenze_je_schwinger, kranz_je_fest, kranzfeste_ohne_kranz, kranzquote_ausreisser,
-        kranzquoten, kranzstatus_je_schwinger,
+        kranzquoten, kranzstatus_je_schwinger, mit_koenigen, resultat_abgleich,
         senne_turner_je_schwinger, verband_ueber_klub,
     )
     from .saison_rueckblick import kraenze_je_saison
     teilnahmen, bericht = lade_teilnahmen(events)
+    summen = bericht.pop("fest_summen", {})
     fest_name = {e.id: e.name for e in events}
     if not teilnahmen:
         print("      Schlussranglisten: keine im Cache", flush=True)
@@ -204,10 +206,10 @@ def _ranglisten(source: str, events, schwinger: dict, aktive: set) -> tuple[dict
     klubs = klub_je_schwinger(teilnahmen)
     verband_klub, verband_bericht = verband_ueber_klub(klubs, schwinger)
     ohne_kranz = kranzfeste_ohne_kranz(teilnahmen)
-    ausreisser = kranzquote_ausreisser(teilnahmen)
+    ausreisser = kranzquote_ausreisser(teilnahmen, summen)
     bericht = {
         **bericht,
-        "kranzquote_median": kranzquoten(teilnahmen),
+        "kranzquote_median": kranzquoten(teilnahmen, summen),
         "kranzfeste_ohne_kranz": len(ohne_kranz),
         "beispiele_kranzfeste_ohne_kranz": ohne_kranz[:5],
         # Kranzquote ausserhalb 12-21 % (üblich 15-18 %), s. ranglisten.
@@ -217,17 +219,25 @@ def _ranglisten(source: str, events, schwinger: dict, aktive: set) -> tuple[dict
         "klub_abdeckung_aktive": round(sum(1 for sid in aktive if sid in klubs) / len(aktive), 4) if aktive else None,
         "verband_ueber_klub": verband_bericht,
         "konsistenz": konsistenz(kraenze, klubs, schwinger),
+        # Gänge (Statistik-PDF) gegen die Resultatfolge der Rangliste
+        "resultat_abgleich": resultat_abgleich(teilnahmen, gaenge, fest_name,
+                                               {e.id: e.typ for e in events}),
     }
     print(f"      Schlussranglisten: {bericht['n_feste']} Feste, {bericht['n_teilnahmen']} Teilnahmen, "
           f"Kranzquote {bericht['kranzquote_median']}, Klub bei {bericht['klub_abdeckung_aktive']} der Aktiven, "
           f"Verband über Klub {verband_bericht['n_zugeordnet']} (Prüfung {verband_bericht['trefferquote']})",
           flush=True)
+    ra = bericht["resultat_abgleich"]
+    print(f"      Gänge wie Rangliste: {ra['anteil_gleich']} von {ra['geprueft']} "
+          f"(mehr Gänge {ra['mehr_gaenge']}, weniger {ra['weniger_gaenge']}, "
+          f"andere Ausgänge {ra['andere_ausgaenge']}); Ranglisten unvollständig: "
+          f"{ra['ranglisten_unvollstaendig']}", flush=True)
     daten = {"kraenze": kraenze, "klubs": klubs,
              "senne_turner": senne_turner_je_schwinger(teilnahmen), "verband_klub": verband_klub,
-             "kranzstatus": kranzstatus_je_schwinger(teilnahmen),
+             "kranzstatus": mit_koenigen(kranzstatus_je_schwinger(teilnahmen), klubs),
              "festsiege": {sid: [{**f, "name": fest_name.get(f["event_id"], f["event_id"])} for f in liste]
                            for sid, liste in festsiege_je_schwinger(teilnahmen).items()},
-             "feste": fest_ueberblick(teilnahmen),
+             "feste": fest_ueberblick(teilnahmen, summen),
              "kranz_je_fest": kranz_je_fest(teilnahmen),
              "kraenze_je_saison": kraenze_je_saison(teilnahmen)}
     return daten, bericht
@@ -513,7 +523,7 @@ def main(source: str = "synth", *, streng: bool = True, haertetest_einfrieren: b
     # Anzeige und Suche, nicht fürs Modell (s. verbandsschaetzung.py).
     from .verbandsschaetzung import schaetze_teilverbaende
     verband_geschaetzt, verband_pruefung = schaetze_teilverbaende(gaenge, schwinger)
-    ranglisten, ranglisten_bericht = _ranglisten(source, events, schwinger, aktive)
+    ranglisten, ranglisten_bericht = _ranglisten(source, events, schwinger, aktive, gaenge)
     # Fest-Simulation im Rückblick: jedes Kranzfest der Holdout-Saison mit dem
     # Modell von vor der Saison simuliert und mit Rangliste verglichen (nur mit
     # Ranglisten; s. fest_simulation.backtest).

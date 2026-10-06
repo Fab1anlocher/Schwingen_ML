@@ -117,3 +117,11 @@ def test_esaf_markiert_nur_neueidgenossen_bisherige_zaehlen_trotzdem():
 def test_ohne_jede_markierung_kein_kranz():
     """Regionalfeste und Kilchberg vergeben keinen Kranz."""
     assert not any(e["kranz"] for e in mit_kranz([_e(58.0), _e(57.0)]))
+
+
+def test_rang_mit_zwei_buchstaben():
+    seite = _seite(KOPF, _zeile(114, ("15aa", 39), ("62.75", 78), ("+-+o++o", 119), ("Birchler", 159),
+                                ("Fabian,", 196), ("S", 232), ("*", 241), ("Einsiedeln", 290),
+                                ("Einsiedeln", 430)))
+    [e] = parse_seiten([seite])
+    assert e["rang"] == "15aa" and e["name"] == "Birchler Fabian" and e["punkte"] == 62.75

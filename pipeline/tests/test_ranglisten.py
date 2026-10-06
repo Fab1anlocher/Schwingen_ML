@@ -104,3 +104,74 @@ def test_namensaufloesung_mit_jahrgang_trennt_namensvettern():
                                                     lambda name: None, schwinger)
     assert [t.schwinger_id for t in teilnahmen] == ["roman muller|2009"]
     assert bericht["n_nicht_lesbar"] == 1 and bericht["anteil_namen_aufgeloest"] == 0.5
+
+
+def test_resultat_abgleich_findet_falsch_zugeordnete_gaenge():
+    from pipeline.labels import GangResultat
+    from pipeline.ranglisten import Teilnahme, resultat_abgleich
+
+    def gang(a, b, erg):
+        sym = {"sieg_a": ("+", "o"), "gestellt": ("-", "-"), "sieg_b": ("o", "+")}[erg]
+        return GangResultat("f", "2025-05-01", a, b, sym[0], None, sym[1], None, erg, "kantonal")
+
+    def teil(sid, resultat):
+        return Teilnahme(sid, "f", "2025-05-01", "kantonal", "1", 57.0, False, None,
+                         None, None, None, resultat=resultat)
+
+    gaenge = [gang("a", "b", "sieg_a"), gang("a", "c", "gestellt"), gang("a", "d", "sieg_b"),
+              gang("b", "c", "sieg_a")]
+    teilnahmen = [
+        teil("a", "+-0"),   # stimmt (0 = Niederlage wie o)
+        teil("b", "o"),     # hat aber zwei Gänge: einer gehört nicht zu ihm
+        teil("c", "-o"),    # stimmt
+        teil("d", "++"),    # einer fehlt
+    ]
+    r = resultat_abgleich(teilnahmen, gaenge, {"f": "Testfest"})
+    assert r["geprueft"] == 4 and r["gleich"] == 2
+    assert r["mehr_gaenge"] == 1 and r["weniger_gaenge"] == 1
+    assert any("b @ Testfest" in b for b in r["beispiele"])
+
+
+def test_schwingerkoenig_nur_mit_passendem_klub():
+    from pipeline.ranglisten import mit_koenigen
+
+    status = {"joel wicki|?": "eidgenosse", "joel wicki|2004": "kranzer", "x|?": "kranzer"}
+    klubs = {"joel wicki|?": "Entlebuch", "joel wicki|2004": "Wolhusen", "x|?": "Entlebuch"}
+    aus = mit_koenigen(status, klubs)
+    assert aus["joel wicki|?"] == "koenig"
+    assert aus["joel wicki|2004"] == "kranzer"   # Namensvetter aus anderem Klub
+    assert aus["x|?"] == "kranzer"
+
+
+def test_teilnehmer_und_kraenze_zaehlen_auch_nicht_zugeordnete_namen():
+    # Flüelen 2026: 196 in der Rangliste, nur 140 zugeordnet -- Teilnehmer und
+    # Kranzquote des Fests dürfen davon nicht abhängen.
+    from pipeline.ranglisten import fest_ueberblick
+
+    events = {"e1": Event(id="e1", name="Fest", datum="2026-06-01", typ="kantonal", quelle="x")}
+    eintraege = [{"name": f"Bekannt {i}", "rang": str(i + 1), "punkte": 57.0, "kranz": i < 2}
+                 for i in range(4)]
+    eintraege += [{"name": f"Fremd {i}", "rang": "9", "punkte": 56.0, "kranz": i < 1} for i in range(8)]
+    teilnahmen, bericht = teilnahmen_aus_ranglisten(
+        {"e1": {"eintraege": eintraege}}, events,
+        lambda name: name.lower().replace(" ", "_") if name.startswith("Bekannt") else None)
+    summen = bericht["fest_summen"]
+    assert summen == {"e1": {"n": 12, "kraenze": 3}}
+    assert bericht["feste_viele_unaufgeloest"] == 1
+    f = fest_ueberblick(teilnahmen, summen)["e1"]
+    assert (f["n_teilnehmer"], f["n_kraenze"]) == (12, 3)
+    assert fest_ueberblick(teilnahmen)["e1"]["n_teilnehmer"] == 4   # ohne Summen wie bisher
+
+
+def test_jahrgang_zusatz_findet_auch_schwinger_ohne_portraet():
+    from pipeline.ranglisten import namensaufloesung
+
+    schwinger = {
+        "patrik emmenegger|?": Schwinger(id="patrik emmenegger|?", name="Patrik Emmenegger"),
+        "roman muller|1995": Schwinger(id="roman muller|1995", name="Roman Müller", jahrgang=1995),
+    }
+    index = {"emmenegger patrik": "patrik emmenegger|?", "muller roman": "roman muller|1995"}
+    finde = namensaufloesung(lambda n: index.get(n.lower().replace("ü", "u")), schwinger)
+    assert finde("Emmenegger Patrik (2010)") == "patrik emmenegger|?"   # Stub ohne Jahrgang
+    assert finde("Müller Roman (2009)") is None                        # Porträt mit anderem Jahrgang
+    assert finde("Müller Roman (1995)") == "roman muller|1995"

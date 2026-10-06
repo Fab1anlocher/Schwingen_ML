@@ -126,9 +126,12 @@ export function modellStandText(
       name: "Gradient Boosting",
       was: "zweistufig (erst Gestellt, dann Sieger) mit Monotonie-Vorgaben; jüngere Gänge zählen mehr",
     },
+    // Dieser Stand enthält zwei Schritte vom selben Tag (05.10.2026): das neue
+    // Rating (Test-Log-Loss 0.720 -> 0.695) und die Datenkorrekturen D4/D5
+    // (0.695 -> 0.683), s. docs/MODELL.md.
     "gbm|3|2": {
-      name: "+ schnelleres Rating, Neulings-Bonus",
-      was: "Elo reagiert schneller (K 56 statt 24), und wer neu ist, bewegt sich am Anfang stark — das Rating ist zu Beginn unsicher",
+      name: "+ schnelleres Rating, saubere Daten",
+      was: "Elo reagiert schneller (K 56 statt 24), Neulinge bewegen sich am Anfang stärker; dazu Niederlagen in alten PDFs richtig gelesen und 18 Namensvettern getrennt",
     },
   };
   return (

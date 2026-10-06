@@ -43,18 +43,18 @@ import {
 } from "@/components/ModellGuete";
 import {
   AnsatzRangliste,
+  Datenqualitaet,
   Haertetest,
   Kennzahlen,
   ModellEntwicklung,
   SchwierigkeitJeFesttyp,
   Ueberwachung,
+  type DatenqualitaetDaten,
   type Kennzahl,
 } from "@/components/AnalyseTeile";
 import { StreudiagrammMitTrend } from "@/components/StreudiagrammMitTrend";
-import { SchwungVergleich, type SchwungStat } from "@/components/SchwungVergleich";
-import { datumKurz, prozent, prozent1, schwungName, zahl } from "@/lib/labels";
+import { datumKurz, prozent, prozent1, zahl } from "@/lib/labels";
 
-const MIN_SCHWINGER_PRO_SCHWUNG = 15;
 // Ab so vielen Gängen gilt ein Elo als Messung (wie model.json
 // config.min_gaenge_fuer_sicherheit): nach ein, zwei Gängen liegt es noch
 // fast beim Startwert und zöge jede Trendlinie Richtung 1500.
@@ -101,11 +101,8 @@ interface Report {
     baseline_elo?: { accuracy: number; log_loss: number };
   } | null;
   training_ab?: string | null;
-  datenqualitaet?: { feste_zeitraum?: { von: string; bis: string } };
+  datenqualitaet?: DatenqualitaetDaten & { feste_zeitraum?: { von: string; bis: string } };
 }
-
-// Merkmale, die die Spec explizit beleuchten will (AK-4.2).
-const FOKUS = new Set(["gewicht_diff", "groesse_diff", "schwung_overlap", "schwung_count_diff"]);
 
 export default function Analyse() {
   const [fi, setFi] = useState<FeatureImportanceEntry[]>([]);
@@ -184,49 +181,6 @@ export default function Analyse() {
         y: e.r!.elo,
         label: e.s.name,
       }));
-  }, [schwinger, ratings]);
-
-  // Kategorial statt kontinuierlich: Ø Elo je bevorzugtem Schwung (nur wo
-  // genug Schwinger dafür vorliegen, sonst zu verrauscht).
-  const { schwungStats, gesamtschnittElo } = useMemo(() => {
-    if (!ratings) return { schwungStats: [] as SchwungStat[], gesamtschnittElo: 0 };
-    // Referenzlinie NUR über Schwinger mit erfasstem Schwung berechnen, nicht
-    // über alle n_gaenge>0 -- sonst zieht die riesige Masse an Stub-Schwingern
-    // (kein Porträt, kaum gespielt, Elo noch nah am Startwert 1500) den
-    // Gesamtschnitt künstlich runter und der Vergleich wird unfair (dieselbe
-    // Auswahlverzerrung wie bei der Kranzquote auf der Karte).
-    const mitSchwung = schwinger
-      .map((s) => ({ s, r: ratings.ratings[s.id] }))
-      .filter(
-        (e) =>
-          e.r && e.r.n_gaenge >= MIN_GAENGE_FUER_ELO && (e.s.bevorzugte_schwuenge?.length ?? 0) > 0
-      );
-    if (mitSchwung.length === 0) return { schwungStats: [], gesamtschnittElo: 0 };
-
-    const summeGesamt = mitSchwung.reduce((acc, e) => acc + e.r!.elo, 0);
-    const gesamtschnitt = summeGesamt / mitSchwung.length;
-
-    const gruppen = new Map<string, { summe: number; quadrate: number; n: number }>();
-    for (const { s, r } of mitSchwung) {
-      // Derselbe Schwung zweimal geschrieben ("innerer Haken" / "Innerer
-      // Haken") zählt den Schwinger nur einmal.
-      for (const name of new Set((s.bevorzugte_schwuenge ?? []).map(schwungName))) {
-        const g = gruppen.get(name) ?? { summe: 0, quadrate: 0, n: 0 };
-        g.summe += r!.elo;
-        g.quadrate += r!.elo * r!.elo;
-        g.n += 1;
-        gruppen.set(name, g);
-      }
-    }
-    const stats = [...gruppen.entries()]
-      .filter(([, g]) => g.n >= MIN_SCHWINGER_PRO_SCHWUNG)
-      .map(([schwung, g]) => {
-        const mittel = g.summe / g.n;
-        const varianz = Math.max(0, (g.quadrate - g.n * mittel * mittel) / (g.n - 1));
-        return { schwung, n: g.n, eloAvg: mittel, ki: 1.96 * Math.sqrt(varianz / g.n) };
-      })
-      .sort((a, b) => b.eloAvg - a.eloAvg);
-    return { schwungStats: stats, gesamtschnittElo: gesamtschnitt };
   }, [schwinger, ratings]);
 
   if (error) return <p className="warn">Fehler: {error}</p>;
@@ -472,10 +426,9 @@ export default function Analyse() {
               </details>
             )}
             <p className="muted small" style={{ marginBottom: 0 }}>
-              „Fokus“ markiert die Merkmale, deren Beitrag die Spezifikation eigens prüfen will
-              (Gewicht, Grösse, bevorzugte Schwünge, AK-4.2). Klein heisst nicht bedeutungslos:
-              Physis und Stil sind nur für Schwinger mit Porträt erfasst, und ein Teil ihrer Wirkung
-              steckt schon im Elo-Rating — der Exkurs unten zeigt die Zusammenhänge direkt.
+              Klein heisst nicht bedeutungslos: Gewicht, Grösse und Schwünge sind nur für
+              Schwinger mit Porträt erfasst, und ein Teil ihrer Wirkung steckt schon im
+              Elo-Rating — der Exkurs unten zeigt die Zusammenhänge direkt.
             </p>
           </div>
         </>
@@ -490,7 +443,8 @@ export default function Analyse() {
               Gängen (Elo also nicht mehr der Startwert). Die gestrichelte Linie ist die lineare
               Trendlinie; r zeigt, wie stark der Zusammenhang ist (0 = keiner, ±1 = perfekt).
               Porträts gibt es fast nur für Kranzer: Die Schwächeren fehlen, und das dämpft jeden
-              Zusammenhang. Grösse, Gewicht und Elo sind der heutige Stand.
+              Zusammenhang. Grösse, Gewicht und Elo sind der heutige Stand. Wie einer seine Gänge
+              entscheidet (Plattwurf, Gestellt), zeigt die Seite <Link href="/typen">Typen</Link>.
             </p>
             <div className="grid-3">
               <StreudiagrammMitTrend
@@ -516,17 +470,17 @@ export default function Analyse() {
         </>
       )}
 
-      {schwungStats.length > 0 && (
+      {report?.datenqualitaet && (
         <>
-          <h2>Exkurs: Macht der bevorzugte Schwung einen Unterschied?</h2>
+          <h2>Wie sauber sind die Daten?</h2>
           <div className="panel">
-            <p className="muted small" style={{ marginTop: 0, marginBottom: "0.5rem" }}>
-              Ø Elo der Schwinger mit mindestens {MIN_GAENGE_FUER_ELO} Gängen, die diesen Schwung
-              bevorzugen (nur Schwünge mit mindestens {MIN_SCHWINGER_PRO_SCHWUNG} Schwingern, sonst
-              zu verrauscht — ein Schwinger kann mehrere bevorzugte Schwünge haben und zählt dann
-              bei mehreren mit).
+            <p className="muted small" style={{ marginTop: 0 }}>
+              Jede Prognose ist nur so gut wie die Gänge, aus denen sie lernt. Jeder tägliche Lauf
+              prüft die Daten darum gegen sich selbst und gegen ein zweites, unabhängiges Dokument:
+              die offizielle Schlussrangliste, in der für jeden Schwinger die Folge seiner
+              Resultate steht.
             </p>
-            <SchwungVergleich daten={schwungStats} gesamtschnitt={gesamtschnittElo} />
+            <Datenqualitaet d={report.datenqualitaet} />
           </div>
         </>
       )}
@@ -558,8 +512,12 @@ export default function Analyse() {
                   . Elo, Form, Erfahrung, Gestellt-Neigung und direkte Duelle mit dem Stand vor dem
                   jeweiligen Fest. Kranzstatus, Porträt, Gewicht, Grösse und Schwünge sind der
                   heutige Stand des Porträts — ein erst später gewonnener Kranz steckt darin schon.
-                  Gemessen: Ohne Kranzstatus und Porträt-Angabe wäre der Test-Log-Loss höchstens
-                  0.002 höher.
+                  Wie stark sich das Modell darauf stützt, zeigt „Was die Prognose treibt“
+                  {(() => {
+                    const k = fi.find((f) => f.feature === "kranz_diff");
+                    return k && fiArt === "permutation" ? ` (Kranzstatus: ${k.wichtigkeit.toFixed(3)})` : "";
+                  })()}
+                  ; Elo und Erfahrung tragen ein Vielfaches.
                 </li>
                 {(report.n_train_ausgeliefert ?? 0) > report.n_train && (
                   <li>
@@ -665,11 +623,6 @@ function FiTabelle({ eintraege, max }: { eintraege: FeatureImportanceEntry[]; ma
           <tr key={f.feature}>
             <td style={{ width: "40%" }}>
               {f.label}
-              {FOKUS.has(f.feature) && (
-                <span className="badge" style={{ marginLeft: 6, fontSize: "0.7rem" }}>
-                  Fokus
-                </span>
-              )}
             </td>
             <td style={{ width: "48%" }}>
               <div

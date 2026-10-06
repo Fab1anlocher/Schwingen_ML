@@ -13,55 +13,55 @@
           "id": "adrian odermatt|2001",
           "name": "Adrian Odermatt",
           "elo_vorher": 1856.8,
-          "elo_nachher": 2277.3,
-          "gewinn": 420.5,
+          "elo_nachher": 2277.4,
+          "gewinn": 420.6,
           "gaenge": 81
         },
         {
           "id": "severin staub|2002",
           "name": "Severin Staub",
           "elo_vorher": 1584.5,
-          "elo_nachher": 1983.6,
-          "gewinn": 399.1,
+          "elo_nachher": 1983.7,
+          "gewinn": 399.2,
           "gaenge": 62
         },
         {
           "id": "marco reichmuth|1997",
           "name": "Marco Reichmuth",
-          "elo_vorher": 1702.8,
-          "elo_nachher": 2085.7,
+          "elo_vorher": 1702.9,
+          "elo_nachher": 2085.8,
           "gewinn": 382.9,
           "gaenge": 66
         },
         {
           "id": "dominik zangger|?",
           "name": "Dominik Zangger",
-          "elo_vorher": 1646.7,
-          "elo_nachher": 2014.3,
-          "gewinn": 367.6,
+          "elo_vorher": 1646.8,
+          "elo_nachher": 2014.4,
+          "gewinn": 367.7,
           "gaenge": 78
         },
         {
           "id": "lukas dobeli|2000",
           "name": "Lukas Döbeli",
           "elo_vorher": 1866.6,
-          "elo_nachher": 2232.6,
-          "gewinn": 365.9,
+          "elo_nachher": 2232.7,
+          "gewinn": 366.0,
           "gaenge": 51
         },
         {
           "id": "fabio hiltbrunner|2005",
           "name": "Fabio Hiltbrunner",
-          "elo_vorher": 2038.1,
-          "elo_nachher": 2401.1,
+          "elo_vorher": 2038.2,
+          "elo_nachher": 2401.2,
           "gewinn": 363.0,
           "gaenge": 66
         },
         {
           "id": "fabian scherrer|2002",
           "name": "Fabian Scherrer",
-          "elo_vorher": 1749.5,
-          "elo_nachher": 2092.2,
+          "elo_vorher": 1749.6,
+          "elo_nachher": 2092.3,
           "gewinn": 342.7,
           "gaenge": 95
         },
@@ -70,14 +70,14 @@
           "name": "Auf der Maur Alex",
           "elo_vorher": 1200.2,
           "elo_nachher": 1539.3,
-          "gewinn": 339.0,
+          "gewinn": 339.1,
           "gaenge": 27
         },
         {
           "id": "patrick walther|1996",
           "name": "Patrick Walther",
-          "elo_vorher": 1565.6,
-          "elo_nachher": 1901.9,
+          "elo_vorher": 1565.7,
+          "elo_nachher": 1902.0,
           "gewinn": 336.3,
           "gaenge": 36
         },
@@ -85,8 +85,8 @@
           "id": "loic pasquier|2001",
           "name": "Loïc Pasquier",
           "elo_vorher": 1441.2,
-          "elo_nachher": 1776.9,
-          "gewinn": 335.7,
+          "elo_nachher": 1777.1,
+          "gewinn": 335.8,
           "gaenge": 81
         }
       ],
@@ -111,24 +111,24 @@
           "id": "roger burli|1997",
           "name": "Roger Bürli",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1945.1,
-          "gewinn": 445.1,
+          "elo_nachher": 1945.2,
+          "gewinn": 445.2,
           "gaenge": 61
         },
         {
           "id": "roman wandeler|2002",
           "name": "Roman Wandeler",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1922.9,
-          "gewinn": 422.9,
+          "elo_nachher": 1923.0,
+          "gewinn": 423.0,
           "gaenge": 60
         },
         {
           "id": "samuel brun|1999",
           "name": "Samuel Brun",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1911.8,
-          "gewinn": 411.8,
+          "elo_nachher": 1911.9,
+          "gewinn": 411.9,
           "gaenge": 39
         },
         {
@@ -151,16 +151,16 @@
           "id": "leo siegenthaler|2005",
           "name": "Leo Siegenthaler",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1863.3,
-          "gewinn": 363.3,
+          "elo_nachher": 1863.4,
+          "gewinn": 363.4,
           "gaenge": 42
         },
         {
           "id": "martin ettlin|1998",
           "name": "Martin Ettlin",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1854.0,
-          "gewinn": 354.0,
+          "elo_nachher": 1854.1,
+          "gewinn": 354.1,
           "gaenge": 69
         },
         {
@@ -230,22 +230,22 @@
       "von": "2025-01-02",
       "bis": "2025-12-06",
       "n_feste": 137,
-      "n_gaenge": 37164,
+      "n_gaenge": 37115,
       "n_schwinger": 1810,
-      "anteil_gestellt": 0.2175,
+      "anteil_gestellt": 0.2176,
       "aufsteiger": [
         {
           "id": "roman zumstein|2006",
           "name": "Roman Zumstein",
           "elo_vorher": 1470.1,
-          "elo_nachher": 1839.4,
-          "gewinn": 369.3,
+          "elo_nachher": 1839.3,
+          "gewinn": 369.2,
           "gaenge": 72
         },
         {
           "id": "fritz ramseier|?",
           "name": "Fritz Ramseier",
-          "elo_vorher": 1899.6,
+          "elo_vorher": 1899.7,
           "elo_nachher": 2264.7,
           "gewinn": 365.0,
           "gaenge": 98
@@ -262,16 +262,16 @@
           "id": "jonas (1) wuthrich|2001",
           "name": "Jonas (1) Wüthrich",
           "elo_vorher": 1478.3,
-          "elo_nachher": 1822.5,
-          "gewinn": 344.2,
+          "elo_nachher": 1822.8,
+          "gewinn": 344.5,
           "gaenge": 70
         },
         {
           "id": "burkhalter sven|?",
           "name": "Sven Burkhalter",
           "elo_vorher": 1327.0,
-          "elo_nachher": 1666.8,
-          "gewinn": 339.8,
+          "elo_nachher": 1666.7,
+          "gewinn": 339.6,
           "gaenge": 108
         },
         {
@@ -279,39 +279,39 @@
           "name": "David Burger",
           "elo_vorher": 1074.0,
           "elo_nachher": 1412.5,
-          "gewinn": 338.6,
+          "gewinn": 338.5,
           "gaenge": 56
         },
         {
           "id": "dahler luca|?",
           "name": "Luca Dähler",
           "elo_vorher": 1166.1,
-          "elo_nachher": 1487.2,
-          "gewinn": 321.2,
+          "elo_nachher": 1487.1,
+          "gewinn": 321.0,
           "gaenge": 36
         },
         {
           "id": "freuler this|?",
           "name": "This Freuler",
           "elo_vorher": 885.1,
-          "elo_nachher": 1197.3,
-          "gewinn": 312.2,
+          "elo_nachher": 1197.0,
+          "gewinn": 311.9,
           "gaenge": 40
         },
         {
           "id": "michael buchmann|1987",
           "name": "Michael Buchmann",
-          "elo_vorher": 1189.1,
-          "elo_nachher": 1495.4,
-          "gewinn": 306.3,
+          "elo_vorher": 1189.4,
+          "elo_nachher": 1495.3,
+          "gewinn": 305.9,
           "gaenge": 24
         },
         {
           "id": "david achermann|2006",
           "name": "David Achermann",
-          "elo_vorher": 1468.0,
-          "elo_nachher": 1767.6,
-          "gewinn": 299.5,
+          "elo_vorher": 1468.1,
+          "elo_nachher": 1767.5,
+          "gewinn": 299.4,
           "gaenge": 66
         }
       ],
@@ -320,17 +320,17 @@
           "id": "erb roger|?",
           "name": "Roger Erb",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1998.9,
-          "gewinn": 498.9,
-          "gaenge": 43
+          "elo_nachher": 1913.2,
+          "gewinn": 413.2,
+          "gaenge": 42
         },
         {
-          "id": "sales tschudi|2009",
-          "name": "Sales Tschudi",
+          "id": "adrian scheuner|2009",
+          "name": "Adrian Scheuner",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1871.7,
-          "gewinn": 371.7,
-          "gaenge": 85
+          "elo_nachher": 1786.3,
+          "gewinn": 286.3,
+          "gaenge": 90
         },
         {
           "id": "girard noe|?",
@@ -341,28 +341,28 @@
           "gaenge": 60
         },
         {
-          "id": "adrian scheuner|2009",
-          "name": "Adrian Scheuner",
+          "id": "andri siegenthaler|?",
+          "name": "Andri Siegenthaler",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1784.9,
-          "gewinn": 284.9,
-          "gaenge": 90
+          "elo_nachher": 1753.7,
+          "gewinn": 253.7,
+          "gaenge": 24
         },
         {
           "id": "timo gisler|2009",
           "name": "Timo Gisler",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1753.7,
-          "gewinn": 253.7,
+          "elo_nachher": 1752.0,
+          "gewinn": 252.0,
           "gaenge": 80
         },
         {
-          "id": "andri siegenthaler|?",
-          "name": "Andri Siegenthaler",
+          "id": "sales tschudi|2009",
+          "name": "Sales Tschudi",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1750.0,
-          "gewinn": 250.0,
-          "gaenge": 24
+          "elo_nachher": 1707.8,
+          "gewinn": 207.8,
+          "gaenge": 79
         },
         {
           "id": "andre schmidli|1993",
@@ -384,16 +384,16 @@
           "id": "sandro fitze|2009",
           "name": "Sandro Fitze",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1646.5,
-          "gewinn": 146.5,
+          "elo_nachher": 1646.4,
+          "gewinn": 146.4,
           "gaenge": 96
         },
         {
           "id": "giulio russo|2009",
           "name": "Giulio Russo",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1637.4,
-          "gewinn": 137.4,
+          "elo_nachher": 1637.3,
+          "gewinn": 137.3,
           "gaenge": 66
         }
       ],
@@ -455,8 +455,8 @@
           "datum": "2025-03-22",
           "sieger": "kunz mathias|?",
           "verlierer": "thomas (2) wuthrich|2007",
-          "p_sieger": 0.0036,
-          "p_gestellt": 0.0151,
+          "p_sieger": 0.0032,
+          "p_gestellt": 0.0172,
           "sieger_name": "Mathias Kunz",
           "verlierer_name": "Thomas (2) Wüthrich"
         },
@@ -465,29 +465,29 @@
           "datum": "2025-08-23",
           "sieger": "friedli simon|?",
           "verlierer": "michael muller|1995",
-          "p_sieger": 0.0038,
-          "p_gestellt": 0.0179,
+          "p_sieger": 0.0032,
+          "p_gestellt": 0.0192,
           "sieger_name": "Simon Friedli",
           "verlierer_name": "Michael Müller"
-        },
-        {
-          "event_id": "schlussgang-21094",
-          "datum": "2025-05-29",
-          "sieger": "portmann remo|?",
-          "verlierer": "thomas (2) wuthrich|2007",
-          "p_sieger": 0.004,
-          "p_gestellt": 0.0194,
-          "sieger_name": "Remo Portmann",
-          "verlierer_name": "Thomas (2) Wüthrich"
         },
         {
           "event_id": "schlussgang-21062",
           "datum": "2025-07-27",
           "sieger": "guler leo|?",
           "verlierer": "thomas (2) wuthrich|2007",
-          "p_sieger": 0.0041,
-          "p_gestellt": 0.0162,
+          "p_sieger": 0.0036,
+          "p_gestellt": 0.0175,
           "sieger_name": "Leo Guler",
+          "verlierer_name": "Thomas (2) Wüthrich"
+        },
+        {
+          "event_id": "schlussgang-21094",
+          "datum": "2025-05-29",
+          "sieger": "portmann remo|?",
+          "verlierer": "thomas (2) wuthrich|2007",
+          "p_sieger": 0.0042,
+          "p_gestellt": 0.0185,
+          "sieger_name": "Remo Portmann",
           "verlierer_name": "Thomas (2) Wüthrich"
         },
         {
@@ -495,8 +495,8 @@
           "datum": "2025-07-06",
           "sieger": "thomas (2) wuthrich|2007",
           "verlierer": "christian biasch|1996",
-          "p_sieger": 0.0047,
-          "p_gestellt": 0.0251,
+          "p_sieger": 0.0044,
+          "p_gestellt": 0.0261,
           "sieger_name": "Thomas (2) Wüthrich",
           "verlierer_name": "Christian Biäsch"
         },
@@ -506,7 +506,7 @@
           "sieger": "dario gerber|2007",
           "verlierer": "reto thoni|2001",
           "p_sieger": 0.0051,
-          "p_gestellt": 0.0462,
+          "p_gestellt": 0.0496,
           "sieger_name": "Dario Gerber",
           "verlierer_name": "Reto Thöni"
         },
@@ -515,40 +515,40 @@
           "datum": "2025-09-14",
           "sieger": "remo zurcher|1996",
           "verlierer": "philipp roth|1995",
-          "p_sieger": 0.0052,
-          "p_gestellt": 0.616,
+          "p_sieger": 0.0058,
+          "p_gestellt": 0.6116,
           "sieger_name": "Remo Zürcher",
           "verlierer_name": "Philipp Roth"
         },
         {
-          "event_id": "schlussgang-21067",
-          "datum": "2025-07-13",
-          "sieger": "nicolas sturny|1998",
-          "verlierer": "samir leuppi|1993",
-          "p_sieger": 0.0057,
-          "p_gestellt": 0.0442,
-          "sieger_name": "Nicolas Sturny",
-          "verlierer_name": "Samir Leuppi"
+          "event_id": "schlussgang-23307",
+          "datum": "2025-06-15",
+          "sieger": "dario gerber|2007",
+          "verlierer": "ruedi roschi|1991",
+          "p_sieger": 0.0059,
+          "p_gestellt": 0.0497,
+          "sieger_name": "Dario Gerber",
+          "verlierer_name": "Ruedi Roschi"
         },
         {
-          "event_id": "schlussgang-37110",
-          "datum": "2025-04-27",
-          "sieger": "thomas wild|1995",
-          "verlierer": "martin roth|1990",
+          "event_id": "schlussgang-42564",
+          "datum": "2025-08-03",
+          "sieger": "flavio lenherr|2008",
+          "verlierer": "joel kessler|1997",
           "p_sieger": 0.0063,
-          "p_gestellt": 0.0376,
-          "sieger_name": "Thomas Wild",
-          "verlierer_name": "Martin Roth"
+          "p_gestellt": 0.0377,
+          "sieger_name": "Flavio Lenherr",
+          "verlierer_name": "Joel Kessler"
         },
         {
-          "event_id": "schlussgang-41244",
-          "datum": "2025-03-22",
-          "sieger": "adrian rothlisberger|?",
-          "verlierer": "thomas (2) wuthrich|2007",
-          "p_sieger": 0.0063,
-          "p_gestellt": 0.0266,
-          "sieger_name": "Adrian Röthlisberger",
-          "verlierer_name": "Thomas (2) Wüthrich"
+          "event_id": "schlussgang-46150",
+          "datum": "2025-08-23",
+          "sieger": "nick stalder|?",
+          "verlierer": "michael muller|1995",
+          "p_sieger": 0.0066,
+          "p_gestellt": 0.0382,
+          "sieger_name": "Nick Stalder",
+          "verlierer_name": "Michael Müller"
         }
       ]
     },
@@ -563,73 +563,73 @@
         {
           "id": "luca streuli|?",
           "name": "Luca Streuli",
-          "elo_vorher": 1169.6,
-          "elo_nachher": 1539.5,
+          "elo_vorher": 1169.3,
+          "elo_nachher": 1539.2,
           "gewinn": 369.9,
           "gaenge": 60
         },
         {
           "id": "rolli toni|?",
           "name": "Toni Rölli",
-          "elo_vorher": 1142.1,
-          "elo_nachher": 1471.1,
-          "gewinn": 328.9,
+          "elo_vorher": 1142.3,
+          "elo_nachher": 1471.0,
+          "gewinn": 328.7,
           "gaenge": 54
         },
         {
           "id": "kalin thomas|?",
           "name": "Thomas Kälin",
           "elo_vorher": 1274.6,
-          "elo_nachher": 1601.3,
-          "gewinn": 326.8,
+          "elo_nachher": 1601.8,
+          "gewinn": 327.2,
           "gaenge": 94
         },
         {
           "id": "manuel schweizer|?",
           "name": "Manuel Schweizer",
-          "elo_vorher": 1123.5,
-          "elo_nachher": 1448.8,
-          "gewinn": 325.3,
+          "elo_vorher": 1121.5,
+          "elo_nachher": 1448.3,
+          "gewinn": 326.8,
           "gaenge": 30
         },
         {
           "id": "daniel tschumi|2005",
           "name": "Daniel Tschumi",
           "elo_vorher": 1941.3,
-          "elo_nachher": 2255.2,
-          "gewinn": 313.9,
+          "elo_nachher": 2254.7,
+          "gewinn": 313.3,
           "gaenge": 57
         },
         {
           "id": "david forrer|2009",
           "name": "David Forrer",
-          "elo_vorher": 1541.9,
-          "elo_nachher": 1847.6,
-          "gewinn": 305.7,
+          "elo_vorher": 1541.3,
+          "elo_nachher": 1847.3,
+          "gewinn": 306.0,
           "gaenge": 78
         },
         {
           "id": "horat lenny|?",
           "name": "Lenny Horat",
-          "elo_vorher": 1110.8,
-          "elo_nachher": 1413.6,
-          "gewinn": 302.9,
+          "elo_vorher": 1110.4,
+          "elo_nachher": 1413.7,
+          "gewinn": 303.2,
           "gaenge": 80
         },
         {
           "id": "freuler this|?",
           "name": "This Freuler",
-          "elo_vorher": 1197.3,
-          "elo_nachher": 1485.5,
-          "gewinn": 288.2,
+          "elo_vorher": 1197.0,
+          "elo_nachher": 1485.0,
+          "gewinn": 288.0,
           "gaenge": 54
         },
         {
           "id": "andreas peter|?",
           "name": "Andreas Peter",
-          "elo_vorher": 1175.1,
-          "elo_nachher": 1460.9,
-          "gewinn": 285.8,
+          "elo_vorher": 1174.9,
+          "elo_nachher": 1460.6,
+          "gewinn": 285.6,
           "gaenge": 66
         },
         {
@@ -637,7 +637,7 @@
           "name": "Noel Neuenschwander",
           "elo_vorher": 1373.8,
           "elo_nachher": 1655.1,
-          "gewinn": 281.3,
+          "gewinn": 281.2,
           "gaenge": 50
         }
       ],
@@ -646,56 +646,56 @@
           "id": "patrik laimbacher|2010",
           "name": "Patrik Laimbacher",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1885.7,
-          "gewinn": 385.7,
+          "elo_nachher": 1885.5,
+          "gewinn": 385.5,
           "gaenge": 72
         },
         {
           "id": "lars kupferschmied|2007",
           "name": "Lars Kupferschmied",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1820.5,
-          "gewinn": 320.5,
+          "elo_nachher": 1820.6,
+          "gewinn": 320.6,
           "gaenge": 59
         },
         {
           "id": "silvan steinauer|?",
           "name": "Silvan Steinauer",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1706.9,
-          "gewinn": 206.9,
+          "elo_nachher": 1706.8,
+          "gewinn": 206.8,
           "gaenge": 60
         },
         {
           "id": "gian keller luca|?",
           "name": "Keller Gian Luca",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1619.5,
-          "gewinn": 119.5,
+          "elo_nachher": 1619.2,
+          "gewinn": 119.2,
           "gaenge": 78
         },
         {
           "id": "enrico joos|2003",
           "name": "Enrico Joos",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1588.3,
-          "gewinn": 88.3,
+          "elo_nachher": 1588.0,
+          "gewinn": 88.0,
           "gaenge": 31
         },
         {
           "id": "gobeli marc|?",
           "name": "Marc Gobeli",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1559.1,
-          "gewinn": 59.1,
+          "elo_nachher": 1559.0,
+          "gewinn": 59.0,
           "gaenge": 30
         },
         {
           "id": "cornel laimbacher|?",
           "name": "Cornel Laimbacher",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1556.7,
-          "gewinn": 56.7,
+          "elo_nachher": 1556.5,
+          "gewinn": 56.5,
           "gaenge": 124
         },
         {
@@ -710,16 +710,16 @@
           "id": "emmenegger patrik|?",
           "name": "Patrik Emmenegger",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1540.8,
-          "gewinn": 40.8,
+          "elo_nachher": 1540.7,
+          "gewinn": 40.7,
           "gaenge": 70
         },
         {
           "id": "auf der jonas maur|?",
           "name": "Auf der Maur Jonas",
           "elo_vorher": 1500.0,
-          "elo_nachher": 1540.5,
-          "gewinn": 40.5,
+          "elo_nachher": 1540.4,
+          "gewinn": 40.4,
           "gaenge": 108
         }
       ],
@@ -777,82 +777,82 @@
       ],
       "ueberraschungen": [
         {
-          "event_id": "schlussgang-43559",
-          "datum": "2026-08-02",
-          "sieger": "robin studinger|2006",
-          "verlierer": "lukas dobeli|2000",
-          "p_sieger": 0.0068,
-          "p_gestellt": 0.1909,
-          "sieger_name": "Robin Studinger",
-          "verlierer_name": "Lukas Döbeli"
-        },
-        {
-          "event_id": "schlussgang-37083",
-          "datum": "2026-05-25",
-          "sieger": "michael muller|1995",
-          "verlierer": "carlo von rickenbach|2005",
-          "p_sieger": 0.0074,
-          "p_gestellt": 0.0115,
-          "sieger_name": "Michael Müller",
-          "verlierer_name": "Carlo von Rickenbach"
-        },
-        {
-          "event_id": "schlussgang-37078",
-          "datum": "2026-07-12",
-          "sieger": "michael muller|1995",
-          "verlierer": "roman wandeler|2002",
-          "p_sieger": 0.0078,
-          "p_gestellt": 0.013,
-          "sieger_name": "Michael Müller",
-          "verlierer_name": "Roman Wandeler"
-        },
-        {
           "event_id": "schlussgang-50457",
           "datum": "2026-07-12",
           "sieger": "jonas piller|?",
           "verlierer": "romain schmid|2003",
-          "p_sieger": 0.008,
-          "p_gestellt": 0.0079,
+          "p_sieger": 0.0077,
+          "p_gestellt": 0.0076,
           "sieger_name": "Jonas Piller",
           "verlierer_name": "Romain Schmid"
-        },
-        {
-          "event_id": "schlussgang-52062",
-          "datum": "2026-04-11",
-          "sieger": "michele mignola|?",
-          "verlierer": "lukas 1 gisler|2005",
-          "p_sieger": 0.0083,
-          "p_gestellt": 0.0041,
-          "sieger_name": "Michele Mignola",
-          "verlierer_name": "Lukas 1 Gisler"
         },
         {
           "event_id": "schlussgang-49578",
           "datum": "2026-05-09",
           "sieger": "lauchenauer lukas|?",
           "verlierer": "fabian ulmann|1999",
-          "p_sieger": 0.0085,
-          "p_gestellt": 0.0085,
+          "p_sieger": 0.0082,
+          "p_gestellt": 0.0122,
           "sieger_name": "Lukas Lauchenauer",
           "verlierer_name": "Fabian Ulmann"
+        },
+        {
+          "event_id": "schlussgang-43559",
+          "datum": "2026-08-02",
+          "sieger": "robin studinger|2006",
+          "verlierer": "lukas dobeli|2000",
+          "p_sieger": 0.0083,
+          "p_gestellt": 0.1385,
+          "sieger_name": "Robin Studinger",
+          "verlierer_name": "Lukas Döbeli"
+        },
+        {
+          "event_id": "schlussgang-33468",
+          "datum": "2026-04-19",
+          "sieger": "husler raoul|?",
+          "verlierer": "thomas (2) wuthrich|2007",
+          "p_sieger": 0.0083,
+          "p_gestellt": 0.0071,
+          "sieger_name": "Raoul Hüsler",
+          "verlierer_name": "Thomas (2) Wüthrich"
         },
         {
           "event_id": "schlussgang-49604",
           "datum": "2026-04-25",
           "sieger": "brand kevin|?",
           "verlierer": "thomas (2) wuthrich|2007",
-          "p_sieger": 0.0086,
-          "p_gestellt": 0.0169,
+          "p_sieger": 0.0085,
+          "p_gestellt": 0.0151,
           "sieger_name": "Kevin Brand",
           "verlierer_name": "Thomas (2) Wüthrich"
+        },
+        {
+          "event_id": "schlussgang-21047",
+          "datum": "2026-05-25",
+          "sieger": "sales tschudi|2009",
+          "verlierer": "damian ott|2000",
+          "p_sieger": 0.0087,
+          "p_gestellt": 0.0198,
+          "sieger_name": "Sales Tschudi",
+          "verlierer_name": "Damian Ott"
+        },
+        {
+          "event_id": "schlussgang-37078",
+          "datum": "2026-07-12",
+          "sieger": "michael muller|1995",
+          "verlierer": "roman wandeler|2002",
+          "p_sieger": 0.0088,
+          "p_gestellt": 0.0146,
+          "sieger_name": "Michael Müller",
+          "verlierer_name": "Roman Wandeler"
         },
         {
           "event_id": "schlussgang-50250",
           "datum": "2026-04-18",
           "sieger": "mathys sebastian|?",
           "verlierer": "michael muller|1995",
-          "p_sieger": 0.0086,
-          "p_gestellt": 0.0106,
+          "p_sieger": 0.0089,
+          "p_gestellt": 0.0098,
           "sieger_name": "Sebastian Mathys",
           "verlierer_name": "Michael Müller"
         },
@@ -861,20 +861,20 @@
           "datum": "2026-05-31",
           "sieger": "loris naf|?",
           "verlierer": "martin egli|1997",
-          "p_sieger": 0.0086,
-          "p_gestellt": 0.0104,
+          "p_sieger": 0.0089,
+          "p_gestellt": 0.012,
           "sieger_name": "Loris Näf",
           "verlierer_name": "Martin Egli"
         },
         {
-          "event_id": "schlussgang-52017",
-          "datum": "2026-06-12",
-          "sieger": "krahenbuhl matthias|?",
-          "verlierer": "tim wuthrich|?",
-          "p_sieger": 0.0089,
-          "p_gestellt": 0.0314,
-          "sieger_name": "Matthias Krähenbühl",
-          "verlierer_name": "Tim Wüthrich"
+          "event_id": "schlussgang-52147",
+          "datum": "2026-04-26",
+          "sieger": "adrien trachsel|?",
+          "verlierer": "dario zbinden|2004",
+          "p_sieger": 0.009,
+          "p_gestellt": 0.0132,
+          "sieger_name": "Adrien Trachsel",
+          "verlierer_name": "Dario Zbinden"
         }
       ]
     }

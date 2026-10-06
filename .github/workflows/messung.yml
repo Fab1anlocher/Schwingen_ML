@@ -22,6 +22,7 @@ on:
           - rating_noten
           - paarung
           - vettern
+          - pdf_diagnose
         default: noten
 
 permissions:
@@ -59,4 +60,5 @@ jobs:
       - name: Messung ausführen
         env:
           MESSUNG: ${{ inputs.messung }}
-        run: python -m pipeline.messung "$MESSUNG" | tee -a "$GITHUB_STEP_SUMMARY"
+        # pipefail: bricht die Messung ab, soll der Lauf rot werden (tee verdeckte das)
+        run: set -o pipefail; python -m pipeline.messung "$MESSUNG" | tee -a "$GITHUB_STEP_SUMMARY"

@@ -43,6 +43,9 @@ class Teilnahme:
     wohnort: str | None
     senne_turner: str | None
     abzeichen: int = 0
+    # Resultatfolge laut Rangliste ("+-o++"), Gang für Gang -- unabhängig
+    # von der Statistik-PDF, aus der die Gänge stammen (resultat_abgleich).
+    resultat: str | None = None
 
 
 def namensaufloesung(finde, schwinger: dict | None = None):
@@ -69,7 +72,17 @@ def namensaufloesung(finde, schwinger: dict | None = None):
                       if getattr(schwinger[i], "jahrgang", None) == jahr]
         if len(kandidaten) == 1:
             return kandidaten[0]
-        return finde(m.group(1)) if not nach_tokens else None
+        if kandidaten:
+            return None
+        # Kein Porträt mit diesem Jahrgang: der Name ohne Zusatz, sofern der
+        # gefundene Schwinger keinen ANDEREN Jahrgang trägt (sonst ist es ein
+        # Namensvetter). Bis 06.10.2026 fielen so alle Junioren ohne Porträt
+        # weg -- Flüelen 2026: 59 von 199 Namen ("Emmenegger Patrik (2010)").
+        sid = finde(m.group(1))
+        if sid is None:
+            return None
+        anderer = getattr((schwinger or {}).get(sid), "jahrgang", None)
+        return sid if anderer in (None, jahr) else None
 
     return aufloesen
 
@@ -95,6 +108,11 @@ def teilnahmen_aus_ranglisten(ranglisten: dict, events: dict, finde,
     block = block or {}
     teilnahmen: list[Teilnahme] = []
     unaufloesbar: Counter = Counter()
+    # Je Fest über ALLE Zeilen der Rangliste, auch nicht zugeordnete Namen:
+    # Teilnehmer und Kränze eines Fests hängen nicht davon ab, ob wir jeden
+    # Namen einer Person zuordnen können (Audit 06.10.2026: Flüelen 2026
+    # zeigte 140 statt 196 Teilnehmer und eine Kranzquote von 24 %).
+    summen: dict[str, dict] = {}
     n_feste = n_fehler = 0
     for eid, eintrag in ranglisten.items():
         event = events.get(eid)
@@ -104,13 +122,20 @@ def teilnahmen_aus_ranglisten(ranglisten: dict, events: dict, finde,
             n_fehler += 1
             continue
         n_feste += 1
-        for e in eintrag.get("eintraege", []):
+        eintraege = eintrag.get("eintraege", [])
+        summe = summen[eid] = {"n": len(eintraege),
+                               "kraenze": sum(1 for e in eintraege if e.get("kranz")),
+                               "unaufgeloest": 0, "beispiele": []}
+        for e in eintraege:
             m = _JAHRGANG_RE.match(e["name"].strip())
             tokens = namens_tokens(m.group(1) if m else e["name"])
             sid = (block.get((eid, tokens, _punkte(e.get("punkte"))))
                    or zuordnung.get((eid, tokens)) or finde(e["name"]))
             if sid is None:
                 unaufloesbar[e["name"]] += 1
+                summe["unaufgeloest"] += 1
+                if len(summe["beispiele"]) < 8:
+                    summe["beispiele"].append(e["name"])
                 continue
             teilnahmen.append(Teilnahme(
                 schwinger_id=sid, event_id=eid, datum=event.datum, fest_typ=event.typ,
@@ -119,14 +144,117 @@ def teilnahmen_aus_ranglisten(ranglisten: dict, events: dict, finde,
                 schwingklub=e.get("schwingklub"), wohnort=e.get("wohnort"),
                 senne_turner=e.get("senne_turner"),
                 abzeichen=int(e.get("abzeichen") or 0),
+                resultat=e.get("resultat"),
             ))
     n_eintraege = len(teilnahmen) + sum(unaufloesbar.values())
+    viele = sorted(((eid, s) for eid, s in summen.items()
+                    if s["unaufgeloest"] > max(5, 0.1 * s["n"])),
+                   key=lambda x: -x[1]["unaufgeloest"] / x[1]["n"])
     return teilnahmen, {
         "n_feste": n_feste,
         "n_nicht_lesbar": n_fehler,
         "n_teilnahmen": len(teilnahmen),
         "anteil_namen_aufgeloest": round(len(teilnahmen) / n_eintraege, 4) if n_eintraege else None,
         "beispiele_unaufloesbar": [n for n, _ in unaufloesbar.most_common(5)],
+        # Feste mit über 10 % nicht zugeordneten Namen (Gänge und Rückblick
+        # fehlen dort für diese Schwinger), mit Beispielen
+        "feste_viele_unaufgeloest": len(viele),
+        "beispiele_feste_viele_unaufgeloest": [
+            f"{events[eid].name}: {s['unaufgeloest']}/{s['n']} ({', '.join(s['beispiele'][:5])})"
+            for eid, s in viele[:5]],
+        # nur intern (run_pipeline nimmt es vor dem Export heraus)
+        "fest_summen": {eid: {"n": s["n"], "kraenze": s["kraenze"]} for eid, s in summen.items()},
+    }
+
+
+def resultat_abgleich(teilnahmen: list[Teilnahme], gaenge, fest_name: dict | None = None,
+                      fest_typ: dict | None = None) -> dict:
+    """Gänge aus der Statistik-PDF gegen die Resultatfolge der Rangliste.
+
+    Zwei unabhängige Dokumente desselben Fests: die Statistik-PDF (jeder Gang
+    mit Gegner, daraus stammen alle Gänge der App) und die Schlussrangliste
+    (je Schwinger die Folge "+-o++"). Stimmen Siege, Gestellte und
+    Niederlagen eines Schwingers an einem Fest nicht überein, ist ein Gang
+    falsch zugeordnet: meist eine Kopfzeile der Statistik-PDF, die der Parser
+    nicht erkannt hat (die Gänge darunter landen beim Schwinger davor), oder
+    zwei Gleichnamige auf einer ID.
+
+    "mehr Gänge" ist das deutliche Signal. "weniger Gänge" entsteht auch
+    legitim, wenn ein Gegnername nicht aufzulösen war (Gang verworfen).
+    Dazu je Fest: Rangliste mit deutlich weniger Teilnehmern als Schwinger
+    mit Gängen (Rangliste unvollständig gelesen).
+    """
+    fest_name = fest_name or {}
+    fest_typ = fest_typ or {}
+    unsere: dict[tuple, Counter] = defaultdict(Counter)
+    for g in gaenge:
+        e, a, b = g.event_id, g.schwinger_a_id, g.schwinger_b_id
+        if g.ergebnis == "gestellt":
+            unsere[(e, a)]["-"] += 1
+            unsere[(e, b)]["-"] += 1
+        elif g.ergebnis == "sieg_a":
+            unsere[(e, a)]["+"] += 1
+            unsere[(e, b)]["o"] += 1
+        else:
+            unsere[(e, b)]["+"] += 1
+            unsere[(e, a)]["o"] += 1
+    mit_gaengen: dict[str, set] = defaultdict(set)
+    for (e, sid) in unsere:
+        mit_gaengen[e].add(sid)
+
+    n = gleich = mehr = weniger = anders = 0
+    je_fest: dict[str, list[int]] = defaultdict(lambda: [0, 0])
+    je_jahr: dict[str, list[int]] = defaultdict(lambda: [0, 0])
+    beispiele: list[tuple[int, str]] = []
+    in_rangliste: dict[str, set] = defaultdict(set)
+    for t in teilnahmen:
+        in_rangliste[t.event_id].add(t.schwinger_id)
+        if not t.resultat or t.event_id not in mit_gaengen:
+            continue
+        soll = Counter("o" if c == "0" else c for c in t.resultat)
+        ist = unsere.get((t.event_id, t.schwinger_id), Counter())
+        n += 1
+        je_fest[t.event_id][0] += 1
+        je_jahr[t.datum[:4]][0] += 1
+        if soll == ist:
+            gleich += 1
+            continue
+        je_fest[t.event_id][1] += 1
+        je_jahr[t.datum[:4]][1] += 1
+        n_soll, n_ist = sum(soll.values()), sum(ist.values())
+        if n_ist > n_soll:
+            mehr += 1
+        elif n_ist < n_soll:
+            weniger += 1
+        else:
+            anders += 1
+        beispiele.append((n_ist - n_soll,
+                          f"{t.schwinger_id} @ {fest_name.get(t.event_id, t.event_id)}: "
+                          f"Rangliste {t.resultat}, Gänge {ist['+']}+ {ist['-']}- {ist['o']}o"))
+
+    schlechteste = sorted(
+        ((eid, ab / ge) for eid, (ge, ab) in je_fest.items() if ge >= 10 and ab / ge > 0.05),
+        key=lambda x: -x[1])
+    unvollstaendig = []
+    for eid, ids in mit_gaengen.items():
+        n_r, n_g = len(in_rangliste.get(eid, ())), len(ids)
+        if n_r and n_g - n_r > max(3, 0.1 * n_g):
+            unvollstaendig.append(f"{fest_name.get(eid, eid)}: Rangliste {n_r}, mit Gängen {n_g}")
+    beispiele.sort(key=lambda b: -abs(b[0]))
+    return {
+        "geprueft": n,
+        "gleich": gleich,
+        "anteil_gleich": round(gleich / n, 4) if n else None,
+        "mehr_gaenge": mehr,
+        "weniger_gaenge": weniger,
+        "andere_ausgaenge": anders,
+        "je_jahr": {j: {"geprueft": ge, "abweichend": ab} for j, (ge, ab) in sorted(je_jahr.items())},
+        "feste_ueber_5_prozent": len(schlechteste),
+        "schlechteste_feste": [f"{fest_name.get(eid, eid)} ({fest_typ.get(eid, '?')}): {q:.0%} abweichend"
+                               for eid, q in schlechteste[:10]],
+        "beispiele": [b for _, b in beispiele[:15]],
+        "ranglisten_unvollstaendig": len(unvollstaendig),
+        "beispiele_ranglisten_unvollstaendig": unvollstaendig[:10],
     }
 
 
@@ -173,6 +301,31 @@ def kranzstatus_je_schwinger(teilnahmen: list[Teilnahme]) -> dict[str, str]:
     return {sid: ("eidgenosse" if n >= 2 else "kranzer") for sid, n in stufe.items() if n}
 
 
+# Schwingerkönige, die in den Daten seit 2023 vorkommen (ESV, öffentlich
+# bekannt). Die Rangliste kennt nur Kranzer und Eidgenosse (Sterne); ohne
+# aktuelles Porträt erschien ein König darum als Eidgenosse (Audit 06.10.2026:
+# Joel Wicki, Christian Stucki, Kilian Wenger). Schlüssel: Name wie in der
+# Schwinger-ID und Schwingklub laut Rangliste, damit kein Namensvetter den
+# Titel bekommt. Neue Könige kommen über das Porträt
+# (field_portrait_schwingerkoenig), diese Liste braucht es nur für Schwinger
+# ohne Porträt.
+SCHWINGERKOENIGE: dict[tuple[str, str], int] = {
+    ("kilian wenger", "Niedersimmental"): 2010,
+    ("christian stucki", "Unteres Seeland"): 2019,
+    ("joel wicki", "Entlebuch"): 2022,
+    ("armon orlik", "Unterlandquart"): 2025,
+}
+
+
+def mit_koenigen(kranzstatus: dict[str, str], klubs: dict[str, str]) -> dict[str, str]:
+    """Kranzstatus laut Rangliste, Schwingerkönige (s. oben) als "koenig"."""
+    aus = dict(kranzstatus)
+    for sid, klub in klubs.items():
+        if (sid.split("|")[0], klub) in SCHWINGERKOENIGE:
+            aus[sid] = "koenig"
+    return aus
+
+
 # Rang 1 der Schlussrangliste; bei Punktgleichheit teilen sich mehrere den
 # Festsieg ("1a", "1b").
 _FESTSIEG_RE = re.compile(r"^1[a-z]?$")
@@ -197,11 +350,11 @@ def festsiege_je_schwinger(teilnahmen: list[Teilnahme]) -> dict[str, list[dict]]
     return {sid: sorted(v, key=lambda x: x["datum"], reverse=True) for sid, v in out.items()}
 
 
-def fest_ueberblick(teilnahmen: list[Teilnahme]) -> dict[str, dict]:
+def fest_ueberblick(teilnahmen: list[Teilnahme], summen: dict | None = None) -> dict[str, dict]:
     """Je Fest: Sieger (IDs, geteilt möglich), Teilnehmer und vergebene Kränze.
 
-    Gezählt über die aufgelösten Teilnahmen (99.4 % der Ranglisten-Namen);
-    die Zahlen können darum um einzelne Unaufgelöste zu tief liegen.
+    Teilnehmer und Kränze aus ``summen`` (alle Zeilen der Rangliste, s.
+    teilnahmen_aus_ranglisten); ohne sie über die aufgelösten Teilnahmen.
     """
     out: dict[str, dict] = {}
     for t in teilnahmen:
@@ -210,6 +363,9 @@ def fest_ueberblick(teilnahmen: list[Teilnahme]) -> dict[str, dict]:
         f["n_kraenze"] += bool(t.kranz)
         if ist_festsieg(t.rang):
             f["sieger"].append(t.schwinger_id)
+    for eid, f in out.items():
+        if summen and eid in summen:
+            f["n_teilnehmer"], f["n_kraenze"] = summen[eid]["n"], summen[eid]["kraenze"]
     return out
 
 
@@ -313,7 +469,14 @@ def konsistenz(kraenze: dict[str, dict], klubs: dict[str, str], schwinger: dict)
     }
 
 
-def kranzquoten(teilnahmen: list[Teilnahme]) -> dict[str, float]:
+def _quote(eid: str, werte: list[bool], summen: dict | None) -> float:
+    """Kranzquote eines Fests, über alle Ranglisten-Zeilen, wenn bekannt."""
+    if summen and eid in summen and summen[eid]["n"]:
+        return summen[eid]["kraenze"] / summen[eid]["n"]
+    return sum(werte) / len(werte)
+
+
+def kranzquoten(teilnahmen: list[Teilnahme], summen: dict | None = None) -> dict[str, float]:
     """Median-Kranzquote je Festtyp (Plausibilität: Kranzfeste ~14-18 %)."""
     je_fest: dict[str, list[bool]] = defaultdict(list)
     typ: dict[str, str] = {}
@@ -322,7 +485,7 @@ def kranzquoten(teilnahmen: list[Teilnahme]) -> dict[str, float]:
         typ[t.event_id] = t.fest_typ
     quoten: dict[str, list[float]] = defaultdict(list)
     for eid, werte in je_fest.items():
-        quoten[typ[eid]].append(sum(werte) / len(werte))
+        quoten[typ[eid]].append(_quote(eid, werte, summen))
     return {t: round(sorted(q)[len(q) // 2], 4) for t, q in sorted(quoten.items())}
 
 
@@ -348,7 +511,7 @@ def kranzfeste_ohne_kranz(teilnahmen: list[Teilnahme]) -> list[str]:
 KRANZQUOTE_PLAUSIBEL = (0.12, 0.21)
 
 
-def kranzquote_ausreisser(teilnahmen: list[Teilnahme]) -> list[tuple[str, float]]:
+def kranzquote_ausreisser(teilnahmen: list[Teilnahme], summen: dict | None = None) -> list[tuple[str, float]]:
     """Kranzfeste mit Kränzen, deren Quote ausserhalb KRANZQUOTE_PLAUSIBEL liegt.
 
     Feste ganz ohne Kranz meldet kranzfeste_ohne_kranz. Eine Quote weit
@@ -362,7 +525,7 @@ def kranzquote_ausreisser(teilnahmen: list[Teilnahme]) -> list[tuple[str, float]
     unten, oben = KRANZQUOTE_PLAUSIBEL
     out = []
     for eid, werte in sorted(je_fest.items()):
-        quote = sum(werte) / len(werte)
+        quote = _quote(eid, werte, summen)
         if quote > 0 and not unten <= quote <= oben:
             out.append((eid, round(quote, 4)))
     return out

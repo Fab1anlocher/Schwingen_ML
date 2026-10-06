@@ -610,7 +610,7 @@ def _nur_portraet_block(modell: dict | None, baseline: dict | None) -> dict:
         block["baseline_elo"] = {
             "n": baseline["n"],
             "log_loss": round(baseline["log_loss"], 4),
-            "accuracy": round(baseline["accuracy"], 4),
+            "accuracy": round(baseline["accuracy"], 6),
         }
     return block
 
@@ -724,7 +724,9 @@ def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
         "n_test": train_res["n_test"],
         "modell": {
             "log_loss": round(ll, 4),
-            "accuracy": round(train_res["accuracy"], 4),
+            # 6 Stellen: die App rundet auf eine Nachkommastelle in Prozent;
+            # mit 4 Stellen wurde aus 0.70446 erst 0.7045, dann "70.5 %".
+            "accuracy": round(train_res["accuracy"], 6),
             # MAE/MSE auf dem Punktwert des Gangs (Sieg=1/Gestellt=0.5/
             # Niederlage=0), s. pipeline/metriken.py.
             "mae": round(train_res["mae"], 4),
@@ -732,7 +734,7 @@ def exportiere_report(train_res: dict, baseline: dict, warnungen: list[str],
         },
         "baseline_elo": {
             "log_loss": round(base_ll, 4),
-            "accuracy": round(base_acc, 4),
+            "accuracy": round(base_acc, 6),
         },
         "schlaegt_baseline": erreicht_log_loss,
         "accuracy_gg_baseline": round(acc - base_acc, 4),

@@ -203,7 +203,7 @@ def _fit_predict(Xtr: np.ndarray, ytr: np.ndarray, Xte: np.ndarray) -> np.ndarra
 def _bewerte(p: np.ndarray, y: np.ndarray, mit_log_loss: bool = True) -> dict:
     fehler = punktwert_fehlermasse(p, y)
     return {
-        "accuracy": round(_accuracy(p, y), 4),
+        "accuracy": round(_accuracy(p, y), 6),
         "log_loss": round(float(log_loss(y, p, labels=[0, 1, 2])), 4) if mit_log_loss else None,
         "brier_score": round(_brier_score(p, y), 4),
         "mae": round(fehler["mae"], 4),
