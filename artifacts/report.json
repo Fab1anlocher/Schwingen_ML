@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-10-06T11:57:21.117541+00:00",
-  "lauf_id": "20261006T115721Z",
+  "erstellt": "2026-10-06T12:23:34.978781+00:00",
+  "lauf_id": "20261006T122334Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 132997,
@@ -297,6 +297,66 @@
           "adrian steinauer|?",
           "aellen philipp|?",
           "alex schuler|einsiedeln"
+        ]
+      },
+      "resultat_abgleich": {
+        "geprueft": 46525,
+        "gleich": 45052,
+        "anteil_gleich": 0.9683,
+        "mehr_gaenge": 99,
+        "weniger_gaenge": 1368,
+        "andere_ausgaenge": 6,
+        "je_jahr": {
+          "2023": {
+            "geprueft": 8253,
+            "abweichend": 328
+          },
+          "2024": {
+            "geprueft": 12244,
+            "abweichend": 538
+          },
+          "2025": {
+            "geprueft": 12939,
+            "abweichend": 363
+          },
+          "2026": {
+            "geprueft": 13089,
+            "abweichend": 244
+          }
+        },
+        "feste_ueber_5_prozent": 128,
+        "schlechteste_feste": [
+          "Rätikon-Schwinget St. Antönien 2023 (regional): 97% abweichend",
+          "Abendschwinget Sumiswald 2023 (regional): 44% abweichend",
+          "Roteborger Schwinget Rothenburg 2023 (regional): 33% abweichend",
+          "Regionalschwingfest Ried bei Kerzers 2024 (regional): 25% abweichend",
+          "Kilbischwinget Einsiedeln 2025 (regional): 25% abweichend",
+          "Niklaus-Schwinget Pratteln 2025 (regional): 25% abweichend",
+          "Zugerberg-Schwinget 2024 (regional): 24% abweichend",
+          "Abendschwinget Fankhaus 2024 (regional): 23% abweichend",
+          "Morgarten-Schwinget 2024 (regional): 19% abweichend",
+          "Eidgenössisches Schwing- und Älplerfest Glarnerland 2025 (eidgenoessisch): 18% abweichend"
+        ],
+        "beispiele": [
+          "florian aellen|1995 @ Eidgenössisches Schwing- und Älplerfest Glarnerland 2025: Rangliste -+o-o++o, Gänge 7+ 6- 10o",
+          "christian ming|1996 @ Luzerner Kantonalschwingfest Root 2025: Rangliste --+o, Gänge 3+ 2- 7o",
+          "pascal zihlmann|? @ Luzerner Kantonalschwingfest Root 2025: Rangliste +o-o, Gänge 3+ 1- 8o",
+          "yvan duss|2003 @ Luzerner Kantonalschwingfest Root 2025: Rangliste +o+o-, Gänge 4+ 1- 7o",
+          "dominik gasser|is @ Luzerner Kantonalschwingfest Nottwil 2023: Rangliste o++oo-, Gänge 4+ 2- 6o",
+          "dominik gasser|is @ Luzerner Kantonalschwingfest Nottwil 2023: Rangliste o+oo-+, Gänge 4+ 2- 6o",
+          "alex schuler|1998 @ Schwyzer Kantonalschwingfest Galgenen 2024: Rangliste -+--++, Gänge 5+ 7- 0o",
+          "alex schuler|1998 @ Schwyzer Kantonalschwingfest Galgenen 2024: Rangliste --++--, Gänge 5+ 7- 0o",
+          "thomas (2) wuthrich|2007 @ Abendschwinget Langenthal 2025: Rangliste o--+--, Gänge 1+ 5- 6o",
+          "thomas (2) wuthrich|2007 @ Abendschwinget Langenthal 2025: Rangliste ooooo-, Gänge 1+ 5- 6o",
+          "silvan koller|2002 @ St. Galler Kantonalschwingfest Unterwasser 2025: Rangliste +o--++, Gänge 6+ 2- 4o",
+          "silvan koller|2002 @ St. Galler Kantonalschwingfest Unterwasser 2025: Rangliste +o+o+o, Gänge 6+ 2- 4o",
+          "thomas (2) wuthrich|2007 @ Abendschwinget Sumiswald 2025: Rangliste o+++o+, Gänge 5+ 1- 6o",
+          "thomas (2) wuthrich|2007 @ Abendschwinget Sumiswald 2025: Rangliste oooo+-, Gänge 5+ 1- 6o",
+          "marcel (1) stucki|2000 @ Bern-Jurassisches Schwingfest Nods 2025: Rangliste +o++o+, Gänge 6+ 0- 6o"
+        ],
+        "ranglisten_unvollstaendig": 1,
+        "beispiele_ranglisten_unvollstaendig": [
+          "Urner Kantonalschwingfest Flüelen 2026: Rangliste 140, mit Gängen 196"
         ]
       }
     },
