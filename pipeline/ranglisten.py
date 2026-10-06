@@ -72,7 +72,17 @@ def namensaufloesung(finde, schwinger: dict | None = None):
                       if getattr(schwinger[i], "jahrgang", None) == jahr]
         if len(kandidaten) == 1:
             return kandidaten[0]
-        return finde(m.group(1)) if not nach_tokens else None
+        if kandidaten:
+            return None
+        # Kein Porträt mit diesem Jahrgang: der Name ohne Zusatz, sofern der
+        # gefundene Schwinger keinen ANDEREN Jahrgang trägt (sonst ist es ein
+        # Namensvetter). Bis 06.10.2026 fielen so alle Junioren ohne Porträt
+        # weg -- Flüelen 2026: 59 von 199 Namen ("Emmenegger Patrik (2010)").
+        sid = finde(m.group(1))
+        if sid is None:
+            return None
+        anderer = getattr((schwinger or {}).get(sid), "jahrgang", None)
+        return sid if anderer in (None, jahr) else None
 
     return aufloesen
 

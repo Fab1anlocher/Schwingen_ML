@@ -161,3 +161,17 @@ def test_teilnehmer_und_kraenze_zaehlen_auch_nicht_zugeordnete_namen():
     f = fest_ueberblick(teilnahmen, summen)["e1"]
     assert (f["n_teilnehmer"], f["n_kraenze"]) == (12, 3)
     assert fest_ueberblick(teilnahmen)["e1"]["n_teilnehmer"] == 4   # ohne Summen wie bisher
+
+
+def test_jahrgang_zusatz_findet_auch_schwinger_ohne_portraet():
+    from pipeline.ranglisten import namensaufloesung
+
+    schwinger = {
+        "patrik emmenegger|?": Schwinger(id="patrik emmenegger|?", name="Patrik Emmenegger"),
+        "roman muller|1995": Schwinger(id="roman muller|1995", name="Roman Müller", jahrgang=1995),
+    }
+    index = {"emmenegger patrik": "patrik emmenegger|?", "muller roman": "roman muller|1995"}
+    finde = namensaufloesung(lambda n: index.get(n.lower().replace("ü", "u")), schwinger)
+    assert finde("Emmenegger Patrik (2010)") == "patrik emmenegger|?"   # Stub ohne Jahrgang
+    assert finde("Müller Roman (2009)") is None                        # Porträt mit anderem Jahrgang
+    assert finde("Müller Roman (1995)") == "roman muller|1995"
