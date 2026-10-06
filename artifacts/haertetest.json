@@ -1,15 +1,20 @@
 {
   "schema_version": "1.0.0",
   "saison": 2027,
-  "eingefroren_am": "2026-10-05T15:32:02+00:00",
-  "code_commit": "96e562be63e46eabb60d669821f8330d8a65f0a9",
-  "pruefsumme": "e4a6df3c6fc8d9a5bb25954e190d21a6a9b2214945e632d4efbb8bbfbe4be713",
+  "eingefroren_am": "2026-10-06T08:17:34+00:00",
+  "code_commit": "25ec879f0e3dd9af05201188355befdfd39aba52",
+  "pruefsumme": "85ee2a6ae9a3900b79b66fb7c8b0422564728a889a9384489d78aa514eba09bf",
   "merkmal_version": 3,
   "vorgaenger": [
     {
       "eingefroren_am": "2026-10-05T13:55:05+00:00",
       "pruefsumme": "348ad478e9d4dc563f1a519ac6029c9af2481d2aa61c10be223d2e191496f2e0",
       "code_commit": "23cf8a9602f778ea82a4acd6e32d44fbc546e974"
+    },
+    {
+      "eingefroren_am": "2026-10-05T15:32:02+00:00",
+      "pruefsumme": "e4a6df3c6fc8d9a5bb25954e190d21a6a9b2214945e632d4efbb8bbfbe4be713",
+      "code_commit": "96e562be63e46eabb60d669821f8330d8a65f0a9"
     }
   ],
   "wache": {
