@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-10-06T13:38:32.905263+00:00",
-  "lauf_id": "20261006T133832Z",
+  "erstellt": "2026-10-06T13:45:19.446585+00:00",
+  "lauf_id": "20261006T134519Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 132948,
@@ -245,8 +245,8 @@
     "ranglisten": {
       "n_feste": 485,
       "n_nicht_lesbar": 0,
-      "n_teilnahmen": 46531,
-      "anteil_namen_aufgeloest": 0.9955,
+      "n_teilnahmen": 46587,
+      "anteil_namen_aufgeloest": 0.9967,
       "beispiele_unaufloesbar": [
         "Zemp Christian",
         "Wüthrich Jonas",
@@ -254,10 +254,8 @@
         "Zemp Silvan",
         "Herger Elias"
       ],
-      "feste_viele_unaufgeloest": 1,
-      "beispiele_feste_viele_unaufgeloest": [
-        "Urner Kantonalschwingfest Flüelen 2026: 59/199 (Zemp Christian, Emmenegger Patrik (2010), Schaller Luca (2008), Arnold Ben (2010), Reichmuth Andre (2009))"
-      ],
+      "feste_viele_unaufgeloest": 0,
+      "beispiele_feste_viele_unaufgeloest": [],
       "kranzquote_median": {
         "berg": 0.1556,
         "eidgenoessisch": 0.0,
@@ -292,11 +290,11 @@
         ]
       },
       "resultat_abgleich": {
-        "geprueft": 46531,
-        "gleich": 45138,
+        "geprueft": 46587,
+        "gleich": 45193,
         "anteil_gleich": 0.9701,
         "mehr_gaenge": 36,
-        "weniger_gaenge": 1357,
+        "weniger_gaenge": 1358,
         "andere_ausgaenge": 0,
         "je_jahr": {
           "2023": {
@@ -312,8 +310,8 @@
             "abweichend": 312
           },
           "2026": {
-            "geprueft": 13089,
-            "abweichend": 244
+            "geprueft": 13145,
+            "abweichend": 245
           }
         },
         "feste_ueber_5_prozent": 127,
@@ -346,10 +344,8 @@
           "thomas (2) wuthrich|2007 @ Bad-Schwinget Wolhusen 2026: Rangliste ooo+oo, Gänge 4+ 2- 6o",
           "thomas (2) wuthrich|2007 @ Abendschwinget Frutigen 2026: Rangliste +-+o++, Gänge 5+ 1- 6o"
         ],
-        "ranglisten_unvollstaendig": 1,
-        "beispiele_ranglisten_unvollstaendig": [
-          "Urner Kantonalschwingfest Flüelen 2026: Rangliste 140, mit Gängen 196"
-        ]
+        "ranglisten_unvollstaendig": 0,
+        "beispiele_ranglisten_unvollstaendig": []
       }
     },
     "roh_eintraege_gelesen": 267869,

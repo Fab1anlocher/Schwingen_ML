@@ -2,61 +2,61 @@
   "schema_version": "1.0.0",
   "saison": 2026,
   "n_feste": 38,
-  "n_teilnahmen": 5421,
+  "n_teilnahmen": 5477,
   "n_simulationen": 200,
   "kranz": {
-    "brier_modell": 0.0746,
-    "brier_elo": 0.0757,
-    "brier_konstant": 0.1354,
+    "brier_modell": 0.0731,
+    "brier_elo": 0.0745,
+    "brier_konstant": 0.1342,
     "kalibrierung": [
       {
         "von": 0.0,
         "bis": 0.05,
-        "n": 2778,
+        "n": 2859,
         "vorhergesagt": 0.0079,
-        "eingetreten": 0.0036
+        "eingetreten": 0.0038
       },
       {
         "von": 0.05,
         "bis": 0.15,
-        "n": 704,
-        "vorhergesagt": 0.092,
-        "eingetreten": 0.0526
+        "n": 692,
+        "vorhergesagt": 0.0921,
+        "eingetreten": 0.0549
       },
       {
         "von": 0.15,
         "bis": 0.3,
-        "n": 589,
-        "vorhergesagt": 0.2215,
-        "eingetreten": 0.1647
+        "n": 592,
+        "vorhergesagt": 0.2207,
+        "eingetreten": 0.1672
       },
       {
         "von": 0.3,
         "bis": 0.5,
-        "n": 615,
-        "vorhergesagt": 0.3894,
-        "eingetreten": 0.3593
+        "n": 633,
+        "vorhergesagt": 0.3908,
+        "eingetreten": 0.3586
       },
       {
         "von": 0.5,
         "bis": 0.7,
-        "n": 378,
-        "vorhergesagt": 0.5947,
-        "eingetreten": 0.5503
+        "n": 353,
+        "vorhergesagt": 0.5934,
+        "eingetreten": 0.5779
       },
       {
         "von": 0.7,
         "bis": 0.9,
-        "n": 228,
-        "vorhergesagt": 0.7929,
-        "eingetreten": 0.7895
+        "n": 222,
+        "vorhergesagt": 0.7891,
+        "eingetreten": 0.7928
       },
       {
         "von": 0.9,
         "bis": 1.0,
-        "n": 129,
-        "vorhergesagt": 0.9541,
-        "eingetreten": 0.9457
+        "n": 126,
+        "vorhergesagt": 0.9533,
+        "eingetreten": 0.9524
       }
     ]
   },
