@@ -402,6 +402,14 @@ const HAERTETEST_WENIG_FESTE = 10;
 /** Das eingefrorene Modell an einer Saison, die beim Bauen niemand kannte
  *  (haertetest.json). Vor der Saison: wann und wie eingefroren; danach die
  *  Kennzahlen neben denen der Auswahl-Saison. */
+/** "ersetzt 2 frühere Fassungen vom 5.10.2026" -- gleiche Tage zusammengefasst
+ *  (zweimal dasselbe Datum hintereinander las sich wie ein Fehler). */
+function vorgaengerText(vorgaenger: { eingefroren_am: string }[]): string {
+  const tage = [...new Set(vorgaenger.map((v) => datumKurz(v.eingefroren_am)))];
+  const n = vorgaenger.length;
+  return `ersetzt ${n === 1 ? "eine frühere Fassung" : `${n} frühere Fassungen`} vom ${tage.join(" und ")} (alle vor dem ersten Gang der Saison, nach Korrekturen an Rating und Daten)`;
+}
+
 export function Haertetest({
   daten,
   auswahl,
@@ -419,8 +427,7 @@ export function Haertetest({
       {daten.pruefsumme && ` · Prüfsumme ${daten.pruefsumme.slice(0, 12)}`}
       {daten.code_commit && ` · Code-Stand ${daten.code_commit.slice(0, 7)}`}
       {daten.merkmal_version && ` · Merkmale v${daten.merkmal_version}`}
-      {daten.vorgaenger && daten.vorgaenger.length > 0 &&
-        ` · ersetzt das am ${daten.vorgaenger.map((v) => datumKurz(v.eingefroren_am)).join(", ")} eingefrorene Modell (vor dem ersten Gang der Saison, nach einer Datenkorrektur)`}
+      {daten.vorgaenger && daten.vorgaenger.length > 0 && ` · ${vorgaengerText(daten.vorgaenger)}`}
       {wache &&
         ` · Wache: ${ok ? "Modell und Eingaben unverändert" : "Abweichung, s. oben"} (Referenzgänge ${prozent(wache.referenz_gleich)} gleich)`}
     </p>
@@ -477,6 +484,113 @@ export function Haertetest({
         </>
       )}
       {technik}
+    </div>
+  );
+}
+
+// --- Datenqualität ------------------------------------------------------------
+
+/** Ausschnitt aus report.json → datenqualitaet (pipeline/datenqualitaet.py). */
+export interface DatenqualitaetDaten {
+  roh_eintraege_gelesen?: number;
+  verlustquote?: number;
+  anteil_unvollstaendiger_gaenge?: number;
+  warnungen_nach_kategorie?: Record<string, number>;
+  tage_seit_juengstem_fest?: number;
+  punktetotal?: { bloecke_geprueft: number; abweichend: number; anteil_abweichend: number };
+  ranglisten?: {
+    n_feste: number;
+    n_nicht_lesbar: number;
+    anteil_namen_aufgeloest: number;
+    kranzquote_ausserhalb?: number;
+    resultat_abgleich?: {
+      geprueft: number;
+      anteil_gleich: number;
+      mehr_gaenge: number;
+      weniger_gaenge: number;
+    };
+  };
+}
+
+/** Die Prüfungen jedes Laufs in einer Tabelle: was geprüft wird, das Ergebnis
+ *  und ob es in der Grenze liegt (dieselben Grenzen wie der Datenqualitäts-
+ *  bericht im Workflow). Status mit Zeichen und Wort, nicht nur Farbe. */
+export function Datenqualitaet({ d }: { d: DatenqualitaetDaten }) {
+  const zeilen: { pruefung: string; ergebnis: string; ok: boolean }[] = [];
+  if (d.roh_eintraege_gelesen != null && d.verlustquote != null) {
+    zeilen.push({
+      pruefung: "Gang-Einträge aus den Statistik-PDFs übernommen",
+      ergebnis: `${zahl(d.roh_eintraege_gelesen)} gelesen, ${prozent1(d.verlustquote)} verworfen (meist Name nicht eindeutig)`,
+      ok: d.verlustquote <= 0.1,
+    });
+  }
+  if (d.anteil_unvollstaendiger_gaenge != null) {
+    const wider = d.warnungen_nach_kategorie?.inkonsistente_symbole ?? 0;
+    zeilen.push({
+      pruefung: "Jeder Gang steht zweimal im PDF: beide Seiten passen zusammen",
+      ergebnis: `${prozent1(d.anteil_unvollstaendiger_gaenge)} nur einseitig, ${zahl(wider)} widersprüchlich (verworfen)`,
+      ok: d.anteil_unvollstaendiger_gaenge <= 0.1,
+    });
+  }
+  if (d.punktetotal?.bloecke_geprueft) {
+    zeilen.push({
+      pruefung: "Notensumme je Schwinger = Punktetotal im PDF",
+      ergebnis: `${zahl(d.punktetotal.bloecke_geprueft)} geprüft, ${zahl(d.punktetotal.abweichend)} abweichend`,
+      ok: d.punktetotal.anteil_abweichend <= 0.02,
+    });
+  }
+  const ra = d.ranglisten?.resultat_abgleich;
+  if (ra?.geprueft) {
+    zeilen.push({
+      pruefung: "Gänge gegen die Resultatfolge der offiziellen Rangliste",
+      ergebnis: `${prozent1(ra.anteil_gleich)} von ${zahl(ra.geprueft)} stimmen exakt; ${zahl(ra.mehr_gaenge)} mit Gängen zu viel, ${zahl(ra.weniger_gaenge)} mit Gängen zu wenig`,
+      ok: 1 - ra.anteil_gleich <= 0.03,
+    });
+  }
+  if (d.ranglisten?.n_feste) {
+    zeilen.push({
+      pruefung: "Schlussranglisten gelesen, Namen zugeordnet",
+      ergebnis: `${zahl(d.ranglisten.n_feste)} Feste, ${zahl(d.ranglisten.n_nicht_lesbar)} unlesbar, ${prozent1(d.ranglisten.anteil_namen_aufgeloest)} der Namen zugeordnet`,
+      ok: d.ranglisten.n_nicht_lesbar === 0 && d.ranglisten.anteil_namen_aufgeloest >= 0.98,
+    });
+    if (d.ranglisten.kranzquote_ausserhalb != null) {
+      zeilen.push({
+        pruefung: "Kranzquote je Kranzfest im üblichen Bereich (12–21 %)",
+        ergebnis: d.ranglisten.kranzquote_ausserhalb === 0
+          ? "alle Kranzfeste im Bereich"
+          : `${d.ranglisten.kranzquote_ausserhalb} Fest(e) ausserhalb`,
+        ok: d.ranglisten.kranzquote_ausserhalb <= 3,
+      });
+    }
+  }
+  if (d.tage_seit_juengstem_fest != null) {
+    zeilen.push({
+      pruefung: "Aktualität",
+      ergebnis: `jüngstes Fest vor ${d.tage_seit_juengstem_fest} Tag${d.tage_seit_juengstem_fest === 1 ? "" : "en"}`,
+      ok: d.tage_seit_juengstem_fest <= 21,
+    });
+  }
+  if (!zeilen.length) return null;
+  return (
+    <div className="tabelle-wrap">
+      <table className="dq-tabelle">
+        <thead>
+          <tr>
+            <th>Prüfung</th>
+            <th>Ergebnis</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {zeilen.map((z) => (
+            <tr key={z.pruefung}>
+              <td>{z.pruefung}</td>
+              <td className="muted small">{z.ergebnis}</td>
+              <td className={z.ok ? "dq-ok" : "dq-warn"}>{z.ok ? "✓ in Ordnung" : "! prüfen"}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
