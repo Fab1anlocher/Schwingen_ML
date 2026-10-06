@@ -270,7 +270,7 @@ def _bewerte_nur_portraet(p_test, yte, meta, holdout: int, labels_idx) -> dict:
         "n": n,
         "anteil_am_test": round(n / len(yte), 4),
         "log_loss": round(float(log_loss(y_sub, p_sub, labels=labels_idx)), 4),
-        "accuracy": round(float(np.mean(np.argmax(p_sub, axis=1) == y_sub)), 4),
+        "accuracy": round(float(np.mean(np.argmax(p_sub, axis=1) == y_sub)), 6),
         "mae": round(fehler["mae"], 4),
         "mse": round(fehler["mse"], 4),
     }

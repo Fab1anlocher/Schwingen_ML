@@ -162,6 +162,28 @@ Rohdaten-Cache, Ergebnis im Job-Summary — für alles, was nicht in den
 committeten Artefakten steht, etwa die Noten je Gang), Dependabot
 (`.github/dependabot.yml`).
 
+## Gegenprobe mit der Rangliste
+
+Statistik-PDF und Schlussrangliste sind zwei unabhängige Dokumente desselben
+Fests. Die Statistik-PDF liefert jeden Gang mit Gegner (daraus stammen alle
+Gänge der App), die Rangliste je Schwinger die Folge seiner Resultate
+(„+-o++"). `ranglisten.resultat_abgleich` vergleicht beides bei jedem Lauf
+für jeden Schwinger an jedem Fest; das Ergebnis steht im
+Datenqualitätsbericht und auf der Analyse-Seite.
+
+Erster Lauf (06.10.2026): 96.8 % von 46'525 Schwinger-Fest-Paaren stimmen
+exakt. 1'368 haben weniger Gänge als laut Rangliste (meist ein Gegner, dessen
+Name nicht aufzulösen war), 99 mehr: Namensvettern am selben Fest auf einer
+ID, oder eine Kopfzeile der Statistik-PDF, die der Parser nicht erkannt hat
+(die Gänge darunter landen beim Schwinger davor). Die Messung `pdf_diagnose`
+(Workflow „Messung auf Rohdaten") lädt die betroffenen PDFs frisch und zeigt
+die Zeilen, die der Parser nicht zuordnet.
+
+**Schwingerkönige ohne Porträt:** Die Rangliste kennt nur Kranzer und
+Eidgenosse. Die Könige, die seit 2023 in den Daten vorkommen, stehen darum
+in `ranglisten.SCHWINGERKOENIGE` (Name und Schwingklub, damit kein
+Namensvetter den Titel bekommt).
+
 ## Bekannte Lücken
 
 * **Freiburger Kantonalfest 2023:** Die Rangliste führt keine

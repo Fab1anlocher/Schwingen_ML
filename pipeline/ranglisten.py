@@ -268,6 +268,31 @@ def kranzstatus_je_schwinger(teilnahmen: list[Teilnahme]) -> dict[str, str]:
     return {sid: ("eidgenosse" if n >= 2 else "kranzer") for sid, n in stufe.items() if n}
 
 
+# Schwingerkönige, die in den Daten seit 2023 vorkommen (ESV, öffentlich
+# bekannt). Die Rangliste kennt nur Kranzer und Eidgenosse (Sterne); ohne
+# aktuelles Porträt erschien ein König darum als Eidgenosse (Audit 06.10.2026:
+# Joel Wicki, Christian Stucki, Kilian Wenger). Schlüssel: Name wie in der
+# Schwinger-ID und Schwingklub laut Rangliste, damit kein Namensvetter den
+# Titel bekommt. Neue Könige kommen über das Porträt
+# (field_portrait_schwingerkoenig), diese Liste braucht es nur für Schwinger
+# ohne Porträt.
+SCHWINGERKOENIGE: dict[tuple[str, str], int] = {
+    ("kilian wenger", "Niedersimmental"): 2010,
+    ("christian stucki", "Unteres Seeland"): 2019,
+    ("joel wicki", "Entlebuch"): 2022,
+    ("armon orlik", "Unterlandquart"): 2025,
+}
+
+
+def mit_koenigen(kranzstatus: dict[str, str], klubs: dict[str, str]) -> dict[str, str]:
+    """Kranzstatus laut Rangliste, Schwingerkönige (s. oben) als "koenig"."""
+    aus = dict(kranzstatus)
+    for sid, klub in klubs.items():
+        if (sid.split("|")[0], klub) in SCHWINGERKOENIGE:
+            aus[sid] = "koenig"
+    return aus
+
+
 # Rang 1 der Schlussrangliste; bei Punktgleichheit teilen sich mehrere den
 # Festsieg ("1a", "1b").
 _FESTSIEG_RE = re.compile(r"^1[a-z]?$")

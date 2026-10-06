@@ -192,7 +192,7 @@ def _ranglisten(source: str, events, schwinger: dict, aktive: set,
     from .ranglisten import (
         fest_ueberblick, festsiege_je_schwinger, klub_je_schwinger, konsistenz,
         kraenze_je_schwinger, kranz_je_fest, kranzfeste_ohne_kranz, kranzquote_ausreisser,
-        kranzquoten, kranzstatus_je_schwinger, resultat_abgleich,
+        kranzquoten, kranzstatus_je_schwinger, mit_koenigen, resultat_abgleich,
         senne_turner_je_schwinger, verband_ueber_klub,
     )
     from .saison_rueckblick import kraenze_je_saison
@@ -233,7 +233,7 @@ def _ranglisten(source: str, events, schwinger: dict, aktive: set,
           f"{ra['ranglisten_unvollstaendig']}", flush=True)
     daten = {"kraenze": kraenze, "klubs": klubs,
              "senne_turner": senne_turner_je_schwinger(teilnahmen), "verband_klub": verband_klub,
-             "kranzstatus": kranzstatus_je_schwinger(teilnahmen),
+             "kranzstatus": mit_koenigen(kranzstatus_je_schwinger(teilnahmen), klubs),
              "festsiege": {sid: [{**f, "name": fest_name.get(f["event_id"], f["event_id"])} for f in liste]
                            for sid, liste in festsiege_je_schwinger(teilnahmen).items()},
              "feste": fest_ueberblick(teilnahmen),

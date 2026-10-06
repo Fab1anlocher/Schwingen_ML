@@ -130,3 +130,14 @@ def test_resultat_abgleich_findet_falsch_zugeordnete_gaenge():
     assert r["geprueft"] == 4 and r["gleich"] == 2
     assert r["mehr_gaenge"] == 1 and r["weniger_gaenge"] == 1
     assert any("b @ Testfest" in b for b in r["beispiele"])
+
+
+def test_schwingerkoenig_nur_mit_passendem_klub():
+    from pipeline.ranglisten import mit_koenigen
+
+    status = {"joel wicki|?": "eidgenosse", "joel wicki|2004": "kranzer", "x|?": "kranzer"}
+    klubs = {"joel wicki|?": "Entlebuch", "joel wicki|2004": "Wolhusen", "x|?": "Entlebuch"}
+    aus = mit_koenigen(status, klubs)
+    assert aus["joel wicki|?"] == "koenig"
+    assert aus["joel wicki|2004"] == "kranzer"   # Namensvetter aus anderem Klub
+    assert aus["x|?"] == "kranzer"

@@ -184,6 +184,14 @@ ehrlich, solange das Modell vor der Saison feststand. Darum gilt:
   einem Parser-Fix braucht es `voller_refetch` (auf dem Branch und nach dem
   Merge auf `main`, Actions-Caches sind je Branch getrennt). Die Gegenprobe
   Notensumme == Punktetotal steht im Datenqualitätsbericht.
+- **Gänge gegen die Rangliste:** `ranglisten.resultat_abgleich` vergleicht je
+  Schwinger und Fest die Gänge mit der Resultatfolge der Rangliste (zweites,
+  unabhängiges Dokument). Mehr Gänge als laut Rangliste heisst: falsch
+  zugeordnet. Diagnose mit der Messung `pdf_diagnose`.
+- **Doppelte Rundung:** Trefferquoten stehen mit 6 Stellen in den Artefakten.
+  Mit 4 Stellen wurde aus 0.70446 erst 0.7045 und in der App „70.5 %".
+- **Schwingerkönige ohne Porträt** stehen in `ranglisten.SCHWINGERKOENIGE`
+  (die Rangliste kennt nur Kranzer/Eidgenosse).
 - **Der Stern in der Statistik-PDF** ist das Statusabzeichen, kein Kranzgewinn.
   Kränze kommen ausschliesslich aus den Schlussranglisten.
 - **Next 16 / LightningCSS** fasst `-webkit-backdrop-filter` und

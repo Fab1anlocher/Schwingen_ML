@@ -869,6 +869,8 @@ def pdf_diagnose() -> list[str]:
 
     z += ["## Statistik-PDFs mit Blöcken über der möglichen Gangzahl", ""]
     for eid, n_zu_viel in problemfeste(roh, typ_je_fest):
+        print("\n".join(z), flush=True)  # laufend ausgeben, falls später etwas abbricht
+        z.clear()
         e = ev.get(eid)
         if not e:
             continue
@@ -878,8 +880,12 @@ def pdf_diagnose() -> list[str]:
         except Exception as fehler:  # noqa: BLE001 - Diagnose läuft weiter
             z += [f"PDF nicht ladbar: {fehler}", ""]
             continue
-        diag = zeilen_rollen(woerter)
-        bloecke = tabellen_bloecke(woerter)
+        try:
+            diag = zeilen_rollen(woerter)
+            bloecke = tabellen_bloecke(woerter)
+        except Exception as fehler:  # noqa: BLE001
+            z += [f"Auswertung fehlgeschlagen: {fehler!r}", ""]
+            continue
         lang = [b for b in bloecke if len(b["gaenge"]) > _max_gaenge(e.get("typ", ""))]
         z += [f"Zeilen: {dict(diag['rollen'])}, Wörter ausserhalb der Spalten: {diag['ausserhalb']}",
               f"x-Positionen der Rang-Token (gerundet): {diag['rang_x'][:20]}", "",
@@ -890,6 +896,8 @@ def pdf_diagnose() -> list[str]:
                      f"Gegner: {', '.join(g['gegner_name'] for g in b['gaenge'][:14])}")
         z += ["", "Unzugeordnete Zeilen (erste 25):", "", "```", *diag["unzugeordnet"], "```", ""]
 
+    print("\n".join(z), flush=True)
+    z.clear()
     z += ["## Ranglisten mit weniger Teilnehmern als Schwinger mit Gängen", ""]
     rl = json.loads((RAW_DIR / "ranglisten.json").read_text(encoding="utf-8")).get("ranglisten", {})
     mit_gaengen: dict[str, set] = defaultdict(set)
@@ -925,16 +933,21 @@ def pdf_diagnose() -> list[str]:
         z.append("")
 
     z += ["## Porträts mit unplausiblem Körperbau (Rohwerte)", ""]
-    portraits = json.loads((RAW_DIR / "schlussgang_portraits.json").read_text(encoding="utf-8"))
-    liste = portraits.get("portraits", portraits) if isinstance(portraits, dict) else portraits
-    for p in (liste.values() if isinstance(liste, dict) else liste):
-        g, h = p.get("gewicht_kg") or p.get("weight"), p.get("groesse_cm") or p.get("height")
-        try:
-            g, h = float(g), float(h)
-        except (TypeError, ValueError):
-            continue
-        if g and h and g / (h / 100) ** 2 > 44:
-            z.append(f"- {p.get('name') or p.get('title')}: {json.dumps({k: v for k, v in p.items() if not isinstance(v, (list, dict))}, ensure_ascii=False)[:400]}")
+    try:
+        roh_p = json.loads((RAW_DIR / "schlussgang_portraits.json").read_text(encoding="utf-8"))
+        liste = roh_p.get("profiles", []) if isinstance(roh_p, dict) else roh_p
+        for p in liste:
+            if not isinstance(p, dict):
+                continue
+            try:
+                g, h = float(p.get("gewicht_kg")), float(p.get("groesse_cm"))
+            except (TypeError, ValueError):
+                continue
+            if g and h and g / (h / 100) ** 2 > 44:
+                felder = {k: v for k, v in p.items() if not isinstance(v, (list, dict))}
+                z.append(f"- {json.dumps(felder, ensure_ascii=False)[:400]}")
+    except Exception as fehler:  # noqa: BLE001 - Diagnose läuft weiter
+        z.append(f"Porträts nicht lesbar: {fehler!r}")
     z.append("")
 
     z += ["## Feste ohne Sieger in der Rangliste", ""]

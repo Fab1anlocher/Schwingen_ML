@@ -100,7 +100,7 @@ def test_auswertung_der_pruefsaison():
     p = haertetest.baeume_wahrscheinlichkeiten(modell, X[[i for i, m in enumerate(meta)
                                                           if m["datum"] >= "2027" and not m.get("augmented")]])
     yt = y[[i for i, m in enumerate(meta) if m["datum"] >= "2027" and not m.get("augmented")]]
-    assert res["modell"]["treffer"] == round(float((p.argmax(1) == yt).mean()), 4)
+    assert res["modell"]["treffer"] == round(float((p.argmax(1) == yt).mean()), 6)
     assert res["konfidenz"]["accuracy"][0] <= res["modell"]["treffer"] <= res["konfidenz"]["accuracy"][1]
     assert {"treffer", "log_loss", "brier"} <= set(res["elo_angepasst"])
     assert res["wache"]["eingaben_unveraendert"]
