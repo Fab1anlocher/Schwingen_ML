@@ -1,7 +1,10 @@
 // Rahmen jeder Seite: Schriften, Kopfzeile mit Navigation, Fusszeile mit
 // Hinweis "kein Wettangebot". Favicon: app/favicon.ico, icon.svg, apple-icon.png.
+// Vercel Web Analytics zählt Seitenaufrufe anonym und ohne Cookies -- damit
+// die Roadmap weiss, welche Seiten genutzt werden (ROADMAP, Analyse 06.10.2026).
 
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import Link from "next/link";
 import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
@@ -48,9 +51,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="footer">
           <p>
             Prognosen sind informativ und <strong>kein Wettangebot</strong>. Datenquellen:
-            schlussgang.ch u. a. · Nicht-kommerzielles Hobby-Projekt.
+            schlussgang.ch u. a. · Nicht-kommerzielles Hobby-Projekt · Seitenaufrufe werden anonym
+            gezählt, ohne Cookies.
           </p>
         </footer>
+        <Analytics />
       </body>
     </html>
   );
