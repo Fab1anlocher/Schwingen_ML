@@ -16,7 +16,7 @@ Prognosen sind informativ, **kein Wettangebot**.
 |---|---|
 | [docs/MODELL.md](docs/MODELL.md) | Merkmale, Messungen, Entscheidungen zum Modell, Simulator |
 | [docs/DATEN.md](docs/DATEN.md) | Quellen, Lesen der PDFs, Namensvettern, täglicher Lauf |
-| [ROADMAP.md](ROADMAP.md) | Erledigtes und Offenes, mit Messwerten |
+| [ROADMAP.md](ROADMAP.md) | Analyse, nächste Schritte und Logbuch, mit Messwerten |
 | [CLAUDE.md](CLAUDE.md) | Kurzfassung für KI-Assistenten: Architektur, Invarianten, Prüfschritte |
 
 ---
@@ -206,3 +206,6 @@ Nicht-kommerzielles Hobby-Projekt, Betriebskosten $0 (Vercel Hobby, GitHub
 Actions). Gespeichert werden nur abgeleitete Kennzahlen mit Quellenangabe,
 keine Kopie der Quelldatenbank. Sensible Felder (Geburtsdatum, Zivilstand)
 werden nicht gespeichert, fürs Modell nur der Jahrgang.
+
+Die Website zählt Seitenaufrufe mit Vercel Web Analytics: anonym, ohne
+Cookies und ohne Daten, die einzelne Besucher wiedererkennen.
