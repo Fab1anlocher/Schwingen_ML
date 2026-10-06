@@ -524,7 +524,7 @@ def exportiere_kopf_an_kopf(gaenge: list) -> None:
 
 
 def exportiere_cluster(cluster_res: dict | None) -> None:
-    """cluster.json: Schwingertypen (K-Means über Physis+Stil, s. pipeline/clustering.py).
+    """cluster.json: ähnliche Schwinger (KNN über das Porträt-Profil, s. pipeline/clustering.py).
 
     None wenn zu wenig Schwinger mit Profildaten (z.B. synthetische Demodaten) --
     dann bleibt eine evtl. vorher exportierte Datei unangetastet (kein Überschreiben
@@ -535,6 +535,20 @@ def exportiere_cluster(cluster_res: dict | None) -> None:
     _dump_beide("cluster.json", {
         "schema_version": config.SCHEMA_VERSION,
         **cluster_res,
+    })
+
+
+def exportiere_stiltypen(stil_res: dict | None) -> None:
+    """stiltypen.json: Stil-Typ je aktivem Schwinger (s. pipeline/stiltypen.py).
+
+    None ohne genug Datenbasis -- dann bleibt eine vorherige Datei stehen,
+    wie bei exportiere_cluster.
+    """
+    if stil_res is None:
+        return
+    _dump_beide("stiltypen.json", {
+        "schema_version": config.SCHEMA_VERSION,
+        **stil_res,
     })
 
 

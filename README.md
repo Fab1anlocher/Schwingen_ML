@@ -30,7 +30,7 @@ Prognosen sind informativ, **kein Wettangebot**.
 | **Simulator** | Ein ganzes Fest tausendfach durchgespielt: Festsieg-, Schlussgang- und Kranzchance je Schwinger. |
 | **Rückblick** | Die Saison auf einen Blick: Festsieger, meiste Kränze, Aufsteiger, stärkste Neue, Überraschungen. |
 | **Schwinger** | Alle erfassten Schwinger nach Elo, mit Profil, Festsiegen und ähnlichen Schwingern. |
-| **Typen** | Schwingertypen per K-Means-Clustering über Physis, Stil und Erfolg. |
+| **Typen** | Wie einer seine Gänge entscheidet: Werfer, Bollwerk, Bodenarbeiter und Co., gemessen an Plattwurf und Gestellt gegenüber der Erwartung. |
 | **Karte** | Kantone und Berner Gauverbände im Vergleich; Steckbrief mit Kantonsmeister und das Kantönligeist-Duell (die sechs Besten zweier Kantone gegeneinander). |
 | **Analyse** | Wie gut das Modell ist, gegen welche Alternativen es antritt, wie es sich entwickelt hat, und der Härtetest am eingefrorenen Modell. |
 

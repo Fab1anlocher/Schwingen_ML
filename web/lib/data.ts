@@ -10,6 +10,7 @@ import type {
   GauverbaendeArtifact,
   BenchmarkArtifact,
   ClusterArtifact,
+  StilTypenArtifact,
   SimulationBacktest,
   HaertetestArtifact,
   SaisonRueckblickArtifact,
@@ -29,6 +30,7 @@ export const ladeKantone = () => ladeJson<KantoneArtifact>("/data/kantone.json")
 export const ladeGauverbaende = () => ladeJson<GauverbaendeArtifact>("/data/gauverbaende.json");
 export const ladeBenchmark = () => ladeJson<BenchmarkArtifact>("/data/benchmark.json");
 export const ladeCluster = () => ladeJson<ClusterArtifact>("/data/cluster.json");
+export const ladeStilTypen = () => ladeJson<StilTypenArtifact>("/data/stiltypen.json");
 /** Fehlt, solange kein echter Pipeline-Lauf mit Ranglisten stattgefunden hat. */
 export const ladeSimulationBacktest = () =>
   ladeJson<SimulationBacktest>("/data/simulation_backtest.json").catch(() => null);

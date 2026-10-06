@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-10-06T11:05:00.375916+00:00",
-  "lauf_id": "20261006T110500Z",
+  "erstellt": "2026-10-06T11:57:21.117541+00:00",
+  "lauf_id": "20261006T115721Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 132997,
@@ -376,21 +376,21 @@
       }
     },
     "punktetotal": {
-      "bloecke_geprueft": 46256,
+      "bloecke_geprueft": 45920,
       "abweichend": 11,
       "anteil_abweichend": 0.0002,
-      "eintraege_ohne_total": 2349,
+      "eintraege_ohne_total": 4259,
       "je_jahr": {
         "2023": {
           "geprueft": 8244,
           "abweichend": 1
         },
         "2024": {
-          "geprueft": 12140,
+          "geprueft": 11827,
           "abweichend": 2
         },
         "2025": {
-          "geprueft": 12749,
+          "geprueft": 12726,
           "abweichend": 7
         },
         "2026": {

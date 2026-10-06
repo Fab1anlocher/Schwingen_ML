@@ -29,6 +29,8 @@ from collections import Counter, defaultdict
 
 import numpy as np
 
+from .stiltypen import schlussgang_verdacht
+
 # Notengebung (s. CLAUDE.md, ROADMAP D1): Plattwurf-Sieg 10.00, Sieg 9.75,
 # Gestellt 8.75 (technisch hochstehend bis 9.00), Niederlage 8.50 (offensiv
 # 8.75). Im Schlussgang sind 10.00/8.75 vorgeschrieben -- die Statistik-PDF
@@ -211,37 +213,6 @@ ABSTAND_STUFEN = [(-np.inf, -100, "Sieger >100 schwächer"),
                   (0, 100, "Sieger 0–100 stärker"),
                   (100, 200, "Sieger 100–200 stärker"),
                   (200, np.inf, "Sieger >200 stärker")]
-
-
-def schlussgang_verdacht(gaenge) -> set[int]:
-    """Indizes der Gänge, die der Schlussgang sein könnten.
-
-    Die Statistik-PDF kennzeichnet den Schlussgang nicht, dort sind aber
-    10.00/8.75 vorgeschrieben -- ein Spitzenschwinger bekäme so einen
-    geschenkten "Plattwurf". Ausgenommen wird darum jeder Sieg des
-    Punktbesten eines Fests mit 10.00 gegen 8.75. Das trifft den Schlussgang
-    fast immer und nimmt dem Punktbesten höchstens einzelne echte Plattwürfe
-    weg (die Messung wird dadurch eher gegen die Vermutung verzerrt).
-    """
-    summe = defaultdict(float)
-    for g in gaenge:
-        for sid, note in ((g.schwinger_a_id, g.note_a), (g.schwinger_b_id, g.note_b)):
-            if note is not None:
-                summe[(g.event_id, sid)] += note
-    beste: dict[str, tuple[str, float]] = {}
-    for (eid, sid), p in summe.items():
-        if eid not in beste or p > beste[eid][1]:
-            beste[eid] = (sid, p)
-    verdacht = set()
-    for i, g in enumerate(gaenge):
-        if g.ergebnis == "gestellt" or g.event_id not in beste:
-            continue
-        a_gewinnt = g.ergebnis == "sieg_a"
-        sieger = g.schwinger_a_id if a_gewinnt else g.schwinger_b_id
-        n_s, n_v = (g.note_a, g.note_b) if a_gewinnt else (g.note_b, g.note_a)
-        if sieger == beste[g.event_id][0] and n_s == PLATTWURF and n_v == OFFENSIV_VERLOREN:
-            verdacht.add(i)
-    return verdacht
 
 
 def siege_mit_elo(gaenge, snapshots, min_gaenge: int = MIN_GAENGE_ELO) -> list[dict]:

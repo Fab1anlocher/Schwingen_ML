@@ -259,53 +259,84 @@ export interface BenchmarkArtifact {
   kandidaten: BenchmarkKandidat[];
 }
 
-export interface ClusterPunkt {
-  schwinger_id: string;
-  cluster: number;
-  pca_x: number;
-  pca_y: number;
-}
-
-export interface ClusterZusammenfassung {
-  cluster: number;
-  n: number;
-  gewicht_avg: number;
-  groesse_avg: number;
-  /** Gewicht / (Grösse/100)² — BMI-artiger Kompaktheits-Index. */
-  kompaktheit_avg: number;
-  elo_avg: number;
-  erfahrung_avg: number;
-  alter_avg: number;
-  top_schwuenge: string[];
-  /** Menschenlesbarer Satz: was diesen Cluster am stärksten vom Durchschnitt
-   * unterscheidet (grösster |z-Wert| des Zentrums über alle Merkmale). */
-  auszeichnung: string;
-  /** Die 3 Schwinger, die im standardisierten Merkmalsraum am nächsten am
-   * Cluster-Zentrum liegen — konkrete "typische Vertreter" dieses Typs. */
-  typische_vertreter: string[];
-  /** Teilverband, der in diesem Cluster deutlich überrepräsentiert ist
-   * gegenüber der Gesamtverteilung; null wenn keiner klar heraussticht.
-   * Rein beschreibend, fliesst NICHT ins Clustering ein. */
-  teilverband_schwerpunkt: string | null;
-}
-
 export interface AehnlichkeitsTreffer {
   schwinger_id: string;
   score: number;
 }
 
+/** cluster.json: ähnliche Schwinger (KNN über das Porträt-Profil,
+ *  pipeline/clustering.py). Ältere Dateien enthalten zusätzlich die Felder
+ *  des früheren K-Means (k, punkte, …); die App liest sie nicht mehr. */
 export interface ClusterArtifact {
   schema_version: string;
-  k: number;
-  silhouette: number;
-  /** Merkmalsnamen in Spaltenreihenfolge (Gewicht/Grösse/Kompaktheit + die je
-   * nach Datenlage automatisch gewählten häufigsten Schwünge). */
+  /** Merkmalsnamen in Spaltenreihenfolge (Physis, Elo, … + häufigste Schwünge). */
   merkmale: string[];
-  punkte: ClusterPunkt[];
-  cluster_zusammenfassung: ClusterZusammenfassung[];
-  /** KNN im selben standardisierten Merkmalsraum wie das Clustering (Physis+Stil,
-   * ohne Elo) -- ersetzt die frühere Hand-Heuristik in lib/aehnlichkeit.ts. */
   aehnlichste: Record<string, AehnlichkeitsTreffer[]>;
+}
+
+/** Datenschlüssel der Stil-Typen (Anzeige über lib/labels.ts). */
+export type StilTypSchluessel =
+  | "werfer"
+  | "lauerer"
+  | "bollwerk"
+  | "bodenarbeiter"
+  | "entscheider"
+  | "allrounder";
+
+/** Ein Schwinger auf der Stil-Landkarte. Abweichungen in Prozentpunkten
+ *  gegenüber der Erwartung, geschrumpft (pipeline/stiltypen.py). */
+export interface StilPunkt {
+  schwinger_id: string;
+  typ: StilTypSchluessel;
+  plattwurf: number;
+  gestellt: number;
+  plattwurf_quote: number;
+  plattwurf_erwartet: number;
+  gestellt_quote: number;
+  gestellt_erwartet: number;
+  n_siege: number;
+  n_gaenge: number;
+  elo: number;
+}
+
+export interface StilTyp {
+  typ: StilTypSchluessel;
+  n: number;
+  elo_avg: number;
+  /** Nur mit ≥ 5 Porträts mit Gewicht, sonst null. */
+  gewicht_avg: number | null;
+  groesse_avg: number | null;
+  n_physis: number;
+  plattwurf_quote_avg: number;
+  gestellt_quote_avg: number;
+  top_schwuenge: string[];
+  /** Nach Elo absteigend. */
+  bekannteste: string[];
+  /** Am weitesten in Richtung des Typs (Allrounder: am nächsten an der Mitte). */
+  ausgepraegteste: string;
+}
+
+export interface StilTypenArtifact {
+  schema_version: string;
+  n_schwinger: number;
+  n_gaenge: number;
+  n_siege: number;
+  schwelle_z: number;
+  /** Grenzen der Typen in Prozentpunkten (wie die Achsen der Punkte). */
+  schwelle_plattwurf: number;
+  schwelle_gestellt: number;
+  plattwurf_basis: number;
+  gestellt_basis: number;
+  pruefung: {
+    haelften_r_plattwurf: number | null;
+    haelften_r_gestellt: number | null;
+    r_achsen: number | null;
+    r_elo_plattwurf: number | null;
+    r_elo_gestellt: number | null;
+  };
+  mindestens: { gaenge: number; siege: number };
+  typen: StilTyp[];
+  punkte: StilPunkt[];
 }
 
 /** Ein Balken unter "Warum diese Prognose?".

@@ -434,7 +434,8 @@ def main(source: str = "synth", *, streng: bool = True, haertetest_einfrieren: b
         holdout_gang_schluessel,
     )
     from .benchmark import fuehre_benchmark_durch
-    from .clustering import berechne_cluster
+    from .clustering import berechne_aehnlichste
+    from .stiltypen import berechne_stiltypen
     train_res = trainiere(X, y, meta)
     fi = feature_wichtigkeit(train_res)
     # Baseline auf GENAU den Gängen messen, auf denen auch das Modell bewertet
@@ -481,18 +482,23 @@ def main(source: str = "synth", *, streng: bool = True, haertetest_einfrieren: b
         for key, werte in benchmark_res["kandidaten"].items():
             print(f"      {key:16s} Acc={werte['accuracy']:.4f}  Brier={werte['brier_score']:.4f}", flush=True)
 
-    print("[7/8] Schwingertypen (K-Means über volles Profil, nur Aktive) ...", flush=True)
+    print("[7/8] Stil-Typen und ähnliche Schwinger (nur Aktive) ...", flush=True)
     referenz_jahr = max(int(g.datum[:4]) for g in gaenge)
     aktive = _aktive_schwinger(gaenge, referenz_jahr)
-    # Nur aktive Schwinger clustern -- die "Typen" sollen den aktuellen Kader
-    # abbilden, nicht Zurückgetretene. Zugleich Basis für "ähnliche Schwinger".
+    # Nur Aktive -- Typen und Ähnlichkeit sollen den aktuellen Kader
+    # abbilden, nicht Zurückgetretene.
     aktive_schwinger = {sid: s for sid, s in schwinger.items() if sid in aktive}
-    cluster_res = berechne_cluster(aktive_schwinger, elo_modell, referenz_jahr)
-    if cluster_res is None:
-        print("      übersprungen (zu wenig Schwinger mit Gewicht+Grösse)", flush=True)
+    cluster_res = berechne_aehnlichste(aktive_schwinger, elo_modell, referenz_jahr)
+    stil_res = berechne_stiltypen(gaenge, snapshots, schwinger, elo_modell, aktive)
+    if stil_res is None:
+        print("      Stil-Typen übersprungen (zu wenig Schwinger mit genug Gängen)", flush=True)
     else:
-        print(f"      k={cluster_res['k']}  Silhouette={cluster_res['silhouette']:.3f}  "
-              f"({len(cluster_res['punkte'])} Schwinger)", flush=True)
+        pr = stil_res["pruefung"]
+        groessen = ", ".join(f"{t['typ']} {t['n']}" for t in stil_res["typen"])
+        print(f"      {stil_res['n_schwinger']} Schwinger: {groessen}", flush=True)
+        print(f"      Hälften r: Plattwurf {pr['haelften_r_plattwurf']}, Gestellt "
+              f"{pr['haelften_r_gestellt']}; r mit Elo {pr['r_elo_plattwurf']} / "
+              f"{pr['r_elo_gestellt']}; r der Achsen {pr['r_achsen']}", flush=True)
 
     print("[8/8] Artefakte exportieren ...", flush=True)
     form_aktuell = _aktuelle_form(gaenge)
@@ -538,6 +544,7 @@ def main(source: str = "synth", *, streng: bool = True, haertetest_einfrieren: b
     export.exportiere_kopf_an_kopf(gaenge)
     export.exportiere_kantone(schwinger, elo_modell, gaenge, ranglisten=ranglisten)
     export.exportiere_cluster(cluster_res)
+    export.exportiere_stiltypen(stil_res)
     export.exportiere_simulation_backtest(sim_backtest)
     if benchmark_res is not None:
         export.exportiere_benchmark(benchmark_res)

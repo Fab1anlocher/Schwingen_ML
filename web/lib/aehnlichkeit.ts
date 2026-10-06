@@ -1,7 +1,7 @@
 // Erklärbarkeits-Helfer für "Ähnliche Schwinger" (FR-3). Die Ähnlichkeit
-// selbst kommt seit dem KNN-Upgrade aus pipeline/clustering.py (echtes
-// K-Means/KNN im selben standardisierten Merkmalsraum wie die Schwingertypen,
-// s. cluster.json:aehnlichste) -- dieses Modul erklärt nur noch in Worten,
+// selbst kommt aus pipeline/clustering.py (nächste Nachbarn im
+// standardisierten Porträt-Profil, s. cluster.json:aehnlichste) -- dieses
+// Modul erklärt nur noch in Worten,
 // WARUM zwei Schwinger als ähnlich gelten, ohne selbst zu werten.
 
 import type { Schwinger } from "./types";

@@ -1151,36 +1151,199 @@ tbody tr:hover {
   }
 }
 
-/* ---------- Schwingertypen ---------- */
-.typen-svg {
+/* ---------- Schwingertypen (Stil-Landkarte) ---------- */
+.stil-wrap {
+  position: relative;
+  min-width: 0;
+}
+.stil-svg {
   width: 100%;
   height: auto;
-  background: var(--surface-2);
-  border-radius: 10px;
+  display: block;
+  touch-action: pan-y;
+  cursor: crosshair;
+}
+.stil-null {
+  stroke: var(--border-strong);
+  stroke-width: 1;
+}
+.stil-mitte {
+  fill: var(--surface-2);
+}
+.stil-grenze {
+  stroke: var(--ink);
+  stroke-width: 1.25;
+  stroke-dasharray: 5 4;
+  opacity: 0.55;
+}
+.stil-punkt {
+  fill: var(--ink);
+  opacity: 0.3;
+  transition: opacity 0.15s ease;
+}
+.stil-punkt-ausgepraegt {
+  fill: var(--accent-2);
+  opacity: 0.95;
+  stroke: var(--surface);
+  stroke-width: 1.5;
+}
+.stil-zone,
+.stil-name {
+  paint-order: stroke;
+  stroke: var(--surface);
+  stroke-width: 3.5px;
+  stroke-linejoin: round;
+}
+.stil-zone {
+  fill: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.stil-zone-aktiv {
+  fill: var(--text);
+}
+.stil-name {
+  fill: var(--text);
+  font-size: 11.5px;
+}
+.stil-name-markiert {
+  font-weight: 700;
+  font-size: 12.5px;
+  fill: var(--accent-dark);
+}
+.stil-hover {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 1.5;
+}
+.stil-markiert {
+  fill: var(--accent);
+  stroke: var(--surface);
+  stroke-width: 2;
+}
+.stil-tooltip {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  max-width: 250px;
+  padding: 0.5rem 0.65rem;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-card-hover);
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+.stil-tooltip-typ {
+  color: var(--accent-2);
+  font-weight: 700;
+}
+.stil-achsen {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.stil-achse-mitte {
+  font-weight: 600;
+  text-align: center;
+}
+.stil-achse-y {
+  margin: 0.25rem 0 0;
+}
+.stil-suche-frage {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.stil-antwort {
+  margin-top: 0.75rem;
+}
+.stil-antwort p {
+  margin: 0 0 0.3rem;
+}
+.stil-antwort-typ {
+  color: var(--accent);
 }
 .typen-karten {
   margin-top: 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
   gap: 0.85rem;
 }
 .typen-karte {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-left: 3px solid var(--accent);
+  border-left: 3px solid var(--border-strong);
   border-radius: 10px;
   padding: 1rem 1.1rem;
   box-shadow: var(--shadow-card);
-  transition: box-shadow 0.15s ease, transform 0.15s ease;
+  transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
 }
-.typen-karte:hover {
+.typen-karte:hover,
+.typen-karte-aktiv {
+  border-left-color: var(--accent-2);
   box-shadow: var(--shadow-card-hover);
   transform: translateY(-1px);
+}
+.typen-name {
+  font-family: var(--display);
+  font-size: 1.2rem;
 }
 .typen-auszeichnung {
   margin: 0.35rem 0 0.15rem;
   font-size: 0.9rem;
   font-weight: 600;
+}
+.typen-karte .badge {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.75rem;
+  color: var(--text);
+}
+.link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--accent-dark);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.methodik summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.methodik[open] summary {
+  margin-bottom: 0.5rem;
+}
+@media (max-width: 640px) {
+  .stil-achsen {
+    flex-wrap: wrap;
+    font-size: 0.75rem;
+  }
+  .stil-achse-mitte {
+    order: 3;
+    flex-basis: 100%;
+  }
+  .stil-achse-rechts {
+    margin-left: auto;
+  }
+  .stil-zone {
+    font-size: 10px;
+  }
+  .stil-punkt {
+    opacity: 0.24;
+  }
 }
 
 /* ---------- Rang-Spalte ---------- */
