@@ -10161,7 +10161,30 @@
       }
     }
   ],
-  "kommende": [],
+  "kommende": [
+    {
+      "id": "schlussgang-52195",
+      "name": "Niklaus-Schwinget Pratteln 2026",
+      "datum": "2026-12-05",
+      "typ": "regional",
+      "kategorie": "Regionalfeste",
+      "ort": "Pratteln",
+      "quelle": "schlussgang.ch/event",
+      "teilverband": null,
+      "teilverband_quelle": "offen"
+    },
+    {
+      "id": "schlussgang-52043",
+      "name": "Niklausschwinget Dietikon 2026",
+      "datum": "2026-12-05",
+      "typ": "regional",
+      "kategorie": "Regionalfeste",
+      "ort": "Dietikon",
+      "quelle": "schlussgang.ch/event",
+      "teilverband": "Nordostschweiz",
+      "teilverband_quelle": "vorausgabe"
+    }
+  ],
   "prognose_check_saisons": {
     "2025": {
       "n": 37164,

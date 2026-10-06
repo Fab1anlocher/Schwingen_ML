@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-10-05T15:36:51.817773+00:00",
-  "lauf_id": "20261005T153651Z",
+  "erstellt": "2026-10-06T07:52:17.309408+00:00",
+  "lauf_id": "20261006T075217Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 132997,
@@ -218,24 +218,18 @@
       "von": "2023-04-01",
       "bis": "2026-10-04"
     },
-    "tage_seit_juengstem_fest": 1,
+    "tage_seit_juengstem_fest": 2,
     "kommende_feste": {
-      "n": 0,
+      "n": 2,
       "n_mit_paarungen": 0,
-      "quelle": null,
+      "quelle": "jsonapi",
       "versuche": [
         {
           "pfad": "jsonapi",
-          "n": 0,
-          "fehler": "keine kommenden Feste im Markup"
-        },
-        {
-          "pfad": "agenda_html",
-          "n": 0,
-          "fehler": "keine kommenden Feste im Markup"
+          "n": 2
         }
       ],
-      "naechstes": null
+      "naechstes": "2026-12-05"
     },
     "abzeichen_plausibilitaet": {
       "n_feste_mit_kranzern": 484,
@@ -294,8 +288,8 @@
         "n_zugeordnet": 2030
       },
       "konsistenz": {
-        "klub_wie_porträt": 0.9953,
-        "klub_vergleiche": 635,
+        "klub_wie_porträt": 0.9954,
+        "klub_vergleiche": 653,
         "kranzgewinner_ohne_porträt": 89,
         "beispiele_kranzgewinner_ohne_porträt": [
           "adrian elsener|?",
@@ -348,16 +342,36 @@
         "personen_getrennt": 18,
         "feste_selber_name_mehrfach": 51,
         "beispiele": [
-          "Marcel (1) Stucki: zäziwil getrennt von siehen",
-          "Michael Gwerder: muotathal getrennt von ammythen",
-          "Marco Fankhauser: trub getrennt von entlebuch",
-          "Odermatt Andreas: nidwalden getrennt von surental, zofingen",
-          "Alex Schuler: einsiedeln getrennt von ammythen",
-          "Egli Christian: aegerital getrennt von rottal",
-          "Michel Jonas: zäziwil getrennt von kerns",
-          "Arnold David: flüelen getrennt von schattdorf",
-          "Silvan Koller: wil getrennt von hinterthurgau",
-          "Müller Christian: fricktal getrennt von hinterthurgau"
+          "Marcel (1) Stucki: zäziwil (13 Feste) getrennt von siehen (33 Feste) -- 8x selbes Fest, z.B. 2025-07-06",
+          "Michael Gwerder: muotathal (2 Feste) getrennt von ammythen (46 Feste) -- 1x selbes Fest, z.B. 2024-05-12",
+          "Marco Fankhauser: trub (38 Feste) getrennt von entlebuch (44 Feste) -- 3x selbes Fest, z.B. 2025-09-28",
+          "Odermatt Andreas: nidwalden (18 Feste) getrennt von surental, zofingen (28 Feste) -- 2x selber Tag, z.B. 2023-04-30",
+          "Alex Schuler: einsiedeln (30 Feste) getrennt von ammythen (42 Feste) -- 11x selbes Fest, z.B. 2025-07-13",
+          "Egli Christian: aegerital (4 Feste) getrennt von rottal (13 Feste) -- abwechselnd, verschiedene Wohnorte",
+          "Michel Jonas: zäziwil (7 Feste) getrennt von kerns (18 Feste) -- 1x selber Tag, z.B. 2024-04-01",
+          "Arnold David: flüelen (4 Feste) getrennt von schattdorf (17 Feste) -- 1x selbes Fest, z.B. 2026-04-19",
+          "Silvan Koller: wil (25 Feste) getrennt von hinterthurgau (37 Feste) -- 12x selbes Fest, z.B. 2024-06-30",
+          "Müller Christian: fricktal (3 Feste) getrennt von hinterthurgau (18 Feste) -- 1x selber Tag, z.B. 2025-08-10"
+        ],
+        "alle": [
+          "Marcel (1) Stucki: zäziwil (13 Feste) getrennt von siehen (33 Feste) -- 8x selbes Fest, z.B. 2025-07-06",
+          "Michael Gwerder: muotathal (2 Feste) getrennt von ammythen (46 Feste) -- 1x selbes Fest, z.B. 2024-05-12",
+          "Marco Fankhauser: trub (38 Feste) getrennt von entlebuch (44 Feste) -- 3x selbes Fest, z.B. 2025-09-28",
+          "Odermatt Andreas: nidwalden (18 Feste) getrennt von surental, zofingen (28 Feste) -- 2x selber Tag, z.B. 2023-04-30",
+          "Alex Schuler: einsiedeln (30 Feste) getrennt von ammythen (42 Feste) -- 11x selbes Fest, z.B. 2025-07-13",
+          "Egli Christian: aegerital (4 Feste) getrennt von rottal (13 Feste) -- abwechselnd, verschiedene Wohnorte",
+          "Michel Jonas: zäziwil (7 Feste) getrennt von kerns (18 Feste) -- 1x selber Tag, z.B. 2024-04-01",
+          "Arnold David: flüelen (4 Feste) getrennt von schattdorf (17 Feste) -- 1x selbes Fest, z.B. 2026-04-19",
+          "Silvan Koller: wil (25 Feste) getrennt von hinterthurgau (37 Feste) -- 12x selbes Fest, z.B. 2024-06-30",
+          "Müller Christian: fricktal (3 Feste) getrennt von hinterthurgau (18 Feste) -- 1x selber Tag, z.B. 2025-08-10",
+          "Simon Röthlisberger: langenthal (13 Feste) getrennt von sumiswald (30 Feste) -- 7x selbes Fest, z.B. 2025-06-07",
+          "Simon Röthlisberger: herzogenbuchsee (1 Feste) getrennt von sumiswald (30 Feste) -- 1x selbes Fest, z.B. 2024-08-01",
+          "Jonas Müller: amalbis (26 Feste) getrennt von solothurnuumgebung (27 Feste) -- 2x selbes Fest, z.B. 2025-04-13",
+          "Arnold Lukas: küssnacht (6 Feste) getrennt von bürglen, zürcherunterland (11 Feste) -- 1x selbes Fest, z.B. 2025-04-26",
+          "Schneider Florian: zürichseerechtesufer (5 Feste) getrennt von hinterthurgau (18 Feste) -- 1x selbes Fest, z.B. 2024-08-11",
+          "Ramon Betschart: muotathal (22 Feste) getrennt von mittelrheintal (13 Feste) -- 1x selbes Fest, z.B. 2026-09-27",
+          "Roman Müller: niedersimmental (1 Feste) getrennt von marchhöfe (15 Feste) -- 1x selber Tag, z.B. 2025-09-28",
+          "Meier Adrian: wiggertal (5 Feste) getrennt von mittelrheintal (12 Feste) -- 1x selber Tag, z.B. 2026-04-26"
         ]
       }
     },
@@ -387,7 +401,7 @@
     }
   },
   "modell_verlauf": {
-    "n_laeufe": 58,
+    "n_laeufe": 59,
     "warnung": null
   }
 }

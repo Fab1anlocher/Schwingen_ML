@@ -35,7 +35,7 @@
         },
         {
           "id": "dominik zangger|?",
-          "name": "Zangger Dominik",
+          "name": "Dominik Zangger",
           "elo_vorher": 1646.7,
           "elo_nachher": 2014.3,
           "gewinn": 367.6,
@@ -93,7 +93,7 @@
       "neue": [
         {
           "id": "arnold stefan|?",
-          "name": "Arnold Stefan",
+          "name": "Stefan Arnold",
           "elo_vorher": 1500.0,
           "elo_nachher": 1995.3,
           "gewinn": 495.3,
@@ -101,7 +101,7 @@
         },
         {
           "id": "hanspeter luginbuhl|?",
-          "name": "Luginbühl Hanspeter",
+          "name": "Hanspeter Luginbühl",
           "elo_vorher": 1500.0,
           "elo_nachher": 1955.3,
           "gewinn": 455.3,
@@ -244,7 +244,7 @@
         },
         {
           "id": "fritz ramseier|?",
-          "name": "Ramseier Fritz",
+          "name": "Fritz Ramseier",
           "elo_vorher": 1899.6,
           "elo_nachher": 2264.7,
           "gewinn": 365.0,
@@ -268,7 +268,7 @@
         },
         {
           "id": "burkhalter sven|?",
-          "name": "Burkhalter Sven",
+          "name": "Sven Burkhalter",
           "elo_vorher": 1327.0,
           "elo_nachher": 1666.8,
           "gewinn": 339.8,
@@ -276,7 +276,7 @@
         },
         {
           "id": "burger david|?",
-          "name": "Burger David",
+          "name": "David Burger",
           "elo_vorher": 1074.0,
           "elo_nachher": 1412.5,
           "gewinn": 338.6,
@@ -284,7 +284,7 @@
         },
         {
           "id": "dahler luca|?",
-          "name": "Dähler Luca",
+          "name": "Luca Dähler",
           "elo_vorher": 1166.1,
           "elo_nachher": 1487.2,
           "gewinn": 321.2,
@@ -292,7 +292,7 @@
         },
         {
           "id": "freuler this|?",
-          "name": "Freuler This",
+          "name": "This Freuler",
           "elo_vorher": 885.1,
           "elo_nachher": 1197.3,
           "gewinn": 312.2,
@@ -318,7 +318,7 @@
       "neue": [
         {
           "id": "erb roger|?",
-          "name": "Erb Roger",
+          "name": "Roger Erb",
           "elo_vorher": 1500.0,
           "elo_nachher": 1998.9,
           "gewinn": 498.9,
@@ -334,7 +334,7 @@
         },
         {
           "id": "girard noe|?",
-          "name": "Girard Noé",
+          "name": "Noé Girard",
           "elo_vorher": 1500.0,
           "elo_nachher": 1785.7,
           "gewinn": 285.7,
@@ -358,7 +358,7 @@
         },
         {
           "id": "andri siegenthaler|?",
-          "name": "Siegenthaler Andri",
+          "name": "Andri Siegenthaler",
           "elo_vorher": 1500.0,
           "elo_nachher": 1750.0,
           "gewinn": 250.0,
@@ -457,7 +457,7 @@
           "verlierer": "thomas (2) wuthrich|2007",
           "p_sieger": 0.0036,
           "p_gestellt": 0.0151,
-          "sieger_name": "Kunz Mathias",
+          "sieger_name": "Mathias Kunz",
           "verlierer_name": "Thomas (2) Wüthrich"
         },
         {
@@ -467,7 +467,7 @@
           "verlierer": "michael muller|1995",
           "p_sieger": 0.0038,
           "p_gestellt": 0.0179,
-          "sieger_name": "Friedli Simon",
+          "sieger_name": "Simon Friedli",
           "verlierer_name": "Michael Müller"
         },
         {
@@ -477,7 +477,7 @@
           "verlierer": "thomas (2) wuthrich|2007",
           "p_sieger": 0.004,
           "p_gestellt": 0.0194,
-          "sieger_name": "Portmann Remo",
+          "sieger_name": "Remo Portmann",
           "verlierer_name": "Thomas (2) Wüthrich"
         },
         {
@@ -487,7 +487,7 @@
           "verlierer": "thomas (2) wuthrich|2007",
           "p_sieger": 0.0041,
           "p_gestellt": 0.0162,
-          "sieger_name": "Guler Leo",
+          "sieger_name": "Leo Guler",
           "verlierer_name": "Thomas (2) Wüthrich"
         },
         {
@@ -547,7 +547,7 @@
           "verlierer": "thomas (2) wuthrich|2007",
           "p_sieger": 0.0063,
           "p_gestellt": 0.0266,
-          "sieger_name": "Röthlisberger Adrian",
+          "sieger_name": "Adrian Röthlisberger",
           "verlierer_name": "Thomas (2) Wüthrich"
         }
       ]
@@ -562,7 +562,7 @@
       "aufsteiger": [
         {
           "id": "luca streuli|?",
-          "name": "Streuli Luca",
+          "name": "Luca Streuli",
           "elo_vorher": 1169.6,
           "elo_nachher": 1539.5,
           "gewinn": 369.9,
@@ -570,7 +570,7 @@
         },
         {
           "id": "rolli toni|?",
-          "name": "Rölli Toni",
+          "name": "Toni Rölli",
           "elo_vorher": 1142.1,
           "elo_nachher": 1471.1,
           "gewinn": 328.9,
@@ -578,7 +578,7 @@
         },
         {
           "id": "kalin thomas|?",
-          "name": "Kälin Thomas",
+          "name": "Thomas Kälin",
           "elo_vorher": 1274.6,
           "elo_nachher": 1601.3,
           "gewinn": 326.8,
@@ -586,7 +586,7 @@
         },
         {
           "id": "manuel schweizer|?",
-          "name": "Schweizer Manuel",
+          "name": "Manuel Schweizer",
           "elo_vorher": 1123.5,
           "elo_nachher": 1448.8,
           "gewinn": 325.3,
@@ -610,7 +610,7 @@
         },
         {
           "id": "horat lenny|?",
-          "name": "Horat Lenny",
+          "name": "Lenny Horat",
           "elo_vorher": 1110.8,
           "elo_nachher": 1413.6,
           "gewinn": 302.9,
@@ -618,7 +618,7 @@
         },
         {
           "id": "freuler this|?",
-          "name": "Freuler This",
+          "name": "This Freuler",
           "elo_vorher": 1197.3,
           "elo_nachher": 1485.5,
           "gewinn": 288.2,
@@ -626,7 +626,7 @@
         },
         {
           "id": "andreas peter|?",
-          "name": "Peter Andreas",
+          "name": "Andreas Peter",
           "elo_vorher": 1175.1,
           "elo_nachher": 1460.9,
           "gewinn": 285.8,
@@ -660,7 +660,7 @@
         },
         {
           "id": "silvan steinauer|?",
-          "name": "Steinauer Silvan",
+          "name": "Silvan Steinauer",
           "elo_vorher": 1500.0,
           "elo_nachher": 1706.9,
           "gewinn": 206.9,
@@ -684,7 +684,7 @@
         },
         {
           "id": "gobeli marc|?",
-          "name": "Gobeli Marc",
+          "name": "Marc Gobeli",
           "elo_vorher": 1500.0,
           "elo_nachher": 1559.1,
           "gewinn": 59.1,
@@ -692,7 +692,7 @@
         },
         {
           "id": "cornel laimbacher|?",
-          "name": "Laimbacher Cornel",
+          "name": "Cornel Laimbacher",
           "elo_vorher": 1500.0,
           "elo_nachher": 1556.7,
           "gewinn": 56.7,
@@ -700,7 +700,7 @@
         },
         {
           "id": "luscher silvan|?",
-          "name": "Lüscher Silvan",
+          "name": "Silvan Lüscher",
           "elo_vorher": 1500.0,
           "elo_nachher": 1544.5,
           "gewinn": 44.5,
@@ -708,7 +708,7 @@
         },
         {
           "id": "emmenegger patrik|?",
-          "name": "Emmenegger Patrik",
+          "name": "Patrik Emmenegger",
           "elo_vorher": 1500.0,
           "elo_nachher": 1540.8,
           "gewinn": 40.8,
@@ -813,7 +813,7 @@
           "verlierer": "romain schmid|2003",
           "p_sieger": 0.008,
           "p_gestellt": 0.0079,
-          "sieger_name": "Piller Jonas",
+          "sieger_name": "Jonas Piller",
           "verlierer_name": "Romain Schmid"
         },
         {
@@ -823,7 +823,7 @@
           "verlierer": "lukas 1 gisler|2005",
           "p_sieger": 0.0083,
           "p_gestellt": 0.0041,
-          "sieger_name": "Mignola Michele",
+          "sieger_name": "Michele Mignola",
           "verlierer_name": "Lukas 1 Gisler"
         },
         {
@@ -833,7 +833,7 @@
           "verlierer": "fabian ulmann|1999",
           "p_sieger": 0.0085,
           "p_gestellt": 0.0085,
-          "sieger_name": "Lauchenauer Lukas",
+          "sieger_name": "Lukas Lauchenauer",
           "verlierer_name": "Fabian Ulmann"
         },
         {
@@ -843,7 +843,7 @@
           "verlierer": "thomas (2) wuthrich|2007",
           "p_sieger": 0.0086,
           "p_gestellt": 0.0169,
-          "sieger_name": "Brand Kevin",
+          "sieger_name": "Kevin Brand",
           "verlierer_name": "Thomas (2) Wüthrich"
         },
         {
@@ -853,7 +853,7 @@
           "verlierer": "michael muller|1995",
           "p_sieger": 0.0086,
           "p_gestellt": 0.0106,
-          "sieger_name": "Mathys Sebastian",
+          "sieger_name": "Sebastian Mathys",
           "verlierer_name": "Michael Müller"
         },
         {
@@ -863,7 +863,7 @@
           "verlierer": "martin egli|1997",
           "p_sieger": 0.0086,
           "p_gestellt": 0.0104,
-          "sieger_name": "Näf Loris",
+          "sieger_name": "Loris Näf",
           "verlierer_name": "Martin Egli"
         },
         {
@@ -873,8 +873,8 @@
           "verlierer": "tim wuthrich|?",
           "p_sieger": 0.0089,
           "p_gestellt": 0.0314,
-          "sieger_name": "Krähenbühl Matthias",
-          "verlierer_name": "Wüthrich Tim"
+          "sieger_name": "Matthias Krähenbühl",
+          "verlierer_name": "Tim Wüthrich"
         }
       ]
     }

@@ -3154,7 +3154,7 @@
     },
     {
       "id": "alex schuler|einsiedeln",
-      "name": "Alex Schuler",
+      "name": "Alex Schuler (Einsiedeln)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -4644,7 +4644,7 @@
       "anzahl_feste": 10,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Ramon Betschart",
+        "gegner_name": "Ramon Betschart (Muotathal)",
         "event_id": "schlussgang-44995",
         "datum": "2025-03-23",
         "eigenes_elo": 1125.6,
@@ -7945,7 +7945,7 @@
     },
     {
       "id": "arnold david|flüelen",
-      "name": "Arnold David",
+      "name": "Arnold David (Flüelen)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -7976,7 +7976,7 @@
     },
     {
       "id": "arnold lukas|küssnacht",
-      "name": "Arnold Lukas",
+      "name": "Arnold Lukas (Küssnacht)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -13526,6 +13526,40 @@
       ]
     },
     {
+      "id": "christian zemp|2000",
+      "name": "Christian Zemp",
+      "jahrgang": 2000,
+      "groesse_cm": 182.0,
+      "gewicht_kg": 99.0,
+      "kranzstatus": "kranzer",
+      "kranzstatus_rangliste": null,
+      "teilverband": "Innerschweiz",
+      "teilverband_klub": null,
+      "kanton_klub": null,
+      "teilverband_geschaetzt": null,
+      "kanton": "Zug",
+      "schwingklub": "Zug und Umgebung",
+      "senne_turner": "senne",
+      "kraenze": 0,
+      "kraenze_nach_typ": {},
+      "bevorzugte_schwuenge": [
+        "Innerer Haken"
+      ],
+      "form": 0.5,
+      "gestellt_neigung": null,
+      "ueberraschungsindex": null,
+      "n_bewertete_gaenge": 0,
+      "anzahl_feste": 0,
+      "aktiv": false,
+      "groesster_erfolg": null,
+      "festsiege": [],
+      "namensvetter_von": null,
+      "quellen": [
+        "schlussgang.ch/portraet",
+        "https://www.schlussgang.ch/portraet/christian-zemp-1"
+      ]
+    },
+    {
       "id": "christian zemp|2004",
       "name": "Christian Zemp",
       "jahrgang": 2004,
@@ -13558,40 +13592,6 @@
       "quellen": [
         "schlussgang.ch/portraet",
         "https://www.schlussgang.ch/portraet/christian-zemp-0"
-      ]
-    },
-    {
-      "id": "christian zemp|2000",
-      "name": "Christian Zemp",
-      "jahrgang": 2000,
-      "groesse_cm": 182.0,
-      "gewicht_kg": 99.0,
-      "kranzstatus": "kranzer",
-      "kranzstatus_rangliste": null,
-      "teilverband": "Innerschweiz",
-      "teilverband_klub": null,
-      "kanton_klub": null,
-      "teilverband_geschaetzt": null,
-      "kanton": "Zug",
-      "schwingklub": "Zug und Umgebung",
-      "senne_turner": "senne",
-      "kraenze": 0,
-      "kraenze_nach_typ": {},
-      "bevorzugte_schwuenge": [
-        "Innerer Haken"
-      ],
-      "form": 0.5,
-      "gestellt_neigung": null,
-      "ueberraschungsindex": null,
-      "n_bewertete_gaenge": 0,
-      "anzahl_feste": 0,
-      "aktiv": false,
-      "groesster_erfolg": null,
-      "festsiege": [],
-      "namensvetter_von": null,
-      "quellen": [
-        "schlussgang.ch/portraet",
-        "https://www.schlussgang.ch/portraet/christian-zemp-1"
       ]
     },
     {
@@ -21323,7 +21323,7 @@
       "anzahl_feste": 7,
       "aktiv": false,
       "groesster_erfolg": {
-        "gegner_name": "Silvan Koller",
+        "gegner_name": "Silvan Koller (Wil)",
         "event_id": "schlussgang-22319",
         "datum": "2024-04-21",
         "eigenes_elo": 1251.5,
@@ -21388,7 +21388,7 @@
     },
     {
       "id": "dominik gasser|is",
-      "name": "Dominik Gasser",
+      "name": "Dominik Gasser (Lungern)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -22532,7 +22532,7 @@
     },
     {
       "id": "christian egli|aegerital",
-      "name": "Egli Christian",
+      "name": "Egli Christian (Aegerital)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -32689,7 +32689,7 @@
       "anzahl_feste": 5,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Arnold Lukas",
+        "gegner_name": "Arnold Lukas (Küssnacht)",
         "event_id": "schlussgang-37108",
         "datum": "2024-04-26",
         "eigenes_elo": 1116.0,
@@ -41745,7 +41745,7 @@
     },
     {
       "id": "jonas muller|amalbis",
-      "name": "Jonas Müller",
+      "name": "Jonas Müller (Am Albis)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -41834,7 +41834,7 @@
     },
     {
       "id": "jonas odermatt|is",
-      "name": "Jonas Odermatt",
+      "name": "Jonas Odermatt (Einsiedeln)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -48580,7 +48580,7 @@
       "anzahl_feste": 8,
       "aktiv": false,
       "groesster_erfolg": {
-        "gegner_name": "Silvan Koller",
+        "gegner_name": "Silvan Koller (Wil)",
         "event_id": "schlussgang-37111",
         "datum": "2024-09-14",
         "eigenes_elo": 1410.2,
@@ -54158,7 +54158,7 @@
       "anzahl_feste": 8,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Meier Adrian",
+        "gegner_name": "Meier Adrian (Wiggertal)",
         "event_id": "schlussgang-33468",
         "datum": "2026-04-19",
         "eigenes_elo": 1158.2,
@@ -59045,7 +59045,7 @@
     },
     {
       "id": "marcel stucki|zäziwil",
-      "name": "Marcel (1) Stucki",
+      "name": "Marcel (1) Stucki (Zäziwil)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -60441,7 +60441,7 @@
     },
     {
       "id": "fankhauser marco|trub",
-      "name": "Marco Fankhauser",
+      "name": "Marco Fankhauser (Trub)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -62010,7 +62010,7 @@
     },
     {
       "id": "marco ulrich|be",
-      "name": "Marco Ulrich",
+      "name": "Marco Ulrich (Thun)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -62765,7 +62765,7 @@
       "anzahl_feste": 22,
       "aktiv": false,
       "groesster_erfolg": {
-        "gegner_name": "Müller Christian",
+        "gegner_name": "Müller Christian (Fricktal)",
         "event_id": "schlussgang-21072",
         "datum": "2025-06-22",
         "eigenes_elo": 1343.5,
@@ -68063,7 +68063,7 @@
     },
     {
       "id": "adrian meier|wiggertal",
-      "name": "Meier Adrian",
+      "name": "Meier Adrian (Wiggertal)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -68906,7 +68906,7 @@
     },
     {
       "id": "gwerder michael|muotathal",
-      "name": "Michael Gwerder",
+      "name": "Michael Gwerder (Muotathal)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -70376,7 +70376,7 @@
     },
     {
       "id": "jonas michel|zäziwil",
-      "name": "Michel Jonas",
+      "name": "Michel Jonas (Zäziwil)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -71586,7 +71586,7 @@
     },
     {
       "id": "christian muller|fricktal",
-      "name": "Müller Christian",
+      "name": "Müller Christian (Fricktal)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -73049,7 +73049,7 @@
       "anzahl_feste": 3,
       "aktiv": false,
       "groesster_erfolg": {
-        "gegner_name": "Ramon Betschart",
+        "gegner_name": "Ramon Betschart (Muotathal)",
         "event_id": "schlussgang-45790",
         "datum": "2025-04-21",
         "eigenes_elo": 1500.0,
@@ -75637,7 +75637,7 @@
       "anzahl_feste": 4,
       "aktiv": false,
       "groesster_erfolg": {
-        "gegner_name": "Arnold Lukas",
+        "gegner_name": "Arnold Lukas (Küssnacht)",
         "event_id": "schlussgang-37108",
         "datum": "2024-04-26",
         "eigenes_elo": 892.8,
@@ -76715,7 +76715,7 @@
     },
     {
       "id": "andreas odermatt|nidwalden",
-      "name": "Odermatt Andreas",
+      "name": "Odermatt Andreas (Nidwalden)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -77333,7 +77333,7 @@
       "anzahl_feste": 1,
       "aktiv": false,
       "groesster_erfolg": {
-        "gegner_name": "Ramon Betschart",
+        "gegner_name": "Ramon Betschart (Muotathal)",
         "event_id": "schlussgang-45898",
         "datum": "2025-06-13",
         "eigenes_elo": 1500.0,
@@ -80842,7 +80842,7 @@
       "anzahl_feste": 44,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Arnold Lukas",
+        "gegner_name": "Arnold Lukas (Küssnacht)",
         "event_id": "schlussgang-37108",
         "datum": "2024-04-26",
         "eigenes_elo": 719.3,
@@ -81554,7 +81554,7 @@
       "anzahl_feste": 3,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Arnold David",
+        "gegner_name": "Arnold David (Flüelen)",
         "event_id": "schlussgang-50619",
         "datum": "2026-04-19",
         "eigenes_elo": 1054.7,
@@ -82721,7 +82721,7 @@
     },
     {
       "id": "betschart ramon|muotathal",
-      "name": "Ramon Betschart",
+      "name": "Ramon Betschart (Muotathal)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -84189,7 +84189,7 @@
       "anzahl_feste": 12,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Roman Müller",
+        "gegner_name": "Roman Müller (Niedersimmental)",
         "event_id": "schlussgang-45927",
         "datum": "2025-09-28",
         "eigenes_elo": 1010.8,
@@ -85405,7 +85405,7 @@
       "anzahl_feste": 21,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Michael Gwerder",
+        "gegner_name": "Michael Gwerder (Muotathal)",
         "event_id": "schlussgang-38255",
         "datum": "2024-04-07",
         "eigenes_elo": 1142.1,
@@ -86640,7 +86640,7 @@
       "anzahl_feste": 38,
       "aktiv": true,
       "groesster_erfolg": {
-        "gegner_name": "Marco Ulrich",
+        "gegner_name": "Marco Ulrich (Thun)",
         "event_id": "schlussgang-36884",
         "datum": "2024-04-27",
         "eigenes_elo": 1006.4,
@@ -88535,7 +88535,7 @@
     },
     {
       "id": "bucher roland|nos",
-      "name": "Roland Bucher",
+      "name": "Roland Bucher (Zürcher Oberland)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -89432,7 +89432,7 @@
     },
     {
       "id": "muller roman|niedersimmental",
-      "name": "Roman Müller",
+      "name": "Roman Müller (Niedersimmental)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -91915,7 +91915,7 @@
     },
     {
       "id": "giger samuel|is",
-      "name": "Samuel Giger",
+      "name": "Samuel Giger (Entlebuch)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -93878,7 +93878,7 @@
     },
     {
       "id": "florian schneider|zürichseerechtesufer",
-      "name": "Schneider Florian",
+      "name": "Schneider Florian (Zürichsee Rechtes Ufer)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -96301,7 +96301,7 @@
     },
     {
       "id": "koller silvan|wil",
-      "name": "Silvan Koller",
+      "name": "Silvan Koller (Wil)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -98940,45 +98940,8 @@
       ]
     },
     {
-      "id": "rothlisberger simon|langenthal",
-      "name": "Simon Röthlisberger",
-      "jahrgang": null,
-      "groesse_cm": null,
-      "gewicht_kg": null,
-      "kranzstatus": "kein",
-      "kranzstatus_rangliste": null,
-      "teilverband": null,
-      "teilverband_klub": "Bern",
-      "kanton_klub": "Oberaargau",
-      "teilverband_geschaetzt": null,
-      "kanton": null,
-      "schwingklub": "Langenthal",
-      "senne_turner": "senne",
-      "kraenze": 0,
-      "kraenze_nach_typ": {},
-      "bevorzugte_schwuenge": [],
-      "form": 0.5,
-      "gestellt_neigung": 0.21854,
-      "ueberraschungsindex": -0.0235,
-      "n_bewertete_gaenge": 41,
-      "anzahl_feste": 10,
-      "aktiv": false,
-      "groesster_erfolg": {
-        "gegner_name": "Yasin Abay",
-        "event_id": "schlussgang-41244",
-        "datum": "2025-03-22",
-        "eigenes_elo": 1375.8,
-        "gegner_elo": 1500.0
-      },
-      "festsiege": [],
-      "namensvetter_von": "simon rothlisberger|1998",
-      "quellen": [
-        "schlussgang.ch/rangliste"
-      ]
-    },
-    {
       "id": "rothlisberger simon|herzogenbuchsee",
-      "name": "Simon Röthlisberger",
+      "name": "Simon Röthlisberger (Herzogenbuchsee)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
@@ -99006,6 +98969,43 @@
         "datum": "2024-08-01",
         "eigenes_elo": 1500.0,
         "gegner_elo": 1526.2
+      },
+      "festsiege": [],
+      "namensvetter_von": "simon rothlisberger|1998",
+      "quellen": [
+        "schlussgang.ch/rangliste"
+      ]
+    },
+    {
+      "id": "rothlisberger simon|langenthal",
+      "name": "Simon Röthlisberger (Langenthal)",
+      "jahrgang": null,
+      "groesse_cm": null,
+      "gewicht_kg": null,
+      "kranzstatus": "kein",
+      "kranzstatus_rangliste": null,
+      "teilverband": null,
+      "teilverband_klub": "Bern",
+      "kanton_klub": "Oberaargau",
+      "teilverband_geschaetzt": null,
+      "kanton": null,
+      "schwingklub": "Langenthal",
+      "senne_turner": "senne",
+      "kraenze": 0,
+      "kraenze_nach_typ": {},
+      "bevorzugte_schwuenge": [],
+      "form": 0.5,
+      "gestellt_neigung": 0.21854,
+      "ueberraschungsindex": -0.0235,
+      "n_bewertete_gaenge": 41,
+      "anzahl_feste": 10,
+      "aktiv": false,
+      "groesster_erfolg": {
+        "gegner_name": "Yasin Abay",
+        "event_id": "schlussgang-41244",
+        "datum": "2025-03-22",
+        "eigenes_elo": 1375.8,
+        "gegner_elo": 1500.0
       },
       "festsiege": [],
       "namensvetter_von": "simon rothlisberger|1998",
@@ -99095,7 +99095,7 @@
     },
     {
       "id": "schmid simon|nos",
-      "name": "Simon Schmid",
+      "name": "Simon Schmid (Zürcher Oberland)",
       "jahrgang": null,
       "groesse_cm": null,
       "gewicht_kg": null,
