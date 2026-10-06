@@ -92,7 +92,7 @@ jobs:
           fi
       - name: Rohdaten als Artefakt sichern
         if: steps.sicherung.outputs.faellig == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: rohdaten-${{ github.run_id }}
           path: artifacts/raw
