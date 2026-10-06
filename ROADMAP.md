@@ -2,18 +2,188 @@
 
 Jeder Punkt beruht auf einer Messung an den echten Artefakten, nicht auf
 einer Vermutung — die Zahlen stehen dabei. Gemessen mit `pipeline/harness.py`:
-trainiert auf allem vor dem Testjahr (echte Trainingsmaske), bewertet auf
-Validierung 2025 und Test 2026. **Übernommen wird nur, was in beiden Jahren
-besser wird.**
+trainiert auf allem vor dem Prüfjahr, bewertet auf Validierung 2025 und Test
+2026. **Übernommen wird nur, was in beiden Jahren besser wird.**
 
-**Offen**, nach Priorität: D1 Noten je Gang · D2 Gangnummer · M3 Heimvorteil ·
-F2 Elo-Verlauf im Profil · F3 Vorschaubild für geteilte Links · T2
-Frontend-Tests · T3 Altlasten. Die erledigten Punkte (✅) bleiben mit ihren
-Messungen stehen: Sie belegen, warum Modell und Daten so sind, wie sie sind.
+Aufbau: oben die Analyse vom 06.10.2026 und die Roadmap ab dann, darunter
+das Logbuch. Dort bleiben alle erledigten (✅) und verworfenen Punkte mit
+ihren Messungen stehen: Sie belegen, warum Modell und Daten so sind, wie sie
+sind.
 
 ---
 
-# Planung ab 26.09.2026
+# Analyse (06.10.2026)
+
+## Stand
+
+| | |
+|---|---|
+| **Test 2026** (37'747 Gänge an 137 Festen) | Log-Loss **0.683**, Treffer **70.3 %** |
+| Fairer Vergleich: Elo, auf die Daten angepasst | 0.773 / 66.1 % |
+| Gestellt vorhergesagt / eingetreten | 20.5 % / 21.0 %, Kalibrierungsfehler 0.7 Pkt., AUC 0.77 |
+| Chance des Favoriten | ab 40 % in jeder Stufe auf 0.5 Pkt. getroffen (z.B. 85.2 % vorhergesagt / 85.6 % eingetreten) |
+| Daten | 485 Feste, 46'587 Ranglisten-Teilnahmen, 99.67 % der Namen zugeordnet, Verlustquote 0.64 % |
+| Härtetest | eingefroren am 06.10.2026; die Prüfsaison 2027 beginnt am 02.01.2027 (Berchtoldstag) |
+
+Das Modell ist gut kalibriert: Wo es 85 % sagt, gewinnt der Favorit in 85 %
+der Fälle. Was fehlt, ist Trennschärfe in den Paarungen, die auch
+Fachleute nicht entscheiden können.
+
+## Wo die Fehler liegen
+
+Evaluationsmodell auf den Testgängen 2026 (Messung vom 06.10.2026 mit
+`pipeline/harness.py`):
+
+| Gruppe | Gänge | Treffer | Log-Loss | Gestellt vorh. / eingetr. |
+|---|---:|---:|---:|---:|
+| Elo-Abstand, kleinstes Fünftel | 20 % | 48.8 % | 1.009 | 33.9 % / 34.8 % |
+| Elo-Abstand, zweites Fünftel | 20 % | 58.1 % | 0.906 | 30.4 % / 30.8 % |
+| Elo-Abstand, grösstes Fünftel | 20 % | 92.5 % | 0.241 | 4.3 % / 4.7 % |
+| beide mit Porträt (fast nur Kranzer) | 25 % | 63.6 % | 0.795 | 28.7 % / 29.8 % |
+| Unerfahrenerer < 10 Gänge | 10 % | 68.7 % | 0.732 | **16.5 % / 13.8 %** |
+| Unerfahrenerer ≥ 100 Gänge | 42 % | 67.6 % | 0.729 | 25.4 % / 26.3 % |
+| Bergfeste | 4 % | 61.5 % | 0.823 | **30.4 % / 27.6 %** |
+| Eidgenössisch (1 Fest) | 0.4 % | 57.0 % | 0.903 | **36.3 % / 26.1 %** |
+| Regionalfeste | 58 % | 70.2 % | 0.684 | **19.1 % / 20.8 %** |
+
+1. **Ausgeglichene Paarungen** tragen den grössten Teil des Fehlers. Dort
+   endet jeder dritte Gang gestellt, und das Modell sagt genau das voraus.
+   Das ist weitgehend nicht zu holen: Selbst mit der Stärke, die man erst
+   nach der Saison kennt, träfe man nur rund 77 % (Logbuch, „Was gegen 74 %
+   Treffer spricht").
+2. **Neulinge:** Ist einer der beiden neu, schätzt das Modell Gestellt zu
+   hoch (16.5 % statt 13.8 %). Ein Neuling verliert oder gewinnt eher, als
+   dass er stellt.
+3. **Festtyp:** Das Modell kennt ihn nicht. An Berg- und eidgenössischen
+   Festen schätzt es Gestellt zu hoch, an Regionalfesten zu tief.
+
+Punkt 2 und 3 sind behebbar, und beide sind gemessen (nächster Abschnitt).
+
+## Gemessene Kandidaten
+
+| Kandidat | Val 2025: Log-Loss / Treffer | Test 2026: Log-Loss / Treffer | Entscheid |
+|---|---|---|---|
+| Bezug (heute) | 0.7037 / 69.37 % | 0.6822 / 70.37 % | |
+| + Festtyp (vier Indikatoren, symmetrisch) | −0.0007 / +0.06 Pkt. | −0.0001 / +0.03 Pkt. | allein im Rauschen |
+| + Erfahrung des Unerfahreneren (`log1p(min(n_a, n_b))`) | −0.0007 / +0.04 Pkt. | −0.0008 / +0.44 Pkt. | klein |
+| **+ beides** | **−0.0021 / +0.24 Pkt.** | **−0.0035 / +0.41 Pkt.** | **umsetzen (M6)** |
+| + Noten je Gang (D1; Messung `noten` auf dem Runner, Bezug 0.7045 / 0.6829) | −0.0004 | −0.0011 / +0.19 Pkt. | knapp; nach M6 neu messen |
+
+Zusammen bringen Festtyp und Erfahrung deutlich mehr als die Summe der
+beiden einzeln. Das ist der grösste Gewinn seit dem Rating (M4) und in
+beiden Jahren gleich gerichtet. Vor der Umsetzung mit einem zweiten
+Startwert bestätigen, damit es kein Zufall der Baumauswahl ist.
+
+## Produkt und Technik
+
+* **Keine Nutzungsdaten.** Welche Seiten genutzt werden, war bisher
+  unbekannt. Seit dem 06.10.2026 zählt Vercel Web Analytics die Seitenaufrufe
+  anonym und ohne Cookies.
+* **Kommende Feste ohne Prognose.** Erfasst sind zwei (Niklausschwinget
+  Pratteln und Dietikon, 05.12.2026), keines mit veröffentlichter
+  Einteilung. Für kommende Feste gibt es darum heute weder Paarungen noch
+  Simulation; der Simulator spielt nur vergangene Felder.
+* **Keine Tests im Frontend.** In Python laufen rund 300 Tests, dazu die
+  Parität TypeScript ⇄ Python. Anzeigetexte, Teilverband und die Seiten
+  selbst prüft nur der Build.
+* **Rohdaten** liegen nur im Actions-Cache und sonntags als
+  Workflow-Artefakt (90 Tage). Ein Neuaufbau geht nur, solange
+  schlussgang.ch die PDFs führt.
+* **Verworfene Gänge:** 1'716 Roh-Einträge, weil der Gegnername nicht
+  aufzulösen war (Hauptposten der Verlustquote). Laut Abgleich mit der
+  Rangliste fehlen 1'358 Gänge.
+* **Ordnung im Repo:** Die Dependabot-PRs #39 (upload-artifact 4 → 7) und
+  #40 (next 16.3.6 → 16.3.7) sind offen. Es gibt keine Lizenz, und die
+  Repo-Beschreibung lautet „Schiwing AI". Branches werden nach dem Merge
+  nicht automatisch gelöscht.
+* `schwinger.json` hat 3.1 MB roh, komprimiert rund 150 kB. Das ist kein
+  Engpass.
+
+---
+
+# Roadmap ab 06.10.2026
+
+**Zeitfenster.** Die Prüfsaison 2027 beginnt am **02.01.2027**. Alles, was
+Eingaben des Modells ändert (Merkmale, Rating, Datenkorrekturen), muss vorher
+fertig sein. Danach wird der Härtetest ein letztes Mal eingefroren. Die
+letzten Feste 2026 sind am 05.12.2026. Während der Saison 2027 sind nur
+Produkt und Technik dran.
+
+## Phase A — bis zum Einfrieren (Oktober bis Mitte Dezember 2026)
+
+| # | Vorhaben | Nutzen (gemessen) | Aufwand | Priorität |
+|---|---|---|---|---|
+| M6 | Festtyp und Erfahrung des Unerfahreneren als Merkmale (Merkmalsversion 4) | Log-Loss −0.0021 / −0.0035, Treffer +0.2 / +0.4 Pkt. | 2 Tage | **1** |
+| D7 | Unaufgelöste Gegnernamen zuordnen | 1'358 fehlende Gänge laut Rangliste; Wirkung erst messen | 1 Tag | 2 |
+| D1 | Noten je Gang als Merkmale | −0.0004 / −0.0011 (vor M6) | 1 Tag | 3 |
+| M3 | Heimvorteil neu messen (mit Rating 2 und getrennten Namensvettern) | alt: +0.022 Punkte je Gästegang | ½ Tag | 4 |
+| H1 | Härtetest final einfrieren | Pflicht: nach dem 05.12., vor dem 02.01. | ½ Stunde | – |
+
+**M6 Festtyp und Erfahrung.**
+1. `features.py`: `fest_berg`, `fest_eidgenoessisch`, `fest_kantonal`,
+   `fest_teilverband` (Regional: alle 0) und `min_erfahrung` hinten
+   anhängen. Alle sind symmetrisch (`SYMMETRISCH`), dazu `MERKMAL_VERSION`
+   4 und `MERKMALE_JE_VERSION`.
+2. Monotonie prüfen: Gestellt steigt mit der Erfahrung (16.5 % bei
+   Neulingen, 25.4 % ab 100 Gängen) — Kandidat für `MONOTON_GESTELLT`.
+3. `inference.ts`: Versionszweig 4. Die App braucht den Festtyp. Simulator
+   und Feste-Seite kennen ihn; die Prognose-Seite bekommt eine Auswahl „An
+   welchem Fest?" (Vorschlag: Kantonalfest als Standard, im geteilten Link
+   enthalten). Erklärbalken: „Festtyp" als Grund.
+4. Parität, `verify_inference`, echter Lauf über den Workflow. Abnahme:
+   beide Jahre besser, zweiter Startwert, Orlik–Staudenmann an einem
+   Berg- gegen ein Regionalfest plausibel.
+
+**D7 Gegnernamen.** Die Beispiele im Datenqualitätsbericht ansehen
+(Schreibweisen, Umlaute, Doppelnamen, abgekürzte Vornamen). Zuordnen nur,
+wenn eindeutig und belegt: Der Gegner muss in der Rangliste desselben Fests
+stehen. Messen: weniger fehlende Gänge im Abgleich, Log-Loss beider Jahre.
+
+**H1 Einfrieren.** Nach dem Lauf mit den Dezember-Festen den Workflow
+`update.yml` mit dem Schalter `haertetest_einfrieren` starten. Ab dem
+ersten Gang 2027 bricht `einfrieren` ab; danach ist der Stand fix.
+
+## Phase B — Saison 2027 (Modell und Daten unverändert)
+
+Während der Prüfsaison ändern sich Merkmale, Rating und Datenlogik nicht
+(CLAUDE.md, Abschnitt Härtetest). Der Härtetest misst von selbst und
+erscheint täglich auf der Analyse-Seite.
+
+| # | Vorhaben | Nutzen | Aufwand | Priorität |
+|---|---|---|---|---|
+| F6 | Nutzung auswerten (Vercel Analytics) und Phase B danach ordnen | Entscheidungsgrundlage | laufend | 1 |
+| F7 | Festvorschau: das nächste Kranzfest automatisch simulieren, Feld aus der Teilnehmerliste oder den Teilnehmern des Vorjahrs | Kommende Feste haben heute keine Prognose | 1–2 Tage | 2 |
+| F2 | Elo-Verlauf im Schwinger-Profil (Daten serverseitig wie Kopf-an-Kopf) | Produkt | 1 Tag | 3 |
+| F3 | Vorschaubild für geteilte Prognose-Links (`next/og`) | Paar und Prozente im Chat sichtbar | ½ Tag | 3 |
+
+## Technik (jederzeit, ändert keine Eingaben)
+
+| # | Vorhaben | Nutzen | Aufwand | Priorität |
+|---|---|---|---|---|
+| T2 | Frontend-Tests: `lib/labels.ts`, `lib/teilverband.ts`, `lib/simulation.ts`; Playwright-Smoke-Test jeder Seite in der CI (keine Konsolenfehler, kein horizontales Scrollen auf Mobil) | heute 0 Tests | 1 Tag | 1 |
+| T5 | Rohdaten dauerhaft sichern (wöchentlich als Release-Asset statt 90 Tage) | unabhängig von Cache und Quelle | ½ Tag | 2 |
+| T6 | Aufräumen: Dependabot #39/#40 prüfen und mergen; alte Branches löschen und „Automatically delete head branches" einschalten; Repo-Beschreibung; Lizenz | Eindruck nach aussen | ½ Stunde (Einstellungen nur durch den Inhaber) | 2 |
+| T3 | Altlasten: `diagnose_agenda` testen, `ml_ohne_elo` ohne `kranz_diff` | Sauberkeit | ½ Tag | 3 |
+| T7 | `schwinger.json` in Liste und Profile aufteilen | erst nötig, wenn es wächst | 1 Tag | 4 |
+
+## Verworfen oder zurückgestellt
+
+| Was | Warum |
+|---|---|
+| D2 Gangnummer (`festtag`) | gemessen im Rauschen (−0.0005 / −0.0002); für eine frei gewählte Paarung unbekannt |
+| Punkte und Siege vom selben Festtag | 2025 schlechter, und erst während des Fests bekannt |
+| Plattwurf zählt im Rating mehr | in beiden Gewichtungen 2025 schlechter |
+| Mittel aus Boosting und LR | im Rauschen, zwei Modelle in der App |
+| Datenbank (z.B. Supabase) | Die App liest statische Dateien und rechnet im Browser; eine Datenbank brächte Betrieb ohne Nutzen. Erst sinnvoll mit Nutzerkonten oder einem Tippspiel. |
+| Kranzstatus zum Zeitpunkt des Gangs | Leck gemessen klein (ohne Kranzstatus und Porträt +0.0015 Log-Loss); würde Eingaben ändern, darum höchstens in Phase A, sonst nach 2027 |
+| Ziel „74 % Treffer" | Obergrenze mit Zukunftswissen rund 77 %; mehr bringt nur neue Information |
+
+---
+
+# Logbuch: Planung 26.09.–06.10.2026
+
+Offene Punkte dieser Tabelle stehen oben in der Roadmap (D1, M3, F2, F3,
+T2, T3); D2 ist verworfen.
 
 **Ausgangslage** (Merkmalsversion 3, nach der Namensvettern-Trennung):
 Log-Loss Validierung 2025 **0.7627**, Test 2026 **0.7400**, Accuracy 68.7 %,
@@ -37,7 +207,7 @@ Modell, das auch die laufende Saison gesehen hat.
 | D1 | Noten je Gang (Plattwurf 10.00 vs. 9.75) nutzen | gemessen: Val −0.0027, Test −0.0039 (Messung ohne Ranglisten-Anreicherung) | 1 Tag | **2** |
 | ✅ T4 | Härtetest: eingefrorenes Modell an der Saison 2027 messen | ehrlicher Test ohne Auswahl-Optimismus — **erledigt**, Modell nach M4 eingefroren | 1 Tag | ~~1~~ |
 | ✅ F4 | Fest-Simulator (Monte Carlo) mit Rückblick | Festsieger bekam Ø 27 % (Elo 18 %), Kranz-Brier 0.076 (Elo 0.081) — **erledigt** | 1–2 Tage | ~~–~~ |
-| D2 | Gangnummer aus der Rangliste (Anschwingen, Ausstich) | offen — erst nach D3 messbar | 1 Tag | 4 |
+| ✗ D2 | Gangnummer aus der Rangliste (Anschwingen, Ausstich) | gemessen im Rauschen — **verworfen** (05.10.2026) | 1 Tag | ~~4~~ |
 | M3 | Heimvorteil (Fest des eigenen Verbands gegen Gäste) | +0.022 Punkte je Gästegang (2.6 SE) | ½ Tag | 5 |
 | ✅ M4 | Schnelleres Rating, Neulinge bewegen sich stärker (Glicko-artig) | Val 0.7394 → 0.7154, Test 0.7197 → 0.6947; Treffer 67.8 → 68.9 % / 69.0 → 70.0 % — **erledigt** | 1–2 Tage | ~~5~~ |
 | ✅ F5 | Saisonrückblick (`/rueckblick`) | Aufsteiger, Kränze, Überraschungen, Kranzfeste je Saison — **erledigt** | 1 Tag | ~~–~~ |
@@ -485,7 +655,7 @@ Offen: Kranzstatus zum Zeitpunkt des Gangs (aus den Sternen der Rangliste
 bzw. dem Statusabzeichen der Statistik-PDF) statt aus dem heutigen Porträt —
 würde das kleine Leck ganz schliessen.
 
-# Erledigt
+# Logbuch: erste Runde (bis 25.09.2026)
 
 ## Was solide ist
 
