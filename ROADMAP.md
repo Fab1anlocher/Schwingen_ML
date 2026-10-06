@@ -37,7 +37,7 @@ Modell, das auch die laufende Saison gesehen hat.
 | ✅ M4 | Schnelleres Rating, Neulinge bewegen sich stärker (Glicko-artig) | Val 0.7394 → 0.7154, Test 0.7197 → 0.6947; Treffer 67.8 → 68.9 % / 69.0 → 70.0 % — **erledigt** | 1–2 Tage | ~~5~~ |
 | ✅ F5 | Saisonrückblick (`/rueckblick`) | Aufsteiger, Kränze, Überraschungen, Kranzfeste je Saison — **erledigt** | 1 Tag | ~~–~~ |
 | ✅ D4 | Niederlage „0" in den PDFs bis Anfang 2024 richtig lesen | einseitige Gänge 15.7 % → 0.16 %, Gestellt 2023 28.5 % → 20.6 %, Test 0.6949 → 0.6935 — **erledigt** | ½ Tag | ~~1~~ |
-| D5 | Namensvettern im selben Teilverband trennen (Wohnort/Klub, Punktetotal) | betrifft u. a. Alex Schuler, Marcel Stucki, Ramon Betschart | 1 Tag | **1** |
+| ✅ D5 | Namensvettern über Herkunft trennen (Klub, Wohnort, Punktetotal) | 18 Personen, Test 0.6935 → 0.6829, Treffer 70.0 → 70.4 % — **erledigt** | 1 Tag | ~~1~~ |
 | F2 | Elo-Verlauf im Schwinger-Profil | Produkt | 1 Tag | 5 |
 | F3 | Vorschaubild für geteilte Prognose-Links | Produkt | ½ Tag | 6 |
 | T2 | Frontend-Tests + Browser-Smoke-Test in der CI | Sicherheit | 1 Tag | 6 |
@@ -388,18 +388,43 @@ solcher Formatwechsel fällt so am nächsten Tag auf statt nach drei Jahren.
 Das Härtetest-Modell wurde danach (vor dem ersten Gang 2027) neu
 eingefroren; der Vorgänger steht in `vorgaenger`.
 
-## D5 — Namensvettern im selben Teilverband (offen, gefunden 05.10.2026)
+## ✅ D5 — Namensvettern über Herkunft trennen (erledigt 05.10.2026)
 
-Die Trennung (`namensvettern.py`) greift nur über verschiedene
-Teilverbände und nur für Schwinger mit Porträt. Messung `vettern`: Alex
-Schuler sind zwei Personen aus Rothenthurm (Klub am Mythen, Eidgenosse
-`***`, und Klub Einsiedeln, `*`), oft am selben Fest; ebenso Marcel Stucki
-(Siehen / Zäziwil), Simon Röthlisberger (drei Klubs), Ramon Betschart
-(Muotathal / Mittel-Rheintal, ohne Trennung, weil das Porträt keinen
-belegten Verband hat), Adrian Meier (ohne Porträt). Idee: Personen über
-Wohnort + Klub der Rangliste unterscheiden (zwei Herkünfte am selben Fest
-oder Tag = zwei Personen); am selben Fest die Blöcke über Punktetotal ==
-Rangliste-Punkte zuordnen, die Gegnerzeilen über die Gegnerliste des Blocks.
+**Befund** (Messung `vettern`): Die Trennung von 2025 griff nur über
+verschiedene Teilverbände und nur für Schwinger mit Porträt. Übrig blieben
+u. a. zwei Alex Schuler aus Rothenthurm (Klub am Mythen / Einsiedeln, elfmal
+am selben Fest), zwei Marco Fankhauser (Entlebuch / Trub), zwei Silvan
+Koller (Hinterthurgau / Wil), zwei Marcel Stucki, drei Simon
+Röthlisberger, zwei Ramon Betschart, zwei Adrian Meier (ohne Porträt).
+
+**Umsetzung** (`namensvettern.trenne_nach_herkunft`, Stufe 2 nach der
+bisherigen): Die Klubs eines Namens werden zu Personen gruppiert. Beleg für
+zwei Personen: am selben Fest oder am selben Tag an zwei Festen (hart),
+oder ständiges Abwechseln bei verschiedenen Wohnorten (ein Klub mit zwei
+Schreibweisen wechselt auch ab, der Wohnort aber bleibt). Ohne Beleg bleibt
+es eine Person. Stehen beide am selben Fest, ordnet das Punktetotal den
+PDF-Block der Ranglisten-Zeile zu, die Gegnerzeilen folgen der Gegnerliste
+des Blocks. Jede Trennung steht mit Beleg im Datenqualitätsbericht.
+
+18 Personen getrennt (17 mit hartem Beleg), 51 Feste mit Gleichnamigen
+blockweise zugeordnet. Verdächtige IDs (zwei Feste an einem Tag oder mehr
+als 8 Gänge an einem Fest): vor D4 rund 550, danach 17.
+
+| | vorher (nach D4) | mit D5 |
+|---|---:|---:|
+| Test 2026: Log-Loss / Treffer | 0.6935 / 70.0 % | 0.6829 / 70.4 % |
+| Prognose-Check 2025 / 2026 | 68.9 % / 70.0 % | 69.2 % / 70.4 % |
+| Elo-Formel 2026 (Log-Loss / Treffer) | 0.8085 / 66.0 % | 0.8006 / 66.2 % |
+
+Beide Jahre besser. Der Gewinn ist für 18 Personen gross, aber plausibel:
+Mehrere sehr aktive Schwinger (Fankhauser 82, Schuler 72, Koller 62 Feste)
+hatten ein Rating aus zwei Personen, und das verzerrte auch die Ratings
+ihrer Gegner. Danach Härtetest-Modell neu eingefroren (vor dem ersten Gang
+2027).
+
+**Rest:** „Thomas (2) Wüthrich" (Zähler im Namen, zwei Doppeltage) und
+einzelne Feste mit mehr als 8 Gängen; Christian Egli ist die einzige
+Trennung nur über Abwechseln.
 
 ## F2 / F3 / T2 / T3 — Produkt und Technik
 

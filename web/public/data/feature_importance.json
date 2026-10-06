@@ -10,113 +10,113 @@
     {
       "feature": "rating_diff",
       "label": "Rating-Vorsprung (Elo)",
-      "wichtigkeit": 0.5249317781094758,
-      "streuung": 0.001930345900609457,
+      "wichtigkeit": 0.5490390001066059,
+      "streuung": 0.001458939476690315,
       "koeffizienten": null
     },
     {
       "feature": "rating_abstand",
       "label": "Rating-Nähe (ausgeglichenes Paar)",
-      "wichtigkeit": 0.11486475723619305,
-      "streuung": 0.0022198101367953706,
+      "wichtigkeit": 0.12867272362040477,
+      "streuung": 0.002358828383031963,
       "koeffizienten": null
     },
     {
       "feature": "erfahrung_diff",
       "label": "Erfahrung (Anzahl Gänge)",
-      "wichtigkeit": 0.07811778189127552,
-      "streuung": 0.0010389103786550527,
+      "wichtigkeit": 0.08082217381243244,
+      "streuung": 0.0008428698554157204,
       "koeffizienten": null
     },
     {
       "feature": "gestellt_neigung",
       "label": "Gestellt-Neigung beider Schwinger",
-      "wichtigkeit": 0.06427852342135573,
-      "streuung": 0.0009476126546313271,
+      "wichtigkeit": 0.06318289676409675,
+      "streuung": 0.0009306269813014015,
       "koeffizienten": null
     },
     {
       "feature": "kranz_diff",
       "label": "Kranzstatus",
-      "wichtigkeit": 0.0088237658866688,
-      "streuung": 0.000620192535161731,
-      "koeffizienten": null
-    },
-    {
-      "feature": "paar_gestellt",
-      "label": "Gestellt-Bilanz dieses Paars",
-      "wichtigkeit": 0.002335819526114746,
-      "streuung": 0.00021760894663512223,
+      "wichtigkeit": 0.01096253139666814,
+      "streuung": 0.0007288561418405035,
       "koeffizienten": null
     },
     {
       "feature": "spitzen_niveau",
       "label": "Spitzenpaarung (beide stark)",
-      "wichtigkeit": 0.0022785019953975192,
-      "streuung": 0.00031382802510529414,
+      "wichtigkeit": 0.002743960817761515,
+      "streuung": 0.0003352342499643555,
+      "koeffizienten": null
+    },
+    {
+      "feature": "paar_gestellt",
+      "label": "Gestellt-Bilanz dieses Paars",
+      "wichtigkeit": 0.0018754621861921006,
+      "streuung": 0.00019021516517029035,
       "koeffizienten": null
     },
     {
       "feature": "same_teilverband",
       "label": "gleicher Teilverband",
-      "wichtigkeit": 0.001531123076651242,
-      "streuung": 0.00017742235198204043,
+      "wichtigkeit": 0.0015640672658772115,
+      "streuung": 0.0001719000047869872,
       "koeffizienten": null
     },
     {
       "feature": "gewicht_diff",
       "label": "Gewichtsunterschied",
-      "wichtigkeit": 0.0014540738474714487,
-      "streuung": 0.0002393642660838191,
-      "koeffizienten": null
-    },
-    {
-      "feature": "kopf_an_kopf",
-      "label": "Bisherige direkte Duelle",
-      "wichtigkeit": 0.0012703482781743825,
-      "streuung": 9.00950338349118e-05,
+      "wichtigkeit": 0.0011275189310280486,
+      "streuung": 0.00016241578989202593,
       "koeffizienten": null
     },
     {
       "feature": "alter_diff",
       "label": "Altersunterschied",
-      "wichtigkeit": 0.0007886334358552461,
-      "streuung": 0.00013145611359400872,
+      "wichtigkeit": 0.0010949015051803235,
+      "streuung": 0.0001491706131531577,
+      "koeffizienten": null
+    },
+    {
+      "feature": "kopf_an_kopf",
+      "label": "Bisherige direkte Duelle",
+      "wichtigkeit": 0.0007389050344765114,
+      "streuung": 0.00011824715485716292,
       "koeffizienten": null
     },
     {
       "feature": "form_diff",
       "label": "aktuelle Form (letzte Gänge)",
-      "wichtigkeit": 0.0005859788048432568,
-      "streuung": 0.00021524371908013018,
+      "wichtigkeit": 0.0004705252258466075,
+      "streuung": 0.0001490375343873361,
       "koeffizienten": null
     },
     {
       "feature": "schwung_count_diff",
       "label": "Unterschied Anzahl bevorzugter Schwünge",
-      "wichtigkeit": 0.0005151923173461137,
-      "streuung": 0.00012462306241364796,
+      "wichtigkeit": 0.0003690690251566098,
+      "streuung": 9.808090567129246e-05,
       "koeffizienten": null
     },
     {
       "feature": "portraet_diff",
       "label": "Porträt/Profildaten vorhanden",
-      "wichtigkeit": 0.00036560670792489257,
-      "streuung": 4.592241727661344e-05,
+      "wichtigkeit": 0.00026647533823276337,
+      "streuung": 5.50940624321898e-05,
       "koeffizienten": null
     },
     {
       "feature": "groesse_diff",
       "label": "Grössenunterschied",
-      "wichtigkeit": 1.0978773038061717e-05,
-      "streuung": 0.00014805143108541176,
+      "wichtigkeit": 4.18232857573031e-06,
+      "streuung": 8.661741716146762e-05,
       "koeffizienten": null
     },
     {
       "feature": "schwung_overlap",
       "label": "Übereinstimmung bevorzugter Schwünge",
-      "wichtigkeit": -0.00014665721353690486,
-      "streuung": 4.435587758096881e-05,
+      "wichtigkeit": -1.4193276206841966e-05,
+      "streuung": 5.518169312648421e-05,
       "koeffizienten": null
     }
   ]

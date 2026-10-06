@@ -20,6 +20,7 @@ from collections import defaultdict
 from itertools import groupby
 
 from .ratings import EloModell
+from .schema import anzeigename
 
 # Mindestzahl Gänge in der Saison für die Aufsteiger-Liste.
 MIN_GAENGE_AUFSTEIGER = 15
@@ -79,7 +80,7 @@ def kraenze_je_saison(teilnahmen) -> dict[int, dict[str, int]]:
 def rueckblick(gaenge, schwinger: dict, *, kraenze: dict[int, dict[str, int]] | None = None,
                ueberraschungen: dict[str, list[dict]] | None = None) -> dict:
     """saison_rueckblick.json: {"saisons": {"2026": {...}, ...}}."""
-    name = lambda sid: schwinger[sid].name if sid in schwinger else sid  # noqa: E731
+    name = lambda sid: anzeigename(schwinger[sid]) if sid in schwinger else sid  # noqa: E731
     elo = elo_je_saison(gaenge)
     saisons = {}
     for jahr, e in sorted(elo.items())[1:]:

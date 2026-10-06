@@ -1,34 +1,34 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-10-05T15:32:07.503366+00:00",
-  "lauf_id": "20261005T153207Z",
+  "erstellt": "2026-10-06T07:52:17.309408+00:00",
+  "lauf_id": "20261006T075217Z",
   "seed": 42,
   "datenbasis": {
-    "n_gaenge": 132985,
-    "n_schwinger": 2913
+    "n_gaenge": 132997,
+    "n_schwinger": 2931
   },
   "holdout_jahr": 2026,
   "modell_typ": "gbm",
   "n_baeume": {
-    "gestellt": 202,
-    "sieg": 328
+    "gestellt": 231,
+    "sieg": 107
   },
-  "n_train": 136118,
-  "n_train_ausgeliefert": 211612,
+  "n_train": 136138,
+  "n_train_ausgeliefert": 211632,
   "n_test": 37747,
   "modell": {
-    "log_loss": 0.6935,
-    "accuracy": 0.6995,
-    "mae": 0.2297,
-    "mse": 0.0938
+    "log_loss": 0.6829,
+    "accuracy": 0.7045,
+    "mae": 0.226,
+    "mse": 0.0919
   },
   "baseline_elo": {
-    "log_loss": 0.8085,
-    "accuracy": 0.6596
+    "log_loss": 0.8006,
+    "accuracy": 0.6617
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.04,
-  "verbesserung_log_loss": 0.115,
+  "accuracy_gg_baseline": 0.0428,
+  "verbesserung_log_loss": 0.1178,
   "klassen": [
     "sieg_a",
     "gestellt",
@@ -36,92 +36,92 @@
   ],
   "konfusionsmatrix": [
     [
-      10570,
-      1274,
-      1720
+      10689,
+      1177,
+      1666
     ],
     [
-      2569,
-      2460,
-      2909
+      2587,
+      2465,
+      2886
     ],
     [
-      1574,
-      1296,
-      13375
+      1643,
+      1197,
+      13437
     ]
   ],
   "nur_portraet": {
     "modell": {
-      "n": 9463,
-      "anteil_am_test": 0.2507,
-      "log_loss": 0.8077,
-      "accuracy": 0.6296,
-      "mae": 0.2498,
-      "mse": 0.102
+      "n": 9411,
+      "anteil_am_test": 0.2493,
+      "log_loss": 0.7954,
+      "accuracy": 0.6367,
+      "mae": 0.2468,
+      "mse": 0.1
     },
     "baseline_elo": {
-      "n": 9463,
-      "log_loss": 0.9287,
-      "accuracy": 0.5862
+      "n": 9411,
+      "log_loss": 0.919,
+      "accuracy": 0.5885
     }
   },
   "gestellt_kalibrierung": {
     "n": 37747,
-    "vorhergesagt": 0.2051,
+    "vorhergesagt": 0.2046,
     "eingetreten": 0.2103,
-    "ece": 0.0077,
-    "auc": 0.7641,
+    "ece": 0.0074,
+    "auc": 0.7691,
     "stufen": [
       {
         "n": 3775,
-        "vorhergesagt": 0.0153,
-        "eingetreten": 0.0188
+        "vorhergesagt": 0.0138,
+        "eingetreten": 0.0114
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.0411,
-        "eingetreten": 0.04
+        "vorhergesagt": 0.0405,
+        "eingetreten": 0.0366
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.0769,
-        "eingetreten": 0.0715
+        "vorhergesagt": 0.0767,
+        "eingetreten": 0.0744
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.1142,
-        "eingetreten": 0.1195
+        "vorhergesagt": 0.1136,
+        "eingetreten": 0.1203
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.1504,
-        "eingetreten": 0.1701
+        "vorhergesagt": 0.1491,
+        "eingetreten": 0.169
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.1896,
-        "eingetreten": 0.1987
+        "vorhergesagt": 0.189,
+        "eingetreten": 0.1981
       },
       {
         "n": 3775,
         "vorhergesagt": 0.2381,
-        "eingetreten": 0.2546
+        "eingetreten": 0.2575
       },
       {
         "n": 3774,
-        "vorhergesagt": 0.3044,
-        "eingetreten": 0.3098
+        "vorhergesagt": 0.3049,
+        "eingetreten": 0.3076
       },
       {
         "n": 3774,
-        "vorhergesagt": 0.3888,
-        "eingetreten": 0.3937
+        "vorhergesagt": 0.3893,
+        "eingetreten": 0.3961
       },
       {
         "n": 3774,
-        "vorhergesagt": 0.5326,
-        "eingetreten": 0.5265
+        "vorhergesagt": 0.5315,
+        "eingetreten": 0.5321
       }
     ]
   },
@@ -130,12 +130,12 @@
     "n_feste": 137,
     "wiederholungen": 1000,
     "accuracy": [
-      0.6921,
-      0.7067
+      0.6974,
+      0.7118
     ],
     "log_loss": [
-      0.6809,
-      0.7061
+      0.6705,
+      0.6957
     ]
   },
   "merkmal_version": 3,
@@ -148,7 +148,7 @@
   },
   "haertetest": {
     "status": "wartet",
-    "warnung": null
+    "warnung": "Die Referenzgänge ergeben andere Prognosen als beim Einfrieren (4% gleich, 99% gefunden): Merkmals-/Rating-Code oder Datengrundlage hat sich verändert."
   },
   "parsing_warnungen": [
     "schlussgang-22460 christian biasch|1996/hochholdinger roman|?: nur eine Perspektive vorhanden",
@@ -202,60 +202,54 @@
     "schlussgang-22460 corsin jorger|?/patrik schiesser|1998: nur eine Perspektive vorhanden",
     "schlussgang-22460 aaron walser|?/niklas lotscher|2006: nur eine Perspektive vorhanden"
   ],
-  "n_parsing_warnungen": 230,
+  "n_parsing_warnungen": 242,
   "datenqualitaet": {
     "warnungen_nach_kategorie": {
-      "nur_eine_perspektive": 216,
+      "nur_eine_perspektive": 228,
       "inkonsistente_symbole": 14
     },
-    "anteil_unvollstaendiger_gaenge": 0.0016,
+    "anteil_unvollstaendiger_gaenge": 0.0017,
     "ergebnisverteilung": {
       "gestellt": 0.2132,
-      "sieg_a": 0.362,
-      "sieg_b": 0.4248
+      "sieg_a": 0.3615,
+      "sieg_b": 0.4253
     },
     "feste_zeitraum": {
       "von": "2023-04-01",
       "bis": "2026-10-04"
     },
-    "tage_seit_juengstem_fest": 1,
+    "tage_seit_juengstem_fest": 2,
     "kommende_feste": {
-      "n": 0,
+      "n": 2,
       "n_mit_paarungen": 0,
-      "quelle": null,
+      "quelle": "jsonapi",
       "versuche": [
         {
           "pfad": "jsonapi",
-          "n": 0,
-          "fehler": "keine kommenden Feste im Markup"
-        },
-        {
-          "pfad": "agenda_html",
-          "n": 0,
-          "fehler": "keine kommenden Feste im Markup"
+          "n": 2
         }
       ],
-      "naechstes": null
+      "naechstes": "2026-12-05"
     },
     "abzeichen_plausibilitaet": {
       "n_feste_mit_kranzern": 484,
-      "trefferquote_median": 0.9091,
+      "trefferquote_median": 0.9153,
       "feste_ohne_abzeichen": 3,
-      "abzeichen_gesamt": 18763,
+      "abzeichen_gesamt": 18774,
       "plausibel": true,
       "anteil_feste_ohne_abzeichen": 0.0062,
       "hinweis_refetch": false
     },
     "datenabdeckung": {
-      "n_schwinger": 2913,
+      "n_schwinger": 2931,
       "n_portraet": 703,
-      "anteil_portraet": 0.2413,
+      "anteil_portraet": 0.2398,
       "teilverband_schaetzung": {
-        "pruef_faelle": 586,
+        "pruef_faelle": 589,
         "trefferquote": 0.9983,
-        "n_ohne_verband": 2210,
+        "n_ohne_verband": 2228,
         "angewandt": true,
-        "n_geschaetzt": 1659
+        "n_geschaetzt": 1678
       }
     },
     "ranglisten": {
@@ -285,38 +279,38 @@
       "beispiele_kranzquote_ausserhalb": [
         "Urner Kantonalschwingfest Flüelen 2026: 24.3%"
       ],
-      "klub_abdeckung_aktive": 0.9892,
+      "klub_abdeckung_aktive": 0.9893,
       "verband_ueber_klub": {
-        "klubs_bekannt": 132,
-        "pruef_faelle": 597,
-        "trefferquote": 0.9933,
-        "n_ohne_porträt_mit_klub": 2166,
-        "n_zugeordnet": 1983
+        "klubs_bekannt": 134,
+        "pruef_faelle": 602,
+        "trefferquote": 0.9967,
+        "n_ohne_porträt_mit_klub": 2184,
+        "n_zugeordnet": 2030
       },
       "konsistenz": {
-        "klub_wie_porträt": 0.989,
-        "klub_vergleiche": 635,
-        "kranzgewinner_ohne_porträt": 88,
+        "klub_wie_porträt": 0.9954,
+        "klub_vergleiche": 653,
+        "kranzgewinner_ohne_porträt": 89,
         "beispiele_kranzgewinner_ohne_porträt": [
           "adrian elsener|?",
           "adrian schwyn|?",
           "adrian steinauer|?",
           "aellen philipp|?",
-          "andreas odermatt|?"
+          "alex schuler|einsiedeln"
         ]
       }
     },
     "roh_eintraege_gelesen": 267786,
-    "roh_eintraege_uebernommen": 266066,
+    "roh_eintraege_uebernommen": 266068,
     "roh_eintraege_verworfen": {
       "name_nicht_aufloesbar": 1716,
-      "schwinger_gegen_sich_selbst": 4
+      "schwinger_gegen_sich_selbst": 2
     },
     "verlustquote": 0.0064,
     "feste_gelesen": 485,
     "feste_uebernommen": 485,
     "feste_verworfen": {},
-    "schwinger_im_kader": 2913,
+    "schwinger_im_kader": 2931,
     "unaufloesbare_namen": 10,
     "beispiele_unaufloesbare_namen": [
       "Zemp Christian",
@@ -343,24 +337,60 @@
         "Jonas Odermatt: 28 Feste (Innerschweiz) getrennt von Nordwestschweiz",
         "Simon Schmid: 16 Feste (Nordostschweiz) getrennt von Innerschweiz",
         "Roland Bucher: 10 Feste (Nordostschweiz) getrennt von Innerschweiz"
-      ]
+      ],
+      "herkunft": {
+        "personen_getrennt": 18,
+        "feste_selber_name_mehrfach": 51,
+        "beispiele": [
+          "Marcel (1) Stucki: zäziwil (13 Feste) getrennt von siehen (33 Feste) -- 8x selbes Fest, z.B. 2025-07-06",
+          "Michael Gwerder: muotathal (2 Feste) getrennt von ammythen (46 Feste) -- 1x selbes Fest, z.B. 2024-05-12",
+          "Marco Fankhauser: trub (38 Feste) getrennt von entlebuch (44 Feste) -- 3x selbes Fest, z.B. 2025-09-28",
+          "Odermatt Andreas: nidwalden (18 Feste) getrennt von surental, zofingen (28 Feste) -- 2x selber Tag, z.B. 2023-04-30",
+          "Alex Schuler: einsiedeln (30 Feste) getrennt von ammythen (42 Feste) -- 11x selbes Fest, z.B. 2025-07-13",
+          "Egli Christian: aegerital (4 Feste) getrennt von rottal (13 Feste) -- abwechselnd, verschiedene Wohnorte",
+          "Michel Jonas: zäziwil (7 Feste) getrennt von kerns (18 Feste) -- 1x selber Tag, z.B. 2024-04-01",
+          "Arnold David: flüelen (4 Feste) getrennt von schattdorf (17 Feste) -- 1x selbes Fest, z.B. 2026-04-19",
+          "Silvan Koller: wil (25 Feste) getrennt von hinterthurgau (37 Feste) -- 12x selbes Fest, z.B. 2024-06-30",
+          "Müller Christian: fricktal (3 Feste) getrennt von hinterthurgau (18 Feste) -- 1x selber Tag, z.B. 2025-08-10"
+        ],
+        "alle": [
+          "Marcel (1) Stucki: zäziwil (13 Feste) getrennt von siehen (33 Feste) -- 8x selbes Fest, z.B. 2025-07-06",
+          "Michael Gwerder: muotathal (2 Feste) getrennt von ammythen (46 Feste) -- 1x selbes Fest, z.B. 2024-05-12",
+          "Marco Fankhauser: trub (38 Feste) getrennt von entlebuch (44 Feste) -- 3x selbes Fest, z.B. 2025-09-28",
+          "Odermatt Andreas: nidwalden (18 Feste) getrennt von surental, zofingen (28 Feste) -- 2x selber Tag, z.B. 2023-04-30",
+          "Alex Schuler: einsiedeln (30 Feste) getrennt von ammythen (42 Feste) -- 11x selbes Fest, z.B. 2025-07-13",
+          "Egli Christian: aegerital (4 Feste) getrennt von rottal (13 Feste) -- abwechselnd, verschiedene Wohnorte",
+          "Michel Jonas: zäziwil (7 Feste) getrennt von kerns (18 Feste) -- 1x selber Tag, z.B. 2024-04-01",
+          "Arnold David: flüelen (4 Feste) getrennt von schattdorf (17 Feste) -- 1x selbes Fest, z.B. 2026-04-19",
+          "Silvan Koller: wil (25 Feste) getrennt von hinterthurgau (37 Feste) -- 12x selbes Fest, z.B. 2024-06-30",
+          "Müller Christian: fricktal (3 Feste) getrennt von hinterthurgau (18 Feste) -- 1x selber Tag, z.B. 2025-08-10",
+          "Simon Röthlisberger: langenthal (13 Feste) getrennt von sumiswald (30 Feste) -- 7x selbes Fest, z.B. 2025-06-07",
+          "Simon Röthlisberger: herzogenbuchsee (1 Feste) getrennt von sumiswald (30 Feste) -- 1x selbes Fest, z.B. 2024-08-01",
+          "Jonas Müller: amalbis (26 Feste) getrennt von solothurnuumgebung (27 Feste) -- 2x selbes Fest, z.B. 2025-04-13",
+          "Arnold Lukas: küssnacht (6 Feste) getrennt von bürglen, zürcherunterland (11 Feste) -- 1x selbes Fest, z.B. 2025-04-26",
+          "Schneider Florian: zürichseerechtesufer (5 Feste) getrennt von hinterthurgau (18 Feste) -- 1x selbes Fest, z.B. 2024-08-11",
+          "Ramon Betschart: muotathal (22 Feste) getrennt von mittelrheintal (13 Feste) -- 1x selbes Fest, z.B. 2026-09-27",
+          "Roman Müller: niedersimmental (1 Feste) getrennt von marchhöfe (15 Feste) -- 1x selber Tag, z.B. 2025-09-28",
+          "Meier Adrian: wiggertal (5 Feste) getrennt von mittelrheintal (12 Feste) -- 1x selber Tag, z.B. 2026-04-26"
+        ]
+      }
     },
     "punktetotal": {
-      "bloecke_geprueft": 46256,
+      "bloecke_geprueft": 45920,
       "abweichend": 11,
       "anteil_abweichend": 0.0002,
-      "eintraege_ohne_total": 2349,
+      "eintraege_ohne_total": 4259,
       "je_jahr": {
         "2023": {
           "geprueft": 8244,
           "abweichend": 1
         },
         "2024": {
-          "geprueft": 12140,
+          "geprueft": 11827,
           "abweichend": 2
         },
         "2025": {
-          "geprueft": 12749,
+          "geprueft": 12726,
           "abweichend": 7
         },
         "2026": {
@@ -371,7 +401,7 @@
     }
   },
   "modell_verlauf": {
-    "n_laeufe": 58,
+    "n_laeufe": 59,
     "warnung": null
   }
 }

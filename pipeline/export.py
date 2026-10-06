@@ -227,7 +227,7 @@ def exportiere_schwinger(
             ge = u["groesster_erfolg"]
             gegner = schwinger.get(ge["gegner_id"])
             groesster_erfolg = {
-                "gegner_name": anzeigename(gegner) if gegner else ge["gegner_id"],
+                "gegner_name": anzeigename(gegner, klubs.get(ge["gegner_id"])) if gegner else ge["gegner_id"],
                 "event_id": ge["event_id"],
                 "datum": ge["datum"],
                 "eigenes_elo": ge["eigenes_elo"],
@@ -235,7 +235,7 @@ def exportiere_schwinger(
             }
         liste.append({
             "id": sid,
-            "name": anzeigename(s),
+            "name": anzeigename(s, klubs.get(sid)),
             "jahrgang": s.jahrgang,
             "groesse_cm": s.groesse_cm,
             "gewicht_kg": s.gewicht_kg,

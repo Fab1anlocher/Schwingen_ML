@@ -794,18 +794,32 @@ def vettern() -> list[str]:
         for e in eintrag.get("eintraege", []):
             basis, jahr = _basisname(str(e.get("name", "")))
             je_name[namens_tokens(basis)].append((fest[eid].datum, fest[eid].name, jahr, e))
+    nv = dict(bericht.namensvettern)
+    herk = dict(nv.pop("herkunft", {}) or {})
+    alle = herk.pop("alle", [])
+    herk.pop("beispiele", None)
     z = ["# Messung: Namensvettern, die die Trennung nicht erwischt", "",
-         f"Trennung heute: {json.dumps(bericht.namensvettern, ensure_ascii=False)}", "",
-         f"Verdächtige IDs (Tage mit zwei Festen oder > {MAX_GAENGE_FEST} Gänge an einem Fest): {len(verdacht)}", ""]
+         f"Stufe 1 (Teilverband): {json.dumps({k: v for k, v in nv.items() if k != 'beispiele'}, ensure_ascii=False)}", "",
+         f"Stufe 2 (Herkunft): {json.dumps(herk, ensure_ascii=False)}", ""]
+    z += [f"- {b}" for b in alle] + [""]
+
+    def tabelle(name: str, n: int = 30) -> list[str]:
+        zeilen = ["| Datum | Fest | Jahrgang | Wohnort | Klub | Rang | Punkte |", "|---|---|---|---|---|---|---:|"]
+        for datum, fname, jahr, e in sorted(je_name.get(namens_tokens(name), []), key=lambda t: t[0])[-n:]:
+            zeilen.append(f"| {datum} | {fname[:40]} | {jahr or ''} | {e.get('wohnort') or ''} | "
+                          f"{e.get('schwingklub') or ''} | {e.get('rang')} | {e.get('punkte')} |")
+        return zeilen + [""]
+
+    # Stufe-2-Trennungen zum Nachprüfen (die ersten acht).
+    for b in alle[:8]:
+        name = b.split(":")[0]
+        z += [f"## Getrennt: {b}", ""] + tabelle(name, 24)
+    z += [f"Verdächtige IDs (Tage mit zwei Festen oder > {MAX_GAENGE_FEST} Gänge an einem Fest): {len(verdacht)}", ""]
     for sid, c in sorted(verdacht.items(), key=lambda kv: -(kv[1]["doppeltage"] * 3 + kv[1]["ueber8"]))[:12]:
         s = schwinger.get(sid)
         name = s.name if s else sid
-        z += [f"## {name} (`{sid}`): {c['doppeltage']} Doppeltage, {c['ueber8']} Feste mit > 8 Gängen", "",
-              "| Datum | Fest | Jahrgang | Wohnort | Klub | Rang | Punkte |", "|---|---|---|---|---|---|---:|"]
-        for datum, fname, jahr, e in sorted(je_name.get(namens_tokens(name), []), key=lambda t: t[0])[-30:]:
-            z.append(f"| {datum} | {fname[:40]} | {jahr or ''} | {e.get('wohnort') or ''} | "
-                     f"{e.get('schwingklub') or ''} | {e.get('rang')} | {e.get('punkte')} |")
-        z.append("")
+        z += [f"## {name} (`{sid}`): {c['doppeltage']} Doppeltage, {c['ueber8']} Feste mit > 8 Gängen", ""]
+        z += tabelle(name)
     return z
 
 

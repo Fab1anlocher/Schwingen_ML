@@ -86,7 +86,7 @@ class Schwinger:
 _ZAEHLER = re.compile(r"^\(?\d{1,2}\)?$")
 
 
-def anzeigename(s: "Schwinger") -> str:
+def anzeigename(s: "Schwinger", klub: str | None = None) -> str:
     """Name für die App, einheitlich "Vorname Nachname".
 
     Porträts liefern "Vorname Nachname", die Statistik-PDF (alle Schwinger
@@ -97,8 +97,15 @@ def anzeigename(s: "Schwinger") -> str:
     Gian Joel") -- die bleiben, wie die Quelle sie schreibt. Ein
     Unterscheidungs-Zähler ("(2)") wandert ans Ende. Nur Anzeige: IDs und
     Namensauflösung arbeiten mit dem Originalnamen.
+
+    Ein abgetrennter Namensvetter (namensvetter_von) bekommt seinen Klub
+    (sonst den Jahrgang) dazu: "Alex Schuler (Einsiedeln)" neben "Alex
+    Schuler" -- sonst stünde in Prognose und Erklärung zweimal derselbe Name.
     """
-    if hat_portraet(s.quellen) or s.namensvetter_von:
+    if s.namensvetter_von:
+        zusatz = klub or s.schwingklub or (str(s.jahrgang) if s.jahrgang else None)
+        return f"{s.name} ({zusatz})" if zusatz else s.name
+    if hat_portraet(s.quellen):
         return s.name  # schon "Vorname Nachname"
     teile = s.name.split()
     zaehler = [t for t in teile if _ZAEHLER.match(t)]
