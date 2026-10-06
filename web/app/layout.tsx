@@ -7,6 +7,7 @@ import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import { NavLinks } from "@/components/NavLinks";
 import { TeilenButton } from "@/components/TeilenButton";
+import { Analytics } from "@vercel/analytics/next";
 
 const display = Fraunces({
   subsets: ["latin"],
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             schlussgang.ch u. a. · Nicht-kommerzielles Hobby-Projekt.
           </p>
         </footer>
+        <Analytics />
       </body>
     </html>
   );
