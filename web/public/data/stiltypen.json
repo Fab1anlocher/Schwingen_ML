@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "n_schwinger": 1132,
   "n_gaenge": 108797,
-  "n_siege": 84004,
+  "n_siege": 84003,
   "schwelle_z": 0.5,
   "schwelle_plattwurf": 4.32,
   "schwelle_gestellt": 3.69,
@@ -23,7 +23,7 @@
     {
       "typ": "werfer",
       "n": 272,
-      "elo_avg": 1593.9,
+      "elo_avg": 1594.0,
       "gewicht_avg": 103.1,
       "groesse_avg": 185.4,
       "n_physis": 130,
@@ -182,10 +182,10 @@
     {
       "schwinger_id": "2 elias herger|?",
       "typ": "allrounder",
-      "plattwurf": 2.93,
+      "plattwurf": 2.94,
       "gestellt": -1.84,
       "plattwurf_quote": 0.524,
-      "plattwurf_erwartet": 0.467,
+      "plattwurf_erwartet": 0.466,
       "gestellt_quote": 0.178,
       "gestellt_erwartet": 0.202,
       "n_siege": 21,
@@ -216,7 +216,7 @@
       "gestellt_erwartet": 0.23,
       "n_siege": 66,
       "n_gaenge": 157,
-      "elo": 1850.0
+      "elo": 1850.1
     },
     {
       "schwinger_id": "aaron schonholzer|2007",
@@ -274,14 +274,14 @@
       "schwinger_id": "adrian aebersold|2003",
       "typ": "bollwerk",
       "plattwurf": -9.14,
-      "gestellt": 24.06,
+      "gestellt": 24.07,
       "plattwurf_quote": 0.461,
       "plattwurf_erwartet": 0.576,
       "gestellt_quote": 0.491,
       "gestellt_erwartet": 0.222,
       "n_siege": 76,
       "n_gaenge": 171,
-      "elo": 2004.9
+      "elo": 2005.0
     },
     {
       "schwinger_id": "adrian bohl|?",
@@ -312,7 +312,7 @@
     {
       "schwinger_id": "adrian bucher|?",
       "typ": "werfer",
-      "plattwurf": 6.22,
+      "plattwurf": 6.23,
       "gestellt": 0.1,
       "plattwurf_quote": 0.604,
       "plattwurf_erwartet": 0.518,
@@ -325,7 +325,7 @@
     {
       "schwinger_id": "adrian burki|?",
       "typ": "werfer",
-      "plattwurf": 4.78,
+      "plattwurf": 4.77,
       "gestellt": 0.84,
       "plattwurf_quote": 0.568,
       "plattwurf_erwartet": 0.51,
@@ -346,7 +346,7 @@
       "gestellt_erwartet": 0.259,
       "n_siege": 102,
       "n_gaenge": 226,
-      "elo": 1896.5
+      "elo": 1896.6
     },
     {
       "schwinger_id": "adrian elmer|1992",
@@ -390,15 +390,15 @@
     {
       "schwinger_id": "adrian klossner|1993",
       "typ": "bodenarbeiter",
-      "plattwurf": -6.36,
-      "gestellt": -3.45,
+      "plattwurf": -6.35,
+      "gestellt": -3.46,
       "plattwurf_quote": 0.458,
-      "plattwurf_erwartet": 0.533,
+      "plattwurf_erwartet": 0.532,
       "gestellt_quote": 0.243,
       "gestellt_erwartet": 0.28,
       "n_siege": 120,
       "n_gaenge": 243,
-      "elo": 1980.5
+      "elo": 1980.6
     },
     {
       "schwinger_id": "adrian muller|?",
@@ -450,12 +450,12 @@
       "gestellt_erwartet": 0.221,
       "n_siege": 45,
       "n_gaenge": 98,
-      "elo": 1620.4
+      "elo": 1620.5
     },
     {
       "schwinger_id": "adrian roschi|1999",
       "typ": "bollwerk",
-      "plattwurf": -5.29,
+      "plattwurf": -5.28,
       "gestellt": 5.18,
       "plattwurf_quote": 0.429,
       "plattwurf_erwartet": 0.498,
@@ -468,33 +468,33 @@
     {
       "schwinger_id": "adrian scharz|2008",
       "typ": "allrounder",
-      "plattwurf": -0.53,
-      "gestellt": 0.88,
+      "plattwurf": -0.55,
+      "gestellt": 0.85,
       "plattwurf_quote": 0.509,
       "plattwurf_erwartet": 0.515,
       "gestellt_quote": 0.244,
       "gestellt_erwartet": 0.235,
       "n_siege": 116,
       "n_gaenge": 254,
-      "elo": 1891.1
+      "elo": 1891.2
     },
     {
       "schwinger_id": "adrian scheuner|2009",
       "typ": "bollwerk",
-      "plattwurf": -2.92,
-      "gestellt": 4.9,
+      "plattwurf": -2.95,
+      "gestellt": 4.83,
       "plattwurf_quote": 0.5,
       "plattwurf_erwartet": 0.536,
       "gestellt_quote": 0.294,
-      "gestellt_erwartet": 0.24,
+      "gestellt_erwartet": 0.241,
       "n_siege": 86,
       "n_gaenge": 180,
-      "elo": 1937.7
+      "elo": 1937.9
     },
     {
       "schwinger_id": "adrian schwyn|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -9.52,
+      "plattwurf": -9.51,
       "gestellt": 0.17,
       "plattwurf_quote": 0.408,
       "plattwurf_erwartet": 0.528,
@@ -515,7 +515,7 @@
       "gestellt_erwartet": 0.249,
       "n_siege": 99,
       "n_gaenge": 205,
-      "elo": 1796.6
+      "elo": 1796.7
     },
     {
       "schwinger_id": "adrian walther|2001",
@@ -541,7 +541,7 @@
       "gestellt_erwartet": 0.219,
       "n_siege": 25,
       "n_gaenge": 63,
-      "elo": 1609.8
+      "elo": 1609.9
     },
     {
       "schwinger_id": "adrian zbinden|1995",
@@ -560,7 +560,7 @@
       "schwinger_id": "adriano riedweg|?",
       "typ": "werfer",
       "plattwurf": 13.92,
-      "gestellt": -10.79,
+      "gestellt": -10.8,
       "plattwurf_quote": 0.7,
       "plattwurf_erwartet": 0.468,
       "gestellt_quote": 0.059,
@@ -572,41 +572,41 @@
     {
       "schwinger_id": "adrien trachsel|?",
       "typ": "allrounder",
-      "plattwurf": -2.63,
-      "gestellt": -0.25,
+      "plattwurf": -2.62,
+      "gestellt": -0.26,
       "plattwurf_quote": 0.44,
       "plattwurf_erwartet": 0.487,
       "gestellt_quote": 0.19,
-      "gestellt_erwartet": 0.193,
+      "gestellt_erwartet": 0.194,
       "n_siege": 25,
       "n_gaenge": 105,
-      "elo": 1330.4
+      "elo": 1330.2
     },
     {
       "schwinger_id": "aebi roger|?",
       "typ": "bollwerk",
-      "plattwurf": -8.49,
-      "gestellt": 15.49,
+      "plattwurf": -8.5,
+      "gestellt": 15.51,
       "plattwurf_quote": 0.37,
       "plattwurf_erwartet": 0.518,
       "gestellt_quote": 0.441,
-      "gestellt_erwartet": 0.253,
+      "gestellt_erwartet": 0.252,
       "n_siege": 27,
       "n_gaenge": 93,
-      "elo": 1512.3
+      "elo": 1512.4
     },
     {
       "schwinger_id": "aemmer marco|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -11.05,
-      "gestellt": -5.51,
+      "plattwurf": -11.04,
+      "gestellt": -5.52,
       "plattwurf_quote": 0.317,
       "plattwurf_erwartet": 0.481,
       "gestellt_quote": 0.157,
       "gestellt_erwartet": 0.223,
       "n_siege": 41,
       "n_gaenge": 102,
-      "elo": 1649.0
+      "elo": 1649.2
     },
     {
       "schwinger_id": "aerni lars|?",
@@ -625,14 +625,14 @@
       "schwinger_id": "aeschbacher ivo|?",
       "typ": "bollwerk",
       "plattwurf": 3.45,
-      "gestellt": 5.07,
+      "gestellt": 5.08,
       "plattwurf_quote": 0.564,
       "plattwurf_erwartet": 0.512,
       "gestellt_quote": 0.26,
       "gestellt_erwartet": 0.201,
       "n_siege": 39,
       "n_gaenge": 131,
-      "elo": 1346.7
+      "elo": 1346.5
     },
     {
       "schwinger_id": "affentranger martin|?",
@@ -663,7 +663,7 @@
     {
       "schwinger_id": "alex auf der maur|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -6.26,
+      "plattwurf": -6.25,
       "gestellt": -4.81,
       "plattwurf_quote": 0.393,
       "plattwurf_erwartet": 0.5,
@@ -671,7 +671,7 @@
       "gestellt_erwartet": 0.229,
       "n_siege": 28,
       "n_gaenge": 66,
-      "elo": 1534.1
+      "elo": 1534.2
     },
     {
       "schwinger_id": "alex eymann|?",
@@ -684,7 +684,7 @@
       "gestellt_erwartet": 0.214,
       "n_siege": 21,
       "n_gaenge": 87,
-      "elo": 1227.2
+      "elo": 1227.0
     },
     {
       "schwinger_id": "alex huber|1996",
@@ -697,7 +697,7 @@
       "gestellt_erwartet": 0.266,
       "n_siege": 94,
       "n_gaenge": 191,
-      "elo": 1923.8
+      "elo": 1923.9
     },
     {
       "schwinger_id": "alex schuler|1998",
@@ -710,7 +710,7 @@
       "gestellt_erwartet": 0.249,
       "n_siege": 118,
       "n_gaenge": 231,
-      "elo": 1945.8
+      "elo": 1945.9
     },
     {
       "schwinger_id": "alexander bueler|?",
@@ -729,14 +729,14 @@
       "schwinger_id": "alexander kampf|1985",
       "typ": "bollwerk",
       "plattwurf": 3.27,
-      "gestellt": 25.32,
+      "gestellt": 25.27,
       "plattwurf_quote": 0.59,
       "plattwurf_erwartet": 0.547,
       "gestellt_quote": 0.516,
       "gestellt_erwartet": 0.231,
       "n_siege": 61,
       "n_gaenge": 161,
-      "elo": 1852.9
+      "elo": 1853.5
     },
     {
       "schwinger_id": "alexander knutti|1999",
@@ -749,7 +749,7 @@
       "gestellt_erwartet": 0.21,
       "n_siege": 47,
       "n_gaenge": 123,
-      "elo": 1773.2
+      "elo": 1773.3
     },
     {
       "schwinger_id": "alexander schnellmann|?",
@@ -775,7 +775,7 @@
       "gestellt_erwartet": 0.206,
       "n_siege": 65,
       "n_gaenge": 182,
-      "elo": 1577.9
+      "elo": 1577.7
     },
     {
       "schwinger_id": "anderegg fabian|?",
@@ -796,12 +796,12 @@
       "plattwurf": -15.43,
       "gestellt": 0.82,
       "plattwurf_quote": 0.275,
-      "plattwurf_erwartet": 0.507,
+      "plattwurf_erwartet": 0.506,
       "gestellt_quote": 0.239,
       "gestellt_erwartet": 0.23,
       "n_siege": 40,
       "n_gaenge": 117,
-      "elo": 1460.2
+      "elo": 1460.3
     },
     {
       "schwinger_id": "andre betschart|?",
@@ -822,12 +822,12 @@
       "plattwurf": -3.24,
       "gestellt": -6.82,
       "plattwurf_quote": 0.446,
-      "plattwurf_erwartet": 0.489,
+      "plattwurf_erwartet": 0.488,
       "gestellt_quote": 0.168,
       "gestellt_erwartet": 0.245,
       "n_siege": 65,
       "n_gaenge": 155,
-      "elo": 1663.9
+      "elo": 1664.0
     },
     {
       "schwinger_id": "andre meier|?",
@@ -840,7 +840,7 @@
       "gestellt_erwartet": 0.212,
       "n_siege": 38,
       "n_gaenge": 129,
-      "elo": 1468.4
+      "elo": 1468.2
     },
     {
       "schwinger_id": "andre reichmuth|?",
@@ -866,7 +866,7 @@
       "gestellt_erwartet": 0.198,
       "n_siege": 42,
       "n_gaenge": 83,
-      "elo": 1478.2
+      "elo": 1478.3
     },
     {
       "schwinger_id": "andreas brand|?",
@@ -910,7 +910,7 @@
     {
       "schwinger_id": "andreas giger|?",
       "typ": "entscheider",
-      "plattwurf": -1.15,
+      "plattwurf": -1.14,
       "gestellt": -3.78,
       "plattwurf_quote": 0.468,
       "plattwurf_erwartet": 0.483,
@@ -924,7 +924,7 @@
       "schwinger_id": "andreas inauen|1994",
       "typ": "entscheider",
       "plattwurf": -4.09,
-      "gestellt": -12.18,
+      "gestellt": -12.19,
       "plattwurf_quote": 0.455,
       "plattwurf_erwartet": 0.508,
       "gestellt_quote": 0.065,
@@ -944,7 +944,7 @@
       "gestellt_erwartet": 0.263,
       "n_siege": 15,
       "n_gaenge": 61,
-      "elo": 1396.9
+      "elo": 1396.8
     },
     {
       "schwinger_id": "andreas koller|?",
@@ -962,8 +962,8 @@
     {
       "schwinger_id": "andreas niederer|2002",
       "typ": "bodenarbeiter",
-      "plattwurf": -8.17,
-      "gestellt": -4.8,
+      "plattwurf": -8.16,
+      "gestellt": -4.81,
       "plattwurf_quote": 0.432,
       "plattwurf_erwartet": 0.53,
       "gestellt_quote": 0.163,
@@ -983,7 +983,7 @@
       "gestellt_erwartet": 0.229,
       "n_siege": 38,
       "n_gaenge": 133,
-      "elo": 1390.3
+      "elo": 1390.4
     },
     {
       "schwinger_id": "andreas peter|?",
@@ -1022,13 +1022,13 @@
       "gestellt_erwartet": 0.22,
       "n_siege": 71,
       "n_gaenge": 201,
-      "elo": 1472.1
+      "elo": 1472.0
     },
     {
       "schwinger_id": "andreas ziegler|2002",
       "typ": "bodenarbeiter",
       "plattwurf": -5.78,
-      "gestellt": -2.25,
+      "gestellt": -2.26,
       "plattwurf_quote": 0.442,
       "plattwurf_erwartet": 0.511,
       "gestellt_quote": 0.184,
@@ -1048,7 +1048,7 @@
       "gestellt_erwartet": 0.238,
       "n_siege": 169,
       "n_gaenge": 382,
-      "elo": 1844.1
+      "elo": 1844.2
     },
     {
       "schwinger_id": "andrin busser|?",
@@ -1074,12 +1074,12 @@
       "gestellt_erwartet": 0.198,
       "n_siege": 49,
       "n_gaenge": 156,
-      "elo": 1346.9
+      "elo": 1346.8
     },
     {
       "schwinger_id": "andrin habegger|2005",
       "typ": "lauerer",
-      "plattwurf": 4.39,
+      "plattwurf": 4.4,
       "gestellt": 12.64,
       "plattwurf_quote": 0.626,
       "plattwurf_erwartet": 0.574,
@@ -1092,7 +1092,7 @@
     {
       "schwinger_id": "andrin kauflin|?",
       "typ": "bollwerk",
-      "plattwurf": -0.17,
+      "plattwurf": -0.16,
       "gestellt": 8.05,
       "plattwurf_quote": 0.511,
       "plattwurf_erwartet": 0.513,
@@ -1113,20 +1113,20 @@
       "gestellt_erwartet": 0.203,
       "n_siege": 22,
       "n_gaenge": 92,
-      "elo": 1320.0
+      "elo": 1320.1
     },
     {
       "schwinger_id": "andrin poltera|1999",
       "typ": "bollwerk",
       "plattwurf": -1.2,
-      "gestellt": 5.42,
+      "gestellt": 5.41,
       "plattwurf_quote": 0.543,
       "plattwurf_erwartet": 0.558,
       "gestellt_quote": 0.307,
       "gestellt_erwartet": 0.245,
       "n_siege": 70,
       "n_gaenge": 140,
-      "elo": 2089.2
+      "elo": 2089.4
     },
     {
       "schwinger_id": "andrin stampfli|?",
@@ -1152,7 +1152,7 @@
       "gestellt_erwartet": 0.249,
       "n_siege": 86,
       "n_gaenge": 176,
-      "elo": 1921.5
+      "elo": 1921.6
     },
     {
       "schwinger_id": "andy murer|?",
@@ -1178,7 +1178,7 @@
       "gestellt_erwartet": 0.234,
       "n_siege": 133,
       "n_gaenge": 255,
-      "elo": 2205.0
+      "elo": 2205.1
     },
     {
       "schwinger_id": "andy stricker|?",
@@ -1223,7 +1223,7 @@
       "schwinger_id": "antoine ducry|1994",
       "typ": "werfer",
       "plattwurf": 12.68,
-      "gestellt": 0.74,
+      "gestellt": 0.75,
       "plattwurf_quote": 0.725,
       "plattwurf_erwartet": 0.549,
       "gestellt_quote": 0.246,
@@ -1262,27 +1262,27 @@
       "schwinger_id": "aregger silvan|?",
       "typ": "bollwerk",
       "plattwurf": -4.9,
-      "gestellt": 6.53,
+      "gestellt": 6.54,
       "plattwurf_quote": 0.431,
       "plattwurf_erwartet": 0.497,
       "gestellt_quote": 0.284,
       "gestellt_erwartet": 0.211,
       "n_siege": 58,
       "n_gaenge": 169,
-      "elo": 1578.7
+      "elo": 1579.2
     },
     {
       "schwinger_id": "ari schar|2007",
       "typ": "bollwerk",
-      "plattwurf": -6.72,
-      "gestellt": 12.5,
+      "plattwurf": -6.75,
+      "gestellt": 12.51,
       "plattwurf_quote": 0.426,
-      "plattwurf_erwartet": 0.515,
+      "plattwurf_erwartet": 0.516,
       "gestellt_quote": 0.368,
       "gestellt_erwartet": 0.228,
       "n_siege": 61,
       "n_gaenge": 174,
-      "elo": 1733.7
+      "elo": 1734.2
     },
     {
       "schwinger_id": "arjuna fuster|2003",
@@ -1308,20 +1308,20 @@
       "gestellt_erwartet": 0.21,
       "n_siege": 173,
       "n_gaenge": 249,
-      "elo": 2554.6
+      "elo": 2554.7
     },
     {
       "schwinger_id": "arnaud rey|?",
       "typ": "entscheider",
-      "plattwurf": -0.31,
-      "gestellt": -14.71,
+      "plattwurf": -0.28,
+      "gestellt": -14.7,
       "plattwurf_quote": 0.48,
-      "plattwurf_erwartet": 0.486,
+      "plattwurf_erwartet": 0.485,
       "gestellt_quote": 0.028,
       "gestellt_erwartet": 0.217,
       "n_siege": 25,
       "n_gaenge": 71,
-      "elo": 1312.9
+      "elo": 1312.1
     },
     {
       "schwinger_id": "arnold ben|?",
@@ -1334,7 +1334,7 @@
       "gestellt_erwartet": 0.179,
       "n_siege": 17,
       "n_gaenge": 41,
-      "elo": 1368.7
+      "elo": 1368.8
     },
     {
       "schwinger_id": "arnold elias|?",
@@ -1365,7 +1365,7 @@
     {
       "schwinger_id": "arnold linus|?",
       "typ": "werfer",
-      "plattwurf": 8.55,
+      "plattwurf": 8.56,
       "gestellt": -14.32,
       "plattwurf_quote": 0.6,
       "plattwurf_erwartet": 0.457,
@@ -1425,7 +1425,7 @@
       "gestellt_erwartet": 0.236,
       "n_siege": 128,
       "n_gaenge": 272,
-      "elo": 1914.9
+      "elo": 1915.0
     },
     {
       "schwinger_id": "atzigen simon von|?",
@@ -1438,7 +1438,7 @@
       "gestellt_erwartet": 0.194,
       "n_siege": 19,
       "n_gaenge": 78,
-      "elo": 1183.9
+      "elo": 1183.8
     },
     {
       "schwinger_id": "auf der jonas maur|?",
@@ -1483,32 +1483,32 @@
       "schwinger_id": "axel perret|?",
       "typ": "werfer",
       "plattwurf": 9.31,
-      "gestellt": -3.99,
+      "gestellt": -4.01,
       "plattwurf_quote": 0.652,
       "plattwurf_erwartet": 0.478,
       "gestellt_quote": 0.167,
       "gestellt_erwartet": 0.219,
       "n_siege": 23,
       "n_gaenge": 66,
-      "elo": 1361.9
+      "elo": 1363.4
     },
     {
       "schwinger_id": "azret jusufi|?",
       "typ": "bollwerk",
-      "plattwurf": -13.45,
-      "gestellt": 12.14,
+      "plattwurf": -13.43,
+      "gestellt": 12.13,
       "plattwurf_quote": 0.316,
       "plattwurf_erwartet": 0.521,
       "gestellt_quote": 0.371,
       "gestellt_erwartet": 0.227,
       "n_siege": 38,
       "n_gaenge": 105,
-      "elo": 1548.8
+      "elo": 1548.3
     },
     {
       "schwinger_id": "bamert mathis|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -8.94,
+      "plattwurf": -8.93,
       "gestellt": -4.9,
       "plattwurf_quote": 0.377,
       "plattwurf_erwartet": 0.5,
@@ -1521,15 +1521,15 @@
     {
       "schwinger_id": "banz bernhard|?",
       "typ": "werfer",
-      "plattwurf": 4.64,
+      "plattwurf": 4.65,
       "gestellt": -6.89,
       "plattwurf_quote": 0.512,
-      "plattwurf_erwartet": 0.444,
+      "plattwurf_erwartet": 0.443,
       "gestellt_quote": 0.112,
       "gestellt_erwartet": 0.19,
       "n_siege": 43,
       "n_gaenge": 152,
-      "elo": 1407.3
+      "elo": 1407.2
     },
     {
       "schwinger_id": "barmettler vincenz|?",
@@ -1560,7 +1560,7 @@
     {
       "schwinger_id": "bastien nicolet|?",
       "typ": "werfer",
-      "plattwurf": 11.28,
+      "plattwurf": 11.29,
       "gestellt": -2.33,
       "plattwurf_quote": 0.675,
       "plattwurf_erwartet": 0.506,
@@ -1568,7 +1568,7 @@
       "gestellt_erwartet": 0.204,
       "n_siege": 40,
       "n_gaenge": 102,
-      "elo": 1506.4
+      "elo": 1506.3
     },
     {
       "schwinger_id": "baumann nico|?",
@@ -1586,7 +1586,7 @@
     {
       "schwinger_id": "baumgartner marco|?",
       "typ": "lauerer",
-      "plattwurf": 8.59,
+      "plattwurf": 8.6,
       "gestellt": 7.11,
       "plattwurf_quote": 0.625,
       "plattwurf_erwartet": 0.485,
@@ -1620,7 +1620,7 @@
       "gestellt_erwartet": 0.263,
       "n_siege": 131,
       "n_gaenge": 270,
-      "elo": 1989.7
+      "elo": 1989.8
     },
     {
       "schwinger_id": "beat vogler|?",
@@ -1628,12 +1628,12 @@
       "plattwurf": -0.9,
       "gestellt": -1.9,
       "plattwurf_quote": 0.462,
-      "plattwurf_erwartet": 0.478,
+      "plattwurf_erwartet": 0.477,
       "gestellt_quote": 0.152,
       "gestellt_erwartet": 0.174,
       "n_siege": 26,
       "n_gaenge": 99,
-      "elo": 1291.3
+      "elo": 1291.2
     },
     {
       "schwinger_id": "beer loris|?",
@@ -1646,7 +1646,7 @@
       "gestellt_erwartet": 0.179,
       "n_siege": 20,
       "n_gaenge": 65,
-      "elo": 1020.2
+      "elo": 1020.1
     },
     {
       "schwinger_id": "beetschen nicolas|?",
@@ -1659,12 +1659,12 @@
       "gestellt_erwartet": 0.215,
       "n_siege": 24,
       "n_gaenge": 121,
-      "elo": 1125.0
+      "elo": 1124.9
     },
     {
       "schwinger_id": "beglinger fridolin|?",
       "typ": "entscheider",
-      "plattwurf": 1.25,
+      "plattwurf": 1.26,
       "gestellt": -12.31,
       "plattwurf_quote": 0.457,
       "plattwurf_erwartet": 0.437,
@@ -1698,20 +1698,20 @@
       "gestellt_erwartet": 0.194,
       "n_siege": 35,
       "n_gaenge": 103,
-      "elo": 1357.8
+      "elo": 1357.9
     },
     {
       "schwinger_id": "beni stritt|?",
       "typ": "bollwerk",
       "plattwurf": -2.6,
-      "gestellt": 8.55,
+      "gestellt": 8.54,
       "plattwurf_quote": 0.412,
       "plattwurf_erwartet": 0.468,
       "gestellt_quote": 0.313,
-      "gestellt_erwartet": 0.21,
+      "gestellt_erwartet": 0.211,
       "n_siege": 17,
       "n_gaenge": 99,
-      "elo": 1241.5
+      "elo": 1241.4
     },
     {
       "schwinger_id": "benjamin bielmann|?",
@@ -1724,13 +1724,13 @@
       "gestellt_erwartet": 0.202,
       "n_siege": 79,
       "n_gaenge": 231,
-      "elo": 1521.4
+      "elo": 1521.2
     },
     {
       "schwinger_id": "benjamin burren|?",
       "typ": "bollwerk",
       "plattwurf": -3.65,
-      "gestellt": 9.02,
+      "gestellt": 9.03,
       "plattwurf_quote": 0.455,
       "plattwurf_erwartet": 0.513,
       "gestellt_quote": 0.337,
@@ -1776,33 +1776,33 @@
       "gestellt_erwartet": 0.216,
       "n_siege": 31,
       "n_gaenge": 112,
-      "elo": 1397.4
+      "elo": 1397.3
     },
     {
       "schwinger_id": "berger christian|?",
       "typ": "lauerer",
-      "plattwurf": 6.74,
-      "gestellt": 7.74,
+      "plattwurf": 6.71,
+      "gestellt": 7.78,
       "plattwurf_quote": 0.632,
       "plattwurf_erwartet": 0.529,
       "gestellt_quote": 0.294,
       "gestellt_erwartet": 0.202,
       "n_siege": 38,
       "n_gaenge": 109,
-      "elo": 1555.1
+      "elo": 1554.7
     },
     {
       "schwinger_id": "berger dilan|?",
       "typ": "allrounder",
-      "plattwurf": 1.09,
-      "gestellt": 2.5,
+      "plattwurf": 1.08,
+      "gestellt": 2.52,
       "plattwurf_quote": 0.52,
-      "plattwurf_erwartet": 0.5,
+      "plattwurf_erwartet": 0.501,
       "gestellt_quote": 0.26,
       "gestellt_erwartet": 0.228,
       "n_siege": 25,
       "n_gaenge": 77,
-      "elo": 1447.0
+      "elo": 1446.7
     },
     {
       "schwinger_id": "berger philip|?",
@@ -1825,7 +1825,7 @@
       "plattwurf_quote": 0.482,
       "plattwurf_erwartet": 0.57,
       "gestellt_quote": 0.284,
-      "gestellt_erwartet": 0.26,
+      "gestellt_erwartet": 0.261,
       "n_siege": 137,
       "n_gaenge": 218,
       "elo": 2322.8
@@ -1873,7 +1873,7 @@
       "schwinger_id": "bieri elias|?",
       "typ": "bodenarbeiter",
       "plattwurf": -9.4,
-      "gestellt": -7.21,
+      "gestellt": -7.22,
       "plattwurf_quote": 0.346,
       "plattwurf_erwartet": 0.512,
       "gestellt_quote": 0.121,
@@ -1885,7 +1885,7 @@
     {
       "schwinger_id": "bieri manuel|?",
       "typ": "allrounder",
-      "plattwurf": 1.18,
+      "plattwurf": 1.19,
       "gestellt": -3.67,
       "plattwurf_quote": 0.541,
       "plattwurf_erwartet": 0.527,
@@ -1898,7 +1898,7 @@
     {
       "schwinger_id": "bieri norik|?",
       "typ": "allrounder",
-      "plattwurf": -0.5,
+      "plattwurf": -0.49,
       "gestellt": -1.98,
       "plattwurf_quote": 0.464,
       "plattwurf_erwartet": 0.473,
@@ -1937,15 +1937,15 @@
     {
       "schwinger_id": "bissig glen|?",
       "typ": "werfer",
-      "plattwurf": 9.06,
-      "gestellt": -3.89,
+      "plattwurf": 9.07,
+      "gestellt": -3.9,
       "plattwurf_quote": 0.594,
       "plattwurf_erwartet": 0.475,
       "gestellt_quote": 0.169,
       "gestellt_erwartet": 0.212,
       "n_siege": 64,
       "n_gaenge": 201,
-      "elo": 1401.8
+      "elo": 1401.7
     },
     {
       "schwinger_id": "bissig tobias|?",
@@ -1958,7 +1958,7 @@
       "gestellt_erwartet": 0.213,
       "n_siege": 31,
       "n_gaenge": 97,
-      "elo": 1397.4
+      "elo": 1397.5
     },
     {
       "schwinger_id": "bjorn salzmann|?",
@@ -1971,7 +1971,7 @@
       "gestellt_erwartet": 0.169,
       "n_siege": 23,
       "n_gaenge": 93,
-      "elo": 1193.2
+      "elo": 1193.1
     },
     {
       "schwinger_id": "bjorn trachsel|?",
@@ -1997,20 +1997,20 @@
       "gestellt_erwartet": 0.243,
       "n_siege": 42,
       "n_gaenge": 108,
-      "elo": 1590.6
+      "elo": 1590.5
     },
     {
       "schwinger_id": "blatter joel|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -4.34,
-      "gestellt": -5.86,
+      "plattwurf": -4.33,
+      "gestellt": -5.87,
       "plattwurf_quote": 0.43,
       "plattwurf_erwartet": 0.485,
       "gestellt_quote": 0.163,
       "gestellt_erwartet": 0.227,
       "n_siege": 79,
       "n_gaenge": 215,
-      "elo": 1563.5
+      "elo": 1563.6
     },
     {
       "schwinger_id": "blatter tobias|?",
@@ -2028,15 +2028,15 @@
     {
       "schwinger_id": "blum nico|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -10.7,
-      "gestellt": 0.97,
+      "plattwurf": -10.71,
+      "gestellt": 0.99,
       "plattwurf_quote": 0.354,
       "plattwurf_erwartet": 0.506,
       "gestellt_quote": 0.231,
       "gestellt_erwartet": 0.22,
       "n_siege": 48,
       "n_gaenge": 121,
-      "elo": 1555.8
+      "elo": 1555.6
     },
     {
       "schwinger_id": "bollhalder manuel|?",
@@ -2067,7 +2067,7 @@
     {
       "schwinger_id": "bosch hansueli|?",
       "typ": "werfer",
-      "plattwurf": 4.37,
+      "plattwurf": 4.38,
       "gestellt": 0.5,
       "plattwurf_quote": 0.536,
       "plattwurf_erwartet": 0.461,
@@ -2083,7 +2083,7 @@
       "plattwurf": -4.66,
       "gestellt": -1.86,
       "plattwurf_quote": 0.438,
-      "plattwurf_erwartet": 0.504,
+      "plattwurf_erwartet": 0.503,
       "gestellt_quote": 0.178,
       "gestellt_erwartet": 0.199,
       "n_siege": 48,
@@ -2127,12 +2127,12 @@
       "gestellt_erwartet": 0.248,
       "n_siege": 58,
       "n_gaenge": 131,
-      "elo": 1775.3
+      "elo": 1775.4
     },
     {
       "schwinger_id": "brander ruedi|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -9.03,
+      "plattwurf": -9.02,
       "gestellt": -12.89,
       "plattwurf_quote": 0.314,
       "plattwurf_erwartet": 0.456,
@@ -2146,7 +2146,7 @@
       "schwinger_id": "branighan monney|1997",
       "typ": "allrounder",
       "plattwurf": 2.78,
-      "gestellt": 3.21,
+      "gestellt": 3.22,
       "plattwurf_quote": 0.558,
       "plattwurf_erwartet": 0.519,
       "gestellt_quote": 0.259,
@@ -2179,7 +2179,7 @@
       "gestellt_erwartet": 0.213,
       "n_siege": 27,
       "n_gaenge": 111,
-      "elo": 1173.9
+      "elo": 1173.8
     },
     {
       "schwinger_id": "brugger jonas|?",
@@ -2205,7 +2205,7 @@
       "gestellt_erwartet": 0.18,
       "n_siege": 15,
       "n_gaenge": 122,
-      "elo": 1008.5
+      "elo": 1008.4
     },
     {
       "schwinger_id": "brunner dominik|?",
@@ -2244,13 +2244,13 @@
       "gestellt_erwartet": 0.226,
       "n_siege": 32,
       "n_gaenge": 97,
-      "elo": 1440.1
+      "elo": 1440.0
     },
     {
       "schwinger_id": "bruno grossen|?",
       "typ": "werfer",
       "plattwurf": 8.59,
-      "gestellt": 2.63,
+      "gestellt": 2.62,
       "plattwurf_quote": 0.625,
       "plattwurf_erwartet": 0.52,
       "gestellt_quote": 0.237,
@@ -2262,7 +2262,7 @@
     {
       "schwinger_id": "bruno kehrli|?",
       "typ": "bollwerk",
-      "plattwurf": 4.26,
+      "plattwurf": 4.25,
       "gestellt": 7.01,
       "plattwurf_quote": 0.577,
       "plattwurf_erwartet": 0.526,
@@ -2270,7 +2270,7 @@
       "gestellt_erwartet": 0.232,
       "n_siege": 97,
       "n_gaenge": 240,
-      "elo": 1585.7
+      "elo": 1585.6
     },
     {
       "schwinger_id": "bruno schurpf|1995",
@@ -2296,12 +2296,12 @@
       "gestellt_erwartet": 0.26,
       "n_siege": 149,
       "n_gaenge": 304,
-      "elo": 1873.2
+      "elo": 1873.3
     },
     {
       "schwinger_id": "bruno wuthrich|?",
       "typ": "bollwerk",
-      "plattwurf": -14.33,
+      "plattwurf": -14.34,
       "gestellt": 4.0,
       "plattwurf_quote": 0.317,
       "plattwurf_erwartet": 0.506,
@@ -2309,13 +2309,13 @@
       "gestellt_erwartet": 0.245,
       "n_siege": 63,
       "n_gaenge": 169,
-      "elo": 1598.5
+      "elo": 1598.4
     },
     {
       "schwinger_id": "bryan renggli|?",
       "typ": "entscheider",
       "plattwurf": 1.44,
-      "gestellt": -6.92,
+      "gestellt": -6.93,
       "plattwurf_quote": 0.5,
       "plattwurf_erwartet": 0.471,
       "gestellt_quote": 0.092,
@@ -2328,7 +2328,7 @@
       "schwinger_id": "bucher manuel|?",
       "typ": "entscheider",
       "plattwurf": -3.23,
-      "gestellt": -3.73,
+      "gestellt": -3.74,
       "plattwurf_quote": 0.458,
       "plattwurf_erwartet": 0.5,
       "gestellt_quote": 0.164,
@@ -2374,13 +2374,13 @@
       "gestellt_erwartet": 0.229,
       "n_siege": 22,
       "n_gaenge": 74,
-      "elo": 1482.1
+      "elo": 1482.0
     },
     {
       "schwinger_id": "buhler jonas|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -13.5,
-      "gestellt": 3.44,
+      "plattwurf": -13.49,
+      "gestellt": 3.45,
       "plattwurf_quote": 0.263,
       "plattwurf_erwartet": 0.54,
       "gestellt_quote": 0.25,
@@ -2413,12 +2413,12 @@
       "gestellt_erwartet": 0.249,
       "n_siege": 100,
       "n_gaenge": 241,
-      "elo": 1768.3
+      "elo": 1768.4
     },
     {
       "schwinger_id": "burger david|?",
       "typ": "entscheider",
-      "plattwurf": 0.29,
+      "plattwurf": 0.3,
       "gestellt": -6.22,
       "plattwurf_quote": 0.476,
       "plattwurf_erwartet": 0.472,
@@ -2434,18 +2434,18 @@
       "plattwurf": 3.26,
       "gestellt": -8.4,
       "plattwurf_quote": 0.526,
-      "plattwurf_erwartet": 0.477,
+      "plattwurf_erwartet": 0.476,
       "gestellt_quote": 0.115,
       "gestellt_erwartet": 0.21,
       "n_siege": 38,
       "n_gaenge": 148,
-      "elo": 1228.9
+      "elo": 1228.6
     },
     {
       "schwinger_id": "burgler patrick|?",
       "typ": "entscheider",
-      "plattwurf": -0.17,
-      "gestellt": -9.24,
+      "plattwurf": -0.16,
+      "gestellt": -9.25,
       "plattwurf_quote": 0.492,
       "plattwurf_erwartet": 0.494,
       "gestellt_quote": 0.099,
@@ -2457,8 +2457,8 @@
     {
       "schwinger_id": "burke cyrill|?",
       "typ": "bollwerk",
-      "plattwurf": -13.79,
-      "gestellt": 5.92,
+      "plattwurf": -13.78,
+      "gestellt": 5.91,
       "plattwurf_quote": 0.2,
       "plattwurf_erwartet": 0.476,
       "gestellt_quote": 0.312,
@@ -2484,7 +2484,7 @@
       "schwinger_id": "burkhalter silvan|?",
       "typ": "allrounder",
       "plattwurf": 2.45,
-      "gestellt": -0.39,
+      "gestellt": -0.38,
       "plattwurf_quote": 0.533,
       "plattwurf_erwartet": 0.476,
       "gestellt_quote": 0.212,
@@ -2497,11 +2497,11 @@
       "schwinger_id": "burkhalter sven|?",
       "typ": "entscheider",
       "plattwurf": -2.68,
-      "gestellt": -8.57,
+      "gestellt": -8.56,
       "plattwurf_quote": 0.464,
       "plattwurf_erwartet": 0.495,
       "gestellt_quote": 0.148,
-      "gestellt_erwartet": 0.241,
+      "gestellt_erwartet": 0.24,
       "n_siege": 110,
       "n_gaenge": 250,
       "elo": 1716.1
@@ -2536,27 +2536,27 @@
       "schwinger_id": "burri flemming|?",
       "typ": "bodenarbeiter",
       "plattwurf": -6.59,
-      "gestellt": -1.67,
+      "gestellt": -1.66,
       "plattwurf_quote": 0.404,
       "plattwurf_erwartet": 0.495,
       "gestellt_quote": 0.199,
-      "gestellt_erwartet": 0.218,
+      "gestellt_erwartet": 0.217,
       "n_siege": 52,
       "n_gaenge": 161,
-      "elo": 1277.6
+      "elo": 1277.5
     },
     {
       "schwinger_id": "burri silvan|?",
       "typ": "werfer",
       "plattwurf": 5.68,
-      "gestellt": -0.44,
+      "gestellt": -0.43,
       "plattwurf_quote": 0.6,
       "plattwurf_erwartet": 0.467,
       "gestellt_quote": 0.164,
       "gestellt_erwartet": 0.17,
       "n_siege": 15,
       "n_gaenge": 61,
-      "elo": 1262.7
+      "elo": 1262.3
     },
     {
       "schwinger_id": "buschor silvio|?",
@@ -2608,25 +2608,25 @@
       "gestellt_erwartet": 0.217,
       "n_siege": 54,
       "n_gaenge": 127,
-      "elo": 1554.3
+      "elo": 1554.4
     },
     {
       "schwinger_id": "calvin ledermann|?",
       "typ": "bollwerk",
       "plattwurf": -4.91,
-      "gestellt": 8.12,
+      "gestellt": 8.13,
       "plattwurf_quote": 0.368,
       "plattwurf_erwartet": 0.469,
       "gestellt_quote": 0.306,
-      "gestellt_erwartet": 0.211,
+      "gestellt_erwartet": 0.21,
       "n_siege": 19,
       "n_gaenge": 111,
-      "elo": 1199.7
+      "elo": 1199.4
     },
     {
       "schwinger_id": "carlo von rickenbach|2005",
       "typ": "bodenarbeiter",
-      "plattwurf": -7.67,
+      "plattwurf": -7.66,
       "gestellt": 1.4,
       "plattwurf_quote": 0.411,
       "plattwurf_erwartet": 0.505,
@@ -2634,7 +2634,7 @@
       "gestellt_erwartet": 0.235,
       "n_siege": 90,
       "n_gaenge": 208,
-      "elo": 1898.3
+      "elo": 1898.4
     },
     {
       "schwinger_id": "castella martin|?",
@@ -2652,7 +2652,7 @@
     {
       "schwinger_id": "caviezel nicolas|?",
       "typ": "allrounder",
-      "plattwurf": -1.76,
+      "plattwurf": -1.75,
       "gestellt": 1.65,
       "plattwurf_quote": 0.478,
       "plattwurf_erwartet": 0.511,
@@ -2665,15 +2665,15 @@
     {
       "schwinger_id": "cedric eicher|?",
       "typ": "werfer",
-      "plattwurf": 10.98,
-      "gestellt": -5.67,
+      "plattwurf": 10.97,
+      "gestellt": -5.66,
       "plattwurf_quote": 0.667,
       "plattwurf_erwartet": 0.465,
       "gestellt_quote": 0.133,
       "gestellt_erwartet": 0.197,
       "n_siege": 24,
       "n_gaenge": 143,
-      "elo": 1128.0
+      "elo": 1127.2
     },
     {
       "schwinger_id": "cedric galli|2001",
@@ -2691,15 +2691,15 @@
     {
       "schwinger_id": "cedric gilgen|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -22.11,
-      "gestellt": 3.34,
+      "plattwurf": -22.13,
+      "gestellt": 3.42,
       "plattwurf_quote": 0.196,
-      "plattwurf_erwartet": 0.496,
+      "plattwurf_erwartet": 0.497,
       "gestellt_quote": 0.276,
-      "gestellt_erwartet": 0.238,
+      "gestellt_erwartet": 0.237,
       "n_siege": 56,
       "n_gaenge": 145,
-      "elo": 1624.9
+      "elo": 1625.1
     },
     {
       "schwinger_id": "cedric keller|?",
@@ -2725,7 +2725,7 @@
       "gestellt_erwartet": 0.235,
       "n_siege": 104,
       "n_gaenge": 215,
-      "elo": 1930.1
+      "elo": 1930.2
     },
     {
       "schwinger_id": "cedric rickenbacher|?",
@@ -2744,7 +2744,7 @@
       "schwinger_id": "cedric schmid|?",
       "typ": "entscheider",
       "plattwurf": -1.69,
-      "gestellt": -5.43,
+      "gestellt": -5.42,
       "plattwurf_quote": 0.464,
       "plattwurf_erwartet": 0.493,
       "gestellt_quote": 0.133,
@@ -2756,15 +2756,15 @@
     {
       "schwinger_id": "cedric wicki|1996",
       "typ": "allrounder",
-      "plattwurf": 1.46,
-      "gestellt": 2.38,
+      "plattwurf": 1.36,
+      "gestellt": 2.59,
       "plattwurf_quote": 0.519,
-      "plattwurf_erwartet": 0.5,
+      "plattwurf_erwartet": 0.502,
       "gestellt_quote": 0.257,
-      "gestellt_erwartet": 0.231,
+      "gestellt_erwartet": 0.229,
       "n_siege": 81,
       "n_gaenge": 218,
-      "elo": 1677.6
+      "elo": 1677.0
     },
     {
       "schwinger_id": "cedric zoss|1999",
@@ -2774,10 +2774,10 @@
       "plattwurf_quote": 0.667,
       "plattwurf_erwartet": 0.459,
       "gestellt_quote": 0.103,
-      "gestellt_erwartet": 0.237,
+      "gestellt_erwartet": 0.236,
       "n_siege": 21,
       "n_gaenge": 68,
-      "elo": 1402.6
+      "elo": 1402.5
     },
     {
       "schwinger_id": "christen samuel|?",
@@ -2795,7 +2795,7 @@
     {
       "schwinger_id": "christian bernold|1996",
       "typ": "allrounder",
-      "plattwurf": 0.51,
+      "plattwurf": 0.52,
       "gestellt": 2.69,
       "plattwurf_quote": 0.571,
       "plattwurf_erwartet": 0.565,
@@ -2803,13 +2803,13 @@
       "gestellt_erwartet": 0.209,
       "n_siege": 77,
       "n_gaenge": 146,
-      "elo": 1840.1
+      "elo": 1840.2
     },
     {
       "schwinger_id": "christian biasch|1996",
       "typ": "werfer",
       "plattwurf": 7.89,
-      "gestellt": -5.02,
+      "gestellt": -5.03,
       "plattwurf_quote": 0.633,
       "plattwurf_erwartet": 0.543,
       "gestellt_quote": 0.198,
@@ -2829,7 +2829,7 @@
       "gestellt_erwartet": 0.272,
       "n_siege": 197,
       "n_gaenge": 344,
-      "elo": 2052.1
+      "elo": 2052.2
     },
     {
       "schwinger_id": "christian egli|?",
@@ -2842,7 +2842,7 @@
       "gestellt_erwartet": 0.227,
       "n_siege": 16,
       "n_gaenge": 48,
-      "elo": 1467.3
+      "elo": 1467.4
     },
     {
       "schwinger_id": "christian gasenzer|2004",
@@ -2861,14 +2861,14 @@
       "schwinger_id": "christian gerber|1991",
       "typ": "bollwerk",
       "plattwurf": 2.75,
-      "gestellt": 3.9,
+      "gestellt": 3.89,
       "plattwurf_quote": 0.584,
       "plattwurf_erwartet": 0.554,
       "gestellt_quote": 0.304,
       "gestellt_erwartet": 0.263,
       "n_siege": 178,
       "n_gaenge": 312,
-      "elo": 2299.2
+      "elo": 2299.3
     },
     {
       "schwinger_id": "christian hadorn|1993",
@@ -2886,8 +2886,8 @@
     {
       "schwinger_id": "christian huser|2000",
       "typ": "werfer",
-      "plattwurf": 6.78,
-      "gestellt": -9.84,
+      "plattwurf": 6.79,
+      "gestellt": -9.85,
       "plattwurf_quote": 0.58,
       "plattwurf_erwartet": 0.5,
       "gestellt_quote": 0.129,
@@ -2946,13 +2946,13 @@
       "gestellt_erwartet": 0.232,
       "n_siege": 66,
       "n_gaenge": 152,
-      "elo": 1736.4
+      "elo": 1736.5
     },
     {
       "schwinger_id": "christian ruegg|?",
       "typ": "werfer",
       "plattwurf": 7.38,
-      "gestellt": 2.53,
+      "gestellt": 2.54,
       "plattwurf_quote": 0.629,
       "plattwurf_erwartet": 0.513,
       "gestellt_quote": 0.253,
@@ -2965,45 +2965,45 @@
       "schwinger_id": "christian ruegsegger|2001",
       "typ": "lauerer",
       "plattwurf": 8.13,
-      "gestellt": 9.45,
+      "gestellt": 9.46,
       "plattwurf_quote": 0.636,
       "plattwurf_erwartet": 0.53,
       "gestellt_quote": 0.338,
       "gestellt_erwartet": 0.231,
       "n_siege": 66,
       "n_gaenge": 160,
-      "elo": 1720.3
+      "elo": 1720.2
     },
     {
       "schwinger_id": "christian widmer|2002",
       "typ": "bodenarbeiter",
       "plattwurf": -7.47,
-      "gestellt": -7.44,
+      "gestellt": -7.42,
       "plattwurf_quote": 0.371,
       "plattwurf_erwartet": 0.489,
       "gestellt_quote": 0.148,
       "gestellt_erwartet": 0.239,
       "n_siege": 35,
       "n_gaenge": 88,
-      "elo": 1618.6
+      "elo": 1619.0
     },
     {
       "schwinger_id": "christian wuthrich|?",
       "typ": "bollwerk",
-      "plattwurf": -6.29,
-      "gestellt": 10.09,
+      "plattwurf": -6.28,
+      "gestellt": 10.1,
       "plattwurf_quote": 0.387,
-      "plattwurf_erwartet": 0.491,
+      "plattwurf_erwartet": 0.49,
       "gestellt_quote": 0.318,
       "gestellt_erwartet": 0.202,
       "n_siege": 31,
       "n_gaenge": 132,
-      "elo": 1393.6
+      "elo": 1393.2
     },
     {
       "schwinger_id": "christof kohli|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -10.89,
+      "plattwurf": -10.88,
       "gestellt": -1.13,
       "plattwurf_quote": 0.341,
       "plattwurf_erwartet": 0.503,
@@ -3011,7 +3011,7 @@
       "gestellt_erwartet": 0.202,
       "n_siege": 41,
       "n_gaenge": 122,
-      "elo": 1368.7
+      "elo": 1368.6
     },
     {
       "schwinger_id": "christoph baeriswyl|2002",
@@ -3021,23 +3021,23 @@
       "plattwurf_quote": 0.455,
       "plattwurf_erwartet": 0.549,
       "gestellt_quote": 0.218,
-      "gestellt_erwartet": 0.257,
+      "gestellt_erwartet": 0.256,
       "n_siege": 110,
       "n_gaenge": 211,
-      "elo": 2035.2
+      "elo": 2035.3
     },
     {
       "schwinger_id": "christoph schindler|?",
       "typ": "werfer",
       "plattwurf": 10.13,
-      "gestellt": -7.62,
+      "gestellt": -7.61,
       "plattwurf_quote": 0.65,
       "plattwurf_erwartet": 0.447,
       "gestellt_quote": 0.125,
       "gestellt_erwartet": 0.222,
       "n_siege": 20,
       "n_gaenge": 72,
-      "elo": 1202.0
+      "elo": 1201.9
     },
     {
       "schwinger_id": "christoph waser|2002",
@@ -3050,7 +3050,7 @@
       "gestellt_erwartet": 0.277,
       "n_siege": 109,
       "n_gaenge": 211,
-      "elo": 1856.0
+      "elo": 1856.1
     },
     {
       "schwinger_id": "claudio regli|?",
@@ -3068,7 +3068,7 @@
     {
       "schwinger_id": "clemens krebs|1994",
       "typ": "bodenarbeiter",
-      "plattwurf": -10.29,
+      "plattwurf": -10.3,
       "gestellt": -0.41,
       "plattwurf_quote": 0.345,
       "plattwurf_erwartet": 0.519,
@@ -3082,14 +3082,14 @@
       "schwinger_id": "clemens spichtig|?",
       "typ": "bodenarbeiter",
       "plattwurf": -9.79,
-      "gestellt": 2.11,
+      "gestellt": 2.12,
       "plattwurf_quote": 0.377,
       "plattwurf_erwartet": 0.507,
       "gestellt_quote": 0.258,
       "gestellt_erwartet": 0.234,
       "n_siege": 61,
       "n_gaenge": 159,
-      "elo": 1527.1
+      "elo": 1527.2
     },
     {
       "schwinger_id": "clement dind|?",
@@ -3133,21 +3133,21 @@
     {
       "schwinger_id": "colin suter|?",
       "typ": "werfer",
-      "plattwurf": 7.1,
-      "gestellt": -9.35,
+      "plattwurf": 7.09,
+      "gestellt": -9.34,
       "plattwurf_quote": 0.586,
       "plattwurf_erwartet": 0.466,
       "gestellt_quote": 0.08,
       "gestellt_erwartet": 0.192,
       "n_siege": 29,
       "n_gaenge": 100,
-      "elo": 1184.6
+      "elo": 1184.4
     },
     {
       "schwinger_id": "colin zurfluh|?",
       "typ": "lauerer",
       "plattwurf": 10.07,
-      "gestellt": 7.73,
+      "gestellt": 7.74,
       "plattwurf_quote": 0.651,
       "plattwurf_erwartet": 0.504,
       "gestellt_quote": 0.284,
@@ -3159,7 +3159,7 @@
     {
       "schwinger_id": "conrad ralph|?",
       "typ": "allrounder",
-      "plattwurf": 2.75,
+      "plattwurf": 2.76,
       "gestellt": -2.72,
       "plattwurf_quote": 0.571,
       "plattwurf_erwartet": 0.518,
@@ -3167,7 +3167,7 @@
       "gestellt_erwartet": 0.192,
       "n_siege": 21,
       "n_gaenge": 52,
-      "elo": 1424.1
+      "elo": 1424.0
     },
     {
       "schwinger_id": "cornel laimbacher|?",
@@ -3198,7 +3198,7 @@
     {
       "schwinger_id": "corsin magani|2007",
       "typ": "bodenarbeiter",
-      "plattwurf": -24.12,
+      "plattwurf": -24.11,
       "gestellt": 3.64,
       "plattwurf_quote": 0.187,
       "plattwurf_erwartet": 0.492,
@@ -3232,12 +3232,12 @@
       "gestellt_erwartet": 0.203,
       "n_siege": 55,
       "n_gaenge": 164,
-      "elo": 1341.8
+      "elo": 1341.6
     },
     {
       "schwinger_id": "crotta robin|?",
       "typ": "entscheider",
-      "plattwurf": 4.1,
+      "plattwurf": 4.11,
       "gestellt": -4.27,
       "plattwurf_quote": 0.562,
       "plattwurf_erwartet": 0.47,
@@ -3271,7 +3271,7 @@
       "gestellt_erwartet": 0.212,
       "n_siege": 50,
       "n_gaenge": 115,
-      "elo": 1544.8
+      "elo": 1544.7
     },
     {
       "schwinger_id": "cyril sporndli|?",
@@ -3303,14 +3303,14 @@
       "schwinger_id": "cyrill laimbacher|?",
       "typ": "entscheider",
       "plattwurf": 3.69,
-      "gestellt": -4.0,
+      "gestellt": -4.01,
       "plattwurf_quote": 0.543,
       "plattwurf_erwartet": 0.485,
       "gestellt_quote": 0.158,
       "gestellt_erwartet": 0.206,
       "n_siege": 35,
       "n_gaenge": 101,
-      "elo": 1556.7
+      "elo": 1556.8
     },
     {
       "schwinger_id": "cyrill stadelmann|?",
@@ -3354,8 +3354,8 @@
     {
       "schwinger_id": "dahler mike|?",
       "typ": "bollwerk",
-      "plattwurf": -4.38,
-      "gestellt": 8.28,
+      "plattwurf": -4.39,
+      "gestellt": 8.27,
       "plattwurf_quote": 0.375,
       "plattwurf_erwartet": 0.474,
       "gestellt_quote": 0.321,
@@ -3380,7 +3380,7 @@
     {
       "schwinger_id": "damian egli|1995",
       "typ": "allrounder",
-      "plattwurf": 1.92,
+      "plattwurf": 1.93,
       "gestellt": 3.63,
       "plattwurf_quote": 0.554,
       "plattwurf_erwartet": 0.529,
@@ -3419,7 +3419,7 @@
     {
       "schwinger_id": "damian gnagi|1998",
       "typ": "bollwerk",
-      "plattwurf": -1.34,
+      "plattwurf": -1.35,
       "gestellt": 10.32,
       "plattwurf_quote": 0.514,
       "plattwurf_erwartet": 0.531,
@@ -3446,7 +3446,7 @@
       "schwinger_id": "damian ott|2000",
       "typ": "bodenarbeiter",
       "plattwurf": -8.34,
-      "gestellt": -0.47,
+      "gestellt": -0.48,
       "plattwurf_quote": 0.508,
       "plattwurf_erwartet": 0.6,
       "gestellt_quote": 0.22,
@@ -3466,7 +3466,7 @@
       "gestellt_erwartet": 0.272,
       "n_siege": 61,
       "n_gaenge": 136,
-      "elo": 1843.6
+      "elo": 1843.7
     },
     {
       "schwinger_id": "damian ulrich|?",
@@ -3485,19 +3485,19 @@
       "schwinger_id": "damian wuthrich|?",
       "typ": "allrounder",
       "plattwurf": -2.35,
-      "gestellt": 1.79,
+      "gestellt": 1.78,
       "plattwurf_quote": 0.438,
       "plattwurf_erwartet": 0.476,
       "gestellt_quote": 0.222,
       "gestellt_erwartet": 0.202,
       "n_siege": 32,
       "n_gaenge": 162,
-      "elo": 1162.9
+      "elo": 1163.2
     },
     {
       "schwinger_id": "daniel buhlmann|2000",
       "typ": "werfer",
-      "plattwurf": 8.23,
+      "plattwurf": 8.24,
       "gestellt": -0.49,
       "plattwurf_quote": 0.611,
       "plattwurf_erwartet": 0.516,
@@ -3505,7 +3505,7 @@
       "gestellt_erwartet": 0.236,
       "n_siege": 126,
       "n_gaenge": 278,
-      "elo": 1730.6
+      "elo": 1730.7
     },
     {
       "schwinger_id": "daniel elmer|1994",
@@ -3524,7 +3524,7 @@
       "schwinger_id": "daniel gasenzer|?",
       "typ": "bodenarbeiter",
       "plattwurf": -4.33,
-      "gestellt": -1.51,
+      "gestellt": -1.52,
       "plattwurf_quote": 0.446,
       "plattwurf_erwartet": 0.505,
       "gestellt_quote": 0.187,
@@ -3627,15 +3627,15 @@
     {
       "schwinger_id": "danzer fabio|?",
       "typ": "bollwerk",
-      "plattwurf": -13.11,
-      "gestellt": 19.94,
+      "plattwurf": -13.13,
+      "gestellt": 19.97,
       "plattwurf_quote": 0.314,
-      "plattwurf_erwartet": 0.52,
+      "plattwurf_erwartet": 0.521,
       "gestellt_quote": 0.451,
-      "gestellt_erwartet": 0.217,
+      "gestellt_erwartet": 0.216,
       "n_siege": 35,
       "n_gaenge": 113,
-      "elo": 1476.4
+      "elo": 1476.3
     },
     {
       "schwinger_id": "dario buhler|2003",
@@ -3654,7 +3654,7 @@
       "schwinger_id": "dario christ|2003",
       "typ": "werfer",
       "plattwurf": 17.34,
-      "gestellt": -6.86,
+      "gestellt": -6.87,
       "plattwurf_quote": 0.745,
       "plattwurf_erwartet": 0.538,
       "gestellt_quote": 0.152,
@@ -3667,11 +3667,11 @@
       "schwinger_id": "dario gerber|2007",
       "typ": "lauerer",
       "plattwurf": 4.9,
-      "gestellt": 11.3,
+      "gestellt": 11.32,
       "plattwurf_quote": 0.564,
       "plattwurf_erwartet": 0.507,
       "gestellt_quote": 0.339,
-      "gestellt_erwartet": 0.22,
+      "gestellt_erwartet": 0.219,
       "n_siege": 117,
       "n_gaenge": 348,
       "elo": 1625.3
@@ -3693,7 +3693,7 @@
       "schwinger_id": "dario meier|?",
       "typ": "werfer",
       "plattwurf": 6.23,
-      "gestellt": -0.67,
+      "gestellt": -0.66,
       "plattwurf_quote": 0.605,
       "plattwurf_erwartet": 0.513,
       "gestellt_quote": 0.232,
@@ -3706,14 +3706,14 @@
       "schwinger_id": "dario schafroth|2004",
       "typ": "lauerer",
       "plattwurf": 8.23,
-      "gestellt": 5.58,
+      "gestellt": 5.57,
       "plattwurf_quote": 0.636,
       "plattwurf_erwartet": 0.535,
       "gestellt_quote": 0.31,
       "gestellt_erwartet": 0.249,
       "n_siege": 88,
       "n_gaenge": 203,
-      "elo": 1914.1
+      "elo": 1914.5
     },
     {
       "schwinger_id": "dario schefer|?",
@@ -3726,7 +3726,7 @@
       "gestellt_erwartet": 0.193,
       "n_siege": 24,
       "n_gaenge": 109,
-      "elo": 1127.3
+      "elo": 1127.1
     },
     {
       "schwinger_id": "dario zbinden|2004",
@@ -3739,7 +3739,7 @@
       "gestellt_erwartet": 0.22,
       "n_siege": 75,
       "n_gaenge": 162,
-      "elo": 1752.9
+      "elo": 1753.0
     },
     {
       "schwinger_id": "datwyler florian|?",
@@ -3771,14 +3771,14 @@
       "schwinger_id": "david aebersold|2001",
       "typ": "bollwerk",
       "plattwurf": -7.03,
-      "gestellt": 16.34,
+      "gestellt": 16.33,
       "plattwurf_quote": 0.484,
       "plattwurf_erwartet": 0.569,
       "gestellt_quote": 0.398,
       "gestellt_erwartet": 0.22,
       "n_siege": 95,
       "n_gaenge": 221,
-      "elo": 1854.4
+      "elo": 1854.5
     },
     {
       "schwinger_id": "david anderegg|1992",
@@ -3796,7 +3796,7 @@
     {
       "schwinger_id": "david eberli|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -5.44,
+      "plattwurf": -5.43,
       "gestellt": -3.11,
       "plattwurf_quote": 0.368,
       "plattwurf_erwartet": 0.48,
@@ -3817,7 +3817,7 @@
       "gestellt_erwartet": 0.211,
       "n_siege": 75,
       "n_gaenge": 152,
-      "elo": 1847.3
+      "elo": 1847.4
     },
     {
       "schwinger_id": "david imfeld|2006",
@@ -3843,25 +3843,25 @@
       "gestellt_erwartet": 0.252,
       "n_siege": 110,
       "n_gaenge": 218,
-      "elo": 2088.4
+      "elo": 2088.5
     },
     {
       "schwinger_id": "david maurer|1999",
       "typ": "werfer",
       "plattwurf": 7.91,
-      "gestellt": 2.85,
+      "gestellt": 2.86,
       "plattwurf_quote": 0.618,
       "plattwurf_erwartet": 0.51,
       "gestellt_quote": 0.266,
       "gestellt_erwartet": 0.233,
       "n_siege": 55,
       "n_gaenge": 128,
-      "elo": 1748.0
+      "elo": 1748.1
     },
     {
       "schwinger_id": "david neuhaus|?",
       "typ": "entscheider",
-      "plattwurf": 3.73,
+      "plattwurf": 3.74,
       "gestellt": -6.94,
       "plattwurf_quote": 0.557,
       "plattwurf_erwartet": 0.508,
@@ -3882,7 +3882,7 @@
       "gestellt_erwartet": 0.179,
       "n_siege": 16,
       "n_gaenge": 62,
-      "elo": 1110.6
+      "elo": 1110.5
     },
     {
       "schwinger_id": "david omlin|?",
@@ -3913,7 +3913,7 @@
     {
       "schwinger_id": "david scheuner|2005",
       "typ": "werfer",
-      "plattwurf": 6.52,
+      "plattwurf": 6.53,
       "gestellt": 2.45,
       "plattwurf_quote": 0.625,
       "plattwurf_erwartet": 0.545,
@@ -3921,7 +3921,7 @@
       "gestellt_erwartet": 0.257,
       "n_siege": 88,
       "n_gaenge": 165,
-      "elo": 2121.3
+      "elo": 2121.4
     },
     {
       "schwinger_id": "david suter|?",
@@ -3940,7 +3940,7 @@
       "schwinger_id": "david waser|?",
       "typ": "allrounder",
       "plattwurf": 3.6,
-      "gestellt": -0.88,
+      "gestellt": -0.89,
       "plattwurf_quote": 0.558,
       "plattwurf_erwartet": 0.514,
       "gestellt_quote": 0.191,
@@ -3978,15 +3978,15 @@
     {
       "schwinger_id": "david wuest|2000",
       "typ": "bodenarbeiter",
-      "plattwurf": -15.96,
-      "gestellt": -1.46,
+      "plattwurf": -15.95,
+      "gestellt": -1.47,
       "plattwurf_quote": 0.33,
       "plattwurf_erwartet": 0.524,
       "gestellt_quote": 0.253,
       "gestellt_erwartet": 0.269,
       "n_siege": 91,
       "n_gaenge": 194,
-      "elo": 1911.8
+      "elo": 1911.9
     },
     {
       "schwinger_id": "davide oswald|?",
@@ -4025,12 +4025,12 @@
       "gestellt_erwartet": 0.217,
       "n_siege": 21,
       "n_gaenge": 72,
-      "elo": 1371.9
+      "elo": 1371.8
     },
     {
       "schwinger_id": "diego heimann|2007",
       "typ": "bodenarbeiter",
-      "plattwurf": -10.86,
+      "plattwurf": -10.85,
       "gestellt": -4.37,
       "plattwurf_quote": 0.365,
       "plattwurf_erwartet": 0.495,
@@ -4051,7 +4051,7 @@
       "gestellt_erwartet": 0.206,
       "n_siege": 31,
       "n_gaenge": 90,
-      "elo": 1158.8
+      "elo": 1158.7
     },
     {
       "schwinger_id": "diem hansruedi|?",
@@ -4083,14 +4083,14 @@
       "schwinger_id": "dolder simon|?",
       "typ": "allrounder",
       "plattwurf": -0.62,
-      "gestellt": 2.32,
+      "gestellt": 2.33,
       "plattwurf_quote": 0.467,
       "plattwurf_erwartet": 0.481,
       "gestellt_quote": 0.275,
       "gestellt_erwartet": 0.24,
       "n_siege": 15,
       "n_gaenge": 40,
-      "elo": 1513.3
+      "elo": 1513.2
     },
     {
       "schwinger_id": "domenic schneider|1994",
@@ -4103,12 +4103,12 @@
       "gestellt_erwartet": 0.229,
       "n_siege": 207,
       "n_gaenge": 316,
-      "elo": 2342.8
+      "elo": 2342.9
     },
     {
       "schwinger_id": "dominic annen|1998",
       "typ": "werfer",
-      "plattwurf": 19.7,
+      "plattwurf": 19.71,
       "gestellt": -0.84,
       "plattwurf_quote": 0.758,
       "plattwurf_erwartet": 0.528,
@@ -4116,7 +4116,7 @@
       "gestellt_erwartet": 0.243,
       "n_siege": 120,
       "n_gaenge": 265,
-      "elo": 1853.1
+      "elo": 1853.2
     },
     {
       "schwinger_id": "dominic gerber|?",
@@ -4142,7 +4142,7 @@
       "gestellt_erwartet": 0.165,
       "n_siege": 20,
       "n_gaenge": 103,
-      "elo": 1068.6
+      "elo": 1068.7
     },
     {
       "schwinger_id": "dominic mausli|?",
@@ -4155,7 +4155,7 @@
       "gestellt_erwartet": 0.229,
       "n_siege": 43,
       "n_gaenge": 172,
-      "elo": 1472.1
+      "elo": 1472.0
     },
     {
       "schwinger_id": "dominic strebel|2005",
@@ -4173,10 +4173,10 @@
     {
       "schwinger_id": "dominik binggeli|1993",
       "typ": "bollwerk",
-      "plattwurf": -8.94,
-      "gestellt": 3.71,
+      "plattwurf": -8.93,
+      "gestellt": 3.72,
       "plattwurf_quote": 0.425,
-      "plattwurf_erwartet": 0.539,
+      "plattwurf_erwartet": 0.538,
       "gestellt_quote": 0.287,
       "gestellt_erwartet": 0.245,
       "n_siege": 73,
@@ -4194,7 +4194,7 @@
       "gestellt_erwartet": 0.217,
       "n_siege": 63,
       "n_gaenge": 166,
-      "elo": 1675.7
+      "elo": 1675.8
     },
     {
       "schwinger_id": "dominik gasser|2000",
@@ -4207,12 +4207,12 @@
       "gestellt_erwartet": 0.275,
       "n_siege": 174,
       "n_gaenge": 335,
-      "elo": 2311.4
+      "elo": 2311.5
     },
     {
       "schwinger_id": "dominik gasser|is",
       "typ": "lauerer",
-      "plattwurf": 11.84,
+      "plattwurf": 11.85,
       "gestellt": 5.27,
       "plattwurf_quote": 0.66,
       "plattwurf_erwartet": 0.491,
@@ -4246,13 +4246,13 @@
       "gestellt_erwartet": 0.242,
       "n_siege": 91,
       "n_gaenge": 216,
-      "elo": 1914.3
+      "elo": 1914.4
     },
     {
       "schwinger_id": "dominik hodel|2001",
       "typ": "entscheider",
       "plattwurf": -1.56,
-      "gestellt": -14.17,
+      "gestellt": -14.16,
       "plattwurf_quote": 0.469,
       "plattwurf_erwartet": 0.489,
       "gestellt_quote": 0.073,
@@ -4267,7 +4267,7 @@
       "plattwurf": 13.93,
       "gestellt": -6.99,
       "plattwurf_quote": 0.66,
-      "plattwurf_erwartet": 0.469,
+      "plattwurf_erwartet": 0.468,
       "gestellt_quote": 0.154,
       "gestellt_erwartet": 0.232,
       "n_siege": 53,
@@ -4285,7 +4285,7 @@
       "gestellt_erwartet": 0.243,
       "n_siege": 69,
       "n_gaenge": 159,
-      "elo": 1670.3
+      "elo": 1670.4
     },
     {
       "schwinger_id": "dominik muller|1995",
@@ -4303,7 +4303,7 @@
     {
       "schwinger_id": "dominik nussbaumer|?",
       "typ": "bollwerk",
-      "plattwurf": -9.25,
+      "plattwurf": -9.24,
       "gestellt": 10.74,
       "plattwurf_quote": 0.403,
       "plattwurf_erwartet": 0.523,
@@ -4324,7 +4324,7 @@
       "gestellt_erwartet": 0.238,
       "n_siege": 45,
       "n_gaenge": 74,
-      "elo": 2133.4
+      "elo": 2133.5
     },
     {
       "schwinger_id": "dominik schwegler|1997",
@@ -4337,7 +4337,7 @@
       "gestellt_erwartet": 0.232,
       "n_siege": 135,
       "n_gaenge": 264,
-      "elo": 2004.7
+      "elo": 2004.8
     },
     {
       "schwinger_id": "dominik widmer|?",
@@ -4350,7 +4350,7 @@
       "gestellt_erwartet": 0.188,
       "n_siege": 42,
       "n_gaenge": 144,
-      "elo": 1298.0
+      "elo": 1297.9
     },
     {
       "schwinger_id": "doppmann urs|?",
@@ -4363,7 +4363,7 @@
       "gestellt_erwartet": 0.258,
       "n_siege": 184,
       "n_gaenge": 299,
-      "elo": 2124.9
+      "elo": 2125.0
     },
     {
       "schwinger_id": "dorian kramer|1999",
@@ -4433,7 +4433,7 @@
     {
       "schwinger_id": "duss janis|?",
       "typ": "werfer",
-      "plattwurf": 4.63,
+      "plattwurf": 4.64,
       "gestellt": -4.24,
       "plattwurf_quote": 0.548,
       "plattwurf_erwartet": 0.479,
@@ -4459,7 +4459,7 @@
     {
       "schwinger_id": "egli kilian|?",
       "typ": "lauerer",
-      "plattwurf": 10.22,
+      "plattwurf": 10.23,
       "gestellt": 13.4,
       "plattwurf_quote": 0.659,
       "plattwurf_erwartet": 0.51,
@@ -4480,7 +4480,7 @@
       "gestellt_erwartet": 0.162,
       "n_siege": 20,
       "n_gaenge": 139,
-      "elo": 777.2
+      "elo": 777.1
     },
     {
       "schwinger_id": "egli severin|?",
@@ -4498,7 +4498,7 @@
     {
       "schwinger_id": "elia mayer|2004",
       "typ": "werfer",
-      "plattwurf": 9.71,
+      "plattwurf": 9.72,
       "gestellt": -9.44,
       "plattwurf_quote": 0.609,
       "plattwurf_erwartet": 0.483,
@@ -4512,7 +4512,7 @@
       "schwinger_id": "elia muller|?",
       "typ": "werfer",
       "plattwurf": 6.06,
-      "gestellt": -8.36,
+      "gestellt": -8.35,
       "plattwurf_quote": 0.65,
       "plattwurf_erwartet": 0.529,
       "gestellt_quote": 0.075,
@@ -4524,7 +4524,7 @@
     {
       "schwinger_id": "elia steiger|2007",
       "typ": "werfer",
-      "plattwurf": 8.78,
+      "plattwurf": 8.79,
       "gestellt": -3.73,
       "plattwurf_quote": 0.605,
       "plattwurf_erwartet": 0.494,
@@ -4576,8 +4576,8 @@
     {
       "schwinger_id": "elias messerli|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -12.92,
-      "gestellt": 1.61,
+      "plattwurf": -12.91,
+      "gestellt": 1.63,
       "plattwurf_quote": 0.281,
       "plattwurf_erwartet": 0.491,
       "gestellt_quote": 0.212,
@@ -4589,15 +4589,15 @@
     {
       "schwinger_id": "elias pirkheim|2002",
       "typ": "allrounder",
-      "plattwurf": -0.66,
-      "gestellt": 2.01,
+      "plattwurf": -0.68,
+      "gestellt": 2.03,
       "plattwurf_quote": 0.5,
       "plattwurf_erwartet": 0.51,
       "gestellt_quote": 0.284,
-      "gestellt_erwartet": 0.261,
+      "gestellt_erwartet": 0.26,
       "n_siege": 46,
       "n_gaenge": 109,
-      "elo": 1942.3
+      "elo": 1942.2
     },
     {
       "schwinger_id": "elias spycher|?",
@@ -4610,7 +4610,7 @@
       "gestellt_erwartet": 0.186,
       "n_siege": 25,
       "n_gaenge": 95,
-      "elo": 1215.0
+      "elo": 1214.9
     },
     {
       "schwinger_id": "elias tschumper|2005",
@@ -4623,7 +4623,7 @@
       "gestellt_erwartet": 0.206,
       "n_siege": 30,
       "n_gaenge": 95,
-      "elo": 1359.0
+      "elo": 1358.9
     },
     {
       "schwinger_id": "elias vogler|?",
@@ -4662,13 +4662,13 @@
       "gestellt_erwartet": 0.22,
       "n_siege": 99,
       "n_gaenge": 217,
-      "elo": 1525.2
+      "elo": 1525.3
     },
     {
       "schwinger_id": "elio zurfluh|?",
       "typ": "bollwerk",
       "plattwurf": -5.44,
-      "gestellt": 8.2,
+      "gestellt": 8.21,
       "plattwurf_quote": 0.391,
       "plattwurf_erwartet": 0.493,
       "gestellt_quote": 0.289,
@@ -4681,14 +4681,14 @@
       "schwinger_id": "eliott fontolliet|?",
       "typ": "lauerer",
       "plattwurf": 20.36,
-      "gestellt": 4.39,
+      "gestellt": 4.38,
       "plattwurf_quote": 0.806,
       "plattwurf_erwartet": 0.489,
       "gestellt_quote": 0.261,
       "gestellt_erwartet": 0.212,
       "n_siege": 36,
       "n_gaenge": 153,
-      "elo": 1269.2
+      "elo": 1269.1
     },
     {
       "schwinger_id": "elmiger silvan|?",
@@ -4701,7 +4701,7 @@
       "gestellt_erwartet": 0.224,
       "n_siege": 15,
       "n_gaenge": 48,
-      "elo": 1346.1
+      "elo": 1346.0
     },
     {
       "schwinger_id": "emmenegger janik|?",
@@ -4746,27 +4746,27 @@
       "schwinger_id": "enea grob|2003",
       "typ": "allrounder",
       "plattwurf": -1.81,
-      "gestellt": -1.21,
+      "gestellt": -1.22,
       "plattwurf_quote": 0.5,
       "plattwurf_erwartet": 0.523,
       "gestellt_quote": 0.251,
       "gestellt_erwartet": 0.265,
       "n_siege": 80,
       "n_gaenge": 179,
-      "elo": 1844.2
+      "elo": 1844.3
     },
     {
       "schwinger_id": "enea pirkheim|?",
       "typ": "werfer",
-      "plattwurf": 17.89,
-      "gestellt": 0.6,
+      "plattwurf": 17.87,
+      "gestellt": 0.62,
       "plattwurf_quote": 0.84,
       "plattwurf_erwartet": 0.518,
       "gestellt_quote": 0.188,
-      "gestellt_erwartet": 0.18,
+      "gestellt_erwartet": 0.179,
       "n_siege": 25,
       "n_gaenge": 64,
-      "elo": 1531.3
+      "elo": 1531.2
     },
     {
       "schwinger_id": "engi niculin|?",
@@ -4779,20 +4779,20 @@
       "gestellt_erwartet": 0.21,
       "n_siege": 20,
       "n_gaenge": 60,
-      "elo": 1365.0
+      "elo": 1364.9
     },
     {
       "schwinger_id": "epp fabian|?",
       "typ": "bodenarbeiter",
       "plattwurf": -11.21,
-      "gestellt": -7.97,
+      "gestellt": -7.98,
       "plattwurf_quote": 0.344,
       "plattwurf_erwartet": 0.491,
       "gestellt_quote": 0.115,
       "gestellt_erwartet": 0.205,
       "n_siege": 64,
       "n_gaenge": 156,
-      "elo": 1467.9
+      "elo": 1467.8
     },
     {
       "schwinger_id": "epp severin|?",
@@ -4811,14 +4811,14 @@
       "schwinger_id": "erb matthias|?",
       "typ": "bollwerk",
       "plattwurf": -10.41,
-      "gestellt": 5.22,
+      "gestellt": 5.31,
       "plattwurf_quote": 0.294,
       "plattwurf_erwartet": 0.521,
       "gestellt_quote": 0.288,
-      "gestellt_erwartet": 0.216,
+      "gestellt_erwartet": 0.215,
       "n_siege": 17,
       "n_gaenge": 52,
-      "elo": 1458.9
+      "elo": 1458.0
     },
     {
       "schwinger_id": "etienne burger|2004",
@@ -4826,12 +4826,12 @@
       "plattwurf": 0.11,
       "gestellt": 3.45,
       "plattwurf_quote": 0.569,
-      "plattwurf_erwartet": 0.568,
+      "plattwurf_erwartet": 0.567,
       "gestellt_quote": 0.295,
       "gestellt_erwartet": 0.258,
       "n_siege": 160,
       "n_gaenge": 285,
-      "elo": 2250.4
+      "elo": 2250.5
     },
     {
       "schwinger_id": "ettlin michael|?",
@@ -4857,7 +4857,7 @@
       "gestellt_erwartet": 0.18,
       "n_siege": 26,
       "n_gaenge": 91,
-      "elo": 1298.6
+      "elo": 1297.9
     },
     {
       "schwinger_id": "fabian aebersold|2003",
@@ -4870,7 +4870,7 @@
       "gestellt_erwartet": 0.234,
       "n_siege": 156,
       "n_gaenge": 315,
-      "elo": 1957.7
+      "elo": 1957.8
     },
     {
       "schwinger_id": "fabian aregger|2001",
@@ -4883,7 +4883,7 @@
       "gestellt_erwartet": 0.235,
       "n_siege": 36,
       "n_gaenge": 95,
-      "elo": 1645.3
+      "elo": 1645.5
     },
     {
       "schwinger_id": "fabian balimann|1998",
@@ -4896,7 +4896,7 @@
       "gestellt_erwartet": 0.202,
       "n_siege": 49,
       "n_gaenge": 129,
-      "elo": 1590.8
+      "elo": 1590.7
     },
     {
       "schwinger_id": "fabian bartsch|2000",
@@ -4948,12 +4948,12 @@
       "gestellt_erwartet": 0.293,
       "n_siege": 21,
       "n_gaenge": 40,
-      "elo": 1830.8
+      "elo": 1830.9
     },
     {
       "schwinger_id": "fabian gasser|?",
       "typ": "bollwerk",
-      "plattwurf": 4.24,
+      "plattwurf": 4.23,
       "gestellt": 14.86,
       "plattwurf_quote": 0.568,
       "plattwurf_erwartet": 0.502,
@@ -4961,7 +4961,7 @@
       "gestellt_erwartet": 0.228,
       "n_siege": 37,
       "n_gaenge": 133,
-      "elo": 1451.1
+      "elo": 1451.2
     },
     {
       "schwinger_id": "fabian imgruth|?",
@@ -5026,12 +5026,12 @@
       "gestellt_erwartet": 0.184,
       "n_siege": 21,
       "n_gaenge": 115,
-      "elo": 1207.1
+      "elo": 1207.2
     },
     {
       "schwinger_id": "fabian roos|?",
       "typ": "werfer",
-      "plattwurf": 11.66,
+      "plattwurf": 11.67,
       "gestellt": -5.73,
       "plattwurf_quote": 0.654,
       "plattwurf_erwartet": 0.492,
@@ -5039,7 +5039,7 @@
       "gestellt_erwartet": 0.212,
       "n_siege": 52,
       "n_gaenge": 137,
-      "elo": 1462.0
+      "elo": 1461.9
     },
     {
       "schwinger_id": "fabian scharz|2004",
@@ -5052,7 +5052,7 @@
       "gestellt_erwartet": 0.262,
       "n_siege": 130,
       "n_gaenge": 238,
-      "elo": 2116.7
+      "elo": 2116.8
     },
     {
       "schwinger_id": "fabian scherrer|2002",
@@ -5065,7 +5065,7 @@
       "gestellt_erwartet": 0.268,
       "n_siege": 181,
       "n_gaenge": 307,
-      "elo": 2118.5
+      "elo": 2118.6
     },
     {
       "schwinger_id": "fabian staudenmann|2000",
@@ -5091,7 +5091,7 @@
       "gestellt_erwartet": 0.235,
       "n_siege": 119,
       "n_gaenge": 227,
-      "elo": 1920.9
+      "elo": 1921.0
     },
     {
       "schwinger_id": "fabien jacquaz|2006",
@@ -5135,7 +5135,7 @@
     {
       "schwinger_id": "fabio hiltbrunner|2005",
       "typ": "werfer",
-      "plattwurf": 19.36,
+      "plattwurf": 19.37,
       "gestellt": -3.28,
       "plattwurf_quote": 0.806,
       "plattwurf_erwartet": 0.558,
@@ -5143,7 +5143,7 @@
       "gestellt_erwartet": 0.258,
       "n_siege": 72,
       "n_gaenge": 123,
-      "elo": 2332.8
+      "elo": 2332.9
     },
     {
       "schwinger_id": "fabio jeker|?",
@@ -5169,7 +5169,7 @@
       "gestellt_erwartet": 0.206,
       "n_siege": 24,
       "n_gaenge": 81,
-      "elo": 1361.8
+      "elo": 1361.7
     },
     {
       "schwinger_id": "fabio muller|?",
@@ -5190,7 +5190,7 @@
       "plattwurf": -0.39,
       "gestellt": -16.46,
       "plattwurf_quote": 0.507,
-      "plattwurf_erwartet": 0.513,
+      "plattwurf_erwartet": 0.512,
       "gestellt_quote": 0.013,
       "gestellt_erwartet": 0.199,
       "n_siege": 67,
@@ -5208,7 +5208,7 @@
       "gestellt_erwartet": 0.202,
       "n_siege": 64,
       "n_gaenge": 157,
-      "elo": 1687.6
+      "elo": 1687.7
     },
     {
       "schwinger_id": "fabio schwab|?",
@@ -5221,7 +5221,7 @@
       "gestellt_erwartet": 0.187,
       "n_siege": 35,
       "n_gaenge": 116,
-      "elo": 1356.6
+      "elo": 1356.5
     },
     {
       "schwinger_id": "fabrice zurcher|?",
@@ -5229,7 +5229,7 @@
       "plattwurf": -2.36,
       "gestellt": -0.38,
       "plattwurf_quote": 0.44,
-      "plattwurf_erwartet": 0.483,
+      "plattwurf_erwartet": 0.482,
       "gestellt_quote": 0.202,
       "gestellt_erwartet": 0.207,
       "n_siege": 25,
@@ -5242,7 +5242,7 @@
       "plattwurf": -13.44,
       "gestellt": 11.48,
       "plattwurf_quote": 0.238,
-      "plattwurf_erwartet": 0.501,
+      "plattwurf_erwartet": 0.5,
       "gestellt_quote": 0.386,
       "gestellt_erwartet": 0.231,
       "n_siege": 21,
@@ -5252,15 +5252,15 @@
     {
       "schwinger_id": "fankhauser jarne|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -4.59,
-      "gestellt": -6.67,
+      "plattwurf": -4.65,
+      "gestellt": -6.74,
       "plattwurf_quote": 0.333,
-      "plattwurf_erwartet": 0.441,
+      "plattwurf_erwartet": 0.442,
       "gestellt_quote": 0.106,
-      "gestellt_erwartet": 0.193,
+      "gestellt_erwartet": 0.194,
       "n_siege": 15,
       "n_gaenge": 66,
-      "elo": 1249.5
+      "elo": 1247.9
     },
     {
       "schwinger_id": "fankhauser julian|?",
@@ -5273,20 +5273,20 @@
       "gestellt_erwartet": 0.184,
       "n_siege": 23,
       "n_gaenge": 59,
-      "elo": 1455.1
+      "elo": 1455.2
     },
     {
       "schwinger_id": "fankhauser lukas|?",
       "typ": "werfer",
-      "plattwurf": 10.25,
-      "gestellt": -9.91,
+      "plattwurf": 10.26,
+      "gestellt": -9.92,
       "plattwurf_quote": 0.652,
       "plattwurf_erwartet": 0.46,
       "gestellt_quote": 0.064,
       "gestellt_erwartet": 0.189,
       "n_siege": 23,
       "n_gaenge": 78,
-      "elo": 1259.2
+      "elo": 1259.1
     },
     {
       "schwinger_id": "fankhauser marco|trub",
@@ -5299,7 +5299,7 @@
       "gestellt_erwartet": 0.216,
       "n_siege": 67,
       "n_gaenge": 195,
-      "elo": 1360.6
+      "elo": 1360.5
     },
     {
       "schwinger_id": "fankhauser reto|?",
@@ -5338,7 +5338,7 @@
       "gestellt_erwartet": 0.201,
       "n_siege": 46,
       "n_gaenge": 142,
-      "elo": 1291.3
+      "elo": 1291.2
     },
     {
       "schwinger_id": "fassler tobias|?",
@@ -5370,14 +5370,14 @@
       "schwinger_id": "fiechter jaris|?",
       "typ": "werfer",
       "plattwurf": 8.37,
-      "gestellt": -4.87,
+      "gestellt": -4.88,
       "plattwurf_quote": 0.586,
       "plattwurf_erwartet": 0.445,
       "gestellt_quote": 0.132,
       "gestellt_erwartet": 0.187,
       "n_siege": 29,
       "n_gaenge": 152,
-      "elo": 1000.1
+      "elo": 999.9
     },
     {
       "schwinger_id": "fischlin lukas|?",
@@ -5434,7 +5434,7 @@
     {
       "schwinger_id": "flavio schwegler|?",
       "typ": "bollwerk",
-      "plattwurf": 1.2,
+      "plattwurf": 1.21,
       "gestellt": 9.26,
       "plattwurf_quote": 0.526,
       "plattwurf_erwartet": 0.51,
@@ -5442,12 +5442,12 @@
       "gestellt_erwartet": 0.227,
       "n_siege": 57,
       "n_gaenge": 185,
-      "elo": 1431.8
+      "elo": 1431.9
     },
     {
       "schwinger_id": "flavio sutter|2008",
       "typ": "bodenarbeiter",
-      "plattwurf": -10.74,
+      "plattwurf": -10.73,
       "gestellt": -8.63,
       "plattwurf_quote": 0.402,
       "plattwurf_erwartet": 0.522,
@@ -5468,13 +5468,13 @@
       "gestellt_erwartet": 0.252,
       "n_siege": 132,
       "n_gaenge": 259,
-      "elo": 2050.6
+      "elo": 2050.7
     },
     {
       "schwinger_id": "florian christen|2002",
       "typ": "werfer",
-      "plattwurf": 9.44,
-      "gestellt": -0.27,
+      "plattwurf": 9.43,
+      "gestellt": -0.26,
       "plattwurf_quote": 0.607,
       "plattwurf_erwartet": 0.491,
       "gestellt_quote": 0.228,
@@ -5513,7 +5513,7 @@
       "schwinger_id": "florian hitz|1999",
       "typ": "lauerer",
       "plattwurf": 9.58,
-      "gestellt": 10.52,
+      "gestellt": 10.53,
       "plattwurf_quote": 0.655,
       "plattwurf_erwartet": 0.526,
       "gestellt_quote": 0.348,
@@ -5552,32 +5552,32 @@
       "schwinger_id": "florian matter|2005",
       "typ": "allrounder",
       "plattwurf": 2.97,
-      "gestellt": -0.02,
+      "gestellt": 0.0,
       "plattwurf_quote": 0.538,
       "plattwurf_erwartet": 0.497,
       "gestellt_quote": 0.221,
       "gestellt_erwartet": 0.221,
       "n_siege": 52,
       "n_gaenge": 145,
-      "elo": 1763.9
+      "elo": 1764.2
     },
     {
       "schwinger_id": "florian mausli|?",
       "typ": "allrounder",
       "plattwurf": 2.58,
-      "gestellt": -0.78,
+      "gestellt": -0.79,
       "plattwurf_quote": 0.523,
       "plattwurf_erwartet": 0.485,
       "gestellt_quote": 0.197,
       "gestellt_erwartet": 0.206,
       "n_siege": 44,
       "n_gaenge": 137,
-      "elo": 1359.4
+      "elo": 1359.3
     },
     {
       "schwinger_id": "florian riget|?",
       "typ": "bollwerk",
-      "plattwurf": -10.06,
+      "plattwurf": -10.05,
       "gestellt": 5.66,
       "plattwurf_quote": 0.419,
       "plattwurf_erwartet": 0.547,
@@ -5656,14 +5656,14 @@
       "schwinger_id": "flueler philipp|?",
       "typ": "bodenarbeiter",
       "plattwurf": -7.4,
-      "gestellt": 3.28,
+      "gestellt": 3.27,
       "plattwurf_quote": 0.267,
       "plattwurf_erwartet": 0.439,
       "gestellt_quote": 0.259,
       "gestellt_erwartet": 0.218,
       "n_siege": 15,
       "n_gaenge": 85,
-      "elo": 1100.9
+      "elo": 1100.8
     },
     {
       "schwinger_id": "flurin eymann|2006",
@@ -5676,7 +5676,7 @@
       "gestellt_erwartet": 0.237,
       "n_siege": 78,
       "n_gaenge": 179,
-      "elo": 1710.8
+      "elo": 1710.9
     },
     {
       "schwinger_id": "flurin knutti|?",
@@ -5720,20 +5720,20 @@
     {
       "schwinger_id": "flury nils|?",
       "typ": "lauerer",
-      "plattwurf": 5.89,
-      "gestellt": 6.61,
+      "plattwurf": 5.87,
+      "gestellt": 6.64,
       "plattwurf_quote": 0.592,
       "plattwurf_erwartet": 0.516,
       "gestellt_quote": 0.311,
       "gestellt_erwartet": 0.238,
       "n_siege": 71,
       "n_gaenge": 193,
-      "elo": 1647.8
+      "elo": 1648.0
     },
     {
       "schwinger_id": "fohn mauro|?",
       "typ": "werfer",
-      "plattwurf": 4.81,
+      "plattwurf": 4.82,
       "gestellt": -7.13,
       "plattwurf_quote": 0.548,
       "plattwurf_erwartet": 0.485,
@@ -5747,7 +5747,7 @@
       "schwinger_id": "franco fohn|2009",
       "typ": "werfer",
       "plattwurf": 8.95,
-      "gestellt": -0.3,
+      "gestellt": -0.29,
       "plattwurf_quote": 0.633,
       "plattwurf_erwartet": 0.514,
       "gestellt_quote": 0.233,
@@ -5760,14 +5760,14 @@
       "schwinger_id": "francois barras|1998",
       "typ": "bollwerk",
       "plattwurf": -8.93,
-      "gestellt": 10.95,
+      "gestellt": 10.94,
       "plattwurf_quote": 0.444,
       "plattwurf_erwartet": 0.554,
       "gestellt_quote": 0.354,
       "gestellt_erwartet": 0.234,
       "n_siege": 90,
       "n_gaenge": 206,
-      "elo": 1890.1
+      "elo": 1890.2
     },
     {
       "schwinger_id": "franz-toni kenel|?",
@@ -5780,7 +5780,7 @@
       "gestellt_erwartet": 0.254,
       "n_siege": 100,
       "n_gaenge": 218,
-      "elo": 1869.7
+      "elo": 1869.8
     },
     {
       "schwinger_id": "frauenfelder niklas|?",
@@ -5798,7 +5798,7 @@
     {
       "schwinger_id": "frederic hofmann|?",
       "typ": "werfer",
-      "plattwurf": 15.23,
+      "plattwurf": 15.24,
       "gestellt": -1.14,
       "plattwurf_quote": 0.731,
       "plattwurf_erwartet": 0.461,
@@ -5825,7 +5825,7 @@
       "schwinger_id": "fredy santschi|?",
       "typ": "entscheider",
       "plattwurf": 4.25,
-      "gestellt": -10.73,
+      "gestellt": -10.74,
       "plattwurf_quote": 0.55,
       "plattwurf_erwartet": 0.465,
       "gestellt_quote": 0.069,
@@ -5884,7 +5884,7 @@
       "gestellt_erwartet": 0.22,
       "n_siege": 24,
       "n_gaenge": 78,
-      "elo": 1467.3
+      "elo": 1467.2
     },
     {
       "schwinger_id": "furrer jens|?",
@@ -5923,7 +5923,7 @@
       "gestellt_erwartet": 0.249,
       "n_siege": 74,
       "n_gaenge": 171,
-      "elo": 1678.7
+      "elo": 1678.8
     },
     {
       "schwinger_id": "gael dubey|1992",
@@ -5936,7 +5936,7 @@
       "gestellt_erwartet": 0.204,
       "n_siege": 35,
       "n_gaenge": 123,
-      "elo": 1418.7
+      "elo": 1418.6
     },
     {
       "schwinger_id": "gaetan jacquaz|?",
@@ -5944,17 +5944,17 @@
       "plattwurf": -0.3,
       "gestellt": 8.12,
       "plattwurf_quote": 0.526,
-      "plattwurf_erwartet": 0.533,
+      "plattwurf_erwartet": 0.532,
       "gestellt_quote": 0.306,
       "gestellt_erwartet": 0.192,
       "n_siege": 19,
       "n_gaenge": 49,
-      "elo": 1504.6
+      "elo": 1504.5
     },
     {
       "schwinger_id": "gamperle remo|?",
       "typ": "entscheider",
-      "plattwurf": 2.65,
+      "plattwurf": 2.66,
       "gestellt": -12.28,
       "plattwurf_quote": 0.5,
       "plattwurf_erwartet": 0.457,
@@ -5975,7 +5975,7 @@
       "gestellt_erwartet": 0.21,
       "n_siege": 17,
       "n_gaenge": 82,
-      "elo": 1085.0
+      "elo": 1084.9
     },
     {
       "schwinger_id": "gander michael|?",
@@ -6014,12 +6014,12 @@
       "gestellt_erwartet": 0.195,
       "n_siege": 31,
       "n_gaenge": 105,
-      "elo": 1237.6
+      "elo": 1237.5
     },
     {
       "schwinger_id": "gasser rafael|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -6.7,
+      "plattwurf": -6.69,
       "gestellt": -2.72,
       "plattwurf_quote": 0.316,
       "plattwurf_erwartet": 0.453,
@@ -6040,7 +6040,7 @@
       "gestellt_erwartet": 0.195,
       "n_siege": 44,
       "n_gaenge": 109,
-      "elo": 1498.9
+      "elo": 1498.7
     },
     {
       "schwinger_id": "gehrig nils|?",
@@ -6066,7 +6066,7 @@
       "gestellt_erwartet": 0.191,
       "n_siege": 53,
       "n_gaenge": 156,
-      "elo": 1533.4
+      "elo": 1533.3
     },
     {
       "schwinger_id": "gerber hansueli|?",
@@ -6079,7 +6079,7 @@
       "gestellt_erwartet": 0.191,
       "n_siege": 32,
       "n_gaenge": 138,
-      "elo": 1214.7
+      "elo": 1214.5
     },
     {
       "schwinger_id": "gerber manuel|?",
@@ -6097,21 +6097,21 @@
     {
       "schwinger_id": "gerber mathias|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -7.38,
-      "gestellt": 1.36,
+      "plattwurf": -7.37,
+      "gestellt": 1.35,
       "plattwurf_quote": 0.318,
       "plattwurf_erwartet": 0.459,
       "gestellt_quote": 0.196,
       "gestellt_erwartet": 0.179,
       "n_siege": 22,
       "n_gaenge": 92,
-      "elo": 1376.2
+      "elo": 1376.1
     },
     {
       "schwinger_id": "gerber nicolas|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -8.44,
-      "gestellt": 1.42,
+      "plattwurf": -8.43,
+      "gestellt": 1.43,
       "plattwurf_quote": 0.354,
       "plattwurf_erwartet": 0.474,
       "gestellt_quote": 0.234,
@@ -6124,7 +6124,7 @@
       "schwinger_id": "gerber stefan|?",
       "typ": "entscheider",
       "plattwurf": -1.55,
-      "gestellt": -7.98,
+      "gestellt": -7.97,
       "plattwurf_quote": 0.469,
       "plattwurf_erwartet": 0.494,
       "gestellt_quote": 0.132,
@@ -6136,7 +6136,7 @@
     {
       "schwinger_id": "gian keller luca|?",
       "typ": "bollwerk",
-      "plattwurf": -1.12,
+      "plattwurf": -1.11,
       "gestellt": 15.6,
       "plattwurf_quote": 0.522,
       "plattwurf_erwartet": 0.543,
@@ -6183,7 +6183,7 @@
       "gestellt_erwartet": 0.236,
       "n_siege": 79,
       "n_gaenge": 232,
-      "elo": 1613.7
+      "elo": 1613.8
     },
     {
       "schwinger_id": "gian zimmermann|?",
@@ -6215,7 +6215,7 @@
       "schwinger_id": "giger ramon|?",
       "typ": "bollwerk",
       "plattwurf": -6.6,
-      "gestellt": 4.88,
+      "gestellt": 4.87,
       "plattwurf_quote": 0.389,
       "plattwurf_erwartet": 0.492,
       "gestellt_quote": 0.248,
@@ -6228,7 +6228,7 @@
       "schwinger_id": "giger samuel|is",
       "typ": "bollwerk",
       "plattwurf": -5.7,
-      "gestellt": 6.54,
+      "gestellt": 6.53,
       "plattwurf_quote": 0.393,
       "plattwurf_erwartet": 0.491,
       "gestellt_quote": 0.278,
@@ -6279,15 +6279,15 @@
     {
       "schwinger_id": "giuliani johann|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -4.35,
-      "gestellt": -6.71,
+      "plattwurf": -4.34,
+      "gestellt": -6.72,
       "plattwurf_quote": 0.389,
       "plattwurf_erwartet": 0.481,
       "gestellt_quote": 0.092,
       "gestellt_erwartet": 0.175,
       "n_siege": 18,
       "n_gaenge": 87,
-      "elo": 1022.1
+      "elo": 1022.0
     },
     {
       "schwinger_id": "giulio russo|2009",
@@ -6300,13 +6300,13 @@
       "gestellt_erwartet": 0.227,
       "n_siege": 56,
       "n_gaenge": 131,
-      "elo": 1915.8
+      "elo": 1915.9
     },
     {
       "schwinger_id": "gloggner matthias|?",
       "typ": "werfer",
-      "plattwurf": 4.68,
-      "gestellt": -9.75,
+      "plattwurf": 4.69,
+      "gestellt": -9.76,
       "plattwurf_quote": 0.533,
       "plattwurf_erwartet": 0.455,
       "gestellt_quote": 0.096,
@@ -6339,7 +6339,7 @@
       "gestellt_erwartet": 0.241,
       "n_siege": 70,
       "n_gaenge": 148,
-      "elo": 2064.7
+      "elo": 2064.8
     },
     {
       "schwinger_id": "gottofrey luc|?",
@@ -6383,10 +6383,10 @@
     {
       "schwinger_id": "graf marco|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -7.97,
+      "plattwurf": -7.96,
       "gestellt": -2.48,
       "plattwurf_quote": 0.42,
-      "plattwurf_erwartet": 0.532,
+      "plattwurf_erwartet": 0.531,
       "gestellt_quote": 0.174,
       "gestellt_erwartet": 0.204,
       "n_siege": 50,
@@ -6404,12 +6404,12 @@
       "gestellt_erwartet": 0.213,
       "n_siege": 44,
       "n_gaenge": 124,
-      "elo": 1352.5
+      "elo": 1352.4
     },
     {
       "schwinger_id": "gregoire loup|2000",
       "typ": "bollwerk",
-      "plattwurf": 3.04,
+      "plattwurf": 3.05,
       "gestellt": 5.92,
       "plattwurf_quote": 0.566,
       "plattwurf_erwartet": 0.524,
@@ -6417,7 +6417,7 @@
       "gestellt_erwartet": 0.214,
       "n_siege": 53,
       "n_gaenge": 164,
-      "elo": 1403.7
+      "elo": 1403.6
     },
     {
       "schwinger_id": "grieder nonda|?",
@@ -6430,7 +6430,7 @@
       "gestellt_erwartet": 0.214,
       "n_siege": 16,
       "n_gaenge": 48,
-      "elo": 1581.2
+      "elo": 1581.3
     },
     {
       "schwinger_id": "grob sven|?",
@@ -6448,8 +6448,8 @@
     {
       "schwinger_id": "grod pascal|?",
       "typ": "entscheider",
-      "plattwurf": 0.71,
-      "gestellt": -5.18,
+      "plattwurf": 0.72,
+      "gestellt": -5.17,
       "plattwurf_quote": 0.5,
       "plattwurf_erwartet": 0.489,
       "gestellt_quote": 0.144,
@@ -6461,7 +6461,7 @@
     {
       "schwinger_id": "gruter marcel|?",
       "typ": "allrounder",
-      "plattwurf": -1.05,
+      "plattwurf": -1.04,
       "gestellt": -2.33,
       "plattwurf_quote": 0.486,
       "plattwurf_erwartet": 0.499,
@@ -6482,7 +6482,7 @@
       "gestellt_erwartet": 0.18,
       "n_siege": 23,
       "n_gaenge": 100,
-      "elo": 1135.8
+      "elo": 1135.7
     },
     {
       "schwinger_id": "gustav steffen|1996",
@@ -6495,7 +6495,7 @@
       "gestellt_erwartet": 0.272,
       "n_siege": 50,
       "n_gaenge": 91,
-      "elo": 2048.5
+      "elo": 2048.6
     },
     {
       "schwinger_id": "haller nick|?",
@@ -6513,20 +6513,20 @@
     {
       "schwinger_id": "hannes ming|1998",
       "typ": "bodenarbeiter",
-      "plattwurf": -11.72,
-      "gestellt": -0.21,
+      "plattwurf": -11.73,
+      "gestellt": -0.19,
       "plattwurf_quote": 0.363,
       "plattwurf_erwartet": 0.506,
       "gestellt_quote": 0.24,
       "gestellt_erwartet": 0.242,
       "n_siege": 91,
       "n_gaenge": 221,
-      "elo": 1607.1
+      "elo": 1607.2
     },
     {
       "schwinger_id": "hans fankhauser|2001",
       "typ": "allrounder",
-      "plattwurf": 1.31,
+      "plattwurf": 1.32,
       "gestellt": -1.96,
       "plattwurf_quote": 0.529,
       "plattwurf_erwartet": 0.513,
@@ -6539,7 +6539,7 @@
     {
       "schwinger_id": "hansueli schutz|?",
       "typ": "bollwerk",
-      "plattwurf": -3.62,
+      "plattwurf": -3.61,
       "gestellt": 13.03,
       "plattwurf_quote": 0.441,
       "plattwurf_erwartet": 0.499,
@@ -6565,15 +6565,15 @@
     {
       "schwinger_id": "hebeisen michael|?",
       "typ": "allrounder",
-      "plattwurf": 2.03,
-      "gestellt": -2.71,
+      "plattwurf": 2.04,
+      "gestellt": -2.72,
       "plattwurf_quote": 0.516,
       "plattwurf_erwartet": 0.489,
       "gestellt_quote": 0.18,
       "gestellt_erwartet": 0.21,
       "n_siege": 64,
       "n_gaenge": 178,
-      "elo": 1628.3
+      "elo": 1628.4
     },
     {
       "schwinger_id": "hegglin julian|?",
@@ -6586,12 +6586,12 @@
       "gestellt_erwartet": 0.17,
       "n_siege": 43,
       "n_gaenge": 108,
-      "elo": 1464.0
+      "elo": 1463.9
     },
     {
       "schwinger_id": "hegi marvin|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -9.7,
+      "plattwurf": -9.69,
       "gestellt": -5.47,
       "plattwurf_quote": 0.391,
       "plattwurf_erwartet": 0.51,
@@ -6599,7 +6599,7 @@
       "gestellt_erwartet": 0.21,
       "n_siege": 87,
       "n_gaenge": 207,
-      "elo": 1535.1
+      "elo": 1535.2
     },
     {
       "schwinger_id": "hess lorenz|?",
@@ -6612,7 +6612,7 @@
       "gestellt_erwartet": 0.242,
       "n_siege": 73,
       "n_gaenge": 205,
-      "elo": 1546.2
+      "elo": 1546.1
     },
     {
       "schwinger_id": "hess ramon|?",
@@ -6651,20 +6651,20 @@
       "gestellt_erwartet": 0.231,
       "n_siege": 87,
       "n_gaenge": 233,
-      "elo": 1575.2
+      "elo": 1575.1
     },
     {
       "schwinger_id": "hofmann jan|?",
       "typ": "bollwerk",
-      "plattwurf": -14.74,
-      "gestellt": 7.24,
+      "plattwurf": -14.72,
+      "gestellt": 7.06,
       "plattwurf_quote": 0.167,
-      "plattwurf_erwartet": 0.478,
+      "plattwurf_erwartet": 0.477,
       "gestellt_quote": 0.308,
-      "gestellt_erwartet": 0.207,
+      "gestellt_erwartet": 0.21,
       "n_siege": 18,
       "n_gaenge": 52,
-      "elo": 1336.7
+      "elo": 1334.7
     },
     {
       "schwinger_id": "hohener ursin|?",
@@ -6672,7 +6672,7 @@
       "plattwurf": 2.54,
       "gestellt": -4.91,
       "plattwurf_quote": 0.5,
-      "plattwurf_erwartet": 0.452,
+      "plattwurf_erwartet": 0.451,
       "gestellt_quote": 0.146,
       "gestellt_erwartet": 0.207,
       "n_siege": 22,
@@ -6690,7 +6690,7 @@
       "gestellt_erwartet": 0.194,
       "n_siege": 19,
       "n_gaenge": 146,
-      "elo": 1021.9
+      "elo": 1021.7
     },
     {
       "schwinger_id": "horat lenny|?",
@@ -6703,13 +6703,13 @@
       "gestellt_erwartet": 0.206,
       "n_siege": 26,
       "n_gaenge": 80,
-      "elo": 1413.7
+      "elo": 1413.6
     },
     {
       "schwinger_id": "hosli mauro|?",
       "typ": "bodenarbeiter",
       "plattwurf": -14.7,
-      "gestellt": 0.34,
+      "gestellt": 0.33,
       "plattwurf_quote": 0.214,
       "plattwurf_erwartet": 0.466,
       "gestellt_quote": 0.206,
@@ -6721,7 +6721,7 @@
     {
       "schwinger_id": "hugo schlafli|2002",
       "typ": "werfer",
-      "plattwurf": 12.43,
+      "plattwurf": 12.42,
       "gestellt": -6.08,
       "plattwurf_quote": 0.686,
       "plattwurf_erwartet": 0.544,
@@ -6742,7 +6742,7 @@
       "gestellt_erwartet": 0.216,
       "n_siege": 92,
       "n_gaenge": 303,
-      "elo": 1575.1
+      "elo": 1575.2
     },
     {
       "schwinger_id": "hurlimann ueli|?",
@@ -6812,21 +6812,21 @@
     {
       "schwinger_id": "ianis zeller|?",
       "typ": "allrounder",
-      "plattwurf": 1.76,
-      "gestellt": 3.06,
+      "plattwurf": 1.77,
+      "gestellt": 3.03,
       "plattwurf_quote": 0.522,
       "plattwurf_erwartet": 0.489,
       "gestellt_quote": 0.232,
       "gestellt_erwartet": 0.196,
       "n_siege": 23,
       "n_gaenge": 99,
-      "elo": 1230.5
+      "elo": 1230.3
     },
     {
       "schwinger_id": "ignaz hobi|1994",
       "typ": "allrounder",
       "plattwurf": 1.51,
-      "gestellt": 0.03,
+      "gestellt": 0.02,
       "plattwurf_quote": 0.527,
       "plattwurf_erwartet": 0.507,
       "gestellt_quote": 0.23,
@@ -6864,20 +6864,20 @@
     {
       "schwinger_id": "inabnit noa|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -7.89,
-      "gestellt": 1.73,
+      "plattwurf": -7.9,
+      "gestellt": 1.75,
       "plattwurf_quote": 0.344,
       "plattwurf_erwartet": 0.472,
       "gestellt_quote": 0.216,
       "gestellt_erwartet": 0.195,
       "n_siege": 32,
       "n_gaenge": 116,
-      "elo": 1418.6
+      "elo": 1417.9
     },
     {
       "schwinger_id": "inauen maurus|?",
       "typ": "allrounder",
-      "plattwurf": -3.49,
+      "plattwurf": -3.48,
       "gestellt": -3.14,
       "plattwurf_quote": 0.467,
       "plattwurf_erwartet": 0.548,
@@ -6911,12 +6911,12 @@
       "gestellt_erwartet": 0.258,
       "n_siege": 67,
       "n_gaenge": 154,
-      "elo": 1710.7
+      "elo": 1710.8
     },
     {
       "schwinger_id": "ivan felder|2004",
       "typ": "bollwerk",
-      "plattwurf": -2.54,
+      "plattwurf": -2.53,
       "gestellt": 16.35,
       "plattwurf_quote": 0.505,
       "plattwurf_erwartet": 0.536,
@@ -6924,28 +6924,28 @@
       "gestellt_erwartet": 0.226,
       "n_siege": 95,
       "n_gaenge": 228,
-      "elo": 1818.1
+      "elo": 1818.2
     },
     {
       "schwinger_id": "ivan mollet|?",
       "typ": "werfer",
       "plattwurf": 13.66,
-      "gestellt": -4.33,
+      "gestellt": -4.32,
       "plattwurf_quote": 0.696,
       "plattwurf_erwartet": 0.535,
       "gestellt_quote": 0.184,
       "gestellt_erwartet": 0.231,
       "n_siege": 112,
       "n_gaenge": 228,
-      "elo": 1865.0
+      "elo": 1864.9
     },
     {
       "schwinger_id": "ivan rohrbach|2003",
       "typ": "allrounder",
       "plattwurf": 3.03,
-      "gestellt": -3.63,
+      "gestellt": -3.62,
       "plattwurf_quote": 0.549,
-      "plattwurf_erwartet": 0.51,
+      "plattwurf_erwartet": 0.511,
       "gestellt_quote": 0.218,
       "gestellt_erwartet": 0.259,
       "n_siege": 71,
@@ -6976,7 +6976,7 @@
       "gestellt_erwartet": 0.236,
       "n_siege": 89,
       "n_gaenge": 148,
-      "elo": 2173.4
+      "elo": 2173.5
     },
     {
       "schwinger_id": "ivan wiss|?",
@@ -6994,7 +6994,7 @@
     {
       "schwinger_id": "ivo scheuber|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -10.47,
+      "plattwurf": -10.46,
       "gestellt": -8.28,
       "plattwurf_quote": 0.24,
       "plattwurf_erwartet": 0.428,
@@ -7007,7 +7007,7 @@
     {
       "schwinger_id": "jager kobi|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -10.19,
+      "plattwurf": -10.18,
       "gestellt": -1.52,
       "plattwurf_quote": 0.261,
       "plattwurf_erwartet": 0.451,
@@ -7020,15 +7020,15 @@
     {
       "schwinger_id": "jakob sven|?",
       "typ": "werfer",
-      "plattwurf": 9.82,
-      "gestellt": 3.0,
+      "plattwurf": 9.8,
+      "gestellt": 3.01,
       "plattwurf_quote": 0.65,
       "plattwurf_erwartet": 0.503,
       "gestellt_quote": 0.238,
       "gestellt_erwartet": 0.202,
       "n_siege": 40,
       "n_gaenge": 101,
-      "elo": 1550.4
+      "elo": 1550.3
     },
     {
       "schwinger_id": "jamie schlegel|?",
@@ -7046,7 +7046,7 @@
     {
       "schwinger_id": "jan berger|2004",
       "typ": "bollwerk",
-      "plattwurf": -22.37,
+      "plattwurf": -22.35,
       "gestellt": 13.08,
       "plattwurf_quote": 0.232,
       "plattwurf_erwartet": 0.52,
@@ -7054,12 +7054,12 @@
       "gestellt_erwartet": 0.24,
       "n_siege": 69,
       "n_gaenge": 190,
-      "elo": 1796.6
+      "elo": 1796.8
     },
     {
       "schwinger_id": "jan jauch|?",
       "typ": "werfer",
-      "plattwurf": 8.85,
+      "plattwurf": 8.86,
       "gestellt": -3.57,
       "plattwurf_quote": 0.632,
       "plattwurf_erwartet": 0.45,
@@ -7080,7 +7080,7 @@
       "gestellt_erwartet": 0.211,
       "n_siege": 118,
       "n_gaenge": 230,
-      "elo": 1765.4
+      "elo": 1765.3
     },
     {
       "schwinger_id": "jan roth|2004",
@@ -7132,15 +7132,15 @@
       "gestellt_erwartet": 0.24,
       "n_siege": 73,
       "n_gaenge": 199,
-      "elo": 1671.5
+      "elo": 1671.6
     },
     {
       "schwinger_id": "jan wehrli|?",
       "typ": "werfer",
       "plattwurf": 9.73,
-      "gestellt": 2.02,
+      "gestellt": 2.01,
       "plattwurf_quote": 0.667,
-      "plattwurf_erwartet": 0.505,
+      "plattwurf_erwartet": 0.504,
       "gestellt_quote": 0.25,
       "gestellt_erwartet": 0.224,
       "n_siege": 30,
@@ -7176,7 +7176,7 @@
     {
       "schwinger_id": "janik korrodi|2004",
       "typ": "lauerer",
-      "plattwurf": 15.89,
+      "plattwurf": 15.9,
       "gestellt": 5.49,
       "plattwurf_quote": 0.727,
       "plattwurf_erwartet": 0.539,
@@ -7184,7 +7184,7 @@
       "gestellt_erwartet": 0.22,
       "n_siege": 110,
       "n_gaenge": 240,
-      "elo": 1928.3
+      "elo": 1928.4
     },
     {
       "schwinger_id": "janis schick|2003",
@@ -7197,7 +7197,7 @@
       "gestellt_erwartet": 0.233,
       "n_siege": 110,
       "n_gaenge": 274,
-      "elo": 1789.0
+      "elo": 1789.1
     },
     {
       "schwinger_id": "janis wieland|1998",
@@ -7275,7 +7275,7 @@
       "gestellt_erwartet": 0.246,
       "n_siege": 138,
       "n_gaenge": 254,
-      "elo": 2057.3
+      "elo": 2057.4
     },
     {
       "schwinger_id": "janosch kobler|2000",
@@ -7293,7 +7293,7 @@
     {
       "schwinger_id": "jehle lorenz|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -8.28,
+      "plattwurf": -8.27,
       "gestellt": -4.67,
       "plattwurf_quote": 0.381,
       "plattwurf_erwartet": 0.49,
@@ -7306,7 +7306,7 @@
     {
       "schwinger_id": "jeremy tschanz|2006",
       "typ": "bollwerk",
-      "plattwurf": -0.96,
+      "plattwurf": -0.95,
       "gestellt": 7.07,
       "plattwurf_quote": 0.523,
       "plattwurf_erwartet": 0.535,
@@ -7320,14 +7320,14 @@
       "schwinger_id": "jeremy vollenweider|1998",
       "typ": "allrounder",
       "plattwurf": -3.01,
-      "gestellt": 2.67,
+      "gestellt": 2.66,
       "plattwurf_quote": 0.535,
       "plattwurf_erwartet": 0.571,
       "gestellt_quote": 0.259,
       "gestellt_erwartet": 0.229,
       "n_siege": 101,
       "n_gaenge": 170,
-      "elo": 2131.6
+      "elo": 2131.8
     },
     {
       "schwinger_id": "jerome christen|2002",
@@ -7353,7 +7353,7 @@
       "gestellt_erwartet": 0.245,
       "n_siege": 22,
       "n_gaenge": 59,
-      "elo": 1386.6
+      "elo": 1386.5
     },
     {
       "schwinger_id": "jerome rohrbach|2000",
@@ -7392,7 +7392,7 @@
       "gestellt_erwartet": 0.271,
       "n_siege": 113,
       "n_gaenge": 188,
-      "elo": 2318.6
+      "elo": 2318.7
     },
     {
       "schwinger_id": "joel kessler|1997",
@@ -7405,7 +7405,7 @@
       "gestellt_erwartet": 0.286,
       "n_siege": 128,
       "n_gaenge": 270,
-      "elo": 1975.2
+      "elo": 1975.3
     },
     {
       "schwinger_id": "joel kurmann|?",
@@ -7483,7 +7483,7 @@
       "gestellt_erwartet": 0.272,
       "n_siege": 118,
       "n_gaenge": 176,
-      "elo": 2378.7
+      "elo": 2378.8
     },
     {
       "schwinger_id": "joel suter|2004",
@@ -7496,7 +7496,7 @@
       "gestellt_erwartet": 0.243,
       "n_siege": 118,
       "n_gaenge": 249,
-      "elo": 1804.4
+      "elo": 1804.5
     },
     {
       "schwinger_id": "joel zimmermann|?",
@@ -7514,7 +7514,7 @@
     {
       "schwinger_id": "joffrey tissot|?",
       "typ": "bollwerk",
-      "plattwurf": -19.7,
+      "plattwurf": -19.71,
       "gestellt": 18.37,
       "plattwurf_quote": 0.179,
       "plattwurf_erwartet": 0.516,
@@ -7522,7 +7522,7 @@
       "gestellt_erwartet": 0.224,
       "n_siege": 28,
       "n_gaenge": 89,
-      "elo": 1412.5
+      "elo": 1412.2
     },
     {
       "schwinger_id": "johann borcard|1994",
@@ -7535,12 +7535,12 @@
       "gestellt_erwartet": 0.269,
       "n_siege": 71,
       "n_gaenge": 132,
-      "elo": 2079.4
+      "elo": 2079.5
     },
     {
       "schwinger_id": "johann scherrer|1983",
       "typ": "bollwerk",
-      "plattwurf": 3.63,
+      "plattwurf": 3.64,
       "gestellt": 27.86,
       "plattwurf_quote": 0.6,
       "plattwurf_erwartet": 0.549,
@@ -7554,14 +7554,14 @@
       "schwinger_id": "jonas (1) wuthrich|2001",
       "typ": "entscheider",
       "plattwurf": -3.19,
-      "gestellt": -4.65,
+      "gestellt": -4.64,
       "plattwurf_quote": 0.469,
       "plattwurf_erwartet": 0.509,
       "gestellt_quote": 0.172,
       "gestellt_erwartet": 0.224,
       "n_siege": 81,
       "n_gaenge": 180,
-      "elo": 1897.5
+      "elo": 1897.6
     },
     {
       "schwinger_id": "jonas amrhyn|2003",
@@ -7574,7 +7574,7 @@
       "gestellt_erwartet": 0.276,
       "n_siege": 158,
       "n_gaenge": 303,
-      "elo": 2146.8
+      "elo": 2146.9
     },
     {
       "schwinger_id": "jonas burch|1999",
@@ -7587,12 +7587,12 @@
       "gestellt_erwartet": 0.286,
       "n_siege": 135,
       "n_gaenge": 258,
-      "elo": 2100.0
+      "elo": 2100.1
     },
     {
       "schwinger_id": "jonas durrer|2003",
       "typ": "bollwerk",
-      "plattwurf": 2.26,
+      "plattwurf": 2.27,
       "gestellt": 10.81,
       "plattwurf_quote": 0.564,
       "plattwurf_erwartet": 0.537,
@@ -7605,7 +7605,7 @@
     {
       "schwinger_id": "jonas fuchs|2006",
       "typ": "lauerer",
-      "plattwurf": 5.85,
+      "plattwurf": 5.86,
       "gestellt": 14.11,
       "plattwurf_quote": 0.589,
       "plattwurf_erwartet": 0.514,
@@ -7613,7 +7613,7 @@
       "gestellt_erwartet": 0.222,
       "n_siege": 73,
       "n_gaenge": 196,
-      "elo": 1684.6
+      "elo": 1684.7
     },
     {
       "schwinger_id": "jonas gisler|2001",
@@ -7639,7 +7639,7 @@
       "gestellt_erwartet": 0.246,
       "n_siege": 109,
       "n_gaenge": 243,
-      "elo": 1964.5
+      "elo": 1964.6
     },
     {
       "schwinger_id": "jonas knieling|2008",
@@ -7652,7 +7652,7 @@
       "gestellt_erwartet": 0.209,
       "n_siege": 26,
       "n_gaenge": 63,
-      "elo": 1703.3
+      "elo": 1703.1
     },
     {
       "schwinger_id": "jonas lenherr|2005",
@@ -7678,7 +7678,7 @@
       "gestellt_erwartet": 0.206,
       "n_siege": 50,
       "n_gaenge": 129,
-      "elo": 1647.9
+      "elo": 1648.0
     },
     {
       "schwinger_id": "jonas muller|amalbis",
@@ -7697,9 +7697,9 @@
       "schwinger_id": "jonas odermatt|2004",
       "typ": "bollwerk",
       "plattwurf": -4.31,
-      "gestellt": 6.26,
+      "gestellt": 6.25,
       "plattwurf_quote": 0.51,
-      "plattwurf_erwartet": 0.559,
+      "plattwurf_erwartet": 0.558,
       "gestellt_quote": 0.314,
       "gestellt_erwartet": 0.248,
       "n_siege": 153,
@@ -7710,7 +7710,7 @@
       "schwinger_id": "jonas odermatt|is",
       "typ": "werfer",
       "plattwurf": 7.37,
-      "gestellt": -2.25,
+      "gestellt": -2.24,
       "plattwurf_quote": 0.595,
       "plattwurf_erwartet": 0.486,
       "gestellt_quote": 0.174,
@@ -7735,7 +7735,7 @@
     {
       "schwinger_id": "jonas suter|?",
       "typ": "werfer",
-      "plattwurf": 7.53,
+      "plattwurf": 7.54,
       "gestellt": -1.23,
       "plattwurf_quote": 0.618,
       "plattwurf_erwartet": 0.498,
@@ -7756,25 +7756,25 @@
       "gestellt_erwartet": 0.271,
       "n_siege": 155,
       "n_gaenge": 274,
-      "elo": 2018.0
+      "elo": 2018.1
     },
     {
       "schwinger_id": "jonas vogler|?",
       "typ": "werfer",
       "plattwurf": 5.64,
-      "gestellt": -17.03,
+      "gestellt": -17.04,
       "plattwurf_quote": 0.565,
       "plattwurf_erwartet": 0.46,
       "gestellt_quote": 0.011,
       "gestellt_erwartet": 0.219,
       "n_siege": 23,
       "n_gaenge": 91,
-      "elo": 1069.3
+      "elo": 1069.2
     },
     {
       "schwinger_id": "jonas wigger|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -6.86,
+      "plattwurf": -6.85,
       "gestellt": -7.73,
       "plattwurf_quote": 0.361,
       "plattwurf_erwartet": 0.468,
@@ -7795,7 +7795,7 @@
       "gestellt_erwartet": 0.236,
       "n_siege": 52,
       "n_gaenge": 117,
-      "elo": 1560.4
+      "elo": 1560.5
     },
     {
       "schwinger_id": "jonas zurfluh|?",
@@ -7839,7 +7839,7 @@
     {
       "schwinger_id": "joschua nussbaumer|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -13.33,
+      "plattwurf": -13.32,
       "gestellt": 0.29,
       "plattwurf_quote": 0.267,
       "plattwurf_erwartet": 0.489,
@@ -7847,7 +7847,7 @@
       "gestellt_erwartet": 0.203,
       "n_siege": 30,
       "n_gaenge": 131,
-      "elo": 1218.8
+      "elo": 1218.6
     },
     {
       "schwinger_id": "josef lustenberger|1997",
@@ -7879,9 +7879,9 @@
       "schwinger_id": "jud markus|?",
       "typ": "werfer",
       "plattwurf": 8.92,
-      "gestellt": 0.64,
+      "gestellt": 0.63,
       "plattwurf_quote": 0.64,
-      "plattwurf_erwartet": 0.48,
+      "plattwurf_erwartet": 0.479,
       "gestellt_quote": 0.212,
       "gestellt_erwartet": 0.204,
       "n_siege": 25,
@@ -7925,13 +7925,13 @@
       "gestellt_erwartet": 0.216,
       "n_siege": 87,
       "n_gaenge": 206,
-      "elo": 1747.0
+      "elo": 1747.1
     },
     {
       "schwinger_id": "jung valentin|?",
       "typ": "bollwerk",
       "plattwurf": -10.92,
-      "gestellt": 4.61,
+      "gestellt": 4.6,
       "plattwurf_quote": 0.379,
       "plattwurf_erwartet": 0.514,
       "gestellt_quote": 0.265,
@@ -7969,15 +7969,15 @@
     {
       "schwinger_id": "justin murati|?",
       "typ": "bollwerk",
-      "plattwurf": -7.55,
-      "gestellt": 6.09,
+      "plattwurf": -7.56,
+      "gestellt": 6.1,
       "plattwurf_quote": 0.375,
       "plattwurf_erwartet": 0.498,
       "gestellt_quote": 0.28,
       "gestellt_erwartet": 0.208,
       "n_siege": 32,
       "n_gaenge": 118,
-      "elo": 1355.0
+      "elo": 1354.8
     },
     {
       "schwinger_id": "justin schmid|?",
@@ -7990,7 +7990,7 @@
       "gestellt_erwartet": 0.234,
       "n_siege": 64,
       "n_gaenge": 145,
-      "elo": 1768.4
+      "elo": 1768.5
     },
     {
       "schwinger_id": "kaiser sandro|?",
@@ -8016,12 +8016,12 @@
       "gestellt_erwartet": 0.255,
       "n_siege": 157,
       "n_gaenge": 301,
-      "elo": 2057.9
+      "elo": 2058.0
     },
     {
       "schwinger_id": "kalin remo|?",
       "typ": "bollwerk",
-      "plattwurf": -1.54,
+      "plattwurf": -1.53,
       "gestellt": 6.39,
       "plattwurf_quote": 0.469,
       "plattwurf_erwartet": 0.494,
@@ -8073,7 +8073,7 @@
     {
       "schwinger_id": "kanel marcel von|?",
       "typ": "allrounder",
-      "plattwurf": -1.38,
+      "plattwurf": -1.37,
       "gestellt": -2.13,
       "plattwurf_quote": 0.477,
       "plattwurf_erwartet": 0.497,
@@ -8081,12 +8081,12 @@
       "gestellt_erwartet": 0.235,
       "n_siege": 44,
       "n_gaenge": 105,
-      "elo": 1625.0
+      "elo": 1624.9
     },
     {
       "schwinger_id": "kanel pascal von|?",
       "typ": "allrounder",
-      "plattwurf": 1.84,
+      "plattwurf": 1.85,
       "gestellt": -3.09,
       "plattwurf_quote": 0.509,
       "plattwurf_erwartet": 0.484,
@@ -8094,7 +8094,7 @@
       "gestellt_erwartet": 0.211,
       "n_siege": 53,
       "n_gaenge": 187,
-      "elo": 1372.6
+      "elo": 1372.8
     },
     {
       "schwinger_id": "karim gaber|2003",
@@ -8107,7 +8107,7 @@
       "gestellt_erwartet": 0.232,
       "n_siege": 70,
       "n_gaenge": 163,
-      "elo": 1863.2
+      "elo": 1863.3
     },
     {
       "schwinger_id": "karim leuppi|1995",
@@ -8125,7 +8125,7 @@
     {
       "schwinger_id": "kaspar michel|?",
       "typ": "lauerer",
-      "plattwurf": 4.88,
+      "plattwurf": 4.86,
       "gestellt": 5.05,
       "plattwurf_quote": 0.6,
       "plattwurf_erwartet": 0.512,
@@ -8159,12 +8159,12 @@
       "gestellt_erwartet": 0.231,
       "n_siege": 31,
       "n_gaenge": 121,
-      "elo": 1377.1
+      "elo": 1377.0
     },
     {
       "schwinger_id": "kay sussmeier|?",
       "typ": "lauerer",
-      "plattwurf": 5.29,
+      "plattwurf": 5.3,
       "gestellt": 14.65,
       "plattwurf_quote": 0.565,
       "plattwurf_erwartet": 0.489,
@@ -8198,7 +8198,7 @@
       "gestellt_erwartet": 0.213,
       "n_siege": 24,
       "n_gaenge": 88,
-      "elo": 1319.1
+      "elo": 1319.2
     },
     {
       "schwinger_id": "keller philipp|?",
@@ -8242,15 +8242,15 @@
     {
       "schwinger_id": "kevin perler|?",
       "typ": "allrounder",
-      "plattwurf": 1.01,
-      "gestellt": -1.62,
+      "plattwurf": 1.02,
+      "gestellt": -1.64,
       "plattwurf_quote": 0.5,
-      "plattwurf_erwartet": 0.482,
+      "plattwurf_erwartet": 0.481,
       "gestellt_quote": 0.19,
       "gestellt_erwartet": 0.21,
       "n_siege": 24,
       "n_gaenge": 105,
-      "elo": 1252.8
+      "elo": 1252.9
     },
     {
       "schwinger_id": "kevin rusterholz|?",
@@ -8268,20 +8268,20 @@
     {
       "schwinger_id": "kevin schori|2004",
       "typ": "entscheider",
-      "plattwurf": -3.3,
-      "gestellt": -5.73,
+      "plattwurf": -3.32,
+      "gestellt": -5.68,
       "plattwurf_quote": 0.456,
       "plattwurf_erwartet": 0.501,
       "gestellt_quote": 0.177,
-      "gestellt_erwartet": 0.243,
+      "gestellt_erwartet": 0.242,
       "n_siege": 57,
       "n_gaenge": 130,
-      "elo": 1793.8
+      "elo": 1794.1
     },
     {
       "schwinger_id": "kevin steinauer|2004",
       "typ": "allrounder",
-      "plattwurf": -2.35,
+      "plattwurf": -2.34,
       "gestellt": -1.3,
       "plattwurf_quote": 0.494,
       "plattwurf_erwartet": 0.523,
@@ -8289,7 +8289,7 @@
       "gestellt_erwartet": 0.244,
       "n_siege": 83,
       "n_gaenge": 174,
-      "elo": 1827.9
+      "elo": 1828.0
     },
     {
       "schwinger_id": "kevin sutter|?",
@@ -8321,14 +8321,14 @@
       "schwinger_id": "kevin waser|2006",
       "typ": "bodenarbeiter",
       "plattwurf": -22.54,
-      "gestellt": -2.84,
+      "gestellt": -2.86,
       "plattwurf_quote": 0.26,
       "plattwurf_erwartet": 0.519,
       "gestellt_quote": 0.226,
       "gestellt_erwartet": 0.257,
       "n_siege": 131,
       "n_gaenge": 261,
-      "elo": 2007.0
+      "elo": 2007.1
     },
     {
       "schwinger_id": "kevin wicki|?",
@@ -8354,7 +8354,7 @@
       "gestellt_erwartet": 0.281,
       "n_siege": 133,
       "n_gaenge": 237,
-      "elo": 1959.8
+      "elo": 1959.9
     },
     {
       "schwinger_id": "kilian kolb|2005",
@@ -8367,20 +8367,20 @@
       "gestellt_erwartet": 0.233,
       "n_siege": 100,
       "n_gaenge": 218,
-      "elo": 1942.9
+      "elo": 1943.0
     },
     {
       "schwinger_id": "kilian wyssen|?",
       "typ": "werfer",
-      "plattwurf": 15.68,
-      "gestellt": 1.6,
+      "plattwurf": 15.69,
+      "gestellt": 1.61,
       "plattwurf_quote": 0.672,
       "plattwurf_erwartet": 0.461,
       "gestellt_quote": 0.206,
       "gestellt_erwartet": 0.188,
       "n_siege": 58,
       "n_gaenge": 204,
-      "elo": 1395.9
+      "elo": 1396.1
     },
     {
       "schwinger_id": "kiser markus|?",
@@ -8438,7 +8438,7 @@
       "schwinger_id": "knup stephan|?",
       "typ": "bodenarbeiter",
       "plattwurf": -5.13,
-      "gestellt": -7.57,
+      "gestellt": -7.58,
       "plattwurf_quote": 0.368,
       "plattwurf_erwartet": 0.474,
       "gestellt_quote": 0.094,
@@ -8450,7 +8450,7 @@
     {
       "schwinger_id": "koch nico|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -12.16,
+      "plattwurf": -12.15,
       "gestellt": -4.29,
       "plattwurf_quote": 0.188,
       "plattwurf_erwartet": 0.461,
@@ -8484,7 +8484,7 @@
       "gestellt_erwartet": 0.25,
       "n_siege": 91,
       "n_gaenge": 190,
-      "elo": 1810.4
+      "elo": 1810.5
     },
     {
       "schwinger_id": "koch sami|?",
@@ -8497,7 +8497,7 @@
       "gestellt_erwartet": 0.195,
       "n_siege": 23,
       "n_gaenge": 82,
-      "elo": 1264.1
+      "elo": 1263.9
     },
     {
       "schwinger_id": "koch thomas|?",
@@ -8510,20 +8510,20 @@
       "gestellt_erwartet": 0.231,
       "n_siege": 59,
       "n_gaenge": 108,
-      "elo": 1842.2
+      "elo": 1842.3
     },
     {
       "schwinger_id": "kohli patrick|?",
       "typ": "werfer",
-      "plattwurf": 8.75,
-      "gestellt": -1.87,
+      "plattwurf": 8.69,
+      "gestellt": -1.85,
       "plattwurf_quote": 0.615,
-      "plattwurf_erwartet": 0.461,
+      "plattwurf_erwartet": 0.462,
       "gestellt_quote": 0.194,
       "gestellt_erwartet": 0.216,
       "n_siege": 26,
       "n_gaenge": 93,
-      "elo": 1324.9
+      "elo": 1322.2
     },
     {
       "schwinger_id": "koller marcel|?",
@@ -8549,7 +8549,7 @@
       "gestellt_erwartet": 0.197,
       "n_siege": 25,
       "n_gaenge": 84,
-      "elo": 1290.9
+      "elo": 1290.8
     },
     {
       "schwinger_id": "koller silvan|wil",
@@ -8567,15 +8567,15 @@
     {
       "schwinger_id": "konig manuel|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -9.79,
-      "gestellt": 0.42,
+      "plattwurf": -9.76,
+      "gestellt": 0.46,
       "plattwurf_quote": 0.235,
       "plattwurf_erwartet": 0.448,
       "gestellt_quote": 0.214,
       "gestellt_erwartet": 0.209,
       "n_siege": 17,
       "n_gaenge": 84,
-      "elo": 1277.3
+      "elo": 1276.3
     },
     {
       "schwinger_id": "konrad steffen|?",
@@ -8588,7 +8588,7 @@
       "gestellt_erwartet": 0.307,
       "n_siege": 56,
       "n_gaenge": 165,
-      "elo": 1845.9
+      "elo": 1846.0
     },
     {
       "schwinger_id": "kopfli mario|?",
@@ -8607,7 +8607,7 @@
       "schwinger_id": "krebser silvan|?",
       "typ": "allrounder",
       "plattwurf": 4.31,
-      "gestellt": 0.88,
+      "gestellt": 0.87,
       "plattwurf_quote": 0.543,
       "plattwurf_erwartet": 0.487,
       "gestellt_quote": 0.209,
@@ -8619,15 +8619,15 @@
     {
       "schwinger_id": "krummen matthias|?",
       "typ": "bollwerk",
-      "plattwurf": -6.05,
-      "gestellt": 19.9,
+      "plattwurf": -6.1,
+      "gestellt": 19.83,
       "plattwurf_quote": 0.417,
       "plattwurf_erwartet": 0.528,
       "gestellt_quote": 0.443,
-      "gestellt_erwartet": 0.203,
+      "gestellt_erwartet": 0.204,
       "n_siege": 24,
       "n_gaenge": 97,
-      "elo": 1524.4
+      "elo": 1524.3
     },
     {
       "schwinger_id": "krummenacher severin|?",
@@ -8658,7 +8658,7 @@
     {
       "schwinger_id": "kulmer nick|?",
       "typ": "bollwerk",
-      "plattwurf": -1.77,
+      "plattwurf": -1.76,
       "gestellt": 5.27,
       "plattwurf_quote": 0.462,
       "plattwurf_erwartet": 0.493,
@@ -8666,7 +8666,7 @@
       "gestellt_erwartet": 0.257,
       "n_siege": 26,
       "n_gaenge": 87,
-      "elo": 1485.9
+      "elo": 1486.0
     },
     {
       "schwinger_id": "kung simon|?",
@@ -8679,7 +8679,7 @@
       "gestellt_erwartet": 0.194,
       "n_siege": 68,
       "n_gaenge": 170,
-      "elo": 1650.5
+      "elo": 1650.6
     },
     {
       "schwinger_id": "kunz mathias|?",
@@ -8692,12 +8692,12 @@
       "gestellt_erwartet": 0.182,
       "n_siege": 20,
       "n_gaenge": 108,
-      "elo": 1180.6
+      "elo": 1180.5
     },
     {
       "schwinger_id": "kupferschmid lars|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -7.22,
+      "plattwurf": -7.2,
       "gestellt": -2.49,
       "plattwurf_quote": 0.377,
       "plattwurf_erwartet": 0.477,
@@ -8705,26 +8705,26 @@
       "gestellt_erwartet": 0.23,
       "n_siege": 53,
       "n_gaenge": 139,
-      "elo": 1662.2
+      "elo": 1663.1
     },
     {
       "schwinger_id": "kuster marco|?",
       "typ": "entscheider",
-      "plattwurf": 1.61,
-      "gestellt": -4.93,
+      "plattwurf": 1.6,
+      "gestellt": -4.9,
       "plattwurf_quote": 0.5,
       "plattwurf_erwartet": 0.474,
       "gestellt_quote": 0.147,
       "gestellt_erwartet": 0.204,
       "n_siege": 32,
       "n_gaenge": 116,
-      "elo": 1354.0
+      "elo": 1353.7
     },
     {
       "schwinger_id": "kyron nay|?",
       "typ": "lauerer",
-      "plattwurf": 5.3,
-      "gestellt": 7.9,
+      "plattwurf": 5.31,
+      "gestellt": 7.89,
       "plattwurf_quote": 0.568,
       "plattwurf_erwartet": 0.503,
       "gestellt_quote": 0.285,
@@ -8744,7 +8744,7 @@
       "gestellt_erwartet": 0.199,
       "n_siege": 74,
       "n_gaenge": 230,
-      "elo": 1414.0
+      "elo": 1414.1
     },
     {
       "schwinger_id": "landolt reto|?",
@@ -8770,13 +8770,13 @@
       "gestellt_erwartet": 0.237,
       "n_siege": 196,
       "n_gaenge": 295,
-      "elo": 2381.9
+      "elo": 2382.0
     },
     {
       "schwinger_id": "lars kupferschmied|2007",
       "typ": "allrounder",
-      "plattwurf": -1.86,
-      "gestellt": -1.95,
+      "plattwurf": -1.87,
+      "gestellt": -1.94,
       "plattwurf_quote": 0.478,
       "plattwurf_erwartet": 0.513,
       "gestellt_quote": 0.174,
@@ -8848,7 +8848,7 @@
       "gestellt_erwartet": 0.262,
       "n_siege": 165,
       "n_gaenge": 289,
-      "elo": 2312.8
+      "elo": 2312.9
     },
     {
       "schwinger_id": "lars wursch|1996",
@@ -8874,7 +8874,7 @@
       "gestellt_erwartet": 0.255,
       "n_siege": 192,
       "n_gaenge": 308,
-      "elo": 2442.2
+      "elo": 2442.3
     },
     {
       "schwinger_id": "lauchenauer lukas|?",
@@ -8887,20 +8887,20 @@
       "gestellt_erwartet": 0.194,
       "n_siege": 43,
       "n_gaenge": 118,
-      "elo": 1536.7
+      "elo": 1536.8
     },
     {
       "schwinger_id": "lauener marco|?",
       "typ": "lauerer",
       "plattwurf": 5.8,
-      "gestellt": 5.18,
+      "gestellt": 5.17,
       "plattwurf_quote": 0.567,
       "plattwurf_erwartet": 0.47,
       "gestellt_quote": 0.26,
       "gestellt_erwartet": 0.2,
       "n_siege": 30,
       "n_gaenge": 123,
-      "elo": 1357.4
+      "elo": 1357.3
     },
     {
       "schwinger_id": "laurent tornare|2007",
@@ -8926,7 +8926,7 @@
       "gestellt_erwartet": 0.229,
       "n_siege": 89,
       "n_gaenge": 174,
-      "elo": 1741.8
+      "elo": 1741.9
     },
     {
       "schwinger_id": "laurin vogel|?",
@@ -8945,14 +8945,14 @@
       "schwinger_id": "lazic marco|?",
       "typ": "lauerer",
       "plattwurf": 6.35,
-      "gestellt": 7.47,
+      "gestellt": 7.48,
       "plattwurf_quote": 0.647,
       "plattwurf_erwartet": 0.509,
       "gestellt_quote": 0.282,
       "gestellt_erwartet": 0.19,
       "n_siege": 17,
       "n_gaenge": 85,
-      "elo": 1174.2
+      "elo": 1174.1
     },
     {
       "schwinger_id": "leandro nageli|2003",
@@ -8965,13 +8965,13 @@
       "gestellt_erwartet": 0.265,
       "n_siege": 147,
       "n_gaenge": 293,
-      "elo": 2238.2
+      "elo": 2238.3
     },
     {
       "schwinger_id": "leandro schleiss|?",
       "typ": "werfer",
       "plattwurf": 13.58,
-      "gestellt": -11.37,
+      "gestellt": -11.36,
       "plattwurf_quote": 0.75,
       "plattwurf_erwartet": 0.444,
       "gestellt_quote": 0.051,
@@ -8991,7 +8991,7 @@
       "gestellt_erwartet": 0.182,
       "n_siege": 39,
       "n_gaenge": 93,
-      "elo": 1551.3
+      "elo": 1551.4
     },
     {
       "schwinger_id": "leon pellet|2007",
@@ -9001,7 +9001,7 @@
       "plattwurf_quote": 0.532,
       "plattwurf_erwartet": 0.516,
       "gestellt_quote": 0.219,
-      "gestellt_erwartet": 0.211,
+      "gestellt_erwartet": 0.212,
       "n_siege": 109,
       "n_gaenge": 274,
       "elo": 1782.9
@@ -9017,12 +9017,12 @@
       "gestellt_erwartet": 0.237,
       "n_siege": 20,
       "n_gaenge": 42,
-      "elo": 1811.3
+      "elo": 1811.4
     },
     {
       "schwinger_id": "levin loretz|?",
       "typ": "lauerer",
-      "plattwurf": 11.12,
+      "plattwurf": 11.13,
       "gestellt": 3.76,
       "plattwurf_quote": 0.688,
       "plattwurf_erwartet": 0.437,
@@ -9043,7 +9043,7 @@
       "gestellt_erwartet": 0.239,
       "n_siege": 93,
       "n_gaenge": 218,
-      "elo": 1797.0
+      "elo": 1797.1
     },
     {
       "schwinger_id": "levin odermatt|?",
@@ -9062,11 +9062,11 @@
       "schwinger_id": "levin rufenacht|2007",
       "typ": "bollwerk",
       "plattwurf": -2.59,
-      "gestellt": 11.27,
+      "gestellt": 11.26,
       "plattwurf_quote": 0.479,
       "plattwurf_erwartet": 0.516,
       "gestellt_quote": 0.351,
-      "gestellt_erwartet": 0.223,
+      "gestellt_erwartet": 0.224,
       "n_siege": 48,
       "n_gaenge": 148,
       "elo": 1649.2
@@ -9088,19 +9088,19 @@
       "schwinger_id": "liard samuel|?",
       "typ": "allrounder",
       "plattwurf": 2.95,
-      "gestellt": -0.04,
+      "gestellt": -0.03,
       "plattwurf_quote": 0.533,
       "plattwurf_erwartet": 0.465,
       "gestellt_quote": 0.175,
       "gestellt_erwartet": 0.176,
       "n_siege": 15,
       "n_gaenge": 97,
-      "elo": 1149.3
+      "elo": 1149.0
     },
     {
       "schwinger_id": "lienhard ramon|?",
       "typ": "bollwerk",
-      "plattwurf": 2.98,
+      "plattwurf": 2.99,
       "gestellt": 17.56,
       "plattwurf_quote": 0.524,
       "plattwurf_erwartet": 0.466,
@@ -9108,7 +9108,7 @@
       "gestellt_erwartet": 0.225,
       "n_siege": 21,
       "n_gaenge": 101,
-      "elo": 1370.0
+      "elo": 1369.9
     },
     {
       "schwinger_id": "linard gantenbein|2004",
@@ -9126,15 +9126,15 @@
     {
       "schwinger_id": "linus rogenmoser|2002",
       "typ": "lauerer",
-      "plattwurf": 5.78,
-      "gestellt": 10.32,
+      "plattwurf": 5.79,
+      "gestellt": 10.31,
       "plattwurf_quote": 0.586,
       "plattwurf_erwartet": 0.508,
       "gestellt_quote": 0.388,
       "gestellt_erwartet": 0.27,
       "n_siege": 58,
       "n_gaenge": 134,
-      "elo": 1759.0
+      "elo": 1759.1
     },
     {
       "schwinger_id": "linus vogel|?",
@@ -9199,12 +9199,12 @@
       "gestellt_erwartet": 0.2,
       "n_siege": 63,
       "n_gaenge": 161,
-      "elo": 1542.8
+      "elo": 1542.7
     },
     {
       "schwinger_id": "livio zurfluh|?",
       "typ": "werfer",
-      "plattwurf": 7.51,
+      "plattwurf": 7.5,
       "gestellt": -6.72,
       "plattwurf_quote": 0.647,
       "plattwurf_erwartet": 0.484,
@@ -9257,7 +9257,7 @@
       "schwinger_id": "lorenz wanner|?",
       "typ": "werfer",
       "plattwurf": 12.61,
-      "gestellt": -12.49,
+      "gestellt": -12.5,
       "plattwurf_quote": 0.667,
       "plattwurf_erwartet": 0.485,
       "gestellt_quote": 0.058,
@@ -9303,13 +9303,13 @@
       "gestellt_erwartet": 0.179,
       "n_siege": 38,
       "n_gaenge": 135,
-      "elo": 1173.2
+      "elo": 1173.1
     },
     {
       "schwinger_id": "loris steffen|?",
       "typ": "allrounder",
       "plattwurf": -0.98,
-      "gestellt": 1.24,
+      "gestellt": 1.25,
       "plattwurf_quote": 0.474,
       "plattwurf_erwartet": 0.494,
       "gestellt_quote": 0.26,
@@ -9322,7 +9322,7 @@
       "schwinger_id": "loris tschannen|?",
       "typ": "bollwerk",
       "plattwurf": -18.84,
-      "gestellt": 8.6,
+      "gestellt": 8.61,
       "plattwurf_quote": 0.245,
       "plattwurf_erwartet": 0.505,
       "gestellt_quote": 0.309,
@@ -9335,7 +9335,7 @@
       "schwinger_id": "loser simon|?",
       "typ": "werfer",
       "plattwurf": 14.04,
-      "gestellt": -2.46,
+      "gestellt": -2.47,
       "plattwurf_quote": 0.72,
       "plattwurf_erwartet": 0.467,
       "gestellt_quote": 0.157,
@@ -9347,15 +9347,15 @@
     {
       "schwinger_id": "louis torche|?",
       "typ": "entscheider",
-      "plattwurf": -3.39,
-      "gestellt": -10.96,
+      "plattwurf": -3.42,
+      "gestellt": -10.92,
       "plattwurf_quote": 0.435,
-      "plattwurf_erwartet": 0.498,
+      "plattwurf_erwartet": 0.499,
       "gestellt_quote": 0.053,
       "gestellt_erwartet": 0.192,
       "n_siege": 23,
       "n_gaenge": 75,
-      "elo": 1219.1
+      "elo": 1218.5
     },
     {
       "schwinger_id": "luc bissig|2007",
@@ -9368,7 +9368,7 @@
       "gestellt_erwartet": 0.252,
       "n_siege": 149,
       "n_gaenge": 277,
-      "elo": 2072.6
+      "elo": 2072.7
     },
     {
       "schwinger_id": "luc varone|1997",
@@ -9381,20 +9381,20 @@
       "gestellt_erwartet": 0.213,
       "n_siege": 39,
       "n_gaenge": 80,
-      "elo": 1761.2
+      "elo": 1761.3
     },
     {
       "schwinger_id": "luca muller|2004",
       "typ": "entscheider",
-      "plattwurf": 2.82,
-      "gestellt": -8.63,
+      "plattwurf": 2.83,
+      "gestellt": -8.66,
       "plattwurf_quote": 0.558,
       "plattwurf_erwartet": 0.525,
       "gestellt_quote": 0.185,
-      "gestellt_erwartet": 0.279,
+      "gestellt_erwartet": 0.28,
       "n_siege": 120,
       "n_gaenge": 211,
-      "elo": 2140.1
+      "elo": 2140.4
     },
     {
       "schwinger_id": "luca pallaoro|?",
@@ -9430,7 +9430,7 @@
       "plattwurf_quote": 0.771,
       "plattwurf_erwartet": 0.479,
       "gestellt_quote": 0.077,
-      "gestellt_erwartet": 0.2,
+      "gestellt_erwartet": 0.201,
       "n_siege": 70,
       "n_gaenge": 168,
       "elo": 1574.1
@@ -9452,7 +9452,7 @@
       "schwinger_id": "luca streuli|?",
       "typ": "werfer",
       "plattwurf": 6.64,
-      "gestellt": -0.68,
+      "gestellt": -0.69,
       "plattwurf_quote": 0.561,
       "plattwurf_erwartet": 0.462,
       "gestellt_quote": 0.158,
@@ -9485,7 +9485,7 @@
       "gestellt_erwartet": 0.197,
       "n_siege": 33,
       "n_gaenge": 105,
-      "elo": 1482.9
+      "elo": 1483.0
     },
     {
       "schwinger_id": "ludovic bapst|2002",
@@ -9495,7 +9495,7 @@
       "plattwurf_quote": 0.812,
       "plattwurf_erwartet": 0.532,
       "gestellt_quote": 0.321,
-      "gestellt_erwartet": 0.207,
+      "gestellt_erwartet": 0.208,
       "n_siege": 16,
       "n_gaenge": 56,
       "elo": 1520.1
@@ -9511,7 +9511,7 @@
       "gestellt_erwartet": 0.222,
       "n_siege": 52,
       "n_gaenge": 114,
-      "elo": 1604.7
+      "elo": 1604.8
     },
     {
       "schwinger_id": "lukas 1 gisler|2005",
@@ -9537,20 +9537,20 @@
       "gestellt_erwartet": 0.266,
       "n_siege": 185,
       "n_gaenge": 266,
-      "elo": 2452.1
+      "elo": 2452.2
     },
     {
       "schwinger_id": "lukas dallenbach|2006",
       "typ": "allrounder",
-      "plattwurf": -2.05,
-      "gestellt": 3.09,
+      "plattwurf": -2.07,
+      "gestellt": 3.13,
       "plattwurf_quote": 0.478,
       "plattwurf_erwartet": 0.505,
       "gestellt_quote": 0.263,
-      "gestellt_erwartet": 0.229,
+      "gestellt_erwartet": 0.228,
       "n_siege": 69,
       "n_gaenge": 171,
-      "elo": 1908.5
+      "elo": 1908.4
     },
     {
       "schwinger_id": "lukas dobeli|2000",
@@ -9563,7 +9563,7 @@
       "gestellt_erwartet": 0.281,
       "n_siege": 57,
       "n_gaenge": 112,
-      "elo": 2186.9
+      "elo": 2187.0
     },
     {
       "schwinger_id": "lukas heinzer|2004",
@@ -9576,7 +9576,7 @@
       "gestellt_erwartet": 0.276,
       "n_siege": 189,
       "n_gaenge": 332,
-      "elo": 2102.1
+      "elo": 2102.2
     },
     {
       "schwinger_id": "lukas jaggi|1996",
@@ -9602,7 +9602,7 @@
       "gestellt_erwartet": 0.203,
       "n_siege": 99,
       "n_gaenge": 224,
-      "elo": 1748.1
+      "elo": 1748.2
     },
     {
       "schwinger_id": "lukas krahenbuhl|1994",
@@ -9620,7 +9620,7 @@
     {
       "schwinger_id": "lukas luthi|?",
       "typ": "entscheider",
-      "plattwurf": 1.33,
+      "plattwurf": 1.32,
       "gestellt": -7.35,
       "plattwurf_quote": 0.522,
       "plattwurf_erwartet": 0.497,
@@ -9628,12 +9628,12 @@
       "gestellt_erwartet": 0.209,
       "n_siege": 23,
       "n_gaenge": 70,
-      "elo": 1295.2
+      "elo": 1294.7
     },
     {
       "schwinger_id": "lukas raber|1996",
       "typ": "bollwerk",
-      "plattwurf": -8.24,
+      "plattwurf": -8.23,
       "gestellt": 7.16,
       "plattwurf_quote": 0.421,
       "plattwurf_erwartet": 0.532,
@@ -9641,7 +9641,7 @@
       "gestellt_erwartet": 0.229,
       "n_siege": 57,
       "n_gaenge": 135,
-      "elo": 1639.2
+      "elo": 1639.3
     },
     {
       "schwinger_id": "lukas reichmuth|2000",
@@ -9654,7 +9654,7 @@
       "gestellt_erwartet": 0.266,
       "n_siege": 56,
       "n_gaenge": 133,
-      "elo": 1784.7
+      "elo": 1784.8
     },
     {
       "schwinger_id": "lukas renfer|1996",
@@ -9667,7 +9667,7 @@
       "gestellt_erwartet": 0.273,
       "n_siege": 92,
       "n_gaenge": 179,
-      "elo": 2117.8
+      "elo": 2117.9
     },
     {
       "schwinger_id": "lukas rohner|?",
@@ -9685,8 +9685,8 @@
     {
       "schwinger_id": "lukas rohrer|?",
       "typ": "werfer",
-      "plattwurf": 14.08,
-      "gestellt": -8.67,
+      "plattwurf": 14.09,
+      "gestellt": -8.68,
       "plattwurf_quote": 0.731,
       "plattwurf_erwartet": 0.482,
       "gestellt_quote": 0.138,
@@ -9698,20 +9698,20 @@
     {
       "schwinger_id": "lukas schmidiger|?",
       "typ": "allrounder",
-      "plattwurf": 1.84,
-      "gestellt": 0.89,
+      "plattwurf": 1.85,
+      "gestellt": 0.9,
       "plattwurf_quote": 0.529,
       "plattwurf_erwartet": 0.506,
       "gestellt_quote": 0.207,
       "gestellt_erwartet": 0.197,
       "n_siege": 68,
       "n_gaenge": 174,
-      "elo": 1518.9
+      "elo": 1519.0
     },
     {
       "schwinger_id": "lukas schnider|?",
       "typ": "bollwerk",
-      "plattwurf": 0.85,
+      "plattwurf": 0.86,
       "gestellt": 4.44,
       "plattwurf_quote": 0.474,
       "plattwurf_erwartet": 0.456,
@@ -9732,7 +9732,7 @@
       "gestellt_erwartet": 0.229,
       "n_siege": 95,
       "n_gaenge": 255,
-      "elo": 1568.6
+      "elo": 1568.5
     },
     {
       "schwinger_id": "lukas steiner|?",
@@ -9784,33 +9784,33 @@
       "gestellt_erwartet": 0.278,
       "n_siege": 139,
       "n_gaenge": 246,
-      "elo": 2131.8
+      "elo": 2131.9
     },
     {
       "schwinger_id": "lukas wampfler|?",
       "typ": "entscheider",
       "plattwurf": 2.7,
-      "gestellt": -10.56,
+      "gestellt": -10.55,
       "plattwurf_quote": 0.524,
       "plattwurf_erwartet": 0.471,
       "gestellt_quote": 0.067,
       "gestellt_erwartet": 0.207,
       "n_siege": 21,
       "n_gaenge": 60,
-      "elo": 1326.7
+      "elo": 1326.6
     },
     {
       "schwinger_id": "lukas wyss|?",
       "typ": "allrounder",
-      "plattwurf": -1.46,
-      "gestellt": -0.55,
+      "plattwurf": -1.47,
+      "gestellt": -0.54,
       "plattwurf_quote": 0.438,
-      "plattwurf_erwartet": 0.47,
+      "plattwurf_erwartet": 0.471,
       "gestellt_quote": 0.204,
       "gestellt_erwartet": 0.211,
       "n_siege": 16,
       "n_gaenge": 54,
-      "elo": 1308.0
+      "elo": 1307.9
     },
     {
       "schwinger_id": "lukas zbinden|2003",
@@ -9842,7 +9842,7 @@
       "schwinger_id": "luscher silvan|?",
       "typ": "werfer",
       "plattwurf": 8.39,
-      "gestellt": -4.52,
+      "gestellt": -4.51,
       "plattwurf_quote": 0.65,
       "plattwurf_erwartet": 0.482,
       "gestellt_quote": 0.119,
@@ -9881,14 +9881,14 @@
       "schwinger_id": "maik vollenweider|?",
       "typ": "bollwerk",
       "plattwurf": -10.74,
-      "gestellt": 4.28,
+      "gestellt": 4.29,
       "plattwurf_quote": 0.352,
       "plattwurf_erwartet": 0.499,
       "gestellt_quote": 0.274,
       "gestellt_erwartet": 0.226,
       "n_siege": 54,
       "n_gaenge": 168,
-      "elo": 1508.1
+      "elo": 1508.2
     },
     {
       "schwinger_id": "manuel keller|1993",
@@ -9907,14 +9907,14 @@
       "schwinger_id": "manuel maurer|?",
       "typ": "lauerer",
       "plattwurf": 7.29,
-      "gestellt": 7.26,
+      "gestellt": 7.24,
       "plattwurf_quote": 0.667,
       "plattwurf_erwartet": 0.497,
       "gestellt_quote": 0.303,
       "gestellt_erwartet": 0.216,
       "n_siege": 15,
       "n_gaenge": 99,
-      "elo": 1176.4
+      "elo": 1176.9
     },
     {
       "schwinger_id": "manuel suter|?",
@@ -9972,7 +9972,7 @@
       "schwinger_id": "marc lustenberger|2003",
       "typ": "entscheider",
       "plattwurf": -0.61,
-      "gestellt": -7.83,
+      "gestellt": -7.84,
       "plattwurf_quote": 0.547,
       "plattwurf_erwartet": 0.554,
       "gestellt_quote": 0.183,
@@ -9997,15 +9997,15 @@
     {
       "schwinger_id": "marcel (1) stucki|2000",
       "typ": "werfer",
-      "plattwurf": 14.69,
-      "gestellt": 3.35,
+      "plattwurf": 14.39,
+      "gestellt": 3.67,
       "plattwurf_quote": 0.7,
-      "plattwurf_erwartet": 0.511,
-      "gestellt_quote": 0.275,
-      "gestellt_erwartet": 0.237,
+      "plattwurf_erwartet": 0.515,
+      "gestellt_quote": 0.28,
+      "gestellt_erwartet": 0.239,
       "n_siege": 70,
-      "n_gaenge": 171,
-      "elo": 1731.8
+      "n_gaenge": 168,
+      "elo": 1739.9
     },
     {
       "schwinger_id": "marcel arnold|1991",
@@ -10018,12 +10018,12 @@
       "gestellt_erwartet": 0.242,
       "n_siege": 32,
       "n_gaenge": 84,
-      "elo": 1500.3
+      "elo": 1500.4
     },
     {
       "schwinger_id": "marcel betschart|1993",
       "typ": "entscheider",
-      "plattwurf": -3.35,
+      "plattwurf": -3.34,
       "gestellt": -4.85,
       "plattwurf_quote": 0.475,
       "plattwurf_erwartet": 0.513,
@@ -10044,7 +10044,7 @@
       "gestellt_erwartet": 0.255,
       "n_siege": 155,
       "n_gaenge": 242,
-      "elo": 2447.9
+      "elo": 2448.0
     },
     {
       "schwinger_id": "marcel elsener|1995",
@@ -10062,12 +10062,12 @@
     {
       "schwinger_id": "marcel ettlin|2007",
       "typ": "lauerer",
-      "plattwurf": 4.53,
-      "gestellt": 3.75,
+      "plattwurf": 4.54,
+      "gestellt": 3.74,
       "plattwurf_quote": 0.556,
       "plattwurf_erwartet": 0.501,
       "gestellt_quote": 0.254,
-      "gestellt_erwartet": 0.213,
+      "gestellt_erwartet": 0.214,
       "n_siege": 99,
       "n_gaenge": 264,
       "elo": 1646.1
@@ -10109,7 +10109,7 @@
       "gestellt_erwartet": 0.196,
       "n_siege": 46,
       "n_gaenge": 137,
-      "elo": 1438.6
+      "elo": 1438.5
     },
     {
       "schwinger_id": "marcel rabsamen|2000",
@@ -10154,27 +10154,27 @@
       "schwinger_id": "marcel vogel|?",
       "typ": "bodenarbeiter",
       "plattwurf": -4.47,
-      "gestellt": 2.89,
+      "gestellt": 2.88,
       "plattwurf_quote": 0.472,
       "plattwurf_erwartet": 0.525,
       "gestellt_quote": 0.269,
       "gestellt_erwartet": 0.238,
       "n_siege": 106,
       "n_gaenge": 234,
-      "elo": 1786.4
+      "elo": 1786.5
     },
     {
       "schwinger_id": "marco bernhard|1998",
       "typ": "werfer",
-      "plattwurf": 10.29,
-      "gestellt": -8.53,
+      "plattwurf": 10.26,
+      "gestellt": -8.61,
       "plattwurf_quote": 0.651,
-      "plattwurf_erwartet": 0.5,
+      "plattwurf_erwartet": 0.501,
       "gestellt_quote": 0.131,
-      "gestellt_erwartet": 0.232,
+      "gestellt_erwartet": 0.233,
       "n_siege": 43,
       "n_gaenge": 107,
-      "elo": 1497.7
+      "elo": 1500.0
     },
     {
       "schwinger_id": "marco eggimann|1998",
@@ -10200,12 +10200,12 @@
       "gestellt_erwartet": 0.275,
       "n_siege": 141,
       "n_gaenge": 237,
-      "elo": 2168.6
+      "elo": 2168.7
     },
     {
       "schwinger_id": "marco flutsch|1999",
       "typ": "bodenarbeiter",
-      "plattwurf": -7.84,
+      "plattwurf": -7.83,
       "gestellt": -4.46,
       "plattwurf_quote": 0.421,
       "plattwurf_erwartet": 0.516,
@@ -10231,15 +10231,15 @@
     {
       "schwinger_id": "marco hadorn|1999",
       "typ": "werfer",
-      "plattwurf": 4.51,
-      "gestellt": -6.9,
+      "plattwurf": 4.52,
+      "gestellt": -6.83,
       "plattwurf_quote": 0.588,
       "plattwurf_erwartet": 0.49,
       "gestellt_quote": 0.149,
-      "gestellt_erwartet": 0.247,
+      "gestellt_erwartet": 0.246,
       "n_siege": 17,
       "n_gaenge": 47,
-      "elo": 1480.4
+      "elo": 1479.6
     },
     {
       "schwinger_id": "marco heiniger|1996",
@@ -10252,7 +10252,7 @@
       "gestellt_erwartet": 0.262,
       "n_siege": 132,
       "n_gaenge": 239,
-      "elo": 1995.7
+      "elo": 1995.8
     },
     {
       "schwinger_id": "marco herger|2002",
@@ -10284,7 +10284,7 @@
       "schwinger_id": "marco iseli|1997",
       "typ": "werfer",
       "plattwurf": 12.97,
-      "gestellt": -1.67,
+      "gestellt": -1.68,
       "plattwurf_quote": 0.706,
       "plattwurf_erwartet": 0.538,
       "gestellt_quote": 0.236,
@@ -10297,7 +10297,7 @@
       "schwinger_id": "marco mock|?",
       "typ": "werfer",
       "plattwurf": 7.54,
-      "gestellt": -8.92,
+      "gestellt": -8.93,
       "plattwurf_quote": 0.611,
       "plattwurf_erwartet": 0.452,
       "gestellt_quote": 0.091,
@@ -10309,7 +10309,7 @@
     {
       "schwinger_id": "marco nageli|1994",
       "typ": "bollwerk",
-      "plattwurf": -17.48,
+      "plattwurf": -17.47,
       "gestellt": 8.56,
       "plattwurf_quote": 0.333,
       "plattwurf_erwartet": 0.548,
@@ -10336,14 +10336,14 @@
       "schwinger_id": "marco schopfer|2003",
       "typ": "lauerer",
       "plattwurf": 9.1,
-      "gestellt": 6.46,
+      "gestellt": 6.45,
       "plattwurf_quote": 0.64,
       "plattwurf_erwartet": 0.527,
       "gestellt_quote": 0.306,
       "gestellt_erwartet": 0.235,
       "n_siege": 86,
       "n_gaenge": 196,
-      "elo": 1911.6
+      "elo": 1911.7
     },
     {
       "schwinger_id": "marco schwob|?",
@@ -10351,7 +10351,7 @@
       "plattwurf": -4.71,
       "gestellt": -11.71,
       "plattwurf_quote": 0.412,
-      "plattwurf_erwartet": 0.487,
+      "plattwurf_erwartet": 0.486,
       "gestellt_quote": 0.08,
       "gestellt_erwartet": 0.224,
       "n_siege": 34,
@@ -10369,7 +10369,7 @@
       "gestellt_erwartet": 0.231,
       "n_siege": 43,
       "n_gaenge": 109,
-      "elo": 1636.8
+      "elo": 1636.9
     },
     {
       "schwinger_id": "marco thierstein|1997",
@@ -10382,13 +10382,13 @@
       "gestellt_erwartet": 0.249,
       "n_siege": 107,
       "n_gaenge": 211,
-      "elo": 1779.5
+      "elo": 1779.6
     },
     {
       "schwinger_id": "marco ulrich|1997",
       "typ": "bollwerk",
       "plattwurf": -1.26,
-      "gestellt": 3.88,
+      "gestellt": 3.87,
       "plattwurf_quote": 0.523,
       "plattwurf_erwartet": 0.538,
       "gestellt_quote": 0.302,
@@ -10400,7 +10400,7 @@
     {
       "schwinger_id": "marco vogt|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -5.31,
+      "plattwurf": -5.3,
       "gestellt": 0.17,
       "plattwurf_quote": 0.441,
       "plattwurf_erwartet": 0.525,
@@ -10408,7 +10408,7 @@
       "gestellt_erwartet": 0.21,
       "n_siege": 34,
       "n_gaenge": 99,
-      "elo": 1360.7
+      "elo": 1360.8
     },
     {
       "schwinger_id": "marco waeber|1996",
@@ -10460,7 +10460,7 @@
       "gestellt_erwartet": 0.221,
       "n_siege": 130,
       "n_gaenge": 271,
-      "elo": 1804.6
+      "elo": 1804.7
     },
     {
       "schwinger_id": "mario rusch|?",
@@ -10505,7 +10505,7 @@
       "schwinger_id": "mario zgraggen|?",
       "typ": "bodenarbeiter",
       "plattwurf": -5.33,
-      "gestellt": 3.62,
+      "gestellt": 3.61,
       "plattwurf_quote": 0.387,
       "plattwurf_erwartet": 0.475,
       "gestellt_quote": 0.268,
@@ -10525,20 +10525,20 @@
       "gestellt_erwartet": 0.285,
       "n_siege": 169,
       "n_gaenge": 289,
-      "elo": 2340.3
+      "elo": 2340.4
     },
     {
       "schwinger_id": "markus jost|2007",
       "typ": "bollwerk",
-      "plattwurf": -15.44,
-      "gestellt": 7.44,
+      "plattwurf": -15.45,
+      "gestellt": 7.45,
       "plattwurf_quote": 0.315,
-      "plattwurf_erwartet": 0.526,
+      "plattwurf_erwartet": 0.527,
       "gestellt_quote": 0.331,
       "gestellt_erwartet": 0.245,
       "n_siege": 54,
       "n_gaenge": 133,
-      "elo": 1792.0
+      "elo": 1792.1
     },
     {
       "schwinger_id": "markus schlapfer|1987",
@@ -10551,12 +10551,12 @@
       "gestellt_erwartet": 0.221,
       "n_siege": 45,
       "n_gaenge": 93,
-      "elo": 1922.5
+      "elo": 1922.6
     },
     {
       "schwinger_id": "markus strahm|?",
       "typ": "allrounder",
-      "plattwurf": 1.76,
+      "plattwurf": 1.77,
       "gestellt": -0.42,
       "plattwurf_quote": 0.5,
       "plattwurf_erwartet": 0.474,
@@ -10564,12 +10564,12 @@
       "gestellt_erwartet": 0.2,
       "n_siege": 42,
       "n_gaenge": 200,
-      "elo": 1228.2
+      "elo": 1228.3
     },
     {
       "schwinger_id": "marlon mathis|?",
       "typ": "allrounder",
-      "plattwurf": 3.87,
+      "plattwurf": 3.88,
       "gestellt": -2.93,
       "plattwurf_quote": 0.56,
       "plattwurf_erwartet": 0.49,
@@ -10590,7 +10590,7 @@
       "gestellt_erwartet": 0.208,
       "n_siege": 71,
       "n_gaenge": 146,
-      "elo": 1742.8
+      "elo": 1742.9
     },
     {
       "schwinger_id": "martin felder|1997",
@@ -10603,12 +10603,12 @@
       "gestellt_erwartet": 0.262,
       "n_siege": 84,
       "n_gaenge": 170,
-      "elo": 1929.8
+      "elo": 1929.9
     },
     {
       "schwinger_id": "martin grab|1999",
       "typ": "entscheider",
-      "plattwurf": -3.56,
+      "plattwurf": -3.55,
       "gestellt": -7.45,
       "plattwurf_quote": 0.421,
       "plattwurf_erwartet": 0.494,
@@ -10621,21 +10621,21 @@
     {
       "schwinger_id": "martin niederhauser|?",
       "typ": "bollwerk",
-      "plattwurf": -4.55,
-      "gestellt": 15.63,
+      "plattwurf": -4.53,
+      "gestellt": 15.62,
       "plattwurf_quote": 0.467,
       "plattwurf_erwartet": 0.532,
       "gestellt_quote": 0.414,
       "gestellt_erwartet": 0.231,
       "n_siege": 45,
       "n_gaenge": 116,
-      "elo": 1642.1
+      "elo": 1642.2
     },
     {
       "schwinger_id": "martin rempfler|?",
       "typ": "werfer",
       "plattwurf": 4.45,
-      "gestellt": -10.77,
+      "gestellt": -10.78,
       "plattwurf_quote": 0.545,
       "plattwurf_erwartet": 0.487,
       "gestellt_quote": 0.077,
@@ -10661,7 +10661,7 @@
       "schwinger_id": "martin schappi|?",
       "typ": "allrounder",
       "plattwurf": 0.81,
-      "gestellt": 1.68,
+      "gestellt": 1.67,
       "plattwurf_quote": 0.531,
       "plattwurf_erwartet": 0.518,
       "gestellt_quote": 0.233,
@@ -10681,7 +10681,7 @@
       "gestellt_erwartet": 0.259,
       "n_siege": 72,
       "n_gaenge": 125,
-      "elo": 2072.5
+      "elo": 2072.6
     },
     {
       "schwinger_id": "martin schuler|1996",
@@ -10707,7 +10707,7 @@
       "gestellt_erwartet": 0.234,
       "n_siege": 140,
       "n_gaenge": 280,
-      "elo": 2005.3
+      "elo": 2005.4
     },
     {
       "schwinger_id": "martin strahm|?",
@@ -10720,7 +10720,7 @@
       "gestellt_erwartet": 0.223,
       "n_siege": 27,
       "n_gaenge": 109,
-      "elo": 1347.5
+      "elo": 1347.2
     },
     {
       "schwinger_id": "martin tobias|?",
@@ -10733,20 +10733,20 @@
       "gestellt_erwartet": 0.212,
       "n_siege": 30,
       "n_gaenge": 70,
-      "elo": 1516.1
+      "elo": 1516.2
     },
     {
       "schwinger_id": "mathias hurlimann|2000",
       "typ": "werfer",
-      "plattwurf": 4.85,
+      "plattwurf": 4.86,
       "gestellt": 2.0,
       "plattwurf_quote": 0.586,
-      "plattwurf_erwartet": 0.527,
+      "plattwurf_erwartet": 0.526,
       "gestellt_quote": 0.281,
       "gestellt_erwartet": 0.259,
       "n_siege": 87,
       "n_gaenge": 192,
-      "elo": 1866.1
+      "elo": 1866.2
     },
     {
       "schwinger_id": "mathias jager|2006",
@@ -10765,14 +10765,14 @@
       "schwinger_id": "mathias wittwer|2002",
       "typ": "lauerer",
       "plattwurf": 8.21,
-      "gestellt": 8.87,
+      "gestellt": 8.82,
       "plattwurf_quote": 0.637,
       "plattwurf_erwartet": 0.535,
       "gestellt_quote": 0.322,
-      "gestellt_erwartet": 0.224,
+      "gestellt_erwartet": 0.225,
       "n_siege": 80,
       "n_gaenge": 183,
-      "elo": 1838.5
+      "elo": 1839.1
     },
     {
       "schwinger_id": "matteo riedweg|2005",
@@ -10803,7 +10803,7 @@
     {
       "schwinger_id": "matteo zenklusen|2005",
       "typ": "bodenarbeiter",
-      "plattwurf": -4.87,
+      "plattwurf": -4.86,
       "gestellt": -9.78,
       "plattwurf_quote": 0.418,
       "plattwurf_erwartet": 0.481,
@@ -10811,17 +10811,17 @@
       "gestellt_erwartet": 0.217,
       "n_siege": 67,
       "n_gaenge": 151,
-      "elo": 1683.3
+      "elo": 1683.2
     },
     {
       "schwinger_id": "matthey mickael|?",
       "typ": "werfer",
-      "plattwurf": 14.01,
-      "gestellt": 1.9,
+      "plattwurf": 14.0,
+      "gestellt": 1.91,
       "plattwurf_quote": 0.727,
       "plattwurf_erwartet": 0.559,
       "gestellt_quote": 0.275,
-      "gestellt_erwartet": 0.255,
+      "gestellt_erwartet": 0.254,
       "n_siege": 99,
       "n_gaenge": 207,
       "elo": 1945.4
@@ -10837,7 +10837,7 @@
       "gestellt_erwartet": 0.217,
       "n_siege": 223,
       "n_gaenge": 311,
-      "elo": 2253.3
+      "elo": 2253.4
     },
     {
       "schwinger_id": "matthias elmiger|1996",
@@ -10868,8 +10868,8 @@
     {
       "schwinger_id": "matthieu burger|2001",
       "typ": "allrounder",
-      "plattwurf": -2.06,
-      "gestellt": -2.12,
+      "plattwurf": -2.05,
+      "gestellt": -2.13,
       "plattwurf_quote": 0.557,
       "plattwurf_erwartet": 0.58,
       "gestellt_quote": 0.231,
@@ -10889,20 +10889,20 @@
       "gestellt_erwartet": 0.224,
       "n_siege": 21,
       "n_gaenge": 77,
-      "elo": 1518.0
+      "elo": 1517.8
     },
     {
       "schwinger_id": "maurer sam|?",
       "typ": "bollwerk",
       "plattwurf": 4.25,
-      "gestellt": 4.83,
+      "gestellt": 4.85,
       "plattwurf_quote": 0.56,
-      "plattwurf_erwartet": 0.483,
+      "plattwurf_erwartet": 0.484,
       "gestellt_quote": 0.292,
       "gestellt_erwartet": 0.23,
       "n_siege": 25,
       "n_gaenge": 72,
-      "elo": 1551.5
+      "elo": 1551.3
     },
     {
       "schwinger_id": "maurice riedweg|?",
@@ -10915,7 +10915,7 @@
       "gestellt_erwartet": 0.147,
       "n_siege": 15,
       "n_gaenge": 76,
-      "elo": 917.4
+      "elo": 917.3
     },
     {
       "schwinger_id": "maurus heinzer|2007",
@@ -10933,8 +10933,8 @@
     {
       "schwinger_id": "maurus schelbert|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -8.84,
-      "gestellt": 1.15,
+      "plattwurf": -8.83,
+      "gestellt": 1.16,
       "plattwurf_quote": 0.375,
       "plattwurf_erwartet": 0.519,
       "gestellt_quote": 0.205,
@@ -10946,15 +10946,15 @@
     {
       "schwinger_id": "maxime suchet|?",
       "typ": "lauerer",
-      "plattwurf": 10.87,
-      "gestellt": 4.01,
+      "plattwurf": 10.86,
+      "gestellt": 4.02,
       "plattwurf_quote": 0.685,
       "plattwurf_erwartet": 0.536,
       "gestellt_quote": 0.23,
-      "gestellt_erwartet": 0.184,
+      "gestellt_erwartet": 0.183,
       "n_siege": 54,
       "n_gaenge": 135,
-      "elo": 1544.8
+      "elo": 1544.6
     },
     {
       "schwinger_id": "maxime vauthey|?",
@@ -10967,7 +10967,7 @@
       "gestellt_erwartet": 0.18,
       "n_siege": 19,
       "n_gaenge": 50,
-      "elo": 1405.8
+      "elo": 1405.7
     },
     {
       "schwinger_id": "melchior huber|2002",
@@ -10980,20 +10980,20 @@
       "gestellt_erwartet": 0.226,
       "n_siege": 131,
       "n_gaenge": 288,
-      "elo": 1832.1
+      "elo": 1832.2
     },
     {
       "schwinger_id": "messerli niklaus|?",
       "typ": "werfer",
-      "plattwurf": 11.6,
-      "gestellt": 0.59,
+      "plattwurf": 11.39,
+      "gestellt": 0.56,
       "plattwurf_quote": 0.656,
-      "plattwurf_erwartet": 0.468,
+      "plattwurf_erwartet": 0.471,
       "gestellt_quote": 0.186,
       "gestellt_erwartet": 0.18,
       "n_siege": 32,
       "n_gaenge": 177,
-      "elo": 1150.4
+      "elo": 1148.4
     },
     {
       "schwinger_id": "michael bernold|1999",
@@ -11012,7 +11012,7 @@
       "schwinger_id": "michael buchmann|1987",
       "typ": "entscheider",
       "plattwurf": -0.78,
-      "gestellt": -8.58,
+      "gestellt": -8.59,
       "plattwurf_quote": 0.48,
       "plattwurf_erwartet": 0.494,
       "gestellt_quote": 0.049,
@@ -11025,7 +11025,7 @@
       "schwinger_id": "michael gwerder|2000",
       "typ": "bodenarbeiter",
       "plattwurf": -9.47,
-      "gestellt": -7.05,
+      "gestellt": -7.06,
       "plattwurf_quote": 0.455,
       "plattwurf_erwartet": 0.561,
       "gestellt_quote": 0.183,
@@ -11038,14 +11038,14 @@
       "schwinger_id": "michael heim|2001",
       "typ": "allrounder",
       "plattwurf": 0.7,
-      "gestellt": 3.32,
+      "gestellt": 3.34,
       "plattwurf_quote": 0.5,
       "plattwurf_erwartet": 0.488,
       "gestellt_quote": 0.283,
       "gestellt_erwartet": 0.242,
       "n_siege": 30,
       "n_gaenge": 92,
-      "elo": 1545.4
+      "elo": 1545.7
     },
     {
       "schwinger_id": "michael ledermann|2000",
@@ -11063,7 +11063,7 @@
     {
       "schwinger_id": "michael leuenberger|1993",
       "typ": "bodenarbeiter",
-      "plattwurf": -11.54,
+      "plattwurf": -11.55,
       "gestellt": 1.21,
       "plattwurf_quote": 0.409,
       "plattwurf_erwartet": 0.551,
@@ -11071,7 +11071,7 @@
       "gestellt_erwartet": 0.239,
       "n_siege": 88,
       "n_gaenge": 178,
-      "elo": 1926.1
+      "elo": 1926.2
     },
     {
       "schwinger_id": "michael moser|2005",
@@ -11084,7 +11084,7 @@
       "gestellt_erwartet": 0.255,
       "n_siege": 197,
       "n_gaenge": 284,
-      "elo": 2612.2
+      "elo": 2612.3
     },
     {
       "schwinger_id": "michael muller|1995",
@@ -11102,7 +11102,7 @@
     {
       "schwinger_id": "michael nyffeler|?",
       "typ": "lauerer",
-      "plattwurf": 14.29,
+      "plattwurf": 14.28,
       "gestellt": 6.01,
       "plattwurf_quote": 0.686,
       "plattwurf_erwartet": 0.502,
@@ -11116,9 +11116,9 @@
       "schwinger_id": "michael reinhard|2002",
       "typ": "bollwerk",
       "plattwurf": -6.58,
-      "gestellt": 10.03,
+      "gestellt": 10.06,
       "plattwurf_quote": 0.415,
-      "plattwurf_erwartet": 0.513,
+      "plattwurf_erwartet": 0.512,
       "gestellt_quote": 0.351,
       "gestellt_erwartet": 0.233,
       "n_siege": 41,
@@ -11141,10 +11141,10 @@
     {
       "schwinger_id": "michael rolli|?",
       "typ": "werfer",
-      "plattwurf": 7.07,
-      "gestellt": -2.34,
+      "plattwurf": 7.1,
+      "gestellt": -2.31,
       "plattwurf_quote": 0.579,
-      "plattwurf_erwartet": 0.434,
+      "plattwurf_erwartet": 0.433,
       "gestellt_quote": 0.16,
       "gestellt_erwartet": 0.188,
       "n_siege": 19,
@@ -11155,7 +11155,7 @@
       "schwinger_id": "michael sturzinger|?",
       "typ": "entscheider",
       "plattwurf": 0.22,
-      "gestellt": -10.11,
+      "gestellt": -10.12,
       "plattwurf_quote": 0.412,
       "plattwurf_erwartet": 0.407,
       "gestellt_quote": 0.019,
@@ -11175,20 +11175,20 @@
       "gestellt_erwartet": 0.239,
       "n_siege": 110,
       "n_gaenge": 237,
-      "elo": 1954.0
+      "elo": 1954.1
     },
     {
       "schwinger_id": "michael zingg|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -12.81,
-      "gestellt": -7.13,
+      "plattwurf": -12.8,
+      "gestellt": -7.11,
       "plattwurf_quote": 0.322,
-      "plattwurf_erwartet": 0.494,
+      "plattwurf_erwartet": 0.493,
       "gestellt_quote": 0.141,
       "gestellt_erwartet": 0.221,
       "n_siege": 59,
       "n_gaenge": 163,
-      "elo": 1448.1
+      "elo": 1448.2
     },
     {
       "schwinger_id": "michael zumbach|?",
@@ -11214,13 +11214,13 @@
       "gestellt_erwartet": 0.301,
       "n_siege": 109,
       "n_gaenge": 231,
-      "elo": 2052.6
+      "elo": 2052.7
     },
     {
       "schwinger_id": "michi odermatt|?",
       "typ": "bollwerk",
       "plattwurf": -9.06,
-      "gestellt": 9.92,
+      "gestellt": 9.91,
       "plattwurf_quote": 0.294,
       "plattwurf_erwartet": 0.491,
       "gestellt_quote": 0.344,
@@ -11259,14 +11259,14 @@
       "schwinger_id": "mike uebersax|?",
       "typ": "werfer",
       "plattwurf": 10.69,
-      "gestellt": 0.08,
+      "gestellt": 0.09,
       "plattwurf_quote": 0.64,
       "plattwurf_erwartet": 0.448,
       "gestellt_quote": 0.222,
       "gestellt_erwartet": 0.221,
       "n_siege": 25,
       "n_gaenge": 90,
-      "elo": 1357.9
+      "elo": 1357.8
     },
     {
       "schwinger_id": "mike wildhaber|?",
@@ -11344,7 +11344,7 @@
       "gestellt_erwartet": 0.196,
       "n_siege": 32,
       "n_gaenge": 69,
-      "elo": 1412.8
+      "elo": 1412.9
     },
     {
       "schwinger_id": "muff pascal|?",
@@ -11383,7 +11383,7 @@
       "gestellt_erwartet": 0.228,
       "n_siege": 60,
       "n_gaenge": 177,
-      "elo": 1672.3
+      "elo": 1672.4
     },
     {
       "schwinger_id": "muller noe|?",
@@ -11401,7 +11401,7 @@
     {
       "schwinger_id": "muller simon|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -7.23,
+      "plattwurf": -7.22,
       "gestellt": 1.29,
       "plattwurf_quote": 0.408,
       "plattwurf_erwartet": 0.51,
@@ -11409,7 +11409,7 @@
       "gestellt_erwartet": 0.226,
       "n_siege": 49,
       "n_gaenge": 179,
-      "elo": 1335.9
+      "elo": 1336.0
     },
     {
       "schwinger_id": "naef sandro|?",
@@ -11422,7 +11422,7 @@
       "gestellt_erwartet": 0.201,
       "n_siege": 20,
       "n_gaenge": 46,
-      "elo": 1566.7
+      "elo": 1566.8
     },
     {
       "schwinger_id": "nager yannick|?",
@@ -11448,12 +11448,12 @@
       "gestellt_erwartet": 0.232,
       "n_siege": 38,
       "n_gaenge": 81,
-      "elo": 1639.4
+      "elo": 1639.3
     },
     {
       "schwinger_id": "nando durrer|1999",
       "typ": "bollwerk",
-      "plattwurf": -15.91,
+      "plattwurf": -15.9,
       "gestellt": 25.21,
       "plattwurf_quote": 0.368,
       "plattwurf_erwartet": 0.555,
@@ -11492,7 +11492,7 @@
     {
       "schwinger_id": "nathan schmid|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -7.85,
+      "plattwurf": -7.84,
       "gestellt": 1.56,
       "plattwurf_quote": 0.318,
       "plattwurf_erwartet": 0.468,
@@ -11500,7 +11500,7 @@
       "gestellt_erwartet": 0.212,
       "n_siege": 22,
       "n_gaenge": 91,
-      "elo": 1379.6
+      "elo": 1379.2
     },
     {
       "schwinger_id": "nef tobias|?",
@@ -11526,12 +11526,12 @@
       "gestellt_erwartet": 0.219,
       "n_siege": 258,
       "n_gaenge": 373,
-      "elo": 2500.7
+      "elo": 2500.8
     },
     {
       "schwinger_id": "nick stalder|?",
       "typ": "werfer",
-      "plattwurf": 8.44,
+      "plattwurf": 8.43,
       "gestellt": -0.72,
       "plattwurf_quote": 0.57,
       "plattwurf_erwartet": 0.464,
@@ -11539,7 +11539,7 @@
       "gestellt_erwartet": 0.195,
       "n_siege": 79,
       "n_gaenge": 293,
-      "elo": 1444.1
+      "elo": 1444.2
     },
     {
       "schwinger_id": "nick trachsel|?",
@@ -11558,14 +11558,14 @@
       "schwinger_id": "nick wyss|?",
       "typ": "bodenarbeiter",
       "plattwurf": -6.01,
-      "gestellt": -4.99,
+      "gestellt": -4.97,
       "plattwurf_quote": 0.37,
       "plattwurf_erwartet": 0.475,
       "gestellt_quote": 0.144,
       "gestellt_erwartet": 0.205,
       "n_siege": 27,
       "n_gaenge": 90,
-      "elo": 1355.9
+      "elo": 1356.1
     },
     {
       "schwinger_id": "niclaas rungger|?",
@@ -11584,14 +11584,14 @@
       "schwinger_id": "nico hehlen|2002",
       "typ": "bodenarbeiter",
       "plattwurf": -8.13,
-      "gestellt": -1.25,
+      "gestellt": -1.24,
       "plattwurf_quote": 0.357,
       "plattwurf_erwartet": 0.497,
       "gestellt_quote": 0.224,
       "gestellt_erwartet": 0.239,
       "n_siege": 28,
       "n_gaenge": 76,
-      "elo": 1569.1
+      "elo": 1569.2
     },
     {
       "schwinger_id": "nico scharer|?",
@@ -11599,7 +11599,7 @@
       "plattwurf": -9.73,
       "gestellt": -8.69,
       "plattwurf_quote": 0.384,
-      "plattwurf_erwartet": 0.508,
+      "plattwurf_erwartet": 0.507,
       "gestellt_quote": 0.12,
       "gestellt_erwartet": 0.216,
       "n_siege": 73,
@@ -11622,7 +11622,7 @@
     {
       "schwinger_id": "nicola graf|2003",
       "typ": "allrounder",
-      "plattwurf": -1.37,
+      "plattwurf": -1.36,
       "gestellt": 2.71,
       "plattwurf_quote": 0.506,
       "plattwurf_erwartet": 0.523,
@@ -11643,7 +11643,7 @@
       "gestellt_erwartet": 0.248,
       "n_siege": 145,
       "n_gaenge": 304,
-      "elo": 1845.7
+      "elo": 1845.8
     },
     {
       "schwinger_id": "nicolas sturny|1998",
@@ -11669,13 +11669,13 @@
       "gestellt_erwartet": 0.171,
       "n_siege": 43,
       "n_gaenge": 174,
-      "elo": 1241.7
+      "elo": 1241.6
     },
     {
       "schwinger_id": "nicolas walther|1994",
       "typ": "werfer",
       "plattwurf": 7.71,
-      "gestellt": 1.59,
+      "gestellt": 1.6,
       "plattwurf_quote": 0.6,
       "plattwurf_erwartet": 0.501,
       "gestellt_quote": 0.262,
@@ -11695,20 +11695,20 @@
       "gestellt_erwartet": 0.262,
       "n_siege": 120,
       "n_gaenge": 239,
-      "elo": 2115.9
+      "elo": 2116.0
     },
     {
       "schwinger_id": "niederberger nils|?",
       "typ": "allrounder",
       "plattwurf": -1.56,
-      "gestellt": 2.07,
+      "gestellt": 2.09,
       "plattwurf_quote": 0.483,
       "plattwurf_erwartet": 0.504,
       "gestellt_quote": 0.248,
       "gestellt_erwartet": 0.224,
       "n_siege": 58,
       "n_gaenge": 129,
-      "elo": 1772.6
+      "elo": 1772.7
     },
     {
       "schwinger_id": "niederberger sven|?",
@@ -11734,7 +11734,7 @@
       "gestellt_erwartet": 0.196,
       "n_siege": 21,
       "n_gaenge": 59,
-      "elo": 1401.0
+      "elo": 1401.1
     },
     {
       "schwinger_id": "niklas lotscher|2006",
@@ -11752,15 +11752,15 @@
     {
       "schwinger_id": "niklas rubin|?",
       "typ": "werfer",
-      "plattwurf": 8.35,
-      "gestellt": 1.73,
+      "plattwurf": 8.33,
+      "gestellt": 1.81,
       "plattwurf_quote": 0.625,
       "plattwurf_erwartet": 0.5,
       "gestellt_quote": 0.254,
-      "gestellt_erwartet": 0.234,
+      "gestellt_erwartet": 0.233,
       "n_siege": 40,
       "n_gaenge": 114,
-      "elo": 1403.5
+      "elo": 1404.8
     },
     {
       "schwinger_id": "niklas stocker|2005",
@@ -11773,7 +11773,7 @@
       "gestellt_erwartet": 0.245,
       "n_siege": 74,
       "n_gaenge": 170,
-      "elo": 1839.0
+      "elo": 1839.1
     },
     {
       "schwinger_id": "niklas zubler|?",
@@ -11805,14 +11805,14 @@
       "schwinger_id": "nils theiler|2004",
       "typ": "bodenarbeiter",
       "plattwurf": -6.58,
-      "gestellt": -4.14,
+      "gestellt": -4.16,
       "plattwurf_quote": 0.45,
       "plattwurf_erwartet": 0.523,
       "gestellt_quote": 0.205,
       "gestellt_erwartet": 0.249,
       "n_siege": 202,
       "n_gaenge": 390,
-      "elo": 2076.7
+      "elo": 2076.8
     },
     {
       "schwinger_id": "noah schaller|2000",
@@ -11838,7 +11838,7 @@
       "gestellt_erwartet": 0.234,
       "n_siege": 74,
       "n_gaenge": 160,
-      "elo": 1797.2
+      "elo": 1797.3
     },
     {
       "schwinger_id": "noah weber|?",
@@ -11869,7 +11869,7 @@
     {
       "schwinger_id": "notz timo|?",
       "typ": "allrounder",
-      "plattwurf": 0.02,
+      "plattwurf": 0.03,
       "gestellt": -1.02,
       "plattwurf_quote": 0.5,
       "plattwurf_erwartet": 0.5,
@@ -11908,8 +11908,8 @@
     {
       "schwinger_id": "oettli reto|?",
       "typ": "werfer",
-      "plattwurf": 7.43,
-      "gestellt": -3.56,
+      "plattwurf": 7.44,
+      "gestellt": -3.57,
       "plattwurf_quote": 0.6,
       "plattwurf_erwartet": 0.501,
       "gestellt_quote": 0.186,
@@ -11929,25 +11929,25 @@
       "gestellt_erwartet": 0.259,
       "n_siege": 155,
       "n_gaenge": 274,
-      "elo": 2104.8
+      "elo": 2104.9
     },
     {
       "schwinger_id": "oliver rubin|2004",
       "typ": "bollwerk",
       "plattwurf": -0.37,
-      "gestellt": 5.98,
+      "gestellt": 5.99,
       "plattwurf_quote": 0.52,
       "plattwurf_erwartet": 0.525,
       "gestellt_quote": 0.299,
       "gestellt_erwartet": 0.23,
       "n_siege": 50,
       "n_gaenge": 144,
-      "elo": 1592.4
+      "elo": 1592.7
     },
     {
       "schwinger_id": "pascal heierli|1999",
       "typ": "bodenarbeiter",
-      "plattwurf": -6.57,
+      "plattwurf": -6.56,
       "gestellt": -0.47,
       "plattwurf_quote": 0.459,
       "plattwurf_erwartet": 0.535,
@@ -11960,7 +11960,7 @@
     {
       "schwinger_id": "pascal joho|2004",
       "typ": "lauerer",
-      "plattwurf": 16.61,
+      "plattwurf": 16.62,
       "gestellt": 18.64,
       "plattwurf_quote": 0.78,
       "plattwurf_erwartet": 0.574,
@@ -11981,7 +11981,7 @@
       "gestellt_erwartet": 0.228,
       "n_siege": 48,
       "n_gaenge": 130,
-      "elo": 1715.9
+      "elo": 1716.0
     },
     {
       "schwinger_id": "patrice buhler|1997",
@@ -12007,13 +12007,13 @@
       "gestellt_erwartet": 0.265,
       "n_siege": 183,
       "n_gaenge": 308,
-      "elo": 2187.4
+      "elo": 2187.5
     },
     {
       "schwinger_id": "patrick gobeli|1998",
       "typ": "bollwerk",
       "plattwurf": 2.2,
-      "gestellt": 6.58,
+      "gestellt": 6.57,
       "plattwurf_quote": 0.574,
       "plattwurf_erwartet": 0.548,
       "gestellt_quote": 0.343,
@@ -12026,7 +12026,7 @@
       "schwinger_id": "patrick kurmann|2003",
       "typ": "lauerer",
       "plattwurf": 17.58,
-      "gestellt": 9.02,
+      "gestellt": 9.01,
       "plattwurf_quote": 0.747,
       "plattwurf_erwartet": 0.547,
       "gestellt_quote": 0.341,
@@ -12051,15 +12051,15 @@
     {
       "schwinger_id": "patrick ryser|?",
       "typ": "entscheider",
-      "plattwurf": -2.31,
-      "gestellt": -6.76,
+      "plattwurf": -2.3,
+      "gestellt": -6.75,
       "plattwurf_quote": 0.457,
       "plattwurf_erwartet": 0.49,
       "gestellt_quote": 0.146,
       "gestellt_erwartet": 0.224,
       "n_siege": 46,
       "n_gaenge": 130,
-      "elo": 1459.7
+      "elo": 1459.8
     },
     {
       "schwinger_id": "patrick schenk|1994",
@@ -12072,7 +12072,7 @@
       "gestellt_erwartet": 0.298,
       "n_siege": 124,
       "n_gaenge": 239,
-      "elo": 2135.1
+      "elo": 2135.2
     },
     {
       "schwinger_id": "patrick scherrer|1993",
@@ -12090,8 +12090,8 @@
     {
       "schwinger_id": "patrick schwyn|?",
       "typ": "allrounder",
-      "plattwurf": -1.25,
-      "gestellt": 2.59,
+      "plattwurf": -1.24,
+      "gestellt": 2.58,
       "plattwurf_quote": 0.509,
       "plattwurf_erwartet": 0.526,
       "gestellt_quote": 0.237,
@@ -12103,15 +12103,15 @@
     {
       "schwinger_id": "patrick steffen|1999",
       "typ": "allrounder",
-      "plattwurf": -1.25,
-      "gestellt": 3.65,
+      "plattwurf": -1.26,
+      "gestellt": 3.66,
       "plattwurf_quote": 0.485,
       "plattwurf_erwartet": 0.505,
       "gestellt_quote": 0.284,
       "gestellt_erwartet": 0.238,
       "n_siege": 33,
       "n_gaenge": 81,
-      "elo": 1713.8
+      "elo": 1713.7
     },
     {
       "schwinger_id": "patrick walther|1996",
@@ -12124,13 +12124,13 @@
       "gestellt_erwartet": 0.258,
       "n_siege": 45,
       "n_gaenge": 100,
-      "elo": 1867.9
+      "elo": 1868.0
     },
     {
       "schwinger_id": "patrick zumstein|?",
       "typ": "entscheider",
-      "plattwurf": 1.12,
-      "gestellt": -5.09,
+      "plattwurf": 1.13,
+      "gestellt": -5.1,
       "plattwurf_quote": 0.514,
       "plattwurf_erwartet": 0.496,
       "gestellt_quote": 0.151,
@@ -12150,7 +12150,7 @@
       "gestellt_erwartet": 0.251,
       "n_siege": 109,
       "n_gaenge": 220,
-      "elo": 1990.7
+      "elo": 1990.8
     },
     {
       "schwinger_id": "patrik laimbacher|2010",
@@ -12176,7 +12176,7 @@
       "gestellt_erwartet": 0.219,
       "n_siege": 94,
       "n_gaenge": 220,
-      "elo": 1667.2
+      "elo": 1667.3
     },
     {
       "schwinger_id": "paul tornare|2001",
@@ -12194,7 +12194,7 @@
     {
       "schwinger_id": "paxton grass|2008",
       "typ": "allrounder",
-      "plattwurf": -3.28,
+      "plattwurf": -3.27,
       "gestellt": -0.6,
       "plattwurf_quote": 0.481,
       "plattwurf_erwartet": 0.52,
@@ -12202,7 +12202,7 @@
       "gestellt_erwartet": 0.25,
       "n_siege": 106,
       "n_gaenge": 218,
-      "elo": 1980.7
+      "elo": 1980.8
     },
     {
       "schwinger_id": "peter beer|1999",
@@ -12215,7 +12215,7 @@
       "gestellt_erwartet": 0.235,
       "n_siege": 70,
       "n_gaenge": 139,
-      "elo": 1758.3
+      "elo": 1758.4
     },
     {
       "schwinger_id": "peter philipp|?",
@@ -12233,7 +12233,7 @@
     {
       "schwinger_id": "peter tischhauser|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -12.15,
+      "plattwurf": -12.14,
       "gestellt": -6.03,
       "plattwurf_quote": 0.269,
       "plattwurf_erwartet": 0.484,
@@ -12254,7 +12254,7 @@
       "gestellt_erwartet": 0.202,
       "n_siege": 16,
       "n_gaenge": 58,
-      "elo": 1236.1
+      "elo": 1235.9
     },
     {
       "schwinger_id": "pharisa samuel|?",
@@ -12267,20 +12267,20 @@
       "gestellt_erwartet": 0.202,
       "n_siege": 41,
       "n_gaenge": 109,
-      "elo": 1507.2
+      "elo": 1507.1
     },
     {
       "schwinger_id": "philip joho|2002",
       "typ": "lauerer",
       "plattwurf": 9.71,
-      "gestellt": 9.67,
+      "gestellt": 9.66,
       "plattwurf_quote": 0.673,
       "plattwurf_erwartet": 0.537,
       "gestellt_quote": 0.362,
       "gestellt_erwartet": 0.25,
       "n_siege": 49,
       "n_gaenge": 130,
-      "elo": 1762.7
+      "elo": 1762.8
     },
     {
       "schwinger_id": "philipp gehrig|1993",
@@ -12293,7 +12293,7 @@
       "gestellt_erwartet": 0.222,
       "n_siege": 47,
       "n_gaenge": 86,
-      "elo": 1895.3
+      "elo": 1895.4
     },
     {
       "schwinger_id": "philipp lehmann|1999",
@@ -12332,7 +12332,7 @@
       "gestellt_erwartet": 0.273,
       "n_siege": 111,
       "n_gaenge": 244,
-      "elo": 2093.2
+      "elo": 2093.3
     },
     {
       "schwinger_id": "philipp ruegg|?",
@@ -12377,14 +12377,14 @@
       "schwinger_id": "pirmin kolb|2001",
       "typ": "bollwerk",
       "plattwurf": -10.52,
-      "gestellt": 5.04,
+      "gestellt": 5.03,
       "plattwurf_quote": 0.386,
       "plattwurf_erwartet": 0.528,
       "gestellt_quote": 0.281,
       "gestellt_erwartet": 0.223,
       "n_siege": 57,
       "n_gaenge": 139,
-      "elo": 1727.8
+      "elo": 1727.9
     },
     {
       "schwinger_id": "pirmin suter|1997",
@@ -12415,15 +12415,15 @@
     {
       "schwinger_id": "pius thoni|?",
       "typ": "allrounder",
-      "plattwurf": -0.33,
-      "gestellt": 3.02,
+      "plattwurf": -0.34,
+      "gestellt": 3.03,
       "plattwurf_quote": 0.5,
       "plattwurf_erwartet": 0.504,
       "gestellt_quote": 0.264,
-      "gestellt_erwartet": 0.231,
+      "gestellt_erwartet": 0.23,
       "n_siege": 78,
       "n_gaenge": 201,
-      "elo": 1634.7
+      "elo": 1634.6
     },
     {
       "schwinger_id": "pius tobler|?",
@@ -12442,7 +12442,7 @@
       "schwinger_id": "raffael wili|?",
       "typ": "allrounder",
       "plattwurf": 4.24,
-      "gestellt": 1.37,
+      "gestellt": 1.36,
       "plattwurf_quote": 0.6,
       "plattwurf_erwartet": 0.501,
       "gestellt_quote": 0.216,
@@ -12455,7 +12455,7 @@
       "schwinger_id": "raffael zimmermann|?",
       "typ": "bollwerk",
       "plattwurf": 3.36,
-      "gestellt": 12.32,
+      "gestellt": 12.31,
       "plattwurf_quote": 0.55,
       "plattwurf_erwartet": 0.505,
       "gestellt_quote": 0.368,
@@ -12468,14 +12468,14 @@
       "schwinger_id": "ralf boni|2004",
       "typ": "allrounder",
       "plattwurf": 3.04,
-      "gestellt": 0.22,
+      "gestellt": 0.24,
       "plattwurf_quote": 0.563,
       "plattwurf_erwartet": 0.527,
       "gestellt_quote": 0.24,
       "gestellt_erwartet": 0.237,
       "n_siege": 103,
       "n_gaenge": 246,
-      "elo": 1714.5
+      "elo": 1714.7
     },
     {
       "schwinger_id": "ramon betschart|1998",
@@ -12514,7 +12514,7 @@
       "gestellt_erwartet": 0.257,
       "n_siege": 91,
       "n_gaenge": 191,
-      "elo": 1769.8
+      "elo": 1769.9
     },
     {
       "schwinger_id": "raphael kiener|2000",
@@ -12527,7 +12527,7 @@
       "gestellt_erwartet": 0.211,
       "n_siege": 84,
       "n_gaenge": 214,
-      "elo": 1586.4
+      "elo": 1586.5
     },
     {
       "schwinger_id": "raphael schreiber|2004",
@@ -12540,7 +12540,7 @@
       "gestellt_erwartet": 0.226,
       "n_siege": 28,
       "n_gaenge": 71,
-      "elo": 1598.3
+      "elo": 1598.4
     },
     {
       "schwinger_id": "raphael waser|1998",
@@ -12571,7 +12571,7 @@
     {
       "schwinger_id": "regenass reto|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -6.99,
+      "plattwurf": -7.0,
       "gestellt": 3.32,
       "plattwurf_quote": 0.378,
       "plattwurf_erwartet": 0.486,
@@ -12579,12 +12579,12 @@
       "gestellt_erwartet": 0.205,
       "n_siege": 37,
       "n_gaenge": 136,
-      "elo": 1400.7
+      "elo": 1400.5
     },
     {
       "schwinger_id": "reichenbach ryan|?",
       "typ": "werfer",
-      "plattwurf": 5.8,
+      "plattwurf": 5.81,
       "gestellt": -1.33,
       "plattwurf_quote": 0.647,
       "plattwurf_erwartet": 0.521,
@@ -12631,7 +12631,7 @@
       "gestellt_erwartet": 0.202,
       "n_siege": 56,
       "n_gaenge": 211,
-      "elo": 1295.0
+      "elo": 1294.9
     },
     {
       "schwinger_id": "remo rutsch|2004",
@@ -12670,7 +12670,7 @@
       "gestellt_erwartet": 0.253,
       "n_siege": 27,
       "n_gaenge": 60,
-      "elo": 1643.0
+      "elo": 1642.7
     },
     {
       "schwinger_id": "remo stalder|?",
@@ -12683,7 +12683,7 @@
       "gestellt_erwartet": 0.234,
       "n_siege": 22,
       "n_gaenge": 52,
-      "elo": 1748.4
+      "elo": 1748.5
     },
     {
       "schwinger_id": "remo studer|1996",
@@ -12691,18 +12691,18 @@
       "plattwurf": 4.31,
       "gestellt": 0.42,
       "plattwurf_quote": 0.59,
-      "plattwurf_erwartet": 0.525,
+      "plattwurf_erwartet": 0.524,
       "gestellt_quote": 0.237,
       "gestellt_erwartet": 0.232,
       "n_siege": 39,
       "n_gaenge": 97,
-      "elo": 1746.3
+      "elo": 1746.4
     },
     {
       "schwinger_id": "remo szymkowiak|?",
       "typ": "bollwerk",
       "plattwurf": 2.65,
-      "gestellt": 6.47,
+      "gestellt": 6.48,
       "plattwurf_quote": 0.526,
       "plattwurf_erwartet": 0.472,
       "gestellt_quote": 0.253,
@@ -12735,13 +12735,13 @@
       "gestellt_erwartet": 0.24,
       "n_siege": 51,
       "n_gaenge": 115,
-      "elo": 1699.0
+      "elo": 1699.1
     },
     {
       "schwinger_id": "remo zurcher|1996",
       "typ": "bollwerk",
       "plattwurf": -0.19,
-      "gestellt": 5.57,
+      "gestellt": 5.58,
       "plattwurf_quote": 0.54,
       "plattwurf_erwartet": 0.543,
       "gestellt_quote": 0.304,
@@ -12787,20 +12787,20 @@
       "gestellt_erwartet": 0.256,
       "n_siege": 93,
       "n_gaenge": 217,
-      "elo": 1871.6
+      "elo": 1871.7
     },
     {
       "schwinger_id": "reto burgi|1993",
       "typ": "bollwerk",
       "plattwurf": -7.25,
-      "gestellt": 5.41,
+      "gestellt": 5.4,
       "plattwurf_quote": 0.452,
       "plattwurf_erwartet": 0.537,
       "gestellt_quote": 0.313,
       "gestellt_erwartet": 0.255,
       "n_siege": 115,
       "n_gaenge": 249,
-      "elo": 1924.1
+      "elo": 1924.2
     },
     {
       "schwinger_id": "reto pfyl|2006",
@@ -12813,7 +12813,7 @@
       "gestellt_erwartet": 0.221,
       "n_siege": 79,
       "n_gaenge": 192,
-      "elo": 1648.6
+      "elo": 1648.7
     },
     {
       "schwinger_id": "reto schlegel|1997",
@@ -12832,27 +12832,27 @@
       "schwinger_id": "reto schmid|?",
       "typ": "bodenarbeiter",
       "plattwurf": -6.4,
-      "gestellt": -4.97,
+      "gestellt": -4.94,
       "plattwurf_quote": 0.361,
       "plattwurf_erwartet": 0.461,
       "gestellt_quote": 0.133,
       "gestellt_erwartet": 0.188,
       "n_siege": 36,
       "n_gaenge": 173,
-      "elo": 1188.3
+      "elo": 1188.0
     },
     {
       "schwinger_id": "reto thoni|2001",
       "typ": "allrounder",
-      "plattwurf": -3.16,
-      "gestellt": 0.63,
-      "plattwurf_quote": 0.507,
+      "plattwurf": -3.49,
+      "gestellt": 0.62,
+      "plattwurf_quote": 0.504,
       "plattwurf_erwartet": 0.544,
       "gestellt_quote": 0.278,
-      "gestellt_erwartet": 0.271,
-      "n_siege": 136,
+      "gestellt_erwartet": 0.272,
+      "n_siege": 135,
       "n_gaenge": 248,
-      "elo": 2084.9
+      "elo": 2085.0
     },
     {
       "schwinger_id": "reto walther|2003",
@@ -12865,7 +12865,7 @@
       "gestellt_erwartet": 0.239,
       "n_siege": 83,
       "n_gaenge": 173,
-      "elo": 1967.2
+      "elo": 1967.3
     },
     {
       "schwinger_id": "reto zimmermann|?",
@@ -12886,7 +12886,7 @@
       "plattwurf": -7.37,
       "gestellt": -4.46,
       "plattwurf_quote": 0.4,
-      "plattwurf_erwartet": 0.507,
+      "plattwurf_erwartet": 0.506,
       "gestellt_quote": 0.146,
       "gestellt_erwartet": 0.201,
       "n_siege": 45,
@@ -12904,7 +12904,7 @@
       "gestellt_erwartet": 0.226,
       "n_siege": 67,
       "n_gaenge": 178,
-      "elo": 1567.9
+      "elo": 1568.0
     },
     {
       "schwinger_id": "robin studinger|2006",
@@ -12956,25 +12956,25 @@
       "gestellt_erwartet": 0.275,
       "n_siege": 92,
       "n_gaenge": 167,
-      "elo": 2065.6
+      "elo": 2065.7
     },
     {
       "schwinger_id": "roger rychen|1991",
       "typ": "bodenarbeiter",
       "plattwurf": -5.01,
-      "gestellt": -5.19,
+      "gestellt": -5.2,
       "plattwurf_quote": 0.481,
       "plattwurf_erwartet": 0.541,
       "gestellt_quote": 0.23,
       "gestellt_erwartet": 0.287,
       "n_siege": 108,
       "n_gaenge": 200,
-      "elo": 2091.4
+      "elo": 2091.5
     },
     {
       "schwinger_id": "roland bucher|1994",
       "typ": "bollwerk",
-      "plattwurf": -8.14,
+      "plattwurf": -8.13,
       "gestellt": 5.94,
       "plattwurf_quote": 0.447,
       "plattwurf_erwartet": 0.539,
@@ -12982,7 +12982,7 @@
       "gestellt_erwartet": 0.272,
       "n_siege": 161,
       "n_gaenge": 325,
-      "elo": 1941.2
+      "elo": 1941.3
     },
     {
       "schwinger_id": "roland reichmuth|1997",
@@ -13021,20 +13021,20 @@
       "gestellt_erwartet": 0.236,
       "n_siege": 193,
       "n_gaenge": 296,
-      "elo": 2353.5
+      "elo": 2353.6
     },
     {
       "schwinger_id": "romain schmid|2003",
       "typ": "allrounder",
       "plattwurf": 3.86,
-      "gestellt": 2.35,
+      "gestellt": 2.34,
       "plattwurf_quote": 0.6,
       "plattwurf_erwartet": 0.531,
       "gestellt_quote": 0.243,
       "gestellt_erwartet": 0.213,
       "n_siege": 25,
       "n_gaenge": 70,
-      "elo": 1599.2
+      "elo": 1599.0
     },
     {
       "schwinger_id": "roman bickel|1998",
@@ -13047,7 +13047,7 @@
       "gestellt_erwartet": 0.232,
       "n_siege": 82,
       "n_gaenge": 165,
-      "elo": 1625.9
+      "elo": 1626.0
     },
     {
       "schwinger_id": "roman bucher|2002",
@@ -13060,7 +13060,7 @@
       "gestellt_erwartet": 0.255,
       "n_siege": 91,
       "n_gaenge": 180,
-      "elo": 1895.6
+      "elo": 1895.7
     },
     {
       "schwinger_id": "roman muller|2009",
@@ -13073,12 +13073,12 @@
       "gestellt_erwartet": 0.216,
       "n_siege": 32,
       "n_gaenge": 77,
-      "elo": 1604.2
+      "elo": 1604.3
     },
     {
       "schwinger_id": "roman roner|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -17.13,
+      "plattwurf": -17.12,
       "gestellt": 1.7,
       "plattwurf_quote": 0.239,
       "plattwurf_erwartet": 0.485,
@@ -13138,7 +13138,7 @@
       "gestellt_erwartet": 0.225,
       "n_siege": 54,
       "n_gaenge": 90,
-      "elo": 1816.0
+      "elo": 1816.1
     },
     {
       "schwinger_id": "ronny heinzer|1996",
@@ -13151,7 +13151,7 @@
       "gestellt_erwartet": 0.257,
       "n_siege": 139,
       "n_gaenge": 301,
-      "elo": 1829.6
+      "elo": 1829.7
     },
     {
       "schwinger_id": "ronny schopfer|1999",
@@ -13164,12 +13164,12 @@
       "gestellt_erwartet": 0.268,
       "n_siege": 71,
       "n_gaenge": 142,
-      "elo": 1904.6
+      "elo": 1904.7
     },
     {
       "schwinger_id": "ronny zahner|?",
       "typ": "entscheider",
-      "plattwurf": 1.58,
+      "plattwurf": 1.59,
       "gestellt": -7.62,
       "plattwurf_quote": 0.5,
       "plattwurf_erwartet": 0.464,
@@ -13182,28 +13182,28 @@
     {
       "schwinger_id": "rothlisberger sandro|?",
       "typ": "bollwerk",
-      "plattwurf": -3.99,
-      "gestellt": 16.04,
+      "plattwurf": -4.0,
+      "gestellt": 16.01,
       "plattwurf_quote": 0.452,
       "plattwurf_erwartet": 0.517,
       "gestellt_quote": 0.405,
       "gestellt_erwartet": 0.218,
       "n_siege": 31,
       "n_gaenge": 121,
-      "elo": 1419.2
+      "elo": 1419.3
     },
     {
       "schwinger_id": "rothlisberger tobias|?",
       "typ": "werfer",
       "plattwurf": 4.98,
-      "gestellt": -3.18,
+      "gestellt": -3.17,
       "plattwurf_quote": 0.55,
       "plattwurf_erwartet": 0.475,
       "gestellt_quote": 0.171,
       "gestellt_erwartet": 0.207,
       "n_siege": 40,
       "n_gaenge": 146,
-      "elo": 1414.7
+      "elo": 1414.5
     },
     {
       "schwinger_id": "roy wittwer|1995",
@@ -13216,7 +13216,7 @@
       "gestellt_erwartet": 0.231,
       "n_siege": 122,
       "n_gaenge": 264,
-      "elo": 1738.9
+      "elo": 1739.0
     },
     {
       "schwinger_id": "rust sandro|?",
@@ -13260,7 +13260,7 @@
     {
       "schwinger_id": "sales tschudi|2009",
       "typ": "werfer",
-      "plattwurf": 4.92,
+      "plattwurf": 4.93,
       "gestellt": -0.13,
       "plattwurf_quote": 0.603,
       "plattwurf_erwartet": 0.54,
@@ -13268,33 +13268,33 @@
       "gestellt_erwartet": 0.21,
       "n_siege": 73,
       "n_gaenge": 144,
-      "elo": 1906.4
+      "elo": 1906.5
     },
     {
       "schwinger_id": "sami gerber|2000",
       "typ": "werfer",
       "plattwurf": 12.17,
-      "gestellt": -7.09,
+      "gestellt": -7.08,
       "plattwurf_quote": 0.656,
       "plattwurf_erwartet": 0.494,
       "gestellt_quote": 0.189,
       "gestellt_erwartet": 0.27,
       "n_siege": 61,
       "n_gaenge": 143,
-      "elo": 1742.7
+      "elo": 1742.8
     },
     {
       "schwinger_id": "sami nufer|1998",
       "typ": "bollwerk",
       "plattwurf": -12.62,
-      "gestellt": 18.83,
+      "gestellt": 18.82,
       "plattwurf_quote": 0.397,
       "plattwurf_erwartet": 0.558,
       "gestellt_quote": 0.426,
       "gestellt_erwartet": 0.219,
       "n_siege": 73,
       "n_gaenge": 197,
-      "elo": 1699.9
+      "elo": 1700.0
     },
     {
       "schwinger_id": "sami wampfler|?",
@@ -13320,7 +13320,7 @@
       "gestellt_erwartet": 0.2,
       "n_siege": 135,
       "n_gaenge": 186,
-      "elo": 2640.2
+      "elo": 2640.3
     },
     {
       "schwinger_id": "samuel schmid|1995",
@@ -13333,12 +13333,12 @@
       "gestellt_erwartet": 0.253,
       "n_siege": 137,
       "n_gaenge": 268,
-      "elo": 1875.1
+      "elo": 1875.2
     },
     {
       "schwinger_id": "samuel schuler|?",
       "typ": "lauerer",
-      "plattwurf": 4.83,
+      "plattwurf": 4.84,
       "gestellt": 19.62,
       "plattwurf_quote": 0.581,
       "plattwurf_erwartet": 0.511,
@@ -13359,7 +13359,7 @@
       "gestellt_erwartet": 0.224,
       "n_siege": 207,
       "n_gaenge": 332,
-      "elo": 2300.2
+      "elo": 2300.3
     },
     {
       "schwinger_id": "samuel sidler|?",
@@ -13390,7 +13390,7 @@
     {
       "schwinger_id": "samuel suter|1999",
       "typ": "bollwerk",
-      "plattwurf": -0.23,
+      "plattwurf": -0.22,
       "gestellt": 4.9,
       "plattwurf_quote": 0.526,
       "plattwurf_erwartet": 0.528,
@@ -13403,15 +13403,15 @@
     {
       "schwinger_id": "samuel zbinden|?",
       "typ": "entscheider",
-      "plattwurf": 0.0,
-      "gestellt": -10.29,
+      "plattwurf": 0.01,
+      "gestellt": -10.28,
       "plattwurf_quote": 0.472,
       "plattwurf_erwartet": 0.472,
       "gestellt_quote": 0.094,
       "gestellt_erwartet": 0.211,
       "n_siege": 36,
       "n_gaenge": 139,
-      "elo": 1140.3
+      "elo": 1140.0
     },
     {
       "schwinger_id": "samuel zurfluh|?",
@@ -13429,7 +13429,7 @@
     {
       "schwinger_id": "sandro balimann|2001",
       "typ": "bollwerk",
-      "plattwurf": -5.29,
+      "plattwurf": -5.28,
       "gestellt": 6.11,
       "plattwurf_quote": 0.495,
       "plattwurf_erwartet": 0.558,
@@ -13442,7 +13442,7 @@
     {
       "schwinger_id": "sandro fitze|2009",
       "typ": "entscheider",
-      "plattwurf": 1.89,
+      "plattwurf": 1.9,
       "gestellt": -14.24,
       "plattwurf_quote": 0.524,
       "plattwurf_erwartet": 0.5,
@@ -13450,7 +13450,7 @@
       "gestellt_erwartet": 0.209,
       "n_siege": 84,
       "n_gaenge": 163,
-      "elo": 1749.8
+      "elo": 1749.9
     },
     {
       "schwinger_id": "sandro galli|2001",
@@ -13458,12 +13458,12 @@
       "plattwurf": -2.72,
       "gestellt": 9.29,
       "plattwurf_quote": 0.521,
-      "plattwurf_erwartet": 0.553,
+      "plattwurf_erwartet": 0.552,
       "gestellt_quote": 0.335,
       "gestellt_erwartet": 0.235,
       "n_siege": 140,
       "n_gaenge": 284,
-      "elo": 2064.5
+      "elo": 2064.6
     },
     {
       "schwinger_id": "sandro gmur|1997",
@@ -13482,27 +13482,27 @@
       "schwinger_id": "sandro graber|1995",
       "typ": "bollwerk",
       "plattwurf": -24.98,
-      "gestellt": 5.77,
+      "gestellt": 5.8,
       "plattwurf_quote": 0.167,
       "plattwurf_erwartet": 0.5,
       "gestellt_quote": 0.317,
-      "gestellt_erwartet": 0.252,
+      "gestellt_erwartet": 0.251,
       "n_siege": 60,
       "n_gaenge": 145,
-      "elo": 1667.9
+      "elo": 1668.2
     },
     {
       "schwinger_id": "sandro lehmann|2002",
       "typ": "bollwerk",
       "plattwurf": -9.17,
-      "gestellt": 9.42,
+      "gestellt": 9.44,
       "plattwurf_quote": 0.396,
       "plattwurf_erwartet": 0.522,
       "gestellt_quote": 0.344,
-      "gestellt_erwartet": 0.235,
+      "gestellt_erwartet": 0.234,
       "n_siege": 53,
       "n_gaenge": 122,
-      "elo": 1729.6
+      "elo": 1729.7
     },
     {
       "schwinger_id": "sandro nuesch|2005",
@@ -13546,7 +13546,7 @@
     {
       "schwinger_id": "sandro ulrich|?",
       "typ": "allrounder",
-      "plattwurf": -0.98,
+      "plattwurf": -0.97,
       "gestellt": -2.98,
       "plattwurf_quote": 0.483,
       "plattwurf_erwartet": 0.496,
@@ -13559,7 +13559,7 @@
     {
       "schwinger_id": "sandro vogt|2004",
       "typ": "lauerer",
-      "plattwurf": 5.75,
+      "plattwurf": 5.76,
       "gestellt": 11.44,
       "plattwurf_quote": 0.635,
       "plattwurf_erwartet": 0.555,
@@ -13586,7 +13586,7 @@
       "schwinger_id": "sascha streich|2001",
       "typ": "lauerer",
       "plattwurf": 11.16,
-      "gestellt": 17.96,
+      "gestellt": 17.95,
       "plattwurf_quote": 0.701,
       "plattwurf_erwartet": 0.561,
       "gestellt_quote": 0.435,
@@ -13606,7 +13606,7 @@
       "gestellt_erwartet": 0.22,
       "n_siege": 37,
       "n_gaenge": 106,
-      "elo": 1405.6
+      "elo": 1405.5
     },
     {
       "schwinger_id": "schmid simon|nos",
@@ -13637,12 +13637,12 @@
     {
       "schwinger_id": "seematter simon|?",
       "typ": "bollwerk",
-      "plattwurf": -0.52,
-      "gestellt": 7.36,
+      "plattwurf": -0.54,
+      "gestellt": 7.41,
       "plattwurf_quote": 0.516,
       "plattwurf_erwartet": 0.525,
       "gestellt_quote": 0.286,
-      "gestellt_erwartet": 0.195,
+      "gestellt_erwartet": 0.194,
       "n_siege": 31,
       "n_gaenge": 84,
       "elo": 1560.9
@@ -13658,7 +13658,7 @@
       "gestellt_erwartet": 0.227,
       "n_siege": 72,
       "n_gaenge": 191,
-      "elo": 1545.6
+      "elo": 1545.7
     },
     {
       "schwinger_id": "severin schwander|1995",
@@ -13702,15 +13702,15 @@
     {
       "schwinger_id": "severin wuthrich|?",
       "typ": "lauerer",
-      "plattwurf": 8.06,
-      "gestellt": 4.94,
+      "plattwurf": 8.03,
+      "gestellt": 4.95,
       "plattwurf_quote": 0.667,
       "plattwurf_erwartet": 0.497,
       "gestellt_quote": 0.259,
-      "gestellt_erwartet": 0.192,
+      "gestellt_erwartet": 0.191,
       "n_siege": 18,
       "n_gaenge": 54,
-      "elo": 1582.0
+      "elo": 1581.8
     },
     {
       "schwinger_id": "shane dandliker|1995",
@@ -13741,7 +13741,7 @@
     {
       "schwinger_id": "silvan appert|2003",
       "typ": "werfer",
-      "plattwurf": 8.51,
+      "plattwurf": 8.52,
       "gestellt": 1.32,
       "plattwurf_quote": 0.644,
       "plattwurf_erwartet": 0.547,
@@ -13749,7 +13749,7 @@
       "gestellt_erwartet": 0.263,
       "n_siege": 146,
       "n_gaenge": 256,
-      "elo": 2145.5
+      "elo": 2145.6
     },
     {
       "schwinger_id": "silvan galli|2007",
@@ -13762,7 +13762,7 @@
       "gestellt_erwartet": 0.243,
       "n_siege": 79,
       "n_gaenge": 200,
-      "elo": 1844.7
+      "elo": 1844.8
     },
     {
       "schwinger_id": "silvan steinauer|?",
@@ -13781,7 +13781,7 @@
       "schwinger_id": "silvan sutter|?",
       "typ": "bodenarbeiter",
       "plattwurf": -8.51,
-      "gestellt": -8.79,
+      "gestellt": -8.78,
       "plattwurf_quote": 0.39,
       "plattwurf_erwartet": 0.496,
       "gestellt_quote": 0.1,
@@ -13793,8 +13793,8 @@
     {
       "schwinger_id": "silvan trittibach|2004",
       "typ": "bodenarbeiter",
-      "plattwurf": -13.75,
-      "gestellt": 0.91,
+      "plattwurf": -13.74,
+      "gestellt": 0.9,
       "plattwurf_quote": 0.389,
       "plattwurf_erwartet": 0.548,
       "gestellt_quote": 0.253,
@@ -13814,7 +13814,7 @@
       "gestellt_erwartet": 0.216,
       "n_siege": 63,
       "n_gaenge": 149,
-      "elo": 1788.3
+      "elo": 1788.4
     },
     {
       "schwinger_id": "silvan wolf|?",
@@ -13824,7 +13824,7 @@
       "plattwurf_quote": 0.381,
       "plattwurf_erwartet": 0.443,
       "gestellt_quote": 0.194,
-      "gestellt_erwartet": 0.203,
+      "gestellt_erwartet": 0.204,
       "n_siege": 21,
       "n_gaenge": 98,
       "elo": 1188.6
@@ -13879,7 +13879,7 @@
       "gestellt_erwartet": 0.218,
       "n_siege": 53,
       "n_gaenge": 98,
-      "elo": 1784.9
+      "elo": 1785.0
     },
     {
       "schwinger_id": "simon gabriel|2002",
@@ -13892,12 +13892,12 @@
       "gestellt_erwartet": 0.243,
       "n_siege": 99,
       "n_gaenge": 270,
-      "elo": 1657.0
+      "elo": 1657.1
     },
     {
       "schwinger_id": "simon graf|2001",
       "typ": "lauerer",
-      "plattwurf": 4.76,
+      "plattwurf": 4.77,
       "gestellt": 4.15,
       "plattwurf_quote": 0.575,
       "plattwurf_erwartet": 0.515,
@@ -13905,7 +13905,7 @@
       "gestellt_erwartet": 0.289,
       "n_siege": 73,
       "n_gaenge": 182,
-      "elo": 1816.5
+      "elo": 1816.4
     },
     {
       "schwinger_id": "simon rothlisberger|1998",
@@ -13918,20 +13918,20 @@
       "gestellt_erwartet": 0.228,
       "n_siege": 61,
       "n_gaenge": 157,
-      "elo": 1764.8
+      "elo": 1764.9
     },
     {
       "schwinger_id": "simon schmid|2000",
       "typ": "allrounder",
       "plattwurf": -2.16,
-      "gestellt": -1.29,
+      "gestellt": -1.31,
       "plattwurf_quote": 0.503,
       "plattwurf_erwartet": 0.528,
       "gestellt_quote": 0.242,
       "gestellt_erwartet": 0.256,
       "n_siege": 145,
       "n_gaenge": 297,
-      "elo": 1969.0
+      "elo": 1969.1
     },
     {
       "schwinger_id": "simon schmutz|2000",
@@ -13962,15 +13962,15 @@
     {
       "schwinger_id": "simon stoll|1993",
       "typ": "lauerer",
-      "plattwurf": 7.5,
-      "gestellt": 7.18,
+      "plattwurf": 7.49,
+      "gestellt": 7.16,
       "plattwurf_quote": 0.629,
       "plattwurf_erwartet": 0.539,
       "gestellt_quote": 0.319,
       "gestellt_erwartet": 0.241,
       "n_siege": 105,
       "n_gaenge": 251,
-      "elo": 1860.8
+      "elo": 1860.9
     },
     {
       "schwinger_id": "simon stucki|2005",
@@ -14048,12 +14048,12 @@
       "gestellt_erwartet": 0.262,
       "n_siege": 51,
       "n_gaenge": 102,
-      "elo": 1870.5
+      "elo": 1870.7
     },
     {
       "schwinger_id": "simon wyrsch|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -11.41,
+      "plattwurf": -11.4,
       "gestellt": -0.69,
       "plattwurf_quote": 0.25,
       "plattwurf_erwartet": 0.459,
@@ -14066,7 +14066,7 @@
     {
       "schwinger_id": "sinisha luscher|2006",
       "typ": "bodenarbeiter",
-      "plattwurf": -9.72,
+      "plattwurf": -9.71,
       "gestellt": -5.71,
       "plattwurf_quote": 0.462,
       "plattwurf_erwartet": 0.57,
@@ -14100,7 +14100,7 @@
       "gestellt_erwartet": 0.268,
       "n_siege": 120,
       "n_gaenge": 218,
-      "elo": 2006.3
+      "elo": 2006.4
     },
     {
       "schwinger_id": "stefan wicki|?",
@@ -14118,7 +14118,7 @@
     {
       "schwinger_id": "stefan wolf|2006",
       "typ": "bollwerk",
-      "plattwurf": 2.5,
+      "plattwurf": 2.51,
       "gestellt": 6.11,
       "plattwurf_quote": 0.538,
       "plattwurf_erwartet": 0.508,
@@ -14126,7 +14126,7 @@
       "gestellt_erwartet": 0.243,
       "n_siege": 91,
       "n_gaenge": 216,
-      "elo": 1772.5
+      "elo": 1772.6
     },
     {
       "schwinger_id": "stefan zemp|?",
@@ -14152,7 +14152,7 @@
       "gestellt_erwartet": 0.232,
       "n_siege": 68,
       "n_gaenge": 162,
-      "elo": 1755.2
+      "elo": 1755.1
     },
     {
       "schwinger_id": "steve duplan|1997",
@@ -14178,13 +14178,13 @@
       "gestellt_erwartet": 0.238,
       "n_siege": 107,
       "n_gaenge": 202,
-      "elo": 2167.0
+      "elo": 2167.1
     },
     {
       "schwinger_id": "stocker this|?",
       "typ": "entscheider",
       "plattwurf": 2.51,
-      "gestellt": -9.31,
+      "gestellt": -9.32,
       "plattwurf_quote": 0.522,
       "plattwurf_erwartet": 0.475,
       "gestellt_quote": 0.084,
@@ -14196,7 +14196,7 @@
     {
       "schwinger_id": "strebel tobias|?",
       "typ": "entscheider",
-      "plattwurf": 2.28,
+      "plattwurf": 2.29,
       "gestellt": -5.58,
       "plattwurf_quote": 0.524,
       "plattwurf_erwartet": 0.479,
@@ -14209,8 +14209,8 @@
     {
       "schwinger_id": "stucki timon|?",
       "typ": "werfer",
-      "plattwurf": 8.59,
-      "gestellt": -1.48,
+      "plattwurf": 8.58,
+      "gestellt": -1.46,
       "plattwurf_quote": 0.608,
       "plattwurf_erwartet": 0.488,
       "gestellt_quote": 0.217,
@@ -14222,7 +14222,7 @@
     {
       "schwinger_id": "suter thomas|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -10.35,
+      "plattwurf": -10.34,
       "gestellt": -7.42,
       "plattwurf_quote": 0.374,
       "plattwurf_erwartet": 0.498,
@@ -14236,27 +14236,27 @@
       "schwinger_id": "sven klossner|1996",
       "typ": "allrounder",
       "plattwurf": 1.1,
-      "gestellt": 2.81,
+      "gestellt": 2.82,
       "plattwurf_quote": 0.506,
       "plattwurf_erwartet": 0.492,
       "gestellt_quote": 0.282,
       "gestellt_erwartet": 0.251,
       "n_siege": 83,
       "n_gaenge": 238,
-      "elo": 1573.7
+      "elo": 1573.8
     },
     {
       "schwinger_id": "sven lang|1998",
       "typ": "entscheider",
-      "plattwurf": -0.44,
-      "gestellt": -6.64,
+      "plattwurf": -0.43,
+      "gestellt": -6.65,
       "plattwurf_quote": 0.535,
       "plattwurf_erwartet": 0.54,
       "gestellt_quote": 0.203,
       "gestellt_erwartet": 0.274,
       "n_siege": 157,
       "n_gaenge": 271,
-      "elo": 2066.9
+      "elo": 2067.0
     },
     {
       "schwinger_id": "sven poller|2000",
@@ -14300,15 +14300,15 @@
     {
       "schwinger_id": "sven wyss|2001",
       "typ": "allrounder",
-      "plattwurf": -1.22,
-      "gestellt": -0.77,
+      "plattwurf": -1.21,
+      "gestellt": -0.78,
       "plattwurf_quote": 0.506,
       "plattwurf_erwartet": 0.522,
       "gestellt_quote": 0.219,
       "gestellt_erwartet": 0.228,
       "n_siege": 79,
       "n_gaenge": 187,
-      "elo": 1716.8
+      "elo": 1716.9
     },
     {
       "schwinger_id": "theo dorsaz|1998",
@@ -14327,14 +14327,14 @@
       "schwinger_id": "thiben althaus|2006",
       "typ": "werfer",
       "plattwurf": 12.33,
-      "gestellt": -10.54,
+      "gestellt": -10.53,
       "plattwurf_quote": 0.688,
       "plattwurf_erwartet": 0.513,
       "gestellt_quote": 0.088,
       "gestellt_erwartet": 0.212,
       "n_siege": 48,
       "n_gaenge": 114,
-      "elo": 1439.4
+      "elo": 1439.2
     },
     {
       "schwinger_id": "this kolb|2003",
@@ -14392,7 +14392,7 @@
       "schwinger_id": "thomas kuster|1992",
       "typ": "bodenarbeiter",
       "plattwurf": -5.57,
-      "gestellt": -5.79,
+      "gestellt": -5.8,
       "plattwurf_quote": 0.462,
       "plattwurf_erwartet": 0.53,
       "gestellt_quote": 0.18,
@@ -14405,7 +14405,7 @@
       "schwinger_id": "thomas stoll|1998",
       "typ": "bollwerk",
       "plattwurf": -7.76,
-      "gestellt": 8.84,
+      "gestellt": 8.83,
       "plattwurf_quote": 0.46,
       "plattwurf_erwartet": 0.552,
       "gestellt_quote": 0.339,
@@ -14417,7 +14417,7 @@
     {
       "schwinger_id": "thomas wild|1995",
       "typ": "werfer",
-      "plattwurf": 15.27,
+      "plattwurf": 15.28,
       "gestellt": -12.88,
       "plattwurf_quote": 0.732,
       "plattwurf_erwartet": 0.504,
@@ -14443,7 +14443,7 @@
     {
       "schwinger_id": "til voggensperger|2004",
       "typ": "lauerer",
-      "plattwurf": 5.94,
+      "plattwurf": 5.95,
       "gestellt": 17.09,
       "plattwurf_quote": 0.605,
       "plattwurf_erwartet": 0.515,
@@ -14477,12 +14477,12 @@
       "gestellt_erwartet": 0.27,
       "n_siege": 118,
       "n_gaenge": 201,
-      "elo": 2220.6
+      "elo": 2220.7
     },
     {
       "schwinger_id": "tim wuthrich|?",
       "typ": "bodenarbeiter",
-      "plattwurf": -18.56,
+      "plattwurf": -18.55,
       "gestellt": -1.45,
       "plattwurf_quote": 0.298,
       "plattwurf_erwartet": 0.523,
@@ -14542,7 +14542,7 @@
       "gestellt_erwartet": 0.219,
       "n_siege": 49,
       "n_gaenge": 119,
-      "elo": 1467.7
+      "elo": 1467.6
     },
     {
       "schwinger_id": "tobias dunner|2005",
@@ -14555,7 +14555,7 @@
       "gestellt_erwartet": 0.253,
       "n_siege": 92,
       "n_gaenge": 223,
-      "elo": 1971.8
+      "elo": 1971.9
     },
     {
       "schwinger_id": "tobias hurschler|2003",
@@ -14574,14 +14574,14 @@
       "schwinger_id": "tobias lauper|2007",
       "typ": "bodenarbeiter",
       "plattwurf": -6.26,
-      "gestellt": 0.34,
+      "gestellt": 0.33,
       "plattwurf_quote": 0.426,
-      "plattwurf_erwartet": 0.508,
+      "plattwurf_erwartet": 0.507,
       "gestellt_quote": 0.244,
       "gestellt_erwartet": 0.24,
       "n_siege": 68,
       "n_gaenge": 156,
-      "elo": 1917.1
+      "elo": 1917.2
     },
     {
       "schwinger_id": "tobias schonenberger|2004",
@@ -14612,7 +14612,7 @@
     {
       "schwinger_id": "ueli achermann|2001",
       "typ": "bollwerk",
-      "plattwurf": 3.87,
+      "plattwurf": 3.88,
       "gestellt": 6.9,
       "plattwurf_quote": 0.575,
       "plattwurf_erwartet": 0.53,
@@ -14633,7 +14633,7 @@
       "gestellt_erwartet": 0.246,
       "n_siege": 56,
       "n_gaenge": 161,
-      "elo": 1659.5
+      "elo": 1659.6
     },
     {
       "schwinger_id": "ueli doppmann|1998",
@@ -14646,20 +14646,20 @@
       "gestellt_erwartet": 0.227,
       "n_siege": 83,
       "n_gaenge": 170,
-      "elo": 1722.5
+      "elo": 1722.6
     },
     {
       "schwinger_id": "ueli rohrer|1999",
       "typ": "werfer",
       "plattwurf": 11.19,
-      "gestellt": 1.67,
+      "gestellt": 1.66,
       "plattwurf_quote": 0.662,
       "plattwurf_erwartet": 0.536,
       "gestellt_quote": 0.281,
       "gestellt_erwartet": 0.263,
       "n_siege": 157,
       "n_gaenge": 288,
-      "elo": 2118.1
+      "elo": 2118.2
     },
     {
       "schwinger_id": "ueli rolli|2006",
@@ -14685,7 +14685,7 @@
       "gestellt_erwartet": 0.232,
       "n_siege": 23,
       "n_gaenge": 61,
-      "elo": 1614.3
+      "elo": 1614.4
     },
     {
       "schwinger_id": "ueli wiget|1999",
@@ -14698,7 +14698,7 @@
       "gestellt_erwartet": 0.277,
       "n_siege": 132,
       "n_gaenge": 281,
-      "elo": 1906.8
+      "elo": 1906.9
     },
     {
       "schwinger_id": "ueli wuthrich|2007",
@@ -14742,15 +14742,15 @@
     {
       "schwinger_id": "urs meier|2003",
       "typ": "lauerer",
-      "plattwurf": 9.41,
-      "gestellt": 7.23,
+      "plattwurf": 9.4,
+      "gestellt": 7.13,
       "plattwurf_quote": 0.643,
       "plattwurf_erwartet": 0.515,
       "gestellt_quote": 0.338,
-      "gestellt_erwartet": 0.256,
+      "gestellt_erwartet": 0.257,
       "n_siege": 56,
       "n_gaenge": 148,
-      "elo": 1675.3
+      "elo": 1677.7
     },
     {
       "schwinger_id": "urs riebli|2002",
@@ -14776,7 +14776,7 @@
       "gestellt_erwartet": 0.239,
       "n_siege": 99,
       "n_gaenge": 200,
-      "elo": 1799.5
+      "elo": 1799.6
     },
     {
       "schwinger_id": "valentin scherz|2007",
@@ -14789,26 +14789,26 @@
       "gestellt_erwartet": 0.248,
       "n_siege": 74,
       "n_gaenge": 156,
-      "elo": 1990.1
+      "elo": 1990.2
     },
     {
       "schwinger_id": "valentin steffen|1996",
       "typ": "werfer",
       "plattwurf": 9.68,
-      "gestellt": 3.34,
+      "gestellt": 3.33,
       "plattwurf_quote": 0.659,
       "plattwurf_erwartet": 0.54,
       "gestellt_quote": 0.299,
       "gestellt_erwartet": 0.262,
       "n_siege": 88,
       "n_gaenge": 201,
-      "elo": 1927.2
+      "elo": 1927.3
     },
     {
       "schwinger_id": "victor cardinaux|1996",
       "typ": "bodenarbeiter",
       "plattwurf": -7.58,
-      "gestellt": -8.99,
+      "gestellt": -9.0,
       "plattwurf_quote": 0.452,
       "plattwurf_erwartet": 0.549,
       "gestellt_quote": 0.164,
@@ -14821,7 +14821,7 @@
       "schwinger_id": "weder yanick|?",
       "typ": "bodenarbeiter",
       "plattwurf": -5.77,
-      "gestellt": -12.99,
+      "gestellt": -13.0,
       "plattwurf_quote": 0.364,
       "plattwurf_erwartet": 0.474,
       "gestellt_quote": 0.024,
@@ -14841,7 +14841,7 @@
       "gestellt_erwartet": 0.203,
       "n_siege": 51,
       "n_gaenge": 106,
-      "elo": 1568.6
+      "elo": 1568.7
     },
     {
       "schwinger_id": "werner schlegel|2002",
@@ -14880,7 +14880,7 @@
       "gestellt_erwartet": 0.24,
       "n_siege": 56,
       "n_gaenge": 144,
-      "elo": 1633.4
+      "elo": 1633.5
     }
   ]
 }

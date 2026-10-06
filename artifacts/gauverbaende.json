@@ -29,7 +29,7 @@
     {
       "kanton": "Baselland",
       "n_schwinger": 63,
-      "elo_avg": 1323.4,
+      "elo_avg": 1323.3,
       "n_top_schwinger": 7,
       "n_kranzer": 12,
       "n_eidgenosse": 3,
@@ -41,7 +41,7 @@
     {
       "kanton": "Berner-Jura",
       "n_schwinger": 19,
-      "elo_avg": 1212.6,
+      "elo_avg": 1211.1,
       "n_top_schwinger": 1,
       "n_kranzer": 2,
       "n_eidgenosse": 0,
@@ -137,7 +137,7 @@
     {
       "kanton": "Mittelland",
       "n_schwinger": 117,
-      "elo_avg": 1399.3,
+      "elo_avg": 1399.0,
       "n_top_schwinger": 14,
       "n_kranzer": 26,
       "n_eidgenosse": 4,
@@ -149,7 +149,7 @@
     {
       "kanton": "Neuchâteloise",
       "n_schwinger": 26,
-      "elo_avg": 1183.4,
+      "elo_avg": 1183.2,
       "n_top_schwinger": 0,
       "n_kranzer": 2,
       "n_eidgenosse": 0,
@@ -173,7 +173,7 @@
     {
       "kanton": "Oberaargau",
       "n_schwinger": 70,
-      "elo_avg": 1494.2,
+      "elo_avg": 1494.1,
       "n_top_schwinger": 6,
       "n_kranzer": 26,
       "n_eidgenosse": 2,
@@ -185,7 +185,7 @@
     {
       "kanton": "Oberland",
       "n_schwinger": 191,
-      "elo_avg": 1472.0,
+      "elo_avg": 1471.9,
       "n_top_schwinger": 29,
       "n_kranzer": 63,
       "n_eidgenosse": 5,
@@ -197,7 +197,7 @@
     {
       "kanton": "Schaffhausen",
       "n_schwinger": 4,
-      "elo_avg": 1814.9,
+      "elo_avg": 1815.0,
       "n_top_schwinger": 1,
       "n_kranzer": 3,
       "n_eidgenosse": 1,
@@ -221,7 +221,7 @@
     {
       "kanton": "Seeland",
       "n_schwinger": 47,
-      "elo_avg": 1428.5,
+      "elo_avg": 1428.4,
       "n_top_schwinger": 7,
       "n_kranzer": 8,
       "n_eidgenosse": 4,

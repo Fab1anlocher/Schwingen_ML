@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0.0",
   "saison": 2027,
-  "eingefroren_am": "2026-10-06T08:17:34+00:00",
-  "code_commit": "25ec879f0e3dd9af05201188355befdfd39aba52",
-  "pruefsumme": "85ee2a6ae9a3900b79b66fb7c8b0422564728a889a9384489d78aa514eba09bf",
+  "eingefroren_am": "2026-10-06T14:29:54+00:00",
+  "code_commit": "1e6f2e83107e12ab470fc0604cd1642eef8c0349",
+  "pruefsumme": "aaab4c30f7eec63263016280c04439e79e7892c91bec78610842ea243b2f9942",
   "merkmal_version": 3,
   "vorgaenger": [
     {
@@ -15,14 +15,19 @@
       "eingefroren_am": "2026-10-05T15:32:02+00:00",
       "pruefsumme": "e4a6df3c6fc8d9a5bb25954e190d21a6a9b2214945e632d4efbb8bbfbe4be713",
       "code_commit": "96e562be63e46eabb60d669821f8330d8a65f0a9"
+    },
+    {
+      "eingefroren_am": "2026-10-06T08:17:34+00:00",
+      "pruefsumme": "85ee2a6ae9a3900b79b66fb7c8b0422564728a889a9384489d78aa514eba09bf",
+      "code_commit": "25ec879f0e3dd9af05201188355befdfd39aba52"
     }
   ],
   "wache": {
     "modell_unveraendert": true,
-    "eingaben_unveraendert": false,
+    "eingaben_unveraendert": true,
     "referenz_gefunden": 1.0,
-    "referenz_gleich": 0.8865,
-    "warnung": "Die Referenzgänge ergeben andere Prognosen als beim Einfrieren (89% gleich, 100% gefunden): Merkmals-/Rating-Code oder Datengrundlage hat sich verändert."
+    "referenz_gleich": 1.0,
+    "warnung": null
   },
   "status": "wartet",
   "n": 0
