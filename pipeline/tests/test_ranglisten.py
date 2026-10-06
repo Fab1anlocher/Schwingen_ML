@@ -104,3 +104,29 @@ def test_namensaufloesung_mit_jahrgang_trennt_namensvettern():
                                                     lambda name: None, schwinger)
     assert [t.schwinger_id for t in teilnahmen] == ["roman muller|2009"]
     assert bericht["n_nicht_lesbar"] == 1 and bericht["anteil_namen_aufgeloest"] == 0.5
+
+
+def test_resultat_abgleich_findet_falsch_zugeordnete_gaenge():
+    from pipeline.labels import GangResultat
+    from pipeline.ranglisten import Teilnahme, resultat_abgleich
+
+    def gang(a, b, erg):
+        sym = {"sieg_a": ("+", "o"), "gestellt": ("-", "-"), "sieg_b": ("o", "+")}[erg]
+        return GangResultat("f", "2025-05-01", a, b, sym[0], None, sym[1], None, erg, "kantonal")
+
+    def teil(sid, resultat):
+        return Teilnahme(sid, "f", "2025-05-01", "kantonal", "1", 57.0, False, None,
+                         None, None, None, resultat=resultat)
+
+    gaenge = [gang("a", "b", "sieg_a"), gang("a", "c", "gestellt"), gang("a", "d", "sieg_b"),
+              gang("b", "c", "sieg_a")]
+    teilnahmen = [
+        teil("a", "+-0"),   # stimmt (0 = Niederlage wie o)
+        teil("b", "o"),     # hat aber zwei Gänge: einer gehört nicht zu ihm
+        teil("c", "-o"),    # stimmt
+        teil("d", "++"),    # einer fehlt
+    ]
+    r = resultat_abgleich(teilnahmen, gaenge, {"f": "Testfest"})
+    assert r["geprueft"] == 4 and r["gleich"] == 2
+    assert r["mehr_gaenge"] == 1 and r["weniger_gaenge"] == 1
+    assert any("b @ Testfest" in b for b in r["beispiele"])

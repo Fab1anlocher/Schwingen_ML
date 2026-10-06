@@ -43,6 +43,9 @@ class Teilnahme:
     wohnort: str | None
     senne_turner: str | None
     abzeichen: int = 0
+    # Resultatfolge laut Rangliste ("+-o++"), Gang für Gang -- unabhängig
+    # von der Statistik-PDF, aus der die Gänge stammen (resultat_abgleich).
+    resultat: str | None = None
 
 
 def namensaufloesung(finde, schwinger: dict | None = None):
@@ -119,6 +122,7 @@ def teilnahmen_aus_ranglisten(ranglisten: dict, events: dict, finde,
                 schwingklub=e.get("schwingklub"), wohnort=e.get("wohnort"),
                 senne_turner=e.get("senne_turner"),
                 abzeichen=int(e.get("abzeichen") or 0),
+                resultat=e.get("resultat"),
             ))
     n_eintraege = len(teilnahmen) + sum(unaufloesbar.values())
     return teilnahmen, {
@@ -127,6 +131,97 @@ def teilnahmen_aus_ranglisten(ranglisten: dict, events: dict, finde,
         "n_teilnahmen": len(teilnahmen),
         "anteil_namen_aufgeloest": round(len(teilnahmen) / n_eintraege, 4) if n_eintraege else None,
         "beispiele_unaufloesbar": [n for n, _ in unaufloesbar.most_common(5)],
+    }
+
+
+def resultat_abgleich(teilnahmen: list[Teilnahme], gaenge, fest_name: dict | None = None,
+                      fest_typ: dict | None = None) -> dict:
+    """Gänge aus der Statistik-PDF gegen die Resultatfolge der Rangliste.
+
+    Zwei unabhängige Dokumente desselben Fests: die Statistik-PDF (jeder Gang
+    mit Gegner, daraus stammen alle Gänge der App) und die Schlussrangliste
+    (je Schwinger die Folge "+-o++"). Stimmen Siege, Gestellte und
+    Niederlagen eines Schwingers an einem Fest nicht überein, ist ein Gang
+    falsch zugeordnet: meist eine Kopfzeile der Statistik-PDF, die der Parser
+    nicht erkannt hat (die Gänge darunter landen beim Schwinger davor), oder
+    zwei Gleichnamige auf einer ID.
+
+    "mehr Gänge" ist das deutliche Signal. "weniger Gänge" entsteht auch
+    legitim, wenn ein Gegnername nicht aufzulösen war (Gang verworfen).
+    Dazu je Fest: Rangliste mit deutlich weniger Teilnehmern als Schwinger
+    mit Gängen (Rangliste unvollständig gelesen).
+    """
+    fest_name = fest_name or {}
+    fest_typ = fest_typ or {}
+    unsere: dict[tuple, Counter] = defaultdict(Counter)
+    for g in gaenge:
+        e, a, b = g.event_id, g.schwinger_a_id, g.schwinger_b_id
+        if g.ergebnis == "gestellt":
+            unsere[(e, a)]["-"] += 1
+            unsere[(e, b)]["-"] += 1
+        elif g.ergebnis == "sieg_a":
+            unsere[(e, a)]["+"] += 1
+            unsere[(e, b)]["o"] += 1
+        else:
+            unsere[(e, b)]["+"] += 1
+            unsere[(e, a)]["o"] += 1
+    mit_gaengen: dict[str, set] = defaultdict(set)
+    for (e, sid) in unsere:
+        mit_gaengen[e].add(sid)
+
+    n = gleich = mehr = weniger = anders = 0
+    je_fest: dict[str, list[int]] = defaultdict(lambda: [0, 0])
+    je_jahr: dict[str, list[int]] = defaultdict(lambda: [0, 0])
+    beispiele: list[tuple[int, str]] = []
+    in_rangliste: dict[str, set] = defaultdict(set)
+    for t in teilnahmen:
+        in_rangliste[t.event_id].add(t.schwinger_id)
+        if not t.resultat or t.event_id not in mit_gaengen:
+            continue
+        soll = Counter("o" if c == "0" else c for c in t.resultat)
+        ist = unsere.get((t.event_id, t.schwinger_id), Counter())
+        n += 1
+        je_fest[t.event_id][0] += 1
+        je_jahr[t.datum[:4]][0] += 1
+        if soll == ist:
+            gleich += 1
+            continue
+        je_fest[t.event_id][1] += 1
+        je_jahr[t.datum[:4]][1] += 1
+        n_soll, n_ist = sum(soll.values()), sum(ist.values())
+        if n_ist > n_soll:
+            mehr += 1
+        elif n_ist < n_soll:
+            weniger += 1
+        else:
+            anders += 1
+        beispiele.append((n_ist - n_soll,
+                          f"{t.schwinger_id} @ {fest_name.get(t.event_id, t.event_id)}: "
+                          f"Rangliste {t.resultat}, Gänge {ist['+']}+ {ist['-']}- {ist['o']}o"))
+
+    schlechteste = sorted(
+        ((eid, ab / ge) for eid, (ge, ab) in je_fest.items() if ge >= 10 and ab / ge > 0.05),
+        key=lambda x: -x[1])
+    unvollstaendig = []
+    for eid, ids in mit_gaengen.items():
+        n_r, n_g = len(in_rangliste.get(eid, ())), len(ids)
+        if n_r and n_g - n_r > max(3, 0.1 * n_g):
+            unvollstaendig.append(f"{fest_name.get(eid, eid)}: Rangliste {n_r}, mit Gängen {n_g}")
+    beispiele.sort(key=lambda b: -abs(b[0]))
+    return {
+        "geprueft": n,
+        "gleich": gleich,
+        "anteil_gleich": round(gleich / n, 4) if n else None,
+        "mehr_gaenge": mehr,
+        "weniger_gaenge": weniger,
+        "andere_ausgaenge": anders,
+        "je_jahr": {j: {"geprueft": ge, "abweichend": ab} for j, (ge, ab) in sorted(je_jahr.items())},
+        "feste_ueber_5_prozent": len(schlechteste),
+        "schlechteste_feste": [f"{fest_name.get(eid, eid)} ({fest_typ.get(eid, '?')}): {q:.0%} abweichend"
+                               for eid, q in schlechteste[:10]],
+        "beispiele": [b for _, b in beispiele[:15]],
+        "ranglisten_unvollstaendig": len(unvollstaendig),
+        "beispiele_ranglisten_unvollstaendig": unvollstaendig[:10],
     }
 
 

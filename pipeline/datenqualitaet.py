@@ -20,6 +20,9 @@ GRENZE_TAGE_OHNE_FEST = 21
 # Anteil der PDF-Blöcke, deren Notensumme nicht zum Punktetotal passt. Normal
 # 0 %; vor dem Fix von D4 (Niederlage als "0") waren es 2023 fast alle.
 GRENZE_PUNKTETOTAL = 0.02
+# Anteil Schwinger-Fest-Paare, deren Gänge nicht zur Resultatfolge der
+# Rangliste passen (ranglisten.resultat_abgleich).
+GRENZE_RESULTAT = 0.03
 
 
 def _tausender(wert) -> str:
@@ -192,6 +195,23 @@ def _zeilen(report: dict) -> list[str]:
               f"(Prüfung {vk.get('trefferquote')})",
               f"- Klub wie im Porträt: {ko.get('klub_wie_porträt')}; "
               f"Kranzgewinner ohne Porträt: {ko.get('kranzgewinner_ohne_porträt')}", ""]
+        ra = rl.get("resultat_abgleich") or {}
+        if ra.get("geprueft"):
+            ab = 1 - ra["anteil_gleich"]
+            z += [f"**Gänge gegen die Rangliste** (Resultatfolge \"+-o++\" je Schwinger und Fest, "
+                  f"unabhängiges Dokument): {ra['geprueft']} geprüft, {ab:.1%} abweichend "
+                  f"{_ampel(ab <= GRENZE_RESULTAT, warn=ab > GRENZE_RESULTAT)}", "",
+                  f"- mehr Gänge als laut Rangliste: {ra['mehr_gaenge']} (falsch zugeordnet), "
+                  f"weniger: {ra['weniger_gaenge']} (auch: Gegner nicht auflösbar), "
+                  f"gleich viele, andere Ausgänge: {ra['andere_ausgaenge']}",
+                  "- je Jahr: " + ", ".join(f"{j} {v['abweichend']}/{v['geprueft']}"
+                                            for j, v in ra.get("je_jahr", {}).items()),
+                  f"- Feste mit über 5 % Abweichung: {ra.get('feste_ueber_5_prozent', 0)}"
+                  + (f" -- {'; '.join(ra['schlechteste_feste'][:5])}" if ra.get("schlechteste_feste") else ""),
+                  f"- Ranglisten mit deutlich weniger Teilnehmern als Schwinger mit Gängen: "
+                  f"{ra.get('ranglisten_unvollstaendig', 0)}"
+                  + (f" -- {'; '.join(ra['beispiele_ranglisten_unvollstaendig'][:3])}"
+                     if ra.get("beispiele_ranglisten_unvollstaendig") else ""), ""]
 
     # Stimmt P(Gestellt)? Die einzige Klasse, die fast nie die wahrscheinlichste
     # ist -- Accuracy und Log-Loss allein zeigen es nicht.

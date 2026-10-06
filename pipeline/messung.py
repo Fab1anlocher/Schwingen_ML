@@ -24,6 +24,8 @@ Messungen:
 """
 from __future__ import annotations
 
+import json
+import re
 import sys
 from collections import Counter, defaultdict
 
@@ -794,8 +796,160 @@ def vettern() -> list[str]:
     return z
 
 
+# --- PDF-Diagnose: wo verliert der Parser Zeilen? -----------------------------
+#
+# Anlass: Audit 06.10.2026 -- Schwinger mit mehr Gängen, als ein Fest hat
+# (ESAF 2025: Florian Aellen 23), und Ranglisten mit weniger Teilnehmern als
+# Schwinger mit Gängen (Flüelen 2026: 140 gegen 196). Lädt die betroffenen
+# PDFs frisch und zeigt, welche Zeilen keiner Rolle zugeordnet werden.
+
+N_DIAGNOSE_FESTE = 6
+
+
+def _max_gaenge(typ: str) -> int:
+    return 8 if typ == "eidgenoessisch" else 6
+
+
+def problemfeste(roh: list[dict], typ_je_fest: dict[str, str], n: int = N_DIAGNOSE_FESTE) -> list[tuple[str, int]]:
+    """Feste mit den meisten PDF-Blöcken über der möglichen Gangzahl."""
+    je_block = Counter((r["event_id"], r["schwinger_name"]) for r in roh)
+    zu_viel = Counter(eid for (eid, _), k in je_block.items()
+                      if k > _max_gaenge(typ_je_fest.get(eid, "")))
+    return zu_viel.most_common(n)
+
+
+def zeilen_rollen(seiten_woerter) -> dict:
+    """Zeilen je Rolle wie im Parser: Kopfzeile, Gang, unzugeordnet."""
+    from .scrape.schlussgang_pdf import _RANG_RE, _SYMBOL_RE, _gruppiere_zeilen, _spalte
+
+    rollen = Counter()
+    unzugeordnet: list[str] = []
+    ausserhalb = 0
+    rang_x: Counter = Counter()
+    for seite, woerter in enumerate(seiten_woerter, start=1):
+        eimer: list[list[dict]] = [[], [], []]
+        for w in woerter:
+            i = _spalte(w["x0"])
+            if i is None:
+                ausserhalb += 1
+                continue
+            eimer[i].append(w)
+            if _RANG_RE.match(w["text"]):
+                rang_x[round(w["x0"] / 10) * 10] += 1
+        for i in range(3):
+            for tokens in _gruppiere_zeilen(eimer[i]):
+                if not tokens:
+                    continue
+                if _RANG_RE.match(tokens[0]) and len(tokens) >= 2:
+                    rollen["kopf"] += 1
+                elif _SYMBOL_RE.match(tokens[0]):
+                    rollen["gang"] += 1
+                else:
+                    rollen["unzugeordnet"] += 1
+                    if len(unzugeordnet) < 25:
+                        unzugeordnet.append(f"S.{seite} Sp.{i + 1}: {' '.join(tokens)[:90]}")
+    return {"rollen": rollen, "unzugeordnet": unzugeordnet, "ausserhalb": ausserhalb,
+            "rang_x": sorted(rang_x.items())}
+
+
+def pdf_diagnose() -> list[str]:
+    import pdfplumber
+
+    from .scrape import RAW_DIR
+    from .scrape.http import hole
+    from .scrape.schlussgang_pdf import extrahiere_woerter, pdf_url, tabellen_bloecke
+    from .scrape.schlussgang_rangliste import _rangzeile, _spalten, _zeilen
+    from .scrape.schlussgang_resultate import rangliste_url_fallback
+
+    events = json.loads((RAW_DIR / "events.json").read_text(encoding="utf-8"))["events"]
+    ev = {str(e["id"]): e for e in events}
+    roh = json.loads((RAW_DIR / "gaenge.json").read_text(encoding="utf-8"))["gaenge"]
+    typ_je_fest = {eid: e.get("typ", "") for eid, e in ev.items()}
+    z = ["# Messung: PDF-Diagnose (Audit 06.10.2026)", ""]
+
+    z += ["## Statistik-PDFs mit Blöcken über der möglichen Gangzahl", ""]
+    for eid, n_zu_viel in problemfeste(roh, typ_je_fest):
+        e = ev.get(eid)
+        if not e:
+            continue
+        z += [f"### {e['name']} ({e['datum']}, {e.get('typ')}): {n_zu_viel} Blöcke zu lang", ""]
+        try:
+            woerter = extrahiere_woerter(hole(pdf_url(e["nid"]), binaer=True))
+        except Exception as fehler:  # noqa: BLE001 - Diagnose läuft weiter
+            z += [f"PDF nicht ladbar: {fehler}", ""]
+            continue
+        diag = zeilen_rollen(woerter)
+        bloecke = tabellen_bloecke(woerter)
+        lang = [b for b in bloecke if len(b["gaenge"]) > _max_gaenge(e.get("typ", ""))]
+        z += [f"Zeilen: {dict(diag['rollen'])}, Wörter ausserhalb der Spalten: {diag['ausserhalb']}",
+              f"x-Positionen der Rang-Token (gerundet): {diag['rang_x'][:20]}", "",
+              "Zu lange Blöcke (Name, Gänge, Total, Notensumme):", ""]
+        for b in lang[:8]:
+            summe = round(sum(g["note"] or 0 for g in b["gaenge"]), 2)
+            z.append(f"- {b['name']}: {len(b['gaenge'])} Gänge, Total {b['total']}, Notensumme {summe}; "
+                     f"Gegner: {', '.join(g['gegner_name'] for g in b['gaenge'][:14])}")
+        z += ["", "Unzugeordnete Zeilen (erste 25):", "", "```", *diag["unzugeordnet"], "```", ""]
+
+    z += ["## Ranglisten mit weniger Teilnehmern als Schwinger mit Gängen", ""]
+    rl = json.loads((RAW_DIR / "ranglisten.json").read_text(encoding="utf-8")).get("ranglisten", {})
+    mit_gaengen: dict[str, set] = defaultdict(set)
+    for r in roh:
+        mit_gaengen[r["event_id"]].add(r["schwinger_name"])
+    kandidaten = []
+    for eid, namen in mit_gaengen.items():
+        n_r = len((rl.get(eid) or {}).get("eintraege", []))
+        if n_r and len(namen) - n_r > max(3, 0.1 * len(namen)):
+            kandidaten.append((len(namen) - n_r, eid, n_r, len(namen)))
+    for _, eid, n_r, n_g in sorted(kandidaten, reverse=True)[:4]:
+        e = ev.get(eid, {})
+        z += [f"### {e.get('name', eid)}: Rangliste {n_r}, Blöcke in der Statistik-PDF {n_g}", ""]
+        try:
+            daten = hole(e.get("rangliste_url") or rangliste_url_fallback(e["nid"]), binaer=True)
+            import io
+            with pdfplumber.open(io.BytesIO(daten)) as pdf:
+                seiten = [pg.extract_words() for pg in pdf.pages]
+        except Exception as fehler:  # noqa: BLE001
+            z += [f"Rangliste nicht ladbar: {fehler}", ""]
+            continue
+        spalten = None
+        for nr, woerter in enumerate(seiten, start=1):
+            eigene = _spalten(woerter)
+            spalten = eigene or spalten
+            zeilen = _zeilen(woerter)
+            rang_aehnlich = [z_ for z_ in zeilen if z_ and re.match(r"^\d{1,3}[a-z]?$", z_[0]["text"])]
+            erkannt = [z_ for z_ in rang_aehnlich if _rangzeile([w["text"] for w in z_])]
+            z.append(f"- Seite {nr}: Kopfzeile {'ja' if eigene else ('übernommen' if spalten else 'FEHLT')}, "
+                     f"Rang-ähnliche Zeilen {len(rang_aehnlich)}, davon erkannt {len(erkannt)}")
+            for z_ in [z_ for z_ in rang_aehnlich if not _rangzeile([w["text"] for w in z_])][:3]:
+                z.append(f"  - nicht erkannt: {' '.join(w['text'] for w in z_)[:100]}")
+        z.append("")
+
+    z += ["## Porträts mit unplausiblem Körperbau (Rohwerte)", ""]
+    portraits = json.loads((RAW_DIR / "schlussgang_portraits.json").read_text(encoding="utf-8"))
+    liste = portraits.get("portraits", portraits) if isinstance(portraits, dict) else portraits
+    for p in (liste.values() if isinstance(liste, dict) else liste):
+        g, h = p.get("gewicht_kg") or p.get("weight"), p.get("groesse_cm") or p.get("height")
+        try:
+            g, h = float(g), float(h)
+        except (TypeError, ValueError):
+            continue
+        if g and h and g / (h / 100) ** 2 > 44:
+            z.append(f"- {p.get('name') or p.get('title')}: {json.dumps({k: v for k, v in p.items() if not isinstance(v, (list, dict))}, ensure_ascii=False)[:400]}")
+    z.append("")
+
+    z += ["## Feste ohne Sieger in der Rangliste", ""]
+    for eid, eintrag in rl.items():
+        e = ev.get(eid, {})
+        eintraege = eintrag.get("eintraege", [])
+        if eintraege and not any(str(x.get("rang", "")).rstrip("abcdefgh") == "1" for x in eintraege):
+            z.append(f"- {e.get('name', eid)}: erste Ränge {[x.get('rang') for x in eintraege[:5]]}, "
+                     f"erste Zeile {json.dumps(eintraege[0], ensure_ascii=False)[:200]}")
+    return z + [""]
+
+
 MESSUNGEN = {"noten": noten, "siegart": siegart, "festtag": festtag, "historie": historie,
-             "rating_noten": rating_noten, "paarung": paarung, "vettern": vettern}
+             "rating_noten": rating_noten, "paarung": paarung, "vettern": vettern,
+             "pdf_diagnose": pdf_diagnose}
 
 
 def main(argv: list[str] | None = None) -> int:
