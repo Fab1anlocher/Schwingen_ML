@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-10-06T13:31:49.389085+00:00",
-  "lauf_id": "20261006T133149Z",
+  "erstellt": "2026-10-06T13:38:32.905263+00:00",
+  "lauf_id": "20261006T133832Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 132948,
@@ -254,10 +254,14 @@
         "Zemp Silvan",
         "Herger Elias"
       ],
+      "feste_viele_unaufgeloest": 1,
+      "beispiele_feste_viele_unaufgeloest": [
+        "Urner Kantonalschwingfest Flüelen 2026: 59/199 (Zemp Christian, Emmenegger Patrik (2010), Schaller Luca (2008), Arnold Ben (2010), Reichmuth Andre (2009))"
+      ],
       "kranzquote_median": {
         "berg": 0.1556,
         "eidgenoessisch": 0.0,
-        "kantonal": 0.1615,
+        "kantonal": 0.1613,
         "regional": 0.0,
         "teilverband": 0.156
       },
@@ -265,10 +269,8 @@
       "beispiele_kranzfeste_ohne_kranz": [
         "schlussgang-22490"
       ],
-      "kranzquote_ausserhalb": 1,
-      "beispiele_kranzquote_ausserhalb": [
-        "Urner Kantonalschwingfest Flüelen 2026: 24.3%"
-      ],
+      "kranzquote_ausserhalb": 0,
+      "beispiele_kranzquote_ausserhalb": [],
       "klub_abdeckung_aktive": 0.9893,
       "verband_ueber_klub": {
         "klubs_bekannt": 134,
