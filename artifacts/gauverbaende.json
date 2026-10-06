@@ -128,8 +128,8 @@
       "elo_avg": 1436.5,
       "n_top_schwinger": 35,
       "n_kranzer": 87,
-      "n_eidgenosse": 8,
-      "n_koenig": 0,
+      "n_eidgenosse": 7,
+      "n_koenig": 1,
       "n_siege": 14047,
       "n_gestellt": 6840,
       "n_niederlagen": 12814
@@ -188,8 +188,8 @@
       "elo_avg": 1472.1,
       "n_top_schwinger": 29,
       "n_kranzer": 63,
-      "n_eidgenosse": 6,
-      "n_koenig": 0,
+      "n_eidgenosse": 5,
+      "n_koenig": 1,
       "n_siege": 8260,
       "n_gestellt": 5186,
       "n_niederlagen": 7086
@@ -224,8 +224,8 @@
       "elo_avg": 1428.5,
       "n_top_schwinger": 7,
       "n_kranzer": 8,
-      "n_eidgenosse": 5,
-      "n_koenig": 0,
+      "n_eidgenosse": 4,
+      "n_koenig": 1,
       "n_siege": 1442,
       "n_gestellt": 963,
       "n_niederlagen": 1185

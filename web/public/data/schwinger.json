@@ -13335,7 +13335,7 @@
       "groesse_cm": null,
       "gewicht_kg": null,
       "kranzstatus": "kein",
-      "kranzstatus_rangliste": "eidgenosse",
+      "kranzstatus_rangliste": "koenig",
       "teilverband": null,
       "teilverband_klub": "Bern",
       "kanton_klub": "Seeland",
@@ -40169,7 +40169,7 @@
       "groesse_cm": null,
       "gewicht_kg": null,
       "kranzstatus": "kein",
-      "kranzstatus_rangliste": "eidgenosse",
+      "kranzstatus_rangliste": "koenig",
       "teilverband": null,
       "teilverband_klub": "Innerschweiz",
       "kanton_klub": "Luzern",
@@ -46742,7 +46742,7 @@
       "groesse_cm": null,
       "gewicht_kg": null,
       "kranzstatus": "kein",
-      "kranzstatus_rangliste": "eidgenosse",
+      "kranzstatus_rangliste": "koenig",
       "teilverband": null,
       "teilverband_klub": "Bern",
       "kanton_klub": "Oberland",
@@ -89015,46 +89015,6 @@
       ]
     },
     {
-      "id": "roman bucher|2002",
-      "name": "Roman Bucher",
-      "jahrgang": 2002,
-      "groesse_cm": 190.0,
-      "gewicht_kg": 105.0,
-      "kranzstatus": "kranzer",
-      "kranzstatus_rangliste": null,
-      "teilverband": "Innerschweiz",
-      "teilverband_klub": null,
-      "kanton_klub": null,
-      "teilverband_geschaetzt": null,
-      "kanton": "Ob- und Nidwalden",
-      "schwingklub": "Kerns",
-      "senne_turner": "senne",
-      "kraenze": 3,
-      "kraenze_nach_typ": {
-        "kantonal": 3
-      },
-      "bevorzugte_schwuenge": [],
-      "form": 0.8,
-      "gestellt_neigung": 0.12965,
-      "ueberraschungsindex": 0.0353,
-      "n_bewertete_gaenge": 150,
-      "anzahl_feste": 35,
-      "aktiv": true,
-      "groesster_erfolg": {
-        "gegner_name": "Silvio Oettli",
-        "event_id": "schlussgang-46196",
-        "datum": "2026-07-26",
-        "eigenes_elo": 1797.8,
-        "gegner_elo": 2006.3
-      },
-      "festsiege": [],
-      "namensvetter_von": null,
-      "quellen": [
-        "schlussgang.ch/portraet",
-        "https://www.schlussgang.ch/portraet/roman-bucher-0"
-      ]
-    },
-    {
       "id": "roman bucher|2003",
       "name": "Roman Bucher",
       "jahrgang": 2003,
@@ -89092,6 +89052,46 @@
       "quellen": [
         "schlussgang.ch/portraet",
         "https://www.schlussgang.ch/portraet/roman-bucher"
+      ]
+    },
+    {
+      "id": "roman bucher|2002",
+      "name": "Roman Bucher",
+      "jahrgang": 2002,
+      "groesse_cm": 190.0,
+      "gewicht_kg": 105.0,
+      "kranzstatus": "kranzer",
+      "kranzstatus_rangliste": null,
+      "teilverband": "Innerschweiz",
+      "teilverband_klub": null,
+      "kanton_klub": null,
+      "teilverband_geschaetzt": null,
+      "kanton": "Ob- und Nidwalden",
+      "schwingklub": "Kerns",
+      "senne_turner": "senne",
+      "kraenze": 3,
+      "kraenze_nach_typ": {
+        "kantonal": 3
+      },
+      "bevorzugte_schwuenge": [],
+      "form": 0.8,
+      "gestellt_neigung": 0.12965,
+      "ueberraschungsindex": 0.0353,
+      "n_bewertete_gaenge": 150,
+      "anzahl_feste": 35,
+      "aktiv": true,
+      "groesster_erfolg": {
+        "gegner_name": "Silvio Oettli",
+        "event_id": "schlussgang-46196",
+        "datum": "2026-07-26",
+        "eigenes_elo": 1797.8,
+        "gegner_elo": 2006.3
+      },
+      "festsiege": [],
+      "namensvetter_von": null,
+      "quellen": [
+        "schlussgang.ch/portraet",
+        "https://www.schlussgang.ch/portraet/roman-bucher-0"
       ]
     },
     {

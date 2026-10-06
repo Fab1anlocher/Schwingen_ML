@@ -57,8 +57,8 @@
       "elo_avg": 1446.5,
       "n_top_schwinger": 77,
       "n_kranzer": 163,
-      "n_eidgenosse": 26,
-      "n_koenig": 0,
+      "n_eidgenosse": 24,
+      "n_koenig": 2,
       "n_siege": 23283,
       "n_gestellt": 14053,
       "n_niederlagen": 21612
@@ -129,8 +129,8 @@
       "elo_avg": 1436.5,
       "n_top_schwinger": 35,
       "n_kranzer": 87,
-      "n_eidgenosse": 8,
-      "n_koenig": 0,
+      "n_eidgenosse": 7,
+      "n_koenig": 1,
       "n_siege": 14047,
       "n_gestellt": 6840,
       "n_niederlagen": 12814

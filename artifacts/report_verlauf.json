@@ -821,7 +821,7 @@
       "rating_version": 2,
       "holdout_jahr": 2026,
       "log_loss": 0.6829,
-      "accuracy": 0.7045,
+      "accuracy": 0.704453,
       "baseline_log_loss": 0.8006,
       "gestellt_vorhergesagt": 0.2046,
       "gestellt_eingetreten": 0.2103,
