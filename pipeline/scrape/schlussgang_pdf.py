@@ -29,7 +29,11 @@ _SPALTEN = [(0.0, 200.0), (200.0, 380.0), (380.0, 600.0)]
 # einen Block auf den Namen des Gegners, und die folgenden Gänge landeten bei
 # ihm. 2023 waren so 81 % der Gänge nur einseitig belegt, Spitzenschwinger
 # hatten bis 19 "Gänge" an einem Fest, die Gestellt-Quote lag bei 28 %.
-_RANG_RE = re.compile(r"^[1-9]\d*[a-z]?$")
+# Bis zu zwei Buchstaben (Audit 06.10.2026): an grossen Festen teilen sich so
+# viele Schwinger einen Rang, dass nach "15z" "15aa", "15ab" folgen. Mit
+# höchstens einem Buchstaben blieben diese Kopfzeilen unerkannt, und ihre
+# Gänge hingen am Schwinger davor (ESAF 2025: Florian Aellen mit 24 Gängen).
+_RANG_RE = re.compile(r"^[1-9]\d*[a-z]{0,2}$")
 _SYMBOL_RE = re.compile(r"^[+\-o0]$")
 _SYMBOL_NORMAL = {"0": "o"}
 _NOTE_RE = re.compile(r"^\d{1,2}\.\d{2}$")

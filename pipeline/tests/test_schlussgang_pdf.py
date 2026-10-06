@@ -166,3 +166,17 @@ def test_punktetotal_pruefung_findet_falsch_zugeordnete_gaenge():
     p = punktetotal_pruefung(roh)
     assert p["bloecke_geprueft"] == 2 and p["abweichend"] == 1 and p["eintraege_ohne_total"] == 1
     assert p["je_jahr"]["2023"] == {"geprueft": 2, "abweichend": 1}
+
+
+def test_rang_mit_zwei_buchstaben_eroeffnet_einen_block():
+    # ESAF 2025: nach "15z" folgen "15aa", "15ab" -- früher unerkannt, die
+    # Gänge hingen dann am Schwinger davor (Florian Aellen mit 24 Gängen).
+    woerter = [
+        _wort("15z", 10, 5), _wort("Aellen", 10, 20), _wort("Florian", 10, 50), _wort("63.25", 10, 110),
+        _wort("+", 25, 5), _wort("Lang", 25, 20), _wort("Sven", 25, 60), _wort("10.00", 25, 110),
+        _wort("15aa", 40, 5), _wort("Birchler", 40, 20), _wort("Fabian", 40, 60), _wort("62.75", 40, 110),
+        _wort("-", 55, 5), _wort("Kramer", 55, 20), _wort("Dorian", 55, 60), _wort("8.75", 55, 110),
+    ]
+    bloecke = tabellen_bloecke([woerter])
+    assert [b["name"] for b in bloecke] == ["Aellen Florian", "Birchler Fabian"]
+    assert [len(b["gaenge"]) for b in bloecke] == [1, 1]
