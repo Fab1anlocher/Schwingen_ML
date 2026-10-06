@@ -48,7 +48,7 @@ Verlauf in `artifacts/report_verlauf.json`.
 * **5-Wege-Benchmark** (`benchmark.py`): Kranz-Heuristik / reine Elo / ML ohne
   Elo / Logistic Regression / Produktionsmodell auf demselben Holdout, mit
   Accuracy, Brier-Score sowie MAE und MSE (s. unten).
-* **K-Means + KNN** (`clustering.py`): Cluster-Anzahl per Silhouette-Score.
+* **Stil-Typen** (`stiltypen.py`, s. unten) und **ähnliche Schwinger** (`clustering.py`, nächste Nachbarn im Porträt-Profil).
 * **Clientseitige Inferenz** (`web/lib/inference.ts`, `web/lib/kopfAnKopf.ts`)
   spiegelt `features.py` in TypeScript — eine Handkopie, die still
   auseinanderlaufen kann (ist schon einmal passiert). `verify_inference.py`
@@ -403,3 +403,37 @@ Titel „Frische" behauptete eine Richtung, die das Modell nie gelernt hat.
 Fehlende Werte (z. B. Gewicht bei Schwingern ohne Porträt) werden in den
 Differenz-Merkmalen als `0.0` imputiert — die Merkmale tragen für solche Paare
 also kein Signal.
+
+## Stil-Typen statt K-Means (06.10.2026)
+
+Die Seite „Typen" zeigte bis 06.10.2026 Gruppen aus einem K-Means über
+Körperbau, Elo, Erfahrung, Alter, Kranzstatus und Schwünge. Die Daten bilden
+keine natürlichen Gruppen: Silhouette 0.24, Gruppen mit 434, 82 und 10
+Schwingern, im Kern „die Starken" gegen den Rest. Stärke zeigen Elo und
+Kränze schon.
+
+Neu (`pipeline/stiltypen.py`): zwei Eigenschaften, die als stabil gemessen
+sind, beide gegen die **Erwartung** gerechnet, damit Stärke und Gegner
+nicht als Stil erscheinen:
+
+| Achse | Beobachtet | Erwartung aus |
+|---|---|---|
+| Plattwurf | Anteil der Siege mit 10.00 | Elo-Abstand, eigene Stärke, Quote des Fests ohne die eigenen Siege |
+| Gestellt | Anteil gestellter Gänge | Elo-Abstand, Niveau der Paarung, Quote des Fests ohne die eigenen Gänge |
+
+* Beide Abweichungen geschrumpft mit 20 Phantom-Gängen (wie die
+  Gestellt-Neigung). Ausgenommen: mutmassliche Schlussgänge (10.00/8.75
+  vorgeschrieben) und Gänge mit einem Elo unter zehn Gängen.
+* Die Fest-Quote lässt die eigenen Gänge weg, bei den Gestellt-Zeilen auch
+  die Zeile des Gegners (sonst stünde der eigene Ausgang in der Erwartung).
+* Typ aus der Lage, Grenze 0.5 Standardabweichungen: **Werfer** (viel
+  Plattwurf), **Lauerer** (viel Plattwurf und viel gestellt), **Bollwerk**
+  (viel gestellt), **Bodenarbeiter** (wenig Plattwurf), **Entscheider**
+  (wenig gestellt), **Allrounder** (Mitte).
+* Jeder Lauf misst, ob die Achsen eine Eigenschaft der Person sind
+  (Korrelation zweier Hälften der Gänge) und wie stark sie mit dem Elo
+  zusammenhängen; die Seite zeigt beides (`stiltypen.json` → `pruefung`).
+* Im Diagramm sind die Punkte einfarbig und die Zonen beschriftet: Sechs
+  Kategorienfarben sind in einer Punktwolke nicht unterscheidbar, und die
+  Lage sagt den Typ ohnehin.
+

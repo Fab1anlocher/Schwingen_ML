@@ -170,3 +170,52 @@ const ANSATZ_NAME: Record<string, string> = {
 export function ansatzName(key: string, fallback: string): string {
   return ANSATZ_NAME[key] ?? fallback;
 }
+
+/** Stil-Typen (stiltypen.json, pipeline/stiltypen.py): Name, ein Satz für
+ *  die Karte und wo der Typ auf der Stil-Landkarte liegt. */
+export const STIL_TYPEN: Record<
+  string,
+  { name: string; satz: string; lage: string }
+> = {
+  werfer: {
+    name: "Werfer",
+    satz: "Gewinnt öfter mit dem Plattwurf (10.00), als seine Gegner erwarten lassen.",
+    lage: "viel Plattwurf",
+  },
+  lauerer: {
+    name: "Lauerer",
+    satz: "Stellt oft, doch wenn er gewinnt, dann gern mit dem Plattwurf.",
+    lage: "viel Plattwurf, viel gestellt",
+  },
+  bollwerk: {
+    name: "Bollwerk",
+    satz: "Stellt öfter als erwartet: Gegen ihn ist ein Sieg harte Arbeit, für beide Seiten.",
+    lage: "viel gestellt",
+  },
+  bodenarbeiter: {
+    name: "Bodenarbeiter",
+    satz: "Gewinnt seltener platt als erwartet, eher mit der 9.75, also nach Arbeit am Boden.",
+    lage: "wenig Plattwurf",
+  },
+  entscheider: {
+    name: "Entscheider",
+    satz: "Stellt seltener als erwartet: Seine Gänge haben fast immer einen Sieger.",
+    lage: "wenig gestellt",
+  },
+  allrounder: {
+    name: "Allrounder",
+    satz: "In beiden Eigenschaften nahe am Durchschnitt, ohne ausgeprägte Vorliebe.",
+    lage: "Mitte",
+  },
+};
+
+export function stilTypName(typ: string): string {
+  return STIL_TYPEN[typ]?.name ?? typ;
+}
+
+/** Prozentpunkte mit Vorzeichen: 7.3 -> "+7.3 %-Pkt.", -0.04 -> "±0.0 %-Pkt.". */
+export function prozentpunkte(wert: number): string {
+  const r = Math.round(wert * 10) / 10;
+  if (r === 0) return "±0.0 %-Pkt.";
+  return `${r > 0 ? "+" : "−"}${Math.abs(r).toFixed(1)} %-Pkt.`;
+}

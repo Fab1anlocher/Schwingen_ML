@@ -41,6 +41,8 @@ Benchmark → Clustering → Export.
 | Fest-Simulation (Monte Carlo) | `fest_simulation.py` (+ `backtest` → `simulation_backtest.json`) | `lib/simulation.ts`, `app/simulation`, `/api/fest-feld` |
 | Rating (Elo, K-Faktor, Neulings-Bonus) | `ratings.py`, Werte und Messungen in `config.py` (`RATING_VERSION`) | – (Elo kommt fertig aus den Artefakten) |
 | Saisonrückblick | `saison_rueckblick.py` → `saison_rueckblick.json` | `app/rueckblick/page.tsx` |
+| Stil-Typen (Plattwurf, Gestellt gegen die Erwartung) | `stiltypen.py` → `stiltypen.json` | `app/typen/page.tsx`, `components/StilLandkarte.tsx` |
+| Ähnliche Schwinger (KNN) | `clustering.py` → `cluster.json` | `app/schwinger/page.tsx` |
 | Härtetest 2027 (eingefrorenes Modell) | `haertetest.py` → `haertetest.json`, `haertetest_modell.json` | Analyse, Abschnitt Härtetest |
 | Kopf-an-Kopf / Paar-Historie | `features._kopf_an_kopf_vorteil`, `paar_gestellt` | `lib/kopfAnKopf.ts` |
 | Konstanten der Merkmale | `config.py` (`MERKMAL_VERSION`, `PAAR_GESTELLT_K`, …) | `inference.ts` (gleiche Werte) |

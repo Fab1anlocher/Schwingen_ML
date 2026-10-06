@@ -2,16 +2,24 @@
 
 // Seite "Schwinger": der ganze Kader nach Elo, mit Suche/Filter und
 // aufklappbarem Profil (Verband, Klub, Kränze, Festsiege, Überraschungs-
-// Index, ähnliche Schwinger aus cluster.json). Liest schwinger.json und
-// ratings.json; Anzeigetexte über lib/labels.ts.
+// Index, Stil-Typ aus stiltypen.json, ähnliche Schwinger aus cluster.json).
+// Liest schwinger.json und ratings.json; Anzeigetexte über lib/labels.ts.
 
 import { Fragment, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { ladeCluster, ladeRatings, ladeSchwinger } from "@/lib/data";
-import type { ClusterArtifact, RatingsArtifact, Schwinger } from "@/lib/types";
+import { ladeCluster, ladeRatings, ladeSchwinger, ladeStilTypen } from "@/lib/data";
+import type { ClusterArtifact, RatingsArtifact, Schwinger, StilPunkt } from "@/lib/types";
 import { gruende, hatProfildaten } from "@/lib/aehnlichkeit";
 import { kranzstatusVon, verbandText, verbandVon } from "@/lib/teilverband";
-import { TEILVERBAENDE, datumKurz, festtypName, kranzName, schwungName, teilverbandName } from "@/lib/labels";
+import {
+  STIL_TYPEN,
+  TEILVERBAENDE,
+  datumKurz,
+  festtypName,
+  kranzName,
+  schwungName,
+  teilverbandName,
+} from "@/lib/labels";
 
 // Ohne aktive Suche/Filter würde die volle Liste (auch tausende Schwinger
 // ohne erfasste Gänge) die Seite unübersichtlich machen — daher Deckel,
@@ -23,6 +31,7 @@ export default function SchwingerListe() {
   const [schwinger, setSchwinger] = useState<Schwinger[]>([]);
   const [ratings, setRatings] = useState<RatingsArtifact | null>(null);
   const [cluster, setCluster] = useState<ClusterArtifact | null>(null);
+  const [stil, setStil] = useState<Record<string, StilPunkt>>({});
   const [q, setQ] = useState("");
   const [teilverband, setTeilverband] = useState("");
   const [minGaenge, setMinGaenge] = useState(0);
@@ -33,6 +42,9 @@ export default function SchwingerListe() {
     ladeSchwinger().then(setSchwinger);
     ladeRatings().then(setRatings);
     ladeCluster().then(setCluster).catch(() => {});
+    ladeStilTypen()
+      .then((d) => setStil(Object.fromEntries(d.punkte.map((p) => [p.schwinger_id, p]))))
+      .catch(() => {});
   }, []);
 
   const verfuegbareTeilverbaende = useMemo(() => {
@@ -196,7 +208,7 @@ export default function SchwingerListe() {
                   {offen === s.id && (
                     <tr>
                       <td colSpan={8} style={{ background: "var(--surface-2)" }}>
-                        <SchwingerDetail schwinger={s} alle={schwinger} cluster={cluster} />
+                        <SchwingerDetail schwinger={s} alle={schwinger} cluster={cluster} stil={stil[s.id]} />
                       </td>
                     </tr>
                   )}
@@ -224,10 +236,12 @@ function SchwingerDetail({
   schwinger: s,
   alle,
   cluster,
+  stil,
 }: {
   schwinger: Schwinger;
   alle: Schwinger[];
   cluster: ClusterArtifact | null;
+  stil?: StilPunkt;
 }) {
   const byId = useMemo(() => Object.fromEntries(alle.map((sw) => [sw.id, sw])), [alle]);
   const aehnliche = useMemo(() => {
@@ -293,6 +307,16 @@ function SchwingerDetail({
         <strong>Bevorzugte Schwünge:</strong>{" "}
         {s.bevorzugte_schwuenge.length ? s.bevorzugte_schwuenge.map(schwungName).join(", ") : "—"}
       </div>
+      {stil && (
+        <div>
+          <strong>Stil:</strong> <Link href="/typen">{STIL_TYPEN[stil.typ]?.name ?? stil.typ}</Link>{" "}
+          <span className="muted">
+            (Plattwurf in {Math.round(stil.plattwurf_quote * 100)}% der Siege, erwartet{" "}
+            {Math.round(stil.plattwurf_erwartet * 100)}% · gestellt{" "}
+            {Math.round(stil.gestellt_quote * 100)}%, erwartet {Math.round(stil.gestellt_erwartet * 100)}%)
+          </span>
+        </div>
+      )}
 
       {index !== null && s.n_bewertete_gaenge > 0 && (
         <div style={{ marginTop: "0.5rem" }}>
@@ -330,7 +354,7 @@ function SchwingerDetail({
                 key={t.schwinger.id}
                 href={`/?a=${encodeURIComponent(t.schwinger.id)}&b=${encodeURIComponent(s.id)}`}
                 className="badge"
-                title={gruende(s, t.schwinger).join(", ") || "ähnliches Profil (K-Means/KNN)"}
+                title={gruende(s, t.schwinger).join(", ") || "ähnliches Profil (nächste Nachbarn)"}
                 style={{ color: "var(--text)" }}
               >
                 {t.schwinger.name} · {(t.score * 100).toFixed(0)}%
