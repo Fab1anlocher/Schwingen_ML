@@ -358,13 +358,13 @@
       "elo": 1941.3,
       "n_gaenge": 345
     },
-    "roman bucher|2003": {
-      "elo": 1555.5,
-      "n_gaenge": 21
-    },
     "roman bucher|2002": {
       "elo": 1895.7,
       "n_gaenge": 198
+    },
+    "roman bucher|2003": {
+      "elo": 1555.5,
+      "n_gaenge": 21
     },
     "thomas bucher|1996": {
       "elo": 2025.1,
@@ -2754,11 +2754,11 @@
       "elo": 2011.6,
       "n_gaenge": 230
     },
-    "christian zemp|2004": {
+    "christian zemp|2000": {
       "elo": 1500.0,
       "n_gaenge": 0
     },
-    "christian zemp|2000": {
+    "christian zemp|2004": {
       "elo": 1500.0,
       "n_gaenge": 0
     },
