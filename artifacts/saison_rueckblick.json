@@ -451,32 +451,32 @@
       ],
       "ueberraschungen": [
         {
-          "event_id": "schlussgang-41244",
-          "datum": "2025-03-22",
-          "sieger": "kunz mathias|?",
-          "verlierer": "thomas (2) wuthrich|2007",
-          "p_sieger": 0.0032,
-          "p_gestellt": 0.0172,
-          "sieger_name": "Mathias Kunz",
-          "verlierer_name": "Thomas (2) Wüthrich"
-        },
-        {
           "event_id": "schlussgang-46150",
           "datum": "2025-08-23",
           "sieger": "friedli simon|?",
           "verlierer": "michael muller|1995",
-          "p_sieger": 0.0032,
-          "p_gestellt": 0.0192,
+          "p_sieger": 0.0043,
+          "p_gestellt": 0.0179,
           "sieger_name": "Simon Friedli",
           "verlierer_name": "Michael Müller"
+        },
+        {
+          "event_id": "schlussgang-41244",
+          "datum": "2025-03-22",
+          "sieger": "kunz mathias|?",
+          "verlierer": "thomas (2) wuthrich|2007",
+          "p_sieger": 0.0043,
+          "p_gestellt": 0.0174,
+          "sieger_name": "Mathias Kunz",
+          "verlierer_name": "Thomas (2) Wüthrich"
         },
         {
           "event_id": "schlussgang-21062",
           "datum": "2025-07-27",
           "sieger": "guler leo|?",
           "verlierer": "thomas (2) wuthrich|2007",
-          "p_sieger": 0.0036,
-          "p_gestellt": 0.0175,
+          "p_sieger": 0.0046,
+          "p_gestellt": 0.0169,
           "sieger_name": "Leo Guler",
           "verlierer_name": "Thomas (2) Wüthrich"
         },
@@ -485,7 +485,7 @@
           "datum": "2025-05-29",
           "sieger": "portmann remo|?",
           "verlierer": "thomas (2) wuthrich|2007",
-          "p_sieger": 0.0042,
+          "p_sieger": 0.0048,
           "p_gestellt": 0.0185,
           "sieger_name": "Remo Portmann",
           "verlierer_name": "Thomas (2) Wüthrich"
@@ -493,62 +493,62 @@
         {
           "event_id": "schlussgang-21069",
           "datum": "2025-07-06",
-          "sieger": "thomas (2) wuthrich|2007",
-          "verlierer": "christian biasch|1996",
-          "p_sieger": 0.0044,
-          "p_gestellt": 0.0261,
-          "sieger_name": "Thomas (2) Wüthrich",
-          "verlierer_name": "Christian Biäsch"
-        },
-        {
-          "event_id": "schlussgang-21069",
-          "datum": "2025-07-06",
           "sieger": "dario gerber|2007",
           "verlierer": "reto thoni|2001",
-          "p_sieger": 0.0051,
-          "p_gestellt": 0.0496,
+          "p_sieger": 0.0062,
+          "p_gestellt": 0.0456,
           "sieger_name": "Dario Gerber",
           "verlierer_name": "Reto Thöni"
+        },
+        {
+          "event_id": "schlussgang-21067",
+          "datum": "2025-07-13",
+          "sieger": "nicolas sturny|1998",
+          "verlierer": "samir leuppi|1993",
+          "p_sieger": 0.0063,
+          "p_gestellt": 0.0414,
+          "sieger_name": "Nicolas Sturny",
+          "verlierer_name": "Samir Leuppi"
+        },
+        {
+          "event_id": "schlussgang-41244",
+          "datum": "2025-03-22",
+          "sieger": "adrian rothlisberger|?",
+          "verlierer": "thomas (2) wuthrich|2007",
+          "p_sieger": 0.0063,
+          "p_gestellt": 0.0293,
+          "sieger_name": "Adrian Röthlisberger",
+          "verlierer_name": "Thomas (2) Wüthrich"
         },
         {
           "event_id": "schlussgang-46033",
           "datum": "2025-09-14",
           "sieger": "remo zurcher|1996",
           "verlierer": "philipp roth|1995",
-          "p_sieger": 0.0058,
-          "p_gestellt": 0.6116,
+          "p_sieger": 0.0065,
+          "p_gestellt": 0.6133,
           "sieger_name": "Remo Zürcher",
           "verlierer_name": "Philipp Roth"
         },
         {
-          "event_id": "schlussgang-23307",
-          "datum": "2025-06-15",
-          "sieger": "dario gerber|2007",
-          "verlierer": "ruedi roschi|1991",
-          "p_sieger": 0.0059,
-          "p_gestellt": 0.0497,
-          "sieger_name": "Dario Gerber",
-          "verlierer_name": "Ruedi Roschi"
+          "event_id": "schlussgang-21069",
+          "datum": "2025-07-06",
+          "sieger": "thomas (2) wuthrich|2007",
+          "verlierer": "christian biasch|1996",
+          "p_sieger": 0.0067,
+          "p_gestellt": 0.0269,
+          "sieger_name": "Thomas (2) Wüthrich",
+          "verlierer_name": "Christian Biäsch"
         },
         {
-          "event_id": "schlussgang-42564",
-          "datum": "2025-08-03",
-          "sieger": "flavio lenherr|2008",
-          "verlierer": "joel kessler|1997",
-          "p_sieger": 0.0063,
-          "p_gestellt": 0.0377,
-          "sieger_name": "Flavio Lenherr",
-          "verlierer_name": "Joel Kessler"
-        },
-        {
-          "event_id": "schlussgang-46150",
-          "datum": "2025-08-23",
-          "sieger": "nick stalder|?",
-          "verlierer": "michael muller|1995",
-          "p_sieger": 0.0066,
-          "p_gestellt": 0.0382,
-          "sieger_name": "Nick Stalder",
-          "verlierer_name": "Michael Müller"
+          "event_id": "schlussgang-21094",
+          "datum": "2025-05-29",
+          "sieger": "jannik muff|?",
+          "verlierer": "thomas (2) wuthrich|2007",
+          "p_sieger": 0.0069,
+          "p_gestellt": 0.0294,
+          "sieger_name": "Jannik Muff",
+          "verlierer_name": "Thomas (2) Wüthrich"
         }
       ]
     },
@@ -777,104 +777,104 @@
       ],
       "ueberraschungen": [
         {
-          "event_id": "schlussgang-50457",
-          "datum": "2026-07-12",
-          "sieger": "jonas piller|?",
-          "verlierer": "romain schmid|2003",
-          "p_sieger": 0.008,
-          "p_gestellt": 0.0063,
-          "sieger_name": "Jonas Piller",
-          "verlierer_name": "Romain Schmid"
-        },
-        {
           "event_id": "schlussgang-43559",
           "datum": "2026-08-02",
           "sieger": "robin studinger|2006",
           "verlierer": "lukas dobeli|2000",
-          "p_sieger": 0.0082,
-          "p_gestellt": 0.1983,
+          "p_sieger": 0.008,
+          "p_gestellt": 0.2036,
           "sieger_name": "Robin Studinger",
           "verlierer_name": "Lukas Döbeli"
-        },
-        {
-          "event_id": "schlussgang-49578",
-          "datum": "2026-05-09",
-          "sieger": "lauchenauer lukas|?",
-          "verlierer": "fabian ulmann|1999",
-          "p_sieger": 0.0082,
-          "p_gestellt": 0.0096,
-          "sieger_name": "Lukas Lauchenauer",
-          "verlierer_name": "Fabian Ulmann"
-        },
-        {
-          "event_id": "schlussgang-49604",
-          "datum": "2026-04-25",
-          "sieger": "brand kevin|?",
-          "verlierer": "thomas (2) wuthrich|2007",
-          "p_sieger": 0.0083,
-          "p_gestellt": 0.0141,
-          "sieger_name": "Kevin Brand",
-          "verlierer_name": "Thomas (2) Wüthrich"
-        },
-        {
-          "event_id": "schlussgang-33468",
-          "datum": "2026-04-19",
-          "sieger": "husler raoul|?",
-          "verlierer": "thomas (2) wuthrich|2007",
-          "p_sieger": 0.0083,
-          "p_gestellt": 0.0065,
-          "sieger_name": "Raoul Hüsler",
-          "verlierer_name": "Thomas (2) Wüthrich"
-        },
-        {
-          "event_id": "schlussgang-39096",
-          "datum": "2026-05-31",
-          "sieger": "loris naf|?",
-          "verlierer": "martin egli|1997",
-          "p_sieger": 0.0085,
-          "p_gestellt": 0.0098,
-          "sieger_name": "Loris Näf",
-          "verlierer_name": "Martin Egli"
         },
         {
           "event_id": "schlussgang-50250",
           "datum": "2026-04-18",
           "sieger": "mathys sebastian|?",
           "verlierer": "michael muller|1995",
-          "p_sieger": 0.0086,
-          "p_gestellt": 0.0089,
+          "p_sieger": 0.008,
+          "p_gestellt": 0.0095,
           "sieger_name": "Sebastian Mathys",
           "verlierer_name": "Michael Müller"
+        },
+        {
+          "event_id": "schlussgang-50457",
+          "datum": "2026-07-12",
+          "sieger": "jonas piller|?",
+          "verlierer": "romain schmid|2003",
+          "p_sieger": 0.0081,
+          "p_gestellt": 0.0067,
+          "sieger_name": "Jonas Piller",
+          "verlierer_name": "Romain Schmid"
         },
         {
           "event_id": "schlussgang-52147",
           "datum": "2026-04-26",
           "sieger": "adrien trachsel|?",
           "verlierer": "dario zbinden|2004",
-          "p_sieger": 0.0087,
-          "p_gestellt": 0.0123,
+          "p_sieger": 0.0083,
+          "p_gestellt": 0.0122,
           "sieger_name": "Adrien Trachsel",
           "verlierer_name": "Dario Zbinden"
+        },
+        {
+          "event_id": "schlussgang-39096",
+          "datum": "2026-05-31",
+          "sieger": "loris naf|?",
+          "verlierer": "martin egli|1997",
+          "p_sieger": 0.0083,
+          "p_gestellt": 0.0097,
+          "sieger_name": "Loris Näf",
+          "verlierer_name": "Martin Egli"
+        },
+        {
+          "event_id": "schlussgang-33468",
+          "datum": "2026-04-19",
+          "sieger": "husler raoul|?",
+          "verlierer": "thomas (2) wuthrich|2007",
+          "p_sieger": 0.0084,
+          "p_gestellt": 0.007,
+          "sieger_name": "Raoul Hüsler",
+          "verlierer_name": "Thomas (2) Wüthrich"
         },
         {
           "event_id": "schlussgang-37078",
           "datum": "2026-07-12",
           "sieger": "michael muller|1995",
           "verlierer": "roman wandeler|2002",
-          "p_sieger": 0.0088,
-          "p_gestellt": 0.0161,
+          "p_sieger": 0.0089,
+          "p_gestellt": 0.0152,
           "sieger_name": "Michael Müller",
           "verlierer_name": "Roman Wandeler"
         },
         {
-          "event_id": "schlussgang-52062",
-          "datum": "2026-04-11",
-          "sieger": "michele mignola|?",
-          "verlierer": "lukas 1 gisler|2005",
+          "event_id": "schlussgang-37083",
+          "datum": "2026-05-25",
+          "sieger": "michael muller|1995",
+          "verlierer": "carlo von rickenbach|2005",
+          "p_sieger": 0.0089,
+          "p_gestellt": 0.0129,
+          "sieger_name": "Michael Müller",
+          "verlierer_name": "Carlo von Rickenbach"
+        },
+        {
+          "event_id": "schlussgang-21047",
+          "datum": "2026-05-25",
+          "sieger": "sales tschudi|2009",
+          "verlierer": "damian ott|2000",
           "p_sieger": 0.0091,
-          "p_gestellt": 0.0029,
-          "sieger_name": "Michele Mignola",
-          "verlierer_name": "Lukas 1 Gisler"
+          "p_gestellt": 0.0207,
+          "sieger_name": "Sales Tschudi",
+          "verlierer_name": "Damian Ott"
+        },
+        {
+          "event_id": "schlussgang-49578",
+          "datum": "2026-05-09",
+          "sieger": "lauchenauer lukas|?",
+          "verlierer": "fabian ulmann|1999",
+          "p_sieger": 0.0094,
+          "p_gestellt": 0.0119,
+          "sieger_name": "Lukas Lauchenauer",
+          "verlierer_name": "Fabian Ulmann"
         }
       ]
     }

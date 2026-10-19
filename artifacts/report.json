@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "erstellt": "2026-10-18T08:38:28.634183+00:00",
-  "lauf_id": "20261018T083828Z",
+  "erstellt": "2026-10-19T09:41:03.860896+00:00",
+  "lauf_id": "20261019T094103Z",
   "seed": 42,
   "datenbasis": {
     "n_gaenge": 132948,
@@ -10,16 +10,16 @@
   "holdout_jahr": 2026,
   "modell_typ": "gbm",
   "n_baeume": {
-    "gestellt": 231,
-    "sieg": 254
+    "gestellt": 202,
+    "sieg": 296
   },
   "n_train": 136040,
   "n_train_ausgeliefert": 211534,
   "n_test": 37747,
   "modell": {
     "log_loss": 0.6829,
-    "accuracy": 0.70342,
-    "mae": 0.2258,
+    "accuracy": 0.703844,
+    "mae": 0.2259,
     "mse": 0.0919
   },
   "baseline_elo": {
@@ -27,7 +27,7 @@
     "accuracy": 0.661668
   },
   "schlaegt_baseline": true,
-  "accuracy_gg_baseline": 0.0418,
+  "accuracy_gg_baseline": 0.0422,
   "verbesserung_log_loss": 0.1177,
   "klassen": [
     "sieg_a",
@@ -36,28 +36,28 @@
   ],
   "konfusionsmatrix": [
     [
-      10601,
-      1273,
-      1658
+      10602,
+      1271,
+      1659
     ],
     [
-      2556,
-      2520,
-      2862
+      2550,
+      2529,
+      2859
     ],
     [
-      1559,
-      1287,
-      13431
+      1557,
+      1283,
+      13437
     ]
   ],
   "nur_portraet": {
     "modell": {
       "n": 9411,
       "anteil_am_test": 0.2493,
-      "log_loss": 0.7959,
-      "accuracy": 0.635852,
-      "mae": 0.2466,
+      "log_loss": 0.7957,
+      "accuracy": 0.636914,
+      "mae": 0.2465,
       "mse": 0.1
     },
     "baseline_elo": {
@@ -68,60 +68,60 @@
   },
   "gestellt_kalibrierung": {
     "n": 37747,
-    "vorhergesagt": 0.2046,
+    "vorhergesagt": 0.2047,
     "eingetreten": 0.2103,
-    "ece": 0.0085,
-    "auc": 0.7694,
+    "ece": 0.0077,
+    "auc": 0.7695,
     "stufen": [
       {
         "n": 3775,
-        "vorhergesagt": 0.0123,
+        "vorhergesagt": 0.013,
         "eingetreten": 0.013
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.0393,
-        "eingetreten": 0.0344
+        "vorhergesagt": 0.04,
+        "eingetreten": 0.035
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.0747,
-        "eingetreten": 0.0739
+        "vorhergesagt": 0.0754,
+        "eingetreten": 0.0758
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.1122,
-        "eingetreten": 0.1158
+        "vorhergesagt": 0.1127,
+        "eingetreten": 0.115
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.1482,
-        "eingetreten": 0.1735
+        "vorhergesagt": 0.1484,
+        "eingetreten": 0.1698
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.1884,
-        "eingetreten": 0.1958
+        "vorhergesagt": 0.1883,
+        "eingetreten": 0.1992
       },
       {
         "n": 3775,
-        "vorhergesagt": 0.2382,
-        "eingetreten": 0.2599
+        "vorhergesagt": 0.2379,
+        "eingetreten": 0.2591
       },
       {
         "n": 3774,
-        "vorhergesagt": 0.3059,
-        "eingetreten": 0.3039
+        "vorhergesagt": 0.306,
+        "eingetreten": 0.3031
       },
       {
         "n": 3774,
-        "vorhergesagt": 0.3911,
-        "eingetreten": 0.4036
+        "vorhergesagt": 0.3905,
+        "eingetreten": 0.4009
       },
       {
         "n": 3774,
-        "vorhergesagt": 0.536,
-        "eingetreten": 0.5294
+        "vorhergesagt": 0.5347,
+        "eingetreten": 0.5323
       }
     ]
   },
@@ -130,12 +130,12 @@
     "n_feste": 137,
     "wiederholungen": 1000,
     "accuracy": [
-      0.6958,
-      0.7107
+      0.6964,
+      0.7109
     ],
     "log_loss": [
-      0.6704,
-      0.6958
+      0.6703,
+      0.6959
     ]
   },
   "merkmal_version": 3,
@@ -208,7 +208,7 @@
       "von": "2023-04-01",
       "bis": "2026-10-04"
     },
-    "tage_seit_juengstem_fest": 14,
+    "tage_seit_juengstem_fest": 15,
     "kommende_feste": {
       "n": 2,
       "n_mit_paarungen": 0,
@@ -449,7 +449,7 @@
     }
   },
   "modell_verlauf": {
-    "n_laeufe": 71,
+    "n_laeufe": 72,
     "warnung": null
   }
 }

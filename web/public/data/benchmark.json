@@ -35,16 +35,16 @@
     {
       "key": "ml_ohne_elo",
       "label": "ML ohne Elo (Kranzstatus, Physis, Stil, Verband)",
-      "accuracy": 0.519114,
+      "accuracy": 0.519194,
       "log_loss": 0.9425,
-      "brier_score": 0.5583,
+      "brier_score": 0.5582,
       "mae": 0.3448,
-      "mse": 0.1564
+      "mse": 0.1563
     },
     {
       "key": "lr_komplett",
       "label": "Logistic Regression (bis 25.09.2026)",
-      "accuracy": 0.698943,
+      "accuracy": 0.698916,
       "log_loss": 0.6938,
       "brier_score": 0.4009,
       "mae": 0.2289,
@@ -53,10 +53,10 @@
     {
       "key": "ml_komplett",
       "label": "Gradient Boosting (Produktionsmodell)",
-      "accuracy": 0.70342,
+      "accuracy": 0.703844,
       "log_loss": 0.6829,
-      "brier_score": 0.3945,
-      "mae": 0.2258,
+      "brier_score": 0.3944,
+      "mae": 0.2259,
       "mse": 0.0919
     }
   ]
