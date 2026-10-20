@@ -22,6 +22,16 @@
   --draw: #cbc7ba; /* Gestellt */
   --b: #2a2823; /* Sieg B */
 
+  /* Bewertung je Gang (Analyse, Treffer und Fehler): Treffer grün, knapp
+     daneben gelb, falscher Sieger rot. Farbcheck gegen --surface bestanden;
+     Gelb unter 3:1 Kontrast, darum stehen Zeichen, Zahl und Text immer dabei. */
+  --km-treffer: #12876a;
+  --km-knapp: #c98a12;
+  --km-falsch: #b3261e;
+  --km-treffer-soft: rgba(18, 135, 106, 0.13);
+  --km-knapp-soft: rgba(201, 138, 18, 0.13);
+  --km-falsch-soft: rgba(179, 38, 30, 0.1);
+
   --radius: 10px;
   --radius-sm: 7px;
   --radius-lg: 14px;
@@ -874,7 +884,98 @@ tbody tr:hover {
   font-weight: 600;
 }
 
-/* ---------- Konfusionsmatrix (Analyse) ---------- */
+/* ---------- Treffer und Fehler / Konfusionsmatrix (Analyse) ---------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.km-lead {
+  font-family: var(--display);
+  font-size: 1.25rem;
+  margin: 0 0 0.8rem;
+}
+.km-hundert {
+  display: flex;
+  gap: 1.6rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.km-waffel {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 3px;
+  width: 190px;
+  flex: 0 0 auto;
+}
+.km-feld {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  transition: opacity 0.15s var(--ease);
+}
+.km-treffer {
+  background: var(--km-treffer);
+}
+.km-knapp {
+  background: var(--km-knapp);
+}
+.km-falsch {
+  background: var(--km-falsch);
+}
+.km-gedimmt {
+  opacity: 0.25;
+}
+.km-legende {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1 1 260px;
+  display: grid;
+  gap: 0.7rem;
+}
+.km-legende li {
+  display: grid;
+  grid-template-columns: 1.5rem 2.4rem 1fr;
+  gap: 0.5rem;
+  align-items: baseline;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  border-radius: var(--radius-sm);
+  outline-offset: 3px;
+  transition: opacity 0.15s var(--ease);
+}
+.km-marke {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  align-self: center;
+}
+.km-legende-zahl {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.km-legende-genau {
+  display: block;
+  margin-top: 0.1rem;
+}
+.km-titel {
+  margin: 1.6rem 0 0.6rem;
+}
 .km-wrap {
   overflow-x: auto;
 }
@@ -886,43 +987,119 @@ tbody tr:hover {
 .km-table th {
   border-bottom: none;
   text-align: center;
-  padding: 0.35rem 0.5rem;
+  padding: 0.35rem 0.4rem;
   font-size: 0.85rem;
   text-transform: none;
   letter-spacing: normal;
-  color: var(--muted);
+  color: var(--text);
 }
 .km-table thead th {
   vertical-align: bottom;
 }
-.km-table tbody th {
+.km-table tbody th,
+.km-table tfoot th {
   text-align: right;
   white-space: nowrap;
 }
-.km-corner {
-  text-align: left !important;
+.km-achse {
+  color: var(--muted) !important;
+  font-weight: 600;
+}
+.km-ecke {
+  text-align: right !important;
+  white-space: normal !important;
+  max-width: 6.5rem;
+}
+.km-unter {
+  font-weight: 400;
+  font-size: 0.75rem;
 }
 .km-cell {
-  min-width: 5.5rem;
+  min-width: 4.6rem;
   text-align: center;
   border-radius: 8px;
-  padding: 0.5rem 0.4rem;
-  border: 1px solid var(--border);
-  transition: transform 0.15s var(--ease);
+  padding: 0.5rem 0.35rem;
+  border: 1px solid transparent;
 }
-.km-cell:hover {
-  transform: scale(1.04);
+.km-treffer-feld {
+  background: var(--km-treffer-soft);
+  border: 2px solid var(--km-treffer);
 }
-.km-cell-diag {
-  border: 2px solid var(--accent-2);
+.km-knapp-feld {
+  background: var(--km-knapp-soft);
+}
+.km-falsch-feld {
+  background: var(--km-falsch-soft);
 }
 .km-count {
   font-weight: 700;
   font-size: 1rem;
+  font-variant-numeric: tabular-nums;
 }
-.km-pct {
-  font-size: 0.75rem;
+.km-art {
+  font-size: 0.72rem;
+  line-height: 1.2;
   color: var(--muted);
+  margin-top: 0.15rem;
+}
+.km-treffer-feld .km-art {
+  color: var(--km-treffer);
+  font-weight: 600;
+}
+.km-table td.km-rand {
+  text-align: center;
+  padding: 0.5rem 0.35rem;
+  background: var(--surface-2);
+  border-radius: 8px;
+}
+.km-table th.km-rand {
+  color: var(--muted);
+  font-weight: 600;
+}
+.km-gesamt {
+  border: 2px solid var(--km-treffer);
+}
+.km-lesehilfe {
+  margin: 0.7rem 0 0;
+  padding-left: 1.1rem;
+  line-height: 1.55;
+}
+/* Handy: im Feld nur Zeichen und Zahl, die Legende darüber erklärt die
+   Zeichen; sonst ist die Tabelle breiter als der Bildschirm. */
+@media (max-width: 480px) {
+  .km-waffel {
+    width: 160px;
+  }
+  .km-table {
+    border-spacing: 2px;
+    font-size: 0.8rem;
+  }
+  .km-table th {
+    padding: 0.3rem 0.1rem;
+    font-size: 0.78rem;
+  }
+  .km-cell,
+  .km-table td.km-rand {
+    min-width: 0;
+    padding: 0.4rem 0.15rem;
+  }
+  .km-count {
+    font-size: 0.84rem;
+  }
+  .km-art-text,
+  .km-table tfoot .km-unter {
+    display: none;
+  }
+  .km-table tbody th,
+  .km-table th.km-rand {
+    white-space: normal;
+  }
+  .km-unter {
+    font-size: 0.68rem;
+  }
+  .km-ecke {
+    max-width: 4.6rem;
+  }
 }
 
 /* ---------- Buttons (tauschen / teilen) ---------- */
