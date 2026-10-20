@@ -1,13 +1,14 @@
 "use client";
 
 // Seite "Analyse": die Antwort zuerst (Kennzahlen), dann Vergleich der
-// Ansätze, Schwierigkeit je Festtyp (Prognose-Check, events.json),
-// Gestellt-Kalibrierung, Entwicklung des Modells und tägliche Überwachung
-// (report_verlauf.json), Merkmalswichtigkeit, Exkurse zu Physis/Schwüngen
-// und zuletzt Details für Fachleute (Methodik, Konfusionsmatrix, alle
-// Fehlermasse, alle Läufe). Alle Zahlen stammen aus dem letzten
-// Pipeline-Lauf; hier wird nichts neu geschätzt (ausser Mittelwerten und
-// Unsicherheiten der Exkurse, die aus schwinger.json/ratings.json folgen).
+// Ansätze, Treffer und Fehler (Konfusionsmatrix für Laien), Schwierigkeit je
+// Festtyp (Prognose-Check, events.json), Gestellt-Kalibrierung, Entwicklung
+// des Modells und tägliche Überwachung (report_verlauf.json),
+// Merkmalswichtigkeit, Exkurse zu Physis/Schwüngen und zuletzt Details für
+// Fachleute (Methodik, alle Fehlermasse, alle Läufe). Alle Zahlen stammen aus
+// dem letzten Pipeline-Lauf; hier wird nichts neu geschätzt (ausser
+// Mittelwerten und Unsicherheiten der Exkurse, die aus
+// schwinger.json/ratings.json folgen).
 //
 // Audit 25.09.2026 (jede Zahl nachgerechnet, harness + Rohdaten): die
 // Elo-Vergleichsprognose ist jetzt die an die Daten angepasste (die feste
@@ -327,6 +328,20 @@ export default function Analyse() {
         </>
       )}
 
+      {report?.konfusionsmatrix && report.klassen && (
+        <>
+          <h2>Treffer und Fehler</h2>
+          <div className="panel">
+            <p className="muted small" style={{ marginTop: 0 }}>
+              Was hinter den {prozent1(report.modell.accuracy)} steckt: Für jeden der{" "}
+              {zahl(report.n_test)} Testgänge tippt das Modell auf den Ausgang, den es für am
+              wahrscheinlichsten hält — und hier steht, wie oft das stimmte und wie es danebenlag.
+            </p>
+            <Konfusionsmatrix klassen={report.klassen} matrix={report.konfusionsmatrix} />
+          </div>
+        </>
+      )}
+
       {events && check && (
         <>
           <h2>Wo Schwingen schwer vorherzusagen ist</h2>
@@ -353,7 +368,7 @@ export default function Analyse() {
 
       {kal?.stufen?.length ? (
         <>
-          <h2>Stimmt die Gestellt-Chance?</h2>
+          <h2 id="gestellt-chance">Stimmt die Gestellt-Chance?</h2>
           <div className="panel">
             <GestelltKalibrierung
               daten={kal}
@@ -560,12 +575,6 @@ export default function Analyse() {
                 </li>
               </ul>
             </details>
-            {report.konfusionsmatrix && report.klassen && (
-              <details>
-                <summary>Konfusionsmatrix</summary>
-                <Konfusionsmatrix klassen={report.klassen} matrix={report.konfusionsmatrix} />
-              </details>
-            )}
             {benchmark && (
               <details>
                 <summary>Alle Masse der Ansätze (Treffer, Log-Loss, Brier, MSE)</summary>
