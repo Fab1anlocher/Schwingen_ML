@@ -87,8 +87,8 @@
     {
       "feature": "form_diff",
       "label": "aktuelle Form (letzte Gänge)",
-      "wichtigkeit": 0.00047641471939068313,
-      "streuung": 0.0001494234134233571,
+      "wichtigkeit": 0.00047641471939070535,
+      "streuung": 0.0001494234134233416,
       "koeffizienten": null
     },
     {

@@ -13526,6 +13526,40 @@
       ]
     },
     {
+      "id": "christian zemp|2000",
+      "name": "Christian Zemp",
+      "jahrgang": 2000,
+      "groesse_cm": 182.0,
+      "gewicht_kg": 99.0,
+      "kranzstatus": "kranzer",
+      "kranzstatus_rangliste": null,
+      "teilverband": "Innerschweiz",
+      "teilverband_klub": null,
+      "kanton_klub": null,
+      "teilverband_geschaetzt": null,
+      "kanton": "Zug",
+      "schwingklub": "Zug und Umgebung",
+      "senne_turner": "senne",
+      "kraenze": 0,
+      "kraenze_nach_typ": {},
+      "bevorzugte_schwuenge": [
+        "Innerer Haken"
+      ],
+      "form": 0.5,
+      "gestellt_neigung": null,
+      "ueberraschungsindex": null,
+      "n_bewertete_gaenge": 0,
+      "anzahl_feste": 0,
+      "aktiv": false,
+      "groesster_erfolg": null,
+      "festsiege": [],
+      "namensvetter_von": null,
+      "quellen": [
+        "schlussgang.ch/portraet",
+        "https://www.schlussgang.ch/portraet/christian-zemp-1"
+      ]
+    },
+    {
       "id": "christian zemp|2004",
       "name": "Christian Zemp",
       "jahrgang": 2004,
@@ -13558,40 +13592,6 @@
       "quellen": [
         "schlussgang.ch/portraet",
         "https://www.schlussgang.ch/portraet/christian-zemp-0"
-      ]
-    },
-    {
-      "id": "christian zemp|2000",
-      "name": "Christian Zemp",
-      "jahrgang": 2000,
-      "groesse_cm": 182.0,
-      "gewicht_kg": 99.0,
-      "kranzstatus": "kranzer",
-      "kranzstatus_rangliste": null,
-      "teilverband": "Innerschweiz",
-      "teilverband_klub": null,
-      "kanton_klub": null,
-      "teilverband_geschaetzt": null,
-      "kanton": "Zug",
-      "schwingklub": "Zug und Umgebung",
-      "senne_turner": "senne",
-      "kraenze": 0,
-      "kraenze_nach_typ": {},
-      "bevorzugte_schwuenge": [
-        "Innerer Haken"
-      ],
-      "form": 0.5,
-      "gestellt_neigung": null,
-      "ueberraschungsindex": null,
-      "n_bewertete_gaenge": 0,
-      "anzahl_feste": 0,
-      "aktiv": false,
-      "groesster_erfolg": null,
-      "festsiege": [],
-      "namensvetter_von": null,
-      "quellen": [
-        "schlussgang.ch/portraet",
-        "https://www.schlussgang.ch/portraet/christian-zemp-1"
       ]
     },
     {
